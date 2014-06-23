@@ -1,0 +1,298 @@
+
+/*
+// --------------------------------------------------------------------------------------------------------------------
+// U.S. DEPARTMENT OF HEALTH AND HUMAN SERVICES (HHS)
+// MY FAMILY HEALTH PORTRAIT (FHH)
+// https://familyhistory.hhs.gov/ - Version 3.0
+// This style sheet is organized in the following sections
+// -- Basic HTML Element Styles
+// -- Page Layout Containers + Styles
+// -- Submodal + Popup + Dialogue Layout Containers + Styles + Wizard
+// -- Form + Data Table Containers + Styles
+// -- Miscellaneous Styles
+// --------------------------------------------------------------------------------------------------------------------
+*/
+
+/* ************************************* */
+/* ----- BASIC HTML ELEMENT STYLES ----- */
+/* ************************************* */
+
+body {
+    background: #ECE0D3 url(../images/bkgd_paleOrange.jpg) repeat-x top;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 75%;
+    padding: 10px;
+    text-align: center;
+    min-width:900px;
+}
+
+/* ALL PAGES: makes pages that don't scroll the same width as pages that do scroll */
+:root {
+overflow-y:scroll;
+}
+
+div.headerContainer {
+    background-color: #FFFFFF;
+    border-top: 1px solid #003366;
+    border-right: 1px solid #003366;
+    border-bottom: 1px solid #000033;
+    border-left: 1px solid #003366;
+    margin: 0px;
+    padding: 0px;
+    vertical-align: top;
+}
+
+
+div.mainContainer {
+    margin: 0 auto 10px auto;
+    padding: 0px;
+    text-align: left;
+    vertical-align: top;
+    width: 1000px;
+}
+
+div.contentContainer {
+    background-color: #FFFFFF;
+    border: 1px solid #003366;
+    margin: 0px;
+    padding: 10px;
+
+}
+
+table.bannerTable {
+    background-color: rgba(27, 182, 11, 1);
+    border-bottom: 1px solid rgba(7, 47, 1, 1)
+    height: 58px;
+    margin: 0px;
+    width: 100%;
+}
+.bannerTable td.bannerTdPhotos {
+    padding: 0px;
+    text-align: right;
+}
+
+div.headerContainer table.mainNavTable {
+    background-color: rgba(10, 102, 0, 1);
+    background-image: url(../images/bkgd_mainNav.gif);
+    background-repeat: repeat-x;
+    border-top: 1px solid rgba(7, 47, 1, 1)
+    margin: 1px 0px 0px 0px;
+    width: 100%;
+}
+
+td.mainNavTd a {
+    display: inline-block;
+    background-color: rgba(20, 102, 0, 1);
+    border-right: 1px solid rgba(134, 218, 132, 1);
+    color: #DAEFFB;
+    font-size: 1.0em;
+    font-weight: normal;
+    margin: 0px;
+    padding: 4px 12px 3px 12px;
+    text-decoration: none;
+    white-space: nowrap;
+    font-family: Comic Sans MS, Helvetica, sans-serif;
+}
+
+#navHelpUrl {
+    border-left: 1px solid #86DA84;
+	border-right: 0px;
+}
+
+p {
+    font-size: 1.0em;
+}
+
+h1 {
+    color: rgba(22, 101, 17, 1);
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+    font-style: normal;
+    font-weight: bold;
+    margin: 1em 0em 0em 0em;
+}
+
+h2 {
+    color: rgba(45, 170, 37, 1);
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 1.25em;
+    font-style: italic;
+    font-weight: bold;
+}
+
+h3 {
+    color: #119DBB;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 1.15em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+h4 {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 1.0em;
+    font-weight: bold;
+}
+
+h5, h6 {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 1.0em;
+    font-style: italic;
+    font-weight: normal;
+}
+
+a:link, a:visited {
+    color: #0000FF;
+    text-decoration: underline;
+}
+
+a:hover, a:active  {
+    color: #0000FF;
+    text-decoration: none;
+}
+
+.center_text {
+	text-align:center;
+	height:40px;
+}
+
+td.action {
+	text-align:center;
+	padding:5px;
+	border: 1px solid #888;
+}
+
+td.information {
+	font-weight:bold;
+	padding:5px;
+	border: 1px solid #888;
+}
+
+th.label {
+	font-weight:bold;
+	text-align:left;
+}
+
+a.button_link {
+    background-color:#cfcfcf;
+    color:black;
+    white-space:nowrap
+    /* DRC/CR Calculator: Added rounded corners <div> */
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border:1px solid black;
+	padding:5px;
+    text-decoration: none;
+}
+
+a.button_link a:hover {
+    background-color:#76c4ff;
+}
+
+.instructions {
+	font-size:smaller;
+	text-align:left;
+}
+
+table.summary_table {
+    background-color: #FFFFFF;
+    margin: 0px;
+    width: 80%;
+    border:1px solid black;
+	margin-left:auto;
+	margin-right:auto;
+	border-collapse:collapse;
+}
+
+table.summary_table th {
+    background-color: rgba(117, 255, 96, 1);
+    border-bottom: 1px solid #666666;
+    border-right:1px solid #666666;
+    color: #000000;
+    font-weight: bold;
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.disease_table {
+    background-color: #FFFFFF;
+    margin: 0px;
+    width: 80%;
+    border:1px solid black;
+	margin-left:auto;
+	margin-right:auto;
+	border-collapse:collapse;
+}
+
+table.disease_table th {
+    background-color: rgba(117, 255, 96, 1);
+    border-bottom: 1px solid #666666;
+    border-right:1px solid #666666;
+    color: #000000;
+    font-weight: bold;
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.disease_table td {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #666666;
+    border-right:1px solid #666666;
+    color: #000000;
+    font-weight: bold;
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+table.footerTable {
+    background-color: transparent;
+    font-size: 0.95em;
+    margin: 0 auto 10px auto;
+    width: 860px;
+}
+
+.required {
+    color: #FF0000;
+    font-weight: bold;
+}
+
+.readonly {
+    color: #808080;
+    font-weight: normal;
+}
+
+.normal_text {
+	text-align:left;
+}
+
+.title-bar {
+	text-align:left;
+	font-weight:bold;	
+    color: #666666;
+    background-color: rgba(169, 244, 167, 1);;
+    border-top: 1px solid #003366;
+    border-bottom: 1px solid #003366;
+	
+}
+
+.risk_calculator {
+	border:1px solid black;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	
+}
+
+.ui-widget-header {
+	background-color:rgba(29, 102, 14, 1);
+	background-image:none;
+	border:1px solid rgba(6, 53, 2, 1);
+}

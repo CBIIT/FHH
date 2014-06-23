@@ -1,0 +1,87 @@
+
+<div id="content">
+
+<div class='title-bar'> The Diabetes Risk Calculator </div>
+    
+<p class='instructions' id="update_title">Please update your history in order to get accurate results from the Diabetes Risk Calculator.</p>
+<p class='instructions' id="update_title">Make sure your history is updated for mother/father/sister/brother with diabetes and if you 
+	have been diagnosed with high blood pressure. If you are a woman, please update any gestational diabetes history.</p>
+
+	<div class='instructions'> <span class="required">*</span>Indicates required information.</div>
+	<div class="instructions">Grey labels indicate read-only information.</div>
+	<br />
+    <table summary="Enter personal information." class="form">
+		<tr>
+			<th class='label'><span class="required">*</span><label for="dob">Date of Birth</label>:</th>
+			<td><input name="dob" size="30" maxlength="255" value="" pullfrom='date_of_birth' tabindex="1" id="date_of_birth" type="text">
+				<div>mm/dd/yyyy</div>
+			</td>
+		</tr>
+		<tr>
+			<th class='label'><span class="required">*</span><label for="gender">Gender</label>:</th>
+			<td>
+				<input name="gender" id="gender.male" checked="checked" value="MALE" tabindex="2" type="radio">
+					<label for="gender.male">Male</label>
+				<input name="gender" id="gender.female" value="FEMALE" tabindex="2" type="radio">
+					<label for="gender.female">Female</label>
+			</td>
+           </tr>
+		<tr>
+  			<th class='label readonly' style='width:350px;font-weight:normal;'>
+  					If you are a woman, have you ever been diagnosed 
+  					with gestational diabetes?
+  			</th>
+  				<td><span class="readonly">No</span>
+  				</td>
+		</tr>
+		<tr>
+  				<th class="label readonly" style='width:350px;font-weight:normal;'>Do you have a mother, father, sister, 
+  					or brother with type 2 diabetes?
+  				</th>
+  				<td><span class="readonly">Yes</span>
+  				</td>
+		</tr>
+		<tr>
+  				<th class="label readonly" style='width:350px;font-weight:normal;'>Have you ever been diagnosed with 
+  					Hypertension (High Blood Pressure)?
+  				</th>
+			<td><span class="readonly">No</span>
+  				</td>
+		</tr>
+		<tr>
+			<th class='label'>Are you physically active?</th>
+			<td><input name="exercise" value="true" tabindex="3" id="exercise" type="checkbox">Yes</td>
+		</tr>
+		<tr>
+			<th class='label'><span class="required">*</span><label for="heightUnit1">Height</label>:</th>
+			<td><input name="drc_height_feet" size="5" value="" tabindex="4" id="drc_height_feet" type="text" pullfrom='height_feet'> 
+					<label for="drc_height_feet">ft</label> &nbsp;&nbsp;
+				<input name="drc_height_inches" size="5" value="" tabindex="5" id="drc_height_inches" type="text" pullfrom='height_inches'> 
+					<label for="drc_height_inches">in</label> 
+				<span class="or">-OR-</span> 
+				<input name="drc_height_centimeters" size="5" value="" tabindex="6" id="drc_height_centimeters" type="text" pullfrom='height_centimeters'>
+					<label for="drc_height_centimeters">cm</label></td>
+		</tr>
+		<tr>
+			<th class='label'><span class="required">*</span><label for="drc_weight">Weight:</label></th>
+			<td><input name="drc_weight" size="5" maxlength="4" value="" tabindex="7" id="drc_weight" type="text" pullfrom='weight'> 
+				<select name="drc_weight_unit" tabindex="8" id="weight"  pullfrom='weight_unit'>
+					<option value="US" selected="selected">lbs</option>
+					<option value="METRIC">kgs</option>
+				</select>
+			</td>
+		</tr>
+    </table>
+		    <!-- BEGIN INCLUDE = SAVE CANCEL BUTTONS -->
+		<button id='drc_submit' onClick='submit_drc();'>Submit </button>
+		<button id='drc_cancel'>Cancel </button>	
+
+    </div>
+</div>
+
+<script>
+function submit_drc(e) {
+	alert ("Submitting");
+	window.open('risk/highrisk.html', "_blank");
+}
+</script>

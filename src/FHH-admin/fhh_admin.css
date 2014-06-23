@@ -1,0 +1,41 @@
+body {
+	    font-family: Arial, Helvetica, sans-serif;
+}
+
+table.nav_bar {
+	width:100%;
+}
+
+td {
+	color:#FFFFFF;
+	background-color:#6060A0;
+	font-weight:bold;
+	padding:5px;
+	border: 2px #202060 solid;
+	cursor: pointer;
+}
+
+td:hover {
+	color:#FFFF40;
+	background-color:#404080;
+	font-weight:bold;
+	padding:5px;
+}
+
+.form_area {
+	background-color: #A0A0FF;
+	border: 2px #0000F0 solid;
+	padding:5px;
+}
+
+.error {
+	background-color: #FFA0A0;
+	border: 2px #800000 solid;
+	padding:5px;
+}
+
+.info {
+	background-color: #A0FFA0;
+	border: 2px #008000 solid;
+	padding: 5px;
+}

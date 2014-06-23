@@ -1,0 +1,285 @@
+
+/*
+// --------------------------------------------------------------------------------------------------------------------
+// U.S. DEPARTMENT OF HEALTH AND HUMAN SERVICES (HHS)
+// MY FAMILY HEALTH PORTRAIT (FHH)
+// https://familyhistory.hhs.gov/ - Version 3.0
+// This style sheet is organized in the following sections
+// -- Basic HTML Element Styles
+// -- Page Layout Containers + Styles
+// -- Submodal + Popup + Dialogue Layout Containers + Styles + Wizard
+// -- Form + Data Table Containers + Styles
+// -- Miscellaneous Styles
+// --------------------------------------------------------------------------------------------------------------------
+*/
+
+/* ************************************* */
+/* ----- BASIC HTML ELEMENT STYLES ----- */
+/* ************************************* */
+
+body {
+    background: rgba(240, 226, 212, 1);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 75%;
+    padding: 10px;
+    text-align: center;
+    min-width:900px;
+}
+
+/* ALL PAGES: makes pages that don't scroll the same width as pages that do scroll */
+:root {
+	overflow-y:scroll;
+}
+
+div.main_container {
+    margin: 0 auto 10px auto;
+    padding: 0px;
+    text-align: left;
+    vertical-align: top;
+    width: 1000px;
+}
+
+
+<!--  Header Styles Below -->
+div.header_container {
+    border: 1px solid #000000;
+    margin: 0px;
+    padding: 0px;
+    vertical-align: top;
+}
+
+div.content_container {
+    border: 1px solid #000000;
+    margin: 0px;
+    padding: 0px;
+    vertical-align: top;
+}
+
+table.banner {
+    background-color: rgba(196, 32, 16, 1);
+    border-bottom: 1px solid rgba(48, 0, 0, 1)
+    height: 58px;
+    margin: 0px;
+    width: 100%;
+}
+
+.banner td.banner_right {
+    padding: 0px;
+    text-align: right;
+}
+
+table.nav {
+    background-color: rgba(96, 16, 0, 1);
+    border-top: 1px solid rgba(48, 0, 0, 1)
+    margin: 1px 0px 0px 0px;
+    width: 100%;
+}
+
+td.nav a {
+    font-family: Comic Sans MS, Helvetica, sans-serif;
+	display: inline-block;
+    background-color: rgba(96, 16, 0, 1);
+    border-right: 1px solid rgba(128, 196, 128, 1);
+    color: #DAEFFB;
+    font-size: 1.0em;
+    font-weight: normal;
+    margin: 0px;
+    padding: 4px 12px 3px 12px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+#nav_help {
+    border-left: 0px;
+	border-right: 0px;
+}
+
+<!-- Main Styles -->
+
+p {
+    font-size: 1.0em;
+    margin: 0em 0.5em 0em;
+}
+
+h1 {
+    color: rgba(96, 32, 16, 1);
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+    font-style: normal;
+    font-weight: bold;
+    margin: 1em 0.5em 0em;
+}
+
+h2 {
+    color: rgba(180, 48, 32, 1);
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 1.25em;
+    font-style: italic;
+    font-weight: bold;
+    margin: 0.5em 0.5em 0em;
+}
+
+h3, h4, h5, h6 {
+    color: rgba(180, 48, 32, 1);
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 1.15em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+a:link, a:visited {
+    color: #0000FF;
+    text-decoration: underline;
+}
+
+a:hover, a:active  {
+    color: #0000FF;
+    text-decoration: none;
+}
+
+.center_text {
+	text-align:center;
+	height:40px;
+}
+
+td.action {
+	text-align:center;
+	padding:5px;
+	border: 1px solid #888;
+}
+
+td.information {
+	font-weight:bold;
+	padding:5px;
+	border: 1px solid #888;
+}
+
+th.label {
+	font-weight:bold;
+	text-align:left;
+}
+
+a.button_link {
+    background-color:#cfcfcf;
+    color:black;
+    white-space:nowrap
+    /* DRC/CR Calculator: Added rounded corners <div> */
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border:1px solid black;
+	padding:5px;
+    text-decoration: none;
+}
+
+a.button_link a:hover {
+    background-color:#c476ff;
+}
+
+.instructions {
+	font-size:smaller;
+	text-align:left;
+	margin-left:6px;
+}
+
+table.summary_table {
+    background-color: #FFFFFF;
+    margin: 0px;
+    width: 80%;
+    border:1px solid black;
+	margin-left:auto;
+	margin-right:auto;
+	border-collapse:collapse;
+}
+
+table.summary_table th {
+    background-color: rgba(178, 48, 32, 1);;
+    border-bottom: 1px solid #666666;
+    border-right:1px solid #666666;
+    color: #000000;
+    font-weight: bold;
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.disease_table {
+    background-color: #FFFFFF;
+    margin: 0px;
+    width: 80%;
+    border:1px solid black;
+	margin-left:auto;
+	margin-right:auto;
+	border-collapse:collapse;
+}
+
+table.disease_table th {
+    background-color: rgba(178, 48, 32, 1);;
+    border-bottom: 1px solid #666666;
+    border-right:1px solid #666666;
+    color: #000000;
+    font-weight: bold;
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.disease_table td {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #666666;
+    border-right:1px solid #666666;
+    color: #000000;
+    font-weight: bold;
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+table.footerTable {
+    background-color: transparent;
+    font-size: 0.95em;
+    margin: 0 auto 10px auto;
+    width: 860px;
+}
+
+.required {
+    color: #FF0000;
+    font-weight: bold;
+}
+
+.readonly {
+    color: #808080;
+    font-weight: normal;
+}
+
+.normal_text {
+	text-align:left;
+}
+
+.title-bar {
+	text-align:left;
+	font-weight:bold;	
+    color: #666666;
+    background-color: rgba(244, 169, 167, 1);;
+    border-top: 1px solid #003366;
+    border-bottom: 1px solid #003366;
+	
+}
+
+.risk_calculator {
+	border:1px solid black;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	
+}
+
+.ui-widget-header {
+	background-color:rgba(102, 29, 14, 1);
+	background-image:none;
+	border:1px solid rgba(53, 6, 2, 1);
+}
