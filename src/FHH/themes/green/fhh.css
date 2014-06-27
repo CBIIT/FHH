@@ -283,3 +283,9 @@ table.footerTable {
 	background-image:none;
 	border:1px solid rgba(6, 53, 2, 1);
 }
+
+.ui-widget-content {
+    border: 1px solid #000;
+    background: url('images/ui-bg_highlight-soft_100_eeeeee_1x100.png') repeat-x scroll 50% top #EEE;
+    color: #333;
+}

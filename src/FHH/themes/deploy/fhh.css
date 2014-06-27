@@ -56,8 +56,8 @@ div.content_container {
 }
 
 table.banner {
-    background-color: rgba(196, 32, 16, 1);
-    border-bottom: 1px solid rgba(48, 0, 0, 1)
+    background-color: rgba(32, 196, 16, 1);
+    border-bottom: 1px solid rgba(0, 48, 0, 1)
     height: 58px;
     margin: 0px;
     width: 100%;
@@ -69,8 +69,8 @@ table.banner {
 }
 
 table.nav {
-    background-color: rgba(96, 16, 0, 1);
-    border-top: 1px solid rgba(48, 0, 0, 1)
+    background-color: rgba(16, 96, 0, 1);
+    border-top: 1px solid rgba(0, 48, 0, 1)
     margin: 1px 0px 0px 0px;
     width: 100%;
 }
@@ -78,7 +78,7 @@ table.nav {
 td.nav a {
     font-family: Comic Sans MS, Helvetica, sans-serif;
 	display: inline-block;
-    background-color: rgba(96, 16, 0, 1);
+    background-color: rgba(16, 96, 0, 1);
     border-right: 1px solid rgba(128, 196, 128, 1);
     color: #DAEFFB;
     font-size: 1.0em;
@@ -102,7 +102,7 @@ p {
 }
 
 h1 {
-    color: rgba(96, 32, 16, 1);
+    color: rgba(32, 96, 16, 1);
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 1.5em;
     font-style: normal;
@@ -111,7 +111,7 @@ h1 {
 }
 
 h2 {
-    color: rgba(180, 48, 32, 1);
+    color: rgba(48, 180, 32, 1);
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 1.25em;
     font-style: italic;
@@ -120,7 +120,7 @@ h2 {
 }
 
 h3, h4, h5, h6 {
-    color: rgba(180, 48, 32, 1);
+    color: rgba(48, 180, 32, 1);
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 1.15em;
     font-style: normal;
@@ -173,7 +173,7 @@ a.button_link {
 }
 
 a.button_link a:hover {
-    background-color:#c476ff;
+    background-color:#76c4ff;
 }
 
 .instructions {
@@ -193,7 +193,7 @@ table.summary_table {
 }
 
 table.summary_table th {
-    background-color: rgba(178, 48, 32, 1);;
+    background-color: rgba(47, 149, 32, 1);;
     border-bottom: 1px solid #666666;
     border-right:1px solid #666666;
     color: #000000;
@@ -215,7 +215,7 @@ table.disease_table {
 }
 
 table.disease_table th {
-    background-color: rgba(178, 48, 32, 1);;
+    background-color: rgba(47, 149, 32, 1);;
     border-bottom: 1px solid #666666;
     border-right:1px solid #666666;
     color: #000000;
@@ -264,7 +264,7 @@ table.footerTable {
 	text-align:left;
 	font-weight:bold;	
     color: #666666;
-    background-color: rgba(244, 169, 167, 1);;
+    background-color: rgba(169, 244, 167, 1);;
     border-top: 1px solid #003366;
     border-bottom: 1px solid #003366;
 	
@@ -279,7 +279,13 @@ table.footerTable {
 }
 
 .ui-widget-header {
-	background-color:rgba(102, 29, 14, 1);
+	background-color:rgba(29, 102, 14, 1);
 	background-image:none;
-	border:1px solid rgba(53, 6, 2, 1);
+	border:1px solid rgba(6, 53, 2, 1);
+}
+
+.ui-widget-content {
+    border: 1px solid #000;
+    background: url('images/ui-bg_highlight-soft_100_eeeeee_1x100.png') repeat-x scroll 50% top #EEE;
+    color: #333;
 }
