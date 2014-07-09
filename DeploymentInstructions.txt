@@ -3,8 +3,3 @@ This product is very simple to install.  Simple clone/fork this project and recu
 To access the site.  Goto:
 
 http://[your web address]/FHH
-
-or 
-
-http://[your web address]/FHH-admin/admin.php
-
