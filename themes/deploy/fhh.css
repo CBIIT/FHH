@@ -283,3 +283,9 @@ table.footerTable {
 	background-image:none;
 	border:1px solid rgba(53, 6, 2, 1);
 }
+
+button.frontpage {
+	border:1px solid black;
+	padding:5px;
+	width:200px;
+}
