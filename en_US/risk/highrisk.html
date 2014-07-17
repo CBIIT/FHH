@@ -1,0 +1,93 @@
+<HTML>
+<script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="../jquery/jspdf.min.js"></script>
+<script type="text/javascript" src="../jquery/jquery-ui-1.10.4.js"></script>
+<link rel="stylesheet" type="text/css" href="../jquery/jquery-ui-1.10.4.css">
+<script type="text/javascript" src="../js/fhh.js"></script>
+
+<TITLE>
+Diabetes Risk Assessment - Download Results
+</TITLE>
+<H2>Diabetes Risk Assessment - Download Results</H2>
+</HTML> 
+
+<P>You are at an <B><U>increased risk</U></B> for having type 2 diabetes. No tool for assessing risk is perfect 
+and only your health care provider can tell for sure if you do have type 2 diabetes or prediabetes (a condition 
+that precedes type 2 diabetes in which blood glucose levels are higher than normal). <U>Talk to your health care 
+provider to see if additional testing is needed.</U></P>
+
+<P>Type 2 diabetes, formerly called adult-onset or non-insulin dependent diabetes, is the most common form of diabetes. 
+People can develop type 2 diabetes at any age, even during childhood. This form of diabetes usually begins with 
+insulin resistance, a condition in which fat, muscle, and liver cells do not use insulin properly. At first, the 
+pancreas keeps up with the added demand by producing more insulin. In time, however, it loses the ability to 
+secrete enough insulin in response to meals. People who are overweight and inactive are more likely to develop 
+type 2 diabetes. Treatment includes taking diabetes medicines, making wise food choices, exercising regularly, 
+controlling blood pressure and cholesterol, and, for some, taking aspirin daily.</P>
+
+<P>For more information on type 2 diabetes please visit the National Institute of Diabetes and Digestive and 
+Kidney Disease's National Diabetes Information Clearinghouse at:</P?
+<P><a href='http://diabetes.niddk.nih.gov/dm/pubs/riskfortype2'> http://diabetes.niddk.nih.gov/dm/pubs/riskfortype2</a>/</P>
+
+<P>and</P>
+
+<P><a href='http://ndep.nih.gov/am-i-at-risk/family-history/index.aspx#main'>http://ndep.nih.gov/am-i-at-risk/family-history/index.aspx#main</a></P>
+
+<P>You can download and keep this information by clicking here: <a id='for_user_button' href='#'> My Diabetes Risk Assessment </a>
+
+You can download a letter to share with your health care provider by clicking here: 
+<a href='#'> Letter For My Health Care Provider </a>
+
+
+You will need a PDF reader in order to view your risk. Adobe Reader is a free PDF Reader.
+<a href='http://get.adobe.com/reader/'>Download Adobe Reader for Free!</a>
+<div id='for_user'> 
+
+
+<P>You are at an <B><U>increased risk</U></B> for having type 2 diabetes. No tool for assessing risk is perfect and
+only your health care provider can tell for sure if you do have type 2 diabetes or prediabetes (a
+condition that precedes type 2 diabetes in which blood glucose levels are higher than normal).
+<U>Talk to your health care provider to see if additional testing is needed.</U></P>
+
+<P>Type 2 diabetes, formerly called adult-onset or non-insulin dependent diabetes, is the most
+common form of diabetes. People can develop type 2 diabetes at any age, even during childhood.
+This form of diabetes usually begins with insulin resistance, a condition in which fat, muscle,
+and liver cells do not use insulin properly. At first, the pancreas keeps up with the added demand
+by producing more insulin. In time, however, it loses the ability to secrete enough insulin in
+response to meals. People who are overweight and inactive are more likely to develop type 2
+diabetes. Treatment includes taking diabetes medicines, making wise food choices, exercising
+regularly, controlling blood pressure and cholesterol, and, for some, taking aspirin daily.</P>
+
+<P>For more information on type 2 diabetes please visit the National Institute of Diabetes and
+Digestive and Kidney Disease’s National Diabetes Information Clearinghouse at: </P>
+<P><A href='http://diabetes.niddk.nih.gov/dm/pubs/riskfortype2/'> http://diabetes.niddk.nih.gov/dm/pubs/riskfortype2/ </A></P>
+<P>and:</P>
+<P><A href='http://ndep.nih.gov/am-i-at-risk/family-history/index.aspx#main'> 
+	http://ndep.nih.gov/am-i-at-risk/family-history/index.aspx#main </A></P>
+
+
+</div>
+
+<script> 
+$(document).ready(function() {
+
+	$("#for_user_button").on("click", function () {
+		alert ("Creating PDF");
+		
+		var specialElementHandlers = {
+				'#editor': function(element, renderer){
+					return true;
+				}
+		};
+		
+		var doc = jsPDF();
+	    doc.fromHTML($('#for_user').html(), 15, 15, {
+	        'width': 170,
+	    	'elementHandlers': specialElementHandlers
+	    });
+	    doc.output('datauri');
+		
+	});
+ 
+ $("#for_user").hide();
+});
+</script>

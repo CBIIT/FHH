@@ -1,0 +1,84 @@
+    <div class="title-bar" id="personalInfo"> Your Personal Information </div>
+	<table class="twoColSimple">
+    	<tbody><tr>
+    		<td class="colOneSimple instructions">
+				We start the family health history with you. Enter the required personal information 
+				and your health history information. At the bottom of the page (you may need to scroll), 
+				press the "Next" button. You will then be asked to tell the system which family members 
+				you would like to add to the health history. 
+       		</td>
+            <td class="colTwoSimple instructions"> 
+            	If you have a Microsoft HealthVault account, you can choose to copy your HealthVault 
+            	family history information into this website. Information that you add or modify here 
+            	can then be copied back to HealthVault. Press "Copy from HealthVault" to get started. 
+            	<a id="loadFromMshv" tabindex="90" href="/fhh-web/popup/leavingFhhToLoadWarn.action">
+            	<img src="images/copy_from_hv_sm.gif" alt="Copy from Microsoft HealthVault" align="right"></a>
+			</td>
+		</tr></tbody>
+	</table>
+
+    <p class='instructions'><span class="required">*</span>Indicates required information.</p>
+    
+    <table class="form" summary="Enter personal information.">
+        <tr>
+    		<th class="label"><label for="personal_info_form_name" class="label">Name:</label></th>
+    		<td><input name="person.name" size="30" maxlength="255" value="" tabindex="2" id="personal_info_form_name" type="text"></td>
+		</tr>
+        <tr>
+            <th class="label"><span class="required">*</span>Gender:</th>
+            <td><input name="person.gender" id="personal_info_form_gender_male" value="MALE" tabindex="2" type="radio">
+            		<label for="personal_info_form_gender_male">Male</label>
+				<input name="person.gender" id="personal_info_form_gender_female" value="FEMALE" tabindex="2" type="radio">
+					<label for="personal_info_form_gender_female">Female</label>
+			</td>
+        </tr>
+        <tr>
+            <th class="label"><span class="required">*</span><label for="personal_info_form_date_of_birth">Date of Birth</label>:</th>
+            <td><input name="person.date_of_birth" size="30" maxlength="255" value="" tabindex="10" id="personal_info_form_date_of_birth" type="text">
+            	<div class='instructions'>mm/dd/yyyy</div>
+            </td>
+        </tr>
+        <tr>
+            <th class="label"> Were you born a twin?</th>
+            <td><input name="person.twin_status" id="personal_info_form_twin_status_no" checked="checked" value="NO" tabindex="11" type="radio">
+            		<label for="personal_info_form_twin_status_no">No</label>
+				<input name="person.twin_status" id="personal_info_form_twin_status_identical" value="IDENTICAL" tabindex="11" type="radio">
+					<label for="personal_info_form_twin_status_identical">Yes - Identical (Same)</label>
+				<input name="person.twin_status" id="personal_info_form_twin_status_fraternal" value="FRATERNAL" tabindex="11" type="radio">
+					<label for="personal_info_form_twin_status_fraternal">Yes - Not Identical (Fraternal)</label>
+			</td>
+        </tr>
+        <tr>
+            <th class="label"><label for="personal_info_form_adopted">  
+                Were you adopted?
+             </label></th>
+            <td><input name="person.adopted" value="true" tabindex="12" id="personal_info_form_adopted_no" type="checkbox">
+            	<input id="personal_info_form_adopted_yes" name="person.adopted" value="true" type="hidden"> Yes
+            </td>
+        </tr>
+            <tr>
+                <th class="label">Height:</th>
+                <td><input name="personal_height_feet" size="6" value="" tabindex="13" id="personal_height_feet" type="text"> 
+                		<label for="personal_height_feet">Feet</label> &nbsp;&nbsp;
+                	<input name="personal_height_inches" size="6" value="" tabindex="13" id="personal_height_inches" type="text"> 
+                		<label for="personal_height_inches">Inches</label> 
+                	<span class="or">-OR-</span> 
+                	<input name="personal_height_centimeters" size="6" value="" tabindex="14" id="personal_height_centimeters" type="text"> 
+                		<label for="personal_height_centimeters">Centimeters</label>
+                </td>
+			</tr>
+			<tr>
+                <th class="label"><label for="personal_weight">Weight:</label></th>
+                <td><input name="personal_weight" size="5" maxlength="4" value="" tabindex="15" id="personal_weight" type="text"> 
+                	<select name="personal_weight_unit" tabindex="15" id="personal_weight_unit">
+					    <option value="US">lbs</option>
+					    <option value="METRIC">kgs</option>
+					</select>
+				</td>
+            </tr>
+    </table>
+    <div id='personal_health_information'> health info </div>
+    <div id='personal_race_ethnicity'> family background info </div>
+<br/>
+	<button id='addPersonInformationSubmitButton'>Next </button>
+	<button id='addPersonInformationCancelButton'>Cancel </button>

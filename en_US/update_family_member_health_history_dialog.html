@@ -1,0 +1,73 @@
+    <div class="title-bar" id="personalInfo"> Your Family Member's Health Information </div>
+
+	<p class='instructions'> Enter required personal information and health history information for this family member. Background information 
+	may also be entered. At the bottom of the page (you may need to scroll), press the "Save" button to save this 
+	person's information.</p>
+	
+    <p class='instructions'><span class="required">*</span>Indicates required information.</p>
+    
+    <table class="form" summary="Enter family member health information.">
+        <tr>
+    		<th class="label"><label for="family_member_info_form_name" class="label">Name:</label></th>
+    		<td><input name="family.member.name" size="30" maxlength="255" value="" tabindex="2" id="family_member_info_form_name" type="text"></td>
+		</tr>
+        <tr>
+            <th class="label"><span class="required">*</span>Gender:</th>
+            <td><input name="family.member.gender" id="family_member_info_form_gender_male" value="MALE" tabindex="2" type="radio">
+            		<label for="family_member_info_form_gender_male">Male</label>
+				<input name="family.member.gender" id="family_member_info_form_gender_female" value="FEMALE" tabindex="2" type="radio">
+					<label for="family_member_info_form_gender_female">Female</label>
+			</td>
+        </tr>
+        <tr>
+            <th class="label"><span class="required">*</span><label for="family_member_info_form_date_of_birth">Date of Birth</label>:</th>
+            <td><input name="family.member.date_of_birth" size="30" maxlength="255" value="" tabindex="10" id="family_member_info_form_date_of_birth" type="text">
+            	<div class='instructions'>mm/dd/yyyy</div>
+            </td>
+        </tr>
+        <tr>
+            <th class="label"> Was this person born a twin?</th>
+            <td><input name="family.member.twin_status" id="family_member_info_form_twin_status_no" checked="checked" value="NO" tabindex="11" type="radio">
+            		<label for="family_member_info_form_twin_status_no">No</label>
+				<input name="family.member.twin_status" id="family_member_info_form_twin_status_identical" value="IDENTICAL" tabindex="11" type="radio">
+					<label for="family_member_info_form_twin_status_identical">Yes - Identical (Same)</label>
+				<input name="family.member.twin_status" id="family_member_info_form_twin_status_fraternal" value="FRATERNAL" tabindex="11" type="radio">
+					<label for="family_member_info_form_twin_status_fraternal">Yes - Not Identical (Fraternal)</label>
+			</td>
+        </tr>
+        <tr>
+            <th class="label"><label for="family_member_info_form_adopted">  
+                Was this person adopted?
+             </label></th>
+            <td><input name="family.member.adopted" value="true" tabindex="12" id="family_member_info_form_adopted_no" type="checkbox">
+            	<input id="family_member_info_form_adopted_yes" name="person.adopted" value="true" type="hidden"> Yes
+            </td>
+        </tr>
+            <tr>
+                <th class="label">Height:</th>
+                <td><input name="family_member_height_feet" size="6" value="" tabindex="13" id="family_member_height_feet" type="text"> 
+                		<label for="family_member_height_feet">Feet</label> &nbsp;&nbsp;
+                	<input name="family_member_height_inches" size="6" value="" tabindex="13" id="family_member_height_inches" type="text"> 
+                		<label for="family_member_height_inches">Inches</label> 
+                	<span class="or">-OR-</span> 
+                	<input name="family_member_height_centimeters" size="6" value="" tabindex="14" id="family_member_height_centimeters" type="text"> 
+                		<label for="family_member_height_centimeters">Centimeters</label>
+                </td>
+			</tr>
+			<tr>
+                <th class="label"><label for="family_member_weight">Weight:</label></th>
+                <td><input name="family_member_weight" size="5" maxlength="4" value="" tabindex="15" id="family_member_weight" type="text"> 
+                	<select name="family_member_weight_unit" tabindex="15" id="family_member_weight_unit">
+					    <option value="US">lbs</option>
+					    <option value="METRIC">kgs</option>
+					</select>
+				</td>
+            </tr>
+
+     </tbody></table>
+
+    <div id='family_health_information'> health info </div>
+    <div id='family_race_ethnicity'> Race and Ethnicity Information </div>
+
+	<button id='addFamilyMemberSubmitButton'>Next </button>
+	<button id='addFamilyMemberCancelButton'>Cancel </button>
