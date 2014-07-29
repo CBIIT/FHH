@@ -1,4 +1,7 @@
-This product is very simple to install.  Simple clone/fork this project and recurively copy the FHH directory into your htdocs directory of your web server.  If you want, you can recursively copy the FHH-admin directory to be in the same directory as the FHH in order to expose the admin functions (php must be activated for the admin functions).
+This product is very simple to install.  Simple clone/fork this project and recurively copy the FHH directory 
+into your htdocs directory of your web server.  If you want, you can recursively copy the FHH-admin directory 
+to be in the next to the FHH in order to expose the admin functions (php must be activated for the admin 
+functions).
 
 To access the site.  Goto:
 
