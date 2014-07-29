@@ -57,6 +57,8 @@ function add_personal_history() {
 }
 
 function add_personal_information(patient_tag) {
+	if (personal_information == null) return;
+	
 	add_name(patient_tag, personal_information.name);
 	add_birthday(patient_tag, personal_information.date_of_birth);
 	add_gender(patient_tag, personal_information.gender);
@@ -171,7 +173,7 @@ function add_clinical_observations(tag,
 }
 
 function add_height(tag, height, height_unit) {
-	if (height == null) return;
+if (height == null || height == "") return;
 	var observation_tag = doc.createElement("clinicalObservation");
 	tag.appendChild(observation_tag);
 	
@@ -188,7 +190,7 @@ function add_height(tag, height, height_unit) {
 }
 
 function add_weight(tag, weight, weight_unit) {
-	if (weight == null) return;
+	if (weight == null || weight == "") return;
 	var observation_tag = doc.createElement("clinicalObservation");
 	tag.appendChild(observation_tag);
 	
@@ -320,12 +322,12 @@ function add_cause_of_death(tag, cause_of_death) {
 }
 
 function add_relatives(tag, pi) {
-	add_individual_relative(tag, "Mother", "NMTH", pi.mother);
-	add_individual_relative(tag, "Father", "NFTH", pi.father);
-	add_individual_relative(tag, "Maternal Grandmother", "MGRMTH", pi.maternal_grandmother);
-	add_individual_relative(tag, "Maternal Grandfather", "MGRFTH", pi.maternal_grandfather);
-	add_individual_relative(tag, "Paternal Grandmother", "PGRMTH", pi.paternal_grandmother);
-	add_individual_relative(tag, "Paternal Grandfather", "PGRFTH", pi.paternal_grandfather);
+	if (pi.mother) add_individual_relative(tag, "Mother", "NMTH", pi.mother);
+	if (pi.father) add_individual_relative(tag, "Father", "NFTH", pi.father);
+	if (pi.maternal_grandmother) add_individual_relative(tag, "Maternal Grandmother", "MGRMTH", pi.maternal_grandmother);
+	if (pi.maternal_grandfather) add_individual_relative(tag, "Maternal Grandfather", "MGRFTH", pi.maternal_grandfather);
+	if (pi.paternal_grandmother) add_individual_relative(tag, "Paternal Grandmother", "PGRMTH", pi.paternal_grandmother);
+	if (pi.paternal_grandfather) add_individual_relative(tag, "Paternal Grandfather", "PGRFTH", pi.paternal_grandfather);
 
 	var i = 0;
 	while (personal_information['brother_' + i] != null) {
@@ -513,6 +515,11 @@ function get_age_values_from_estimated_age(age_at_diagnosis) {
 function save_document(site, doc) {
 		var s = new XMLSerializer();
 		var output_string = s.serializeToString(doc);
-		$(site).attr("href", "data:application/xml," + output_string ).attr("download", "family_health_history.xml");
+		
+		var filename = "family_health_history.xml";
+		if (personal_information && personal_information.name) {
+			filename = personal_information.name.replace(/ /g,"_") + "_Health_History.xml";
+		} 
+		$(site).attr("href", "data:application/xml," + output_string ).attr("download", filename);
 }
 
