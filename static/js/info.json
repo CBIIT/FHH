@@ -1,0 +1,392 @@
+{
+  "name": "Lawrence Brem",
+  "gender": "MALE",
+  "date_of_birth": "11/19/1968",
+  "twin_status": "NO",
+  "height_feet": "",
+  "height_inches": "",
+  "height_centimeters": "",
+  "weight": "",
+  "weight_unit": "US",
+  "Health History": [
+    {
+      "Disease Name": "Kidney Disease",
+      "Detailed Disease Name": "Other Kidney Disease",
+      "Age At Diagnosis": "20-29 years"
+    }
+  ],
+  "race": {
+    "American Indian or Alaska Native": false,
+    "Asian": false,
+    "Black or African-American": false,
+    "Native Hawaiian or Other Pacific Islander": false,
+    "White": true
+  },
+  "ethnicity": {
+    "Hispanic or Latino": false,
+    "Ashkenazi Jewish": true,
+    "Not Hispanic or Latino": false
+  },
+"parents": [
+ {
+  "father": {
+    "name": "Marshall Brem",
+    "gender": "MALE",
+    "dateOfBirth": "09/02/1936",
+    "twinStatus": "NO",
+    "height_feet": "5",
+    "height_inches": "10",
+    "height_centimeters": "",
+    "weight": "190",
+    "weight_unit": "US",
+    "Health History": [
+      {
+        "Disease Name": "Cancer",
+        "Detailed Disease Name": "Other Cancer",
+        "Age At Diagnosis": "60 years or older"
+      }
+    ],
+    "race": {
+      "American Indian or Alaska Native": false,
+      "Asian": false,
+      "Black or African-American": false,
+      "Native Hawaiian or Other Pacific Islander": false,
+      "White": false
+    },
+    "ethnicity": {
+      "Hispanic or Latino": false,
+      "Ashkenazi Jewish": true,
+      "Not Hispanic or Latino": false
+    }
+  }
+}
+,
+{
+  "mother": {
+    "name": "Myrna Brem",
+    "gender": "FEMALE",
+    "dateOfBirth": "06/04/1938",
+    "twinStatus": "NO",
+    "height_feet": "5",
+    "height_inches": "5",
+    "height_centimeters": "",
+    "weight": "195",
+    "weight_unit": "US",
+    "Health History": [
+      {
+        "Disease Name": "Diabetes",
+        "Detailed Disease Name": "Type 2 Diabetes",
+        "Age At Diagnosis": "50-59 years"
+      },
+      {
+        "Disease Name": "Gastrointestinal Disorder",
+        "Detailed Disease Name": "Unknown Gastrointestinal Disorder",
+        "Age At Diagnosis": "40-49 years"
+      }
+    ],
+    "race": {
+      "American Indian or Alaska Native": false,
+      "Asian": false,
+      "Black or African-American": false,
+      "Native Hawaiian or Other Pacific Islander": false,
+      "White": true
+    },
+    "ethnicity": {
+      "Hispanic or Latino": false,
+      "Ashkenazi Jewish": true,
+      "Not Hispanic or Latino": false
+    }
+  }
+}
+]
+,
+  "maternal_grandfather": {
+    "name": "Samuel Levetin",
+    "gender": "MALE",
+    "dateOfBirth": "1910",
+    "twinStatus": "NO",
+    "height_feet": "",
+    "height_inches": "",
+    "height_centimeters": "",
+    "weight": "",
+    "weight_unit": "US",
+    "Health History": [
+      {
+        "Disease Name": "Heart Disease",
+        "Detailed Disease Name": "Heart Attack",
+        "Age At Diagnosis": "60 years or older"
+      }
+    ],
+    "race": {
+      "American Indian or Alaska Native": false,
+      "Asian": false,
+      "Black or African-American": false,
+      "Native Hawaiian or Other Pacific Islander": false,
+      "White": true
+    },
+    "ethnicity": {
+      "Hispanic or Latino": false,
+      "Ashkenazi Jewish": false,
+      "Not Hispanic or Latino": false
+    }
+  },
+  "maternal_grandmother": {
+    "name": "Jean Levetin",
+    "dateOfBirth": "1916",
+    "twinStatus": "NO",
+    "height_feet": "",
+    "height_inches": "",
+    "height_centimeters": "",
+    "weight": "",
+    "weight_unit": "US",
+    "Health History": [
+      {
+        "Disease Name": "Cancer",
+        "Detailed Disease Name": "Gastric Cancer",
+        "Age At Diagnosis": "60 years or older"
+      }
+    ],
+    "race": {
+      "American Indian or Alaska Native": false,
+      "Asian": false,
+      "Black or African-American": false,
+      "Native Hawaiian or Other Pacific Islander": false,
+      "White": false
+    },
+    "ethnicity": {
+      "Hispanic or Latino": false,
+      "Ashkenazi Jewish": true,
+      "Not Hispanic or Latino": false
+    }
+  },
+  "paternal_grandfather": {
+    "name": "James Brem",
+    "gender": "MALE",
+    "dateOfBirth": "1901",
+    "twinStatus": "NO",
+    "height_feet": "",
+    "height_inches": "",
+    "height_centimeters": "",
+    "weight": "",
+    "weight_unit": "US",
+    "Health History": [
+      {
+        "Disease Name": "Stroke/Brain Attack",
+        "Age At Diagnosis": "60 years or older"
+      }
+    ],
+    "race": {
+      "American Indian or Alaska Native": false,
+      "Asian": false,
+      "Black or African-American": false,
+      "Native Hawaiian or Other Pacific Islander": false,
+      "White": true
+    },
+    "ethnicity": {
+      "Hispanic or Latino": false,
+      "Ashkenazi Jewish": true,
+      "Not Hispanic or Latino": false
+    }
+  },
+  "paternal_grandmother": {
+    "name": "Sadie Brem",
+    "gender": "FEMALE",
+    "dateOfBirth": "1908",
+    "twinStatus": "NO",
+    "height_feet": "",
+    "height_inches": "",
+    "height_centimeters": "",
+    "weight": "",
+    "weight_unit": "US",
+    "Health History": [
+      {
+        "Disease Name": "Cancer",
+        "Detailed Disease Name": "Leukemia",
+        "Age At Diagnosis": "50-59 years"
+      }
+    ],
+    "race": {
+      "American Indian or Alaska Native": false,
+      "Asian": false,
+      "Black or African-American": false,
+      "Native Hawaiian or Other Pacific Islander": false,
+      "White": true
+    },
+    "ethnicity": {
+      "Hispanic or Latino": false,
+      "Ashkenazi Jewish": false,
+      "Not Hispanic or Latino": false
+    }
+  },
+  "brother_0": {
+    "name": "Jeffrey Brem",
+    "gender": "MALE",
+    "dateOfBirth": "06/04/1960",
+    "twinStatus": "NO",
+    "height_feet": "",
+    "height_inches": "",
+    "height_centimeters": "",
+    "weight": "",
+    "weight_unit": "US",
+    "Health History": [
+      {
+        "Disease Name": "Gastrointestinal Disorder",
+        "Detailed Disease Name": "Unknown Gastrointestinal Disorder",
+        "Age At Diagnosis": "40-49 years"
+      }
+    ],
+    "race": {
+      "American Indian or Alaska Native": false,
+      "Asian": false,
+      "Black or African-American": false,
+      "Native Hawaiian or Other Pacific Islander": false,
+      "White": true
+    },
+    "ethnicity": {
+      "Hispanic or Latino": false,
+      "Ashkenazi Jewish": true,
+      "Not Hispanic or Latino": false
+    }
+  },
+  "brother_1": {
+    "name": "Steven Brem",
+    "gender": "MALE",
+    "dateOfBirth": "2/19/1963",
+    "twinStatus": "NO",
+    "height_feet": "",
+    "height_inches": "",
+    "height_centimeters": "",
+    "weight": "",
+    "weight_unit": "US",
+    "Health History": [
+      {
+        "Disease Name": "Lung Disease",
+        "Detailed Disease Name": "Emphysema",
+        "Age At Diagnosis": "30-39 years"
+      }
+    ],
+    "race": {
+      "American Indian or Alaska Native": false,
+      "Asian": false,
+      "Black or African-American": false,
+      "Native Hawaiian or Other Pacific Islander": false,
+      "White": true
+    },
+    "ethnicity": {
+      "Hispanic or Latino": false,
+      "Ashkenazi Jewish": true,
+      "Not Hispanic or Latino": false
+    }
+  },
+  "sister_0": {
+    "name": "Jeffrey Brem",
+    "gender": "MALE",
+    "dateOfBirth": "06/04/1960",
+    "twinStatus": "NO",
+    "height_feet": "6",
+    "height_inches": "0",
+    "height_centimeters": "",
+    "weight": "195",
+    "weight_unit": "US",
+    "Health History": [
+      {
+        "Disease Name": "Gastrointestinal Disorder",
+        "Detailed Disease Name": "Unknown Gastrointestinal Disorder",
+        "Age At Diagnosis": "40-49 years"
+      }
+    ],
+    "race": {
+      "American Indian or Alaska Native": false,
+      "Asian": false,
+      "Black or African-American": false,
+      "Native Hawaiian or Other Pacific Islander": false,
+      "White": true
+    },
+    "ethnicity": {
+      "Hispanic or Latino": false,
+      "Ashkenazi Jewish": true,
+      "Not Hispanic or Latino": false
+    }
+  },
+  "daughter_0": {
+    "name": "Samantha Brem",
+    "gender": "FEMALE",
+    "dateOfBirth": "04/03/02",
+    "twinStatus": "NO",
+    "height_feet": "5",
+    "height_inches": "2",
+    "height_centimeters": "",
+    "weight": "95",
+    "weight_unit": "US",
+    "Health History": [],
+    "race": {
+     "American Indian or Alaska Native": false,
+      "Asian": false,
+      "Black or African-American": false,
+      "Native Hawaiian or Other Pacific Islander": false,
+      "White": true
+    },
+    "ethnicity": {
+      "Hispanic or Latino": false,
+      "Ashkenazi Jewish": false,
+      "Not Hispanic or Latino": false
+    }
+  },
+  "daughter_1": {
+    "name": "Miriam Brem",
+    "gender": "FEMALE",
+    "dateOfBirth": "10/14/04",
+    "twinStatus": "NO",
+    "height_feet": "4",
+    "height_inches": "9",
+    "height_centimeters": "",
+    "weight": "75",
+    "weight_unit": "US",
+    "Health History": [],
+    "race": {
+      "American Indian or Alaska Native": false,
+      "Asian": false,
+      "Black or African-American": false,
+      "Native Hawaiian or Other Pacific Islander": false,
+      "White": true
+    },
+    "ethnicity": {
+      "Hispanic or Latino": false,
+      "Ashkenazi Jewish": false,
+      "Not Hispanic or Latino": false
+    }
+  },
+  "maternal_aunt_0": {
+    "name": "Judy Goldman",
+    "gender": "MALE",
+    "dateOfBirth": "1943",
+    "twinStatus": "NO",
+    "height_feet": "5",
+    "height_inches": "7",
+    "height_centimeters": "",
+    "weight": "140",
+    "weight_unit": "US",
+    "Health History": [
+      {
+        "Disease Name": "Heart Disease",
+        "Detailed Disease Name": "Heart Attack",
+        "Age At Diagnosis": "50-59 years"
+      }
+    ],
+    "race": {
+      "American Indian or Alaska Native": false,
+      "Asian": false,
+      "Black or African-American": false,
+      "Native Hawaiian or Other Pacific Islander": false,
+      "White": true
+    },
+    "ethnicity": {
+      "Hispanic or Latino": false,
+      "Ashkenazi Jewish": true,
+      "Not Hispanic or Latino": false
+    }
+  },
+  "paternal_aunt_0": {
+    "name": "Phyliss Shepard",
+    "gender": "FEMALE",
+    "dateOfBirth":""}}

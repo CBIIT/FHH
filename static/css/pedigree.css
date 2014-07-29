@@ -1,0 +1,68 @@
+
+text {
+    font-family: "Arial", Helvetica, sans-serif;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.about {
+    fill: #777;
+    font-size: smaller;
+}
+
+.link {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+div.drawcanvas{
+    width:1000px;
+    height:1000px;
+    border:1px solid #555;
+    //position:relative;
+    top:10px;
+    left:10px;
+}
+
+.child{
+    position: absolute;
+    top:5%;
+    left:5%;
+    right:5%;
+    bottom:0;
+    margin:auto;
+    max-height:100%;
+    max-width:100%;
+}
+select option {
+    width: 120 ;
+}
+select.addchild{
+
+    visibility: hidden;
+}
+select.addcondition{
+    visibility: hidden;
+}
+
+table.pop, th {text-decoration: underline }
+th { padding : 1px; }
+td { padding : 1px; }
+
+
+
+#navlist li
+{
+    display: inline;
+    list-style-type: none;
+    padding-right: 20px;
+    text-decoration: underline;
+
+}
+
+
+
+

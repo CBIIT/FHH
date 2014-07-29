@@ -124,7 +124,17 @@ $(document).ready(function() {
 		autoOpen: false,
 		height:600,
 		width:1000,
-	});		
+	});
+
+    $("#family_pedigree").dialog({
+        title:"Family Pedigree",
+        position:['middle',0],
+        autoOpen: false,
+        height:1000,
+        width:['95%'],
+        backgroundColor: 'white'
+
+    });
 
 	// This page lets you load in a previously saved history
 	$("#load_personal_history_dialog").load ("load_personal_history_dialog.html", function () {
@@ -160,6 +170,8 @@ $(document).ready(function() {
 		bind_add_all_family_members_cancel_button_action();
 	});
 
+
+
 	$("#add_all_family_members_dialog").dialog({
 		title:"Add Immediate Family Members",
 		position:['middle',0],
@@ -167,7 +179,10 @@ $(document).ready(function() {
 		height:400,
 		width:600,
 	});
-	
+
+    // family pedigree diagram dialog
+    $("#family_pedigree").load ("family_pedigree.html", function () {});
+
 	// Disease Risk Calculator
 	$("#disease_risk_calculator").dialog({
 		title:"Disease Risk Calculators",
@@ -191,8 +206,9 @@ $(document).ready(function() {
 	$("#save_personal_history_button").show().on("click", bind_save_personal_history_button_action);
 	$("#add_another_family_member_button").hide().on("click", bind_add_another_family_member_button_action);
 	$("#save_family_history_button").hide();
-	$("#view_diagram_and_table_button").show().on("click", bind_view_diagram_and_table_button_action);
-	$("#your_health_risk_assessment_button").hide();
+//	$("#view_diagram_and_table_button").show().on("click", bind_view_diagram_and_table_button_action);
+    $("#view_diagram_and_table_button").show().on("click",  readtable());
+    $("#your_health_risk_assessment_button").hide();
 	
 	
 
