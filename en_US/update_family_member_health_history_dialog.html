@@ -20,10 +20,30 @@
 			</td>
         </tr>
         <tr>
-            <th class="label"><span class="required">*</span><label for="family_member_info_form_date_of_birth">Date of Birth</label>:</th>
-            <td><input name="family.member.date_of_birth" size="30" maxlength="255" value="" tabindex="10" id="family_member_info_form_date_of_birth" type="text">
-            	<div class='instructions'>mm/dd/yyyy</div>
-            </td>
+					<th class="label"> Is this person still alive </th>
+					<td><select id='is_person_alive'>
+						<option></option>
+						<option value='alive'>Yes</option>
+						<option value='dead'>No</option>
+						<option value='unknown'>Unknown</option>
+						</select>
+						<div id='person_is_alive'>
+							<select id='age_determination'>
+								<option value='date_of_birth'>Date of Birth</option>
+								<option value='age'>Age</option>
+								<option value='estimated_age'>Estimated Age</option>
+							</select>
+							<INPUT id='age_determination_text' type='text' />
+							<select id='estimated_age_select' ></select>
+						</div>
+						<div id='person_is_not_alive'>
+								Cause of Death 
+									<select id='cause_of_death_select' ></select>
+									<select id='detailed_cause_of_death_select' ></select><br/>
+								Age at Death 
+									<select id='estimated_death_age_select' ></select>
+						</div>
+					</td>
         </tr>
         <tr>
             <th class="label"> Was this person born a twin?</th>
@@ -43,26 +63,6 @@
             	<input id="family_member_info_form_adopted_yes" name="person.adopted" value="true" type="hidden"> Yes
             </td>
         </tr>
-            <tr>
-                <th class="label">Height:</th>
-                <td><input name="family_member_height_feet" size="6" value="" tabindex="13" id="family_member_height_feet" type="text"> 
-                		<label for="family_member_height_feet">Feet</label> &nbsp;&nbsp;
-                	<input name="family_member_height_inches" size="6" value="" tabindex="13" id="family_member_height_inches" type="text"> 
-                		<label for="family_member_height_inches">Inches</label> 
-                	<span class="or">-OR-</span> 
-                	<input name="family_member_height_centimeters" size="6" value="" tabindex="14" id="family_member_height_centimeters" type="text"> 
-                		<label for="family_member_height_centimeters">Centimeters</label>
-                </td>
-			</tr>
-			<tr>
-                <th class="label"><label for="family_member_weight">Weight:</label></th>
-                <td><input name="family_member_weight" size="5" maxlength="4" value="" tabindex="15" id="family_member_weight" type="text"> 
-                	<select name="family_member_weight_unit" tabindex="15" id="family_member_weight_unit">
-					    <option value="US">lbs</option>
-					    <option value="METRIC">kgs</option>
-					</select>
-				</td>
-            </tr>
 
      </tbody></table>
 

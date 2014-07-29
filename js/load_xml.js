@@ -38,6 +38,8 @@ function loaded (evt) {
 	var fileString = evt.target.result;	
 	parse_xml(fileString);
 	build_family_history_data_table();
+	$("#add_another_family_member_button").show();
+	
 
 }
 
@@ -55,6 +57,57 @@ function parse_xml(data) {
 //	alert ("Parsing the XML: " + $(data).find("patientPerson").html());
 //	alert (JSON.stringify(disease_list, null, 2));
 	
+//	alert ($(data).find("patientPerson > birthTime").attr("value"));
+	personal_information.name = $(data).find("patientPerson > name").attr("formatted");
+	personal_information.date_of_birth = $(data).find("patientPerson > birthTime").attr("value");
+	personal_information.gender = $(data).find("patientPerson > administrativeGenderCode").attr("displayName").toUpperCase();
+	consanguity_flag = $(data).find('patientPerson > subjectOf2 > ClinicalObservation > code[originalText="Parental consanguinity indicated"]')
+	if (consanguity_flag && consanguity_flag.length > 0) personal_information.consanguinity = true;
+	
+	// Race and Ethnicity
+	personal_information.ethnicity = load_ethnicity($(data) );
+	personal_information.race = load_race(data); 
+
+	// Height and Weight
+	$(data).find("patientPerson > subjectOf2 > ClinicalObservation").each(function () {
+		w = $(this).find("code[displayName='weight']").parent().find("value");
+		if (w.attr("value")) {
+			personal_information.weight = w.attr("value");
+			personal_information.weight_unit = w.attr("unit");
+		}
+		h = $(this).find("code[displayName='height']").parent().find("value");
+		if (h.attr("value")) {
+			personal_information.height = h.attr("value");
+			personal_information.height_unit = h.attr("unit");
+		}
+	});
+	
+	// Personal Diseases
+		current_health_history = new Array();
+		// Looking for diseases, first we need to pull out the displayNames for every code tag
+		$(data).find("patientPerson > subjectOf2 > ClinicalObservation > code").each( function() {
+			
+			
+
+			specific_health_issue = get_specific_health_issue("Self", this);
+//			alert("Me "+ JSON.stringify(specific_health_issue, null, 2));
+			// Do not want to push duplicates
+			var duplicate = false;
+			for (var i=0;i<current_health_history.length;i++) {
+				if 		(specific_health_issue && specific_health_issue["Disease Name"] ==  [i]["Disease Name"] &&
+						 specific_health_issue["Detailed Disease Name"] == current_health_history[i]["Detailed Disease Name"]) {
+					duplicate=true;break;
+				}
+			}
+			if (specific_health_issue != null && !duplicate && specific_health_issue["Age At Diagnosis"] != null) 
+				current_health_history.push(specific_health_issue);
+
+//				alert(relative.name + ":"+ highLevelDiseaseName + ", " + detailedDiseaseName + ": " + ageAtDiagnosis);
+		});
+		personal_information["Health History"] = current_health_history;
+
+
+	// All Relatives
 	$(data).find("patientPerson > relative").each( function () {
 		var relative = new Object();
 		
@@ -70,49 +123,46 @@ function parse_xml(data) {
 			if ($(this).parent().html().indexOf(SNOMED_CT_CODES.FRATERNAL_TWIN_CODE) > -1) relative.twin_status = 'FRATERNAL';
 		});
 		
+		// Cause of Death
+		
+
+		var death = $(this).find("relationshipHolder > subjectOf2 > clinicalObservation > sourceOf > code[displayName='death']");
+		if (death.length) {
+			var death_age = get_age_at_diagnosis("", $(this).find("relationshipHolder > subjectOf1 > deceasedEstimatedAge"));
+			var cause_of_death = death.parent().parent().children("code").attr("displayName");
+			
+//			alert (relative.name + " died around [" + death_age + "] of :[" + cause_of_death+ "]");
+			relative.cause_of_death = get_disease_name_from_detailed_name(cause_of_death);
+			if (relative.cause_of_death != cause_of_death) relative.detailed_cause_of_death = cause_of_death;
+			relative.estimated_death_age = death_age;
+		}
+		
 		current_health_history = new Array();
 		// Looking for diseases, first we need to pull out the displayNames for every code tag
 		$(this).find("code").each( function() {
-			var detailedDiseaseName = $(this).attr('displayName');
-			if ($.inArray(detailedDiseaseName, disease_list) != -1) {
-				// We have the detailed disease name, now we need the high-level disease name
-				var keys = Object.keys(diseases);
-				for (var i=0; i<keys.length;i++) {
-					if (diseases[keys[i]].length == 0) {
-						highLevelDiseaseName = detailedDiseaseName;
-						break;
-					}
-					if ($.inArray(detailedDiseaseName, diseases[keys[i]]) != -1) {
-						highLevelDiseaseName = keys[i];
-						break;
-					}
+			
+//			alert(relative.name +" "+ $(this).attr("displayName"));
+
+			specific_health_issue = get_specific_health_issue(relative.name, this);
+
+			// Do not want to push duplicates
+			var duplicate = false;
+			for (var i=0;i<current_health_history.length;i++) {
+				if 		(specific_health_issue && specific_health_issue["Disease Name"] ==  [i]["Disease Name"] &&
+						 specific_health_issue["Detailed Disease Name"] == current_health_history[i]["Detailed Disease Name"]) {
+					duplicate=true;break;
 				}
-				// Now have to get age at diagnosis
-				ageAtDiagnosis = get_age_at_diagnosis(relative.name + ","+ highLevelDiseaseName + ", " + detailedDiseaseName, 
-						$(this).parent().find('subject > dataEstimatedAge'));
-								
-				var specific_health_issue = {"Disease Name": highLevelDiseaseName,
-                        "Detailed Disease Name": detailedDiseaseName,
-                        "Age At Diagnosis": ageAtDiagnosis};
-				
-				// Do not want to push duplicates
-				var duplicate = false;
-				for (var i=0;i<current_health_history.length;i++) {
-					if 		(specific_health_issue["Disease Name"] == current_health_history[i]["Disease Name"] &&
-							 specific_health_issue["Detailed Disease Name"] == current_health_history[i]["Detailed Disease Name"]) {
-						duplicate=true;break;
-					}
-				}
-				if (!duplicate) current_health_history.push(specific_health_issue);
-				
-//				alert(relative.name + ":"+ highLevelDiseaseName + ", " + detailedDiseaseName + ": " + ageAtDiagnosis);
 			}
+			if (specific_health_issue != null && !duplicate && specific_health_issue["Age At Diagnosis"] != null) 
+				current_health_history.push(specific_health_issue);
+
+//				alert(relative.name + ":"+ highLevelDiseaseName + ", " + detailedDiseaseName + ": " + ageAtDiagnosis);
 		});
 		relative['Health History'] = current_health_history;
 
 
 		// Race and Ethnicity
-		relative.ethnicity = new Object(); 
+		relative.ethnicity = new Object();
 		$(this).find("ethnicGroupCode").each(function () {
 			ethnicity = $(this).attr("displayName");
 			relative.ethnicity[ethnicity] = true;
@@ -235,7 +285,70 @@ function parse_xml(data) {
 	
 }
 
+function get_specific_health_issue (relative_name, data) {
+	
+//	alert(relative_name + " " + $(data).attr('displayName'));
+	var detailedDiseaseName = $(data).attr('displayName');
+
+		highLevelDiseaseName = get_disease_name_from_detailed_name(detailedDiseaseName);
+		// Now have to get age at diagnosis
+	if (highLevelDiseaseName) {
+		ageAtDiagnosis = get_age_at_diagnosis(relative_name + ","+ highLevelDiseaseName + ", " + detailedDiseaseName, 
+				$(data).parent().find('subject > dataEstimatedAge'));
+					
+		var specific_health_issue = {"Disease Name": highLevelDiseaseName,
+                    "Detailed Disease Name": detailedDiseaseName,
+                    "Age At Diagnosis": ageAtDiagnosis};
+		return specific_health_issue;
+	}
+	// no disease found
+	return null;
+}
+
+function get_disease_name_from_detailed_name(detailedDiseaseName) {
+	if ($.inArray(detailedDiseaseName, disease_list) != -1) {
+		// We have the detailed disease name, now we need the high-level disease name
+		var keys = Object.keys(diseases);
+		for (var i=0; i<keys.length;i++) {
+			if (diseases[keys[i]].length == 0) {
+				highLevelDiseaseName = detailedDiseaseName;
+				break;
+			}
+			// We can also accept a disease that is at the high level
+			if ($.inArray(detailedDiseaseName, diseases[keys[i]]) != -1) {
+				highLevelDiseaseName = keys[i];
+				break;
+			}
+		}
+		return highLevelDiseaseName;
+	} else {
+		return null;
+	}
+}
+
+
+function load_ethnicity(node) {
+	// Race and Ethnicity
+	ethnicity = new Object(); 
+	node.find("patientPerson > ethnicGroupCode").each(function () {
+		ethnicity_tag = $(this).attr("displayName");
+		ethnicity[ethnicity_tag] = true;
+	});
+	return ethnicity;
+}
+
+function load_race(data) {
+	race = new Object(); 
+	$(data).find("patientPerson > raceCode").each(function () {
+		race_tag = $(this).attr("displayName");
+		race[race_tag] = true;
+	});
+	return race;
+}
+
+
 function get_age_at_diagnosis (text, xml_snippet) {
+	if (xml_snippet == null) return "";
 	
 	if (xml_snippet.html() && xml_snippet.html().indexOf("pre-birth") > -1) return 'Pre-Birth';
 	var estimated_age = xml_snippet.html();
@@ -246,13 +359,14 @@ function get_age_at_diagnosis (text, xml_snippet) {
 	if (estimated_age && estimated_age.indexOf('unit="year"') > -1) {
 		if (estimated_age.indexOf('value="2"') > -1) return "In Childhood";
 		if (estimated_age.indexOf('value="10"') > -1) return "In Adolescence";
-		if (estimated_age.indexOf('value="20"') > -1) return "20-29 Years";
-		if (estimated_age.indexOf('value="30"') > -1) return "30-39 Years";
-		if (estimated_age.indexOf('value="40"') > -1) return "40-49 Years";
-		if (estimated_age.indexOf('value="50"') > -1) return "50-59 Years";
+		if (estimated_age.indexOf('value="20"') > -1) return "20-29 years";
+		if (estimated_age.indexOf('value="30"') > -1) return "30-39 years";
+		if (estimated_age.indexOf('value="40"') > -1) return "40-49 years";
+		if (estimated_age.indexOf('value="50"') > -1) return "50-59 years";
 		if (estimated_age.indexOf('value="60"') > -1) return "60 years or older";
 	}
 	if (xml_snippet.html() && xml_snippet.html().indexOf("unknown") > -1) return 'Unknown';
 
-	return 'Unknown';
+	return null;
 }
+
