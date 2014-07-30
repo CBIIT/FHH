@@ -1,9 +1,17 @@
 
 
 
-function draw() {
+function xmlload() {
 
+    $("#family_pedigree").dialog({
+        title:"Family Pedigree",
+        position:['middle',0],
+        autoOpen: false,
+        height:1000,
+        width:['95%'],
+        backgroundColor: 'white'
 
+    });
 
     var masterleft=600;
     var merr = 50;
@@ -51,6 +59,12 @@ function draw() {
         svg.line(g, masterleft-100, 220, masterleft + 120, 220,{stroke: 'black'});
         svg.line(g,  masterleft+25, 220,  masterleft+25, top,{stroke: 'black'});
     }
+    else{
+        svg.text( masterleft+55, top + 50, "k", {fontWeight: 'bold', fontSize: '18.5', fill: 'black'});
+        svg.line(g, masterleft-100, 220, masterleft + 120, 220,{stroke: 'black'});
+        svg.line(g,  masterleft+25, 220,  masterleft+25, top,{stroke: 'black'});
+
+    }
 
     //Gender
     if (personal_information.gender == 'MALE') {
@@ -76,6 +90,7 @@ function draw() {
 
     //Load all selecte values to array
     $.each(personal_information, function (key, item) {
+
         if(key.substring(0,13) == "paternal_aunt" || key.substring(0,14) == "paternal_uncle"){
             array.push('PARENTALS');
         }
@@ -85,137 +100,89 @@ function draw() {
     });
 
 
-    //Begin process  (Temp Default)
-    var defaults = new Array('paternal_grandmother','paternal_grandfather','maternal_grandmother','maternal_grandfather','father','mother');
-    $.each(defaults, function (key, item) {
+    //Begin process
+    $.each(personal_information, function (key, item) {
 
-//        alert(key + ' - ' + item)
-
-        if (item == 'paternal_grandmother') {
-            var mleft = masterleft - 30;
+        if (key=='paternal_grandmother' ){
+            var mleft = masterleft-30;
             //Prepare line shift in case of aunts/uncles
-            if (($.inArray('PARENTALS', array) > -1) == true) {
-                svg.circle(mleft - 45, 70, cr, {
-                    id: 'pgm',
-                    fill: 'white',
-                    stroke: 'red',
-                    strokeWidth: 2,
-                    cursor: 'pointer'
-                });
-                svg.text(mleft - 100, 120, "Grand Mother", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
+            if ( ($.inArray('PARENTALS', array) > -1) == true){
+                svg.circle(mleft-45, 70, cr, {id: 'pgm', fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
+                svg.text(mleft-100, 120, "Grand Mother", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
             }
-            else {
-                svg.circle(mleft, 70, cr, {id: 'pgm', fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer'});
-                svg.text(mleft - 60, 120, "Grand Mother", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
+            else{
+                svg.circle(mleft, 70, cr, {id: 'pgm', fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
+                svg.text(mleft-60, 120, "Grand Mother", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
             }
-
         }
 
-        if (item == 'paternal_grandfather') {
-            var mleft = masterleft - 185;
+        if (key=='paternal_grandfather' ){
+            var mleft = masterleft-185;
             //Prepare line shift in case of aunts/uncles
-            if (($.inArray('PARENTALS', array) > -1) == true) {
-                svg.rect(mleft - 35, 47, rr, rr, 10, 10, {
-                    id: 'pgf',
-                    fill: 'white',
-                    stroke: 'red',
-                    strokeWidth: 2,
-                    cursor: 'pointer'
-                });
-                svg.text(mleft - 70, 120, "Grand Father", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
-                svg.line(g, mleft - 35, 70, mleft + 110, 70, {id: 'pgl', stroke: 'black'});
-                svg.line(g, mleft + 50, 70, mleft + 50, 170, {id: 'fline', stroke: 'black'});
+            if ( ($.inArray('PARENTALS', array) > -1) == true){
+                svg.rect(mleft-35, 47, rr, rr, 10, 10, {id: 'pgf', fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
+                svg.text(mleft-70, 120, "Grand Father", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
+                svg.line(g, mleft-35, 70, mleft+110, 70,{id: 'pgl',stroke: 'black'});
+                svg.line(g, mleft+50, 70, mleft+50, 170,{id: 'fline', stroke: 'black'});
             }
             else {
-                svg.rect(mleft, 47, rr, rr, 10, 10, {
-                    id: 'pgf',
-                    fill: 'white',
-                    stroke: 'red',
-                    strokeWidth: 2,
-                    cursor: 'pointer'
-                });
-                svg.text(mleft - 30, 120, "Grand Father", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
+                svg.rect(mleft, 47, rr, rr, 10, 10, {id: 'pgf', fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
+                svg.text(mleft-30, 120, "Grand Father", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
                 svg.line(g, mleft, 70, mleft + 130, 70, {id: 'pgl', stroke: 'black'});
-                svg.line(g, mleft + 85, 70, mleft + 85, 170, {id: 'fline', stroke: 'black'});
+                svg.line(g, mleft+85, 70, mleft+85, 170,{id: 'fline', stroke: 'black'});
+//                svg.line(g, mleft+20, 70, mleft+20, 170,{id: 'fline', stroke: 'blue'});
             }
         }
 
         //Paternal Grand Parents
-        if (item == 'maternal_grandmother') {
-            var mleft = masterleft + 200;
-            if (($.inArray('MATERNALS', array) > -1) == true) {
-                svg.circle(mleft + 45, 70, cr, {
-                    id: 'mgm',
-                    fill: 'white',
-                    stroke: 'red',
-                    strokeWidth: 2,
-                    cursor: 'pointer'
-                });
+        if (key=='maternal_grandmother' ){
+            var mleft = masterleft+200;
+            if ( ($.inArray('MATERNALS', array) > -1) == true){
+                svg.circle(mleft+45, 70, cr, {id: 'mgm', fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
                 svg.text(mleft, 120, "Grand Mother", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
-                svg.line(g, mleft - 80, 70, mleft + 50, 70, {id: 'mgl', stroke: 'black'});
-                svg.line(g, mleft - 20, 70, mleft - 20, 170, {id: 'mline', stroke: 'black'});
+                svg.line(g, mleft-80, 70, mleft+50, 70,{id: 'mgl', stroke: 'black'});
+                svg.line(g, mleft-20, 70,  mleft-20, 170,{id: 'mline', stroke: 'black'});
             }
-            else {
-                svg.circle(mleft, 70, cr, {id: 'mgm', fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer'});
-                svg.text(mleft - 50, 120, "Grand Mother", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
-                svg.line(g, mleft - 140, 70, mleft + 10, 70, {id: 'mgl', stroke: 'black'});
-                svg.line(g, mleft - 60, 70, mleft - 60, 170, {id: 'mline', stroke: 'black'});
-            }
-
-        }
-
-        if (item == 'maternal_grandfather') {
-            var mleft = masterleft + 60;
-            if (($.inArray('MATERNALS', array) > -1) == true) {
-                svg.rect(mleft + 40, 47, rr, rr, 10, 10, {
-                    id: 'mgf',
-                    fill: 'white',
-                    stroke: 'red',
-                    strokeWidth: 2,
-                    cursor: 'pointer'
-                });
-                svg.text(mleft + 10, 120, "Grand Father", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
-            }
-            else {
-                svg.rect(mleft, 47, rr, rr, 10, 10, {
-                    id: 'mgf',
-                    fill: 'white',
-                    stroke: 'red',
-                    strokeWidth: 2,
-                    cursor: 'pointer'
-                });
-                svg.text(mleft - 30, 120, "Grand Father", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
+            else{
+                svg.circle(mleft, 70, cr, {id: 'mgm', fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
+                svg.text(mleft-50, 120, "Grand Mother", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
+                svg.line(g, mleft-140, 70, mleft+10, 70,{id: 'mgl', stroke: 'black'});
+                svg.line(g, mleft-60, 70, mleft-60, 170,{id: 'mline', stroke: 'black'});
             }
 
         }
 
-        //Mother
-        if (item == 'father') {
-            var mleft = masterleft - 120;
-            // alert(obj.mother.name);
-            svg.rect(mleft, 200, rr, rr, 10, 10, {
-                id: 'f',
-                fill: 'white',
-                stroke: 'red',
-                strokeWidth: 2,
-                cursor: 'pointer'
-            });
-            svg.text(mleft + 40, 180, "Father", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
-            svg.line(g, mleft + 20, 170, mleft + 20, 200, {id: 'fst', stroke: 'black'});
+        if (key=='maternal_grandfather' ){
+            var mleft = masterleft+60;
+            if ( ($.inArray('MATERNALS', array) > -1) == true){
+                svg.rect(mleft+40, 47, rr, rr, 10, 10, {id: 'mgf', fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
+                svg.text(mleft+10, 120, "Grand Father", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
+        }
+        else{
+            svg.rect(mleft, 47, rr, rr, 10, 10, {id: 'mgf', fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
+            svg.text(mleft-30, 120, "Grand Father", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
+        }
+
+    }
+
+    //Mother
+    if (key=='father' ){
+        var mleft = masterleft-120;
+        // alert(obj.mother.name);
+            svg.rect(mleft, 200, rr, rr, 10, 10, {id: 'f', fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
+            svg.text(mleft+40, 180, "Father", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
+            svg.line(g, mleft+20, 170, mleft+20, 200,{id: 'fst', stroke: 'black'});
         }
 
         //Father
-        if (item == 'mother') {
-            var mleft = masterleft + 140;
-            svg.circle(mleft, 220, cr, {id: 'm', fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer'});
-            svg.text(mleft - 60, 180, "Mother", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
-            svg.line(g, mleft, 170, mleft, 200, {id: 'mst', stroke: 'black'});
+        if (key=='mother'){
+            var mleft = masterleft+140;
+            svg.circle(mleft, 220, cr, {id: 'm', fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
+            svg.text(mleft-60, 180, "Mother", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
+            svg.line(g, mleft, 170, mleft, 200,{id: 'mst', stroke: 'black'});
         }
-    });
 
-        //Begin process for Objects
-        $.each(personal_information, function (key, item) {
-        if (typeof item == 'object') {
+            if (typeof item == 'object') {
                 var otop=280;
                 var mtop=otop+20;
                 var ftop=otop+40;
@@ -272,8 +239,8 @@ function draw() {
                     var mleft = masterleft-25;
 
                     var no = key.substring(15,16);
-                    if(no == "0"){
-                        ml = mleft - 165;
+                    if(no == "0" && ml==350){
+                        ml = mleft - 285;
                     }
                     else {ml = ml - 65; }
                     svg.rect(ml, 200,  rr, rr, 10, 10, {id: 'mun-'+no, fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
@@ -290,6 +257,7 @@ function draw() {
                     }
                     else if(no!="0"){pl = pl + 65; }
                     else {pl = pl + 85; }
+
                     svg.circle(pl, 220, cr, {id: 'pat-'+no, fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
                     svg.line(g, pl-70, 170, pl, 170,{stroke: 'black'});
                     svg.line(g, pl, 170, pl, 220,{stroke: 'black'});
@@ -298,13 +266,13 @@ function draw() {
                 else if(key.substring(0,14) == "maternal_uncle"){
                     var mleft = masterleft-25;
                     var no = key.substring(15,16);
-                    if(no == "0"){
+                    if(no == "0" && pl==350){
                         pl = mleft + 220;
                     }
-                    else {pl = pl + 65; }
-                    svg.rect(pl, 200,  rr, rr, 10, 10, {id: 'pun-'+no, fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
-                    svg.line(g, pl-55, 170, pl+20, 170,{stroke: 'black'});
-                    svg.line(g, pl+20, 170, pl+20, 220,{stroke: 'black'});
+                    else {pl = pl + 60; }
+                    svg.rect(pl-10, 200,  rr, rr, 10, 10, {id: 'pun-'+no, fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
+                    svg.line(g, pl-60, 170, pl+15, 170,{stroke: 'black'});
+                    svg.line(g, pl+15, 170, pl+15, 220,{stroke: 'black'});
                 }
 
                 else if(key.substring(0,8) == "daughter"){
@@ -362,6 +330,12 @@ function draw() {
         svg.text(270, 10+pos, "Deceased", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
         svg.circle(270, 75+pos, kcr, {id: 'kf', fill: 'none', stroke: 'red', strokeWidth: 1});
         svg.rect(325, 53+pos, krr, krr, 10, 10, {id: 'km',fill: 'none', stroke: 'red', strokeWidth: 1});
+
+        //svg.polyline([[170,150+pos],[210, 85+pos]],{fill: 'none', stroke: 'red', strokeWidth: 1});
+
+       // $('#15').css({'z-index' : '9999'});
+
+
 
         //Qtip loader
         $("#family_pedigree").find("circle").each(function() {
