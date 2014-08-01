@@ -52,8 +52,6 @@ table.pop, th {text-decoration: underline }
 th { padding : 1px; }
 td { padding : 1px; }
 
-
-
 #navlist li
 {
     display: inline;
@@ -63,6 +61,110 @@ td { padding : 1px; }
 
 }
 
+/* Risk Calculator CSS */
 
+.maintable{
+    width:100%;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    padding: 5px;
+}
+
+.risktable{
+    width:60%;
+    vertical-align: top;
+    text-align: right;
+    background-color: ghostwhite;
+}
+.riskcount{
+    width:100%;
+    vertical-align: top;
+    text-align: left;
+}
+.risktable th{
+   border-bottom: solid 1px slategray;
+    background-color: slategray;
+}
+
+/* Calculation text boxes */
+
+.trisk {
+    width: 75px;
+    height: 65px;
+    float: left; padding: 2px 5px 2px 4px;
+    border: 3px solid #c7c7c7;
+    border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;
+    font: all-small-caps Arial;
+    color: darkgreen;
+
+    background-color: cornsilk;
+    font-weight: bold;
+    outline: none; /*Remove Chrome and Safari glows on focus*/
+    text-align: center;
+}
+
+#total{
+    font-size: 32px;
+}
+
+.drisk {
+    width: 75px;
+    float: left; padding: 2px 5px 2px 4px;
+    border: 3px solid #c7c7c7;
+    border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;
+    font: all-small-caps 28px Arial; color: darkblue;
+    font-weight: bold;
+    outline: none; /*Remove Chrome and Safari glows on focus*/
+    text-align: center;
+}
+
+#searchbar {
+    width: 75px;
+    float: left; padding: 2px 5px 2px 4px;
+    border: 3px solid #c7c7c7;
+    border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;
+    font: italic 24px Georgia; color: #898989;
+    outline: none; /*Remove Chrome and Safari glows on focus*/
+}
+
+#searchbar.active {
+    /*background: #ebf3fc url(bar-bg-active.png) repeat-x;*/
+    border: 3px solid #abd2ff;
+}
+
+#searchbtn {
+    width: 50px; height: 70px; float: left; margin: 18px 0 0 -115px;
+    /*background: url(search.png); text-indent: -9999px;*/
+    padding: 0 0 0 67px; /*IE fix*/
+    cursor: pointer;
+}
+#searchbtn:hover {
+    background-position: 0 -70px;
+}
+
+.section{
+    width: 100%;
+    font: all-small-caps 28px Arial;
+    color: darkred;
+    font-weight: bold;
+    float: left;
+    border-bottom: solid 2px;
+    border-bottom-color: slategray;
+    text-align: left;
+
+}
+
+.tsection{
+    font: all-small-caps 28px Arial;
+    color: darkred;
+    font-weight: bold;
+    float: left;
+}
+
+
+i#options .ui-button.ui-state-active .ui-button-text {
+    color: red;
+    background-color: pink;
+}
 
 
