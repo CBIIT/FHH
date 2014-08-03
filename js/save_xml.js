@@ -59,6 +59,7 @@ function add_personal_history() {
 function add_personal_information(patient_tag) {
 	if (personal_information == null) return;
 	
+	add_id(patient_tag, personal_information.id);
 	add_name(patient_tag, personal_information.name);
 	add_birthday(patient_tag, personal_information.date_of_birth);
 	add_gender(patient_tag, personal_information.gender);
@@ -76,7 +77,16 @@ function add_personal_information(patient_tag) {
 	add_relatives(patient_tag, personal_information);
 }
 
+function add_id(tag, id_text) {
+	if (id_text == null) return;
+	id_tag = doc.createElement("id");
+	id_tag.setAttribute("extension", id_text);
+
+	tag.appendChild(id_tag);
+}
+
 function add_name(tag, personal_name) {
+	if (name == null) return;
 	name_tag = doc.createElement("name");
 	name_tag.setAttribute("formatted", personal_name);
 
@@ -89,6 +99,26 @@ function add_birthday(tag, birthday) {
 	birthday_tag.setAttribute("value", birthday);
 
 	tag.appendChild(birthday_tag);
+}
+
+function add_parent(tag, parent_id) {
+	if (parent_id == null) return;
+	
+	var relative_tag = doc.createElement("relative");
+	tag.appendChild(relative_tag);
+
+	var code_tag = doc.createElement("code");
+	code_tag.setAttribute("displayName", "Parent");
+	code_tag.setAttribute("codeSystemName", "HL7 Family History Model");
+	code_tag.setAttribute("code", "PAR");
+	relative_tag.appendChild(code_tag);
+
+	var relationshipHolder_tag = doc.createElement("relationshipHolder");
+	relative_tag.appendChild(relationshipHolder_tag);
+
+	var id_tag = doc.createElement("id");
+	id_tag.setAttribute("extension", "" + parent_id);
+	relationshipHolder_tag.appendChild(id_tag);
 }
 
 function add_gender(tag, gender) {
@@ -450,6 +480,7 @@ function add_individual_relative(tag, relative_type, code, relative) {
 	var relationshipHolder_tag = doc.createElement("relationshipHolder");
 	relative_tag.appendChild(relationshipHolder_tag);
 	
+	add_parent(relationshipHolder_tag, relative.parent_id);
 	add_gender(relationshipHolder_tag, relative.gender);
 	add_all_ethnic_groups(relationshipHolder_tag, relative.ethnicity);
 	add_all_races(relationshipHolder_tag, relative.race);	
@@ -461,7 +492,7 @@ function add_individual_relative(tag, relative_type, code, relative) {
 			relative["Health History"],
 			relative.detailed_cause_of_death
 	); 
-	// Need to add death reason
+	add_id(relationshipHolder_tag, relative.id);
 	add_name(relationshipHolder_tag, relative.name);
 	add_birthday(relationshipHolder_tag, relative.date_of_birth);
 	add_death_status(relationshipHolder_tag, relative.cause_of_death);

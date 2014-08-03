@@ -54,10 +54,9 @@ function make_disease_array () {
 }
 
 function parse_xml(data) {
-//	alert ("Parsing the XML: " + $(data).find("patientPerson").html());
-//	alert (JSON.stringify(disease_list, null, 2));
-	
-//	alert ($(data).find("patientPerson > birthTime").attr("value"));
+	personal_information.id = $(data).find("patientPerson > id").attr("extension");
+	// Handle the misspelling from the previous version of the software
+	if (personal_information.id == null) personal_information.id = $(data).find("patientPerson > id").attr("extention");
 	personal_information.name = $(data).find("patientPerson > name").attr("formatted");
 	personal_information.date_of_birth = $(data).find("patientPerson > birthTime").attr("value");
 	personal_information.gender = $(data).find("patientPerson > administrativeGenderCode").attr("displayName").toUpperCase();
@@ -112,8 +111,23 @@ function parse_xml(data) {
 		var relative = new Object();
 		
 		var relationship_code = $(this).find("code").attr("code");
+		relative.id = $(this).find("> relationshipHolder > id").attr("extension");
+		// Handle the misspelling from the previous version of the software
+		if (relative.id == null) relative.id = $(this).find("> relationshipHolder > id").attr("extention");
 		relative.name = $(this).find("relationshipHolder > name").attr("formatted");
+//		alert(relative.name + ":" +relative.id);
 		
+//		var boo = $(this).find("> relationshipHolder > relative > relationshipHolder").html();
+	// For the purpose of connecting the tree we only need one parent, also check for spelling error
+		var parent_id = $(this).find("> relationshipHolder > relative > relationshipHolder > id").attr("extention");
+		if (parent_id == null || parent_id.length == 0) 
+			parent_id = $(this).find("> relationshipHolder > relative > relationshipHolder > id").attr("extension");
+		
+		if (parent_id  && parent_id.length > 0) {
+			relative.parent_id = parent_id;
+//			alert (relative.name + ":P(" + parent_id + ")");
+		}			
+
 		relative.gender = $(this).find("administrativeGenderCode").attr("displayName").toUpperCase();
 		relative.date_of_birth = $(this).find("relationshipHolder > birthTime").attr("value");
 
