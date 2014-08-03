@@ -186,9 +186,10 @@ $(document).ready(function() {
 	// Disease Risk Calculator
 	$("#disease_risk_calculator").dialog({
 		title:"Disease Risk Calculators",
+        position:['top',0],
 		autoOpen: false,
-		height:500,
-		width:800,
+		height:915,
+		width:750
 	});
 
 	$("#navRiskCalculator").on("click", function(){ 
@@ -708,7 +709,7 @@ function bind_add_all_family_members_cancel_button_action() {
 }
 
 function load_risk_links() {
-	$.getJSON( "./risk/risks.json", function( data ) {
+	$.getJSON( "./risk/risktable.json", function( data ) {
 		$("#risk_section").empty();
         $.each(data, function(index) {
             var risk_calculator = $("#risk_section").append($("<div class='assessmentContainer risk_calculator' href='" + data[index].link + "'>")

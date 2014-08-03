@@ -1,0 +1,370 @@
+
+<div id="content" style="width: 740px; height: 915px; vertical-align: top ">
+
+<div class='title-bar'> The Diabetes Risk Calculator </div>
+    <script>
+    $(document).ready(function() {
+
+
+        /*  Load Age */
+        var currentYear = (new Date).getFullYear();
+        var yob = personal_information.date_of_birth.substr(6,10);
+        var age =  parseInt(currentYear) - parseInt(yob);
+
+        if (age >= 40 && age <= 50) setAge('CH0');
+        else if(age >= 50 && age <= 60) setAge('CH1')
+        else if(age >= 60) setAge('CH2')
+        else setAge('CH0')
+
+        /*Load  Gender */
+        setGender(personal_information.gender);
+
+        /* Gestational Diabetes */
+        $.each(personal_information['Health History'], function (key, item) {
+            if (item['Detailed Disease Name']=="Gestational Diabetes" && personal_information.gender == 'FEMALE') setGdiabetes('gdpos')
+            else setGdiabetes('gdneg')
+        });
+
+        /* Family Diabetes */
+        $.each(personal_information, function (key, item) {
+            var temp = key.substring(0,6);
+            if(temp == 'father' || temp == 'mother' || temp == 'brothe' || temp == 'sister') {
+                if(this['Health History'].length > 0){
+                    if (this['Health History'][0]['Disease Name'] == "Diabetes") setFamily('dpos');
+                }
+            }
+        });
+
+        /* Highh blood pressure */
+        $.each(personal_information['Health History'], function (key, item) {
+            if (item['Disease Name']=="Heart Disease") setBloodpressure('prepos')
+            else setGdiabetes('preneg')
+        });
+
+        /* Set Bmi */
+        if(calcBmi()!="Desirable") setBmi('oweight')
+        else setBmi('nweight')
+
+        /* Highh blood pressure */
+
+
+        $.each(personal_information['Health History'], function (key, item) {
+            if (item['Disease Name']=="Heart Disease") setBloodpressure('prepos')
+            else setGdiabetes('preneg')
+        });
+
+        $("#searchbar").attr("value", "");
+
+        var text = "How old are you";
+
+        $("#searchbar").focus(function() {
+        $(this).addClass("active");
+        if($(this).attr("value") == text) $(this).attr("value", "");
+        });
+
+        $("#searchbar").blur(function() {
+        $(this).removeClass("active");
+        if($(this).attr("value") == "") $(this).attr("value", text);
+        });
+    });
+
+    $('.aradio').buttonset();
+
+
+    $(".aradio label").css({'background-color':'transparent','font-size':'12px', 'border': 'none'});
+    $(".aradio label").css("font-family","Verdana, Arial, Helvetica, sans-serif");
+
+    //Set the points
+    $('#ButtonList :radio').click(function(e) {
+        var $element = $(this);
+        $('#age').attr('value',$element.attr('value'));
+        $('#age').css({
+            'background-color': 'cornsilk'
+        });
+        total($element.attr('value'));
+    });
+
+    $('#ButtonList1 :radio').click(function(e) {
+        var $element = $(this);
+        $('#gender').attr('value',$element.attr('value'));
+        $('#gender').css({
+            'background-color': 'cornsilk'
+        });
+        total($element.attr('value'));
+    });
+
+    $('#ButtonList2 :radio').click(function(e) {
+        var $element = $(this);
+        $('#gdiabetes').attr('value',$element.attr('value'));
+        $('#gdiabetes').css({
+            'background-color': 'cornsilk'
+        });
+        total($element.attr('value'));
+    });
+
+    $('#ButtonList3 :radio').click(function(e) {
+        var $element = $(this);
+        $('#inherited').attr('value',$element.attr('value'));
+        $('#inherited').css({
+            'background-color': 'cornsilk'
+        });
+        total($element.attr('value'));
+    });
+
+    $('#ButtonList4 :radio').click(function(e) {
+        var $element = $(this);
+        $('#bloodpressure').attr('value',$element.attr('value'));
+        $('#bloodpressure').css({
+            'background-color': 'cornsilk'
+        });
+        total($element.attr('value'));
+    });
+
+    $('#ButtonList6 :radio').click(function(e) {
+        var $element = $(this);
+        $('#physical').attr('value',$element.attr('value'));
+        $('#physical').css({'background-color': 'cornsilk'});
+        total($element.attr('value'));
+    });
+    //Age
+    function setAge(id){
+        var $element = $('#'+id);
+        $element.css({'color': 'darkred'});
+        $('#age').attr('value',$element.attr('value'));
+        $('#age').css({'background-color': 'cornsilk'});
+        total($element.attr('value'));
+
+        $('label[for= ' + id + ']').css({color:'darkred','textdecoration':'underline','fontweight':'bolder'});
+
+        return;
+    }
+    //Gendr
+    function setGender(id){
+        var $element = $('#'+id);
+        $element.css({'color': 'darkred'});
+        $('#gender').attr('value',$element.attr('value'));
+        $('#gender').css({'background-color': 'cornsilk'});
+        total($element.attr('value'));
+        $('label[for= ' + id + ']').css({color:'darkred','textdecoration':'underline','fontweight':'bolder'});
+
+        return;
+    }
+
+    //Gdiabetes
+    function setGdiabetes(id){
+        var $element = $('#'+id);
+        $element.css({'color': 'darkred'});
+        $('#gdiabetes').attr('value',$element.attr('value'));
+        $('#gdiabetes').css({'background-color': 'cornsilk'});
+        total($element.attr('value'));
+        $('label[for= ' + id + ']').css({color:'darkred','textdecoration':'underline','fontweight':'bolder'});
+
+        return;
+    }
+
+    //Gdiabetes
+    function setFamily(id){
+        var $element = $('#'+id);
+        $element.css({'color': 'darkred'});
+        $('#inherited').attr('value',$element.attr('value'));
+        $('#inherited').css({'background-color': 'cornsilk'});
+        total($element.attr('value'));
+        $('label[for= ' + id + ']').css({color:'darkred','textdecoration':'underline','fontweight':'bolder'});
+
+        return;
+    }
+
+    //Gdiabetes
+    function setBloodpressure(id){
+        var $element = $('#'+id);
+        $element.css({'color': 'darkred'});
+        $('#bloodpressure').attr('value',$element.attr('value'));
+        $('#bloodpressure').css({'background-color': 'cornsilk'});
+        total($element.attr('value'));
+        $('label[for= ' + id + ']').css({color:'darkred','textdecoration':'underline','fontweight':'bolder'});
+
+        return;
+    }
+
+    //Gdiabetes
+    function setBmi(id){
+        var $element = $('#'+id);
+        $element.css({'color': 'darkred'});
+        $('#weight').attr('value',$element.attr('value'));
+        $('#weight').css({'background-color': 'cornsilk'});
+        total($element.attr('value'));
+        $('label[for= ' + id + ']').css({color:'darkred','textdecoration':'underline','fontweight':'bolder'});
+
+        return;
+    }
+
+    function total(points){
+        var temp = parseInt($('#total').attr('value')) + parseInt(points);
+        $('#total').attr('value',temp);
+        return;
+}
+
+    </script>
+
+    </tr></table -->
+    <table class="maintable">
+    <tr><td>
+
+    <table class="risktable">
+        <th>
+            <tr><td><p class="section">1 How old are you</p></td></tr>
+        </th>
+        <tr>
+            <td>
+                <div id="ButtonList" class="aradio" >
+                        <input type="radio" id='CH0' value="0" alt="30" disabled/>
+                        <label for="CH0">Less than 40 years (0 points)</label>
+                        <input type="radio" id='CH1' value='1' alt="40" disabled/>
+                        <label for="CH1"> 40-49 years (1 point)</label>
+                        <input type="radio" id='CH2' value='2' alt="50" disabled />
+                        <label for="CH2"> 50-59 years (2 point)</label>
+                        <input type="radio" id='CH3' value='3' alt="60" disabled />
+                        <label for="CH3"> 60 years or older (3 point)</label>
+                </div>
+                <div align="right"><input type="text" id="age" class="drisk" disabled /></div>
+            </td>
+
+        </tr>
+    </table>
+
+    <table class="risktable">
+        <th>
+            <tr><td><p class="section">2 Are you a man or a woman</p></td></tr>
+        </th>
+        <tr>
+            <td>
+                <div id="ButtonList1" class="aradio">
+                        <input type="radio" id='MALE' value="1" disabled/>
+                        <label for="MALE"> Man (1 points)</label>
+                        <input type="radio" id='FEMALE' value='0' disabled/>
+                        <label for="FEMALE"> Woman (0 points)</label>
+                </div>
+                <div align="right"><input type="text" id="gender" class="drisk" disabled /></div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="risktable">
+        <th>
+            <tr><td><p class="section">3 If you are a woman, have you ever been diagnosed with gestational diabetes?</p></td></tr>
+        </th>
+        <tr>
+            <td>
+                <div id="ButtonList2" class="aradio">
+                        <input type="radio" id='gdpos' value="1" disabled/>
+                        <label for="gdpos"> Yes (1 points)</label>
+                        <input type="radio" id='gdneg' value='0' disabled/>
+                        <label for="gdneg"> No (0 points)</label>
+                </div>
+                <div align="right"><input type="text" id="gdiabetes" class="drisk" disabled /></div>
+            </td>
+        </tr>
+    </table>
+
+    <table class="risktable">
+        <th>
+            <tr><td><p class="section">4 Do you have a mother, father, sister or brother with diabetes?</p></td></tr>
+        </th>
+        <tr>
+            <td>
+                <div id="ButtonList3" class="aradio">
+                        <input type="radio" id='dpos' value="1" disabled/>
+                        <label for="dpos"> Yes (1 points)</label>
+                        <input type="radio" id='dneg' value='0' disabled/>
+                        <label for="dneg"> No (0 points)</label>
+                </div>
+                <div align="right"><input type="text" id="inherited" class="drisk" disabled /></div>
+
+            </td>
+        </tr>
+    </table>
+
+    <table class="risktable">
+        <th>
+            <tr><td><p class="section">6 Have you ever been dignosed with high blood pressure?</p></td></tr>
+        </th>
+        <tr>
+            <td>
+                <div id="ButtonList4" class="aradio">
+                        <input type="radio" id='prepos' value="1" disabled />
+                        <label for="prepos"> Yes (1 points)</label>
+                        <input type="radio" id='preneg' value='0' disabled />
+                        <label for="preneg"> No (0 points)</label>
+                </div>
+                <div align="right"><input type="text" id="bloodpressure" class="drisk" disabled /></div>
+
+            </td>
+        </tr>
+    </table>
+
+    <table class="risktable">
+        <th>
+            <tr><td><p class="section">7 Are you physically active?</p></td></tr>
+        </th>
+        <tr>
+            <td>
+                <div id="ButtonList6" class="aradio">
+                        <input type="radio" id='6CH0' value="0" />
+                        <label for="6CH0"> Yes (0 points)</label>
+                        <input type="radio" id='6CH1' value='1' />
+                        <label for="6CH1"> No (1 points)</label>
+                </div>
+                <div align="right"><input type="text" id="physical" class="drisk" disabled /></div>
+            </td>
+
+        </tr>
+    </table>
+
+    <table class="risktable">
+        <th>
+            <tr><td><p class="section">8 What is your weight status? (see chart at right)</p></td></tr>
+        </th>
+        <tr>
+            <td>
+                <div id="ButtonList7" class="aradio">
+                        <input type="radio" id='oweight' value="1"disabled />
+                        <label for="oweight"> Yes (1 points)</label>
+                        <input type="radio" id='nweight' value='0' disabled />
+                        <label for="nweight"> No (0 points)</label>
+                </div>
+                <div align="right"><input type="text" id="weight" class="drisk" disabled /></div>
+            </td>
+
+        </tr>
+    </table>
+
+    </td>
+        <td valign="top" align="left" >
+
+            <table class="riskcount" valign="top" width="80%">
+                <tr>
+                    <td>
+                        <label class="tsection" for="total">Total Scores</label>
+                        <input type="text" id="total" class="trisk" value="0" disabled />
+                    </td>
+                </tr>
+            </table>
+
+    </td>
+</tr>
+</table>
+
+
+		    <!-- BEGIN INCLUDE = SAVE CANCEL BUTTONS -->
+		<button id='drc_submit' onClick='submit_drc();'>Submit </button>
+		<button id='drc_cancel'>Cancel </button>
+
+    </div>
+</div>
+
+<script>
+function submit_drc(e) {
+	alert ("Submitting");
+	window.open('risk/highrisk.html', "_blank");
+}
+</script>
