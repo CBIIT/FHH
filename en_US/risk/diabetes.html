@@ -11,9 +11,10 @@
         var yob = personal_information.date_of_birth.substr(6,10);
         var age =  parseInt(currentYear) - parseInt(yob);
 
-        if (age >= 40 && age <= 50) setAge('CH0');
-        else if(age >= 50 && age <= 60) setAge('CH1')
-        else if(age >= 60) setAge('CH2')
+        if (age < 40) setAge('CH0');
+        else if (age >= 40 && age <= 50) setAge('CH1');
+        else if(age >= 50 && age <= 60) setAge('CH2')
+        else if(age >= 60) setAge('CH3')
         else setAge('CH0')
 
         /*Load  Gender */
