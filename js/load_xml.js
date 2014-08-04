@@ -58,6 +58,8 @@ function parse_xml(data) {
 	// Handle the misspelling from the previous version of the software
 	if (personal_information.id == null) personal_information.id = $(data).find("patientPerson > id").attr("extention");
 	personal_information.name = $(data).find("patientPerson > name").attr("formatted");
+	if (personal_information.name == null || personal_information.name.length == 0) personal_information.name = "";
+
 	personal_information.date_of_birth = $(data).find("patientPerson > birthTime").attr("value");
 	personal_information.gender = $(data).find("patientPerson > administrativeGenderCode").attr("displayName").toUpperCase();
 	consanguity_flag = $(data).find('patientPerson > subjectOf2 > ClinicalObservation > code[originalText="Parental consanguinity indicated"]')
@@ -115,6 +117,7 @@ function parse_xml(data) {
 		// Handle the misspelling from the previous version of the software
 		if (relative.id == null) relative.id = $(this).find("> relationshipHolder > id").attr("extention");
 		relative.name = $(this).find("relationshipHolder > name").attr("formatted");
+		if (relative.name == null || relative.name.length == 0) relative.name = "";
 //		alert(relative.name + ":" +relative.id);
 		
 //		var boo = $(this).find("> relationshipHolder > relative > relationshipHolder").html();

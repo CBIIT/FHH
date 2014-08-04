@@ -9,7 +9,7 @@ var SNOMED_CODE = {
 
 var LOINC_CODE = {
 	ESTIMATED_AGE:"21611-9",
-	AGE_AT_DEATH:"39016-1",
+	AGE_AT_DEATH:"39016-1"
 };
 
 var XMLNS_SCHEMA= "http://www.w3.org/2001/XMLSchema-instance";

@@ -66,7 +66,7 @@ $(document).ready(function() {
 		position:['middle',0],
 		autoOpen: false,
 		height:600,
-		width:1000,
+		width:1000
 	});		
 	
 	// family_member_information_dialog
@@ -115,7 +115,7 @@ $(document).ready(function() {
 		position:['middle',0],
 		autoOpen: false,
 		height:600,
-		width:1000,
+		width:1000
 	});		
 
 	$("#view_diagram_and_table_dialog").dialog({
@@ -123,7 +123,7 @@ $(document).ready(function() {
 		position:['middle',0],
 		autoOpen: false,
 		height:600,
-		width:1000,
+		width:1000
 	});
 
     $("#family_pedigree").dialog({
@@ -133,7 +133,6 @@ $(document).ready(function() {
         height:1000,
         width:['95%'],
         backgroundColor: 'white'
-
     });
 
 	// This page lets you load in a previously saved history
@@ -146,7 +145,7 @@ $(document).ready(function() {
 		position:['middle',0],
 		autoOpen: false,
 		height:500,
-		width:800,
+		width:800
 	});
 
 	// This page lets you load in a previously saved history
@@ -161,7 +160,7 @@ $(document).ready(function() {
 		position:['middle',0],
 		autoOpen: false,
 		height:500,
-		width:800,
+		width:800
 	});
 
 	// This is the second page when you are initially creating a personal history, it asks how many of each type of member
@@ -177,7 +176,7 @@ $(document).ready(function() {
 		position:['middle',0],
 		autoOpen: false,
 		height:400,
-		width:600,
+		width:600
 	});
 
     // family pedigree diagram dialog
@@ -281,9 +280,10 @@ function bind_add_another_family_member_button_action() {
 	if ($("#new_family_member_dialog").length == 0) {
 		new_family_member_dialog = $("<div id='new_family_member_dialog'>");
 		new_family_member_dialog.dialog({
+			position:['middle',0],
 			title:"Define Family Member Relationship",
 			height:220,
-			width:500,
+			width:500
 		});
 	} else {
 		new_family_member_dialog = $("#new_family_member_dialog");
@@ -296,24 +296,38 @@ function bind_add_another_family_member_button_action() {
 			"selecting the plus sign image ('Add History') next to the relative's name. Spouses " +
 			"and second cousins are not listed because they don't impact your family health history</P>");
 	new_family_member_dialog.append("<B> Relationship to me: </B>");
-	new_family_member_dialog.append($("<SELECT name='new_family_member_relationship'>")
+	new_family_member_select = 
+	$("<SELECT name='new_family_member_relationship'>")
 		.append("<OPTION value=''> -- Select Relationship -- </OPTION>")
 		.append("<OPTION value='aunt'> Aunt </OPTION>")
 		.append("<OPTION value='uncle'> Uncle </OPTION>")
 		.append("<OPTION value='daughter'> Daughter </OPTION>")
 		.append("<OPTION value='son'> Son </OPTION>")
-		.append("<OPTION value='brother'> (Full) Brother </OPTION>")
-		.append("<OPTION value='sister'> (Full) Sister </OPTION>")
-		.append("<OPTION value='cousin'> (First) Cousin </OPTION>")
-		.append("<OPTION value='niece'> (Full) Niece </OPTION>")
-		.append("<OPTION value='nephew'> (Full) Nephew </OPTION>")
-		.append("<OPTION value='granddaughter'> Granddaughter </OPTION>")
-		.append("<OPTION value='grandson'> Grandson </OPTION>")
+		.append("<OPTION value='brother'> Brother </OPTION>")
+		.append("<OPTION value='sister'> Sister </OPTION>")
 		.append("<OPTION value='halfsister'> Half Sister </OPTION>")
-		.append("<OPTION value='halfbrother'> Half Brother </OPTION>")
-		.on("change", new_family_member_relationship_selection_change_action)
-	);
+		.append("<OPTION value='halfbrother'> Half Brother </OPTION>");
+		
+	if (personal_information.maternal_aunt_0 != null || personal_information.maternal_uncle_0 != null ||
+			personal_information.paternal_aunt_0 != null || personal_information.paternal_uncle_0 != null) { 
+		new_family_member_select.append("<OPTION value='cousin'> (First) Cousin </OPTION>");
+	}
+
+	if (personal_information.brother_0 != null || personal_information.sister_0 != null) { 
+		new_family_member_select
+			.append("<OPTION value='niece'> Niece </OPTION>")
+			.append("<OPTION value='nephew'> Nephew </OPTION>");
+	}
+		
+	if (personal_information.son_0 != null || personal_information.duaghter_0 != null) { 
+		new_family_member_select
+			.append("<OPTION value='granddaughter'> Granddaughter </OPTION>")
+			.append("<OPTION value='grandson'> Grandson </OPTION>")
+	}
 	
+	new_family_member_select.on("change", new_family_member_relationship_selection_change_action);
+	new_family_member_dialog.append(new_family_member_select);
+		
 }
 
 function new_family_member_relationship_selection_change_action() {
@@ -424,7 +438,9 @@ function add_dynamic_relative_to_dropdown(select_dropdown, current_relationship,
 	while (personal_information[parent_relationship + '_' + i] != null) {
 		var parent = personal_information[parent_relationship + '_' + i];
 		var parent_name = parent.name;
-		if (parent_name == null) parent_name = "Maternal Aunt #"+ i;
+		if (parent_name == null || parent_name.length == 0) {
+			parent_name = relationship_to_label[parent_relationship] + " #" + (i+1);
+		}
 		select_dropdown.append("<OPTION value='" + current_relationship + ":" + parent.id + "'> " + parent_name + " </OPTION>");
 		i++;
 	}
@@ -1507,4 +1523,47 @@ function guid() {
     var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
     return v.toString(16);
 });
+}
+
+// Polyfill to support IE9 and Object.keys
+// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+if (!Object.keys) {
+  Object.keys = (function () {
+    'use strict';
+    var hasOwnProperty = Object.prototype.hasOwnProperty,
+        hasDontEnumBug = !({toString: null}).propertyIsEnumerable('toString'),
+        dontEnums = [
+          'toString',
+          'toLocaleString',
+          'valueOf',
+          'hasOwnProperty',
+          'isPrototypeOf',
+          'propertyIsEnumerable',
+          'constructor'
+        ],
+        dontEnumsLength = dontEnums.length;
+
+    return function (obj) {
+      if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
+        throw new TypeError('Object.keys called on non-object');
+      }
+
+      var result = [], prop, i;
+
+      for (prop in obj) {
+        if (hasOwnProperty.call(obj, prop)) {
+          result.push(prop);
+        }
+      }
+
+      if (hasDontEnumBug) {
+        for (i = 0; i < dontEnumsLength; i++) {
+          if (hasOwnProperty.call(obj, dontEnums[i])) {
+            result.push(dontEnums[i]);
+          }
+        }
+      }
+      return result;
+    };
+  }());
 }
