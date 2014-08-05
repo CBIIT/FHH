@@ -43,28 +43,28 @@ function xmlload() {
     svg.text(masterleft+120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
 
     //Check the Twin/adoption Status
-    if (personal_information.twin_status == 'IDENTICAL') {
-        svg.text( masterleft+55, top + 50, "tt", {fontWeight: 'bold', fontSize: '18.5', fill: 'black'});
-        svg.line(g, masterleft-100, 220, masterleft + 120, 220,{stroke: 'black'});
-        svg.line(g,  masterleft+25, 220,  masterleft+25, top,{stroke: 'black'});
-
-    }
-    else if (personal_information.twin_status == 'NO') {
-        svg.text( masterleft+55, top + 50, "k", {fontWeight: 'bold', fontSize: '18.5', fill: 'black'});
-        svg.line(g, masterleft-100, 220, masterleft + 120, 220,{stroke: 'black'});
-        svg.line(g,  masterleft+25, 220,  masterleft+25, top,{stroke: 'black'});
-    }
-    else if (personal_information.twin_status == 'FRATERNAL') {
-        svg.text( masterleft+55, top + 50, "b", {fontWeight: 'bold', fontSize: '18.5', fill: 'black'});
-        svg.line(g, masterleft-100, 220, masterleft + 120, 220,{stroke: 'black'});
-        svg.line(g,  masterleft+25, 220,  masterleft+25, top,{stroke: 'black'});
-    }
-    else{
-        svg.text( masterleft+55, top + 50, "k", {fontWeight: 'bold', fontSize: '18.5', fill: 'black'});
-        svg.line(g, masterleft-100, 220, masterleft + 120, 220,{stroke: 'black'});
-        svg.line(g,  masterleft+25, 220,  masterleft+25, top,{stroke: 'black'});
-
-    }
+//    if (personal_information.twin_status == 'IDENTICAL') {
+//        svg.text( masterleft+55, top + 50, "tt", {fontWeight: 'bold', fontSize: '18.5', fill: 'black'});
+//        svg.line(g, masterleft-100, 220, masterleft + 120, 220,{stroke: 'black'});
+//        svg.line(g,  masterleft+25, 220,  masterleft+25, top,{stroke: 'black'});
+//
+//    }
+//    else if (personal_information.twin_status == 'NO') {
+//        svg.text( masterleft+55, top + 50, "k", {fontWeight: 'bold', fontSize: '18.5', fill: 'black'});
+//        svg.line(g, masterleft-100, 220, masterleft + 120, 220,{stroke: 'black'});
+//        svg.line(g,  masterleft+25, 220,  masterleft+25, top,{stroke: 'black'});
+//    }
+//    else if (personal_information.twin_status == 'FRATERNAL') {
+//        svg.text( masterleft+55, top + 50, "b", {fontWeight: 'bold', fontSize: '18.5', fill: 'black'});
+//        svg.line(g, masterleft-100, 220, masterleft + 120, 220,{stroke: 'black'});
+//        svg.line(g,  masterleft+25, 220,  masterleft+25, top,{stroke: 'black'});
+//    }
+//    else{
+//        svg.text( masterleft+55, top + 50, "k", {fontWeight: 'bold', fontSize: '18.5', fill: 'black'});
+//        svg.line(g, masterleft-100, 220, masterleft + 120, 220,{stroke: 'black'});
+//        svg.line(g,  masterleft+25, 220,  masterleft+25, top,{stroke: 'black'});
+//
+//    }
 
     //Gender
     if (personal_information.gender == 'MALE') {
@@ -88,26 +88,12 @@ function xmlload() {
         });
     }
 
-    //Load all selecte values to array
-
-
-
     $.each(personal_information, function (key, item) {
-
-//alert(key + " - " + item)
 
         if(key.substring(0,13) == "paternal_aunt" || key.substring(0,14) == "paternal_uncle"){
             array.push('PARENTALS');
         }
         else if(key.substring(0,13) == "maternal_aunt" || key.substring(0,14) == "maternal_uncle"){
-
-//            $.each(item,function(i,post){
-//
-//                if(post == "Health History"){
-//                    alert("HH 2-->"+i + " - " + post)
-//                }
-//
-//            });
 
             array.push('MATERNALS');
         }
@@ -477,15 +463,15 @@ function xmlload() {
                 var pid = item['parent_id'];
                     if ($('#' + pid).attr('class') == 'female') {
                         var p1 = parseInt($('#' + pid).attr('cx'));
-                        var p2 = parseInt($('#' + pid).attr('cy')) + 45;
+                        var p2 = parseInt($('#' + pid).attr('cy'));
                         if (no == "0") {
-                            sl = p1 - 20;
+                            sl = parseInt(p1)+85;
                         }
                         else {
-                            sl = sl + 60;
+                            sl = sl + 65;
                         }
 //                        circlelink(pid);
-                        svg.rect(sl, p2, rr, rr, 10, 10, {
+                        svg.rect(sl, parseInt(p2)+110, rr, rr, 10, 10, {
                             id: item['id'],
                             fill: 'white',
                             stroke: 'red',
@@ -493,8 +479,28 @@ function xmlload() {
                             class: gen,
                             cursor: 'pointer'
                         });
-                        svg.line(g, p1 + 10, p2 - 20, sl + 20, p2 - 20, {stroke: 'black'});
-                        svg.line(g, sl + 20, p2 - 20, sl + 20, p2 + 25, {stroke: 'black'});
+
+
+                        svg.polyline(
+                            [
+                                [parseInt(p1),parseInt(p2+20)],
+                                [parseInt(p1), parseInt(p2)+45],
+                                [parseInt(p1)+130, parseInt(p2)+45],
+                                [parseInt(p1)+130,parseInt(p2)+90]
+                            ],
+                            {fill: 'none', stroke: 'black', strokeWidth: 2});
+
+                        svg.polyline(
+                            [
+                                [parseInt(p1)+105,parseInt(p2)+110],
+                                [parseInt(p1)+105,parseInt(p2)+90],
+                                [parseInt(p1)+170,parseInt(p2)+90],
+                                [parseInt(p1)+170,parseInt(p2)+110]
+                            ],
+                            {fill: 'none', stroke: 'black', strokeWidth: 2});
+
+//                        svg.line(g, p1 + 10, p2 - 20, sl + 20, p2 - 20, {stroke: 'black'});
+//                        svg.line(g, sl + 20, p2 - 20, sl + 20, p2 + 25, {stroke: 'red'});
                     }
 //                }
             }
@@ -525,6 +531,9 @@ function xmlload() {
                     });
                     svg.line(g, p1 + 10, p2 - 20, sl + 20, p2 - 20, {stroke: 'black'});
                     svg.line(g, sl + 20, p2 - 20, sl + 20, p2 + 25, {stroke: 'black'});
+
+//                    svg.polyline([[parseInt(p1)-35, parseInt(p2)+30],[parseInt(p1)+35,parseInt(p2)-30]],
+//                        {fill: 'none', stroke: 'red', strokeWidth: 5});
                 }
 //                }
             }
@@ -619,15 +628,26 @@ function xmlload() {
 
     });
 
-    function circlelink(id){
-        var p1 = $('#'+id).attr('cx');
-        var p2 = $('#'+id).attr('cy');
-        alert("cxcy-->" + p1 + " -- " + p2)
-
-//        svg.polyline([[parseInt(p1)-35, parseInt(p2)+30],[parseInt(p1)+35,parseInt(p2)-30]],
-//            {fill: 'none', stroke: 'red', strokeWidth: 5});
-        return false;
-    }
+//    function circlelink(id){
+//        var p1 = $('#'+id).attr('cx');
+//        var p2 = $('#'+id).attr('cy');
+//        alert("cxcy-->" + p1 + " -- " + p2)
+//
+////        svg.polyline([[parseInt(p1)-35, parseInt(p2)+30],[parseInt(p1)+35,parseInt(p2)-30]],
+////            {fill: 'none', stroke: 'red', strokeWidth: 5});
+//        return false;
+//    }
+//
+//    function buildrect(){
+//        svg.rect(sl, parseInt(p2)+95+25, 40, 40, 10, 10, {
+//            id: item['id'],
+//            fill: 'white',
+//            stroke: 'red',
+//            strokeWidth: 2,
+//            class: gen,
+//            cursor: 'pointer'
+//        });
+//    }
 
     function circlestatus(id){
         var p1 = $('#'+id).attr('cx');

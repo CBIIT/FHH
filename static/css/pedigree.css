@@ -204,13 +204,13 @@ i#options .ui-button.ui-state-active .ui-button-text {
 }
 
 #foottable{
-    width: 270px;
+    width: 100%;
     font: all-small-caps 7px Arial;
     background-color: #dcdcdc;
     border-bottom-color: darkred;
     border-bottom-width: 3px;
     border-bottom-style: solid;
-    text-align: right;
+    text-align: center;
 }
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
     color: darkslategray;
@@ -226,4 +226,8 @@ i#options .ui-button.ui-state-active .ui-button-text {
 .cellselected {
     background-color: red;
     color: black;
+}
+.pdf{
+    font-size: 12px;
+    width: 250px;
 }
