@@ -22,7 +22,7 @@ div.drawcanvas{
     width:1000px;
     height:1000px;
     border:1px solid #555;
-    //position:relative;
+//position:relative;
     top:10px;
     left:10px;
 }
@@ -71,7 +71,7 @@ td { padding : 1px; }
 }
 
 .risktable{
-    width:60%;
+    width:100%;
     vertical-align: top;
     text-align: right;
     background-color: ghostwhite;
@@ -82,7 +82,7 @@ td { padding : 1px; }
     text-align: left;
 }
 .risktable th{
-   border-bottom: solid 1px slategray;
+    border-bottom: solid 1px slategray;
     background-color: slategray;
 }
 
@@ -159,6 +159,7 @@ td { padding : 1px; }
     color: darkred;
     font-weight: bold;
     float: left;
+    padding-right: 10px;
 }
 
 
@@ -167,4 +168,62 @@ i#options .ui-button.ui-state-active .ui-button-text {
     background-color: pink;
 }
 
+#heighttable{
+    width: 80px;
+    font: all-small-caps 8px Arial;
+    background-color: gray;
+    color: white;
+    border-bottom-color: darkred;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+}
+#heighttable tr td{
+    border-bottom: solid 1px;
+    border-bottom-color: darkred;
+}
 
+#weighttable{
+    width: 270px;
+    font: all-small-caps 8px Arial;
+    background-color: #dcdcdc;
+    border-bottom-color: darkred;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    text-align: center;
+}
+#weighttable tr td{
+    border-bottom: solid 1px;
+    border-bottom-color: darkred;
+
+}
+#weighttitle th{
+    font: all-small-caps 12px Arial;
+    border-bottom: solid 1px slategray;
+    background-color: darkred;
+    color: white;
+}
+
+#foottable{
+    width: 270px;
+    font: all-small-caps 7px Arial;
+    background-color: #dcdcdc;
+    border-bottom-color: darkred;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    text-align: right;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    color: darkslategray;
+}
+.counts{
+    padding-right: 25px;
+}
+
+.tdselected {
+    background-color: steelblue;
+    color: white;
+}
+.cellselected {
+    background-color: red;
+    color: black;
+}
