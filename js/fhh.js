@@ -65,7 +65,7 @@ $(document).ready(function() {
 		title:"Enter Personal Information",
 		position:['middle',0],
 		autoOpen: false,
-		height:600,
+		height:800,
 		width:1000
 	});		
 	
@@ -114,7 +114,7 @@ $(document).ready(function() {
 		title:"Enter Family Member's Health History",
 		position:['middle',0],
 		autoOpen: false,
-		height:600,
+		height:800,
 		width:1000
 	});		
 
