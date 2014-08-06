@@ -229,7 +229,8 @@ i#options .ui-button.ui-state-active .ui-button-text {
 }
 .pdf{
     font-size: 12px;
-    width: 200px;
+    width: 220px;
+    text-justify: auto;
 }
 .scoreinfo{
     font: all-small-caps 12px Arial;
