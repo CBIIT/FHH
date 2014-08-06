@@ -7,6 +7,7 @@ $(document).ready(function() {
     var table = $('#weighttable');
     var htable = $('#heighttable');
     var inches =0;
+    //Set rows and cells
     for (var i=58; i<=76; i++){
         inches = i;
 
@@ -59,6 +60,30 @@ $(document).ready(function() {
         c2.appendChild(document.createTextNode(pinx2));
         c3.appendChild(document.createTextNode(pinx3 + " +  "));
     }
+
+    //Add footers to tables
+    var newRow = document.createElement("tr");
+    table.append(newRow);
+    //Weight column
+    var c1  = newRow.insertCell(0);
+    var c2  = newRow.insertCell(1);
+    var c3  = newRow.insertCell(2);
+
+    var s1 = document.createElement("span");
+    var s2 = document.createElement("span");
+    var s3 = document.createElement("span");
+
+    s1.id = "1pt";
+    s2.id = "2pt";
+    s3.id = "3pt";
+
+    s1.appendChild(document.createTextNode("(1 Point)"));
+    s2.appendChild(document.createTextNode("(2 Points)"));
+    s3.appendChild(document.createTextNode("(3 Points)"));
+
+    c1.appendChild(s1);
+    c2.appendChild(s2);
+    c3.appendChild(s3);
 });
 
 $(document).ready(function() {
@@ -159,8 +184,6 @@ $('#ButtonList3 :radio').click(function(e) {
     total($element.attr('value'));
 });
 
-
-
 //Activity
 $('#ButtonList6 :radio').click(function(e) {
     var $element = $(this);
@@ -172,6 +195,12 @@ $('#ButtonList6 :radio').click(function(e) {
     else{
         if ($('#physical').val() == 1) deletepoint($element.attr('value'));
     }
+
+    var id = ($element).attr('id');
+
+    $('label[for= 6CH0]').css({color:'gray'});
+    $('label[for= 6CH1]').css({color:'gray'});
+    $('label[for= ' + id + ']').css({color:'darkred'});
 
     $('#physical').attr('value',$element.attr('value'));
     $('#physical').css({'background-color': 'cornsilk'});
@@ -247,10 +276,6 @@ function total(points){
         $('#04').css({'background-color': 'transparent'});
         $('#higher').buttonset().show();
         $('#normal').buttonset().hide();
-//        $('#elev_submit').buttonset().show();
-//        $('#elev_letter').buttonset().show();
-
-//        document.getElementById("normal").style.display = "none";
     }
     else if(parseInt(temp) < 5) {
         $('#04').css({'background-color': 'cornsilk'});
@@ -310,7 +335,7 @@ function bmiCalc(){
                         $('#weight').attr('value',1);
                         $('#weight').css({'background-color': 'cornsilk'});
                         $("#weighttable td:nth-child(1)").addClass('tdselected');
-                        $('#1pt').css({'background-color': 'cornsilk'});
+                        $('#1pt').css({'color': 'white', 'background-color': 'steelblue'});
                         total(1);
                         fw = 1;
                     }
@@ -320,7 +345,7 @@ function bmiCalc(){
                         $('#weight').attr('value',2);
                         $('#weight').css({'background-color': 'cornsilk'});
                         $("#weighttable td:nth-child(2)").addClass('tdselected');
-                        $('#2pt').css({'background-color': 'cornsilk'});
+                        $('#2pt').css({'color': 'white', 'background-color': 'steelblue'});
                         total(2);
                         fw = 2;
                     }
@@ -332,9 +357,9 @@ function bmiCalc(){
                     $('#weight').attr('value',3);
                     $('#weight').css({'background-color': 'cornsilk'});
                     $("#weighttable td:nth-child(3)").addClass('tdselected');
-                    $('#3pt').css({'background-color': 'cornsilk'});
                     $('label[for=oweight]').css({color:'darkred','textdecoration':'underline','fontweight':'bolder'});
                     $('label[for=nweight]').css({color:'gray','textdecoration':'underline','fontweight':'bolder'});
+                    $('#3pt').css({'color': 'white', 'background-color': 'steelblue'});
                     total(3);
                     fw = 3;
                 }
@@ -365,17 +390,6 @@ function bmiCalc(){
         $('#normal').buttonset().show();
     }
 }
-
-//Check the totals
-//if(parseInt($('#total').val()) >= 5) {
-//    $('#higher').buttonset().show();
-//    $('#normal').buttonset().hide();
-//}
-//else{
-//    $('#higher').buttonset().hide();
-//    $('#normal').buttonset().show();
-//}
-
 </script>
 
 <!-- Start site -->
@@ -526,7 +540,6 @@ function bmiCalc(){
                         </tr><tr>
                         <td id="5E">5+ Elevated Risk</td>
                     </tr></table>
-                        <!-- input id="scoreinfo" type="text" disabled/> </td -->
                 </tr>
                 <tr>
                     <td>
@@ -560,28 +573,15 @@ function bmiCalc(){
                 </td></tr>
             </table>
 
-
             <table align="right" id="weighttitle" width="350px">
                 <th>Height</th>
                 <th>Weight (lbs)</th>
                 <tr>
-                    <td>
+                    <td valign="top">
                         <table id="heighttable"></table>
                     </td>
-                    <td>
+                    <td valign="top">
                         <table id="weighttable"></table>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <table id="foottable">
-                            <tr>
-                                <td id="1pt">(1 Point)</td>
-                                <td id="2pt">(2 Points)</td>
-                                <td id="3pt">(3 Points)</td>
-                            </tr>
-                        </table>
                     </td>
                 </tr>
             </table>
