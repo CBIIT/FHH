@@ -42,6 +42,9 @@ function xmlload() {
     svg.text(masterleft-120, 30, "Paternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
     svg.text(masterleft+120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
 
+    svg.line(g, masterleft-100, 220, masterleft + 120, 220,{stroke: 'black'});
+    svg.line(g,  masterleft+25, 220,  masterleft+25, top,{stroke: 'black'});
+
     //Check the Twin/adoption Status
 //    if (personal_information.twin_status == 'IDENTICAL') {
 //        svg.text( masterleft+55, top + 50, "tt", {fontWeight: 'bold', fontSize: '18.5', fill: 'black'});
@@ -108,7 +111,7 @@ function xmlload() {
             //Prepare line shift in case of aunts/uncles
             if ( ($.inArray('PARENTALS', array) > -1) == true){
                 svg.circle(mleft-45, 70, cr, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
-                svg.text(mleft-100, 120, "Grand Mother", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
+                svg.text(mleft-80, 120, "Grand Mother", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
             }
             else{
                 svg.circle(mleft, 70, cr, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
@@ -156,7 +159,7 @@ function xmlload() {
             }
             else{
                 svg.circle(mleft, 70, cr, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer' });
-                svg.text(mleft-50, 120, "Grand Mother", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
+                svg.text(mleft-45, 120, "Grand Mother", {fontWeight: 'bold', fontSize: '12.5', fill: 'gray'});
                 svg.line(g, mleft-140, 70, mleft+10, 70,{id: 'mgl', stroke: 'black'});
                 svg.line(g, mleft-60, 70, mleft-60, 170,{id: 'mline', stroke: 'black'});
             }
@@ -193,7 +196,7 @@ function xmlload() {
 
             //Check the live status
             if (typeof item.estimated_death_age != 'undefined') {
-                rectstatus('f');
+                rectstatus(item['id']);
             }
         }
 
@@ -206,7 +209,7 @@ function xmlload() {
 
             //Check the live status
             if (typeof item.estimated_death_age != 'undefined') {
-                circlestatus('m');
+                circlestatus(item['id']);
             }
         }
 
@@ -216,8 +219,6 @@ function xmlload() {
             var ftop=otop+40;
             var mats = 0;
             var pats = 0;
-
-//                alert(key)
 
             if (key.substring(0, 7) == "brother") {
                 var mleft = masterleft-20;
@@ -244,7 +245,7 @@ function xmlload() {
 
                 //Check the live status
                 if (typeof item.estimated_death_age != 'undefined') {
-                    rectstatus('bro'+no);
+                    rectstatus(item['id']);
                 }
             }
 
@@ -261,7 +262,7 @@ function xmlload() {
 
                 //Check the live status
                 if (typeof item.estimated_death_age != 'undefined') {
-                    circlestatus('sis-'+no);
+                    circlestatus(item['id']);
                 }
             }
 
@@ -279,7 +280,7 @@ function xmlload() {
 
                 //Check the live status
                 if (typeof item.estimated_death_age != 'undefined') {
-                    circlestatus('pat-'+no);
+                    circlestatus(item['id']);
                 }
             }
 
@@ -299,7 +300,7 @@ function xmlload() {
 
                 //Check the live status
                 if (typeof item.estimated_death_age != 'undefined') {
-                    rectstatus('pun'+no);
+                    rectstatus(item['id']);
                 }
             }
 
@@ -318,7 +319,7 @@ function xmlload() {
 
                 //Check the live status
                 if (typeof item.estimated_death_age != 'undefined') {
-                    circlestatus('mat-'+no);
+                    circlestatus(item['id']);
                 }
             }
 
@@ -335,7 +336,7 @@ function xmlload() {
 
                 //Check the live status
                 if (typeof item.estimated_death_age != 'undefined') {
-                    rectstatus('mun'+no);
+                    rectstatus(item['id']);
                 }
             }
 
@@ -346,11 +347,11 @@ function xmlload() {
 
                 if ($('#' + pid).attr('class') == 'male') {
                     var p1 = parseInt($('#' + pid).attr('x'));
-                    var p2 = parseInt($('#' + pid).attr('y')) + 45;
+                    var p2 = parseInt($('#' + pid).attr('y'));
                 }
                 if ($('#' + pid).attr('class') == 'female') {
                     var p1 = parseInt($('#' + pid).attr('cx'));
-                    var p2 = parseInt($('#' + pid).attr('cy')) + 45;
+                    var p2 = parseInt($('#' + pid).attr('cy'));
                 }
 
 
@@ -369,11 +370,38 @@ function xmlload() {
                     svg.line(g, sl + 20, p2 - 20, sl + 20, p2 + 25, {stroke: 'black'});
                 }
                 else{
-                    if (no == "0") {sl = p1;}
-                    else {sl = sl + 60;}
-                    svg.circle(sl, p2 + 25  , cr, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer' });
+                    if (no == "0") {
+                        //Build polyline to the right
+                        right_line(p1,p2);
+                        sl = parseInt(p1) + 130
+                    }
+                    else {
+                        sl = sl + 65;
+                        polyline(p1,p2)
+                    }
+
+
+                    svg.circle(sl, parseInt(p2)+110  , cr, {
+                        id: item['id'],
+                        fill: 'white',
+                        stroke: 'red',
+                        strokeWidth: 2,
+                        class: 'female',
+                        cursor: 'pointer'
+                    });
+
+//                    svg.polyline(
+//                        [
+//                            [parseInt(p1),parseInt(p2+20)],
+//                            [parseInt(p1), parseInt(p2)+45],
+//                            [parseInt(p1)+130, parseInt(p2)+45],
+//                            [parseInt(p1)+130,parseInt(p2)+90]
+//                        ],
+//                        {fill: 'none', stroke: 'black', strokeWidth: 2});
+
+//
 //                    svg.line(g, p1 + 10, p2 - 20, sl + 20, p2 - 20, {stroke: 'black'});
-                    svg.line(g, sl, p2 - 25, sl, p2 + 25, {stroke: 'black'});
+//                    svg.line(g, sl, p2 - 25, sl, p2 + 25, {stroke: 'black'});
                 }
 
                 //Check the live status
@@ -386,20 +414,28 @@ function xmlload() {
                 var no = key.substring(16, 17);
                 var gen = item['gender'];
                 var pid = item['parent_id'];
+
                 if ($('#' + pid).attr('class') == 'male') {
                     var p1 = parseInt($('#' + pid).attr('x'));
-                    var p2 = parseInt($('#' + pid).attr('y')) + 45;
+                    var p2 = parseInt($('#' + pid).attr('y'));
                 }
                 if ($('#' + pid).attr('class') == 'female') {
                     var p1 = parseInt($('#' + pid).attr('cx'));
-                    var p2 = parseInt($('#' + pid).attr('cy')) + 45;
+                    var p2 = parseInt($('#' + pid).attr('cy'));
                 }
 
 
                 if(gen=="MALE"){
-                    if (no == "0") {sl = p1 - 20;}
-                    else {sl = sl + 60;}
-                    svg.rect(sl, p2, rr, rr, 10, 10, {
+                    if (no == "0") {
+                        //Build polyline to the left
+                        left_line(p1,p2);
+                        sl = parseInt(p1) - 130
+                    }
+                    else {
+                        sl = sl + 65;
+                    }
+
+                    svg.rect(sl-25,  parseInt(p2)+80, rr, rr, 10, 10, {
                         id: item['id'],
                         fill: 'white',
                         stroke: 'red',
@@ -407,8 +443,8 @@ function xmlload() {
                         class: gen,
                         cursor: 'pointer'
                     });
-                    svg.line(g, p1 + 10, p2 - 20, sl + 20, p2 - 20, {stroke: 'black'});
-                    svg.line(g, sl + 20, p2 - 30, sl + 20, p2 + 25, {stroke: 'black'});
+//                    svg.line(g, p1 + 10, p2 - 20, sl + 20, p2 - 20, {stroke: 'black'});
+//                    svg.line(g, sl + 20, p2 - 30, sl + 20, p2 + 25, {stroke: 'black'});
                 }
                 else{
                     if (no == "0") {sl = p1 - 20;}
@@ -464,13 +500,12 @@ function xmlload() {
                     if ($('#' + pid).attr('class') == 'female') {
                         var p1 = parseInt($('#' + pid).attr('cx'));
                         var p2 = parseInt($('#' + pid).attr('cy'));
-                        if (no == "0") {
-                            sl = parseInt(p1)+85;
-                        }
+                        if (no == "0") {sl = parseInt(p1)+85;}
                         else {
                             sl = sl + 65;
+                            polyline(p1,p2)
                         }
-//                        circlelink(pid);
+
                         svg.rect(sl, parseInt(p2)+110, rr, rr, 10, 10, {
                             id: item['id'],
                             fill: 'white',
@@ -490,14 +525,7 @@ function xmlload() {
                             ],
                             {fill: 'none', stroke: 'black', strokeWidth: 2});
 
-                        svg.polyline(
-                            [
-                                [parseInt(p1)+105,parseInt(p2)+110],
-                                [parseInt(p1)+105,parseInt(p2)+90],
-                                [parseInt(p1)+170,parseInt(p2)+90],
-                                [parseInt(p1)+170,parseInt(p2)+110]
-                            ],
-                            {fill: 'none', stroke: 'black', strokeWidth: 2});
+
 
 //                        svg.line(g, p1 + 10, p2 - 20, sl + 20, p2 - 20, {stroke: 'black'});
 //                        svg.line(g, sl + 20, p2 - 20, sl + 20, p2 + 25, {stroke: 'red'});
@@ -508,8 +536,6 @@ function xmlload() {
                 var no = key.substring(6, 7);
                 var gen = item['gender'];
                 var pid = item['parent_id'];
-//                alert("id--> " +item['id'])
-//                alert("pid-->"+item['parent_id'])
 //                if (gen == "MALE") {
                 if ($('#' + pid).attr('class') == 'female') {
                     var p1 = parseInt($('#' + pid).attr('cx'));
@@ -571,14 +597,16 @@ function xmlload() {
         rectstatus('kmd');
 
         //Qtip loader
-        $("#family_pedigree").find("circle").each(function() {
+//        $("#family_pedigree").find("circle").each(function() {
+
+//            alert($(this).attr('id'))
 
             var e = this.id;
             var content1 = "<a href='#' onclick=readjson('" + e + "')>Edit</a>";
             var content2 = "<a href='#' onclick=readjson('" + e + "')>Add Daughter</a>";
             var content3 = "<a href='#' onclick=readjson('" + e + "')>Add Son</a>";
 
-            $('#'+e).qtip({
+            $('#e3b3aa0a-1ff8-4da4-8f87-aa300d2798cc').qtip({
                 content: {
                     text: function() {
                         return $(this).attr("data-info");
@@ -626,7 +654,7 @@ function xmlload() {
 
 
 
-    });
+//    });
 
 //    function circlelink(id){
 //        var p1 = $('#'+id).attr('cx');
@@ -648,6 +676,45 @@ function xmlload() {
 //            cursor: 'pointer'
 //        });
 //    }
+
+    //Draws polyline to the right side of the diagram
+    function right_line(p1,p2){
+        svg.polyline(
+            [
+                [parseInt(p1),parseInt(p2)+20],
+                [parseInt(p1), parseInt(p2)+45],
+                [parseInt(p1)+130, parseInt(p2)+45],
+                [parseInt(p1)+130,parseInt(p2)+90]
+            ],
+            {fill: 'none', stroke: 'black', strokeWidth: 2});
+
+    }
+
+    //Draws polyline to the left side of the diagram
+    function left_line(p1,p2){
+        svg.polyline(
+            [
+                [parseInt(p1),parseInt(p2)+20],
+                [parseInt(p1), parseInt(p2)+45],
+                [parseInt(p1)-130, parseInt(p2)+45],
+                [parseInt(p1)-130,parseInt(p2)+90]
+            ],
+            {fill: 'none', stroke: 'black', strokeWidth: 2});
+
+    }
+//    transform="translate(100, 0) scale(-1, 1)
+
+
+    function polyline(p1,p2){
+        svg.polyline(
+            [
+                [parseInt(p1)+105,parseInt(p2)+110],
+                [parseInt(p1)+105,parseInt(p2)+90],
+                [parseInt(p1)+170,parseInt(p2)+90],
+                [parseInt(p1)+170,parseInt(p2)+110]
+            ],
+            {fill: 'none', stroke: 'black', strokeWidth: 2});
+    }
 
     function circlestatus(id){
         var p1 = $('#'+id).attr('cx');

@@ -229,5 +229,13 @@ i#options .ui-button.ui-state-active .ui-button-text {
 }
 .pdf{
     font-size: 12px;
-    width: 250px;
+    width: 200px;
+}
+.scoreinfo{
+    font: all-small-caps 12px Arial;
+    font-weight: bold;
+    border-style:  none;
+    width: 180px;
+    background-color: transparent;
+    color: steelblue;
 }

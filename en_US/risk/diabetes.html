@@ -159,23 +159,7 @@ $('#ButtonList3 :radio').click(function(e) {
     total($element.attr('value'));
 });
 
-//Blood pressure
-/*
-$('#ButtonList4 :radio').click(function(e) {
-    var $element = $(this);
-    //Check the entered values
-    if (($element).attr('value') == 1) {
-        if ($('#bloodpressure').val() == "") total($element.attr('value'));
-        else if (parseInt($('#bloodpressure').val()) == 0) total($element.attr('value'));
-    }
-    else{
-        if ($('#bloodpressure').val() == 1) deletepoint($element.attr('value'));
-    }
 
-    $('#bloodpressure').attr('value', $element.attr('value'));
-    $('#bloodpressure').css({'background-color': 'cornsilk'});
-});
-*/
 
 //Activity
 $('#ButtonList6 :radio').click(function(e) {
@@ -256,12 +240,44 @@ function setFamily(id){
 function total(points){
     var temp = parseInt($('#total').attr('value')) + parseInt(points);
     $('#total').attr('value',temp);
+
+    //Change Info
+    if(parseInt(temp) >= 5) {
+        $('#5E').css({'background-color': 'cornsilk'});
+        $('#04').css({'background-color': 'transparent'});
+        $('#higher').buttonset().show();
+        $('#normal').buttonset().hide();
+//        $('#elev_submit').buttonset().show();
+//        $('#elev_letter').buttonset().show();
+
+//        document.getElementById("normal").style.display = "none";
+    }
+    else if(parseInt(temp) < 5) {
+        $('#04').css({'background-color': 'cornsilk'});
+        $('#5E').css({'background-color': 'transparent'});
+        $('#higher').buttonset().hide();
+        $('#normal').buttonset().show();
+    }
     return;
 }
 
 function deletepoint(points){
     var temp = parseInt($('#total').attr('value')) - 1;
     $('#total').attr('value',temp);
+
+    //Change Info
+    if(parseInt(temp) >= 5) {
+        $('#5E').css({'background-color': 'cornsilk'});
+        $('#04').css({'background-color': 'transparent'});
+        $('#higher').buttonset().show();
+        $('#normal').buttonset().hide();
+    }
+    else if(parseInt(temp) < 5) {
+        $('#04').css({'background-color': 'cornsilk'});
+        $('#5E').css({'background-color': 'transparent'});
+        $('#higher').buttonset().hide();
+        $('#normal').buttonset().show();
+    }
     return;
 }
 
@@ -270,9 +286,11 @@ function bmiCalc(){
 
     var w = parseInt(personal_information.weight);
     var h = parseInt(personal_information.height);
+
     var x;
     var table = document.getElementById("heighttable");
     var wtable = document.getElementById("weighttable");
+    var fw="";
     for (var i = 0, row; row = table.rows[i]; i++) {
         if(h == row.id) {
             $('#' + h).addClass('tdselected');
@@ -294,6 +312,7 @@ function bmiCalc(){
                         $("#weighttable td:nth-child(1)").addClass('tdselected');
                         $('#1pt').css({'background-color': 'cornsilk'});
                         total(1);
+                        fw = 1;
                     }
                     else{
                         $('#' +  col.id).addClass('cellselected');
@@ -303,7 +322,10 @@ function bmiCalc(){
                         $("#weighttable td:nth-child(2)").addClass('tdselected');
                         $('#2pt').css({'background-color': 'cornsilk'});
                         total(2);
+                        fw = 2;
                     }
+                    $('label[for=oweight]').css({color:'darkred','textdecoration':'underline','fontweight':'bolder'});
+                    $('label[for=nweight]').css({color:'gray','textdecoration':'underline','fontweight':'bolder'});
                 }
                 else if (w > cols[1] && j == 2){
                     $('#' + col.id).css({color:'blue',backgroundColor:'white'});
@@ -311,22 +333,48 @@ function bmiCalc(){
                     $('#weight').css({'background-color': 'cornsilk'});
                     $("#weighttable td:nth-child(3)").addClass('tdselected');
                     $('#3pt').css({'background-color': 'cornsilk'});
+                    $('label[for=oweight]').css({color:'darkred','textdecoration':'underline','fontweight':'bolder'});
+                    $('label[for=nweight]').css({color:'gray','textdecoration':'underline','fontweight':'bolder'});
                     total(3);
+                    fw = 3;
                 }
             }
         };
     }
+    //Check if weight even covered
+    if(fw==""){
+        $('#weight').attr('value',0);
+        $('#weight').attr('value',0);
+        $('#weight').css({'background-color': 'cornsilk'});
+        $('label[for=oweight]').css({color:'gray','textdecoration':'underline','fontweight':'bolder'});
+        $('label[for=nweight]').css({color:'darkred','textdecoration':'underline','fontweight':'bolder'});
+        total(0);
+    }
+
+    if(parseInt($('#total').val()) >= 5) {
+        $("#5E").css({'background-color': 'cornsilk'});
+        $('#04').css({'background-color': 'transparent'});
+
+        $('#higher').buttonset().show();
+        $('#normal').buttonset().hide();
+    }
+    else if(parseInt($('#total').val()) < 5) {
+        $('#04').css({'background-color': 'cornsilk'});
+        $('#5E').css({'background-color': 'transparent'});
+        $('#higher').buttonset().hide();
+        $('#normal').buttonset().show();
+    }
 }
 
 //Check the totals
-if(parseInt($('#total').val()) >= 5) {
-    $('#higher').buttonset().show();
-    $('#normal').buttonset().hide();
-}
-else{
-    $('#higher').buttonset().hide();
-    $('#normal').buttonset().show();
-}
+//if(parseInt($('#total').val()) >= 5) {
+//    $('#higher').buttonset().show();
+//    $('#normal').buttonset().hide();
+//}
+//else{
+//    $('#higher').buttonset().hide();
+//    $('#normal').buttonset().show();
+//}
 
 </script>
 
@@ -472,29 +520,40 @@ else{
                         <label class="tsection" for="total">Total Scores</label>
                         <input type="text" id="total" class="trisk" value="0" disabled />
                     </td>
+                    <td>
+                        <table class="scoreinfo"><tr>
+                        <td id="04">0 - 4 Lower Risk of Diabetes</td>
+                        </tr><tr>
+                        <td id="5E">5+ Elevated Risk</td>
+                    </tr></table>
+                        <!-- input id="scoreinfo" type="text" disabled/> </td -->
                 </tr>
                 <tr>
                     <td>
                     <table>
                         <tr>
                             <td>
-                                <table id="higher" class="pdf" style="display: none">
-                                    <tr><td>
-                                    <button id='elev_submit' onClick='submit_high()'>Get Personal Elevated Risk Letter </button>
-                                    </td><td>
-                                    <button id='elev_letter' onClick='submit_high_physician()'>Get Elevated Risk Physician Letter </button>
-                                    </td></tr>
-                                </table>
+                                <div id="higher" >
+                                    <table class="pdf" style=" ">
+                                        <tr><td>
+                                        <button id='elev_submit' onClick='submit_high()'>Get Personal Elevated Risk Letter </button>
+                                        </td><td>
+                                        <button id='elev_letter' onClick='submit_high_physician()'>Get Elevated Risk Physician Letter </button>
+                                        </td></tr>
+                                    </table>
+                                </div>
 
                             </td>
                             <td>
-                                <table id="normal" class="pdf" style="display: none">
+                                <div id="normal" >
+                                <table class="pdf" style=" ">
                                     <tr><td>
-                                    <button id='drc_submit' onClick='submit_normal()'>Get Personal Lower Risk Letter</button>
+                                    <button id='drc_submit' onClick='submit_normal()'> Get Personal Lower Risk Letter </button>
                                     </td><td>
-                                    <button id='drc_letter' onClick='submit_normal_physician()'>Get Lower Risk Physician Letter </button>
+                                    <button id='drc_letter' onClick='submit_normal_physician()'> Get Lower Risk Physician Letter </button>
                                     </td></tr>
                                 </table>
+                                    </div>
                             </td>
                         </tr>
                     </table>
@@ -525,28 +584,6 @@ else{
                         </table>
                     </td>
                 </tr>
-                <!-- tr>
-                    <td></td>
-                    <td>
-                        <table class="risktable">
-                            <th>
-                                <tr><td><p class="section">8 What is your weight status? (see chart at right)</p></td></tr>
-                            </th>
-                            <tr>
-                                <td>
-                                    <div id="ButtonList7" class="aradio">
-                                        <input type="radio" id='oweight' value="1"disabled />
-                                        <label for="oweight"> Yes (1 points)</label>
-                                        <input type="radio" id='nweight' value='0' disabled />
-                                        <label for="nweight"> No (0 points)</label>
-                                    </div>
-                                    <div align="right"><input type="text" id="weight" class="drisk" disabled /></div>
-                                </td>
-
-                            </tr>
-                        </table>
-                    </td>
-                </tr -->
             </table>
 
         </td>
@@ -567,7 +604,8 @@ else{
         window.open('../docs/Lower_Diabetes_Risk.pdf', "_blank", "fullscreen=yes");
     }
 
-    function submit_normal() {
+    function submit_normal_physician() {
         window.open('../docs/Lower_Diabetes_Risk_Physician_Letter.pdf', "_blank", "fullscreen=yes");
     }
+
 </script>
