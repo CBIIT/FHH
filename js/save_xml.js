@@ -23,6 +23,9 @@ function bind_save_xml() {
 		root.appendChild(add_personal_history());
 		
 		save_document(this, root);
+		
+		$("#save_personal_history_dialog").dialog("close");
+		
 	});
 }
 function add_root_information(root) {

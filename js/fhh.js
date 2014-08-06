@@ -744,7 +744,11 @@ function load_risk_links() {
         			// Do not know why using field directly doesn't work but this does
         			$("#" + $(field).attr("id")).val(v);
             	});
-        	});        	
+        	});
+        });
+        
+        $(".risk_calculator").hover( function() {
+        	$(this).css('cursor','pointer');
         });
 	});
 }
