@@ -240,3 +240,6 @@ i#options .ui-button.ui-state-active .ui-button-text {
     background-color: transparent;
     color: steelblue;
 }
+.ui-button-text {
+    font-size: inherit !important;
+}
