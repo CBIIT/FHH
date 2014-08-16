@@ -51,6 +51,11 @@ var relationship_to_label = {
 };
 
 $(document).ready(function() {
+	var FileApiSupported = window.File && window.FileReader && window.FileList && window.Blob;
+	if (!FileApiSupported) {		
+		if ($("body").attr("page") != "unsupported_browser") window.location.replace("./unsupported_browser.html");
+	}
+	
 	make_disease_array(); // From load_xml
 
 	// personal_information_dialog
@@ -725,7 +730,7 @@ function bind_add_all_family_members_cancel_button_action() {
 }
 
 function load_risk_links() {
-	$.getJSON( "./risk/risktable.json", function( data ) {
+	$.getJSON( "./risk/risks.json", function( data ) {
 		$("#risk_section").empty();
         $.each(data, function(index) {
             var risk_calculator = $("#risk_section").append($("<div class='assessmentContainer risk_calculator' href='" + data[index].link + "'>")
