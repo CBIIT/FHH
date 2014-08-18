@@ -1,0 +1,205 @@
+
+
+<script type="text/javascript" src="risk/drc/diabetes.js"></script>
+<link rel="stylesheet" type="text/css" href="risk/drc/diabetes.css">
+
+<div id="diabetes_content" >
+
+<!-- Start site -->
+<table class="maintable"><tr>
+	<td class="column">
+	  <!-- Age -->
+	  <table class="risktable">
+	      <th>
+	          <tr><td><p class="section">1 How old are you</p></td></tr>
+	      </th>
+	      <tr>
+	          <td>
+	              <div id="ButtonList" class="aradio" >
+	                  <input type="radio" id='CH0' value="0" alt="30" disabled />
+	                  <label for="CH0">Less than 40 years (0 points)</label>
+	                  <input type="radio" id='CH1' value='1' alt="40" disabled />
+	                  <label for="CH1"> 40-49 years (1 point)</label>
+	                  <input type="radio" id='CH2' value='2' alt="50" disabled />
+	                  <label for="CH2"> 50-59 years (2 point)</label>
+	                  <input type="radio" id='CH3' value='3' alt="60" disabled />
+	                  <label for="CH3"> 60 years or older (3 point)</label>
+	              </div>
+	              <div align="right"><input type="text" id="age" class="drisk" disabled /></div>
+	          </td>
+	
+	      </tr>
+	  </table>
+	  <!-- Gender -->
+	  <table class="risktable">
+	      <th>
+	          <tr><td><p class="section">2 Are you a man or a woman</p></td></tr>
+	      </th>
+	      <tr>
+	          <td>
+	              <div id="ButtonList1" class="aradio">
+	                  <input type="radio" id='MALE' value="1" disabled/>
+	                  <label for="MALE"> Man (1 points)</label>
+	                  <input type="radio" id='FEMALE' value='0' disabled/>
+	                  <label for="FEMALE"> Woman (0 points)</label>
+	              </div>
+	              <div align="right"><input type="text" id="gender" class="drisk" disabled /></div>
+	          </td>
+	      </tr>
+	  </table>
+	  <!-- Gestational Diabetes -->
+	  <table class="risktable">
+	      <th>
+	          <tr><td><p class="section">3 If you are a woman, have you ever been diagnosed with gestational diabetes?</p></td></tr>
+	      </th>
+	      <tr>
+	          <td>
+	              <div id="ButtonList2" class="aradio">
+	                  <input type="radio" id='gdpos' value="1" disabled/>
+	                  <label for="gdpos"> Yes (1 points)</label>
+	                  <input type="radio" id='gdneg' value='0' disabled/>
+	                  <label for="gdneg"> No (0 points)</label>
+	              </div>
+	              <div align="right"><input type="text" id="gdiabetes" class="drisk" disabled /></div>
+	          </td>
+	      </tr>
+	  </table>
+	  <!-- Inhereted Diabetes -->
+	  <table class="risktable">
+	      <th>
+	          <tr><td><p class="section">4 Do you have a mother, father, sister or brother with diabetes?</p></td></tr>
+	      </th>
+	      <tr>
+	          <td>
+	              <div id="ButtonList3" class="aradio">
+	                  <input type="radio" id='dpos' value="1" disabled/>
+	                  <label for="dpos"> Yes (1 points)</label>
+	                  <input type="radio" id='dneg' value='0' disabled/>
+	                  <label for="dneg"> No (0 points)</label>
+	              </div>
+	              <div align="right"><input type="text" id="inherited" class="drisk" disabled /></div>
+	
+	          </td>
+	      </tr>
+	  </table>
+	  <!-- High Blood Pressure -->
+	  <table class="risktable">
+	      <th>
+	          <tr><td><p class="section">6 Have you ever been diagnosed with high blood pressure?</p></td></tr>
+	      </th>
+	      <tr>
+	          <td>
+	              <div id="ButtonList4" class="aradio">
+	                  <input type="radio" id='prepos' value="1" disabled/>
+	                  <label for="prepos"> Yes (1 points)</label>
+	                  <input type="radio" id='preneg' value='0' disabled/>
+	                  <label for="preneg"> No (0 points)</label>
+	              </div>
+	              <div align="right"><input type="text" id="bloodpressure" class="drisk" disabled /></div>
+	
+	          </td>
+	      </tr>
+	  </table>
+	  <!-- Physically Active -->
+	  <table class="risktable">
+	      <th>
+	          <tr><td><p class="section" style="background-color: #FFFFA3">7 Are you physically active?</p></td></tr>
+	      </th>
+	      <tr>
+	          <td>
+	              <div id="ButtonList6" class="aradio">
+	                  <input type="radio" id='6CH0' value="0" />
+	                  <label for="6CH0"> Yes (0 points)</label>
+	                  <input type="radio" id='6CH1' value='1' />
+	                  <label for="6CH1"> No (1 points)</label>
+	              </div>
+	              <div align="right"><input type="text" id="physical" class="drisk" disabled /></div>
+	          </td>
+	
+	      </tr>
+	  </table>
+	  <!-- Weight -->
+	  <table class="risktable">
+	      <th>
+	          <tr><td><p class="section">8 What is your weight status? (see chart at right)</p></td></tr>
+	      </th>
+	      <tr>
+	          <td>
+	              <div align="right"><input type="text" id="bmi_value" class="drisk" disabled /></div>
+	          </td>
+	
+	      </tr>
+	  </table>
+	
+	</td>
+	<td valign="top" align="left" >
+	  <table align="right" id="bmi_table"></table>
+	
+	  <table class="riskcount" valign="top" width="80%">
+	      <tr>
+	          <td>
+	              <label class="tsection" for="total">Total Scores</label>
+	              <input type="text" id="total" class="trisk" value="0" disabled />
+	          </td>
+	          <td>
+	              <table class="scoreinfo"><tr>
+	              <td id="04">0 - 4 Lower Risk of Diabetes</td>
+	              </tr><tr>
+	              <td id="5E">5+ Elevated Risk</td>
+	          </tr></table>
+	      </tr>
+	      <tr>
+	          <td>
+	          <table>
+	              <tr>
+	                  <td>
+	                      <div id="higher" >
+	                          <table class="pdf" style=" ">
+	                              <tr><td>
+	                              <button id='elev_submit' onClick='submit_high()'>Get Personal Elevated Risk Letter </button>
+	                              </td><td>
+	                              <button id='elev_letter' onClick='submit_high_physician()'>Get Elevated Risk Physician Letter </button>
+	                              </td></tr>
+	                          </table>
+	                      </div>
+	
+	                  </td>
+	                  <td>
+	                      <div id="normal" >
+	                      <table class="pdf" style=" ">
+	                          <tr><td>
+	                          <button id='drc_submit' onClick='submit_normal()'> Get Personal Lower Risk Letter </button>
+	                          </td><td>
+	                          <button id='drc_letter' onClick='submit_normal_physician()'> Get Lower Risk Physician Letter </button>
+	                          </td></tr>
+	                      </table>
+	                          </div>
+	                  </td>
+	              </tr>
+	          </table>
+	      </td></tr>
+	  </table>
+	
+	
+	</td>
+</tr></table>
+</div>
+
+<script type="text/javascript">
+
+    function submit_high() {
+        window.open('../docs/Increased_Diabetes_Risk.pdf', "_blank", "fullscreen=yes");
+    }
+    function submit_high_physician() {
+        window.open('../docs/Increased_Diabetes_Risk_Physician_Letter.pdf', "_blank", "fullscreen=yes");
+    }
+
+    function submit_normal() {
+        window.open('../docs/Lower_Diabetes_Risk.pdf', "_blank", "fullscreen=yes");
+    }
+
+    function submit_normal_physician() {
+        window.open('../docs/Lower_Diabetes_Risk_Physician_Letter.pdf', "_blank", "fullscreen=yes");
+    }
+
+</script>

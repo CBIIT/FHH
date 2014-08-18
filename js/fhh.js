@@ -70,8 +70,8 @@ $(document).ready(function() {
 		title:"Enter Personal Information",
 		position:['middle',0],
 		autoOpen: false,
-		height:800,
-		width:1000
+		height:'auto',
+		width:['95%']
 	});		
 	
 	// family_member_information_dialog
@@ -119,23 +119,23 @@ $(document).ready(function() {
 		title:"Enter Family Member's Health History",
 		position:['middle',0],
 		autoOpen: false,
-		height:800,
-		width:1000
+		height:'auto',
+		width:['95%']
 	});		
 
 	$("#view_diagram_and_table_dialog").dialog({
 		title:"View Pedigree Diagram",
 		position:['middle',0],
 		autoOpen: false,
-		height:600,
-		width:1000
+		height:1000,
+		width:['95%']
 	});
 
     $("#family_pedigree").dialog({
         title:"Family Pedigree",
         position:['middle',0],
         autoOpen: false,
-        height:1000,
+        height:2000,
         width:['95%'],
         backgroundColor: 'white'
     });
@@ -149,8 +149,8 @@ $(document).ready(function() {
 		title:"Load Your Family Health History",
 		position:['middle',0],
 		autoOpen: false,
-		height:500,
-		width:800
+		height:'auto',
+		width:600
 	});
 
 	// This page lets you load in a previously saved history
@@ -165,7 +165,7 @@ $(document).ready(function() {
 		position:['middle',0],
 		autoOpen: false,
 		height:500,
-		width:800
+		width:['95%']
 	});
 
 	// This is the second page when you are initially creating a personal history, it asks how many of each type of member
@@ -180,7 +180,7 @@ $(document).ready(function() {
 		title:"Add Immediate Family Members",
 		position:['middle',0],
 		autoOpen: false,
-		height:400,
+		height:'auto',
 		width:600
 	});
 
@@ -192,8 +192,8 @@ $(document).ready(function() {
 		title:"Disease Risk Calculators",
         position:['top',0],
 		autoOpen: false,
-		height:915,
-		width:750
+		height:'auto',
+		width:1064
 	});
 
 	$("#navRiskCalculator").on("click", function(){ 
@@ -220,7 +220,11 @@ $(document).ready(function() {
 // Check to see if there are any specific actions
 	if (getParameterByName("action") == 'load') {
 			$("#load_personal_history_dialog").dialog("open");
-	}	else if (getParameterByName("action") == 'save') {
+	}	else if (getParameterByName("action") == 'create') {
+			personal_information = new Object();
+			build_family_history_data_table();
+			$("#add_personal_information_dialog").dialog("open");
+	} else if (getParameterByName("action") == 'save') {
 			$("#save_personal_history_dialog").dialog("open");
 	}
 
@@ -287,7 +291,7 @@ function bind_add_another_family_member_button_action() {
 		new_family_member_dialog.dialog({
 			position:['middle',0],
 			title:"Define Family Member Relationship",
-			height:220,
+			height:'auto',
 			width:500
 		});
 	} else {
@@ -574,13 +578,20 @@ function bind_personal_submit_button_action () {
 		personal_information['twin_status'] = $('input[name="person.twin_status"]:checked').val();
 		personal_information['adopted'] = $('input[name="person.adopted"]:checked').val();
 		
-		if (parseInt($('#personal_height_inches').val()) > 0 || parseInt($('#personal_height_feet').val()) ) {
-			personal_information['height'] = parseInt($('#personal_height_feet').val()) * 12 + parseInt($('#personal_height_inches').val());
+		var height_inches = parseInt($('#personal_height_inches').val());
+		var height_feet = parseInt($('#personal_height_feet').val());
+		var height_centimeters = parseInt($('#personal_height_centimeters').val());
+		if (height_feet > 0 || height_inches > 0 ) {
+			if (isNaN(height_feet)) height_feet = 0;
+			if (isNaN(height_inches)) height_inches = 0;
+			personal_information['height'] = height_feet * 12 + height_inches;
 			personal_information['height_unit'] = 'inches';
-		} else if ($('#personal_height_centimeters').val() > 0) {
-			personal_information['height'] = parseInt($('#personal_height_centimeters').val());
+		} else if (height_centimeters > 0) {
+			if (isNaN(height_centimeters)) height_centimeters = 0;
+			personal_information['height'] = height_centimeters;
 			personal_information['height_unit'] = 'centimeters';
 		} 
+		
 		personal_information['weight'] = $('#personal_weight').val();
 		personal_information['weight_unit'] = $('#personal_weight_unit').val();
 
@@ -733,11 +744,13 @@ function load_risk_links() {
 	$.getJSON( "./risk/risks.json", function( data ) {
 		$("#risk_section").empty();
         $.each(data, function(index) {
+        	if (data[index].status == 'active') {
             var risk_calculator = $("#risk_section").append($("<div class='assessmentContainer risk_calculator' href='" + data[index].link + "'>")
             	.append($("<h3></h3>").append(data[index].name))
             	.append($("<P>").append(data[index].description)));
             
             $("#risk_section").append(risk_calculator).append("<br>");
+          }
         });
         
         $(".risk_calculator").on("click", function() { 

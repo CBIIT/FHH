@@ -2,19 +2,19 @@
 	"drc": {
 	  "name": "Calculate your Diabetes Risk",
 	  "description": "The Diabetes Risk Calculator",
-	  "link": "diabetes.html",
+	  "link": "drc/diabetes.html",
 	  "status": "active"
 	},
 	"crca": {
-	  "name": "Calculate your Colorectal Cancer Risk",
+	  "name": "New Calculate your Colorectal Cancer Risk",
 	  "description": "The Colorectal Risk Calculator",
-	  "link": "crca.html",
+	  "link": "crca/crca.html",
 	  "status": "active"
 	},
 	"lung": {
 	  "name": "Calculate your Lung Cancer Risk",
 	  "description": "The Lung Risk Calculator",
-	  "link": "lung.html",
-	  "status": "active"
+	  "link": "lung/lung.html",
+	  "status": "inactive"
 	}
 }

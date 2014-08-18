@@ -120,21 +120,21 @@ h2 {
 }
 
 h3, h4, h5, h6 {
-    color: rgba(180, 48, 32, 1);
-    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-    font-size: 1.15em;
-    font-style: normal;
-    font-weight: bold;
+  color: rgba(180, 48, 32, 1);
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 1.15em;
+  font-style: normal;
+  font-weight: bold;
 }
 
 a:link, a:visited {
-    color: #0000FF;
-    text-decoration: underline;
+  color: #0000FF;
+  text-decoration: underline;
 }
 
 a:hover, a:active  {
-    color: #0000FF;
-    text-decoration: none;
+  color: #0000FF;
+  text-decoration: none;
 }
 
 .center_text {
@@ -157,19 +157,20 @@ td.information {
 th.label {
 	font-weight:bold;
 	text-align:left;
+	text-decoration:none;
 }
 
 a.button_link {
-    background-color:#cfcfcf;
-    color:black;
-    white-space:nowrap
-    /* DRC/CR Calculator: Added rounded corners <div> */
+  background-color:#cfcfcf;
+  color:black;
+  white-space:nowrap
+  /* DRC/CR Calculator: Added rounded corners <div> */
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	border:1px solid black;
 	padding:5px;
-    text-decoration: none;
+	text-decoration: none;
 }
 
 a.button_link a:hover {
@@ -177,83 +178,86 @@ a.button_link a:hover {
 }
 
 .instructions {
-	font-size:smaller;
+	font-size:small;
 	text-align:left;
 	margin-left:6px;
 }
 
 table.summary_table {
-    background-color: #FFFFFF;
-    margin: 0px;
-    width: 80%;
-    border:1px solid black;
+  background-color: #FFFFFF;
+  margin: 0px;
+  width: 80%;
+  border:1px solid black;
 	margin-left:auto;
 	margin-right:auto;
 	border-collapse:collapse;
 }
 
 table.summary_table th {
-    background-color: rgba(178, 48, 32, 1);;
-    border-bottom: 1px solid #666666;
-    border-right:1px solid #666666;
-    color: #000000;
-    font-weight: bold;
-    margin: 0px;
-    padding: 5px;
-    text-align: center;
-    vertical-align: middle;
+  background-color: rgba(178, 48, 32, 1);;
+  border-bottom: 1px solid #666666;
+  border-right:1px solid #666666;
+  color: #000000;
+  font-weight: bold;
+  margin: 0px;
+  padding: 2px 10px;
+  text-align: center;
+  vertical-align: middle;
+	text-decoration:none;
 }
 
 table.disease_table {
-    background-color: #FFFFFF;
-    margin: 0px;
-    width: 80%;
-    border:1px solid black;
+  background-color: #FFFFFF;
+  margin: 0px;
+  width: 80%;
+  border:1px solid black;
 	margin-left:auto;
 	margin-right:auto;
 	border-collapse:collapse;
 }
 
 table.disease_table th {
-    background-color: rgba(178, 48, 32, 1);;
-    border-bottom: 1px solid #666666;
-    border-right:1px solid #666666;
-    color: #000000;
-    font-weight: bold;
-    margin: 0px;
-    padding: 5px;
-    text-align: center;
-    vertical-align: middle;
+  background-color: rgba(178, 48, 32, 1);;
+  border-bottom: 1px solid #666666;
+  border-right:1px solid #666666;
+  color: #000000;
+  font-weight: bold;
+  margin: 0px;
+  padding: 2px 10px;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration:none;
 }
 
 table.disease_table td {
-    background-color: #FFFFFF;
-    border-bottom: 1px solid #666666;
-    border-right:1px solid #666666;
-    color: #000000;
-    font-weight: bold;
-    margin: 0px;
-    padding: 5px;
-    text-align: center;
-    vertical-align: middle;
+	font-size:small;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #666666;
+  border-right:1px solid #666666;
+  color: #000000;
+  font-weight: bold;
+  margin: 0px;
+  padding: 2px 10px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 
 table.footerTable {
-    background-color: transparent;
-    font-size: 0.95em;
-    margin: 0 auto 10px auto;
-    width: 860px;
+  background-color: transparent;
+  font-size: 0.95em;
+  margin: 0 auto 10px auto;
+  width: 860px;
 }
 
 .required {
-    color: #FF0000;
-    font-weight: bold;
+  color: #FF0000;
+  font-weight: bold;
 }
 
 .readonly {
-    color: #808080;
-    font-weight: normal;
+  color: #808080;
+  font-weight: normal;
 }
 
 .normal_text {
@@ -263,11 +267,10 @@ table.footerTable {
 .title-bar {
 	text-align:left;
 	font-weight:bold;	
-    color: #666666;
-    background-color: rgba(244, 169, 167, 1);;
-    border-top: 1px solid #003366;
-    border-bottom: 1px solid #003366;
-	
+  color: #666666;
+  background-color: rgba(244, 169, 167, 1);;
+  border-top: 1px solid #003366;
+  border-bottom: 1px solid #003366;
 }
 
 .risk_calculator {
@@ -275,13 +278,18 @@ table.footerTable {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-	
 }
 
 .ui-widget-header {
 	background-color:rgba(102, 29, 14, 1);
 	background-image:none;
 	border:1px solid rgba(53, 6, 2, 1);
+}
+
+.ui-widget-content {
+  border: 2px solid #444;
+	padding:1px;
+	margin:10px;    
 }
 
 button.frontpage {

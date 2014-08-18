@@ -1,0 +1,63 @@
+#diabetes_content {
+	width: 1000px;
+	height: auto; 
+	vertical-align: top;
+}
+
+.column {
+	width:480px;
+}
+
+#bmi_table {
+	width:450px;
+}
+
+#bmi_table th {
+	background-color:#226694;
+	color:#FFF;
+	text-decoration:none;
+	font-size:small;
+	width:88px;
+}
+
+#bmi_table td.normal {
+	background-color:#FFFFEE;
+	color:#222;
+	font-size:small;
+	border: 1px solid black;
+	width:88px;
+	text-align:center;
+	border-top:1px solid #EEEEDD;
+	border-left:1px solid #EEEEDD;
+	border-bottom:2px solid #DDDDCC;
+	border-right:2px solid #DDDDCC;
+}
+
+#bmi_table td.chosen {
+	background-color:#4286b4;
+	color:#FFF;
+	font-size:small;
+	border: 1px solid black;
+	width:88px;
+	text-align:center;
+	border-top:1px solid #226694;
+	border-left:1px solid #226694;
+	border-bottom:2px solid #024674;
+	border-right:2px solid #024674;
+}
+
+#bmi_table td.header {
+	background-color:#AAA;
+	color:#222;
+	font-size:small;
+	border: 1px solid black;
+	width:88px;
+	text-align:center;
+	border-top:1px solid #999;
+	border-left:1px solid #999;
+	border-bottom:2px solid #888;
+	border-right:2px solid #888;
+}
+#bmi_table td.underline {
+	border-bottom:2px solid #222;
+}

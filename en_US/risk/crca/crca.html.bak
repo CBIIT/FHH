@@ -1,0 +1,51 @@
+
+<div id="crca_content">
+	
+	<P class='crca' >Based on the data you entered for your family history 
+		we can calculate your personal and familty risk factors for Colo-Rectal Cancer</P>
+	<TABLE id='crca_table'>
+		<TR>
+			<TH>Test</TH><TH>Reason</TH>
+		</TR>
+		<TR id='past_cancers'>
+			<TD id='test'><IMG src='risk/crca/blue_waiting.png' alt='waiting' height='40'/></TD><TD id='reason'>&nbsp;</TD>	
+		</TR>
+		<TR id='polyps'>
+			<TD id='test'><IMG src='risk/crca/blue_waiting.png' alt='waiting' height='40'/></TD><TD id='reason'>&nbsp;</TD>	
+		</TR>
+		<TR id='inflammatory_bowel_disease'>
+			<TD id='test'><IMG src='risk/crca/blue_waiting.png' alt='waiting' height='40'/></TD><TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='immediate_family_members_cancer'>
+			<TD id='test'><IMG src='risk/crca/blue_waiting.png' alt='waiting' height='40'/></TD><TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='immediate_family_members_polyps'>
+			<TD id='test'><IMG src='risk/crca/blue_waiting.png' alt='waiting' height='40'/></TD><TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='secondary_family_members_cancer'>
+			<TD id='test'><IMG src='risk/crca/blue_waiting.png' alt='waiting' height='40'/></TD><TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='secondary_family_members_colon_cancer_before_60'>
+			<TD id='test'><IMG src='risk/crca/blue_waiting.png' alt='waiting' height='40'/></TD><TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='secondary_family_members_uterine_cancer_before_50'>
+			<TD id='test'><IMG src='risk/crca/blue_waiting.png' alt='waiting' height='40'/></TD><TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR class='crca-final' id='final'>
+			<TD class='crca-final' id='test'><IMG src='risk/crca/blue_waiting.png' alt='waiting' height='40'/></TD><TD class='crca-final' id='reason'>&nbsp;</TD>	
+		</TR>
+	</TABLE>
+	
+	<P class='crca'> Table Key Below: </P>
+	<TABLE id='crca_key'>
+		<TR><TD><IMG src='risk/crca/blue_waiting.png' alt='Waiting' height='40'> </TD><TD>Waiting </TD>
+		<TD><IMG src='risk/crca/blue_calculating_static.png' alt='Calculating' height='40'> </TD><TD>Calculating the Risk </TD>
+		<TD><IMG src='risk/crca/green_x.png' alt='No History Found' height='40'> </TD><TD>No Personal or Family History issues with this test</TD>
+		<TD><IMG src='risk/crca/red_check.png' alt='History Found' height='40'> </TD><TD>There was personal or Family History issues with this test</TD></TR>
+	</TABLE>
+
+</div>
+
+
+<script type="text/javascript" src="risk/crca/crca.js"></script>
+<link rel="stylesheet" type="text/css" href="risk/crca/crca.css">
