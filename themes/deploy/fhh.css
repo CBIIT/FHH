@@ -26,6 +26,9 @@ body {
     min-width:900px;
 }
 
+.help {
+	text-align:left;
+}
 /* ALL PAGES: makes pages that don't scroll the same width as pages that do scroll */
 :root {
 	overflow-y:scroll;

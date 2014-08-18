@@ -191,52 +191,78 @@ function parse_xml(data) {
 			relative.race[race] = true;
 		});
 
-		if (relationship_code == "NMTH") personal_information.mother = relative;
-		if (relationship_code == "NFTH") personal_information.father = relative;
-		if (relationship_code == "MGRMTH") personal_information.maternal_grandmother = relative;
-		if (relationship_code == "MGRFTH") personal_information.maternal_grandfather = relative;
-		if (relationship_code == "PGRMTH") personal_information.paternal_grandmother = relative;
-		if (relationship_code == "PGRFTH") personal_information.paternal_grandfather = relative;
-
+		if (relationship_code == "NMTH") {
+			relative.relationship = 'mother';
+			personal_information.mother = relative;
+		}
+		if (relationship_code == "NFTH") {
+			relative.relationship = 'father';
+			personal_information.father = relative;
+		}
+		if (relationship_code == "MGRMTH") {
+			relative.relationship = 'maternal_grandmother';
+			personal_information.maternal_grandmother = relative;
+		}
+		if (relationship_code == "MGRFTH") {
+			relative.relationship = 'maternal_grandfather';
+			personal_information.maternal_grandfather = relative;
+		}
+		if (relationship_code == "PGRMTH") {
+			relative.relationship = 'paternal_grandmother';
+			personal_information.paternal_grandmother = relative;
+		}
+		if (relationship_code == "PGRFTH") {
+			relative.relationship = 'paternal_grandfather';
+			personal_information.paternal_grandfather = relative;
+		}
+		
 		if (relationship_code == "NBRO") {
 			var i = 0;
 			while (personal_information["brother_" + i] != null) i++;
+			relative.relationship = 'brother';
 			personal_information["brother_" + i] = relative;
 		}
 		if (relationship_code == "NSIS") {
 			var i = 0;
 			while (personal_information["sister_" + i] != null) i++;
+			relative.relationship = 'sister';
 			personal_information["sister_" + i] = relative;
 		}
 		if (relationship_code == "SON") {
 			var i = 0;
 			while (personal_information["son_" + i] != null) i++;
+			relative.relationship = 'son';
 			personal_information["son_" + i] = relative;
 		}
 		if (relationship_code == "DAU") {
 			var i = 0;
 			while (personal_information["daughter_" + i] != null) i++;
+			relative.relationship = 'daughter';
 			personal_information["daughter_" + i] = relative;
 		}
 		
 		if (relationship_code == "MAUNT") {
 			var i = 0;
 			while (personal_information["maternal_aunt_" + i] != null) i++;
+			relative.relationship = 'maternal_aunt';
 			personal_information["maternal_aunt_" + i] = relative;
 		}
 		if (relationship_code == "MUNCLE") {
 			var i = 0;
 			while (personal_information["maternal_uncle_" + i] != null) i++;
+			relative.relationship = 'maternal_uncle';
 			personal_information["maternal_uncle_" + i] = relative;
 		}
 		if (relationship_code == "PAUNT") {
 			var i = 0;
 			while (personal_information["paternal_aunt_" + i] != null) i++;
+			relative.relationship = 'paternal_aunt';
 			personal_information["paternal_aunt_" + i] = relative;
 		}
 		if (relationship_code == "PUNCLE") {
 			var i = 0;
 			while (personal_information["paternal_uncle_" + i] != null) i++;
+			relative.relationship = 'paternal_uncle';
 			personal_information["paternal_uncle_" + i] = relative;
 		}
 		
@@ -244,10 +270,12 @@ function parse_xml(data) {
 			if ($(this).find("relationshipHolder > relative").html().indexOf("NMTH") > -1) {
 				var i = 0;
 				while (personal_information["maternal_halfbrother_" + i] != null) i++;
+				relative.relationship = 'maternal_halfbrother';
 				personal_information["maternal_halfbrother_" + i] = relative;				
 			} else {
 				var i = 0;
 				while (personal_information["paternal_halfbrother_" + i] != null) i++;
+				relative.relationship = 'paternal_halfbrother';
 				personal_information["paternal_halfbrother_" + i] = relative;				
 			}
 		}
@@ -255,10 +283,12 @@ function parse_xml(data) {
 			if ($(this).find("relationshipHolder > relative").html().indexOf("NMTH") > -1) {
 				var i = 0;
 				while (personal_information["maternal_halfsister_" + i] != null) i++;
+				relative.relationship = 'maternal_halfsister';
 				personal_information["maternal_halfsister_" + i] = relative;				
 			} else {
 				var i = 0;
 				while (personal_information["paternal_halfsister_" + i] != null) i++;
+				relative.relationship = 'paternal_halfsister';
 				personal_information["paternal_halfsister_" + i] = relative;				
 			}
 		}
@@ -266,32 +296,38 @@ function parse_xml(data) {
 		if (relationship_code == "NEPHEW") {
 			var i = 0;
 			while (personal_information["nephew_" + i] != null) i++;
+			relative.relationship = 'nephew';
 			personal_information["nephew_" + i] = relative;
 		}
 		if (relationship_code == "NIECE") {
 			var i = 0;
 			while (personal_information["niece_" + i] != null) i++;
+			relative.relationship = 'neice';
 			personal_information["niece_" + i] = relative;
 		}
 
 		if (relationship_code == "MCOUSN") {
 			var i = 0;
 			while (personal_information["maternal_cousin_" + i] != null) i++;
+			relative.relationship = 'maternal_cousin';
 			personal_information["maternal_cousin_" + i] = relative;
 		}
 		if (relationship_code == "PCOUSN") {
 			var i = 0;
 			while (personal_information["paternal_cousin_" + i] != null) i++;
+			relative.relationship = 'paternal_cousin';
 			personal_information["paternal_cousin_" + i] = relative;
 		}
 		if (relationship_code == "GRNSON") {
 			var i = 0;
 			while (personal_information["grandson_" + i] != null) i++;
+			relative.relationship = 'grandson';
 			personal_information["grandson_" + i] = relative;
 		}
 		if (relationship_code == "GRNDAU") {
 			var i = 0;
 			while (personal_information["granddaughter_" + i] != null) i++;
+			relative.relationship = 'granddaughter';
 			personal_information["granddaughter_" + i] = relative;
 		}
 		

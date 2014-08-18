@@ -89,7 +89,7 @@ function add_id(tag, id_text) {
 }
 
 function add_name(tag, personal_name) {
-	if (name == null) return;
+	if (personal_name == null || personal_name=='undefined') personal_name="";
 	name_tag = doc.createElement("name");
 	name_tag.setAttribute("formatted", personal_name);
 
@@ -150,6 +150,7 @@ function add_consanguinity(tag, consanguinity) {
 }
 
 function add_all_ethnic_groups(tag, ethnic_group_list) {
+	if (ethnic_group_list == null) return
 	if (ethnic_group_list["Hispanic or Latino"]	== true) add_individual_ethnic_group(tag, "Hispanic or Latino");
 	if (ethnic_group_list["Ashkenazi Jewish"]	== true) add_individual_ethnic_group(tag, "Ashkenazi Jewish");
 	if (ethnic_group_list["Not Hispanic or Latino"]	== true) add_individual_ethnic_group(tag, "Not Hispanic or Latino");
@@ -169,6 +170,8 @@ function add_individual_ethnic_group(tag, ethnic_group) {
 }
 
 function add_all_races(tag, race_list) {
+	if (race_list == null) return
+
 	if (race_list["American Indian or Alaska Native"]	== true) add_individual_race(tag, "American Indian or Alaska Native");
 	if (race_list["Asian"]	== true) add_individual_race(tag, "Asian");
 	if (race_list["Black or African-American"]	== true) add_individual_race(tag, "Black or African-American");
@@ -240,7 +243,7 @@ function add_weight(tag, weight, weight_unit) {
 }
 
 function add_diseases(tag, diseases) {
-//	if (diseases == null) return;
+	if (diseases == null) return;
 	for (var i=0; i<diseases.length;i++) {
 		var disease_name = diseases[i]["Disease Name"];
 		var detailed_disease_name = diseases[i]["Detailed Disease Name"];

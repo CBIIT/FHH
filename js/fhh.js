@@ -201,8 +201,39 @@ $(document).ready(function() {
 		load_risk_links();
 	});
 
+	$("#navViewDiagram").on("click", function(){ 
+     xmlload();
+   });
+
+	$("#navCopyFamily").on("click", function(){ 
+     alert("Coming Soon");
+  });
+
+	$("#help_dialog").dialog({
+		title:"Your Family Health History Help",
+		position:['middle',0],
+		autoOpen: false,
+		height:'auto',
+		width:600
+	});
+	
+	if (personal_information != null) {
+	    if (confirm("This will delete all data and restart,  Are you sure you want to do this?") == true) {
+	    	personal_information = new Object();
+	    	build_family_history_data_table();
+	    } else {
+	        return false;
+	    }
+	}
+
 	// Below function is temporary to allow debuging of the pedigree
 	$("#nav_help").on("click", function(){ 
+		$("#help_dialog").dialog("open");
+		
+//		alert ("Personal Information:" + JSON.stringify(personal_information, null, 2) );
+	});
+	
+	$(".banner_right").on("click", function(){ 
 		alert ("Personal Information:" + JSON.stringify(personal_information, null, 2) );
 	});
 	
@@ -520,6 +551,7 @@ function exact_family_member_relationship_selection_change_action() {
 	family_member_information = new Object();
 	if (parent_id != null && parent_id.length > 0) {
 //		alert ("Adding Parent: " + parent_id);
+		family_member_information.relationship = relationship;
 		family_member_information.parent_id = parent_id;
 	}
 	family_member_information.gender = get_gender(relationship);
@@ -636,6 +668,18 @@ function bind_family_member_submit_button_action () {
 	
 	$("#addFamilyMemberSubmitButton").on("click", function(){ 
 		var family_member_information = new Object();
+		
+		var relationship = "";
+		if (current_relationship == 'father' || current_relationship == 'mother' 
+		 || current_relationship == 'paternal_grandfather' || current_relationship == 'paternal_grandmother' 
+		 || current_relationship == 'maternal_grandfather' || current_relationship == 'maternal_grandmother') {
+		 	relationship = current_relationship;
+		} else {
+			relationship = current_relationship.substring(0, current_relationship.lastIndexOf('_'));
+		}
+		
+		family_member_information['relationship'] = relationship;
+		
 		family_member_information['id'] = guid();
 		family_member_information['parent_id'] = $("#family_member_parent_id").val();;
 		family_member_information['name'] = $("#family_member_info_form_name").val();
@@ -683,6 +727,7 @@ function bind_family_member_submit_button_action () {
 		family_member_information['ethnicity']['Ashkenazi Jewish'] = $("#family_race_ethnicity").find("#selectedEthnicities-2").is(':checked');
 		family_member_information['ethnicity']['Not Hispanic or Latino'] = $("#family_race_ethnicity").find("#selectedEthnicities-3").is(':checked');
 		
+		
 		personal_information[current_relationship] = family_member_information;
 
 		update_family_history_row(current_relationship, family_member_information);
@@ -710,20 +755,21 @@ function bind_add_all_family_members_submit_button_action() {
 		var number_paternal_uncles = parseInt($("#family_paternal_uncles").val()) || 0;
 		var number_paternal_aunts = parseInt($("#family_paternal_aunts").val()) || 0;
 		
-//		personal_information['father'] = new Object();
-//		personal_information['mother'] = new Object();
-//		personal_information['maternal_grandfather'] = new Object();
-//		personal_information['maternal_grandmother'] = new Object();
-//		personal_information['paternal_grandfather'] = new Object();
-//		personal_information['paternal_grandmother'] = new Object();
-		for (var i=0; i<number_brothers;i++) personal_information['brother_' + i] = new Object();
-		for (var i=0; i<number_sisters;i++) personal_information['sister_' + i] = new Object();
-		for (var i=0; i<number_sons;i++) personal_information['son_' + i] = new Object();
-		for (var i=0; i<number_daughters;i++) personal_information['daughter_' + i] = new Object();
-		for (var i=0; i<number_maternal_uncles;i++) personal_information['maternal_uncle_' + i] = new Object();
-		for (var i=0; i<number_maternal_aunts;i++) personal_information['maternal_aunt_' + i] = new Object();
-		for (var i=0; i<number_paternal_uncles;i++) personal_information['paternal_uncle_' + i] = new Object();
-		for (var i=0; i<number_paternal_aunts;i++) personal_information['paternal_aunt_' + i] = new Object();
+		personal_information['father'] = {'gender':'MALE'};
+		personal_information['mother'] = {'gender':'FEMALE'};
+		personal_information['maternal_grandfather'] = {'gender':'MALE'};
+		personal_information['maternal_grandmother'] = {'gender':'FEMALE'};
+		personal_information['paternal_grandfather'] = {'gender':'MALE'};
+		personal_information['paternal_grandmother'] = {'gender':'FEMALE'};
+
+		for (var i=0; i<number_brothers;i++) personal_information['brother_' + i] = {'gender':'MALE'};
+		for (var i=0; i<number_sisters;i++) personal_information['sister_' + i] = {'gender':'FEMALE'};
+		for (var i=0; i<number_sons;i++) personal_information['son_' + i] = {'gender':'MALE'};
+		for (var i=0; i<number_daughters;i++) personal_information['daughter_' + i] = {'gender':'FEMALE'};
+		for (var i=0; i<number_maternal_uncles;i++) personal_information['maternal_uncle_' + i] = {'gender':'MALE'};
+		for (var i=0; i<number_maternal_aunts;i++) personal_information['maternal_aunt_' + i] = {'gender':'FEMALE'};
+		for (var i=0; i<number_paternal_uncles;i++) personal_information['paternal_uncle_' + i] = {'gender':'MALE'};
+		for (var i=0; i<number_paternal_aunts;i++) personal_information['paternal_aunt_' + i] = {'gender':'FEMALE'};
 		build_family_history_data_table();
 
 		$("#add_another_family_member_button").show();
@@ -925,7 +971,8 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	// Html requires that all blank fields have at least 1 char or it will not show border
 
 	var name;
-	if (family_member == null || family_member.name == "" || $.isEmptyObject(family_member) ) name = "&nbsp;";
+	if (family_member == null || family_member.name == null || 
+		  family_member.name == "" || $.isEmptyObject(family_member) ) name = "&nbsp;";
 	else name = family_member.name;
 	
 	var is_already_defined = (family_member != null && !($.isEmptyObject(family_member)));
@@ -1331,6 +1378,18 @@ function build_family_race_ethnicity_section() {
 
 function clear_family_member_health_history_dialog() {
 	$("#family_member_parent_id").val("");
+	
+	var relationship ="";
+	if (current_relationship == 'father' || current_relationship == 'mother' 
+		 || current_relationship == 'paternal_grandfather' || current_relationship == 'paternal_grandmother' 
+		 || current_relationship == 'maternal_grandfather' || current_relationship == 'maternal_grandmother') {
+		 	relationship = current_relationship;
+	} else {
+		relationship = current_relationship.substring(0, current_relationship.lastIndexOf('_'));
+	}
+
+	
+	$("#family_member_relationship").empty().append(relationship);
 	$("#family_member_info_form_name").val("");
 	$('#family_member_info_form_gender_male').prop('checked',false);
 	$('#family_member_info_form_gender_female').prop('checked',false);
@@ -1363,6 +1422,8 @@ function clear_family_member_health_history_dialog() {
 
 function clear_and_set_current_family_member_health_history_dialog(family_member) {
 	$("#family_member_parent_id").val(family_member.parent_id);
+	$("#family_member_relationship").empty().append(family_member.relationship);
+	if (family_member.name == null) family_member.name = "";
 	$("#family_member_info_form_name").val(family_member.name);
 	
 	if (family_member.gender == "MALE") $('#family_member_info_form_gender_male').prop('checked',true);
