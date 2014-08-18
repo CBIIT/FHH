@@ -1,3 +1,8 @@
+.diabetes_information_text {
+	font-size:large;
+	text-align:left;
+}
+
 #diabetes_content {
 	width: 1000px;
 	height: auto; 

@@ -10,17 +10,43 @@ var score = {
 }
 
 $(document).ready(function() {
-	load_age();
-	load_gender();
-	load_gestational_diabetes();
-	load_family_diabetes();
-	load_high_blood_pressure();
-	load_activity();
-	load_bmi();
-	calculate_score();	
+	if (test_for_necessary_info()) {
+		load_age();
+		load_gender();
+		load_gestational_diabetes();
+		load_family_diabetes();
+		load_high_blood_pressure();
+		load_activity();
+		load_bmi();
+		calculate_score();	
 //	alert(JSON.stringify(score, null, 2));
+	} else {
+		clear_and_report_error();
+	}
 
 });
+
+function test_for_necessary_info() {
+	if (personal_information == null) return false;
+	if (personal_information.date_of_birth == null) return false;
+	if (personal_information.gender == null) return false;
+	if (personal_information.height == null) return false;
+	if (personal_information.height_unit == null) return false;
+	if (personal_information.weight_unit == null) return false;
+}
+
+function clear_and_report_error() {
+	$("#diabetes_content").empty().append("<h1> Diabetes Risk Assessment Tool </h1>")
+		.append($("<div class='diabetes_information_text'>")
+			.append("<br />To use this tool, please enter at least:")
+			.append($("<UL>")
+				.append("<LI> Your Gender </LI>")
+				.append("<LI> Your Birthdate </LI>")
+				.append("<LI> Your Height </LI>")
+				.append("<LI> Your Weight </LI>")
+				.append("<LI> Your Health History (Especially if you have high bloodpressure or have had Gestational Diabetes) </LI>")
+				.append("<LI> If any of your immediate family has had Diabetes </LI>")));
+}
 
 function load_age() {
 	var currentYear = (new Date).getFullYear();
