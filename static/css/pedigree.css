@@ -212,9 +212,6 @@ i#options .ui-button.ui-state-active .ui-button-text {
     border-bottom-style: solid;
     text-align: center;
 }
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-    color: darkslategray;
-}
 .counts{
     padding-right: 25px;
 }

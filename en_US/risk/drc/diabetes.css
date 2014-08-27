@@ -10,8 +10,81 @@
 }
 
 .column {
+	vertical-align:top;
 	width:480px;
 }
+
+
+.aradio label {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background:transparent !important;
+	font-size:12px !important;
+	border: none !important;
+}
+
+
+.not-selected {
+	color:#1C94C4 !important;
+}
+
+.selected {
+	color:darkred !important;
+}
+
+.risktable{
+    width:100%;
+    vertical-align: top;
+    text-align: right;
+}
+
+.section-header {
+	font-size:16px !important;
+	border-collapse:collapse;
+  color: darkred;
+  font-weight: bold;
+  border-bottom: solid 2px;
+  border-bottom-color: slategray;
+  text-align: left;
+  width:100%;
+  vertical-align:bottom;
+}
+
+.drc-info td {
+	color: #1C94C4;
+	font-weight: bold;
+}
+.bottom-grey {
+    border-bottom: solid 2px;
+    border-bottom-color: slategray;	
+}
+.riskcount{
+    width:100%;
+    vertical-align: top;
+    text-align: left;
+}
+
+.trisk {
+    height: 65px;
+    font-size:32px !important;
+}
+
+.drisk {
+    width: 75px;
+    border: 3px solid #c7c7c7;
+    border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;
+    font-weight: bold;
+    outline: none; /*Remove Chrome and Safari glows on focus*/
+    text-align: center;
+		float:right;
+}
+
+
+
+.drisk {
+	background-color:cornsilk;
+}
+
+/* Below are the BMI table elements */
 
 #bmi_table {
 	width:450px;
@@ -66,3 +139,5 @@
 #bmi_table td.underline {
 	border-bottom:2px solid #222;
 }
+
+.ui-state-active { background: blue; }
