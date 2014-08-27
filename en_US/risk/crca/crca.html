@@ -37,13 +37,78 @@
 			<TD class='crca-final' id='test'><IMG src='risk/crca/blue_waiting.png' alt='waiting' height='40'/></TD><TD class='crca-final' id='reason'>&nbsp;</TD>	
 		</TR>
 	</TABLE>
-	
-	<P class='crca'> Table Key Below: </P>
-	<TABLE id='crca_key'>
-		<TR><TD><IMG src='risk/crca/blue_waiting.png' alt='Waiting' height='40'> </TD><TD>Waiting </TD>
-		<TD><IMG src='risk/crca/blue_calculating_static.png' alt='Calculating' height='40'> </TD><TD>Calculating the Risk </TD>
-		<TD><IMG src='risk/crca/green_x.png' alt='No History Found' height='40'> </TD><TD>No Personal or Family History issues with this test</TD>
-		<TD><IMG src='risk/crca/red_check.png' alt='History Found' height='40'> </TD><TD>There was personal or Family History issues with this test</TD></TR>
-	</TABLE>
+	<br/><br />
+	<div id='bottom-area'>
+		<div id='explanation_side' style='float:left;width:700px;'>
+			<TABLE id='explanation_low_risk' style='display:none;'><TR>
+				<TD>
+					Your familial risk for colorectal cancer is <b>not elevated</b>. However, no tool for estimating health risks 
+					is perfect. The familial colorectal cancer risk estimate generated for you by the Surgeon General's tool 
+					is based on both the family and personal medical information that you provided. This determination of 
+					risk might over-estimate or under-estimate your colon cancer risk as it does not take into account 
+					risk factors like diet, obesity, or race and ethnicity. This information is not intended to replace 
+					a visit to a health professional. You should discuss this information about your risk for colon cancer 
+					with a health care professional.		
+				</TD>
+				<TD>
+          <button id='crca_personal_lower_risk' onClick='submit_low()'> Get Personal <br />Lower Risk Letter </button>
+          <button id='crca_provider_lower_risk' onClick='submit_low_physician()'> Get Physician <br />Lower Risk Letter </button>
+				</TD>
+			</TR></TABLE>			
+			<TABLE id='explanation_high_risk' style='display:none;'><TR>
+				<TD>
+					Your familial risk for colorectal cancer is <b>elevated</b>. You may benefit from colon cancer screening tests 
+					at a younger age than usually is recommended. Talk to a health professional soon about your family history, 
+					how it affects your colon cancer risk, and your options for screening and prevention. However, no tool for 
+					estimating health risks is perfect. The familial colorectal cancer risk estimate generated for you by the 
+					Surgeon General's tool is based on both the family and personal medical information that you provided. This 
+					determination of risk might over-estimate or under-estimate your colon cancer risk as it does not take into 
+					account risk factors like diet, obesity, or race and ethnicity. This information is not intended to replace 
+					a visit to a health professional. You should discuss this information about your risk for colon cancer with 
+					a health care professional. 
+				</TD>
+				<TD>
+          <button id='crca_personal_higher_risk' onClick='submit_high()'> Get Personal <br />Elevated Risk Letter </button>
+          <button id='crca_provider_higher_risk' onClick='submit_high_physician()'> Get Physician <br />Elevated Risk Letter </button>
+				</TD>
+			</TR></TABLE>			
+		</div>
+		<div id='key_side' style='float:right;width:300px;'>
+			<TABLE id='crca_key'>
+				<TR>
+					<TD colspan='4'>Table Key:</TD>
+				</TR>
+				<TR>
+					<TD><IMG src='risk/crca/blue_waiting.png' alt='Waiting' height='40'> </TD><TD>Waiting </TD>
+					<TD><IMG src='risk/crca/blue_calculating_static.png' alt='Calculating' height='40'> </TD><TD>Calculating the Risk </TD>
+				</TR>
+				<TR>
+					<TD><IMG src='risk/crca/green_x.png' alt='No History Found' height='40'> </TD><TD colspan='3'>No Personal or Family History with this test</TD>
+				</TR>
+				<TR>
+					<TD><IMG src='risk/crca/red_check.png' alt='History Found' height='40'> </TD><TD colspan='3'>There was personal or Family History with this test</TD></TR>	
+				</TR>
+			</TABLE>			
+			
+		</div>
 
 </div>
+
+<script type="text/javascript">
+
+    function submit_high() {
+        window.open('risk/crca/Increased_CRCA_Risk.pdf', "_blank", "fullscreen=yes");
+    }
+    function submit_high_physician() {
+        window.open('risk/crca/Increased_CRCA_Risk_Physician_Letter.pdf', "_blank", "fullscreen=yes");
+    }
+
+    function submit_low() {
+        window.open('risk/crca/Lower_CRCA_Risk.pdf', "_blank", "fullscreen=yes");
+    }
+
+    function submit_low_physician() {
+        window.open('risk/crca/Lower_CRCA_Risk_Physician_Letter.pdf', "_blank", "fullscreen=yes");
+    }
+
+</script>

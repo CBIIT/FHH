@@ -340,9 +340,13 @@ function test_final() {
 		set_icon($("#final"), 'positive');
 		set_reason($("#final"), 			
 			"You have at least one of the above risks.  Therefore your risk of Colorectal Cancel is Elevated");
+		$("#explanation_low_risk").hide();
+		$("#explanation_high_risk").show();
 	} else {
 		set_icon($("#final"), 'negative');
 		set_reason($("#final"), "You have none of the above risks.  Therefore your risk of Colorectal Cancel is Average");
+		$("#explanation_high_risk").hide();
+		$("#explanation_low_risk").show();
 	}
 }
 ///  Support functions 
