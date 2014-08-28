@@ -302,6 +302,7 @@ function bind_create_new_personal_history_button_action () {
 	        return false;
 	    }
 	}
+	clear_and_set_personal_health_history_dialog();
 	$( "#add_personal_information_dialog" ).dialog( "open" );	
 }
 
@@ -549,6 +550,8 @@ function exact_family_member_relationship_selection_change_action() {
 //	alert ("Exact Relationship ID: " + current_relationship);
 	
 	family_member_information = new Object();
+	current_health_history = [];
+
 	if (parent_id != null && parent_id.length > 0) {
 //		alert ("Adding Parent: " + parent_id);
 		family_member_information.relationship = relationship;
@@ -647,6 +650,7 @@ function bind_personal_submit_button_action () {
 
 		
 //		build_family_history_data_table();
+			current_health_history = [];
 		$("#add_personal_information_dialog").dialog("close");
 		
 		//  If there already is a father object, then this is an update, do not try and recreate relatives
@@ -732,7 +736,7 @@ function bind_family_member_submit_button_action () {
 
 		update_family_history_row(current_relationship, family_member_information);
 		
-		
+		current_health_history = [];
 		$("#update_family_member_health_history_dialog").dialog("close");
 	});	
 }
@@ -740,6 +744,7 @@ function bind_family_member_submit_button_action () {
 function bind_family_member_cancel_button_action () {
 	$("#addFamilyMemberCancelButton").on("click", function(){ 
 //		alert ("Cancelling Family Member Information");
+		
 		$("#update_family_member_health_history_dialog").dialog("close");
 	});
 }
@@ -1517,7 +1522,6 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 }
 
 function clear_and_set_personal_health_history_dialog() {
-	
 	$("#personal_info_form_name").val(personal_information.name);
 	
 	if (personal_information.gender == "MALE") $('#personal_info_form_gender_male').prop('checked',true);
