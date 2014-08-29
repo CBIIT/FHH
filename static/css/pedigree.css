@@ -240,3 +240,108 @@ i#options .ui-button.ui-state-active .ui-button-text {
 .ui-button-text {
     font-size: inherit !important;
 }
+#family_pedigree{
+    width: 100%;
+}
+.family_dialog{
+    border: 3px solid #c7c7c7;
+    padding-bottom: 0;
+    height: 500;
+}
+
+
+
+#svgframe {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 1px;
+    /*padding-left: 10%;*/
+    overflow: hidden;
+    right:0;
+    background-color: #dcdcdc;
+    border-bottom-style: solid;
+    border-bottom-color: darkslateblue;
+    border-bottom-width: thick;
+
+    border-top-style: solid;
+    border-top-color: darkslateblue;
+    border-top-width: thick;
+
+
+}
+
+/*#health_table{*/
+/*font:  8px Arial;*/
+/*font-weight: bold;*/
+/*}*/
+
+#family_pedigree_info{
+    vertical-align: top;
+}
+
+/*
+//build health table
+*/
+
+#health_table {
+    width:  98%;
+    padding-top: 10;
+    padding-left: 20;
+    margin: 0;
+}
+
+#health_table caption {
+    padding: 0 0 5px 0;
+    width: 98%;
+    font: italic 9px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    text-align: right;
+}
+
+#health_table th {
+    font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    color: #4f6b72;
+    border-right: 1px solid navy;
+    border-bottom: 1px solid navy;
+    border-top: 1px solid navy;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 6px 6px 6px 12px;
+    background: #CAE8EA url(images/bg_header.jpg) no-repeat;
+}
+
+#health_table th.nobg {
+    border-top: 0;
+    border-right: 1px solid #C1DAD7;
+    background: none;
+}
+
+#health_table td {
+    border-right: 1px solid #C1DAD7;
+    border-bottom: 1px solid #C1DAD7;
+    background: #fff;
+    padding: 6px 6px 6px 12px;
+    color: #4f6b72;
+}
+
+
+#health_table td.alt {
+    background: #F5FAFA;
+    color: #797268;
+}
+
+#health_table th.spec {
+    border-left: 1px solid #C1DAD7;
+    border-top: 0;
+    background: #fff url(images/bullet1.gif) no-repeat;
+    font: bold 8px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+}
+
+#health_tableth.specalt {
+    border-left: 1px solid #C1DAD7;
+    border-top: 0;
+    background: #f5fafa url(images/bullet2.gif) no-repeat;
+    font: bold 8px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    color: #797268;
+}
