@@ -7,7 +7,7 @@ var diseases = {
 		'Clotting Disorder': ['Deep Vein Thrombosis (DVT)', 'Pulmonary Embolism', 'Clotting Disorder', 'Unknown Clotting Disorder'],
 		'Cancer': 			 ['Bone Cancer', 'Breast Cancer', 'Colon Cancer', 'Esophageal Cancer', 'Gastric Cancer', 'Kidney Cancer',
 				   			  'Leukemia', 'Lung Cancer', 'Muscle Cancer', 'Ovarian Cancer', 'Prostate Cancer', 'Skin Cancer', 'Thyroid Cancer',
-				   			  'Uterine Cancer', 'Hereditary onpolyposis colon cancer', 'Pancreatic cancer', 'Liver cancer', 'Brain Cancer',
+				   			  'Uterine Cancer', 'Hereditary Onpolyposis Colon Cancer', 'Pancreatic Cancer', 'Liver Cancer', 'Brain Cancer',
 				   		 	  'Colorectal Cancer', 'Other Cancer', 'Unknown Cancer'],
 		'Diabetes': 		 ['Type 1 Diabetes', 'Type 2 Diabetes', 'Gestational Diabetes', 'Diabetes Mellitus', 'Unknown Diabetes'],
 		'Gastrointestinal Disorder': ['Familial adenomatous polyposis', 'Colon Polyp', 'Crohn\'s Disease', 'Irritable Bowel Syndrome',

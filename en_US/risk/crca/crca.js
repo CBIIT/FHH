@@ -167,8 +167,8 @@ function test_immediate_family_members_polyps() {
 			var h = item['Health History'];
 
 			if (h != null) {
-				var temp = key.substring(0,6);
-				if(temp == 'father' || temp == 'mother' || temp == 'brothe' || temp == 'sister' || temp == 'daught' || temp == 'son') {
+				var temp = key.substring(0,4);
+				if(temp == 'fath' || temp == 'moth' || temp == 'brot' || temp == 'sist' || temp == 'daug' || temp == 'son_') {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Polyp') {
 								risk_reason += this.name + " has had Colon Polyps in the past.<br />";
@@ -216,7 +216,7 @@ function test_secondary_family_members_cancer() {
 								i = h.length; break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer') {
-								risk_reason += this.name + " has had Colon Cancer in the past.<br />";
+								risk_reason += this.name + " has had Colorectal Cancer in the past.<br />";
 								count++;
 								i = h.length; break;  // We do not need to check this person anyore
 						}

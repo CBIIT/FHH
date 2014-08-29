@@ -6,7 +6,7 @@ var diseases = {
 		'Clotting Disorder': ['Deep Vein Thrombosis (DVT)', 'Pulmonary Embolism', 'Clotting Disorder', 'Unknown Clotting Disorder'],
 		'Cancer': 			 ['Bone Cancer', 'Breast Cancer', 'Colon Cancer', 'Esophageal Cancer', 'Gastric Cancer', 'Kidney Cancer',
 				   			  'Leukemia', 'Lung Cancer', 'Muscle Cancer', 'Ovarian Cancer', 'Prostate Cancer', 'Skin Cancer', 'Thyroid Cancer',
-				   			  'Uterine Cancer', 'Hereditary onpolyposis colon cancer', 'Pancreatic cancer', 'Liver cancer', 'Brain Cancer',
+				   			  'Uterine Cancer', 'Hereditary Onpolyposis Colon Cancer', 'Pancreatic Cancer', 'Liver Cancer', 'Brain Cancer',
 				   		 	  'Colorectal Cancer', 'Other Cancer', 'Unknown Cancer'],
 		'Diabetes': 		 ['Type 1 Diabetes', 'Type 2 Diabetes', 'Gestational Diabetes', 'Diabetes Mellitus', 'Unknown Diabetes'],
 		'Gastrointestinal Disorder': ['Familial adenomatous polyposis', 'Colon Polyp', 'Crohn\'s Disease', 'Irritable Bowel Syndrome',
@@ -55,6 +55,21 @@ $(document).ready(function() {
 	if (!FileApiSupported) {		
 		if ($("body").attr("page") != "unsupported_browser") window.location.replace("./unsupported_browser.html");
 	}
+	
+
+	$("#why_ask_ashkenazi_dialog").load ("why_ask_ashkenazi.html");
+	$("#why_ask_ashkenazi_dialog").dialog({
+		title:"Why Ask About Ashkani",
+		position:['middle',0],
+		autoOpen: false,
+		height:250,
+		width:350
+	});
+	
+	
+	$("#dropbox_save").click(function() {
+		$("#dropbox_save").attr("href", "data:application/xml," + JSON.stringify(personal_information, null, 2));
+	});
 	
 	make_disease_array(); // From load_xml
 
@@ -120,7 +135,8 @@ $(document).ready(function() {
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
-		width:['95%']
+		width:['95%'],
+		close: cancel_update_family_member
 	});		
 
 	$("#view_diagram_and_table_dialog").dialog({
@@ -155,9 +171,13 @@ $(document).ready(function() {
 
 	// This page lets you load in a previously saved history
 	$("#save_personal_history_dialog").load ("save_personal_history_dialog.html", function () {
+
 		bind_save_personal_history_button();
 		bind_save_xml();
-
+		
+		var opt = {};
+		var button = Dropbox.createChooseButton(null);
+		document.getElementById("db_save").appendChild(button);
 	});
 
 	$("#save_personal_history_dialog").dialog({
@@ -548,7 +568,15 @@ function exact_family_member_relationship_selection_change_action() {
 	
 	current_relationship = relationship + "_" + i;
 //	alert ("Exact Relationship ID: " + current_relationship);
+	create_new_family_member(current_relationship, relationship, parent_id);
+
+	clear_and_set_current_family_member_health_history_dialog(family_member_information);
+	$("#new_family_member_dialog").dialog("close");
+	$( "#update_family_member_health_history_dialog" ).dialog( "open" );
 	
+}
+
+function create_new_family_member(current_relationship, relationship, parent_id) {
 	family_member_information = new Object();
 	current_health_history = [];
 
@@ -562,13 +590,8 @@ function exact_family_member_relationship_selection_change_action() {
 	
 	var table = $("#history_summary_table");
 	add_new_family_history_row(table, "", relationship_to_label[relationship], current_relationship, false, true);
-
-	clear_and_set_current_family_member_health_history_dialog(family_member_information);
-	$("#new_family_member_dialog").dialog("close");
-	$( "#update_family_member_health_history_dialog" ).dialog( "open" );
 	
 }
-
 
 function get_gender(relationship) {
 	switch(relationship) {
@@ -625,7 +648,10 @@ function bind_personal_submit_button_action () {
 			if (isNaN(height_centimeters)) height_centimeters = 0;
 			personal_information['height'] = height_centimeters;
 			personal_information['height_unit'] = 'centimeters';
-		} 
+		} else {
+			personal_information['height'] = "";
+			personal_information['height_unit'] = "";
+		}
 		
 		personal_information['weight'] = $('#personal_weight').val();
 		personal_information['weight_unit'] = $('#personal_weight_unit').val();
@@ -742,11 +768,16 @@ function bind_family_member_submit_button_action () {
 }
 
 function bind_family_member_cancel_button_action () {
-	$("#addFamilyMemberCancelButton").on("click", function(){ 
+	$("#addFamilyMemberCancelButton").on("click", cancel_update_family_member); 
+}
+
+function cancel_update_family_member() {
 //		alert ("Cancelling Family Member Information");
-		
-		$("#update_family_member_health_history_dialog").dialog("close");
-	});
+	
+	if (personal_information[current_relationship].id == null) {
+		remove_family_member(current_relationship, false);
+	}
+	$("#update_family_member_health_history_dialog").dialog("close");
 }
 
 function bind_add_all_family_members_submit_button_action() {
@@ -1026,7 +1057,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		remove_history.attr("relationship_id", relationship_id);
 		remove_history.on("click", function(){ 
 //			alert("Removing Family Member for: " + $(this).attr('relationship_id') );
-			remove_family_member( $(this).attr('relationship_id'));
+			remove_family_member( $(this).attr('relationship_id'), true);
 			
 			//			$( "#addPersonalInformation" ).dialog( "open" );
 		});
@@ -1037,11 +1068,12 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	table.append(new_row);
 }
 
-function remove_family_member(relationship_id) {
+function remove_family_member(relationship_id, confirm_flag) {
 	
 	var name = personal_information[relationship_id]['name'];
 	if (name == "") name = relationship_id;
-	var should_remove_family_member = confirm("Do you really want to remove " + name + "?");
+	var should_remove_family_member = true;
+	if (confirm_flag) should_remove_family_member = confirm("Do you really want to remove " + name + "?");
 	if (should_remove_family_member == true) {
 		delete personal_information[relationship_id];
 		$("#" + relationship_id).remove();
@@ -1052,6 +1084,7 @@ function remove_family_member(relationship_id) {
 }
 
 function update_family_history_row(relationship_id, family_member_information) {
+//	alert ("Rel:" + relationship_id);
 	$("#" + relationship_id).find("#relatives_name").html(family_member_information["name"]);
 
 //	var update_history = $("<td class='action update_history' relationship_id='" + relationship_id 
@@ -1063,6 +1096,7 @@ function update_family_history_row(relationship_id, family_member_information) {
 	
 	$("#" + relationship_id).find(".update_history").unbind().on("click", function(){
 		family_member = personal_information[$(this).attr('relationship_id')];
+		current_relationship = $(this).attr('relationship_id');
 		clear_and_set_current_family_member_health_history_dialog(family_member);
 		$( "#update_family_member_health_history_dialog" ).dialog( "open" );
 	});
@@ -1078,7 +1112,7 @@ function update_family_history_row(relationship_id, family_member_information) {
 		remove_history.html("<img src='../images/icon_trash.gif' alt='Remove History' title='Remove History'>");
 		remove_history.attr("relationship_id", relationship_id);
 		remove_history.on("click", function(){ 
-			remove_family_member( $(this).attr('relationship_id'));
+			remove_family_member( $(this).attr('relationship_id'), true);
 		});
 	}
 		
@@ -1330,9 +1364,13 @@ function build_personal_race_ethnicity_section() {
 						.append(race_checkboxes) )
 				.append($("<tr>")
 						.append("<td> Ethnicity </td>")
-						.append(ethnicity_checkboxes))
-				.append($("<tr>")
-						.append("<td colspan='2'><a tabindex='29' href='#' >Why are we asking about Ashkenazi Jewish heritage?</a></td>")));
+						.append(ethnicity_checkboxes)));
+
+	var why_ask_ashkenazi_link = $("<td><a tabindex='29' href='#' id='why_ask_ashkenazi_link'>Why are we asking about Ashkenazi Jewish heritage?</a></td>");
+	why_ask_ashkenazi_link.click(function () {
+		$("#why_ask_ashkenazi_dialog").dialog("open");
+	});
+	race_ethnicity.append($("<tr>").append(why_ask_ashkenazi_link));
 	
 }
 
@@ -1437,6 +1475,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	if (family_member.gender == "FEMALE") $('#family_member_info_form_gender_female').prop('checked',true);
 	else $('#family_member_info_form_gender_female').prop('checked',false);
 	
+	$("#age_determination_text").val(family_member.date_of_birth);
 	$("#family_member_info_form_date_of_birth").val(family_member.date_of_birth);
 	
 	if (family_member.twin_status == "NO") $("#family_member_info_form_twin_status_no").prop('checked',true);
@@ -1522,7 +1561,9 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 }
 
 function clear_and_set_personal_health_history_dialog() {
-	$("#personal_info_form_name").val(personal_information.name);
+	if (personal_information == null) personal_information = new Object();
+	if (personal_information.name != null) $("#personal_info_form_name").val(personal_information.name);
+	else $("#personal_info_form_name").val("");
 	
 	if (personal_information.gender == "MALE") $('#personal_info_form_gender_male').prop('checked',true);
 	else $('#personal_info_form_gender_male').prop('checked',false);
