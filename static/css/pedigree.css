@@ -345,3 +345,8 @@ i#options .ui-button.ui-state-active .ui-button-text {
     font: bold 8px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
     color: #797268;
 }
+.infobox{
+    border-right: 1px solid #C1DAD7;
+    border-bottom: 1px solid #C1DAD7;
+    background: #F5FAFA;
+}
