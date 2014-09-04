@@ -24,6 +24,8 @@ function bind_save_xml() {
 		
 		save_document(this, root);
 		
+	//	Dropbox.createSaveButton("https://localhost/FHH/index.html", "text.xml");
+		
 		$("#save_personal_history_dialog").dialog("close");
 		
 	});

@@ -175,9 +175,9 @@ $(document).ready(function() {
 		bind_save_personal_history_button();
 		bind_save_xml();
 		
-		var opt = {};
-		var button = Dropbox.createChooseButton(null);
-		document.getElementById("db_save").appendChild(button);
+//		var opt = {};
+//		var button = Dropbox.createChooseButton(null);
+//		document.getElementById("db_save").appendChild(button);
 	});
 
 	$("#save_personal_history_dialog").dialog({
@@ -823,7 +823,7 @@ function bind_add_all_family_members_cancel_button_action() {
 }
 
 function load_risk_links() {
-	$.getJSON( "./risk/risks.json", function( data ) {
+	$.getJSON( "../risk/risks.json", function( data ) {
 		$("#risk_section").empty();
         $.each(data, function(index) {
         	if (data[index].status == 'active') {
@@ -836,7 +836,7 @@ function load_risk_links() {
         });
         
         $(".risk_calculator").on("click", function() { 
-        	$( "#risk_section" ).load( "risk/" + $(this).attr("href"), function(data) {
+        	$( "#risk_section" ).load( "../risk/" + $(this).attr("href"), function(data) {
         		$(data).find("[pullfrom]").each(function (i, field) {
         			var pullfrom = $(field).attr("pullfrom");
         			var v = personal_information[pullfrom];

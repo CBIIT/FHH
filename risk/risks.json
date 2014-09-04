@@ -6,7 +6,7 @@
 	  "status": "active"
 	},
 	"crca": {
-	  "name": "New Calculate your Colorectal Cancer Risk",
+	  "name": "Calculate your Colorectal Cancer Risk",
 	  "description": "The Colorectal Risk Calculator",
 	  "link": "crca/crca.html",
 	  "status": "active"

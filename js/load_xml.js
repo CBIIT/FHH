@@ -3,6 +3,7 @@ var personal_information = null;
 // Constants From SNOMED_CT
 var SNOMED_CT_CODES = {'IDENTICAL_TWIN_CODE': '313415001', 'FRATERNAL_TWIN_CODE':'313416000' }
 
+/*
 var diseases = {
 		'Clotting Disorder': ['Deep Vein Thrombosis (DVT)', 'Pulmonary Embolism', 'Clotting Disorder', 'Unknown Clotting Disorder'],
 		'Cancer': 			 ['Bone Cancer', 'Breast Cancer', 'Colon Cancer', 'Esophageal Cancer', 'Gastric Cancer', 'Kidney Cancer',
@@ -30,6 +31,7 @@ var diseases = {
 		'Other Disease': [],
 		'Unknown Disease': []
 };
+*/
 
 var disease_list = new Array();
 
