@@ -1,0 +1,21 @@
+{
+	"front": {
+		"on": "EN",
+		"usage": "Uso de Mi Familia Retrato de Salud puede:",
+		"li1" : "Preparar su historia familiar de salud.",
+		"li2" : "Imprimir su historia familiar de salud para compartirla con su familia o el personal médico.",
+		"li3" : "Archivar la historia familiar de salud de miembros de su familia y actualizarla cuando quiera.",
+		"talking" : "¡Hablar con el personal médico sobre nuestra historia familiar de salud puede ayudarnos a mantenernos saludables!",
+		"create" : "Crear una historia familiar de salud",
+		"load" : "Usar una historia familiar archivada",
+		"english" : "In English",
+		"spanish" : "En Espanol",
+		"portugese" : "Em Portugues",
+		"italian" : "In Italiano",
+		
+		"done" : "done"
+	}	
+}	
+
+
+

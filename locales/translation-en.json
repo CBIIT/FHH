@@ -1,0 +1,16 @@
+{
+	"front": {
+		"usage": "Using My Family Health Portrait you can:",
+		"li1" : "Enter your family health history.",
+		"li2" : "Print your family health history to share with family or your health care worker.",
+		"li3" : "Save your family health history so you can update it over time.",
+		"talking" : "Talking with your health care worker about your family health history can help you stay healthy!",
+		"create" : "Create a Family Health History",
+		"load" : "Use a Saved History",
+		"english" : "In English",
+		"spanish" : "En Espanol",
+		"portugese" : "Em Portugues",
+		"italian" : "In Italiano",
+		"done" : "done"
+	}	
+}	

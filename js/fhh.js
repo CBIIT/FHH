@@ -5,24 +5,24 @@ var current_relationship = "Self";
 var diseases = {
 		'Clotting Disorder': ['Deep Vein Thrombosis (DVT)', 'Pulmonary Embolism', 'Clotting Disorder', 'Unknown Clotting Disorder'],
 		'Cancer': 			 ['Bone Cancer', 'Breast Cancer', 'Colon Cancer', 'Esophageal Cancer', 'Gastric Cancer', 'Kidney Cancer',
-				   			  'Leukemia', 'Lung Cancer', 'Muscle Cancer', 'Ovarian Cancer', 'Prostate Cancer', 'Skin Cancer', 'Thyroid Cancer',
-				   			  'Uterine Cancer', 'Hereditary Onpolyposis Colon Cancer', 'Pancreatic Cancer', 'Liver Cancer', 'Brain Cancer',
-				   		 	  'Colorectal Cancer', 'Other Cancer', 'Unknown Cancer'],
+				   			  		'Leukemia', 'Lung Cancer', 'Muscle Cancer', 'Ovarian Cancer', 'Prostate Cancer', 'Skin Cancer', 'Thyroid Cancer',
+				   			  		'Uterine Cancer', 'Hereditary Onpolyposis Colon Cancer', 'Pancreatic Cancer', 'Liver Cancer', 'Brain Cancer',
+				   		 	  		'Colorectal Cancer', 'Other Cancer', 'Unknown Cancer'],
 		'Diabetes': 		 ['Type 1 Diabetes', 'Type 2 Diabetes', 'Gestational Diabetes', 'Diabetes Mellitus', 'Unknown Diabetes'],
 		'Gastrointestinal Disorder': ['Familial adenomatous polyposis', 'Colon Polyp', 'Crohn\'s Disease', 'Irritable Bowel Syndrome',
-									  'Ulcerative Colitis', 'Gastrointestinal Disorder', 'Unknown Gastrointestinal Disorder'],
+									  							'Ulcerative Colitis', 'Gastrointestinal Disorder', 'Unknown Gastrointestinal Disorder'],
 		'Heart Disease': 			 ['Heart Disease', 'Heart Attack', 'Coronary Artery Disease', 'Angina', 'Unknown Heart Disease'],					  
 		'High Cholesterol' : [],
 		'Hypertension': [],
 		'Kidney Disease': ['Cystic Kidney Disease', 'Diabetic Kidney Disease', 'Nephritis', 'Kidney Nephrosis', 'Nephrotic Syndrome',
-						   'Unknown Kidney Disease', 'Kidney Disease Present from Birth', 'Other Kidney Disease'],
+						   				 'Unknown Kidney Disease', 'Kidney Disease Present from Birth', 'Other Kidney Disease'],
 		'Lung Disease': ['Asthma', 'Chronic Bronchitis', 'Chronic Lower Respiratory Disease', 'COPD', 'Emphysema', 'Influenza/Pneumonia',
-					     'Unknown Lung Disease'],
+					     			 'Unknown Lung Disease'],
 		'Dementia/Alzheimer\'s': [],
 		'Osteoporosis': [],
 		'Mental Disorder': ['Anxiety', 'Attention Deficit Disorder-Hyperactivity', 'Autism', 'Bipolar Disorder', 'Dementia',  'Depression',
-						    'Eating Disorder', 'Obsessive Compulsive Disorder', 'Panic Disorder', 'Personality Disorder', 
-						    'Post Traumatic Stress Disorder', 'Schizophrenia', 'Social Phobia', 'Unspecified', 'Unknown Psychological Disorder'],
+						   					'Eating Disorder', 'Obsessive Compulsive Disorder', 'Panic Disorder', 'Personality Disorder', 
+						    				'Post Traumatic Stress Disorder', 'Schizophrenia', 'Social Phobia', 'Unspecified', 'Unknown Psychological Disorder'],
 		'Septicemia': [],
 		'Stroke/Brain Attack': [],
 		'Sudden Infant Death Syndrome': [],
@@ -51,11 +51,20 @@ var relationship_to_label = {
 };
 
 $(document).ready(function() {
+	
+	// Check to see whether this browser has the FileAPI
 	var FileApiSupported = window.File && window.FileReader && window.FileList && window.Blob;
 	if (!FileApiSupported) {		
 		if ($("body").attr("page") != "unsupported_browser") window.location.replace("./unsupported_browser.html");
 	}
-	
+
+	// Setup Language Translation
+	var option = { resGetPath: '../locales/__ns__-__lng__.json' };
+	if (typeof i18n != "undefined") {
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
+	}	
 
 	$("#why_ask_ashkenazi_dialog").load ("why_ask_ashkenazi.html");
 	$("#why_ask_ashkenazi_dialog").dialog({
@@ -159,6 +168,7 @@ $(document).ready(function() {
 	// This page lets you load in a previously saved history
 	$("#load_personal_history_dialog").load ("load_personal_history_dialog.html", function () {
 		bind_load_personal_history_button();
+		bind_load_xml();
 	});
 
 	$("#load_personal_history_dialog").dialog({
@@ -283,25 +293,7 @@ $(document).ready(function() {
 });
 
 function bind_load_personal_history_button() {
-	$("#file_upload_button").on("click", function () {
-
-        $("#view_diagram_and_table_button").attr('onclick', 'xmlload()');
-
-
-
-		personal_information = new Object();
-		
-		var fsize = $('#pedigree_file')[0].files[0].size;
-//		alert ("Filename is (" + fsize + "): " + $("#pedigree_file").val());
-		
-		var reader = new FileReader();
-		reader.readAsText($('#pedigree_file')[0].files[0], "UTF-8");
-		reader.onload = loaded;
-
-		$("#load_personal_history_dialog").dialog("close");
-		
-		return false;
-	});
+	
 }
 
 function bind_save_personal_history_button() {

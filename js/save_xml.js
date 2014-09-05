@@ -14,6 +14,8 @@ var LOINC_CODE = {
 
 var XMLNS_SCHEMA= "http://www.w3.org/2001/XMLSchema-instance";
 
+
+
 function bind_save_xml() {
 	$("#download_xml").on("click", function () {
 		doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
@@ -24,11 +26,45 @@ function bind_save_xml() {
 		
 		save_document(this, root);
 		
-	//	Dropbox.createSaveButton("https://localhost/FHH/index.html", "text.xml");
-		
 		$("#save_personal_history_dialog").dialog("close");
 		
 	});
+
+	var button = $("<BUTTON id='dropbox_save_button'> Save to Dropbox </BUTTON>");
+	
+	button.on("click", function () {
+		doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
+		var root = doc.createElement("FamilyHistory");
+		add_root_information(root);
+		root.appendChild(add_personal_history());
+		var s = new XMLSerializer();
+		var output_string = s.serializeToString(root);
+		var filename = "family_health_history.xml";
+		if (personal_information && personal_information.name) {
+			filename = personal_information.name.replace(/ /g,"_") + "_Health_History.xml";
+		} 
+
+		Dropbox.save({
+		   files: [ {'url': 'data:application/xml,' + output_string, 'filename': filename } ],
+			 success: function () { alert ("SUCCESS"); },
+			 error: function (errorMessage) { alert ("ERROR:" + errorMessage);}
+		});
+		
+	});
+	$("#save_to_dropbox").append(button);
+
+//	var button = Dropbox.createSaveButton({
+//	   files: [ {'url': 'data:application/xml,<TEST>Data</TEST>', 'filename': 'data.xml' } ],
+//		 success: function () { alert ("SUCCESS"); },
+//		 error: function (errorMessage) { alert ("ERROR:" + errorMessage);}
+//	});
+	
+
+
+//	$("#save_to_dropbox").on("click", function () {
+//		alert ("Here");
+//	});
+
 }
 function add_root_information(root) {
 	root.setAttribute("moodCode", "EVN");
@@ -107,7 +143,6 @@ function add_birthday(tag, birthday) {
 }
 
 function add_parent(tag, parent_id) {
-	if (parent_id == null) return;
 	
 	var relative_tag = doc.createElement("relative");
 	tag.appendChild(relative_tag);
@@ -121,9 +156,11 @@ function add_parent(tag, parent_id) {
 	var relationshipHolder_tag = doc.createElement("relationshipHolder");
 	relative_tag.appendChild(relationshipHolder_tag);
 
-	var id_tag = doc.createElement("id");
-	id_tag.setAttribute("extension", "" + parent_id);
-	relationshipHolder_tag.appendChild(id_tag);
+	if (parent_id != null)  {
+		var id_tag = doc.createElement("id");
+		id_tag.setAttribute("extension", "" + parent_id);
+		relationshipHolder_tag.appendChild(id_tag);
+	}
 }
 
 function add_gender(tag, gender) {

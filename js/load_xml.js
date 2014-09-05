@@ -3,37 +3,47 @@ var personal_information = null;
 // Constants From SNOMED_CT
 var SNOMED_CT_CODES = {'IDENTICAL_TWIN_CODE': '313415001', 'FRATERNAL_TWIN_CODE':'313416000' }
 
-/*
-var diseases = {
-		'Clotting Disorder': ['Deep Vein Thrombosis (DVT)', 'Pulmonary Embolism', 'Clotting Disorder', 'Unknown Clotting Disorder'],
-		'Cancer': 			 ['Bone Cancer', 'Breast Cancer', 'Colon Cancer', 'Esophageal Cancer', 'Gastric Cancer', 'Kidney Cancer',
-				   			  'Leukemia', 'Lung Cancer', 'Muscle Cancer', 'Ovarian Cancer', 'Prostate Cancer', 'Skin Cancer', 'Thyroid Cancer',
-				   			  'Uterine Cancer', 'Hereditary Onpolyposis Colon Cancer', 'Pancreatic Cancer', 'Liver Cancer', 'Brain Cancer',
-				   		 	  'Colorectal Cancer', 'Other Cancer', 'Unknown Cancer'],
-		'Diabetes': 		 ['Type 1 Diabetes', 'Type 2 Diabetes', 'Gestational Diabetes', 'Diabetes Mellitus', 'Unknown Diabetes'],
-		'Gastrointestinal Disorder': ['Familial adenomatous polyposis', 'Colon Polyp', 'Crohn\'s Disease', 'Irritable Bowel Syndrome',
-									  'Ulcerative Colitis', 'Gastrointestinal Disorder', 'Unknown Gastrointestinal Disorder'],
-		'Heart Disease': 			 ['Heart Disease', 'Heart Attack', 'Coronary Artery Disease', 'Angina', 'Unknown Heart Disease'],					  
-		'High Cholesterol' : [],
-		'Hypertension': [],
-		'Kidney Disease': ['Cystic Kidney Disease', 'Diabetic Kidney Disease', 'Nephritis', 'Kidney Nephrosis', 'Nephrotic Syndrome',
-						   'Unknown Kidney Disease', 'Kidney Disease Present from Birth', 'Other Kidney Disease'],
-		'Lung Disease': ['Asthma', 'Chronic Bronchitis', 'Chronic Lower Respiratory Disease', 'COPD', 'Emphysema', 'Influenza/Pneumonia',
-					     'Unknown Lung Disease'],
-		'Dementia/Alzheimer\'s': [],
-		'Osteoporosis': [],
-		'Mental Disorder': ['Anxiety', 'Attention Deficit Disorder-Hyperactivity', 'Autism', 'Bipolar Disorder', 'Dementia',  'Depression',
-						    'Eating Disorder', 'Obsessive Compulsive Disorder', 'Panic Disorder', 'Personality Disorder', 
-						    'Post Traumatic Stress Disorder', 'Schizophrenia', 'Social Phobia', 'Unspecified', 'Unknown Psychological Disorder'],
-		'Septicemia': [],
-		'Stroke/Brain Attack': [],
-		'Sudden Infant Death Syndrome': [],
-		'Other Disease': [],
-		'Unknown Disease': []
-};
-*/
+function bind_load_xml() {
+	$("#file_upload_button").on("click", function () {
+    $("#view_diagram_and_table_button").attr('onclick', 'xmlload()');
+		personal_information = new Object();
+		
+		var fsize = $('#pedigree_file')[0].files[0].size;
+//		alert ("Filename is (" + fsize + "): " + $("#pedigree_file").val());
+		
+		var reader = new FileReader();
+		reader.readAsText($('#pedigree_file')[0].files[0], "UTF-8");
+		reader.onload = loaded;
 
-var disease_list = new Array();
+		$("#load_personal_history_dialog").dialog("close");
+		
+		return false;
+	});
+	
+	var button = $("<BUTTON id='dropbox_load_button'> Load from Dropbox </BUTTON>");
+	button.on("click", function () {
+		personal_information = new Object();
+		Dropbox.choose({
+		   multiselect: false,
+		   linkType: "direct",
+		   extensions: ['.xml'],
+			 success: function (files) { 
+				$.get( files[0].link, function( xmlData ) {
+					var out = (new XMLSerializer()).serializeToString(xmlData);
+					
+					parse_xml(out);
+					build_family_history_data_table();
+					$("#add_another_family_member_button").show();
+				}); 
+			 },
+			 error: function (errorMessage) { alert ("ERROR:" + errorMessage);}
+		});
+		$("#load_personal_history_dialog").dialog("close");
+		
+		return false;
+	});
+	$("#load_from_dropbox").append(button);	
+}
 
 
 function loaded (evt) {
@@ -41,8 +51,6 @@ function loaded (evt) {
 	parse_xml(fileString);
 	build_family_history_data_table();
 	$("#add_another_family_member_button").show();
-	
-
 }
 
 function make_disease_array () {
@@ -133,7 +141,8 @@ function parse_xml(data) {
 //			alert (relative.name + ":P(" + parent_id + ")");
 		}			
 
-		relative.gender = $(this).find("administrativeGenderCode").attr("displayName").toUpperCase();
+		var gender_code =  $(this).find("administrativeGenderCode").attr("displayName");
+		if (gender_code) relative.gender = gender_code.toUpperCase();
 		relative.date_of_birth = $(this).find("relationshipHolder > birthTime").attr("value");
 
 		relative.twin_status = 'NO';

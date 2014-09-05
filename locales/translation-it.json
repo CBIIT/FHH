@@ -1,0 +1,16 @@
+{
+	"front": {
+		"usage": "Con Il Mio Quadro Sanitario di Famiglia poui:",
+		"li1" : "Entrare nella tua storia sanitaria di famiglia.",
+		"li2" : "Stampare la tua storia sanitaria di famiglia da condividere con la famiglia o con il tuo medico curante.",
+		"li3" : "Salvare la tua storia sanitaria dei famiglia cosí da poterla aggiornare continuamente.",
+		"talking" : "Parlare della tua storia sanitaria di famiglia con il tuo medico curante puo’ aiutarti a rimanere in buona salute!",
+		"create" : "Crea una storia sanitaria di famiglia",
+		"load" : "Usa una storia salvata",
+		"english" : "In English",
+		"spanish" : "En Espanol",
+		"portugese" : "Em Portugues",
+		"italian" : "In Italiano",
+		"done" : "done"
+	}	
+}	
