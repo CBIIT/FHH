@@ -350,3 +350,6 @@ i#options .ui-button.ui-state-active .ui-button-text {
     border-bottom: 1px solid #C1DAD7;
     background: #F5FAFA;
 }
+.pivotlist{
+    width: 400px;
+}
