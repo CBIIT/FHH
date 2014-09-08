@@ -1280,7 +1280,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select) {
 			detailed_disease = get_detailed_disease(chosen_disease_name);
 			detailed_disease_select.empty().hide();
 			var detailed_disease_list = "";
-			if (detailed_disease.length > 0) {
+			if (detailed_disease && detailed_disease.length > 0) {
 	//			disease_box.append(detailed_disease_select);
 				detailed_disease_select.show().append("<option value='NotPicked'> Please Select a Specific Subtype </option>");
 				
