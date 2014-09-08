@@ -5,7 +5,7 @@ var pdialog;
 var familyarray = new Array();
 var familyclonearray = new Array();
 var brothers = new Array();
-var personal_information_clone;
+var personal_information_clone=null;
 var ME,MEID;
 
 function GET_FAMILY(){
@@ -71,28 +71,15 @@ function GET_FAMILY(){
 
     $("#pivot_table").find('tbody')
         .append(sel);
-
-    //$.each(personal_information, function (key, item) {
-    //    alert("PIVOT-->"+item.name);
-    //})
-
-
-
-
 }
 function TRANSFER(){
     var MID = $( "#transferer option:selected" ).attr('value');
 
     $.each(personal_information, function (key, item) {
         if(MID == item.id){
-            alert("Dadaaa-->"+[item.id,item.name,item.parent_id])
         }
 
     });
-    //alert($( "#transferer option:selected" ).attr('value'));
-    //alert($('#transferer').selected )
-
-
 }
 
 /*
@@ -117,32 +104,15 @@ function CHECK(){
         return false;
     }
 
-
-
     //Get the old values
     //var OLD_DATA = OLD_VALUES(CHANGE_DATA);
     //Get the new values
     var NEW_DATA = NEW_VALUES(TRANSFER_DATA);
-
-    //for(var t in OLD_DATA) {
-    //
-    //
-    //
-    //    ////Swap to new values
-    //    //personal_information_clone.id = NEW_DATA[k].id;
-    //    //personal_information_clone.name = NEW_DATA[k].name;
-    //    //personal_information_clone.date_of_birth = NEW_DATA[k].date_of_birth;
-    //    //personal_information_clone.gender = NEW_DATA[k].gender;
-    //    //personal_information_clone.ethnicity = NEW_DATA[k].ethnicity;
-    //    //personal_information_clone.race = NEW_DATA[k].race;
-    //    //personal_information_clone['Health History'] = NEW_DATA[k]['Health History'];
-    //
-    //}
-
     //Build a new clone
     alert ("Original Personal Information:" + JSON.stringify(personal_information, null, 2) );
 
     //Clone the table
+    personal_information_clone = null;
     personal_information_clone = $.extend(true, {}, personal_information);
     //Get brother info
     $.each(personal_information_clone, function (key, data) {
@@ -199,16 +169,7 @@ function CHECK(){
     if (SELECTED_KEY.substring(0, 6) == "sister") {
         var newbrother;
 
-        //delete personal_information_clone[SELECTED_KEY];
-
-
-        //$.each(personal_information_clone, function (key, data) {
-        //    if (key == "brother_" + parseInt(brothers.length + 1)) {
-        //        newbrother = "brother_" + parseInt(brothers.length + 2);
-        //    }
-        //});
-
-        //newbrother = BROTHERS()
+        var newbro = BROTHERS();
 
         var id = personal_information.id;
         var name = personal_information.name;
@@ -217,22 +178,47 @@ function CHECK(){
         var ethnicity = personal_information.ethnicity;
         var race = personal_information.race;
 
+        var array = new Array();
+        array.push(id)
+        array.push(name)
+        array.push(date_of_birth)
+        array.push(gender)
+        //var tmp = JSON.stringify(personal_information_clone);
+
+        //myJSON = JSON.stringify({brother_2: array});
+        var objToAdd = {brother_2: {"id":id, "name":name, "date_of_birth":date_of_birth, "gender":gender}};
+
         $.each(personal_information_clone, function (key, data) {
-            if (key == SELECTED_KEY) {
-                personal_information_clone[key].id = id;
-                personal_information_clone[key].name = name;
-                personal_information_clone[key].date_of_birth = date_of_birth;
-                personal_information_clone[key].gender = gender;
-                personal_information_clone[key].ethnicity = ethnicity;
-                personal_information_clone[key].race = race;
-                personal_information_clone[key]['Health History'] = personal_information['Health History'];
-                //personal_information_clone[SELECTED_KEY]=BROTHERS();
-
-
-
-                //return false;
-            }
+            if(key == "sister_0") data = objToAdd;
         });
+        alert ("BRAND NEW JSON :" + JSON.stringify(personal_information_clone, null, 2) );
+        $.each(personal_information_clone, function (key, data) {
+
+            //personal_information_clone = JSON.parse(personal_information_clone, function(key, ) {
+
+
+            if (key == SELECTED_KEY) {
+                for (var item in this) {
+                    this.id = id;
+                    this.name = name;
+                    this.date_of_birth = date_of_birth;
+                    this.gender = gender;
+                    this.race = race;
+                    this.name['Health History'] = personal_information['Health History'];
+                }
+
+
+
+
+            }
+
+        });
+
+
+        alert(personal_information_clone.sister_0.text)
+
+        JSON.stringify(personal_information_clone.sister_0).replace('sister_0', "brother_2")
+
     }
 
     alert ("CLONE Personal Information:" + JSON.stringify(personal_information_clone, null, 2) );
@@ -240,20 +226,20 @@ function CHECK(){
 
 }
 
+
 function BROTHERS(){
     var newbrother;
     $.each(personal_information_clone, function (key, data) {
         if (key == brothers[brothers.length - 1]) {
             var nr = parseInt(key.substring(key.indexOf('_')+1,key.length))+1;
             newbrother =  "brother_" +nr;
-            alert("return newbrother-->"+newbrother)
             return newbrother;
         }
     });
-
-
-
 }
+
+
+
 
 function CLONED(){
     //Remove old table
@@ -294,7 +280,15 @@ function CLONED(){
 
 function RESET(){
     //Remove old table
+
+    $('#transferer')
+        .find('option')
+        .remove()
+        .end()
+    ;
     $('#transferer').remove();
+
+
 
     familyarray = new Array();
 
@@ -320,23 +314,9 @@ function RESET(){
         .append(sel);
 }
 
-function myFunction(SWAP_DATA){
-    var parsedJSON = JSON.parse(SWAP_DATA.d);
-    for (var i=0;i<parsedJSON.length;i++) {
-        alert(parsedJSON[i]);
-        alert(parsedJSON[i].id);
-        alert(parsedJSON[i].name);
-    }
-}
 
 //Search and Return the new data
 function OLD_VALUES(ARRAY){
-
-
-    alert("START OLD -- > "+ ARRAY[0])
-
-    alert("PERSONAL START OLD -- >"  + personal_information.id)
-
     var DATA_BLOCK = new Array();
     for(var k in personal_information) {
 
@@ -363,33 +343,6 @@ function NEW_VALUES(ARRAY){
     return DATA_BLOCK;
 }
 
-function OLD_DATA_PURGE(DATA) {
-    //var data = {"result":[
-    //    {"FirstName":"Test1","LastName":"User","Email":"test@test.com","City":"ahmedabad","State":"sk","Country":"canada","Status":"False","iUserID":"23"},
-    //    {"FirstName":"user","LastName":"user","Email":"u@u.com","City":"ahmedabad","State":"Gujarat","Country":"India","Status":"True","iUserID":"41"},
-    //    {"FirstName":"Ropbert","LastName":"Jones","Email":"Robert@gmail.com","City":"NewYork","State":"gfg","Country":"fgdfgdfg","Status":"True","iUserID":"48"},
-    //    {"FirstName":"hitesh","LastName":"prajapti","Email":"h.prajapati@zzz.com","City":"","State":"","Country":"","Status":"True","iUserID":"78"}
-    //]
-    //}
-
-    alert ("Original Personal Information:" + JSON.stringify(personal_information, null, 2) );
-
-    //alert(personal_information_clone)
-    delete personal_information_clone[0].id;
-    delete personal_information_clone[0].name;
-    //alert(personal_information_clone)
-
-
-    //alert ("PURGED Personal Information:" + JSON.stringify(DATA, null, 2) );
-    alert ("PURGED Personal Information:" + JSON.stringify(personal_information_clone, null, 2) );
-}
-
-//{
-//    "Disease Name": "Other Kidney Disease",
-//    "Detailed Disease Name": "Other Kidney Disease",
-//    "Age At Diagnosis": "30-39 years"
-//}
-
 function HEALTH_ARRAY(ARRAY){
     var temp = new Array();
     $.each(ARRAY, function (key, item) {
@@ -410,58 +363,14 @@ function SWAP(ARRAY){
         if(item['Health History']) alert(item['Health History'])
 
     });
-    //$.each(item['Health History'], function (key, item) {
-
-
-    //$.each(ARRAY, function (key, item) {
-    //swaparray.push({
-    //    "id":[item.id],
-    //    "gender":[item.gender],
-    //    "name":[item.name],
-    //    "twin_status":[item.name],
-    //    "cause_of_death":[item.name],
-    //    "detailed_cause_of_death":[item.name],
-    //    "estimated_death_age":[item.name],
-    //
-    //    "Health History":[{item.name}],
-    //
-    //    "ethnicity": {"Ashkenazi Jewish": true}
-    //    "relationship":[item.relationship],
-    //
-    //    "race": {"White": true},
-    //
-    //    "relationship": "paternal_grandmother"
-    //
-    //});
-
-
-
-
-
 }
 
 
 function REPLACE_DATA( field, oldvalue, newvalue ) {
 
-    alert([newvalue[0],newvalue[1]])
 
     personal_information_clone[field[0]] = newvalue[0];
     personal_information_clone[field[1]] = newvalue[1];
-
-    /*
-     for(var k in personal_information_clone) {
-
-     //alert("oldvalue*** "+oldvalue)
-     //alert("PESRONAL NEW*** "+personal_information_clone[k][field])
-
-     if( oldvalue == personal_information_clone[k][field] ) {
-
-     alert("LOOP FOUND-->"+personal_information_clone[k][field])
-
-     personal_information_clone[k][field] = newvalue ;
-     }
-     }
-     */
     return personal_information_clone;
 }
 
@@ -512,16 +421,5 @@ function replacer1(obj, keys)
     return dup;
 }
 
-
-
-
-//function HEALTHARRAY(ARRAY){
-//    var healtharray = new Array();
-//
-//    $.each()
-//
-//    healtharray.push( "Health History":[{item.name}]);
-//
-//}
 
 

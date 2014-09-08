@@ -235,8 +235,8 @@ $(document).ready(function() {
      xmlload();
    });
 
-	$("#navCopyFamily").on("click", function(){ 
-     alert("Coming Soon");
+	$("#navCopyFamily").on("click", function(){
+        GET_FAMILY()
   });
 
 	$("#help_dialog").dialog({

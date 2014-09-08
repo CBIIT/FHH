@@ -15,7 +15,6 @@ var ex,ey;
 var diseasearray=['Heart Disease','Stroke','Diabetes','Colon Cancer','Breast Cancer','Ovarian Cancer','Additional Diseases'];
 
 function xmlload() {
-
     mdialog = $('<div id="family_pedigree" width="100%" class="family_dialog">' +
         '<input align="right" type="button" value="print" onclick="openWin()"/>' +
         '<input align="right" type="button" value="pivot" onclick="GET_FAMILY()"/>' +
@@ -120,9 +119,7 @@ function xmlload() {
     svg.line(g, masterleft-140, 150,  masterleft-140, 70,{id: 'grmei2', stroke: 'black'});
     svg.line(g, masterleft+180, 150,  masterleft+180, 70,{id: 'grmei3', stroke: 'black'});
 
-    //$('#grmei').attr('transform', 'translate(0 0) rotate(90)');
-
-    //alert($('#Tpgm_me').attr(''))
+    alert(personal_information.gender)
 
     //Gender
     if (personal_information.gender == 'MALE') {
@@ -163,7 +160,7 @@ function xmlload() {
     //Prepare all data to array formats for processing
     $.each(personal_information, function (key, item) {
 
-        //alert(key + "-- " +key.substring(0,5))
+        alert(key + "-- " +key.substring(0,5))
 
         if (item.id) {
             var ids = new Array();
@@ -2148,6 +2145,7 @@ function openWin() {
 //Build a table of health issues
 function tableCreate(){
     var ids = new Array();
+    var item;
 
     $("#health_table").find('thead')
         .append($('<tr>')
@@ -2162,30 +2160,37 @@ function tableCreate(){
             .append($('<th>').append(diseasearray[6]))
     );
 
+
+    //alert(personal_information.name)
+
     $.each(personal_information, function(key, item) {
         var temp = new Array();
 
-        if (item.name!=null) {
-            //var d = ((typeof item.cause_of_death == 'undefined') ? 'Yes' : item.cause_of_death);
-            temp.push(item.id);
-            temp.push(item.name);
-            temp.push(((typeof item.cause_of_death == 'undefined') ? 'Yes' : item.cause_of_death));
-            //Is in Disease array
-            $.each(item['Health History'], function (key, item) {
-                var cols = ['<td></td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>'];
-                var tmp = item['Disease Name'];
-                if($.inArray( item['Disease Name'], diseasearray ) != -1){
-                    for (var i=0, l = diseasearray.length; i<l; i++) {
-                        if (diseasearray[i] === tmp) {
-                            cols[i]='<td>' + tmp + '</td>';
-                            break;}
-                    }
+        
+        if(item!=null && typeof item != 'undefined') {
+            if (item.name != null && typeof item.name != 'undefined') {
+                //var d = ((typeof item.cause_of_death == 'undefined') ? 'Yes' : item.cause_of_death);
+                temp.push(item.id);
+                temp.push(item.name);
+                temp.push(((typeof item.cause_of_death == 'undefined') ? 'Yes' : item.cause_of_death));
+                //Is in Disease array
+                $.each(item['Health History'], function (key, item) {
+                    var cols = ['<td></td>', '<td></td>', '<td></td>', '<td></td>', '<td></td>', '<td></td>', '<td></td>'];
+                    var tmp = item['Disease Name'];
+                    if ($.inArray(item['Disease Name'], diseasearray) != -1) {
+                        for (var i = 0, l = diseasearray.length; i < l; i++) {
+                            if (diseasearray[i] === tmp) {
+                                cols[i] = '<td>' + tmp + '</td>';
+                                break;
+                            }
+                        }
 
-                    temp.push(cols)
-                }
-                else temp.push('NA');
-            });
-            ids.push(temp);
+                        temp.push(cols)
+                    }
+                    else temp.push('NA');
+                });
+                ids.push(temp);
+            }
         }
     });
 
