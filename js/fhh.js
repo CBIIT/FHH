@@ -202,6 +202,7 @@ $(document).ready(function() {
 	$("#add_all_family_members_dialog").load ("add_all_family_members_dialog.html", function () {
 		bind_add_all_family_members_submit_button_action();
 		bind_add_all_family_members_cancel_button_action();
+		bind_number_only_fields();
 	});
 
 
@@ -211,7 +212,7 @@ $(document).ready(function() {
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
-		width:600
+		width:650
 	});
 
     // family pedigree diagram dialog
@@ -618,7 +619,28 @@ function get_gender(relationship) {
 }
 function bind_personal_submit_button_action () {
 	$("#addPersonInformationSubmitButton").on("click", function(){ 
-		
+
+		var errors = false;
+		if (!check_date_of_birth_in_correct_format($('#personal_info_form_date_of_birth').val())) {
+			if (!$("#invalid_date_of_birth_warning").length) {
+			$('#personal_info_form_date_of_birth').after(
+				$("<span id='invalid_date_of_birth_warning'> Invalid Date of Birth </span>").css("color","red"));
+			}
+			errors = true;
+		}
+		if ($("#personal_info_form_gender_male").prop('checked') == false &&
+				$("#personal_info_form_gender_female").prop('checked') == false) {
+			if (!$("#invalid_gender_warning").length) {		
+				$('#personal_info_form_gender_female').next().after(
+				$("<span id='invalid_gender_warning'> Invalid Gender Selection </span>").css("color","red"));
+			}
+			errors = true;			
+		}
+
+		if (errors) {
+			alert ("Some of the data your entered was invalid, please fix your errors and try again.");
+			return false;
+		}
 		// Determine the values from the form
 		if (personal_information == null) personal_information = new Object();
 		personal_information['id'] = guid();
@@ -680,6 +702,36 @@ function bind_personal_submit_button_action () {
 	});	
 }
 
+function check_date_of_birth_in_correct_format (date_of_birth) {
+	if (date_of_birth == null || date_of_birth.length == 0) return false;	
+
+ 	re = /^\d{1,2}\/\d{1,2}\/\d{4}$/; 
+ 	if(!date_of_birth.match(re)) { 
+ 		return false; 
+ 	}	
+// 	date_info = date_of_birth.split(re);
+  date_info = date_of_birth.split(/[.,\/ -]/);
+  
+  if (date_info[0] > 12) return false
+  if (date_info[0] == 1 && date_info[1] > 31) return false;
+  if (date_info[0] == 2 && date_info[1] > 29) return false;
+  if (date_info[0] == 3 && date_info[1] > 31) return false;
+  if (date_info[0] == 4 && date_info[1] > 30) return false;
+  if (date_info[0] == 5 && date_info[1] > 31) return false;
+  if (date_info[0] == 6 && date_info[1] > 30) return false;
+  if (date_info[0] == 7 && date_info[1] > 31) return false;
+  if (date_info[0] == 8 && date_info[1] > 31) return false;
+  if (date_info[0] == 9 && date_info[1] > 30) return false;
+  if (date_info[0] == 10 && date_info[1] > 31) return false;
+  if (date_info[0] == 11 && date_info[1] > 30) return false;
+  if (date_info[0] == 12 && date_info[1] > 31) return false;
+  
+  if (date_info[2] < 1890 || date_info[2] > 2100) return false;
+  if (date_info[2] % 4 != 0 && date_info[0] == 2 && date_info[1] == 29) return false;
+	
+	return true;
+}
+
 function bind_personal_cancel_button_action () {
 	$("#addPersonInformationCancelButton").on("click", function(){ 
 		$("#add_personal_information_dialog").dialog("close");
@@ -706,7 +758,7 @@ function bind_family_member_submit_button_action () {
 		family_member_information['parent_id'] = $("#family_member_parent_id").val();;
 		family_member_information['name'] = $("#family_member_info_form_name").val();
 		family_member_information['gender'] = $('input[name="family.member.gender"]:checked').val();
-		family_member_information['twinStatus'] = $('input[name="family.member.twin_status"]:checked').val();
+		family_member_information['twin_status'] = $('input[name="family.member.twin_status"]:checked').val();
 		family_member_information['adopted'] = $('input[name="family.member.adopted"]:checked').val();
 
 		// Cause of Death or Age/Estimated-Age
@@ -1210,26 +1262,32 @@ function build_personal_health_information_section() {
 
 function set_disease_choice_select (disease_select, detailed_disease_select) {
 	detailed_disease_select.hide();
-	disease_select.append("<option value='none'> Please Select a Disease </option>");
+	disease_select.append("<option value='NotPicked'> Please Select a Disease </option>");
 	for (disease_name in diseases) {
 		disease_select.append("<option> " + disease_name + " </option>");		
 	}
+	disease_select.append("<option value='other'> Other - Add New </option>");
 	
 	disease_select.on('change', function() {
-		var chosen_disease_name = $.trim($(this).find("option:selected" ).text());
-		var disease_box = disease_select.parent();
-//		$(this).next().remove();
-//		$("#detailed_disease_choice_select").remove();
-		detailed_disease = get_detailed_disease(chosen_disease_name);
-		detailed_disease_select.empty().hide();
-		var detailed_disease_list = "";
-		if (detailed_disease.length > 0) {
-//			disease_box.append(detailed_disease_select);
-			detailed_disease_select.show().append("<option value='none'> Please Select a Specific Subtype </option>");
-			
-			for (var i = 0; i < detailed_disease.length;i++) {
-				detailed_disease_select.append("<option> " + detailed_disease[i] + " </option>");					
-			}			
+		if ($(this).find("option:selected" ).val() == 'other') {
+			$(this).after($("<span id='new_disease'><br /><INPUT id='new_disease_name' type='text' size='50'></INPUT></span>"));
+						
+		} else {
+			var chosen_disease_name = $.trim($(this).find("option:selected" ).text());
+			var disease_box = disease_select.parent();
+	//		$(this).next().remove();
+	//		$("#detailed_disease_choice_select").remove();
+			detailed_disease = get_detailed_disease(chosen_disease_name);
+			detailed_disease_select.empty().hide();
+			var detailed_disease_list = "";
+			if (detailed_disease && detailed_disease.length > 0) {
+	//			disease_box.append(detailed_disease_select);
+				detailed_disease_select.show().append("<option value='NotPicked'> Please Select a Specific Subtype </option>");
+				
+				for (var i = 0; i < detailed_disease.length;i++) {
+					detailed_disease_select.append("<option> " + detailed_disease[i] + " </option>");					
+				}			
+			}
 		}
 	});
 	return disease_select;
@@ -1240,7 +1298,7 @@ function get_detailed_disease (disease_name) {
 }
 
 function set_age_at_diagnosis_pulldown(instructions, age_at_diagnosis_select) {
-	age_at_diagnosis_select.append("<option value='Unknown'> "+instructions+"  </option>");
+	age_at_diagnosis_select.append("<option value='NotPicked'> "+instructions+"  </option>");
 	age_at_diagnosis_select.append("<option> Pre-Birth </option>");
 	age_at_diagnosis_select.append("<option> Newborn </option>");
 	age_at_diagnosis_select.append("<option> In Infancy </option>");
@@ -1262,6 +1320,33 @@ function add_disease() {
 	var disease_detail = $(this).parent().parent().find("#detailed_disease_choice_select").val();
 	var age_at_diagnosis = $(this).parent().parent().find("#age_at_diagnosis_select").val();
 	
+	if (disease_name == null || disease_name == '' || disease_name == 'NotPicked') {
+		alert ("Please select a Disease");
+		return;		
+	}
+
+	if (disease_detail == 'NotPicked') {
+		alert ("Please select a Subtype");
+		return;		
+	}
+
+	if (age_at_diagnosis == null || age_at_diagnosis == '' || age_at_diagnosis == 'NotPicked') {
+		alert ("Please select an Age at Diagnosis");
+		return;		
+	}
+	
+	var new_disease_name = $(this).parent().parent().find("#new_disease_name").val();
+	
+	if (disease_name == 'other') {
+		if (new_disease_name == null || new_disease_name != "") {
+			disease_name = new_disease_name;
+			disease_detail = new_disease_name;
+		} else {
+			alert ("Please Enter a Disease Name");
+			return;		
+		}
+	}
+	
 	specific_health_issue = {"Disease Name": disease_name,
 	                          "Detailed Disease Name": disease_detail,
 	                          "Age At Diagnosis": age_at_diagnosis};
@@ -1272,6 +1357,7 @@ function add_disease() {
 	$(this).parent().parent().parent().find("#health_data_entry_row").before(new_row);
 	
 	// Reset the fields
+	$(this).parent().parent().find("#new_disease").remove();
 	$(this).parent().parent().find("#disease_choice_select").val($(this).parent().parent().find("#disease_choice_select").find('option').first().val());
 	$(this).parent().parent().find("#detailed_disease_choice_select").empty().hide();
 //	$(this).parent().parent().find("#detailed_disease_choice_select").val($(this).parent().parent().find("#detailed_disease_choice_select").find('option').first().val());
@@ -1316,7 +1402,7 @@ function remove_disease() {
 function build_personal_race_ethnicity_section() {
 	var race_ethnicity = $("#personal_race_ethnicity");
 	// First put up accordion entry
-	var bar = $("<div class='title-bar'>Your Family Background Information</div>");
+	var bar = $("<div class='title-bar' id='bi=title'>Your Family Background Information</div>");
 	race_ethnicity.empty().append(bar);
 	
 	
@@ -1369,7 +1455,7 @@ function build_personal_race_ethnicity_section() {
 function build_family_race_ethnicity_section() {
 	var race_ethnicity = $("#family_race_ethnicity");
 	// First put up accordion entry
-	var bar = $("<div class='title-bar'>This Person's Family Background Information</div>");
+	var bar = $("<div class='title-bar' id='bi-title'>This Person's Family Background Information</div>");
 	race_ethnicity.empty().append(bar);
 	
 	
@@ -1456,10 +1542,25 @@ function clear_family_member_health_history_dialog() {
 }
 
 function clear_and_set_current_family_member_health_history_dialog(family_member) {
+	
+
+	
 	$("#family_member_parent_id").val(family_member.parent_id);
 	$("#family_member_relationship").empty().append(family_member.relationship);
 	if (family_member.name == null) family_member.name = "";
 	$("#family_member_info_form_name").val(family_member.name);
+	
+	var person_name_or_relationship;
+	if (!(family_member.name == "")) person_name_or_relationship = family_member.name;
+	else person_name_or_relationship = "Your " + relationship_to_label[family_member.relationship];
+		
+	$("#update_family_member_health_history_dialog").find("#family-title")
+		.text(person_name_or_relationship + "'s Personal Information");
+	$("#update_family_member_health_history_dialog").find("#hi-title")
+		.text(person_name_or_relationship + "'s Health Information");
+	$("#update_family_member_health_history_dialog").find("#bi-title")
+		.text(person_name_or_relationship + "'s Race and Ethnicity");
+		
 	
 	if (family_member.gender == "MALE") $('#family_member_info_form_gender_male').prop('checked',true);
 	else $('#family_member_info_form_gender_male').prop('checked',false);
@@ -1686,4 +1787,19 @@ if (!Object.keys) {
       return result;
     };
   }());
+}
+// Helper to ensure that only numerics are used in fields
+
+function bind_number_only_fields() {
+	 $(".numeric").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        var error_message = $("<span> Digits Only </span>").css("color","red");
+        $(this).parent().append(error_message);
+        error_message.show().fadeOut("slow");
+//        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
 }

@@ -207,8 +207,12 @@ function test_secondary_family_members_cancer() {
 			var h = item['Health History'];
 			if (h != null) {
 
-				var temp = key.substring(0,8);
-				if(temp == 'maternal' || temp == 'paternal' || temp == 'granddau' || temp == 'grandson') {
+				var temp8 = key.substring(0,8);
+				var temp13 = key.substring(0,13);
+				if(temp13 == 'maternal_uncl' || temp13 == 'paternal_uncl' || 
+					 temp13 == 'maternal_aunt' || temp13 == 'paternal_aunt' ||
+					 temp13 == 'maternal_gran' || temp13 == 'paternal_half' ||
+					 temp8 == 'granddau' || temp8 == 'grandson') {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Cancer') {
 								risk_reason += this.name + " has had Colon Cancer in the past.<br />";
@@ -261,8 +265,12 @@ function test_secondary_family_members_colon_cancer_before_60() {
 			var h = item['Health History'];
 			if (h != null) {
 
-				var temp = key.substring(0,8);
-				if(temp == 'maternal' || temp == 'paternal' || temp == 'granddau' || temp == 'grandson') {
+				var temp8 = key.substring(0,8);
+				var temp13 = key.substring(0,13);
+				if(temp13 == 'maternal_uncl' || temp13 == 'paternal_uncl' || 
+					 temp13 == 'maternal_aunt' || temp13 == 'paternal_aunt' ||
+					 temp13 == 'maternal_gran' || temp13 == 'paternal_half' ||
+					 temp8 == 'granddau' || temp8 == 'grandson') {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 								risk_reason += this.name + " has had Colon Cancer before the age of 60.<br />";
@@ -339,12 +347,12 @@ function test_final() {
 	if (final_risk) {
 		set_icon($("#final"), 'positive');
 		set_reason($("#final"), 			
-			"You have at least one of the above risks.  Therefore your risk of Colorectal Cancel is Elevated");
+			"You have at least one of the above risks.  Therefore your risk of Colorectal Cancer is Elevated");
 		$("#explanation_low_risk").hide();
 		$("#explanation_high_risk").show();
 	} else {
 		set_icon($("#final"), 'negative');
-		set_reason($("#final"), "You have none of the above risks.  Therefore your risk of Colorectal Cancel is Average");
+		set_reason($("#final"), "You have none of the above risks.  Therefore your risk of Colorectal Cancer is Average");
 		$("#explanation_high_risk").hide();
 		$("#explanation_low_risk").show();
 	}

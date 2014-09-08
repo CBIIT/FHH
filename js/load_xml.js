@@ -1,7 +1,11 @@
 var personal_information = null;
 
 // Constants From SNOMED_CT
-var SNOMED_CT_CODES = {'IDENTICAL_TWIN_CODE': '313415001', 'FRATERNAL_TWIN_CODE':'313416000' }
+var SNOMED_CT_CODES = {
+		'IDENTICAL_TWIN_CODE': '313415001', 
+		'FRATERNAL_TWIN_CODE':'313416000',
+		'ADOPTED_CODE': '160496001'
+}
 
 function bind_load_xml() {
 	$("#file_upload_button").on("click", function () {
@@ -75,11 +79,25 @@ function parse_xml(data) {
 	consanguity_flag = $(data).find('patientPerson > subjectOf2 > ClinicalObservation > code[originalText="Parental consanguinity indicated"]')
 	if (consanguity_flag && consanguity_flag.length > 0) personal_information.consanguinity = true;
 	
+	// Twin and Adopted Status
+	var identical_twin_status_field = $(data).find("patientPerson > subjectOf2 > ClinicalObservation > code[code="
+			+ SNOMED_CT_CODES.IDENTICAL_TWIN_CODE + "]");
+	if (identical_twin_status_field.length > 0) personal_information.twin_status = "IDENTICAL";
+	var fraternal_twin_status_field = $(data).find("patientPerson > subjectOf2 > ClinicalObservation > code[code="
+			+ SNOMED_CT_CODES.FRATERNAL_TWIN_CODE + "]");
+	if (fraternal_twin_status_field.length > 0) personal_information.twin_status = "FRATERNAL";
+	
+	var adopted_status_field = $(data).find("patientPerson > subjectOf2 > ClinicalObservation > code[code="
+			+ SNOMED_CT_CODES.ADOPTED_CODE + "]");
+	if (adopted_status_field.length > 0) personal_information.adopted = "true";
+	
+	
+	
 	// Race and Ethnicity
 	personal_information.ethnicity = load_ethnicity($(data) );
 	personal_information.race = load_race(data); 
 
-	// Height and Weight
+	// Height and Weight and actvity
 	$(data).find("patientPerson > subjectOf2 > ClinicalObservation").each(function () {
 		w = $(this).find("code[displayName='weight']").parent().find("value");
 		if (w.attr("value")) {
@@ -91,14 +109,17 @@ function parse_xml(data) {
 			personal_information.height = h.attr("value");
 			personal_information.height_unit = h.attr("unit");
 		}
+		active = $(this).find("code[displayName='Physically Active']").parent().find("value");
+		if (active.attr("value")) {
+			if (active.attr("value") == 'true') personal_information.physically_active = true;
+			else personal_information.physically_active = false;
+		}
 	});
 	
 	// Personal Diseases
 		current_health_history = new Array();
 		// Looking for diseases, first we need to pull out the displayNames for every code tag
 		$(data).find("patientPerson > subjectOf2 > ClinicalObservation > code").each( function() {
-			
-			
 
 			specific_health_issue = get_specific_health_issue("Self", this);
 //			alert("Me "+ JSON.stringify(specific_health_issue, null, 2));
@@ -146,11 +167,13 @@ function parse_xml(data) {
 		relative.date_of_birth = $(this).find("relationshipHolder > birthTime").attr("value");
 
 		relative.twin_status = 'NO';
+		relative.adopted = 'false';
 		$(this).find("relationshipHolder > subjectOf2 > clinicalObservation > code").each( function() {
 			if ($(this).parent().html().indexOf(SNOMED_CT_CODES.IDENTICAL_TWIN_CODE) > -1) relative.twin_status = 'IDENTICAL';
 			if ($(this).parent().html().indexOf(SNOMED_CT_CODES.FRATERNAL_TWIN_CODE) > -1) relative.twin_status = 'FRATERNAL';
+			if ($(this).parent().html().indexOf(SNOMED_CT_CODES.ADOPTED_CODE) > -1) relative.adopted = 'true';
 		});
-		
+
 		// Cause of Death
 		
 

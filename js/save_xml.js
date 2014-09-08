@@ -4,7 +4,11 @@ var doc;
 var SNOMED_CODE = {
 	MALE:248153007, FEMALE:248152002,
 	HEIGHT:271603002, WEIGHT:107647005,
-	DEATH:419620001
+	DEATH:419620001,
+	IDENTICAL_TWIN:313415001,
+	FRATERNAL_TWIN:313416000,
+	ADOPTED:160496001,
+	PHYSICALLY_ACTIVE:228447005
 };
 
 var LOINC_CODE = {
@@ -113,7 +117,10 @@ function add_personal_information(patient_tag) {
 			personal_information.weight_unit,
 			personal_information.consanguinity,
 			personal_information["Health History"],
-			null
+			null,
+			personal_information.twin_status,
+			personal_information.adopted,
+			personal_information.physically_active
 	); 
 	add_relatives(patient_tag, personal_information);
 }
@@ -236,10 +243,18 @@ function add_clinical_observations(tag,
 		weight, weight_unit, 
 		consanguinity, 
 		diseases, 
-		cause_of_death) 
+		cause_of_death,
+		twin_status,
+		adopted_flag, 
+		active_flag) 
 {
 	var subjectOfTwo_tag = doc.createElement("subjectof2");
 	tag.appendChild(subjectOfTwo_tag);
+
+	add_twin_tag(subjectOfTwo_tag, twin_status);
+	add_adopted_tag(subjectOfTwo_tag, adopted_flag);
+	add_active_tag(subjectOfTwo_tag, active_flag);
+	
 	add_height(subjectOfTwo_tag, height, height_unit);
 	add_weight(subjectOfTwo_tag, weight, weight_unit);
 	add_consanguinity(subjectOfTwo_tag, consanguinity);
@@ -247,8 +262,59 @@ function add_clinical_observations(tag,
 	add_cause_of_death(subjectOfTwo_tag, cause_of_death);
 }
 
+function add_twin_tag(tag, twin_status) {
+	if (twin_status == null || twin_status == "") return;
+	if (!(twin_status == "IDENTICAL" || twin_status == "FRATERNAL")) return;
+	
+	var observation_tag = doc.createElement("clinicalObservation");
+	tag.appendChild(observation_tag);
+	
+	var code_tag = doc.createElement("code");
+	if (twin_status == "IDENTICAL") {
+		code_tag.setAttribute("displayName", "Identical twin (person)");
+		code_tag.setAttribute("codeSystemName", "SNOMED_CT");
+		code_tag.setAttribute("code", SNOMED_CODE.IDENTICAL_TWIN);
+	} else if (twin_status == "FRATERNAL") {
+		code_tag.setAttribute("displayName", "Fraternal twin (person)");
+		code_tag.setAttribute("codeSystemName", "SNOMED_CT");
+		code_tag.setAttribute("code", SNOMED_CODE.FRATERNAL_TWIN);
+	}
+	observation_tag.appendChild(code_tag);
+}
+
+function add_adopted_tag(tag, adopted_tag) {
+	if (adopted_tag == null || adopted_tag != "true") return;
+
+	var observation_tag = doc.createElement("clinicalObservation");
+	tag.appendChild(observation_tag);
+
+	var code_tag = doc.createElement("code");
+	code_tag.setAttribute("displayName", "adopted");
+	code_tag.setAttribute("codeSystemName", "SNOMED_CT");
+	code_tag.setAttribute("code", SNOMED_CODE.ADOPTED);
+
+	observation_tag.appendChild(code_tag);
+}
+
+function add_active_tag(tag, active_tag) {
+	if (active_tag == null) return;
+
+	var observation_tag = doc.createElement("clinicalObservation");
+	tag.appendChild(observation_tag);
+
+	var code_tag = doc.createElement("code");
+	code_tag.setAttribute("displayName", "Physically Active");
+	code_tag.setAttribute("codeSystemName", "SNOMED_CT");
+	code_tag.setAttribute("code", SNOMED_CODE.PHYSICALLY_ACTIVE);
+	observation_tag.appendChild(code_tag);
+	
+	var value_tag = doc.createElement("value");
+	value_tag.setAttribute("value", active_tag);
+	observation_tag.appendChild(value_tag);
+
+}
 function add_height(tag, height, height_unit) {
-if (height == null || height == "") return;
+	if (height == null || height == "") return;
 	var observation_tag = doc.createElement("clinicalObservation");
 	tag.appendChild(observation_tag);
 	
@@ -535,7 +601,10 @@ function add_individual_relative(tag, relative_type, code, relative) {
 			null, null,
 			null,
 			relative["Health History"],
-			relative.detailed_cause_of_death
+			relative.detailed_cause_of_death,
+			relative.twin_status,
+			relative.adopted,
+			null
 	); 
 	add_id(relationshipHolder_tag, relative.id);
 	add_name(relationshipHolder_tag, relative.name);
