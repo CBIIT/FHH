@@ -127,12 +127,12 @@ function xmlload() {
     //Gender
     if (personal_information.gender == 'MALE') {
         //Center Me
-        svg.rect( masterleft, top, merr, merr, 10, 10, {
+        svg.rect( masterleft, top, merr, merr, 0, 0, {
             id: 'me',
             class: 'male',
-            fill: 'slateblue',
+            fill: 'lightgrey',
             stroke: 'red',
-            strokeWidth: 2,
+            strokeWidth: 1,
             cursor: 'pointer'
         });
         masterx = parseInt($('#me').attr('x'));
@@ -143,9 +143,9 @@ function xmlload() {
         svg.circle(masterleft+25, top, 30, {
             id: 'me',
             class: 'female',
-            fill: 'slateblue',
+            fill: 'lightgrey',
             stroke: 'red',
-            strokeWidth: 2,
+            strokeWidth: 1,
             cursor: 'pointer'
         });
         masterx = parseInt($('#me').attr('cx'));
@@ -251,10 +251,10 @@ function xmlload() {
             var mleft = masterleft-30;
             //Prepare line shift in case of aunts/uncles
             if ( ($.inArray('PARENTALS', array) > -1) == true){
-                svg.circle(mleft-45, 70, cr, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer', class: item.gender });
+                svg.circle(mleft-45, 70, cr, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 1, cursor: 'pointer', class: item.gender });
             }
             else{
-                svg.circle(mleft, 70, cr, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer', class: item.gender });
+                svg.circle(mleft, 70, cr, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 1, cursor: 'pointer', class: item.gender });
             }
 
             //Check the live status
@@ -267,10 +267,10 @@ function xmlload() {
             var mleft = masterleft-185;
             //Prepare line shift in case of aunts/uncles
             if ( ($.inArray('PARENTALS', array) > -1) == true){
-                svg.rect(mleft-35, 50, rr, rr, 10, 10, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer', class: item.gender });
+                svg.rect(mleft-35, 50, rr, rr, 0, 0, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 1, cursor: 'pointer', class: item.gender });
             }
             else {
-                svg.rect(mleft, 47, rr, rr, 10, 10, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer', class: item.gender });
+                svg.rect(mleft, 47, rr, rr, 0, 0, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 1, cursor: 'pointer', class: item.gender });
                 svg.line(g, mleft, 70, mleft + 130, 70, {id: 'pgl', stroke: 'black'});
             }
 
@@ -285,12 +285,12 @@ function xmlload() {
             var mleft = masterleft+200;
 
             if ( ($.inArray('MATERNALS', array) > -1) == true){
-                svg.circle(mleft+45, 70, cr, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer', class: item.gender });
+                svg.circle(mleft+45, 70, cr, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 1, cursor: 'pointer', class: item.gender });
                 svg.line(g, mleft-80, 70, mleft+50, 70,{id: 'mgl', stroke: 'black'});
                 svg.line(g, mleft-20, 70,  mleft-20, 170,{id: 'mline', stroke: 'black'});
             }
             else{
-                svg.circle(mleft, 70, cr, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer', class: item.gender });
+                svg.circle(mleft, 70, cr, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 1, cursor: 'pointer', class: item.gender });
                 svg.line(g, mleft-140, 70, mleft+10, 70,{id: 'mgl', stroke: 'black'});
                 svg.line(g, mleft-60, 70, mleft-60, 170,{id: 'mline', stroke: 'black'});
             }
@@ -304,10 +304,10 @@ function xmlload() {
         if (key=='maternal_grandfather' ){
             var mleft = masterleft+60;
             if ( ($.inArray('MATERNALS', array) > -1) == true){
-                svg.rect(mleft+40, 50, rr, rr, 10, 10, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer', class: item.gender });
+                svg.rect(mleft+40, 50, rr, rr, 0, 0, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 1, cursor: 'pointer', class: item.gender });
             }
             else{
-                svg.rect(mleft, 47, rr, rr, 10, 10, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 2, cursor: 'pointer', class: item.gender });
+                svg.rect(mleft, 47, rr, rr, 0, 0, {id: item['id'], fill: 'white', stroke: 'red', strokeWidth: 1, cursor: 'pointer', class: item.gender });
             }
 
             //Check the live status

@@ -237,8 +237,18 @@ $(document).ready(function() {
    });
 
 	$("#navCopyFamily").on("click", function(){ 
-     alert("Coming Soon");
+     $("#copy_for_family_member").dialog("open");
+     build_copy_for_family_member_dialog();
   });
+
+	$("#copy_for_family_member").dialog({
+		title:"Copy for a Family Member",
+		position:['middle',0],
+		autoOpen: false,
+		height:'auto',
+		width:600
+	});
+
 
 	$("#help_dialog").dialog({
 		title:"Your Family Health History Help",
@@ -266,6 +276,7 @@ $(document).ready(function() {
 	
 	$(".banner_right").on("click", function(){ 
 		alert ("Personal Information:" + JSON.stringify(personal_information, null, 2) );
+//		window.open('data:application/json,' + JSON.stringify(personal_information, null, 2), "Debug",null); 
 	});
 	
 	// Hide or show the right initial buttons
@@ -754,7 +765,8 @@ function bind_family_member_submit_button_action () {
 		
 		family_member_information['relationship'] = relationship;
 		
-		family_member_information['id'] = guid();
+		if (personal_information[relationship].id != null ) family_member_information['id'] = personal_information[relationship].id
+		else family_member_information['id'] = guid();
 		family_member_information['parent_id'] = $("#family_member_parent_id").val();;
 		family_member_information['name'] = $("#family_member_info_form_name").val();
 		family_member_information['gender'] = $('input[name="family.member.gender"]:checked').val();
@@ -1788,6 +1800,8 @@ if (!Object.keys) {
     };
   }());
 }
+
+
 // Helper to ensure that only numerics are used in fields
 
 function bind_number_only_fields() {
@@ -1803,3 +1817,4 @@ function bind_number_only_fields() {
     }
    });
 }
+

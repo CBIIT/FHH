@@ -352,13 +352,13 @@ function parse_xml(data) {
 			relative.relationship = 'paternal_cousin';
 			personal_information["paternal_cousin_" + i] = relative;
 		}
-		if (relationship_code == "GRNSON") {
+		if (relationship_code == "GRDSON") {
 			var i = 0;
 			while (personal_information["grandson_" + i] != null) i++;
 			relative.relationship = 'grandson';
 			personal_information["grandson_" + i] = relative;
 		}
-		if (relationship_code == "GRNDAU") {
+		if (relationship_code == "GRDDAU") {
 			var i = 0;
 			while (personal_information["granddaughter_" + i] != null) i++;
 			relative.relationship = 'granddaughter';

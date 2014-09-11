@@ -26,9 +26,9 @@ function bind_save_xml() {
 
 		var root = doc.createElement("FamilyHistory");
 		add_root_information(root);
-		root.appendChild(add_personal_history());
+		root.appendChild(add_personal_history(personal_information));
 		
-		save_document(this, root);
+		save_document($(this), root, personal_information);
 		
 		$("#save_personal_history_dialog").dialog("close");
 		
@@ -40,7 +40,7 @@ function bind_save_xml() {
 		doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
 		var root = doc.createElement("FamilyHistory");
 		add_root_information(root);
-		root.appendChild(add_personal_history());
+		root.appendChild(add_personal_history(personal_information));
 		var s = new XMLSerializer();
 		var output_string = s.serializeToString(root);
 		var filename = "family_health_history.xml";
@@ -86,7 +86,7 @@ function add_root_information(root) {
 	
 }
 
-function add_personal_history() {
+function add_personal_history(pi) {
 	subject_tag = doc.createElement("subject");
 	subject_tag.setAttribute("typeCode", "SBJ");
 	
@@ -97,32 +97,32 @@ function add_personal_history() {
 	patientPerson_tag = doc.createElement("patientPerson");
 	patient_tag.appendChild(patientPerson_tag);
 	
-	add_personal_information (patientPerson_tag);
+	add_personal_information (patientPerson_tag, pi);
 	return subject_tag;
 }
 
-function add_personal_information(patient_tag) {
+function add_personal_information(patient_tag, pi) {
 	if (personal_information == null) return;
 	
-	add_id(patient_tag, personal_information.id);
-	add_name(patient_tag, personal_information.name);
-	add_birthday(patient_tag, personal_information.date_of_birth);
-	add_gender(patient_tag, personal_information.gender);
-	add_all_ethnic_groups(patient_tag, personal_information.ethnicity);
-	add_all_races(patient_tag, personal_information.race);	
+	add_id(patient_tag, pi.id);
+	add_name(patient_tag, pi.name);
+	add_birthday(patient_tag, pi.date_of_birth);
+	add_gender(patient_tag, pi.gender);
+	add_all_ethnic_groups(patient_tag, pi.ethnicity);
+	add_all_races(patient_tag, pi.race);	
 	add_clinical_observations(patient_tag, 
-			personal_information.height,
-			personal_information.height_unit,
-			personal_information.weight,
-			personal_information.weight_unit,
-			personal_information.consanguinity,
-			personal_information["Health History"],
+			pi.height,
+			pi.height_unit,
+			pi.weight,
+			pi.weight_unit,
+			pi.consanguinity,
+			pi["Health History"],
 			null,
-			personal_information.twin_status,
-			personal_information.adopted,
-			personal_information.physically_active
+			pi.twin_status,
+			pi.adopted,
+			pi.physically_active
 	); 
-	add_relatives(patient_tag, personal_information);
+	add_relatives(patient_tag, pi);
 }
 
 function add_id(tag, id_text) {
@@ -471,109 +471,110 @@ function add_relatives(tag, pi) {
 	if (pi.paternal_grandfather) add_individual_relative(tag, "Paternal Grandfather", "PGRFTH", pi.paternal_grandfather);
 
 	var i = 0;
-	while (personal_information['brother_' + i] != null) {
-		add_individual_relative(tag, "Brother", "NBRO", personal_information['brother_' + i]);
+	while (pi['brother_' + i] != null) {
+		add_individual_relative(tag, "Brother", "NBRO", pi['brother_' + i]);
 		i++;
 	}
 	
 	var i = 0;
-	while (personal_information['sister_' + i] != null) {
-		add_individual_relative(tag, "Sister", "NSIS", personal_information['sister_' + i]);
+	while (pi['sister_' + i] != null) {
+		add_individual_relative(tag, "Sister", "NSIS", pi['sister_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['son_' + i] != null) {
-		add_individual_relative(tag, "Son", "SON", personal_information['son_' + i]);
+	while (pi['son_' + i] != null) {
+		add_individual_relative(tag, "Son", "SON", pi['son_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['daughter_' + i] != null) {
-		add_individual_relative(tag, "Daughter", "DAU", personal_information['daughter_' + i]);
+	while (pi['daughter_' + i] != null) {
+		add_individual_relative(tag, "Daughter", "DAU", pi['daughter_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['maternal_aunt_' + i] != null) {
-		add_individual_relative(tag, "Maternal Aunt", "MAUNT", personal_information['maternal_aunt_' + i]);
+	while (pi['maternal_aunt_' + i] != null) {
+		add_individual_relative(tag, "Maternal Aunt", "MAUNT", pi['maternal_aunt_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['maternal_uncle_' + i] != null) {
-		add_individual_relative(tag, "Maternal Uncle", "MUNCLE", personal_information['maternal_uncle_' + i]);
+	while (pi['maternal_uncle_' + i] != null) {
+		add_individual_relative(tag, "Maternal Uncle", "MUNCLE", pi['maternal_uncle_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['paternal_aunt_' + i] != null) {
-		add_individual_relative(tag, "Paternal Aunt", "PAUNT", personal_information['paternal_aunt_' + i]);
+	while (pi['paternal_aunt_' + i] != null) {
+		add_individual_relative(tag, "Paternal Aunt", "PAUNT", pi['paternal_aunt_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['paternal_uncle_' + i] != null) {
-		add_individual_relative(tag, "Paternal Uncle", "PUNCLE", personal_information['paternal_uncle_' + i]);
+	while (pi['paternal_uncle_' + i] != null) {
+		add_individual_relative(tag, "Paternal Uncle", "PUNCLE", pi['paternal_uncle_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['maternal_cousin_' + i] != null) {
-		add_individual_relative(tag, "Maternal Cousin", "MCOUSN", personal_information['maternal_cousin_' + i]);
+	while (pi['maternal_cousin_' + i] != null) {
+		add_individual_relative(tag, "Maternal Cousin", "MCOUSN", pi['maternal_cousin_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['paternal_cousin_' + i] != null) {
-		add_individual_relative(tag, "Paternal Cousin", "PCOUSN", personal_information['paternal_cousin_' + i]);
-		i++;
-	}
-
-	while (personal_information['niece_' + i] != null) {
-		add_individual_relative(tag, "Niece", "NIECE", personal_information['niece_' + i]);
+	while (pi['paternal_cousin_' + i] != null) {
+		add_individual_relative(tag, "Paternal Cousin", "PCOUSN", pi['paternal_cousin_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['nephew_' + i] != null) {
-		add_individual_relative(tag, "Nephew", "NEPHEW", personal_information['nephew_' + i]);
+	while (pi['niece_' + i] != null) {
+		add_individual_relative(tag, "Niece", "NIECE", pi['niece_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['grandson_' + i] != null) {
-		add_individual_relative(tag, "Grandson", "GRDSON", personal_information['grandson_' + i]);
+	while (pi['nephew_' + i] != null) {
+		add_individual_relative(tag, "Nephew", "NEPHEW", pi['nephew_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['granddaughter_' + i] != null) {
-		add_individual_relative(tag, "GrandDaughter", "GRDDAU", personal_information['granddaughter_' + i]);
+	while (pi['grandson_' + i] != null) {
+		add_individual_relative(tag, "Grandson", "GRDSON", pi['grandson_' + i]);
+		i++;
+	}
+
+	var i = 0;
+	while (pi['granddaughter_' + i] != null) {
+		add_individual_relative(tag, "GrandDaughter", "GRDDAU", pi['granddaughter_' + i]);
 		i++;
 	}
 	
 	var i = 0;
-	while (personal_information['maternal_halfbrother_' + i] != null) {
-		add_individual_relative(tag, "Maternal Halfbrother", "HBRO", personal_information['maternal_halfbrother_' + i]);
+	while (pi['maternal_halfbrother_' + i] != null) {
+		add_individual_relative(tag, "Maternal Halfbrother", "HBRO", pi['maternal_halfbrother_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['maternal_halfsister_' + i] != null) {
-		add_individual_relative(tag, "Maternal Halfsister", "HSIS", personal_information['maternal_halfsister_' + i]);
+	while (pi['maternal_halfsister_' + i] != null) {
+		add_individual_relative(tag, "Maternal Halfsister", "HSIS", pi['maternal_halfsister_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['paternal_halfbrother_' + i] != null) {
-		add_individual_relative(tag, "Paternal Halfbrother", "HBRO", personal_information['paternal_halfbrother_' + i]);
+	while (pi['paternal_halfbrother_' + i] != null) {
+		add_individual_relative(tag, "Paternal Halfbrother", "HBRO", pi['paternal_halfbrother_' + i]);
 		i++;
 	}
 
 	var i = 0;
-	while (personal_information['paternal_halfsister_' + i] != null) {
-		add_individual_relative(tag, "Paternal Halfsister", "HSIS", personal_information['paternal_halfsister_' + i]);
+	while (pi['paternal_halfsister_' + i] != null) {
+		add_individual_relative(tag, "Paternal Halfsister", "HSIS", pi['paternal_halfsister_' + i]);
 		i++;
 	}
 
@@ -657,14 +658,14 @@ function get_age_values_from_estimated_age(age_at_diagnosis) {
 	return null;
 }
 
-function save_document(site, doc) {
+function save_document(save_link, doc, pi) {
 		var s = new XMLSerializer();
 		var output_string = s.serializeToString(doc);
 		
 		var filename = "family_health_history.xml";
-		if (personal_information && personal_information.name) {
-			filename = personal_information.name.replace(/ /g,"_") + "_Health_History.xml";
+		if (pi && pi.name) {
+			filename = pi.name.replace(/ /g,"_") + "_Health_History.xml";
 		} 
-		$(site).attr("href", "data:application/xml," + output_string ).attr("download", filename);
+		save_link.attr("href", "data:application/xml," + output_string ).attr("download", filename);
 }
 

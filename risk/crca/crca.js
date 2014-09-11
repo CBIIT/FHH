@@ -211,7 +211,8 @@ function test_secondary_family_members_cancer() {
 				var temp13 = key.substring(0,13);
 				if(temp13 == 'maternal_uncl' || temp13 == 'paternal_uncl' || 
 					 temp13 == 'maternal_aunt' || temp13 == 'paternal_aunt' ||
-					 temp13 == 'maternal_gran' || temp13 == 'paternal_half' ||
+					 temp13 == 'maternal_gran' || temp13 == 'paternal_gran' ||
+					 temp13 == 'maternal_half' || temp13 == 'paternal_half' ||
 					 temp8 == 'granddau' || temp8 == 'grandson') {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Cancer') {
@@ -269,7 +270,8 @@ function test_secondary_family_members_colon_cancer_before_60() {
 				var temp13 = key.substring(0,13);
 				if(temp13 == 'maternal_uncl' || temp13 == 'paternal_uncl' || 
 					 temp13 == 'maternal_aunt' || temp13 == 'paternal_aunt' ||
-					 temp13 == 'maternal_gran' || temp13 == 'paternal_half' ||
+					 temp13 == 'maternal_gran' || temp13 == 'paternal_gran' ||
+					 temp13 == 'maternal_half' || temp13 == 'paternal_half' ||
 					 temp8 == 'granddau' || temp8 == 'grandson') {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
