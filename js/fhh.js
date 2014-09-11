@@ -236,9 +236,14 @@ $(document).ready(function() {
      xmlload();
    });
 
+<<<<<<< HEAD
 	$("#navCopyFamily").on("click", function(){ 
      $("#copy_for_family_member").dialog("open");
      build_copy_for_family_member_dialog();
+=======
+	$("#navCopyFamily").on("click", function(){
+        GET_FAMILY()
+>>>>>>> 998a0295ebb7d375fe97fe6cfc8ae958d9770569
   });
 
 	$("#copy_for_family_member").dialog({
@@ -1817,4 +1822,7 @@ function bind_number_only_fields() {
     }
    });
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 998a0295ebb7d375fe97fe6cfc8ae958d9770569
