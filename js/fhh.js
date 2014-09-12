@@ -68,7 +68,7 @@ $(document).ready(function() {
 
 	$("#why_ask_ashkenazi_dialog").load ("why_ask_ashkenazi.html");
 	$("#why_ask_ashkenazi_dialog").dialog({
-		title:"Why Ask About Ashkani",
+		title:"Why Ask About Ashkenazi",
 		position:['middle',0],
 		autoOpen: false,
 		height:250,
