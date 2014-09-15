@@ -896,7 +896,7 @@ function bind_family_member_cancel_button_action () {
 function cancel_update_family_member() {
 //		alert ("Cancelling Family Member Information: " + current_relationship);
 	
-	if (personal_information[current_relationship].id == null
+	if (personal_information[current_relationship] == null || personal_information[current_relationship].id == null
 		&& current_relationship != 'self'
 		&& current_relationship != 'mother' && current_relationship != 'father' 
 		&& current_relationship != 'paternal_grandmother' && current_relationship != 'paternal_grandfather' 
@@ -1196,6 +1196,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 }
 
 function remove_family_member(relationship_id, confirm_flag) {
+	if (personal_information[relationship_id] == null) return;
 	
 	var name = personal_information[relationship_id]['name'];
 	if (name == "") name = relationship_id;
