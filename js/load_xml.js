@@ -428,6 +428,11 @@ function load_race(data) {
 	race = new Object(); 
 	$(data).find("patientPerson > raceCode").each(function () {
 		race_tag = $(this).attr("displayName");
+
+		// Special ones that we need to adjust from the old site:
+		if (race_tag == "Asian - Not Specified") race_tag = 'Unknown Asian';
+		if (race_tag == "Unspecified Native Hawaiian or Other Pacific Islander") race_tag = 'Unknown South Pacific Islander';
+
 		race[race_tag] = true;
 	});
 	return race;

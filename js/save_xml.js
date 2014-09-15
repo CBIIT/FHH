@@ -27,10 +27,13 @@ function bind_save_xml() {
 		var root = doc.createElement("FamilyHistory");
 		add_root_information(root);
 		root.appendChild(add_personal_history(personal_information));
+
 		
 		save_document($(this), root, personal_information);
+
 		
 		$("#save_personal_history_dialog").dialog("close");
+
 		
 	});
 
@@ -223,6 +226,22 @@ function add_all_races(tag, race_list) {
 	if (race_list["Black or African-American"]	== true) add_individual_race(tag, "Black or African-American");
 	if (race_list["Native Hawaiian or Other Pacific Islander"]	== true) add_individual_race(tag, "Native Hawaiian or Other Pacific Islander");
 	if (race_list["White"]	== true) add_individual_race(tag, "White");
+
+	if (race_list["Asian Indian"]	== true) add_individual_race(tag, "Asian Indian");
+	if (race_list["Chinese"]	== true) add_individual_race(tag, "Chinese");
+	if (race_list["Filipino"]	== true) add_individual_race(tag, "Filipino");
+	if (race_list["Japanese"]	== true) add_individual_race(tag, "Japanese");
+	if (race_list["Korean"]	== true) add_individual_race(tag, "Korean");
+	if (race_list["Vietnamese"]	== true) add_individual_race(tag, "Vietnamese");
+	if (race_list["Other Asian"]	== true) add_individual_race(tag, "Other Asian");
+	if (race_list["Unknown Asian"]	== true) add_individual_race(tag, "Unknown Asian");
+
+	if (race_list["Chamorro"]	== true) add_individual_race(tag, "Chamorro");
+	if (race_list["Guamanian"]	== true) add_individual_race(tag, "Guamanian");
+	if (race_list["Native Hawaiian"]	== true) add_individual_race(tag, "Native Hawaiian");
+	if (race_list["Somoan"]	== true) add_individual_race(tag, "Somoan");
+	if (race_list["Unknown South Pacific Islander"]	== true) add_individual_race(tag, "Unknown South Pacific Islander");
+
 }
 
 function add_individual_race(tag, race) {
@@ -637,6 +656,21 @@ function get_code_for_race(str) {
 		case "Black or African-American": return {code:"2054-5", code_system:"HL7", id:"3"};
 		case "Native Hawaiian or Other Pacific Islander": return {code:"1000001", code_system:"TBD", id:"4"};
 		case "White": return {code:"2106-3", code_system:"HL7", id:"5"};
+
+		case "Asian Indian": return {code:"2029-7", code_system:"HL7", id:"11"};
+		case "Chinese": return {code:"2034-7", code_system:"HL7", id:"12"};
+		case "Filipino": return {code:"2036-2", code_system:"HL7", id:"13"};
+		case "Japanese": return {code:"2039-6", code_system:"HL7", id:"14"};
+		case "Korean": return {code:"2040-4", code_system:"HL7", id:"15"};
+		case "Vietnamese": return {code:"2047-9", code_system:"HL7", id:"16"};
+		case "Other Asian": return {code:"186046006", code_system:"SNOMED", id:"17"};
+		case "Unknown Asian": return {code:"2028-9", code_system:"HL7", id:"18"};
+
+		case "Chamorro": return {code:"2088-3", code_system:"HL7", id:"21"};
+		case "Guamanian": return {code:"2087-5", code_system:"HL7", id:"22"};
+		case "Native Hawaiian": return {code:"2079-2", code_system:"HL7", id:"23"};
+		case "Samoan": return {code:"2080-0", code_system:"HL7", id:"24"};
+		case "Unknown South Pacific Islander": return {code:"2076-8", code_system:"HL7", id:"25"};
 	}
 	return null;
 }	
@@ -666,6 +700,20 @@ function save_document(save_link, doc, pi) {
 		if (pi && pi.name) {
 			filename = pi.name.replace(/ /g,"_") + "_Health_History.xml";
 		} 
-		save_link.attr("href", "data:application/xml," + output_string ).attr("download", filename);
+		if (isIE10) {
+	    var blobObject = new Blob([output_string]); 
+	    window.navigator.msSaveBlob(blobObject, filename); // The user only has the option of clicking the Save button.
+		} else {	
+			save_link.attr("href", "data:application/xml," + output_string ).attr("download", filename);
+		}
+		
 }
 
+////  Helper to detect IE10
+
+var isIE10 = false;
+/*@cc_on
+    if (/^10/.test(@_jscript_version)) {
+        isIE10 = true;
+    }
+@*/

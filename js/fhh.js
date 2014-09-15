@@ -88,6 +88,21 @@ $(document).ready(function() {
 		build_personal_race_ethnicity_section();
 		bind_personal_submit_button_action();
 		bind_personal_cancel_button_action();
+		
+		$("#personal_race_ethnicity").find("#selectedRaces-2").on("change", function () {
+			if ($(this).prop("checked") == true) $("#add_personal_information_dialog").find("#asian_checkboxes").show();
+			else {
+				$("#add_personal_information_dialog").find("#asian_checkboxes").hide();
+				// We made need to uncheck the boxes
+			}
+		});
+		$("#personal_race_ethnicity").find("#selectedRaces-4").on("change", function () {
+			if ($(this).prop("checked") == true) $("#add_personal_information_dialog").find("#south_pacific_checkboxes").show();
+			else {
+				$("#add_personal_information_dialog").find("#south_pacific_checkboxes").hide();
+				// We made need to uncheck the boxes
+			}
+		});
 	});
 
 	$("#add_personal_information_dialog").dialog({
@@ -104,6 +119,23 @@ $(document).ready(function() {
 		build_family_race_ethnicity_section();
 		bind_family_member_submit_button_action();
 		bind_family_member_cancel_button_action();
+		
+		$("#family_race_ethnicity").find("#selectedRaces-2").on("change", function () {
+			if ($(this).prop("checked") == true) $("#update_family_member_health_history_dialog").find("#asian_checkboxes").show();
+			else {
+				$("#update_family_member_health_history_dialog").find("#asian_checkboxes").hide();
+				// We made need to uncheck the boxes
+			}
+		});
+
+		$("#family_race_ethnicity").find("#selectedRaces-4").on("change", function () {
+			if ($(this).prop("checked") == true) $("#update_family_member_health_history_dialog").find("#south_pacific_checkboxes").show();
+			else {
+				$("#update_family_member_health_history_dialog").find("#south_pacific_checkboxes").hide();
+				// We made need to uncheck the boxes
+			}
+		});
+		
 
 		$("#person_is_alive").hide();
 		$("#person_is_not_alive").hide();
@@ -693,6 +725,22 @@ function bind_personal_submit_button_action () {
 		personal_information['race']['Native Hawaiian or Other Pacific Islander'] = $("#personal_race_ethnicity").find("#selectedRaces-4").is(':checked');
 		personal_information['race']['White'] = $("#personal_race_ethnicity").find("#selectedRaces-5").is(':checked');
 
+		personal_information['race']['Asian Indian'] = $("#personal_race_ethnicity").find("#selectedRaces-11").is(':checked');
+		personal_information['race']['Chinese'] = $("#personal_race_ethnicity").find("#selectedRaces-12").is(':checked');
+		personal_information['race']['Filipino'] = $("#personal_race_ethnicity").find("#selectedRaces-13").is(':checked');
+		personal_information['race']['Japanese'] = $("#personal_race_ethnicity").find("#selectedRaces-14").is(':checked');
+		personal_information['race']['Korean'] = $("#personal_race_ethnicity").find("#selectedRaces-15").is(':checked');
+		personal_information['race']['Vietnamese'] = $("#personal_race_ethnicity").find("#selectedRaces-16").is(':checked');
+		personal_information['race']['Other Asian'] = $("#personal_race_ethnicity").find("#selectedRaces-17").is(':checked');
+		personal_information['race']['Unknown Asian'] = $("#personal_race_ethnicity").find("#selectedRaces-18").is(':checked');
+
+		personal_information['race']['Chamorro'] = $("#personal_race_ethnicity").find("#selectedRaces-21").is(':checked');
+		personal_information['race']['Gaumanian'] = $("#personal_race_ethnicity").find("#selectedRaces-22").is(':checked');
+		personal_information['race']['Native Hawaiian'] = $("#personal_race_ethnicity").find("#selectedRaces-23").is(':checked');
+		personal_information['race']['Samoan'] = $("#personal_race_ethnicity").find("#selectedRaces-24").is(':checked');
+		personal_information['race']['Unknown South Pacific Islander'] = $("#personal_race_ethnicity").find("#selectedRaces-25").is(':checked');
+
+
 		personal_information['ethnicity'] = new Object();
 		personal_information['ethnicity']['Hispanic or Latino'] = $("#personal_race_ethnicity").find("#selectedEthnicities-1").is(':checked');
 		personal_information['ethnicity']['Ashkenazi Jewish'] = $("#personal_race_ethnicity").find("#selectedEthnicities-2").is(':checked');
@@ -752,7 +800,6 @@ function bind_personal_cancel_button_action () {
 function bind_family_member_submit_button_action () {
 	
 	$("#addFamilyMemberSubmitButton").on("click", function(){ 
-		var family_member_information = new Object();
 		
 		var relationship = "";
 		if (current_relationship == 'father' || current_relationship == 'mother' 
@@ -762,11 +809,15 @@ function bind_family_member_submit_button_action () {
 		} else {
 			relationship = current_relationship.substring(0, current_relationship.lastIndexOf('_'));
 		}
+
+		var family_member_information;
+		if (personal_information[relationship] != null) family_member_information = personal_information[relationship];
+		else family_member_information = new Object();
+
 		
 		family_member_information['relationship'] = relationship;
 		
-		if (personal_information[relationship].id != null ) family_member_information['id'] = personal_information[relationship].id
-		else family_member_information['id'] = guid();
+		if (family_member_information['id'] == null ) family_member_information['id'] = guid();
 		family_member_information['parent_id'] = $("#family_member_parent_id").val();;
 		family_member_information['name'] = $("#family_member_info_form_name").val();
 		family_member_information['gender'] = $('input[name="family.member.gender"]:checked').val();
@@ -808,6 +859,21 @@ function bind_family_member_submit_button_action () {
 		family_member_information['race']['Native Hawaiian or Other Pacific Islander'] = $("#family_race_ethnicity").find("#selectedRaces-4").is(':checked');
 		family_member_information['race']['White'] = $("#family_race_ethnicity").find("#selectedRaces-5").is(':checked');
 
+		family_member_information['race']['Asian Indian'] = $("#family_race_ethnicity").find("#selectedRaces-11").is(':checked');
+		family_member_information['race']['Chinese'] = $("#family_race_ethnicity").find("#selectedRaces-12").is(':checked');
+		family_member_information['race']['Filipino'] = $("#family_race_ethnicity").find("#selectedRaces-13").is(':checked');
+		family_member_information['race']['Japanese'] = $("#family_race_ethnicity").find("#selectedRaces-14").is(':checked');
+		family_member_information['race']['Korean'] = $("#family_race_ethnicity").find("#selectedRaces-15").is(':checked');
+		family_member_information['race']['Vietnamese'] = $("#family_race_ethnicity").find("#selectedRaces-16").is(':checked');
+		family_member_information['race']['Other Asian'] = $("#family_race_ethnicity").find("#selectedRaces-17").is(':checked');
+		family_member_information['race']['Unknown Asian'] = $("#family_race_ethnicity").find("#selectedRaces-18").is(':checked');
+
+		family_member_information['race']['Chamorro'] = $("#family_race_ethnicity").find("#selectedRaces-21").is(':checked');
+		family_member_information['race']['Guamanian'] = $("#family_race_ethnicity").find("#selectedRaces-22").is(':checked');
+		family_member_information['race']['Native Hawaiian'] = $("#family_race_ethnicity").find("#selectedRaces-23").is(':checked');
+		family_member_information['race']['Samoan'] = $("#family_race_ethnicity").find("#selectedRaces-24").is(':checked');
+		family_member_information['race']['Unknown South Pacific Islander'] = $("#family_race_ethnicity").find("#selectedRaces-25").is(':checked');
+
 		family_member_information['ethnicity'] = new Object();
 		family_member_information['ethnicity']['Hispanic or Latino'] = $("#family_race_ethnicity").find("#selectedEthnicities-1").is(':checked');
 		family_member_information['ethnicity']['Ashkenazi Jewish'] = $("#family_race_ethnicity").find("#selectedEthnicities-2").is(':checked');
@@ -828,9 +894,14 @@ function bind_family_member_cancel_button_action () {
 }
 
 function cancel_update_family_member() {
-//		alert ("Cancelling Family Member Information");
+//		alert ("Cancelling Family Member Information: " + current_relationship);
 	
-	if (personal_information[current_relationship].id == null) {
+	if (personal_information[current_relationship].id == null
+		&& current_relationship != 'self'
+		&& current_relationship != 'mother' && current_relationship != 'father' 
+		&& current_relationship != 'paternal_grandmother' && current_relationship != 'paternal_grandfather' 
+		&& current_relationship != 'maternal_grandmother' && current_relationship != 'maternal_grandfather' 
+	) {
 		remove_family_member(current_relationship, false);
 	}
 	$("#update_family_member_health_history_dialog").dialog("close");
@@ -1431,6 +1502,38 @@ function build_personal_race_ethnicity_section() {
 			"<input tabindex='21' name='selectedRaces' value='5' id='selectedRaces-5'  type='checkbox'>" +
 			"<label for='selectedRaces-5' class='checkboxLabel'>White</label>" +
 			"</td>");
+			
+	var asian_race_checkboxes = $("<td>" +
+			"<input tabindex='22' name='selectedRaces' value='11' id='selectedRaces-11'  type='checkbox'>" +
+			"<label for='selectedRaces-11' class='checkboxLabel'>Asian Indian</label>" +
+			"<input tabindex='22' name='selectedRaces' value='12' id='selectedRaces-12' type='checkbox'>" +
+			"<label for='selectedRaces-12' class='checkboxLabel'>Chinese</label>" +
+			"<input tabindex='22' name='selectedRaces' value='13' id='selectedRaces-13' type='checkbox'>" +
+			"<label for='selectedRaces-13' class='checkboxLabel'>Filipino</label>" +
+			"<input tabindex='22' name='selectedRaces' value='14' id='selectedRaces-14' type='checkbox'>" +
+			"<label for='selectedRaces-14' class='checkboxLabel'>Japanese</label>" +
+			"<input tabindex='22' name='selectedRaces' value='15' id='selectedRaces-15' type='checkbox'>" +
+			"<label for='selectedRaces-15' class='checkboxLabel'>Korean</label>" +
+			"<input tabindex='22' name='selectedRaces' value='16' id='selectedRaces-16' type='checkbox'>" +
+			"<label for='selectedRaces-16' class='checkboxLabel'>Vietnamese</label>" +
+			"<input tabindex='22' name='selectedRaces' value='17' id='selectedRaces-17' type='checkbox'>" +
+			"<label for='selectedRaces-17' class='checkboxLabel'>Other Asian</label>" +
+			"<input tabindex='22' name='selectedRaces' value='18' id='selectedRaces-18' type='checkbox'>" +
+			"<label for='selectedRaces-18' class='checkboxLabel'>Unknown Asian</label>" +
+			"</td>");
+
+	var south_pacific_race_checkboxes = $("<td>" +
+			"<input tabindex='23' name='selectedRaces' value='21' id='selectedRaces-21'  type='checkbox'>" +
+			"<label for='selectedRaces-21' class='checkboxLabel'>Chamorro</label>" +
+			"<input tabindex='23' name='selectedRaces' value='22' id='selectedRaces-22' type='checkbox'>" +
+			"<label for='selectedRaces-22' class='checkboxLabel'>Guamanian</label>" +
+			"<input tabindex='23' name='selectedRaces' value='23' id='selectedRaces-23' type='checkbox'>" +
+			"<label for='selectedRaces-23' class='checkboxLabel'>Native Hawaiian</label>" +
+			"<input tabindex='23' name='selectedRaces' value='24' id='selectedRaces-24' type='checkbox'>" +
+			"<label for='selectedRaces-24' class='checkboxLabel'>Samoan</label>" +
+			"<input tabindex='23' name='selectedRaces' value='25' id='selectedRaces-25' type='checkbox'>" +
+			"<label for='selectedRaces-25' class='checkboxLabel'>Unknown South Pacific Islander</label>" +
+			"</td>");
 
 	var ethnicity_checkboxes = $("<td>" +
 			"<input tabindex='24' name='selectedEthnicities' value='1' id='selectedEthnicities-1' type='checkbox'>" +
@@ -1444,14 +1547,20 @@ function build_personal_race_ethnicity_section() {
 	race_ethnicity.
 		append($("<table>")
 				.append($("<tr>")
-						.append("<td colspan='2'>Check here if your parents are related to each other in any way other than marriage.</td>")
-						.append("<td><input name='person.consanguinity' value='true' tabindex='20' " +
-									"id='person_consanguinity' type='checkbox'></td>"))
+						.append("<td colspan='3'>Check here if your parents are related to each other in any way other than marriage."
+								+ "<input name='person.consanguinity' value='true' tabindex='20' "
+								+	"id='person_consanguinity' type='checkbox'></td>"))
 				.append($("<tr>")
 						.append("<td colspan='2'>Multiple races and ethnicities may be selected.</td>") )
 				.append($("<tr>")
-						.append("<td>Race:</td>")
+						.append("<td style='width:150px;'>Race:</td>")
 						.append(race_checkboxes) )
+				.append($("<tr id='asian_checkboxes'>")
+						.append("<td>More Race Options:</td>")
+						.append(asian_race_checkboxes) )
+				.append($("<tr id='south_pacific_checkboxes'>")
+						.append("<td>More Race Options:</td>")
+						.append(south_pacific_race_checkboxes) )
 				.append($("<tr>")
 						.append("<td> Ethnicity </td>")
 						.append(ethnicity_checkboxes)));
@@ -1485,6 +1594,38 @@ function build_family_race_ethnicity_section() {
 			"<label for='selectedRaces-5' class='checkboxLabel'>White</label>" +
 			"</td>");
 
+	var asian_race_checkboxes = $("<td>" +
+			"<input tabindex='22' name='selectedRaces' value='11' id='selectedRaces-11'  type='checkbox'>" +
+			"<label for='selectedRaces-11' class='checkboxLabel'>Asian Indian</label>" +
+			"<input tabindex='22' name='selectedRaces' value='12' id='selectedRaces-12' type='checkbox'>" +
+			"<label for='selectedRaces-12' class='checkboxLabel'>Chinese</label>" +
+			"<input tabindex='22' name='selectedRaces' value='13' id='selectedRaces-13' type='checkbox'>" +
+			"<label for='selectedRaces-13' class='checkboxLabel'>Filipino</label>" +
+			"<input tabindex='22' name='selectedRaces' value='14' id='selectedRaces-14' type='checkbox'>" +
+			"<label for='selectedRaces-14' class='checkboxLabel'>Japanese</label>" +
+			"<input tabindex='22' name='selectedRaces' value='15' id='selectedRaces-15' type='checkbox'>" +
+			"<label for='selectedRaces-15' class='checkboxLabel'>Korean</label>" +
+			"<input tabindex='22' name='selectedRaces' value='16' id='selectedRaces-16' type='checkbox'>" +
+			"<label for='selectedRaces-16' class='checkboxLabel'>Vietnamese</label>" +
+			"<input tabindex='22' name='selectedRaces' value='17' id='selectedRaces-17' type='checkbox'>" +
+			"<label for='selectedRaces-17' class='checkboxLabel'>Other Asian</label>" +
+			"<input tabindex='22' name='selectedRaces' value='18' id='selectedRaces-18' type='checkbox'>" +
+			"<label for='selectedRaces-18' class='checkboxLabel'>Unknown Asian</label>" +
+			"</td>");
+
+	var south_pacific_race_checkboxes = $("<td>" +
+			"<input tabindex='23' name='selectedRaces' value='21' id='selectedRaces-21'  type='checkbox'>" +
+			"<label for='selectedRaces-21' class='checkboxLabel'>Chamorro</label>" +
+			"<input tabindex='23' name='selectedRaces' value='22' id='selectedRaces-22' type='checkbox'>" +
+			"<label for='selectedRaces-22' class='checkboxLabel'>Guamanian</label>" +
+			"<input tabindex='23' name='selectedRaces' value='23' id='selectedRaces-23' type='checkbox'>" +
+			"<label for='selectedRaces-23' class='checkboxLabel'>Native Hawaiian</label>" +
+			"<input tabindex='23' name='selectedRaces' value='24' id='selectedRaces-24' type='checkbox'>" +
+			"<label for='selectedRaces-24' class='checkboxLabel'>Samoan</label>" +
+			"<input tabindex='23' name='selectedRaces' value='25' id='selectedRaces-25' type='checkbox'>" +
+			"<label for='selectedRaces-25' class='checkboxLabel'>Unknown South Pacific Islander</label>" +
+			"</td>");
+
 	var ethnicity_checkboxes = $("<td>" +
 			"<input tabindex='24' name='selectedEthnicities' value='1' id='selectedEthnicities-1' type='checkbox'>" +
 			"<label for='selectedEthnicities-1' class='checkboxLabel'>Hispanic or Latino</label>" +
@@ -1499,8 +1640,14 @@ function build_family_race_ethnicity_section() {
 				.append($("<tr>")
 						.append("<td colspan='2'>Multiple races and ethnicities may be selected.</td>") )
 				.append($("<tr>")
-						.append("<td>Race:</td>")
+						.append("<td style='width:150px;'>Race:</td>")
 						.append(race_checkboxes) )
+				.append($("<tr id='asian_checkboxes'>")
+						.append("<td>More Race Options:</td>")
+						.append(asian_race_checkboxes) )
+				.append($("<tr id='south_pacific_checkboxes'>")
+						.append("<td>More Race Options:</td>")
+						.append(south_pacific_race_checkboxes) )
 				.append($("<tr>")
 						.append("<td> Ethnicity </td>")
 						.append(ethnicity_checkboxes))
@@ -1546,6 +1693,21 @@ function clear_family_member_health_history_dialog() {
 	$("#family_race_ethnicity").find("#selectedRaces-3").prop('checked',false);
 	$("#family_race_ethnicity").find("#selectedRaces-4").prop('checked',false);
 	$("#family_race_ethnicity").find("#selectedRaces-5").prop('checked',false);
+	
+	$("#family_race_ethnicity").find("#selectedRaces-11").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedRaces-12").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedRaces-13").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedRaces-14").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedRaces-15").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedRaces-16").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedRaces-17").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedRaces-18").prop('checked',false);	
+
+	$("#family_race_ethnicity").find("#selectedRaces-21").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedRaces-22").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedRaces-23").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedRaces-24").prop('checked',false);	
+	$("#family_race_ethnicity").find("#selectedRaces-25").prop('checked',false);	
 	
 	$("#family_race_ethnicity").find("#selectedEthnicities-1").prop('checked',false);
 	$("#family_race_ethnicity").find("#selectedEthnicities-2").prop('checked',false);
@@ -1649,6 +1811,20 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$("#family_health_information").find("#disease_choice_select").val($("#disease_choice_select").find('option').first().val());
 	$("#family_health_information").find("#detailed_disease_choice_select").val($("#detailed_disease_choice_select").find('option').first().val());
 	$("#family_health_information").find("#age_at_diagnosis_select").val($("#age_at_diagnosis_select").find('option').first().val());
+
+	if (family_member.race && family_member.race['Asian'] == true) {
+		$("#family_race_ethnicity").find("#asian_checkboxes").show();
+	} else {
+		$("#family_race_ethnicity").find("#asian_checkboxes").hide();
+	}
+
+	if (family_member.race && family_member.race['Native Hawaiian or Other Pacific Islander'] == true) {
+		$("#family_race_ethnicity").find("#south_pacific_checkboxes").show();
+	} else {
+		$("#family_race_ethnicity").find("#south_pacific_checkboxes").hide();
+	}
+
+
 	
 	if (family_member.race != null) {
 		$("#family_race_ethnicity").find("#selectedRaces-1").prop('checked',family_member.race['American Indian or Alaska Native']);
@@ -1656,12 +1832,54 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		$("#family_race_ethnicity").find("#selectedRaces-3").prop('checked',family_member.race['Black or African-American']);
 		$("#family_race_ethnicity").find("#selectedRaces-4").prop('checked',family_member.race['Native Hawaiian or Other Pacific Islander']);
 		$("#family_race_ethnicity").find("#selectedRaces-5").prop('checked',family_member.race['White']);
+
+		$("#family_race_ethnicity").find("#selectedRaces-11").prop('checked',family_member.race['Asian Indian']);
+		$("#family_race_ethnicity").find("#selectedRaces-12").prop('checked',family_member.race['Chinese']);
+		$("#family_race_ethnicity").find("#selectedRaces-13").prop('checked',family_member.race['Filipino']);
+		$("#family_race_ethnicity").find("#selectedRaces-14").prop('checked',family_member.race['Japanese']);
+		$("#family_race_ethnicity").find("#selectedRaces-15").prop('checked',family_member.race['Korean']);
+		$("#family_race_ethnicity").find("#selectedRaces-16").prop('checked',family_member.race['Vietnamese']);
+		$("#family_race_ethnicity").find("#selectedRaces-17").prop('checked',family_member.race['Other Asian']);
+		$("#family_race_ethnicity").find("#selectedRaces-18").prop('checked',family_member.race['Unknonwn Asian']);
+
+		$("#family_race_ethnicity").find("#selectedRaces-21").prop('checked',family_member.race['Chamorro']);
+		$("#family_race_ethnicity").find("#selectedRaces-22").prop('checked',family_member.race['Guamanian']);
+		$("#family_race_ethnicity").find("#selectedRaces-23").prop('checked',family_member.race['Native Hawaiian']);
+		$("#family_race_ethnicity").find("#selectedRaces-24").prop('checked',family_member.race['Samoan']);
+		$("#family_race_ethnicity").find("#selectedRaces-25").prop('checked',family_member.race['Unknown South Pacific Islander']);
+
+	} else {
+		$("#family_race_ethnicity").find("#selectedRaces-1").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-2").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-3").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-4").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-5").prop('checked',false);
+
+		$("#family_race_ethnicity").find("#selectedRaces-11").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-12").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-13").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-14").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-15").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-16").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-17").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-18").prop('checked',false);
+
+		$("#family_race_ethnicity").find("#selectedRaces-21").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-22").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-23").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-24").prop('checked',false);
+		$("#family_race_ethnicity").find("#selectedRaces-25").prop('checked',false);
+		
 	}
 	
 	if (family_member.ethnicity != null) {
 		$("#family_race_ethnicity").find("#selectedEthnicities-1").prop('checked',family_member.ethnicity['Hispanic or Latino']);
 		$("#family_race_ethnicity").find("#selectedEthnicities-2").prop('checked',family_member.ethnicity['Ashkenazi Jewish']);
 		$("#family_race_ethnicity").find("#selectedEthnicities-3").prop('checked',family_member.ethnicity['Not Hispanic or Latino']);
+	} else {
+		$("#family_race_ethnicity").find("#selectedEthnicities-1").prop(false);
+		$("#family_race_ethnicity").find("#selectedEthnicities-2").prop(false);
+		$("#family_race_ethnicity").find("#selectedEthnicities-3").prop(false);
 	}
 }
 
@@ -1717,12 +1935,41 @@ function clear_and_set_personal_health_history_dialog() {
 
 	$("#personal_race_ethnicity").find('#person.consanguinity').prop("checked", personal_information.consanguinity);
 
+
+	if (personal_information.race && personal_information.race['Asian'] == true) {
+		$("#personal_race_ethnicity").find("#asian_checkboxes").show();
+	} else {
+		$("#personal_race_ethnicity").find("#asian_checkboxes").hide();
+	}
+
+	if (personal_information.race && personal_information.race['Native Hawaiian or Other Pacific Islander'] == true) {
+		$("#personal_race_ethnicity").find("#south_pacific_checkboxes").show();
+	} else {
+		$("#personal_race_ethnicity").find("#south_pacific_checkboxes").hide();
+	}
+	
 	if (personal_information.race != null) {
 		$("#personal_race_ethnicity").find("#selectedRaces-1").prop('checked',personal_information.race['American Indian or Alaska Native']);
 		$("#personal_race_ethnicity").find("#selectedRaces-2").prop('checked',personal_information.race['Asian']);
 		$("#personal_race_ethnicity").find("#selectedRaces-3").prop('checked',personal_information.race['Black or African-American']);
 		$("#personal_race_ethnicity").find("#selectedRaces-4").prop('checked',personal_information.race['Native Hawaiian or Other Pacific Islander']);
 		$("#personal_race_ethnicity").find("#selectedRaces-5").prop('checked',personal_information.race['White']);
+
+		$("#personal_race_ethnicity").find("#selectedRaces-11").prop('checked',personal_information.race['Asian Indian']);
+		$("#personal_race_ethnicity").find("#selectedRaces-12").prop('checked',personal_information.race['Chinese']);
+		$("#personal_race_ethnicity").find("#selectedRaces-13").prop('checked',personal_information.race['Filipino']);
+		$("#personal_race_ethnicity").find("#selectedRaces-14").prop('checked',personal_information.race['Japanese']);
+		$("#personal_race_ethnicity").find("#selectedRaces-15").prop('checked',personal_information.race['Korean']);
+		$("#personal_race_ethnicity").find("#selectedRaces-16").prop('checked',personal_information.race['Vietnamese']);
+		$("#personal_race_ethnicity").find("#selectedRaces-17").prop('checked',personal_information.race['Other Asian']);
+		$("#personal_race_ethnicity").find("#selectedRaces-18").prop('checked',personal_information.race['Unknown Asian']);
+
+		$("#personal_race_ethnicity").find("#selectedRaces-21").prop('checked',personal_information.race['Chamorro']);
+		$("#personal_race_ethnicity").find("#selectedRaces-22").prop('checked',personal_information.race['Guamanian']);
+		$("#personal_race_ethnicity").find("#selectedRaces-23").prop('checked',personal_information.race['Native Hawaiian']);
+		$("#personal_race_ethnicity").find("#selectedRaces-24").prop('checked',personal_information.race['Samoan']);
+		$("#personal_race_ethnicity").find("#selectedRaces-25").prop('checked',personal_information.race['Unknown South Pacific Islander']);
+
 	}
 	
 	if (personal_information.ethnicity != null) {
@@ -1809,9 +2056,12 @@ function bind_number_only_fields() {
      //if the letter is not digit then display error and don't type anything
      if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
         //display error message
-        var error_message = $("<span> Digits Only </span>").css("color","red");
-        $(this).parent().append(error_message);
-        error_message.show().fadeOut("slow");
+        if ($("#digit_warning").length == 0) {
+	        var error_message = $("<span id='digit_warning'> Digits Only </span>").css("color","red");
+	        $(this).parent().append(error_message);
+       		 error_message.show().fadeOut("slow");
+       		 window.setTimeout(function() { $("#digit_warning").remove(); }, 1000);
+	      }
 //        $("#errmsg").html("Digits Only").show().fadeOut("slow");
                return false;
     }
