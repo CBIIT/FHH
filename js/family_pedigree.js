@@ -11,13 +11,16 @@ var mastery,masterx;
 var x = new Array();
 var y = new Array();
 var xl = new Array();
+var healtharray = new Array();
 var ex,ey;
+var MYNAME,MYGENDER;
+var svgw;
 var diseasearray=['Heart Disease','Stroke','Diabetes','Colon Cancer','Breast Cancer','Ovarian Cancer','Additional Diseases'];
 
 function xmlload() {
-    mdialog = $('<div id="family_pedigree"class="family_dialog" >' +
-        '<input align="right" type="button" value="print" onclick="openWin()"/>' +
-        '<input align="right" type="button" value="pivot" onclick="GET_FAMILY()"/>' +
+    mdialog = $('<div id="family_pedigree" class="family_dialog" >' +
+        '<input id="printer" align="right" type="button" value="print"/>' +
+        //'<input align="right" type="button" value="pivot" onclick="GET_FAMILY()"/>' +
         '<div id="family_pedigree_info">' +
         '<table id="health_table">' +
         '<thead></thead>' +
@@ -28,6 +31,8 @@ function xmlload() {
         '</div>'
     );
 
+
+
     $(mdialog).dialog({
         autoOpen: false,
         position: ['middle', 0],
@@ -37,13 +42,14 @@ function xmlload() {
         modal: true,
         open: function () {
             $(this).dialog("open");
-            $(this).load(tableCreate());
+            $(this).load(LOAD_HEALTH_TABLE());
         },
         close: function () {
             $(this).empty();
             $(this).dialog('destroy').remove()
         }
     });
+
 
 
     var merr = 45;
@@ -71,7 +77,7 @@ function xmlload() {
     var grantmaternalsarray = new Array();
     var fatherarray = new Array();
     var motherarray = new Array();
-    var healtharray = new Array();
+
     var widtharray = new Array();
     var niecearray = new Array();
     var nephewarray = new Array();
@@ -119,6 +125,8 @@ function xmlload() {
     svg.line(g, masterleft + 180, 200, masterleft + 180, 70, {id: 'grmei3', stroke: 'black'});
 
 
+
+
     //Gender
     if (personal_information.gender == 'MALE') {
         //Center Me
@@ -146,8 +154,13 @@ function xmlload() {
         masterx = parseInt($('#me').attr('cx'));
         mastery = parseInt($('#me').attr('cy') - 20);
     }
+
+
+    //Build health array
     $.each(personal_information, function (key, item) {
         if (item == 'undefined' || item == null) item = "";
+
+
 
         if (item.id) {
             var ids = new Array();
@@ -159,6 +172,15 @@ function xmlload() {
             healtharray.push(ids);
         }
     });
+
+    var ids = new Array();
+    ids.push('me');
+    ids.push(personal_information.name);
+    $.each(personal_information['Health History'], function (key, item) {
+        var dis = item['Disease Name'];
+        ids.push(dis)
+    });
+    healtharray.push(ids);
 
     //alert ("healtharray ARRAY Information:" + JSON.stringify(healtharray, null, 2) );
 
@@ -177,8 +199,17 @@ function xmlload() {
     var NAMEARRY = new Array();
 
 
+
     //Prepare all data to array formats for processing
     $.each(personal_information, function (key, item) {
+
+        //alert ("personal_information Information:" + JSON.stringify(personal_information, null, 2) );
+        //if(key=="name"){MYNAME=item};
+        //if(key=="gender"){MYGENDER=item};
+
+
+
+        //Identification when no names added
         var rand = Math.floor((Math.random() * 10000) + 1);
         if (item == 'undefined' || item == null) item = "";
         if (key == 'paternal_grandmother' || key == 'paternal_grandfather') {
@@ -346,7 +377,9 @@ function xmlload() {
         }
     });
 
-
+    //Set self up
+    var t = {"id": 'me', "name": [personal_information.name], "gender": [personal_information.gender], key: 'self'};
+    NAMEARRY.push(t);
     //alert ("Original Personal Information:" + JSON.stringify(personal_information, null, 2) );
 
 
@@ -611,25 +644,25 @@ function xmlload() {
     });
 
     //Grand parents loading
-    parental_grans_load();
-    maternal_grans_load();
+    PATERNAL_GRANS_LOAD();
+    MATERNAL_GRANS_LOAD();
     //Load Brothers
-    brothers_load();
+    BROTHERS_LOAD();
     //Load Sisters
-    sisters_load();
+    SISTERS_LOAD();
     //Load Maternal Uncle/Aunt
-    maternals_load();
+    MATERNALS_LOAD();
     //Load Paternal Uncle/Aunt
-    paternals_load();
+    PATERNALS_LOAD();
     //Load Nephews
-    nephews_load();
+    NEPHEWS_LOAD();
 
     //Load paternal Cousins
-    paternalcousins_load();
+    PATERNAL_COUSINS_LOAD();
     //Load Maternal Cousins
-    maternalcousins_load();
+    MATERNAL_COUSINS_LOAD();
 
-    //tableCreate();
+    //LOAD_HEALTH_TABLE();
 
     //Ensure the table is belw
     var SVG = document.getElementById('svgframe');
@@ -640,6 +673,20 @@ function xmlload() {
     LOAD_NAMES(NAMEARRY);
     LOAD_HEALTH(healtharray);
 
+    $( "#printer" ).click(function() {
+        //var popUpAndPrint = function () {
+        var container = $('#family_pedigree');
+        var width = parseFloat(svgw.getAttribute("width"))
+        var height = parseFloat(svgw.getAttribute("height"))
+        var printWindow = window.open('', 'PrintMap',
+            'width=' + width + ',height=' + height);
+        printWindow.document.writeln($(container).html());
+        printWindow.document.close();
+        printWindow.print();
+        printWindow.close();
+        //};
+        setTimeout(popUpAndPrint, 500);
+    });
 
     $.each(healtharray, function (key, value) {
         var temp = "";
@@ -716,6 +763,25 @@ function xmlload() {
             }
         });
     });
+
+    //var printSVG = function() {
+    //
+    //    var popUpAndPrint = function () {
+    //        var container = $('#family_pedigree');
+    //        var width = parseFloat(svgw.attr("width"))
+    //        var height = parseFloat(svgw.attr("height"))
+    //        var printWindow = window.open('', 'PrintMap',
+    //            'width=' + width + ',height=' + height);
+    //        printWindow.document.writeln($(container).html());
+    //        printWindow.document.close();
+    //        printWindow.print();
+    //        printWindow.close();
+    //    };
+    //    setTimeout(popUpAndPrint, 500);
+    //};
+
+
+
 
     function LOAD_NAMES(NAMEARRY) {
         var k;
@@ -937,15 +1003,6 @@ function xmlload() {
         swapline(pid, l1, l2, t1x, t1y, t2, t3, mode, 'left')
     }
 
-    //    svg.polyline(
-    //        [
-    //            [parseInt(p1),parseInt(p2)+20],
-    //            [parseInt(p1), parseInt(p2)+45],
-    //            [parseInt(p1)-130, parseInt(p2)+45],
-    //            [parseInt(p1)-130,parseInt(p2)+90]
-    //        ],
-    //        {fill: 'none', stroke: 'black', strokeWidth: 2});
-    //}
 
     //Draws connecting polyline rect
     function connect_rect_line(a1, a2, no) {
@@ -982,7 +1039,6 @@ function xmlload() {
                 [parseInt(p1) + col, parseInt(p2) + 20]
             ],
             {fill: 'none', stroke: 'black', strokeWidth: 2});
-
     }
 
     //Draws ending polyline to the right side of the diagram
@@ -997,17 +1053,6 @@ function xmlload() {
                 [parseInt(p1) - col, parseInt(p2) + 20]
             ],
             {fill: 'none', stroke: 'black', strokeWidth: 2});
-
-
-        //svg.polyline(
-        //    [
-        //        [parseInt(p1)+(merr/2),parseInt(p2)],
-        //        [parseInt(p1)+(merr/2), parseInt(p2)-20],
-        //        [parseInt(p1)+col, parseInt(p2)-20],
-        //        [parseInt(p1)+col,parseInt(p2)+20]
-        //    ],
-        //    {fill: 'none', stroke: 'red', strokeWidth: 2});
-
     }
 
 
@@ -1022,6 +1067,7 @@ function xmlload() {
             {fill: 'none', stroke: 'black', strokeWidth: 2});
     }
 
+    //Build active statuses for deceosed
     function circlestatus(id) {
         var p1 = $('#' + id).attr('cx');
         var p2 = $('#' + id).attr('cy');
@@ -1040,10 +1086,8 @@ function xmlload() {
 
     //Collect the daughters
     function daughters(no, d1, d2, pid, mid) {
-
         //Prevent too many hooks
         $.each(daughter1, function (key, value) {
-
             //Prevent too many hooks
             if ((parseInt(no)) < key) connect_circle_line(d1, d2, no);
 
@@ -1121,7 +1165,6 @@ function xmlload() {
 
     //Collect the nieces
     function nieces(no, a1, a2, pid, mid) {
-
         //Prevent too many hooks
         $.each(niecearray, function (key, value) {
 
@@ -1146,14 +1189,12 @@ function xmlload() {
                         cursor: 'pointer'
                     });
                     return;
-                }
-            }
-            ;
+                }};
         });
     }
 
     //Load paternal aunt / uncle
-    function paternals_load() {
+    function PATERNALS_LOAD() {
         var lx = 0;
         var ly = 0;
         var g, MID, gen, MIDGEN, PERVMID;
@@ -1294,7 +1335,7 @@ function xmlload() {
 
 
     //Load paternal aunt / uncle
-    function maternals_load() {
+    function MATERNALS_LOAD() {
         var lx = 0;
         var ly = 0;
         var g, MID, gen, MIDGEN, PERVMID;
@@ -1847,7 +1888,7 @@ function xmlload() {
     }
 
     //Load parental grand parents
-    function parental_grans_load() {
+    function PATERNAL_GRANS_LOAD() {
         var lx = 0;
         var ly = 0;
         var g, e, gen, G;
@@ -1874,7 +1915,7 @@ function xmlload() {
     }
 
     //Load maternal grand parents
-    function maternal_grans_load() {
+    function MATERNAL_GRANS_LOAD() {
         var lx = 0;
         var ly = 0;
         var g, e, gen, G;
@@ -1900,7 +1941,7 @@ function xmlload() {
     }
 
     //Load brothers
-    function brothers_load() {
+    function BROTHERS_LOAD() {
         var lx = 0;
         var ly = 0;
         var g, e, gen, G, MIDGEN, MID;
@@ -2055,7 +2096,7 @@ function xmlload() {
     }
 
     //Load sisters
-    function sisters_load() {
+    function SISTERS_LOAD() {
         var lx = 0;
         var ly = 0;
         var MIDGEN, MID, SPID;
@@ -2180,7 +2221,7 @@ function xmlload() {
     }
 
 
-    function nephews_load() {
+    function NEPHEWS_LOAD() {
         var lx = 0;
         var ly = 0;
         var pid, mid, G, midgen;
@@ -2768,7 +2809,7 @@ function xmlload() {
     }
 
 //Load paternal cousins
-    function maternalcousins_load() {
+    function MATERNAL_COUSINS_LOAD() {
 
         var lx = 0;
         var ly = 0;
@@ -2986,7 +3027,7 @@ function xmlload() {
     }
 
 
-    function paternalcousins_load() {
+    function PATERNAL_COUSINS_LOAD() {
         var lx = 0;
         var ly = 0;
         var pid, mid, G, midgen;
@@ -3288,26 +3329,62 @@ function xmlload() {
         svgw.setAttribute('width','100%');
     }
 
-}
 
 
-function openWin() {
-    var myWindow = window.open('', '', 'width=200,height=100');
-    //myWindow.document.write("<p>'Select you printer'</p>");
-    //
-    //myWindow.document.close();
-    myWindow.focus();
-    myWindow.print();
-    myWindow.close();
+
+
 
 }
 
 
+//function openWin(svgw) {
+//    var myWindow = window.open('', '', 'width=200,height=100');
+//
+//    var printSVG = function() {
+//
+//        var popUpAndPrint = function () {
+//            var container = $('#family_pedigree');
+//            var width = parseFloat(svgw.attr("width"))
+//            var height = parseFloat(svgw.attr("height"))
+//            var printWindow = window.open('', 'PrintMap',
+//                'width=' + width + ',height=' + height);
+//            printWindow.document.writeln($(container).html());
+//            printWindow.document.close();
+//            printWindow.print();
+//            printWindow.close();
+//        };
+//        setTimeout(popUpAndPrint, 500);
+//    };
 
+//}
+
+
+
+//function openWin() {
+//    var myWindow = window.open('', '', 'width=200,height=100');
+//
+//
+//
+//        var popUpAndPrint = function()
+//        {
+//            var container = $('#family_pedigree');
+//            var width = parseFloat(svg.getAttribute("width"))
+//            var height = parseFloat(svg.getAttribute("height"))
+//            var printWindow = window.open('', 'PrintMap',
+//                'width=' + width + ',height=' + height);
+//            printWindow.document.writeln($(container).html());
+//            printWindow.document.close();
+//            printWindow.print();
+//            printWindow.close();
+//        };
+//        setTimeout(popUpAndPrint, 500);
+//
+//}
+//
 
 //Build a table of health issues
-function tableCreate(){
-    var ids = new Array();
+function LOAD_HEALTH_TABLE(){
+    var DISEASESARRAY = new Array();
     var item;
 
     $("#health_table").find('thead')
@@ -3323,67 +3400,99 @@ function tableCreate(){
             .append($('<th>').append(diseasearray[6]))
     );
 
+    //Add my self to table
+    var temp = new Array();
+    var diss;
+    temp.push('<td>'+personal_information.name+'</td>');
+    var cod = ((typeof personal_information.cause_of_death == 'undefined') ? 'Yes' : 'No / ' + personal_information.cause_of_death);
+//Is in Disease array
+    var myhealth = new Array();
+    myhealth = personal_information['Health History'];
 
+    var cols = new Array();
+    //cols.push('<td>' + cod + '</td>');
+    cols.push('<td>' + cod + '</td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>');
 
+    if(myhealth.length>0) {
+        $.each(myhealth, function (key, item) {
+            var tmp = item['Disease Name'];
+            if ($.inArray(tmp, diseasearray) != -1) {
+                diss = "";
+                $.each(diseasearray, function(key, item) {
+                    if(tmp == item){
+                        diss = [key,item];
+                    }
+                });
+                cols[diss[0]+1]='<td>' + diss[1] + '</td>';
+            }
+        });
+        temp.push(cols)
+    }
+    else {
+        var cols = new Array();
+        //cols.push('<td>' + cod + '</td>');
+        cols = [cod, '<td></td>', '<td></td>', '<td></td>', '<td></td>', '<td></td>', '<td></td>', '<td></td>','<td></td>'];
+        temp.push(cols)
+    }
+    DISEASESARRAY.push(temp);
+
+    //Load remaining family
     $.each(personal_information, function(key, item) {
         var temp = new Array();
-
-
         if(item!=null && typeof item != 'undefined') {
             if (item.name != null && typeof item.name != 'undefined') {
-                //var d = ((typeof item.cause_of_death == 'undefined') ? 'Yes' : item.cause_of_death);
-                temp.push(item.id);
-                temp.push(item.name);
-                temp.push(((typeof item.cause_of_death == 'undefined') ? 'Yes' : item.cause_of_death));
-                //Is in Disease array
-                $.each(item['Health History'], function (key, item) {
-                    var cols = ['<td></td>', '<td></td>', '<td></td>', '<td></td>', '<td></td>', '<td></td>', '<td></td>'];
-                    var tmp = item['Disease Name'];
-                    if ($.inArray(item['Disease Name'], diseasearray) != -1) {
-                        for (var i = 0, l = diseasearray.length; i < l; i++) {
-                            if (diseasearray[i] === tmp) {
-                                cols[i] = '<td>' + tmp + '</td>';
-                                break;
-                            }
-                        }
+                var NAME = item.name;
+                temp.push('<td>' +NAME + '</td>');
+                var cod = ((typeof item.cause_of_death == 'undefined') ? 'Yes' :  'No / ' + item.cause_of_death);
+                var cols = new Array();
+                var diss;
+                cols.push('<td>' + cod + '</td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>');
 
-                        temp.push(cols)
-                    }
-                    else temp.push('NA');
-                });
-                ids.push(temp);
+                //Is in Disease array
+                if (item['Health History'].length> 0) {
+                    $.each(item['Health History'], function (key, item) {
+                        var tmp = item['Disease Name'];
+
+                        if ($.inArray(tmp, diseasearray) != -1) {
+                            diss = "";
+                            $.each(diseasearray, function(key, item) {
+                                if(tmp == item){
+                                    diss = [key,item];
+                                }
+                            });
+                            cols[diss[0]+1]='<td>' + diss[1] + '</td>';
+                        }
+                    });
+                    temp.push(cols);
+                }
+                else {
+                    var cols = new Array();
+                    cols = [cod, '<td></td>', '<td></td>', '<td></td>', '<td></td>', '<td></td>', '<td></td>', '<td></td>','<td></td>'];
+                    temp.push(cols)
+                }
+
+                DISEASESARRAY.push(temp);
             }
         }
     });
 
 
+    //alert("IDS ARRAY Information:" + JSON.stringify(DISEASESARRAY, null, 2) );
 
-    //var otable = $("#health_table").dataTable();
-    //otable.fnClearTable();
-    $.each(ids, function (key, value) {
-
-
-        if (value[3] == "NA" || value[3] == null) {
+    $.each(DISEASESARRAY, function (key, value) {
+        var vals = new Array();
+         vals = value;
+        if (vals.length>1) {
+        //if (value[3] == "NA" || value[3] == null) {
             $("#health_table").find('tbody')
                 .append($('<tr>')
-                    .append($('<td>').append(value[1]))
-                    .append($('<td>').append(value[2]))
-                    .append($('<td>').append(''))
-                    .append($('<td>').append(''))
-                    .append($('<td>').append(''))
-                    .append($('<td>').append(''))
-                    .append($('<td>').append(''))
-                    .append($('<td>').append(''))
-                    .append($('<td>').append(''))
+                    .append(vals.toString())
             );
         }
         else{
             $("#health_table").find('tbody')
                 .append($('<tr>')
-                    .append($('<td>').append(value[1]))
-                    .append($('<td>').append(value[2]))
-                    .append(value[3])
-
+                    .append(vals.toString())
             );
         }
 

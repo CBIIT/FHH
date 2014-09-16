@@ -392,9 +392,9 @@ function bind_add_another_family_member_button_action() {
 			"are probably on the previous page and can be reached by closing this window and " +
 			"selecting the plus sign image ('Add History') next to the relative's name. Spouses " +
 			"and second cousins are not listed because they don't impact your family health history</P>");
-	new_family_member_dialog.append("<B> Relationship to me: </B>");
+	new_family_member_dialog.append("<label for='new_family_member_relationship'> Relationship to me: </label>");
 	new_family_member_select = 
-	$("<SELECT name='new_family_member_relationship'>")
+	$("<SELECT id='new_family_member_relationship' name='new_family_member_relationship'>")
 		.append("<OPTION value=''> -- Select Relationship -- </OPTION>")
 		.append("<OPTION value='aunt'> Aunt </OPTION>")
 		.append("<OPTION value='uncle'> Uncle </OPTION>")
@@ -1274,7 +1274,6 @@ function build_family_health_information_section() {
 	hi_health_history_table.append(hi_header_row);
 
 	var hi_data_entry_row = $("<tr id='health_data_entry_row'>");
-
 	var disease_select = $("<select id='disease_choice_select' name='disease_choice_select'></select>");
 	var	detailed_disease_select = $("<select id='detailed_disease_choice_select' name='detailed_disease_choice_select'></select>");
 	
@@ -1361,7 +1360,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select) {
 			var disease_box = disease_select.parent();
 	//		$(this).next().remove();
 	//		$("#detailed_disease_choice_select").remove();
-			detailed_disease = get_detailed_disease(chosen_disease_name);
+			var detailed_disease = get_detailed_disease(chosen_disease_name);
 			detailed_disease_select.empty().hide();
 			var detailed_disease_list = "";
 			if (detailed_disease && detailed_disease.length > 0) {
@@ -1491,35 +1490,35 @@ function build_personal_race_ethnicity_section() {
 	
 	
 	var race_checkboxes = $("<td>" +
-			"<input tabindex='21' name='selectedRaces' value='1' id='selectedRaces-1'  type='checkbox'>" +
+			"<input tabindex='21' name='selectedRaces' value='1' id='selectedRaces-1'  type='checkbox'/>" +
 			"<label for='selectedRaces-1' class='checkboxLabel'>American Indian or Alaska Native</label>" +
-			"<input tabindex='21' name='selectedRaces' value='2' id='selectedRaces-2' type='checkbox'>" +
+			"<input tabindex='21' name='selectedRaces' value='2' id='selectedRaces-2' type='checkbox'/>" +
 			"<label for='selectedRaces-2' class='checkboxLabel'>Asian</label>" +
-			"<input tabindex='21' name='selectedRaces' value='3' id='selectedRaces-3' type='checkbox'>" +
+			"<input tabindex='21' name='selectedRaces' value='3' id='selectedRaces-3' type='checkbox'/>" +
 			"<label for='selectedRaces-3' class='checkboxLabel'>Black or African-American</label>" +
 		    "<br>" +
-			"<input tabindex='21' name='selectedRaces' value='4' id='selectedRaces-4'  type='checkbox'>" +
+			"<input tabindex='21' name='selectedRaces' value='4' id='selectedRaces-4'  type='checkbox'/>" +
 			"<label for='selectedRaces-4' class='checkboxLabel'>Native Hawaiian or Other Pacific Islander</label>" +
-			"<input tabindex='21' name='selectedRaces' value='5' id='selectedRaces-5'  type='checkbox'>" +
+			"<input tabindex='21' name='selectedRaces' value='5' id='selectedRaces-5'  type='checkbox'/>" +
 			"<label for='selectedRaces-5' class='checkboxLabel'>White</label>" +
 			"</td>");
 			
 	var asian_race_checkboxes = $("<td>" +
-			"<input tabindex='22' name='selectedRaces' value='11' id='selectedRaces-11'  type='checkbox'>" +
+			"<input tabindex='22' name='selectedRaces' value='11' id='selectedRaces-11'  type='checkbox'/>" +
 			"<label for='selectedRaces-11' class='checkboxLabel'>Asian Indian</label>" +
-			"<input tabindex='22' name='selectedRaces' value='12' id='selectedRaces-12' type='checkbox'>" +
+			"<input tabindex='22' name='selectedRaces' value='12' id='selectedRaces-12' type='checkbox'/>" +
 			"<label for='selectedRaces-12' class='checkboxLabel'>Chinese</label>" +
-			"<input tabindex='22' name='selectedRaces' value='13' id='selectedRaces-13' type='checkbox'>" +
+			"<input tabindex='22' name='selectedRaces' value='13' id='selectedRaces-13' type='checkbox'/>" +
 			"<label for='selectedRaces-13' class='checkboxLabel'>Filipino</label>" +
-			"<input tabindex='22' name='selectedRaces' value='14' id='selectedRaces-14' type='checkbox'>" +
+			"<input tabindex='22' name='selectedRaces' value='14' id='selectedRaces-14' type='checkbox'/>" +
 			"<label for='selectedRaces-14' class='checkboxLabel'>Japanese</label>" +
-			"<input tabindex='22' name='selectedRaces' value='15' id='selectedRaces-15' type='checkbox'>" +
+			"<input tabindex='22' name='selectedRaces' value='15' id='selectedRaces-15' type='checkbox'/>" +
 			"<label for='selectedRaces-15' class='checkboxLabel'>Korean</label>" +
-			"<input tabindex='22' name='selectedRaces' value='16' id='selectedRaces-16' type='checkbox'>" +
+			"<input tabindex='22' name='selectedRaces' value='16' id='selectedRaces-16' type='checkbox'/>" +
 			"<label for='selectedRaces-16' class='checkboxLabel'>Vietnamese</label>" +
-			"<input tabindex='22' name='selectedRaces' value='17' id='selectedRaces-17' type='checkbox'>" +
+			"<input tabindex='22' name='selectedRaces' value='17' id='selectedRaces-17' type='checkbox'/>" +
 			"<label for='selectedRaces-17' class='checkboxLabel'>Other Asian</label>" +
-			"<input tabindex='22' name='selectedRaces' value='18' id='selectedRaces-18' type='checkbox'>" +
+			"<input tabindex='22' name='selectedRaces' value='18' id='selectedRaces-18' type='checkbox'/>" +
 			"<label for='selectedRaces-18' class='checkboxLabel'>Unknown Asian</label>" +
 			"</td>");
 
@@ -1548,9 +1547,10 @@ function build_personal_race_ethnicity_section() {
 	race_ethnicity.
 		append($("<table>")
 				.append($("<tr>")
-						.append("<td colspan='3'>Check here if your parents are related to each other in any way other than marriage."
-								+ "<input name='person.consanguinity' value='true' tabindex='20' "
-								+	"id='person_consanguinity' type='checkbox'></td>"))
+						.append("<td colspan='3'><label for='person_consanguinity'>Check here if your parents are related to each other in any way other than marriage.</label>"
+								+ "<input name='person.consanguinity' value='true' tabindex='20' id='person_consanguinity' type='checkbox'/></td>"))
+
+
 				.append($("<tr>")
 						.append("<td colspan='2'>Multiple races and ethnicities may be selected.</td>") )
 				.append($("<tr>")
