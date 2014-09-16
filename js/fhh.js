@@ -986,13 +986,10 @@ function build_family_history_data_table () {
 	
 	add_family_history_header_row(table);
 	
+	add_new_family_history_row_title(table, "My Family");	
 	add_personal_history_row(table, personal_information['name'], "Self", "self", true, false);
 	add_new_family_history_row(table, personal_information.father, "Father", "father", false);	
 	add_new_family_history_row(table, personal_information.mother, "Mother", "mother", false);
-	add_new_family_history_row(table, personal_information.paternal_grandfather, "Paternal Grandfather", "paternal_grandfather", false);	
-	add_new_family_history_row(table, personal_information.paternal_grandmother, "Paternal Grandmother", "paternal_grandmother", false);
-	add_new_family_history_row(table, personal_information.maternal_grandfather, "Maternal Grandfather", "maternal_grandfather", false);
-	add_new_family_history_row(table, personal_information.maternal_grandmother, "Maternal Grandmother", "maternal_grandmother", false);
 
 	var i = 0;
 	while (personal_information['brother_' + i] != null) {
@@ -1014,41 +1011,16 @@ function build_family_history_data_table () {
 		add_new_family_history_row(table, personal_information['daughter_' + i], "Daughter", "daughter_" + i, true);
 		i++;
 	}
-
 	i = 0;
-	while (personal_information['maternal_uncle_' + i] != null) {
-		add_new_family_history_row(table, personal_information['maternal_uncle_' + i], "Maternal Uncle", "maternal_uncle_" + i, true);
+	while (personal_information['grandson_' + i] != null) {
+		add_new_family_history_row(table, personal_information['grandson_' + i], "Grandson", "grandson_" + i, true);
 		i++;
 	}
 	i = 0;
-	while (personal_information['maternal_aunt_' + i] != null) {
-		add_new_family_history_row(table, personal_information['maternal_aunt_' + i], "Maternal Aunt", "maternal_aunt_" + i, true);
+	while (personal_information['granddaughter_' + i] != null) {
+		add_new_family_history_row(table, personal_information['granddaughter_' + i], "Granddaughter", "granddaughter_" + i, true);
 		i++;
 	}
-
-	
-	i = 0;
-	while (personal_information['paternal_uncle_' + i] != null) {
-		add_new_family_history_row(table, personal_information['paternal_uncle_' + i], "Paternal Uncle", "paternal_uncle_" + i, true);
-		i++;
-	}
-	i = 0;
-	while (personal_information['paternal_aunt_' + i] != null) {
-		add_new_family_history_row(table, personal_information['paternal_aunt_' + i], "Paternal Aunt", "paternal_aunt_" + i, true);
-		i++;
-	}
-	
-	i = 0;
-	while (personal_information['maternal_cousin_' + i] != null) {
-		add_new_family_history_row(table, personal_information['maternal_cousin_' + i], "Maternal Cousin", "maternal_cousin_" + i, true);
-		i++;
-	}
-	i = 0;
-	while (personal_information['paternal_cousin_' + i] != null) {
-		add_new_family_history_row(table, personal_information['paternal_cousin_' + i], "Paternal Cousin", "paternal_cousin_" + i, true);
-		i++;
-	}
-
 	i = 0;
 	while (personal_information['niece_' + i] != null) {
 		add_new_family_history_row(table, personal_information['niece_' + i], "Niece", "niece_" + i, true);
@@ -1060,25 +1032,25 @@ function build_family_history_data_table () {
 		i++;
 	}
 
-	i = 0;
-	while (personal_information['grandson_' + i] != null) {
-		add_new_family_history_row(table, personal_information['grandson_' + i], "Grandson", "grandson_" + i, true);
-		i++;
-	}
-	i = 0;
-	while (personal_information['granddaughter_' + i] != null) {
-		add_new_family_history_row(table, personal_information['granddaughter_' + i], "Granddaughter", "granddaughter_" + i, true);
-		i++;
-	}
 
-	var i = 0;
-	while (personal_information['maternal_halfbrother_' + i] != null) {
-		add_new_family_history_row(table, personal_information['maternal_halfbrother_' + i], "Maternal Halfbrother", "maternal_halfbrother_" + i, true);
+
+	add_new_family_history_row_title(table, "My Father's Side of the Family");	
+	add_new_family_history_row(table, personal_information.paternal_grandfather, "Paternal Grandfather", "paternal_grandfather", false);	
+	add_new_family_history_row(table, personal_information.paternal_grandmother, "Paternal Grandmother", "paternal_grandmother", false);
+
+	i = 0;
+	while (personal_information['paternal_uncle_' + i] != null) {
+		add_new_family_history_row(table, personal_information['paternal_uncle_' + i], "Paternal Uncle", "paternal_uncle_" + i, true);
 		i++;
 	}
 	i = 0;
-	while (personal_information['maternal_halfsister_' + i] != null) {
-		add_new_family_history_row(table, personal_information['maternal_halfsister_' + i], "Maternal Halfsister", "maternal_halfsister_" + i, true);
+	while (personal_information['paternal_aunt_' + i] != null) {
+		add_new_family_history_row(table, personal_information['paternal_aunt_' + i], "Paternal Aunt", "paternal_aunt_" + i, true);
+		i++;
+	}
+	i = 0;
+	while (personal_information['paternal_cousin_' + i] != null) {
+		add_new_family_history_row(table, personal_information['paternal_cousin_' + i], "Paternal Cousin", "paternal_cousin_" + i, true);
 		i++;
 	}
 	var i = 0;
@@ -1091,6 +1063,41 @@ function build_family_history_data_table () {
 		add_new_family_history_row(table, personal_information['paternal_halfsister_' + i], "Paternal Halfsister", "paternal_halfsister_" + i, true);
 		i++;
 	}
+	
+
+
+	add_new_family_history_row_title(table, "My Mother's Side of the Family");	
+	add_new_family_history_row(table, personal_information.maternal_grandfather, "Maternal Grandfather", "maternal_grandfather", false);
+	add_new_family_history_row(table, personal_information.maternal_grandmother, "Maternal Grandmother", "maternal_grandmother", false);
+
+	i = 0;
+	while (personal_information['maternal_uncle_' + i] != null) {
+		add_new_family_history_row(table, personal_information['maternal_uncle_' + i], "Maternal Uncle", "maternal_uncle_" + i, true);
+		i++;
+	}
+	i = 0;
+	while (personal_information['maternal_aunt_' + i] != null) {
+		add_new_family_history_row(table, personal_information['maternal_aunt_' + i], "Maternal Aunt", "maternal_aunt_" + i, true);
+		i++;
+	}	
+	i = 0;
+	while (personal_information['maternal_cousin_' + i] != null) {
+		add_new_family_history_row(table, personal_information['maternal_cousin_' + i], "Maternal Cousin", "maternal_cousin_" + i, true);
+		i++;
+	}
+	var i = 0;
+	while (personal_information['maternal_halfbrother_' + i] != null) {
+		add_new_family_history_row(table, personal_information['maternal_halfbrother_' + i], "Maternal Halfbrother", "maternal_halfbrother_" + i, true);
+		i++;
+	}
+	i = 0;
+	while (personal_information['maternal_halfsister_' + i] != null) {
+		add_new_family_history_row(table, personal_information['maternal_halfsister_' + i], "Maternal Halfsister", "maternal_halfsister_" + i, true);
+		i++;
+	}
+	add_new_family_history_row_title(table, "Recently Added Family Members");	
+
+
 
 }
 
@@ -1127,6 +1134,14 @@ function add_personal_history_row(table) {
 	new_row.append("<td class='action remove_history'>&nbsp;</td>");
 
 	table.append(new_row);
+}
+
+function add_new_family_history_row_title(table, name) {
+	var new_row = $("<tr></tr>");
+	new_row.addClass("summary_category_header_row");
+	new_row.append("<td colspan='5'>" + name + "</td>");
+	table.append(new_row);
+	
 }
 
 function add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable) {

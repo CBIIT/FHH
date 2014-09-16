@@ -209,6 +209,15 @@ table.summary_table th {
 	text-decoration:none;
 }
 
+tr.summary_category_header_row {
+  background-color: #888;
+  border: 2px solid #666666;
+  color: #FFF;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+}
+
 table.disease_table {
   background-color: #FFFFFF;
   margin: 0px;
