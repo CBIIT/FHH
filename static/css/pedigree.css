@@ -312,13 +312,13 @@ i#options .ui-button.ui-state-active .ui-button-text {
 #health_table caption {
     padding: 0 0 5px 0;
     width: 98%;
-    font: italic 9px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    font: italic 9px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     text-align: right;
 }
 
 #health_table th {
-    font: bold 11px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-    color: #4f6b72;
+    font: bold 12px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+    color: white;
     border-right: 1px solid navy;
     border-bottom: 1px solid navy;
     border-top: 1px solid navy;
@@ -326,21 +326,23 @@ i#options .ui-button.ui-state-active .ui-button-text {
     text-transform: uppercase;
     text-align: left;
     padding: 6px 6px 6px 12px;
-    background: #CAE8EA url(images/bg_header.jpg) no-repeat;
+    background:darkslategray;
 }
 
 #health_table th.nobg {
     border-top: 0;
     border-right: 1px solid #C1DAD7;
-    background: none;
+    background: darkslategray;
+    color: white;
+    font: bold 12px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
 
 #health_table td {
     border-right: 1px solid #C1DAD7;
     border-bottom: 1px solid #C1DAD7;
-    background: #fff;
+    background: white;
     padding: 6px 6px 6px 12px;
-    color: #4f6b72;
+    color: #000000;
 }
 
 
@@ -352,16 +354,21 @@ i#options .ui-button.ui-state-active .ui-button-text {
 #health_table th.spec {
     border-left: 1px solid #C1DAD7;
     border-top: 0;
-    background: #fff url(images/bullet1.gif) no-repeat;
-    font: bold 8px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    background:darkslategray;
+    font: bold 12px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
 
-#health_tableth.specalt {
+#health_table th.specalt {
     border-left: 1px solid #C1DAD7;
     border-top: 0;
-    background: #f5fafa url(images/bullet2.gif) no-repeat;
-    font: bold 8px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    background: darkslategray;
+    font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     color: #797268;
+}
+#health_table td.diseaseid{
+    background-color: darkslategray;
+    color: white;
+    font: bold 14px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
 .infobox{
     border-right: 1px solid #C1DAD7;
