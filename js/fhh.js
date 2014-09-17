@@ -88,6 +88,7 @@ $(document).ready(function() {
 		build_personal_race_ethnicity_section();
 		bind_personal_submit_button_action();
 		bind_personal_cancel_button_action();
+		clear_and_set_personal_health_history_dialog();
 		
 		$("#personal_race_ethnicity").find("#selectedRaces-2").on("change", function () {
 			if ($(this).prop("checked") == true) $("#add_personal_information_dialog").find("#asian_checkboxes").show();
@@ -103,6 +104,14 @@ $(document).ready(function() {
 				// We made need to uncheck the boxes
 			}
 		});
+		$("#personal_race_ethnicity").find("#selectedEthnicities-1").on("change", function () {
+			if ($(this).prop("checked") == true) $("#add_personal_information_dialog").find("#hispanic_checkboxes").show();
+			else {
+				$("#add_personal_information_dialog").find("#hispanic_checkboxes").hide();
+				// We made need to uncheck the boxes
+			}
+		});
+
 	});
 
 	$("#add_personal_information_dialog").dialog({
@@ -124,7 +133,6 @@ $(document).ready(function() {
 			if ($(this).prop("checked") == true) $("#update_family_member_health_history_dialog").find("#asian_checkboxes").show();
 			else {
 				$("#update_family_member_health_history_dialog").find("#asian_checkboxes").hide();
-				// We made need to uncheck the boxes
 			}
 		});
 
@@ -132,7 +140,13 @@ $(document).ready(function() {
 			if ($(this).prop("checked") == true) $("#update_family_member_health_history_dialog").find("#south_pacific_checkboxes").show();
 			else {
 				$("#update_family_member_health_history_dialog").find("#south_pacific_checkboxes").hide();
-				// We made need to uncheck the boxes
+			}
+		});
+
+		$("#family_race_ethnicity").find("#selectedEthnicities-1").on("change", function () {
+			if ($(this).prop("checked") == true) $("#update_family_member_health_history_dialog").find("#hispanic_checkboxes").show();
+			else {
+				$("#update_family_member_health_history_dialog").find("#hispanic_checkboxes").hide();
 			}
 		});
 		
@@ -746,6 +760,13 @@ function bind_personal_submit_button_action () {
 		personal_information['ethnicity']['Ashkenazi Jewish'] = $("#personal_race_ethnicity").find("#selectedEthnicities-2").is(':checked');
 		personal_information['ethnicity']['Not Hispanic or Latino'] = $("#personal_race_ethnicity").find("#selectedEthnicities-3").is(':checked');
 
+		personal_information['ethnicity']['Central American'] = $("#personal_race_ethnicity").find("#selectedEthnicities-11").is(':checked');
+		personal_information['ethnicity']['Cuban'] = $("#personal_race_ethnicity").find("#selectedEthnicities-12").is(':checked');
+		personal_information['ethnicity']['Dominican'] = $("#personal_race_ethnicity").find("#selectedEthnicities-13").is(':checked');
+		personal_information['ethnicity']['Mexican'] = $("#personal_race_ethnicity").find("#selectedEthnicities-14").is(':checked');
+		personal_information['ethnicity']['Other Hispanic'] = $("#personal_race_ethnicity").find("#selectedEthnicities-15").is(':checked');
+		personal_information['ethnicity']['Puerto Rican'] = $("#personal_race_ethnicity").find("#selectedEthnicities-16").is(':checked');
+		personal_information['ethnicity']['South American'] = $("#personal_race_ethnicity").find("#selectedEthnicities-17").is(':checked');
 
 		
 //		build_family_history_data_table();
@@ -879,6 +900,13 @@ function bind_family_member_submit_button_action () {
 		family_member_information['ethnicity']['Ashkenazi Jewish'] = $("#family_race_ethnicity").find("#selectedEthnicities-2").is(':checked');
 		family_member_information['ethnicity']['Not Hispanic or Latino'] = $("#family_race_ethnicity").find("#selectedEthnicities-3").is(':checked');
 		
+		family_member_information['ethnicity']['Central American'] = $("#family_race_ethnicity").find("#selectedEthnicities-11").is(':checked');
+		family_member_information['ethnicity']['Cuban'] = $("#family_race_ethnicity").find("#selectedEthnicities-12").is(':checked');
+		family_member_information['ethnicity']['Dominican'] = $("#family_race_ethnicity").find("#selectedEthnicities-13").is(':checked');
+		family_member_information['ethnicity']['Mexican'] = $("#family_race_ethnicity").find("#selectedEthnicities-14").is(':checked');
+		family_member_information['ethnicity']['Other Hispanic'] = $("#family_race_ethnicity").find("#selectedEthnicities-15").is(':checked');
+		family_member_information['ethnicity']['Puerto Rican'] = $("#family_race_ethnicity").find("#selectedEthnicities-16").is(':checked');
+		family_member_information['ethnicity']['South American'] = $("#family_race_ethnicity").find("#selectedEthnicities-17").is(':checked');
 		
 		personal_information[current_relationship] = family_member_information;
 
@@ -1559,6 +1587,24 @@ function build_personal_race_ethnicity_section() {
 			"<label for='selectedEthnicities-3' class='checkboxLabel'>Not Hispanic or Latino</label>" +
 			"</td>");
 
+	var hispanic_ethnicity_checkboxes = $("<td>" +
+			"<input tabindex='24' name='selectedEthnicities' value='11' id='selectedEthnicities-11' type='checkbox'>" +
+			"<label for='selectedEthnicities-11' class='checkboxLabel'>Central American</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='12' id='selectedEthnicities-12' type='checkbox'>" +
+			"<label for='selectedEthnicities-12' class='checkboxLabel'>Cuban</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='13' id='selectedEthnicities-13' type='checkbox'>" +
+			"<label for='selectedEthnicities-13' class='checkboxLabel'>Dominican</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='14' id='selectedEthnicities-14' type='checkbox'>" +
+			"<label for='selectedEthnicities-14' class='checkboxLabel'>Mexican</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='15' id='selectedEthnicities-15' type='checkbox'>" +
+			"<label for='selectedEthnicities-15' class='checkboxLabel'>Other Hispanic</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='16' id='selectedEthnicities-16' type='checkbox'>" +
+			"<label for='selectedEthnicities-16' class='checkboxLabel'>Puerto Rican</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='17' id='selectedEthnicities-17' type='checkbox'>" +
+			"<label for='selectedEthnicities-17' class='checkboxLabel'>South American</label>" +
+			"</td>");
+
+
 	race_ethnicity.
 		append($("<table>")
 				.append($("<tr>")
@@ -1579,7 +1625,10 @@ function build_personal_race_ethnicity_section() {
 						.append(south_pacific_race_checkboxes) )
 				.append($("<tr>")
 						.append("<td> Ethnicity </td>")
-						.append(ethnicity_checkboxes)));
+						.append(ethnicity_checkboxes) )
+				.append($("<tr id='hispanic_checkboxes'>")
+						.append("<td> More Ethnicity </td>")
+						.append(hispanic_ethnicity_checkboxes) ));
 
 	var why_ask_ashkenazi_link = $("<td><a tabindex='29' href='#' id='why_ask_ashkenazi_link'>Why are we asking about Ashkenazi Jewish heritage?</a></td>");
 	why_ask_ashkenazi_link.click(function () {
@@ -1651,6 +1700,23 @@ function build_family_race_ethnicity_section() {
 			"<label for='selectedEthnicities-3' class='checkboxLabel'>Not Hispanic or Latino</label>" +
 			"</td>");
 
+	var hispanic_ethnicity_checkboxes = $("<td>" +
+			"<input tabindex='24' name='selectedEthnicities' value='11' id='selectedEthnicities-11' type='checkbox'>" +
+			"<label for='selectedEthnicities-11' class='checkboxLabel'>Central American</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='12' id='selectedEthnicities-12' type='checkbox'>" +
+			"<label for='selectedEthnicities-12' class='checkboxLabel'>Cuban</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='13' id='selectedEthnicities-13' type='checkbox'>" +
+			"<label for='selectedEthnicities-13' class='checkboxLabel'>Dominican</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='14' id='selectedEthnicities-14' type='checkbox'>" +
+			"<label for='selectedEthnicities-14' class='checkboxLabel'>Mexican</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='15' id='selectedEthnicities-15' type='checkbox'>" +
+			"<label for='selectedEthnicities-15' class='checkboxLabel'>Other Hispanic</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='16' id='selectedEthnicities-16' type='checkbox'>" +
+			"<label for='selectedEthnicities-16' class='checkboxLabel'>Puerto Rican</label>" +
+			"<input tabindex='24' name='selectedEthnicities' value='17' id='selectedEthnicities-17' type='checkbox'>" +
+			"<label for='selectedEthnicities-17' class='checkboxLabel'>South American</label>" +
+			"</td>");
+
 	race_ethnicity.
 		append($("<table>")
 				.append($("<tr>")
@@ -1667,6 +1733,9 @@ function build_family_race_ethnicity_section() {
 				.append($("<tr>")
 						.append("<td> Ethnicity </td>")
 						.append(ethnicity_checkboxes))
+				.append($("<tr id='hispanic_checkboxes'>")
+						.append("<td> More Ethnicity </td>")
+						.append(hispanic_ethnicity_checkboxes) )
 				.append($("<tr>")
 						.append("<td colspan='2'><a tabindex='29' href='#' >Why are we asking about Ashkenazi Jewish heritage?</a></td>")));
 	
@@ -1728,6 +1797,14 @@ function clear_family_member_health_history_dialog() {
 	$("#family_race_ethnicity").find("#selectedEthnicities-1").prop('checked',false);
 	$("#family_race_ethnicity").find("#selectedEthnicities-2").prop('checked',false);
 	$("#family_race_ethnicity").find("#selectedEthnicities-3").prop('checked',false);
+
+	$("#family_race_ethnicity").find("#selectedEthnicities-11").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedEthnicities-12").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedEthnicities-13").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedEthnicities-14").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedEthnicities-15").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedEthnicities-16").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedEthnicities-17").prop('checked',false);
 	
 }
 
@@ -1887,15 +1964,40 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		$("#family_race_ethnicity").find("#selectedRaces-25").prop('checked',false);
 		
 	}
+
+	if (family_member.ethnicity && family_member.ethnicity['Hispanic or Latino'] == true) {
+		$("#family_race_ethnicity").find("#hispanic_checkboxes").show();
+	} else {
+		$("#family_race_ethnicity").find("#hispanic_checkboxes").hide();
+	}
+
 	
 	if (family_member.ethnicity != null) {
 		$("#family_race_ethnicity").find("#selectedEthnicities-1").prop('checked',family_member.ethnicity['Hispanic or Latino']);
 		$("#family_race_ethnicity").find("#selectedEthnicities-2").prop('checked',family_member.ethnicity['Ashkenazi Jewish']);
 		$("#family_race_ethnicity").find("#selectedEthnicities-3").prop('checked',family_member.ethnicity['Not Hispanic or Latino']);
+
+		$("#family_race_ethnicity").find("#selectedEthnicities-11").prop('checked',family_member.ethnicity['Central American']);
+		$("#family_race_ethnicity").find("#selectedEthnicities-12").prop('checked',family_member.ethnicity['Cuban']);
+		$("#family_race_ethnicity").find("#selectedEthnicities-13").prop('checked',family_member.ethnicity['Dominican']);
+		$("#family_race_ethnicity").find("#selectedEthnicities-14").prop('checked',family_member.ethnicity['Mexican']);
+		$("#family_race_ethnicity").find("#selectedEthnicities-15").prop('checked',family_member.ethnicity['Other Hispanic']);
+		$("#family_race_ethnicity").find("#selectedEthnicities-16").prop('checked',family_member.ethnicity['Puerto Rican']);
+		$("#family_race_ethnicity").find("#selectedEthnicities-17").prop('checked',family_member.ethnicity['South American']);
+
 	} else {
-		$("#family_race_ethnicity").find("#selectedEthnicities-1").prop(false);
-		$("#family_race_ethnicity").find("#selectedEthnicities-2").prop(false);
-		$("#family_race_ethnicity").find("#selectedEthnicities-3").prop(false);
+		$("#family_race_ethnicity").find("#selectedEthnicities-1").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedEthnicities-2").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedEthnicities-3").prop('checked', false);
+
+		$("#family_race_ethnicity").find("#selectedEthnicities-11").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedEthnicities-12").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedEthnicities-13").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedEthnicities-14").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedEthnicities-15").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedEthnicities-16").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedEthnicities-17").prop('checked', false);
+
 	}
 }
 
@@ -1986,13 +2088,64 @@ function clear_and_set_personal_health_history_dialog() {
 		$("#personal_race_ethnicity").find("#selectedRaces-24").prop('checked',personal_information.race['Samoan']);
 		$("#personal_race_ethnicity").find("#selectedRaces-25").prop('checked',personal_information.race['Unknown South Pacific Islander']);
 
+	} else {
+		$("#personal_race_ethnicity").find("#selectedRaces-1").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-2").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-3").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-4").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-5").prop('checked',false);
+
+		$("#personal_race_ethnicity").find("#selectedRaces-11").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-12").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-13").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-14").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-15").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-16").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-17").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-18").prop('checked',false);
+
+		$("#personal_race_ethnicity").find("#selectedRaces-21").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-22").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-23").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-24").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedRaces-25").prop('checked',false);
+		
 	}
+
+	if (personal_information.ethnicity && personal_information.ethnicity['Hispanic or Latino'] == true) {
+		$("#personal_race_ethnicity").find("#hispanic_checkboxes").show();
+	} else {
+		$("#personal_race_ethnicity").find("#hispanic_checkboxes").hide();
+	}
+
 	
 	if (personal_information.ethnicity != null) {
 		$("#personal_race_ethnicity").find("#selectedEthnicities-1").prop('checked',personal_information.ethnicity['Hispanic or Latino']);
 		$("#personal_race_ethnicity").find("#selectedEthnicities-2").prop('checked',personal_information.ethnicity['Ashkenazi Jewish']);
 		$("#personal_race_ethnicity").find("#selectedEthnicities-3").prop('checked',personal_information.ethnicity['Not Hispanic or Latino']);
-	}	
+
+		$("#personal_race_ethnicity").find("#selectedEthnicities-11").prop('checked',personal_information.ethnicity['Central American']);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-12").prop('checked',personal_information.ethnicity['Cuban']);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-13").prop('checked',personal_information.ethnicity['Dominican']);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-14").prop('checked',personal_information.ethnicity['Mexican']);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-15").prop('checked',personal_information.ethnicity['Other Mexican']);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-16").prop('checked',personal_information.ethnicity['Puerto Rican']);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-17").prop('checked',personal_information.ethnicity['South American']);
+
+	}	else {
+		$("#personal_race_ethnicity").find("#selectedEthnicities-1").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-2").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-3").prop('checked',false);
+
+		$("#personal_race_ethnicity").find("#selectedEthnicities-11").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-12").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-13").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-14").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-15").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-16").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-17").prop('checked',false);
+		
+	}
 }
 // Helper functions
 
