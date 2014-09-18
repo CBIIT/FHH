@@ -17,7 +17,13 @@
 	},
 	"fhh": {
 		"ashkenazi": "¿Por qué pedir Ashkenazi ?",
-		
+		"pi":"Introduce información personal",
+		"select_age": "-- Seleccione Edad estimada --",
+		"select_age_death": "-- Seleccione la edad en la que murió --",
+		"family_health_history_title":"Introduzca el historial médico de la familia miembros",
+		"file_save":"Guardar archivo",		
+		"aunt":"tía",
+
 		"done" : "done"
 	}
 	

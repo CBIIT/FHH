@@ -51,7 +51,17 @@ var relationship_to_label = {
 };
 
 $(document).ready(function() {
+	if (typeof i18n != "undefined") {
+		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+			start();
+		});
+	}
+});
 	
+function start() 
+{
 	// Check to see whether this browser has the FileAPI
 	var FileApiSupported = window.File && window.FileReader && window.FileList && window.Blob;
 	if (!FileApiSupported) {		
@@ -59,16 +69,10 @@ $(document).ready(function() {
 	}
 
 	// Setup Language Translation
-	var option = { resGetPath: '../locales/__ns__-__lng__.json', 'ns':'fhh' };
-	if (typeof i18n != "undefined") {
-		i18n.init(option, function () {
-			$(".translate").i18n();
-		});
-	}	
 
 	$("#why_ask_ashkenazi_dialog").load ("why_ask_ashkenazi.html");
 	$("#why_ask_ashkenazi_dialog").dialog({
-		title:"fhh.ashkenazi",
+		title:$.t("fhh.ashkenazi"),
 		position:['middle',0],
 		autoOpen: false,
 		height:250,
@@ -115,7 +119,7 @@ $(document).ready(function() {
 	});
 
 	$("#add_personal_information_dialog").dialog({
-		title:"Enter Personal Information",
+		title:$.t("fhh.pi"),
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
@@ -155,8 +159,8 @@ $(document).ready(function() {
 		$("#person_is_not_alive").hide();
 		$("#estimated_age_select").hide();
 		
-		set_age_at_diagnosis_pulldown( "-- Select Estimated Age --", $("#estimated_age_select"));
-		set_age_at_diagnosis_pulldown( "-- Select Estimated Age at Death --", $("#estimated_death_age_select"));
+		set_age_at_diagnosis_pulldown( $.t("fhh.select_age"), $("#estimated_age_select"));
+		set_age_at_diagnosis_pulldown( $.t("fhh.select_age_death"), $("#estimated_death_age_select"));
 
 		set_disease_choice_select($("#cause_of_death_select"), $("#detailed_cause_of_death_select"));
 
@@ -186,7 +190,7 @@ $(document).ready(function() {
 	});
 
 	$("#update_family_member_health_history_dialog").dialog({
-		title:"Enter Family Member's Health History",
+		title:$.t("fhh.family_health_history_title"),
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
@@ -225,7 +229,7 @@ $(document).ready(function() {
 		width:600
 	});
 
-	// This page lets you load in a previously saved history
+	// This page lets you save a history
 	$("#save_personal_history_dialog").load ("save_personal_history_dialog.html", function () {
 
 		bind_save_personal_history_button();
@@ -348,7 +352,7 @@ $(document).ready(function() {
 	}
 
 	
-});
+}
 
 function bind_load_personal_history_button() {
 	
@@ -356,7 +360,7 @@ function bind_load_personal_history_button() {
 
 function bind_save_personal_history_button() {
 	$("#file_download_button").on("click", function () {
-		alert("Saving File");
+		alert($.t("fhh.file_save"));
 		$("#save_personal_history_dialog").dialog("close");
 		
 		return false;
@@ -410,7 +414,7 @@ function bind_add_another_family_member_button_action() {
 	new_family_member_select = 
 	$("<SELECT id='new_family_member_relationship' name='new_family_member_relationship'>")
 		.append("<OPTION value=''> -- Select Relationship -- </OPTION>")
-		.append("<OPTION value='aunt'> Aunt </OPTION>")
+		.append("<OPTION value='aunt'> " + $.t("fhh.aunt") + " </OPTION>")
 		.append("<OPTION value='uncle'> Uncle </OPTION>")
 		.append("<OPTION value='daughter'> Daughter </OPTION>")
 		.append("<OPTION value='son'> Son </OPTION>")

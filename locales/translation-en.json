@@ -16,7 +16,13 @@
 	},
 	"fhh": {
 		"ashkenazi" : "Why Ask About Ashkenazi?",
-
+		"pi":"Enter Personal Information",
+		"select_age": "-- Select Estimated Age --",
+		"select_age_death": "-- Select Estimated Age at Death --",
+		"family_health_history_title":"Enter Family Member's Health History",
+		"file_save":"Saving File",		
+		"aunt":"Aunt",
+		
 		"done" : "done"		
 	}
 }	
