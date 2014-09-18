@@ -14,7 +14,14 @@
 		"italian" : "In Italiano",
 		
 		"done" : "done"
-	}	
+	},
+	"fhh": {
+		"ashkenazi": "¿Por qué pedir Ashkenazi ?",
+		
+		"done" : "done"
+	}
+	
+
 }	
 
 

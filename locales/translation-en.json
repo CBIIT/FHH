@@ -11,6 +11,12 @@
 		"spanish" : "En Espanol",
 		"portugese" : "Em Portugues",
 		"italian" : "In Italiano",
+
 		"done" : "done"
-	}	
+	},
+	"fhh": {
+		"ashkenazi" : "Why Ask About Ashkenazi?",
+
+		"done" : "done"		
+	}
 }	

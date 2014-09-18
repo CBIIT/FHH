@@ -59,7 +59,7 @@ $(document).ready(function() {
 	}
 
 	// Setup Language Translation
-	var option = { resGetPath: '../locales/__ns__-__lng__.json' };
+	var option = { resGetPath: '../locales/__ns__-__lng__.json', 'ns':'fhh' };
 	if (typeof i18n != "undefined") {
 		i18n.init(option, function () {
 			$(".translate").i18n();
@@ -68,7 +68,7 @@ $(document).ready(function() {
 
 	$("#why_ask_ashkenazi_dialog").load ("why_ask_ashkenazi.html");
 	$("#why_ask_ashkenazi_dialog").dialog({
-		title:"Why Ask About Ashkenazi",
+		title:"fhh.ashkenazi",
 		position:['middle',0],
 		autoOpen: false,
 		height:250,
@@ -676,7 +676,9 @@ function get_gender(relationship) {
 }
 function bind_personal_submit_button_action () {
 	$("#addPersonInformationSubmitButton").on("click", function(){ 
-
+		$("#invalid_date_of_birth_warning").remove();
+		$("#invalid_gender_warning").remove();
+		
 		var errors = false;
 		if (!check_date_of_birth_in_correct_format($('#personal_info_form_date_of_birth').val())) {
 			if (!$("#invalid_date_of_birth_warning").length) {
@@ -700,7 +702,7 @@ function bind_personal_submit_button_action () {
 		}
 		// Determine the values from the form
 		if (personal_information == null) personal_information = new Object();
-		personal_information['id'] = guid();
+		if (personal_information.id == null) personal_information['id'] = guid();
 		personal_information['name'] = $("#personal_info_form_name").val();
 		personal_information['gender'] = $('input[name="person.gender"]:checked').val();
 		personal_information['date_of_birth'] = $('#personal_info_form_date_of_birth').val();
@@ -832,12 +834,11 @@ function bind_family_member_submit_button_action () {
 		}
 
 		var family_member_information;
-		if (personal_information[relationship] != null) family_member_information = personal_information[relationship];
+		if (personal_information[current_relationship] != null) family_member_information = personal_information[current_relationship];
 		else family_member_information = new Object();
 
 		
 		family_member_information['relationship'] = relationship;
-		
 		if (family_member_information['id'] == null ) family_member_information['id'] = guid();
 		family_member_information['parent_id'] = $("#family_member_parent_id").val();;
 		family_member_information['name'] = $("#family_member_info_form_name").val();
