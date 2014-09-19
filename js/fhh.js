@@ -70,7 +70,13 @@ function start()
 
 	// Setup Language Translation
 
-	$("#why_ask_ashkenazi_dialog").load ("why_ask_ashkenazi.html");
+	$("#why_ask_ashkenazi_dialog").load ("why_ask_ashkenazi.html", function () {
+		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
+	});
+		
 	$("#why_ask_ashkenazi_dialog").dialog({
 		title:$.t("fhh_js.ashkenazi"),
 		position:['middle',0],

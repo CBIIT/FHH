@@ -404,25 +404,17 @@ function get_specific_health_issue (relative_name, data) {
 //	alert(relative_name + " " + $(data).attr('displayName'));
 	var detailedDiseaseName = $(data).attr('displayName');
 
-		highLevelDiseaseName = get_disease_name_from_detailed_name(detailedDiseaseName);
-		// Now have to get age at diagnosis
-	if (highLevelDiseaseName) {
-		ageAtDiagnosis = get_age_at_diagnosis(relative_name + ","+ highLevelDiseaseName + ", " + detailedDiseaseName, 
-				$(data).parent().find('subject > dataEstimatedAge'));
-					
-		var specific_health_issue = {"Disease Name": highLevelDiseaseName,
-                    "Detailed Disease Name": detailedDiseaseName,
-                    "Age At Diagnosis": ageAtDiagnosis};
-		return specific_health_issue;
-	}
-// When not found we need to just put it up there
-	var specific_health_issue = {"Disease Name": detailedDiseaseName,
+	highLevelDiseaseName = get_disease_name_from_detailed_name(detailedDiseaseName);
+	if (highLevelDiseaseName == null) highLevelDiseaseName = detailedDiseaseName;
+
+	// Now have to get age at diagnosis
+	ageAtDiagnosis = get_age_at_diagnosis(relative_name + ","+ highLevelDiseaseName + ", " + detailedDiseaseName, 
+			$(data).parent().find('subject > dataEstimatedAge'));
+				
+	var specific_health_issue = {"Disease Name": highLevelDiseaseName,
                   "Detailed Disease Name": detailedDiseaseName,
                   "Age At Diagnosis": ageAtDiagnosis};
 	return specific_health_issue;
-	
-	// no disease found
-	return null;
 }
 
 function get_disease_name_from_detailed_name(detailedDiseaseName) {

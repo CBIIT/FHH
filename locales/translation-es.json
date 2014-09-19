@@ -29,9 +29,13 @@
 		"aunt":"tía",
 
 		"done" : "done"
-	}
-	
+	},
+	"fhh_why_ask_ashkenazi": {
+	 "help_title" : "Ayuda para Ashkenazi Judio",
+	 "help_para" : "Para ciertas condiciones, como el de ovario y el cÃ¡ncer de mama, es importante saber si una persona tiene herencia judÃ­a asquenazÃ­ para fines de evaluaciÃ³n de riesgos.",
 
+   "done" : "done"	
+	}
 }	
 
 

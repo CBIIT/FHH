@@ -125,11 +125,14 @@ function test_immediate_family_members_cancer() {
 			var h = item['Health History'];
 			
 			if (h != null) {
-				var temp = key.substring(0,6);
-				if(temp == 'father' || temp == 'mother' || temp == 'brothe' || temp == 'sister' || temp == 'daught' || temp == 'son') {
+				var temp = key.substring(0,4);
+				if(temp == 'father' || temp == 'moth' || temp == 'brot' || temp == 'sist' || temp == 'daug' || temp == 'son_') {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Cancer') {
-								risk_reason += this.name + " has had Colon Cancer in the past.<br />";
+								var name;
+								if (this.name && this.name != "") name = this.name;
+								else name = "Your " + key.substring(0,key.indexOf("_"));
+								risk_reason += name + " has had Colon Cancer in the past.<br />";
 								risk=true;
 								i = h.length; break;  // We do not need to check this person anyore
 						}
@@ -171,7 +174,10 @@ function test_immediate_family_members_polyps() {
 				if(temp == 'fath' || temp == 'moth' || temp == 'brot' || temp == 'sist' || temp == 'daug' || temp == 'son_') {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Polyp') {
-								risk_reason += this.name + " has had Colon Polyps in the past.<br />";
+								var name;
+								if (this.name && this.name != "") name = this.name;
+								else name = "Your " + key.substring(0,key.indexOf("_"));
+								risk_reason += name + " has had Colon Polyps in the past.<br />";
 								risk=true;
 								i = h.length; break;  // We do not need to check this person anyore
 						}
@@ -216,12 +222,18 @@ function test_secondary_family_members_cancer() {
 					 temp8 == 'granddau' || temp8 == 'grandson') {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Cancer') {
-								risk_reason += this.name + " has had Colon Cancer in the past.<br />";
+								var name;
+								if (this.name && this.name != "") name = this.name;
+								else name = "Your " + key.substring(0,key.lastIndexOf("_"));
+								risk_reason += name + " has had Colon Cancer in the past.<br />";
 								count++;
 								i = h.length; break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer') {
-								risk_reason += this.name + " has had Colorectal Cancer in the past.<br />";
+								var name;
+								if (this.name && this.name != "") name = this.name;
+								else name = "Your " + key.substring(0,key.lastIndexOf("_"));
+								risk_reason += name + " has had Colorectal Cancer in the past.<br />";
 								count++;
 								i = h.length; break;  // We do not need to check this person anyore
 						}
@@ -275,12 +287,18 @@ function test_secondary_family_members_colon_cancer_before_60() {
 					 temp8 == 'granddau' || temp8 == 'grandson') {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
-								risk_reason += this.name + " has had Colon Cancer before the age of 60.<br />";
+								var name;
+								if (this.name && this.name != "") name = this.name;
+								else name = "Your " + key.substring(0,key.lastIndexOf("_"));
+								risk_reason += name + " has had Colon Cancer before the age of 60.<br />";
 								risk=true;
 								i = h.length; break; // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
-								risk_reason += this.name + " has had Colorectal Cancer before the age of 60.<br />";
+								var name;
+								if (this.name && this.name != "") name = this.name;
+								else name = "Your " + key.substring(0,key.lastIndexOf("_"));
+								risk_reason += name + " has had Colorectal Cancer before the age of 60.<br />";
 								risk=true;
 								i = h.length; break; // We do not need to check this person anyore
 						}
@@ -318,7 +336,10 @@ function test_secondary_family_members_uterine_cancer_before_50() {
 				if(temp == 'maternal' || temp == 'paternal' || temp == 'granddau' || temp == 'grandson') {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Uterine Cancer' && is_age_before('Under50', h[i]['Age At Diagnosis']) ) {
-								risk_reason += this.name + " has had Uterine Cancer before the age of 50.<br />";
+								var name;
+								if (this.name && this.name != "") name = this.name;
+								else name = "Your " + key.substring(0,key.lastIndexOf("_"));
+								risk_reason += name + " has had Uterine Cancer before the age of 50.<br />";
 								risk=true;
 								i = h.length; break; // We do not need to check this person anyore
 						}
