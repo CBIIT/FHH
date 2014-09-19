@@ -1,5 +1,5 @@
 {
-	"front": {
+	"fhh_index": {
 		"on": "EN",
 		"usage": "Uso de Mi Familia Retrato de Salud puede:",
 		"li1" : "Preparar su historia familiar de salud.",
@@ -15,7 +15,7 @@
 		
 		"done" : "done"
 	},
-	"fhh": {
+	"fhh_js": {
 		"ashkenazi": "¿Por qué pedir Ashkenazi ?",
 		"pi":"Introduce información personal",
 		"select_age": "-- Seleccione Edad estimada --",

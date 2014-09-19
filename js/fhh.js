@@ -72,7 +72,7 @@ function start()
 
 	$("#why_ask_ashkenazi_dialog").load ("why_ask_ashkenazi.html");
 	$("#why_ask_ashkenazi_dialog").dialog({
-		title:$.t("fhh.ashkenazi"),
+		title:$.t("fhh_js.ashkenazi"),
 		position:['middle',0],
 		autoOpen: false,
 		height:250,
@@ -119,7 +119,7 @@ function start()
 	});
 
 	$("#add_personal_information_dialog").dialog({
-		title:$.t("fhh.pi"),
+		title:$.t("fhh_js.pi"),
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
@@ -159,8 +159,8 @@ function start()
 		$("#person_is_not_alive").hide();
 		$("#estimated_age_select").hide();
 		
-		set_age_at_diagnosis_pulldown( $.t("fhh.select_age"), $("#estimated_age_select"));
-		set_age_at_diagnosis_pulldown( $.t("fhh.select_age_death"), $("#estimated_death_age_select"));
+		set_age_at_diagnosis_pulldown( $.t("fhh_js.select_age"), $("#estimated_age_select"));
+		set_age_at_diagnosis_pulldown( $.t("fhh_js.select_age_death"), $("#estimated_death_age_select"));
 
 		set_disease_choice_select($("#cause_of_death_select"), $("#detailed_cause_of_death_select"));
 
@@ -190,7 +190,7 @@ function start()
 	});
 
 	$("#update_family_member_health_history_dialog").dialog({
-		title:$.t("fhh.family_health_history_title"),
+		title:$.t("fhh_js.family_health_history_title"),
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
@@ -360,7 +360,7 @@ function bind_load_personal_history_button() {
 
 function bind_save_personal_history_button() {
 	$("#file_download_button").on("click", function () {
-		alert($.t("fhh.file_save"));
+		alert($.t("fhh_js.file_save"));
 		$("#save_personal_history_dialog").dialog("close");
 		
 		return false;
@@ -414,7 +414,7 @@ function bind_add_another_family_member_button_action() {
 	new_family_member_select = 
 	$("<SELECT id='new_family_member_relationship' name='new_family_member_relationship'>")
 		.append("<OPTION value=''> -- Select Relationship -- </OPTION>")
-		.append("<OPTION value='aunt'> " + $.t("fhh.aunt") + " </OPTION>")
+		.append("<OPTION value='aunt'> " + $.t("fhh_js.aunt") + " </OPTION>")
 		.append("<OPTION value='uncle'> Uncle </OPTION>")
 		.append("<OPTION value='daughter'> Daughter </OPTION>")
 		.append("<OPTION value='son'> Son </OPTION>")

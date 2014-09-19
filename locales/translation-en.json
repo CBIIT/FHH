@@ -1,5 +1,5 @@
 {
-	"front": {
+	"fhh_index": {
 		"usage": "Using My Family Health Portrait you can:",
 		"li1" : "Enter your family health history.",
 		"li2" : "Print your family health history to share with family or your health care worker.",
@@ -14,7 +14,7 @@
 
 		"done" : "done"
 	},
-	"fhh": {
+	"fhh_js": {
 		"ashkenazi" : "Why Ask About Ashkenazi?",
 		"pi":"Enter Personal Information",
 		"select_age": "-- Select Estimated Age --",
