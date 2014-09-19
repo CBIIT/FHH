@@ -196,24 +196,25 @@ function start()
 		height:'auto',
 		width:['95%'],
 		close: cancel_update_family_member
-	});		
-
-	$("#view_diagram_and_table_dialog").dialog({
-		title:"View Pedigree Diagram",
-		position:['middle',0],
-		autoOpen: false,
-		height:1000,
-		width:['95%']
 	});
+	
+// Dead Code
+//	$("#view_diagram_and_table_dialog").dialog({
+//		title:$.t("view_diagram_title"),
+//		position:['middle',0],
+//		autoOpen: false,
+//		height:1000,
+//		width:['95%']
+//	});
 
-    $("#family_pedigree").dialog({
-        title:"Family Pedigree",
-        position:['middle',0],
-        autoOpen: false,
-        height:2000,
-        width:['95%'],
-        backgroundColor: 'white'
-    });
+//    $("#family_pedigree").dialog({
+//        title:"Family Pedigree",
+//        position:['middle',0],
+//        autoOpen: false,
+//        height:2000,
+//        width:['95%'],
+//        backgroundColor: 'white'
+//    });
 
 	// This page lets you load in a previously saved history
 	$("#load_personal_history_dialog").load ("load_personal_history_dialog.html", function () {
@@ -222,7 +223,7 @@ function start()
 	});
 
 	$("#load_personal_history_dialog").dialog({
-		title:"Load Your Family Health History",
+		title:$.t("fhh_js.load_dialog_title"),
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
@@ -241,11 +242,11 @@ function start()
 	});
 
 	$("#save_personal_history_dialog").dialog({
-		title:"Save Your Family Health History",
+		title:$.t("fhh_js.save_dialog_title"),
 		position:['middle',0],
 		autoOpen: false,
-		height:500,
-		width:['95%']
+		height:'auto',
+		width:600
 	});
 
 	// This is the second page when you are initially creating a personal history, it asks how many of each type of member
@@ -258,20 +259,21 @@ function start()
 
 
 	$("#add_all_family_members_dialog").dialog({
-		title:"Add Immediate Family Members",
+		title:$.t("fhh_js.add_family_members_dialog_title"),
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
 		width:650
 	});
 
+// Dead Code
     // family pedigree diagram dialog
-    $("#family_pedigree").load ("family_pedigree.html", function () {});
+//    $("#family_pedigree").load ("family_pedigree.html", function () {});
 
 	// Disease Risk Calculator
 	$("#disease_risk_calculator").dialog({
-		title:"Disease Risk Calculators",
-        position:['top',0],
+		title:$.t("fhh_js.risk_calculator_dialog_title"),
+    position:['top',0],
 		autoOpen: false,
 		height:'auto',
 		width:1064
@@ -383,7 +385,7 @@ function bind_create_new_personal_history_button_action () {
 function bind_view_diagram_and_table_button_action () {
 	$("#view_diagram_and_table_dialog").dialog("open");
 	
-	$("#view_diagram_and_table_dialog").append("Pedigree Diagram goes here");
+	$("#view_diagram_and_table_dialog").append("");
 }
 
 function bind_save_personal_history_button_action () {

@@ -21,6 +21,10 @@
 		"select_age": "-- Seleccione Edad estimada --",
 		"select_age_death": "-- Seleccione la edad en la que murió --",
 		"family_health_history_title":"Introduzca el historial médico de la familia miembros",
+		"load_dialog_title": "Cargue su historial de salud familiar",
+		"save_dialog_title": "Ahorre su historial de salud familiar",
+		"add_family_members_dialog_title": "Añadir familiares cercanos",
+		"risk_calculator_dialog_title": "Enfermedad Calculadoras de riesgo",
 		"file_save":"Guardar archivo",		
 		"aunt":"tía",
 

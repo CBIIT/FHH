@@ -575,25 +575,25 @@ function add_relatives(tag, pi) {
 	
 	var i = 0;
 	while (pi['maternal_halfbrother_' + i] != null) {
-		add_individual_relative(tag, "Maternal Halfbrother", "HBRO", pi['maternal_halfbrother_' + i]);
+		add_individual_relative(tag, "Maternal Halfbrother", "MHBRO", pi['maternal_halfbrother_' + i]);
 		i++;
 	}
 
 	var i = 0;
 	while (pi['maternal_halfsister_' + i] != null) {
-		add_individual_relative(tag, "Maternal Halfsister", "HSIS", pi['maternal_halfsister_' + i]);
+		add_individual_relative(tag, "Maternal Halfsister", "MHSIS", pi['maternal_halfsister_' + i]);
 		i++;
 	}
 
 	var i = 0;
 	while (pi['paternal_halfbrother_' + i] != null) {
-		add_individual_relative(tag, "Paternal Halfbrother", "HBRO", pi['paternal_halfbrother_' + i]);
+		add_individual_relative(tag, "Paternal Halfbrother", "PHBRO", pi['paternal_halfbrother_' + i]);
 		i++;
 	}
 
 	var i = 0;
 	while (pi['paternal_halfsister_' + i] != null) {
-		add_individual_relative(tag, "Paternal Halfsister", "HSIS", pi['paternal_halfsister_' + i]);
+		add_individual_relative(tag, "Paternal Halfsister", "PHSIS", pi['paternal_halfsister_' + i]);
 		i++;
 	}
 

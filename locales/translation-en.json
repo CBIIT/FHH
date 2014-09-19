@@ -20,6 +20,10 @@
 		"select_age": "-- Select Estimated Age --",
 		"select_age_death": "-- Select Estimated Age at Death --",
 		"family_health_history_title":"Enter Family Member's Health History",
+		"load_dialog_title": "Load Your Family Health History",
+		"save_dialog_title": "Save Your Family Health History",
+		"add_family_members_dialog_title": "Add Family Members",
+		"risk_calculator_dialog_title": "Disease Risk Calculators",
 		"file_save":"Saving File",		
 		"aunt":"Aunt",
 		

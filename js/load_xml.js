@@ -327,6 +327,33 @@ function parse_xml(data) {
 			}
 		}
 
+// Maternal Half Siblings
+		if (relationship_code == "MHBRO") {
+			var i = 0;
+			while (personal_information["maternal_halfbrother_" + i] != null) i++;
+			relative.relationship = 'maternal_halfbrother';
+			personal_information["maternal_halfbrother_" + i] = relative;				
+		}
+		if (relationship_code == "MHSIS") {
+			var i = 0;
+			while (personal_information["maternal_halfsister_" + i] != null) i++;
+			relative.relationship = 'maternal_halfsister';
+			personal_information["maternal_halfsister_" + i] = relative;				
+		}
+// Paternal HalfSiblings
+		if (relationship_code == "PHBRO") {
+			var i = 0;
+			while (personal_information["paternal_halfbrother_" + i] != null) i++;
+			relative.relationship = 'paternal_halfbrother';
+			personal_information["paternal_halfbrother_" + i] = relative;				
+		}
+		if (relationship_code == "PHSIS") {
+			var i = 0;
+			while (personal_information["paternal_halfsister_" + i] != null) i++;
+			relative.relationship = 'paternal_halfsister';
+			personal_information["paternal_halfsister_" + i] = relative;				
+		}
+
 		if (relationship_code == "NEPHEW") {
 			var i = 0;
 			while (personal_information["nephew_" + i] != null) i++;
@@ -388,6 +415,12 @@ function get_specific_health_issue (relative_name, data) {
                     "Age At Diagnosis": ageAtDiagnosis};
 		return specific_health_issue;
 	}
+// When not found we need to just put it up there
+	var specific_health_issue = {"Disease Name": detailedDiseaseName,
+                  "Detailed Disease Name": detailedDiseaseName,
+                  "Age At Diagnosis": ageAtDiagnosis};
+	return specific_health_issue;
+	
 	// no disease found
 	return null;
 }
