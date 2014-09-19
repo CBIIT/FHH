@@ -190,7 +190,7 @@ function parse_xml(data) {
 		
 		current_health_history = new Array();
 		// Looking for diseases, first we need to pull out the displayNames for every code tag
-		$(this).find("code").each( function() {
+		$(this).find("subjectOf2").find("clinicalObservation").find("code").each( function() {
 			
 //			alert(relative.name +" "+ $(this).attr("displayName"));
 
@@ -410,7 +410,8 @@ function get_specific_health_issue (relative_name, data) {
 	// Now have to get age at diagnosis
 	ageAtDiagnosis = get_age_at_diagnosis(relative_name + ","+ highLevelDiseaseName + ", " + detailedDiseaseName, 
 			$(data).parent().find('subject > dataEstimatedAge'));
-				
+
+
 	var specific_health_issue = {"Disease Name": highLevelDiseaseName,
                   "Detailed Disease Name": detailedDiseaseName,
                   "Age At Diagnosis": ageAtDiagnosis};

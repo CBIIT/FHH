@@ -122,6 +122,11 @@ function start()
 			}
 		});
 
+		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
+
 	});
 
 	$("#add_personal_information_dialog").dialog({
@@ -193,6 +198,12 @@ function start()
 				$("#person_is_not_alive").hide();
 			}
 		});
+
+		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
+
 	});
 
 	$("#update_family_member_health_history_dialog").dialog({
@@ -226,6 +237,11 @@ function start()
 	$("#load_personal_history_dialog").load ("load_personal_history_dialog.html", function () {
 		bind_load_personal_history_button();
 		bind_load_xml();
+
+		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
 	});
 
 	$("#load_personal_history_dialog").dialog({
@@ -242,9 +258,10 @@ function start()
 		bind_save_personal_history_button();
 		bind_save_xml();
 		
-//		var opt = {};
-//		var button = Dropbox.createChooseButton(null);
-//		document.getElementById("db_save").appendChild(button);
+		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
 	});
 
 	$("#save_personal_history_dialog").dialog({
@@ -260,6 +277,10 @@ function start()
 		bind_add_all_family_members_submit_button_action();
 		bind_add_all_family_members_cancel_button_action();
 		bind_number_only_fields();
+		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
 	});
 
 
@@ -1012,6 +1033,11 @@ function load_risk_links() {
         			// Do not know why using field directly doesn't work but this does
         			$("#" + $(field).attr("id")).val(v);
             	});
+							var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+							i18n.init(option, function () {
+								$(".translate").i18n();
+							});
+
         	});
         });
         
