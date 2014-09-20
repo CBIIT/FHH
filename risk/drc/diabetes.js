@@ -96,6 +96,7 @@ function test_for_height() {
 	if (personal_information == null) return false;
 	if (personal_information.height_unit == null) return false;
 	if (personal_information.height == null ) return false;
+	if (personal_information.height < 18) return false;
 	
 	return true;
 }

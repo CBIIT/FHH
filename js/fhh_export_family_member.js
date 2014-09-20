@@ -1,6 +1,5 @@
 
 function build_copy_for_family_member_dialog() {
-	
 	give_instructions();
 	relative_select = create_family_member_select();	
 	relative_select.on("change", bind_relative_select_change);
@@ -18,6 +17,8 @@ function bind_relative_select_change() {
   else if (relative_being_exported.substring(0,6) == 'sister') pi = export_brother_or_sister(relative_being_exported, my_gender);
   else if (relative_being_exported.substring(0,6) == 'father') pi = export_father(relative_being_exported, my_gender);
   else if (relative_being_exported.substring(0,6) == 'mother') pi = export_mother(relative_being_exported, my_gender);
+  else if (relative_being_exported.substring(0,3) == 'son') pi = export_son_or_daughter(relative_being_exported, my_gender);
+  else if (relative_being_exported.substring(0,8) == 'daughter') pi = export_son_or_daughter(relative_being_exported, my_gender);
 
 	var xml_document = make_export_string(pi);
 
@@ -107,6 +108,11 @@ function export_father(relative_being_exported, my_gender) {
 	move_relatives(pi, 'nephew', 'grandson');
 	move_relatives(pi, 'niece', 'granddaughter');
 	
+	pi.paternal_grandfather = new Object(); pi.paternal_grandfather.gender = 'MALE';
+	pi.paternal_grandmother = new Object(); pi.paternal_grandmother.gender = 'FEMALE';
+	pi.maternal_grandfather = new Object(); pi.maternal_grandfather.gender = 'MALE';
+	pi.maternal_grandmother = new Object(); pi.maternal_grandmother.gender = 'FEMALE';
+	
 	return pi;	
 }
 
@@ -139,6 +145,57 @@ function export_mother(relative_being_exported, my_gender) {
 	move_relatives(pi, 'maternal_halfsister', 'daughter');
 	move_relatives(pi, 'nephew', 'grandson');
 	move_relatives(pi, 'niece', 'granddaughter');
+
+
+	pi.paternal_grandfather = new Object(); pi.paternal_grandfather.gender = 'MALE';
+	pi.paternal_grandmother = new Object(); pi.paternal_grandmother.gender = 'FEMALE';
+	pi.maternal_grandfather = new Object(); pi.maternal_grandfather.gender = 'MALE';
+	pi.maternal_grandmother = new Object(); pi.maternal_grandmother.gender = 'FEMALE';
+
+	return pi;	
+}
+
+function export_son_or_daughter(relative_being_exported, my_gender) {
+	var pi = new Object();
+	set_personal_information_based_on_relative(pi, personal_information[relative_being_exported]);	
+	
+	
+	var my_information_as_a_relative = get_personal_information_of_relative (personal_information) ;	
+
+	if (my_gender == 'MALE') my_relationship = 'father';
+	else my_relationship = 'mother';
+
+// Nephew, Nieces, Aunts, Uncles, Granparents, Cousins all drop off
+	if (my_gender == 'MALE') {
+		pi.father = my_information_as_a_relative;
+		pi.mother = new Object(); pi.mother.gender = 'FEMALE';
+		move_single_relative(pi, 'father', 'paternal_grandfather');
+		move_single_relative(pi, 'mother', 'paternal_grandmother');
+		move_relatives(pi, 'brother', 'paternal_uncle');
+		move_relatives(pi, 'sister', 'paternal_aunt');
+		move_relatives(pi, 'son', 'brother', 'except', relative_being_exported);
+		move_relatives(pi, 'daughter', 'sister', 'except', relative_being_exported);
+		move_relatives(pi, 'paternal_halfbrother', 'paternal_uncle');
+		move_relatives(pi, 'paternal_halfsister', 'paternal_aunt');
+
+		pi.maternal_grandfather = new Object(); pi.maternal_grandfather.gender = 'MALE';
+		pi.maternal_grandmother = new Object(); pi.maternal_grandmother.gender = 'FEMALE';
+		
+	} else {
+		pi.mother = my_information_as_a_relative;
+		pi.father = new Object(); pi.mother.gender = 'FEMALE';
+		move_single_relative(pi, 'father', 'maternal_grandfather');
+		move_single_relative(pi, 'mother', 'maternal_grandmother');
+		move_relatives(pi, 'brother', 'maternal_uncle');
+		move_relatives(pi, 'sister', 'maternal_aunt');
+		move_relatives(pi, 'son', 'brother', 'except', relative_being_exported);
+		move_relatives(pi, 'daughter', 'sister', 'except', relative_being_exported);
+		move_relatives(pi, 'maternal_halfbrother', 'maternal_uncle');
+		move_relatives(pi, 'maternal_halfsister', 'maternal_aunt');
+
+		pi.paternal_grandfather = new Object(); pi.maternal_grandfather.gender = 'MALE';
+		pi.paternal_grandmother = new Object(); pi.maternal_grandmother.gender = 'FEMALE';
+	}
 	
 	return pi;	
 }
@@ -265,8 +322,8 @@ function create_family_member_select() {
 	$("#copy_for_family_member").append(relative_select);
 	
 	$.each(personal_information, function (key, item) {
-    var temp = key.substring(0,6);
-    if(temp == 'brothe' || temp == 'sister' || temp == 'father' || temp == 'mother') {
+    var temp = key.substring(0,4);
+    if(temp == 'brot' || temp == 'sist' || temp == 'fath' || temp == 'moth' || temp == 'daug' || temp == 'son_') {
     	var relative_name = item.name;
     	relative_select.append("<OPTION value='" + key + "'>" + relative_name + "</OPTION>");
     }
