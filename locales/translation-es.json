@@ -25,8 +25,50 @@
 		"save_dialog_title": "Ahorre su historial de salud familiar",
 		"add_family_members_dialog_title": "Añadir familiares cercanos",
 		"risk_calculator_dialog_title": "Enfermedad Calculadoras de riesgo",
+		"family_member_copy_dialog_title" : "Ejemplar para el Miembro de la Familia",
+		"help_dialog_title" : "Su Family Health realizados Ayuda",
+		"define_family_relationship_dialog_title" : "Establece Relación Familiar",
+		"confirm_delete" : "Esto borrará todos los datos y reiniciar, ¿Seguro que quieres hacer esto?",
 		"file_save":"Guardar archivo",		
+
+		"add_relative_title":"¿Quién le gustaría añadir a su historia?",
+		"add_relative_para":"Parientes en su familia inmediata que no figuran en esta lista son probablemente en la página anterior y se puede llegar mediante el cierre esta ventana y seleccionar la imagen signo más ('Agregar Historia') al lado del nombre del pariente. Los cónyuges y los primos segundos no aparecen porque no afecten a su historial de salud familiar.",
+
+
+		"select_relationship":" -- Seleccionar Relación -- ",
 		"aunt":"tía",
+		"uncle":"tío",
+		"daughter":"Hija",
+		"son":"Hijo",
+		"brother":"Hermano",
+		"sister":"Hermana",
+		"half_sister":"Media Hermana",
+		"half_brother":"Medio Hermano",
+		"cousin":"Primo",
+		"niece":"Sobrina",
+		"nephew":"Sobrino",
+		"granddaughter":"nieta",
+		"grandson":"nieto",
+
+		"please_specify":" -- Por favor especifique -- ",
+		"mother":"Madre",
+		"father":"Padre",
+
+		"relationship_to_me" : "Relación con mí:",
+		"aunt_relationship_q" : "Tía que es esta relación con:",
+		"uncle_relationship_q" : "Tío que está relacionado con este:",
+		"cousin_parent_q" : "Quién es el padre de su primo:",
+		"niece_parent_q" : "Quién es el padre de su sobrina:",
+		"nephew_parent_q" : "Quién es el padre de su sobrino:",
+		"granddaughter_parent_q" : "Quién es el padre de su nieta:",
+		"grandson_parent_q" : "Quién es el padre de su nieto:",
+		"halfbrother_parent_q" : "Quién es el padre de su medio hermano:",
+		"halfsister_parent_q" : "Quién es el padre de su media hermana:",
+
+		"invalid_data_of_birth" : "Inválido Fecha de Nacimiento",
+		"invalid_gender" : "Inválido Género",
+		"invalid_data_alert" : "Algunos de los Entrado fecha no era válido, por favor arreglar sus errores y vuelva a intentarlo.",
+
 
 		"done" : "done"
 	},

@@ -321,7 +321,7 @@ function start()
   });
 
 	$("#copy_for_family_member").dialog({
-		title:"Copy for a Family Member",
+		title:$.t("fhh_js.family_member_copy_dialog_title"),
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
@@ -330,32 +330,31 @@ function start()
 
 
 	$("#help_dialog").dialog({
-		title:"Your Family Health History Help",
+		title:$.t("fhh_js.help_dialog_title"), 
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
 		width:600
 	});
-	
-	if (personal_information != null) {
-	    if (confirm("This will delete all data and restart,  Are you sure you want to do this?") == true) {
-	    	personal_information = new Object();
-	    	build_family_history_data_table();
-	    } else {
-	        return false;
-	    }
-	}
+
+// Dead Code?	
+//	if (personal_information != null) {
+//	    if (confirm($.t("fhh_js.confirm_delete")) == true) {
+//	    	personal_information = new Object();
+//	    	build_family_history_data_table();
+//	    } else {
+//	        return false;
+//	    }
+//	}
 
 	// Below function is temporary to allow debuging of the pedigree
 	$("#nav_help").on("click", function(){ 
 		$("#help_dialog").dialog("open");
 		
-//		alert ("Personal Information:" + JSON.stringify(personal_information, null, 2) );
 	});
 	
 	$(".banner_right").on("click", function(){ 
 		alert ("Personal Information:" + JSON.stringify(personal_information, null, 2) );
-//		window.open('data:application/json,' + JSON.stringify(personal_information, null, 2), "Debug",null); 
 	});
 	
 	// Hide or show the right initial buttons
@@ -365,10 +364,8 @@ function start()
 	$("#save_family_history_button").hide();
 //	$("#view_diagram_and_table_button").show().on("click", bind_view_diagram_and_table_button_action);
 //    $("#view_diagram_and_table_button").show().on("click",  readtable());
-    $("#your_health_risk_assessment_button").hide();
+  $("#your_health_risk_assessment_button").hide();
 	
-	
-
 // Check to see if there are any specific actions
 	if (getParameterByName("action") == 'load') {
 			$("#load_personal_history_dialog").dialog("open");
@@ -378,9 +375,7 @@ function start()
 			$("#add_personal_information_dialog").dialog("open");
 	} else if (getParameterByName("action") == 'save') {
 			$("#save_personal_history_dialog").dialog("open");
-	}
-
-	
+	}	
 }
 
 function bind_load_personal_history_button() {
@@ -398,7 +393,7 @@ function bind_save_personal_history_button() {
 
 function bind_create_new_personal_history_button_action () {
 	if (personal_information != null) {
-	    if (confirm("This will delete all data and restart,  Are you sure you want to do this?") == true) {
+	    if (confirm($.t("fhh_js.confirm_delete")) == true) {
 	    	personal_information = new Object();
 	    	build_family_history_data_table();
 	    } else {
@@ -425,7 +420,7 @@ function bind_add_another_family_member_button_action() {
 		new_family_member_dialog = $("<div id='new_family_member_dialog'>");
 		new_family_member_dialog.dialog({
 			position:['middle',0],
-			title:"Define Family Member Relationship",
+			title:$.t("fhh_js.define_family_relationship_dialog_title"),
 			height:'auto',
 			width:500
 		});
@@ -434,39 +429,36 @@ function bind_add_another_family_member_button_action() {
 		new_family_member_dialog.empty().dialog("open");
 	}
 	
-	new_family_member_dialog.append("<h3> Who would you like to add to your history? </h3>");
-	new_family_member_dialog.append("<P class='instructions'>Relatives in your immediate family who aren't listed here " +
-			"are probably on the previous page and can be reached by closing this window and " +
-			"selecting the plus sign image ('Add History') next to the relative's name. Spouses " +
-			"and second cousins are not listed because they don't impact your family health history</P>");
-	new_family_member_dialog.append("<label for='new_family_member_relationship'> Relationship to me: </label>");
+	new_family_member_dialog.append("<h3> " + $.t("fhh_js.add_relative_title") + " </h3>");
+	new_family_member_dialog.append("<P class='instructions'>" + $.t("fhh_js.add_relative_para") + "</P>");
+	new_family_member_dialog.append("<label for='new_family_member_relationship'> " + $.t("fhh_js.relationship_to_me") + " </label>");
 	new_family_member_select = 
 	$("<SELECT id='new_family_member_relationship' name='new_family_member_relationship'>")
-		.append("<OPTION value=''> -- Select Relationship -- </OPTION>")
+		.append("<OPTION value=''> " + $.t("fhh_js.select_relationship") + " </OPTION>")
 		.append("<OPTION value='aunt'> " + $.t("fhh_js.aunt") + " </OPTION>")
-		.append("<OPTION value='uncle'> Uncle </OPTION>")
-		.append("<OPTION value='daughter'> Daughter </OPTION>")
-		.append("<OPTION value='son'> Son </OPTION>")
-		.append("<OPTION value='brother'> Brother </OPTION>")
-		.append("<OPTION value='sister'> Sister </OPTION>")
-		.append("<OPTION value='halfsister'> Half Sister </OPTION>")
-		.append("<OPTION value='halfbrother'> Half Brother </OPTION>");
+		.append("<OPTION value='uncle'> " + $.t("fhh_js.uncle") + " </OPTION>")
+		.append("<OPTION value='daughter'> " + $.t("fhh_js.daughter") + " </OPTION>")
+		.append("<OPTION value='son'> " + $.t("fhh_js.son") + " </OPTION>")
+		.append("<OPTION value='brother'> " + $.t("fhh_js.brother") + " </OPTION>")
+		.append("<OPTION value='sister'> " + $.t("fhh_js.sister") + " </OPTION>")
+		.append("<OPTION value='halfsister'> " + $.t("fhh_js.half_sister") + " </OPTION>")
+		.append("<OPTION value='halfbrother'> " + $.t("fhh_js.half_brother") + " </OPTION>");
 		
 	if (personal_information.maternal_aunt_0 != null || personal_information.maternal_uncle_0 != null ||
 			personal_information.paternal_aunt_0 != null || personal_information.paternal_uncle_0 != null) { 
-		new_family_member_select.append("<OPTION value='cousin'> (First) Cousin </OPTION>");
+		new_family_member_select.append("<OPTION value='cousin'> " + $.t("fhh_js.cousin") + " </OPTION>");
 	}
 
 	if (personal_information.brother_0 != null || personal_information.sister_0 != null) { 
 		new_family_member_select
-			.append("<OPTION value='niece'> Niece </OPTION>")
-			.append("<OPTION value='nephew'> Nephew </OPTION>");
+			.append("<OPTION value='niece'> " + $.t("fhh_js.niece") + " </OPTION>")
+			.append("<OPTION value='nephew'> " + $.t("fhh_js.nephew") + " </OPTION>");
 	}
 		
 	if (personal_information.son_0 != null || personal_information.duaghter_0 != null) { 
 		new_family_member_select
-			.append("<OPTION value='granddaughter'> Granddaughter </OPTION>")
-			.append("<OPTION value='grandson'> Grandson </OPTION>")
+			.append("<OPTION value='granddaughter'> " + $.t("fhh_js.granddaughter") + " </OPTION>")
+			.append("<OPTION value='grandson'> " + $.t("fhh_js.grandson") + " </OPTION>")
 	}
 	
 	new_family_member_select.on("change", new_family_member_relationship_selection_change_action);
@@ -487,20 +479,22 @@ function new_family_member_relationship_selection_change_action() {
 	switch (relationship) {
 		case 'aunt':
 
-			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> Who is the aunt related to?: </B> </span>");
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " 
+				+ $.t("fhh_js.aunt_relationship_q") + " </B> </span>");
 			new_family_member_dialog.append($("<SELECT id='new_family_member_exact_relationship'>")
-				.append("<OPTION value=''> -- Please Specify -- </OPTION>")
-				.append("<OPTION value='maternal_aunt'> Mother </OPTION>")
-				.append("<OPTION value='paternal_aunt'> Father </OPTION>")
+				.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>")
+				.append("<OPTION value='maternal_aunt'> " + $.t("fhh_js.mother") + " </OPTION>")
+				.append("<OPTION value='paternal_aunt'> " + $.t("fhh_js.father") + " </OPTION>")
 				.on("change", exact_family_member_relationship_selection_change_action)
 			);
 			break;
 		case 'uncle':
-			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> Who is the uncle related to?: </B> </span>");
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " 
+				+ $.t("fhh_js.uncle_relationship_q") + " </B> </span>");
 			new_family_member_dialog.append($("<SELECT id='new_family_member_exact_relationship'>")
-				.append("<OPTION value=''> -- Please Specify -- </OPTION>")
-				.append("<OPTION value='maternal_uncle'> Mother </OPTION>")
-				.append("<OPTION value='paternal_uncle'> Father </OPTION>")
+				.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>")
+				.append("<OPTION value='maternal_uncle'> " + $.t("fhh_js.mother") + " </OPTION>")
+				.append("<OPTION value='paternal_uncle'> " + $.t("fhh_js.father") + " </OPTION>")
 				.on("change", exact_family_member_relationship_selection_change_action)
 			);
 			break;
@@ -522,14 +516,14 @@ function new_family_member_relationship_selection_change_action() {
 			break;
 		// Below needs to be fixed using real people defined from pedigree
 		case 'cousin':
-			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> Who is the parent of your first cousin: </B> </span>");
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/><B>" + $.t("fhh_js.cousin_parent_q") + " </B> </span>");
 			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
 			new_family_member_dialog.append(new_family_member_select);
 			add_cousin_select(new_family_member_select);
 			break;
 		// Below needs to be fixed using real people defined from pedigree
 		case 'niece':
-			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> Who is the parent of your niece: </B> </span>");
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.niece_parent_q") + " </B> </span>");
 			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
 			new_family_member_dialog.append(new_family_member_select);
 			add_niece_select(new_family_member_select);
@@ -537,40 +531,40 @@ function new_family_member_relationship_selection_change_action() {
 			break;
 			// Below needs to be fixed using real people defined from pedigree
 		case 'nephew':
-			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> Who is the parent of your nephew: </B> </span>");
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.nephew_parent_q") + " </B> </span>");
 			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
 			new_family_member_dialog.append(new_family_member_select);
 			add_nephew_select(new_family_member_select);
 			break;
 			// Below needs to be fixed using real people defined from pedigree
 		case 'granddaughter':
-			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> Who is the parent of your granddaughter: </B> </span>");
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.granddaughter_parent_q") + " </B> </span>");
 			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
 			new_family_member_dialog.append(new_family_member_select);
 			add_granddaughter_select(new_family_member_select);
 			break;
 			// Below needs to be fixed using real people defined from pedigree
 		case 'grandson':
-			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> Who is the parent of your grandson: </B> </span>");
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.grandson_parent_q") + " </B> </span>");
 			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
 			new_family_member_dialog.append(new_family_member_select);
 			add_grandson_select(new_family_member_select);
 			break;
 		case 'halfbrother':
-			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> Who is the parent of your half brother: </B> </span>");
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.halfbrother_parent_q") + " </B> </span>");
 			new_family_member_dialog.append($("<SELECT id='new_family_member_exact_relationship'>")
-				.append("<OPTION value=''> -- Please Specify -- </OPTION>")
-				.append("<OPTION value='maternal_halfbrother'> Mother </OPTION>")
-				.append("<OPTION value='paternal_halfbrother'> Father </OPTION>")
+				.append("<OPTION value=''>" + $.t("fhh_js.please_specify") + "</OPTION>")
+				.append("<OPTION value='maternal_halfbrother'> " + $.t("fhh_js.mother") + " </OPTION>")
+				.append("<OPTION value='paternal_halfbrother'> " + $.t("fhh_js.father") + " </OPTION>")
 				.on("change", exact_family_member_relationship_selection_change_action)
 			);
 			break;
 		case 'halfsister':
-			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> Who is the parent of your half sister: </B> </span>");
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.halfsister_parent_q") + " </B> </span>");
 			new_family_member_dialog.append($("<SELECT id='new_family_member_exact_relationship'>")
-				.append("<OPTION value=''> -- Please Specify -- </OPTION>")
-				.append("<OPTION value='maternal_halfsister'> Mother </OPTION>")
-				.append("<OPTION value='paternal_halfsister'> Father </OPTION>")
+				.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>")
+				.append("<OPTION value='maternal_halfsister'> " + $.t("fhh_js.mother") + " </OPTION>")
+				.append("<OPTION value='paternal_halfsister'> " + $.t("fhh_js.father") + " </OPTION>")
 				.on("change", exact_family_member_relationship_selection_change_action)
 			);
 			break;
@@ -592,7 +586,7 @@ function add_dynamic_relative_to_dropdown(select_dropdown, current_relationship,
 }
 
 function add_cousin_select(select_dropdown) {
-	select_dropdown.append("<OPTION value=''> -- Please Specify -- </OPTION>");
+	select_dropdown.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>");
 	add_dynamic_relative_to_dropdown(select_dropdown, "maternal_cousin", "maternal_aunt");
 	add_dynamic_relative_to_dropdown(select_dropdown, "paternal_cousin", "paternal_aunt");
 	add_dynamic_relative_to_dropdown(select_dropdown, "maternal_cousin", "maternal_uncle");
@@ -601,7 +595,7 @@ function add_cousin_select(select_dropdown) {
 	select_dropdown.on("change", exact_family_member_relationship_selection_change_action);
 }
 function add_niece_select(select_dropdown) {
-	select_dropdown.append("<OPTION value=''> -- Please Specify -- </OPTION>");
+	select_dropdown.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>");
 	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "sister");
 	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "brother");
 	
@@ -609,7 +603,7 @@ function add_niece_select(select_dropdown) {
 }
 
 function add_nephew_select(select_dropdown) {
-	select_dropdown.append("<OPTION value=''> -- Please Specify -- </OPTION>");
+	select_dropdown.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>");
 	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "sister");
 	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "brother");
 	
@@ -617,7 +611,7 @@ function add_nephew_select(select_dropdown) {
 }
 
 function add_grandson_select(select_dropdown) {
-	select_dropdown.append("<OPTION value=''> -- Please Specify -- </OPTION>");
+	select_dropdown.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>");
 	add_dynamic_relative_to_dropdown(select_dropdown, "grandson", "daughter");
 	add_dynamic_relative_to_dropdown(select_dropdown, "grandson", "son");
 	
@@ -625,7 +619,7 @@ function add_grandson_select(select_dropdown) {
 }
 
 function add_granddaughter_select(select_dropdown) {
-	select_dropdown.append("<OPTION value=''> -- Please Specify -- </OPTION>");
+	select_dropdown.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>");
 	add_dynamic_relative_to_dropdown(select_dropdown, "granddaughter", "daughter");
 	add_dynamic_relative_to_dropdown(select_dropdown, "granddaughter", "son");
 	
@@ -716,7 +710,7 @@ function bind_personal_submit_button_action () {
 		if (!check_date_of_birth_in_correct_format($('#personal_info_form_date_of_birth').val())) {
 			if (!$("#invalid_date_of_birth_warning").length) {
 			$('#personal_info_form_date_of_birth').after(
-				$("<span id='invalid_date_of_birth_warning'> Invalid Date of Birth </span>").css("color","red"));
+				$("<span id='invalid_date_of_birth_warning'> " + $.t("fhh_js.invalid_data_of_birth") + " </span>").css("color","red"));
 			}
 			errors = true;
 		}
@@ -724,13 +718,13 @@ function bind_personal_submit_button_action () {
 				$("#personal_info_form_gender_female").prop('checked') == false) {
 			if (!$("#invalid_gender_warning").length) {		
 				$('#personal_info_form_gender_female').next().after(
-				$("<span id='invalid_gender_warning'> Invalid Gender Selection </span>").css("color","red"));
+				$("<span id='invalid_gender_warning'> " + $.t("fhh_js.invalid_gender") + " </span>").css("color","red"));
 			}
 			errors = true;			
 		}
 
 		if (errors) {
-			alert ("Some of the data your entered was invalid, please fix your errors and try again.");
+			alert ($.t("fhh_js.invalid_data_alert"));
 			return false;
 		}
 		// Determine the values from the form
@@ -849,6 +843,9 @@ function check_date_of_birth_in_correct_format (date_of_birth) {
 
 function bind_personal_cancel_button_action () {
 	$("#addPersonInformationCancelButton").on("click", function(){ 
+		$("#invalid_date_of_birth_warning").remove();
+		$("#invalid_gender_warning").remove();
+
 		$("#add_personal_information_dialog").dialog("close");
 	});
 }

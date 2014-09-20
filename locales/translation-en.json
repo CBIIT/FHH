@@ -24,8 +24,51 @@
 		"save_dialog_title": "Save Your Family Health History",
 		"add_family_members_dialog_title": "Add Family Members",
 		"risk_calculator_dialog_title": "Disease Risk Calculators",
-		"file_save":"Saving File",		
+		"family_member_copy_dialog_title" : "Copy for a Family Member",
+		"help_dialog_title" : "Your Family Health History Help",
+		"define_family_relationship_dialog_title" : "Define Family Member Relationship",
+		"confirm_delete" : "This will delete all data and restart,  Are you sure you want to do this?",
+		"file_save":"Saving File",
+		
+		"add_relative_title":"Who would you like to add to your history?",
+		"add_relative_para":"Relatives in your immediate family who aren't listed here are probably on the previous page and can be reached by closing this window and selecting the plus sign image ('Add History') next to the relative's name. Spouses and second cousins are not listed because they don't impact your family health history.",
+		
+		
+				
+		"select_relationship":" -- Select Relationship -- ",
 		"aunt":"Aunt",
+		"uncle":"Uncle",
+		"daughter":"Daughter",
+		"son":"Son",
+		"brother":"Brother",
+		"sister":"Sister",
+		"half_sister":"Half Sister",
+		"half_brother":"Half Brother",
+		"cousin":"(First) Cousin",
+		"niece":"Niece",
+		"nephew":"Nephew",
+		"granddaughter":"Granddaughter",
+		"grandson":"Grandson",
+
+		"please_specify":" -- Please Specify -- ",
+		"mother":"Mother",
+		"father":"Father",
+
+		"relationship_to_me" : "Relationship to me:",
+		"aunt_relationship_q" : "Who is the aunt related to:",
+		"uncle_relationship_q" : "Who is the uncle related to:",
+		"cousin_parent_q" : "Who is the parent of your first cousin:",
+		"niece_parent_q" : "Who is the parent of your niece:",
+		"nephew_parent_q" : "Who is the parent of your nephew:",
+		"granddaughter_parent_q" : "Who is the parent of your granddaughter:",
+		"grandson_parent_q" : "Who is the parent of your grandson:",
+		"halfbrother_parent_q" : "Who is the parent of your half brother:",
+		"halfsister_parent_q" : "Who is the parent of your half sister:",
+		
+		"invalid_data_of_birth" : "Invalid Date of Birth",
+		"invalid_gender" : "Invalid Gender Selection",
+		"invalid_data_alert" : "Some of the data your entered was invalid, please fix your errors and try again.",
+		
 		
 		"done" : "done"		
 	}
