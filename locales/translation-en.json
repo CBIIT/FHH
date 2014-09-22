@@ -36,7 +36,7 @@
 		"select_relationship":" -- Select Relationship -- ",
 		"please_specify":" -- Please Specify -- ",
 
-		"self", "Self",
+		"self": "Self",
 		"mother":"Mother",
 		"father":"Father",
 		"maternal_grandmother":"Maternal Grandmother",
@@ -129,8 +129,7 @@
 
 	"fhh_why_ask_ashkenazi": {
 		"help_title" : "Help for Ashkenazi Jew",
-		"help_para" : "For certain conditions, such as ovarian and breast cancer, it is important to know if a person has 
-Ashkenazi Jewish heritage for risk assessment purposes.",
+		"help_para" : "For certain conditions, such as ovarian and breast cancer, it is important to know if a person has Ashkenazi Jewish heritage for risk assessment purposes.",
 		"done" : "done"
 	}
 
