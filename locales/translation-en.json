@@ -125,7 +125,7 @@
 		"disease_subtype_select" : " -- Please Select a Specific Subtype -- ",
 		
 		"done" : "done"		
-	}
+	},
 
 	"fhh_why_ask_ashkenazi": {
 		"help_title" : "Help for Ashkenazi Jew",
