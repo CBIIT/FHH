@@ -34,10 +34,18 @@
 		"add_relative_title":"¿Quién le gustaría añadir a su historia?",
 		"add_relative_para":"Parientes en su familia inmediata que no figuran en esta lista son probablemente en la página anterior y se puede llegar mediante el cierre esta ventana y seleccionar la imagen signo más ('Agregar Historia') al lado del nombre del pariente. Los cónyuges y los primos segundos no aparecen porque no afecten a su historial de salud familiar.",
 
-
 		"select_relationship":" -- Seleccionar Relación -- ",
-		"aunt":"tía",
-		"uncle":"tío",
+		"please_specify":" -- Por favor especifique -- ",
+
+		"self" : "Yo",
+		"mother":"Madre",
+		"father":"Padre",
+		"maternal_grandmother":"Abuela Materna",
+		"maternal_grandfather":"Abuelo Materno",
+		"paternal_grandmother":"Abuela Paterna",
+		"paternal_grandfather":"Abuelo Paterno",
+		"aunt":"Tía",
+		"uncle":"Tío",
 		"daughter":"Hija",
 		"son":"Hijo",
 		"brother":"Hermano",
@@ -49,10 +57,17 @@
 		"nephew":"Sobrino",
 		"granddaughter":"nieta",
 		"grandson":"nieto",
+		"paternal_uncle":"Tío Paterno",
+		"paternal_aunt":"Tía Paterna",
+		"paternal_cousin":"Primo Paterno",
+		"paternal_halfbrother":"Medio Hermano Paterno",
+		"paternal_halfsister":"Media Hermana Paterna",
+		"maternal_uncle":"Tío Materno",
+		"maternal_aunt":"Tía Materna",
+		"maternal_cousin":"Primo Materno",
+		"maternal_halfbrother":"Medio Hermano Materno",
+		"maternal_halfsister":"Media Hermana Materna",
 
-		"please_specify":" -- Por favor especifique -- ",
-		"mother":"Madre",
-		"father":"Padre",
 
 		"relationship_to_me" : "Relación con mí:",
 		"aunt_relationship_q" : "Tía que es esta relación con:",
@@ -69,14 +84,42 @@
 		"invalid_gender" : "Inválido Género",
 		"invalid_data_alert" : "Algunos de los Entrado fecha no era válido, por favor arreglar sus errores y vuelva a intentarlo.",
 
+		"my_family" : "Mi familia",
+		"fathers_side" : "Lado de Mi Padre de la Familia",
+		"mothers_side" : "Lado de Mi Madre de la Familia",
+		"recently_added" : "Recientemente añadido a los familiares",
+		"name" : "Nombre",
+		"relationship_to_me" : "Relación a Mí",
+		"add_history" : "Add Historia",
+		"update_history" : "Actualización de la Historia",
+		"remove_relative" : "Retire relativa",
+
+		"remove_q" : "Realmente desea eliminar",
+		
+		"family_health_information_subtitle" : "Información sobre la Salud de su Familia",
+		"add_disease_instructions" : "En la siguiente lista, seleccione una Enfermedad o Condición (si los hay) en el cuadro desplegable. A continuación, seleccione la edad de diagnóstico y pulse el botón Agregar. Puede repetir este proceso la necesaria.",
+		"disease_or_condition" : "Enfermedad o Condición",
+		"age_at_diagnosis" : "Edad al diagnóstico",
+		"action" : "Acción",
+
+		"add" : "Añadir",
+		"age_at_diagnosis_select" : " -- Seleccione Edad al diagnóstico -- ",
+
+		"personal_health_subtitle" : "Su Información de Salud",
+
+		"disease_select" : " -- Seleccione una de Enfermedades -- ",
+		"add_new" : "Otros - Crear Nuevo",
+		"disease_subtype_select" : " -- Seleccione un subtipo específico -- ",
 
 		"done" : "done"
 	},
+	
+	
 	"fhh_why_ask_ashkenazi": {
-	 "help_title" : "Ayuda para Ashkenazi Judio",
-	 "help_para" : "Para ciertas condiciones, como el de ovario y el cÃ¡ncer de mama, es importante saber si una persona tiene herencia judÃ­a asquenazÃ­ para fines de evaluaciÃ³n de riesgos.",
+		"help_title" : "Ayuda para Ashkenazi Judio",
+		"help_para" : "Para ciertas condiciones, como el de ovario y el cÃ¡ncer de mama, es importante saber si una persona tiene herencia judÃ­a asquenazÃ­ para fines de evaluaciÃ³n de riesgos.",
 
-   "done" : "done"	
+		"done" : "done"	
 	}
 }	
 

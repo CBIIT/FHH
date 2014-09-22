@@ -32,10 +32,17 @@
 		
 		"add_relative_title":"Who would you like to add to your history?",
 		"add_relative_para":"Relatives in your immediate family who aren't listed here are probably on the previous page and can be reached by closing this window and selecting the plus sign image ('Add History') next to the relative's name. Spouses and second cousins are not listed because they don't impact your family health history.",
-		
-		
-				
+						
 		"select_relationship":" -- Select Relationship -- ",
+		"please_specify":" -- Please Specify -- ",
+
+		"self", "Self",
+		"mother":"Mother",
+		"father":"Father",
+		"maternal_grandmother":"Maternal Grandmother",
+		"maternal_grandfather":"Maternal Grandfather",
+		"paternal_grandmother":"Paternal Grandmother",
+		"paternal_grandfather":"Paternal Grandfather",
 		"aunt":"Aunt",
 		"uncle":"Uncle",
 		"daughter":"Daughter",
@@ -49,10 +56,17 @@
 		"nephew":"Nephew",
 		"granddaughter":"Granddaughter",
 		"grandson":"Grandson",
+		"paternal_uncle":"Paternal Grandmother",
+		"paternal_aunt":"Paternal Grandfather",
+		"paternal_cousin":"Paternal Grandfather",
+		"paternal_halfbrother":"Paternal Grandfather",
+		"paternal_halfsister":"Paternal Grandfather",
+		"maternal_uncle":"Maternal Grandmother",
+		"maternal_aunt":"Maternal Grandfather",
+		"maternal_cousin":"Maternal Grandfather",
+		"maternal_halfbrother":"Maternal Grandfather",
+		"maternal_halfsister":"Maternal Grandfather",
 
-		"please_specify":" -- Please Specify -- ",
-		"mother":"Mother",
-		"father":"Father",
 
 		"relationship_to_me" : "Relationship to me:",
 		"aunt_relationship_q" : "Who is the aunt related to:",
@@ -69,15 +83,55 @@
 		"invalid_gender" : "Invalid Gender Selection",
 		"invalid_data_alert" : "Some of the data your entered was invalid, please fix your errors and try again.",
 		
+		"my_family" : "My Family",
+		"fathers_side" : "My Father's Side of the Family",
+		"mothers_side" : "My Mother's Side of the Family",
+		"recently_added" : "Recently Added Family Members",
+		"name" : "Name",
+		"relationship_to_me" : "Relationship to Me",
+		"add_history" : "Add History",
+		"update_history" : "Update History",
+		"remove_relative" : "Remove Relative",
+
+		"remove_q" : "Do you really want to remove",
+
+
+		"family_health_subtitle" : "Your Family's Health Information",
+		"add_disease_instructions" : "In the list below, select a Disease or Condition (if any) from the dropdown box. Then select the Age at Diagnosis and press the Add button. You may repeat this process as necessary.",
+		"disease_or_condition" : "Disease or Condition",
+		"age_at_diagnosis" : "Age at Diagnosis",
+		"action" : "Action",
+
+		"add" : "Add",
+		"age_at_diagnosis_select" : " -- Select Age at Diagnosis -- ",
+		"prebirth" : "Pre-Birth",
+		"newborn" : "Newborn",
+		"infant" : "In Infancy",
+		"child" : "In Childhood",
+		"teen" : "In Adolescence",
+		"twenties" : "20-29 years",
+		"thirties" : "30-39 years",
+		"fourties" : "40-49 years",
+		"fifties" : "50-59 years",
+		"senior" : "60 years or older",
+		"unknown" : "Unknown",
+
+
+		
+		"personal_health_subtitle" : "Your Health Information",
+
+		"disease_select" : " -- Please Select a Disease -- ",
+		"add_new" : "Other - Add New",
+		"disease_subtype_select" : " -- Please Select a Specific Subtype -- ",
 		
 		"done" : "done"		
 	}
-	"fhh_why_ask_ashkenazi": {
-	 "help_title" : "Help for Ashkenazi Jew",
-	 "help_para" : "For certain conditions, such as ovarian and breast cancer, it is important to know if a person has 
-Ashkenazi Jewish heritage for risk assessment purposes.",
-   "done" : "done"
 
+	"fhh_why_ask_ashkenazi": {
+		"help_title" : "Help for Ashkenazi Jew",
+		"help_para" : "For certain conditions, such as ovarian and breast cancer, it is important to know if a person has 
+Ashkenazi Jewish heritage for risk assessment purposes.",
+		"done" : "done"
 	}
 
 

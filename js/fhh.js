@@ -1003,7 +1003,7 @@ function bind_add_all_family_members_submit_button_action() {
 
 function bind_add_all_family_members_cancel_button_action() {
 	$("#create_immediate_family_cancel").on("click", function(){ 
-		alert ("Cancelling Adding of Family Members");
+//		alert ("Cancelling Adding of Family Members");
 		$("#add_all_family_members_dialog").dialog("close");
 	});	
 }
@@ -1050,128 +1050,126 @@ function build_family_history_data_table () {
 	
 	add_family_history_header_row(table);
 	
-	add_new_family_history_row_title(table, "My Family");	
-	add_personal_history_row(table, personal_information['name'], "Self", "self", true, false);
-	add_new_family_history_row(table, personal_information.father, "Father", "father", false);	
-	add_new_family_history_row(table, personal_information.mother, "Mother", "mother", false);
+	add_new_family_history_row_title(table, $.t("fhh_js.my_family"));	
+	add_personal_history_row(table, personal_information['name'], $.t("fhh_js.self"), "self", true, false);
+	add_new_family_history_row(table, personal_information.father, $.t("fhh_js.father"), "father", false);	
+	add_new_family_history_row(table, personal_information.mother, $.t("fhh_js.mother"), "mother", false);
 
 	var i = 0;
 	while (personal_information['brother_' + i] != null) {
-		add_new_family_history_row(table, personal_information['brother_' + i], "Brother", "brother_" + i, true);
+		add_new_family_history_row(table, personal_information['brother_' + i], $.t("fhh_js.brother"), "brother_" + i, true);
 		i++;
 	}
 	i = 0;
 	while (personal_information['sister_' + i] != null) {
-		add_new_family_history_row(table, personal_information['sister_' + i], "Sister", "sister_" + i, true);
+		add_new_family_history_row(table, personal_information['sister_' + i], $.t("fhh_js.sister"), "sister_" + i, true);
 		i++;
 	}
 	i = 0;
 	while (personal_information['son_' + i] != null) {
-		add_new_family_history_row(table, personal_information['son_' + i], "Son", "son_" + i, true);
+		add_new_family_history_row(table, personal_information['son_' + i], $.t("fhh_js.son"), "son_" + i, true);
 		i++;
 	}
 	i = 0;
 	while (personal_information['daughter_' + i] != null) {
-		add_new_family_history_row(table, personal_information['daughter_' + i], "Daughter", "daughter_" + i, true);
+		add_new_family_history_row(table, personal_information['daughter_' + i], $.t("fhh_js.daughter"), "daughter_" + i, true);
 		i++;
 	}
 	i = 0;
 	while (personal_information['grandson_' + i] != null) {
-		add_new_family_history_row(table, personal_information['grandson_' + i], "Grandson", "grandson_" + i, true);
+		add_new_family_history_row(table, personal_information['grandson_' + i], $.t("fhh_js.grandson"), "grandson_" + i, true);
 		i++;
 	}
 	i = 0;
 	while (personal_information['granddaughter_' + i] != null) {
-		add_new_family_history_row(table, personal_information['granddaughter_' + i], "Granddaughter", "granddaughter_" + i, true);
+		add_new_family_history_row(table, personal_information['granddaughter_' + i], $.t("fhh_js.granddaughter"), "granddaughter_" + i, true);
 		i++;
 	}
 	i = 0;
 	while (personal_information['niece_' + i] != null) {
-		add_new_family_history_row(table, personal_information['niece_' + i], "Niece", "niece_" + i, true);
+		add_new_family_history_row(table, personal_information['niece_' + i], $.t("fhh_js.niece"), "niece_" + i, true);
 		i++;
 	}
 	i = 0;
 	while (personal_information['nephew_' + i] != null) {
-		add_new_family_history_row(table, personal_information['nephew_' + i], "Nephew", "nephew_" + i, true);
+		add_new_family_history_row(table, personal_information['nephew_' + i], $.t("fhh_js.nephew"), "nephew_" + i, true);
 		i++;
 	}
 
 
 
-	add_new_family_history_row_title(table, "My Father's Side of the Family");	
-	add_new_family_history_row(table, personal_information.paternal_grandfather, "Paternal Grandfather", "paternal_grandfather", false);	
-	add_new_family_history_row(table, personal_information.paternal_grandmother, "Paternal Grandmother", "paternal_grandmother", false);
+	add_new_family_history_row_title(table, $.t("fhh_js.fathers_side"));	
+	add_new_family_history_row(table, personal_information.paternal_grandfather, $.t("fhh_js.paternal_grandfather"), "paternal_grandfather", false);	
+	add_new_family_history_row(table, personal_information.paternal_grandmother, $.t("fhh_js.paternal_grandmother"), "paternal_grandmother", false);
 
 	i = 0;
 	while (personal_information['paternal_uncle_' + i] != null) {
-		add_new_family_history_row(table, personal_information['paternal_uncle_' + i], "Paternal Uncle", "paternal_uncle_" + i, true);
+		add_new_family_history_row(table, personal_information['paternal_uncle_' + i], $.t("fhh_js.paternal_uncle"), "paternal_uncle_" + i, true);
 		i++;
 	}
 	i = 0;
 	while (personal_information['paternal_aunt_' + i] != null) {
-		add_new_family_history_row(table, personal_information['paternal_aunt_' + i], "Paternal Aunt", "paternal_aunt_" + i, true);
+		add_new_family_history_row(table, personal_information['paternal_aunt_' + i], $.t("fhh_js.paternal_aunt"), "paternal_aunt_" + i, true);
 		i++;
 	}
 	i = 0;
 	while (personal_information['paternal_cousin_' + i] != null) {
-		add_new_family_history_row(table, personal_information['paternal_cousin_' + i], "Paternal Cousin", "paternal_cousin_" + i, true);
+		add_new_family_history_row(table, personal_information['paternal_cousin_' + i], $.t("fhh_js.paternal_cousin"), "paternal_cousin_" + i, true);
 		i++;
 	}
 	var i = 0;
 	while (personal_information['paternal_halfbrother_' + i] != null) {
-		add_new_family_history_row(table, personal_information['paternal_halfbrother_' + i], "Paternal Halfbrother", "paternal_halfbrother_" + i, true);
+		add_new_family_history_row(table, personal_information['paternal_halfbrother_' + i], $.t("fhh_js.paternal_halfbrother"), "paternal_halfbrother_" + i, true);
 		i++;
 	}
 	i = 0;
 	while (personal_information['paternal_halfsister_' + i] != null) {
-		add_new_family_history_row(table, personal_information['paternal_halfsister_' + i], "Paternal Halfsister", "paternal_halfsister_" + i, true);
+		add_new_family_history_row(table, personal_information['paternal_halfsister_' + i], $.t("fhh_js.paternal_halfsister"), "paternal_halfsister_" + i, true);
 		i++;
 	}
 	
 
 
-	add_new_family_history_row_title(table, "My Mother's Side of the Family");	
-	add_new_family_history_row(table, personal_information.maternal_grandfather, "Maternal Grandfather", "maternal_grandfather", false);
-	add_new_family_history_row(table, personal_information.maternal_grandmother, "Maternal Grandmother", "maternal_grandmother", false);
+	add_new_family_history_row_title(table, $.t("fhh_js.mothers_side"));	
+	add_new_family_history_row(table, personal_information.maternal_grandfather, $.t("fhh_js.maternal_grandfather"), "maternal_grandfather", false);
+	add_new_family_history_row(table, personal_information.maternal_grandmother, $.t("fhh_js.maternal_grandmother"), "maternal_grandmother", false);
 
 	i = 0;
 	while (personal_information['maternal_uncle_' + i] != null) {
-		add_new_family_history_row(table, personal_information['maternal_uncle_' + i], "Maternal Uncle", "maternal_uncle_" + i, true);
+		add_new_family_history_row(table, personal_information['maternal_uncle_' + i], $.t("fhh_js.maternal_uncle"), "maternal_uncle_" + i, true);
 		i++;
 	}
 	i = 0;
 	while (personal_information['maternal_aunt_' + i] != null) {
-		add_new_family_history_row(table, personal_information['maternal_aunt_' + i], "Maternal Aunt", "maternal_aunt_" + i, true);
+		add_new_family_history_row(table, personal_information['maternal_aunt_' + i], $.t("fhh_js.maternal_aunt"), "maternal_aunt_" + i, true);
 		i++;
 	}	
 	i = 0;
 	while (personal_information['maternal_cousin_' + i] != null) {
-		add_new_family_history_row(table, personal_information['maternal_cousin_' + i], "Maternal Cousin", "maternal_cousin_" + i, true);
+		add_new_family_history_row(table, personal_information['maternal_cousin_' + i], $.t("fhh_js.maternal_cousin"), "maternal_cousin_" + i, true);
 		i++;
 	}
 	var i = 0;
 	while (personal_information['maternal_halfbrother_' + i] != null) {
-		add_new_family_history_row(table, personal_information['maternal_halfbrother_' + i], "Maternal Halfbrother", "maternal_halfbrother_" + i, true);
+		add_new_family_history_row(table, personal_information['maternal_halfbrother_' + i], $.t("fhh_js.maternal_halfbrother"), "maternal_halfbrother_" + i, true);
 		i++;
 	}
 	i = 0;
 	while (personal_information['maternal_halfsister_' + i] != null) {
-		add_new_family_history_row(table, personal_information['maternal_halfsister_' + i], "Maternal Halfsister", "maternal_halfsister_" + i, true);
+		add_new_family_history_row(table, personal_information['maternal_halfsister_' + i], $.t("fhh_js.maternal_halfsister"), "maternal_halfsister_" + i, true);
 		i++;
 	}
-	add_new_family_history_row_title(table, "Recently Added Family Members");	
-
-
+	add_new_family_history_row_title(table, $.t("fhh_js.recently_added"));	
 
 }
 
 function add_family_history_header_row(table) {
 	var header_row = $("<tr></tr>");
-	header_row.append("<th scope='col' class='nowrap'>Name</th>");
-	header_row.append("<th scope='col' abbr='Relationship' class='nowrap'>Relationship to Me</th>");
-	header_row.append("<th scope='col' abbr='Add' class='nowrap'>Add History</th>");
-	header_row.append("<th scope='col' abbr='Update' class='nowrap'>Update History</th>");
-	header_row.append("<th scope='col' abbr='Remove' class='nowrap'>Remove Relative</th>");
+	header_row.append("<th scope='col' class='nowrap'>" + $.t("fhh_js.name") + "</th>");
+	header_row.append("<th scope='col' abbr='Relationship' class='nowrap'>" + $.t("fhh_js.relationship_to_me") + "</th>");
+	header_row.append("<th scope='col' abbr='Add' class='nowrap'>" + $.t("fhh_js.add_history") + "</th>");
+	header_row.append("<th scope='col' abbr='Update' class='nowrap'>" + $.t("fhh_js.update_history") + "</th>");
+	header_row.append("<th scope='col' abbr='Remove' class='nowrap'>" + $.t("fhh_js.remove_relative") + "</th>");
 	header_row.append("");
 	table.empty().append(header_row);
 }
@@ -1183,7 +1181,7 @@ function add_personal_history_row(table) {
 	var new_row = $("<tr id='self'></tr>");
 	new_row.addClass("proband");
 	new_row.append("<td class='information' id='relatives_name'>" + personal_information.name + "</td>");
-	new_row.append("<td class='information' > Self </td>");
+	new_row.append("<td class='information' >" + $.t("fhh_js.self") + "</td>");
 	new_row.append("<td class='action add_history'>&nbsp;</td>");
 	
 	var update_history = $("<td class='action update_history'><img src='../images/icon_edit.gif' alt='Update History' title='Update History'></td>");
@@ -1280,7 +1278,7 @@ function remove_family_member(relationship_id, confirm_flag) {
 	var name = personal_information[relationship_id]['name'];
 	if (name == "") name = relationship_id;
 	var should_remove_family_member = true;
-	if (confirm_flag) should_remove_family_member = confirm("Do you really want to remove " + name + "?");
+	if (confirm_flag) should_remove_family_member = confirm($.t("fhh_js.remove_q") + " " + name + "?");
 	if (should_remove_family_member == true) {
 		delete personal_information[relationship_id];
 		$("#" + relationship_id).remove();
@@ -1340,16 +1338,15 @@ function build_family_health_information_section() {
 	var information = $("#family_health_information");
 	// First put up accordion entry
 	var bar = $("<div class='title-bar' id='hi-title'>");
-	bar.append("Your Family's Health Information");
+	bar.append($.t("fhh_js.family_subtitle"));
 	information.empty().append(bar);
-	information.append($("<p class='instructions'>In the list below, select a Disease or Condition (if any) from the dropdown box. " +
-	"Then select the Age at Diagnosis and press the Add button. You may repeat this process as necessary.</p>"))
+	information.append($("<p class='instructions'>" + $.t("fhh_js.add_disease_instructions") + "</p>"))
 
 	var hi_health_history_table = $("<table class='disease_table'>");
 	var hi_header_row = $("<tr>");
-	hi_header_row.append("<th>Disease or Condition</th>");
-	hi_header_row.append("<th>Age at Diagnosis</th>");
-	hi_header_row.append("<th>Action</th>");
+	hi_header_row.append("<th>" + $.t("fhh_js.disease_or_condition") + "</th>");
+	hi_header_row.append("<th>" + $.t("fhh_js.age_at_diagnosis") + "</th>");
+	hi_header_row.append("<th>" + $.t("fhh_js.action") + "</th>");
 	hi_health_history_table.append(hi_header_row);
 
 	var hi_data_entry_row = $("<tr id='health_data_entry_row'>");
@@ -1364,10 +1361,10 @@ function build_family_health_information_section() {
 //	hi_data_entry_row.append($("<td>").append(disease_choices).append("<br />&nbsp;&nbsp;"));
 	
 	var age_at_diagnosis_select = $("<select name='age_at_diagnosis_select' id='age_at_diagnosis_select'></select>");
-	set_age_at_diagnosis_pulldown(" --Select Age at Diagnosis -- ", age_at_diagnosis_select);
+	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
 	hi_data_entry_row.append($("<td>").append(age_at_diagnosis_select));
 	
-	var add_new_disease_button = $("<button id='family_add_new_disease_button' name='Add' value'Add'> Add </button>");
+	var add_new_disease_button = $("<button id='family_add_new_disease_button' name='Add' value'Add'>" + $.t("fhh_js.add") + "</button>");
 	add_new_disease_button.on('click', add_disease);
 
 	
@@ -1385,17 +1382,16 @@ function build_personal_health_information_section() {
 	var information = $("#personal_health_information");
 	// First put up accordion entry
 	var bar = $("<div class='title-bar' id='hi-title'>");
-	bar.append("Your Health Information");
+	bar.append($.t("fhh_js.personal_health_subtitle"));
 	information.empty().append(bar);
 	
-	information.append($("<p class='instructions'>In the list below, select a Disease or Condition (if any) from the dropdown box. " +
-			"Then select the Age at Diagnosis and press the Add button. You may repeat this process as necessary.</p>"))
+	information.append($("<p class='instructions'>" + $.t("fhh_js.add_disease_instructions") + "</p>"))
 	
 	var hi_health_history_table = $("<table class='disease_table'>");
 	var hi_header_row = $("<tr>");
-	hi_header_row.append("<th>Disease or Condition</th>");
-	hi_header_row.append("<th>Age at Diagnosis</th>");
-	hi_header_row.append("<th>Action</th>");
+	hi_header_row.append("<th>" + $.t("fhh_js.disease_or_condition") + "</th>");
+	hi_header_row.append("<th>" + $.t("fhh_js.age_at_diagnosis") + "</th>");
+	hi_header_row.append("<th>" + $.t("fhh_js.action") + "</th>");
 	hi_health_history_table.append(hi_header_row);
 
 	var hi_data_entry_row = $("<tr id='health_data_entry_row'>");
@@ -1407,10 +1403,10 @@ function build_personal_health_information_section() {
 	hi_data_entry_row.append($("<td>").append(disease_select).append("<br />&nbsp;&nbsp;").append(detailed_disease_select));
 
 	var age_at_diagnosis_select = $("<select name='age_at_diagnosis_select' id='age_at_diagnosis_select'></select>");
-	set_age_at_diagnosis_pulldown(" --Select Age at Diagnosis--", age_at_diagnosis_select);	
+	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);	
 	hi_data_entry_row.append($("<td>").append(age_at_diagnosis_select));
 	
-	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value'Add'> Add </button>");
+	var add_new_disease_button = $("<button id='add_new_disease_button' name='Add' value'Add'>" + $.t("fhh_js.add") + "</button>");
 	add_new_disease_button.on('click', add_disease);
 
 	
@@ -1424,11 +1420,11 @@ function build_personal_health_information_section() {
 
 function set_disease_choice_select (disease_select, detailed_disease_select) {
 	detailed_disease_select.hide();
-	disease_select.append("<option value='NotPicked'> Please Select a Disease </option>");
+	disease_select.append("<option value='NotPicked'>" + $.t("fhh_js.disease_select") + "</option>");
 	for (disease_name in diseases) {
 		disease_select.append("<option> " + disease_name + " </option>");		
 	}
-	disease_select.append("<option value='other'> Other - Add New </option>");
+	disease_select.append("<option value='other'>" + $.t("fhh_js.add_new") + "</option>");
 	
 	disease_select.on('change', function() {
 		if ($(this).find("option:selected" ).val() == 'other') {
@@ -1444,7 +1440,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select) {
 			var detailed_disease_list = "";
 			if (detailed_disease && detailed_disease.length > 0) {
 	//			disease_box.append(detailed_disease_select);
-				detailed_disease_select.show().append("<option value='NotPicked'> Please Select a Specific Subtype </option>");
+				detailed_disease_select.show().append("<option value='NotPicked'>" + $.t("fhh_js.disease_subtype_select") + "</option>");
 				
 				for (var i = 0; i < detailed_disease.length;i++) {
 					detailed_disease_select.append("<option> " + detailed_disease[i] + " </option>");					
@@ -1461,17 +1457,17 @@ function get_detailed_disease (disease_name) {
 
 function set_age_at_diagnosis_pulldown(instructions, age_at_diagnosis_select) {
 	age_at_diagnosis_select.append("<option value='NotPicked'> "+instructions+"  </option>");
-	age_at_diagnosis_select.append("<option> Pre-Birth </option>");
-	age_at_diagnosis_select.append("<option> Newborn </option>");
-	age_at_diagnosis_select.append("<option> In Infancy </option>");
-	age_at_diagnosis_select.append("<option> In Childhood </option>");
-	age_at_diagnosis_select.append("<option> In Adolescence </option>");
-	age_at_diagnosis_select.append("<option> 20-29 years </option>");
-	age_at_diagnosis_select.append("<option> 30-39 years </option>");
-	age_at_diagnosis_select.append("<option> 40-49 years </option>");
-	age_at_diagnosis_select.append("<option> 50-59 years </option>");
-	age_at_diagnosis_select.append("<option> 60 years or older </option>");
-	age_at_diagnosis_select.append("<option> Unknown </option>");
+	age_at_diagnosis_select.append("<option value='Pre-Birth'>" + $.t("fhh_js.prebirth") + "</option>");
+	age_at_diagnosis_select.append("<option value='Newborn'>" + $.t("fhh_js.newborn") + "</option>");
+	age_at_diagnosis_select.append("<option value='In Infancy'>" + $.t("fhh_js.infant") + "</option>");
+	age_at_diagnosis_select.append("<option value='In Childhood'>" + $.t("fhh_js.child") + "</option>");
+	age_at_diagnosis_select.append("<option value='In Adolescence'>" + $.t("fhh_js.teen") + "</option>");
+	age_at_diagnosis_select.append("<option value='20-29 years'>" + $.t("fhh_js.twenties") + "</option>");
+	age_at_diagnosis_select.append("<option value='30-39 years'>" + $.t("fhh_js.thirties") + "</option>");
+	age_at_diagnosis_select.append("<option value='40-49 years'>" + $.t("fhh_js.fourties") + "</option>");
+	age_at_diagnosis_select.append("<option value='50-59 years'>" + $.t("fhh_js.fifties") + "</option>");
+	age_at_diagnosis_select.append("<option value='60 years or older'>" + $.t("fhh_js.senior") + "</option>");
+	age_at_diagnosis_select.append("<option value='Unknown'>" + $.t("fhh_js.unknown") + "</option>");
 	
 	return age_at_diagnosis_select;
 }
