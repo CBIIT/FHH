@@ -102,7 +102,6 @@
 		"age_at_diagnosis" : "Age at Diagnosis",
 		"action" : "Action",
 
-		"add" : "Add",
 		"age_at_diagnosis_select" : " -- Select Age at Diagnosis -- ",
 		"prebirth" : "Pre-Birth",
 		"newborn" : "Newborn",
@@ -115,14 +114,61 @@
 		"fifties" : "50-59 years",
 		"senior" : "60 years or older",
 		"unknown" : "Unknown",
+		
+		"race": "Race:",
+		"more_race": "More Race Options:",
+		"ethnicity": "Ethnicity:",
+		"more_ethnicity": "More Ethnicity:",
+
+		"race_ethnicity_title" : "Your Family Background Information",
+		"race_native_american" : "American Indian or Alaska Native",
+		"race_asian" : "Asian",
+		"race_black" : "Black or African-American",
+		"race_south_pacific" : "Native Hawaiian or Other Pacific Islander",
+		"race_white" : "White",
+
+		"race_asian_indian" : "Asian Indian",
+		"race_chinese" : "Chinese",
+		"race_filipino" : "Filipino",
+		"race_japanese" : "Japanese",
+		"race_korean" : "Korean",
+		"race_vietnamese" : "Vietnamese",
+		"race_other_asian" : "Other Asian",
+		"race_unknown_asian" : "Unknown Asian",
+
+		"race_chamorro" : "Chamorro",
+		"race_guamanian" : "Guamanian",
+		"race_hawaiian" : "Native Hawaiian",
+		"race_samoan" : "Somoan",
+		"race_unknown_south_pacific" : "Unknown South Pacific Islander",
 
 
+		"ethnicity_hispanic" : "Hispanic or Latino",
+		"ethnicity_jewish" : "Ashkenazi Jewish",
+		"ethnicity_nothispanic" : "Not Hispanic or Latino",
+
+		"ethnicity_central_american" : "Central American",
+		"ethnicity_cuban" : "Cuban",
+		"ethnicity_dominican" : "Dominican",
+		"ethnicity_mexican" : "Mexican",
+		"ethnicity_other_hispanic" : "Other Hispanic",
+		"ethnicity_puerto_rican" : "Puerto Rican",
+		"ethnicity_south_american" : "South American",
+		
+		"ashkezani_q": "Why are we asking about Ashkenazi Jewish heritage?",
 		
 		"personal_health_subtitle" : "Your Health Information",
 
 		"disease_select" : " -- Please Select a Disease -- ",
 		"add_new" : "Other - Add New",
 		"disease_subtype_select" : " -- Please Select a Specific Subtype -- ",
+		
+		"add" : "Add",
+		"remove" : "Remove",
+		"next" : "Remove",
+		"cancel" : "Remove",
+		"save" : "Save",
+		
 		
 		"done" : "done"		
 	},

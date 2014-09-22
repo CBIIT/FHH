@@ -102,14 +102,72 @@
 		"age_at_diagnosis" : "Edad al diagnóstico",
 		"action" : "Acción",
 
-		"add" : "Añadir",
 		"age_at_diagnosis_select" : " -- Seleccione Edad al diagnóstico -- ",
+		"prebirth" : "Prenatal",
+		"newborn" : "Recién Nacido",
+		"infant" : "En la Infancia",
+		"child" : "En la Niñez",
+		"teen" : "En Adolescencia",
+		"twenties" : "20-29 años",
+		"thirties" : "30-39 años",
+		"fourties" : "40-49 años",
+		"fifties" : "50-59 años",
+		"senior" : "60 años o más",
+		"unknown" : "Desconocido",
+
+		"race": "Raza:",
+		"more_race": "Más Opciones:",
+		"ethnicity": "Grupo étnico:",
+		"more_ethnicity": "Más Opciones:",
+
+		"race_ethnicity_title" : "Su Antecedentes Familia",
+		"race_native_american" : "Amerindio o nativo de Alaska",
+		"race_asian" : "Asiático",
+		"race_black" : "Black or African-American",
+		"race_south_pacific" : "Nativo de Hawai o de Islas del Pacífico ",
+		"race_white" : "Blanco o Caucásico",
+
+		"race_asian_indian" : "Indoasiático",
+		"race_chinese" : "Chino",
+		"race_filipino" : "Filipino",
+		"race_japanese" : "Japonés",
+		"race_korean" : "Coreano",
+		"race_vietnamese" : "Vietnamita ",
+		"race_other_asian" : "Otro país de Asia",
+		"race_unknown_asian" : " Desconocido",
+
+		"race_chamorro" : "Nativo de las Islas Marianas del Norte de Oceanía",
+		"race_guamanian" : "Guamaniano",
+		"race_hawaiian" : "Hawaiano",
+		"race_samoan" : "Samoano",
+		"race_unknown_south_pacific" : "Desconocido",
+
+
+		"ethnicity_hispanic" : "Originario de América Latina",
+		"ethnicity_jewish" : "Judío Ashkenazi ",
+		"ethnicity_nothispanic" : "No originario de América Latina",
+
+		"ethnicity_central_american" : "Centroamericano",
+		"ethnicity_cuban" : "Cubano",
+		"ethnicity_dominican" : "Dominicano",
+		"ethnicity_mexican" : "Mexicano",
+		"ethnicity_other_hispanic" : "Otros grupos originarios de América Latina",
+		"ethnicity_puerto_rican" : "Puertorriqueño",
+		"ethnicity_south_american" : "Sudamericano",
+
+		"ashkezani_q": "¿Por qué preguntamos sobre el origen judío Ashkenazi?",
 
 		"personal_health_subtitle" : "Su Información de Salud",
 
 		"disease_select" : " -- Seleccione una de Enfermedades -- ",
 		"add_new" : "Otros - Crear Nuevo",
 		"disease_subtype_select" : " -- Seleccione un subtipo específico -- ",
+
+		"add" : "Añadir",
+		"remove" : "Eliminar",
+		"next" : "Siguiente",
+		"cancel" : "Cancelar",
+		"save" : "Guardar",
 
 		"done" : "done"
 	},
