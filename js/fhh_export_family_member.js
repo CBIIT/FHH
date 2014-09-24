@@ -244,7 +244,7 @@ function move_nephews_to_sons_or_nephews(pi, parent_id) {
 	while (personal_information["nephew_" + i] != null ) {
 		if (personal_information["nephew_" + i].parent_id == parent_id) {
 			son_num_to_move = find_first_available_relative_location(pi, 'son');
-			pi['son_' + son_num_to_move] = JSON.parse(JSON.stringify(personal_information["newphew_" + i]));
+			pi['son_' + son_num_to_move] = JSON.parse(JSON.stringify(personal_information["nephew_" + i]));
 		} else {
 			nephew_num_to_move = find_first_available_relative_location(pi, 'nephew');
 			pi['nephew_' + nephew_num_to_move] = JSON.parse(JSON.stringify(personal_information["nephew_" + i]));

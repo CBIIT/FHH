@@ -5,7 +5,6 @@
 <meta http-equiv="expires" content="0" />
 <meta http-equiv="pragma" content="no-cache" />
 
-
 <title>My Family Health Portrait</title>
 <head>
     <script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
@@ -62,13 +61,13 @@
         <tr>    
             <td class="nav">
                 <!-- Note: Any line breaks here will add spacers in the header -->
-                <a id="warnAndGoHome" href="index.html">Home</a>
-                <a id="navFamilyHistory" href="#">My Family Health History</a>
-                <a id="navCopyFamily" href="#">Copy for Family Member</a>
-                <a id="navRiskCalculator" href="#">Disease Risk Calculator</a>
-                <a id="navViewDiagram" href="#">View Diagram &amp; Table</a>
+                <a id="warnAndGoHome" href="index.html" class='translate' data-i18n='fhh_fhh.a_Home'>Home</a>
+                <a id="navFamilyHistory" href="#" class='translate' data-i18n='fhh_fhh.a_myfhh'>My Family Health History</a>
+                <a id="navCopyFamily" href="#" class='translate' data-i18n='fhh_fhh.a_copy_for_family_member' >Copy for Family Member</a>
+                <a id="navRiskCalculator" href="#" class='translate' data-i18n='fhh_fhh.a_disease_risk_calculator' >Disease Risk Calculator</a>
+                <a id="navViewDiagram" href="#" class='translate' data-i18n='fhh_fhh.a_view_diag_n_table' >View Diagram &amp; Table</a>
             </td>
-            <td class="nav"><a href="#" id="nav_help" >Get Help</a></td>
+            <td class="nav"><a href="#" id="nav_help" class='translate' data-i18n='fhh_fhh.a_get_help' >Get Help</a></td>
         </tr>
     </table>
 </div>
@@ -79,9 +78,9 @@
                         
 <form id="personForm" name="personForm" action="/fhh-web/familyHistory/start.action" method="post" class="form">
 
-<h1>My Family Health History</h1>
-<h2>Create A New Family History</h2>
-<p class='instructions'>Select "Create My History" to create your 
+<h1 class='translate' data-i18n='fhh_fhh.h1_my_fhh'>My Family Health History</h1>
+<h2 class='translate' data-i18n='fhh_fhh.h2_new_fhh'>Create A New Family History</h2>
+<p class='translate' data-i18n='fhh_fhh.p_create_my_history'>Select 'Create My History' to create your 
 	personal profile, enter your health information, and tell us how many 
 	people are in your immediate family. You can add other family members 
 	and enter their health histories later.</p>
@@ -90,23 +89,23 @@
 <br />
 				<!-- if we don't have a person, show this button -->
 <div class='center_text'>
-	<a id="create_new_personal_history_button" href="#" class='button_link'>Create My History</a>
-	<a id="save_personal_history_button" href="#" class='button_link'>Save My History</a>
-	<a id="add_another_family_member_button" href="#" class='button_link'>Add Another Family Member</a>
-	<a id="save_family_history_button" href="#" class='button_link'>Save Family History  </a>
-	<a id="view_diagram_and_table_button" href="#" class='button_link' onclick="xmlload()">View Diagram and Table</a>
-	<a id="your_health_risk_assessment_button" href="#" class='button_link'>Your Health Risk Assessment</a>
+	<a id="create_new_personal_history_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_create_my_history'>Create My History</a>
+	<a id="save_personal_history_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_save_my_history'>Save My History</a>
+	<a id="add_another_family_member_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_add_a_family_mbr'>Add Another Family Member</a>
+	<a id="save_family_history_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_save_fam_hist'>Save Family History</a>
+	<a id="view_diagram_and_table_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_view_dia_n_table' onclick="xmlload()">View Diagram and Table</a>
+	<a id="your_health_risk_assessment_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_risk_assess'>Your Health Risk Assessment</a>
 </div>
 
 <table id="history_summary_table" class="summary_table" summary="This table lists the members of your family 
 		and groups them based on how they are related to you and which side of the family they are on. 
 		You may add, update or remove family members from the links within the table.">
     <tr class=''>
-        <th scope="col" class="nowrap">Name</th>
-        <th scope="col" abbr="Relationship" class="nowrap">Relationship to Me</th>
-        <th scope="col" abbr="Add" class="nowrap">Add History</th>
-        <th scope="col" abbr="Update" class="nowrap">Update History</th>
-        <th scope="col" abbr="Remove" class="nowrap">Remove Relative</th>
+        <th scope="col" class="nowrap translate" data-i18n='fhh_fhh.th_name'>Name</th>
+        <th scope="col" abbr="Relationship" class="nowrap translate" data-i18n='fhh_fhh.th_relation'>Relationship to Me</th>
+        <th scope="col" abbr="Add" class="nowrap translate" data-i18n='fhh_fhh.th_add_hist'>Add History</th>
+        <th scope="col" abbr="Update" class="nowrap translate" data-i18n='fhh_fhh.th_upd_hist'>Update History</th>
+        <th scope="col" abbr="Remove" class="nowrap translate" data-i18n='fhh_fhh.th_rem_rel'>Remove Relative</th>
     </tr>
     <tr class="person_row">
 		<td class='information'>&nbsp;</td>
@@ -171,27 +170,27 @@
 </div>
 <div id='help_dialog' >
 	<div id='help_main_page' class='help'>
-		<h2>Update My Family Health History</h2>
-		<P>After adding immediate family information, you can:</P>
+		<h2 class='translate' data-i18n='fhh_fhh.h2_help_main_page'>Update My Family Health History</h2>
+		<P class='translate' data-i18n='fhh_fhh.p_help_main_page'>After adding immediate family information, you can:</P>
 		<OL>
-	    <LI>
+	    <LI class='translate' data-i18n='fhh_fhh.li1_help_main_page'>
 	    	Check over the relatives in the family member table by doing the following:
 	    	<UL>
-	    		<LI>add health history for each family member by pressing on the symbol in the Add History column</LI>
-	    		<LI>update health information for you or anyone by pressing on the symbol in the update history column</LI>
-	    		<LI>remove a family member by pressing on the symbol in the remove relative column</LI>
-	    		<LI>Add additional relatives by pressing the "Add Another Family Member" button</LI>
-	    		<LI>Save your family health history to your computer by clicking on "Save Family History"</LI>
+	    		<LI class='translate' data-i18n='fhh_fhh.li1_1_help_main_page'>add health history for each family member by pressing on the symbol in the Add History column</LI>
+	    		<LI class='translate' data-i18n='fhh_fhh.li1_2_help_main_page'>update health information for you or anyone by pressing on the symbol in the update history column</LI>
+	    		<LI class='translate' data-i18n='fhh_fhh.li1_3_help_main_page'>remove a family member by pressing on the symbol in the remove relative column</LI>
+	    		<LI class='translate' data-i18n='fhh_fhh.li1_4_help_main_page'>Add additional relatives by pressing the "Add Another Family Member" button</LI>
+	    		<LI class='translate' data-i18n='fhh_fhh.li1_5_help_main_page'>Save your family health history to your computer by clicking on "Save Family History"</LI>
 	    	</UL>
 	    </LI>
-	    <LI>
+	    <LI class='translate' data-i18n='fhh_fhh.li2_help_main_page'>
 	    	On all pages including this page, you can also:
 	    	<UL>
-	    		<LI>Start a new history by pressing on "Home."</LI>
-	    		<LI>Return to the screen showing a table of your family by pressing "My Family."</LI>
-	    		<LI>Make a copy of your family health history for a family member by pressing "Copy for Family Member."</LI>
-	    		<LI>View a diagram of your family tree and a table of your family health history by pressing "View Diagram & Table."</LI>
-	    		<LI>Get extra help by pressing "Get Help."</LI>
+	    		<LI class='translate' data-i18n='fhh_fhh.li2_1_help_main_page'>Start a new history by pressing on "Home."</LI>
+	    		<LI class='translate' data-i18n='fhh_fhh.li2_2_help_main_page'>Return to the screen showing a table of your family by pressing "My Family."</LI>
+	    		<LI class='translate' data-i18n='fhh_fhh.li2_3_help_main_page'>Make a copy of your family health history for a family member by pressing "Copy for Family Member."</LI>
+	    		<LI class='translate' data-i18n='fhh_fhh.li2_4_help_main_page'>View a diagram of your family tree and a table of your family health history by pressing "View Diagram & Table."</LI>
+	    		<LI class='translate' data-i18n='fhh_fhh.li2_5_help_main_page'>Get extra help by pressing "Get Help."</LI>
 	    	</UL>
 	    </LI>
 		</OL>

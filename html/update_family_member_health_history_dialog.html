@@ -1,69 +1,75 @@
-    <div class="title-bar" id="family-title"> Your Family Member's Personal Information </div>
+    <div class="title-bar translate" data-i18n='info_dialog.div_family_info' id="family-title"> Your Family Member's Personal Information </div>
 
-	<p class='instructions'> Enter required personal information and health history information for this family member. Background information 
-	may also be entered. At the bottom of the page (you may need to scroll), press the "Save" button to save this 
-	person's information.</p>
+	<p class='instructions translate' data-i18n='info_dialog.family_instructions'> </p>
 	
-    <p class='instructions'><span class="required">*</span>Indicates required information.</p>
+    <p class='instructions'><span class="required">*</span>
+    	<span class='translate' data-i18n='info_dialog.required'>
+    </p>
     
     <table class="form" summary="Enter family member health information.">
     	<input id="family_member_parent_id" type="hidden" value="">
         <tr>
-    		<th class="label">Relationship:</label></th>
+    		<th class="label translate" data-i18n='info_dialog.relationship'>Relationship:</label></th>
     		<td id='family_member_relationship' ></td>
 		</tr>
         <tr>
-    		<th class="label"><label for="family_member_info_form_name" class="label">Name:</label></th>
+    		<th class="label"><label for="family_member_info_form_name" class="label">
+    			<span class='translate' data-i18n='info_dialog.name'>Name:</span></label>
+    		</th>
     		<td><input name="family.member.name" size="30" maxlength="255" value="" tabindex="2" id="family_member_info_form_name" type="text"></td>
 		</tr>
         <tr>
-            <th class="label"><span class="required">*</span>Gender:</th>
+            <th class="label">
+							<span class="required">*</span><span class='translate' data-i18n='info_dialog.gender'>Gender:</span>
+            </th>
             <td><input name="family.member.gender" id="family_member_info_form_gender_male" value="MALE" tabindex="2" type="radio">
-            		<label for="family_member_info_form_gender_male">Male</label>
+            		<label for="family_member_info_form_gender_male" class='translate' data-i18n='info_dialog.male'>Male</label>
 				<input name="family.member.gender" id="family_member_info_form_gender_female" value="FEMALE" tabindex="2" type="radio">
-					<label for="family_member_info_form_gender_female">Female</label>
+					<label for="family_member_info_form_gender_female" class='translate' data-i18n='info_dialog.female'>Female</label>
 			</td>
         </tr>
         <tr>
-					<th class="label"> Is this person still alive </th>
+					<th class="label translate" data-i18n='info_dialog.alive'> Is this person still alive </th>
 					<td><select id='is_person_alive'>
 						<option></option>
-						<option value='alive'>Yes</option>
-						<option value='dead'>No</option>
-						<option value='unknown'>Unknown</option>
+						<option value='alive' class='translate' data-i18n='info_dialog.yes'>Yes</option>
+						<option value='dead' class='translate' data-i18n='info_dialog.no'>No</option>
+						<option value='unknown' class='translate' data-i18n='info_dialog.unknown'>Unknown</option>
 						</select>
 						<div id='person_is_alive'>
 							<select id='age_determination'>
-								<option value='date_of_birth'>Date of Birth</option>
-								<option value='age'>Age</option>
-								<option value='estimated_age'>Estimated Age</option>
+								<option value='date_of_birth' class='translate' data-i18n='info_dialog.dob'>Date of Birth</option>
+								<option value='age' class='translate' data-i18n='info_dialog.age'>Age</option>
+								<option value='estimated_age' class='translate' data-i18n='info_dialog.estimated_age'>Estimated Age</option>
 							</select>
 							<INPUT id='age_determination_text' type='text' />
 							<select id='estimated_age_select' ></select>
 						</div>
 						<div id='person_is_not_alive'>
-								Cause of Death 
+								<span class='translate' data-i18n='info_dialog.cause_of_death'>Cause of Death </span>
 									<select id='cause_of_death_select' ></select>
 									<select id='detailed_cause_of_death_select' ></select><br/>
-								Age at Death 
+								<span class='translate' data-i18n='info_dialog.age_at_death'>Age at Death</span> 
 									<select id='estimated_death_age_select' ></select>
 						</div>
 					</td>
         </tr>
         <tr>
-            <th class="label"> Was this person born a twin?</th>
+            <th class='translate label' data-i18n='info_dialog.family_twin_status'> Was this person born a twin?</th>
             <td><input name="family.member.twin_status" id="family_member_info_form_twin_status_no" checked="checked" value="NO" tabindex="11" type="radio">
-            		<label for="family_member_info_form_twin_status_no">No</label>
-				<input name="family.member.twin_status" id="family_member_info_form_twin_status_identical" value="IDENTICAL" tabindex="11" type="radio">
-					<label for="family_member_info_form_twin_status_identical">Yes - Identical (Same)</label>
-				<input name="family.member.twin_status" id="family_member_info_form_twin_status_fraternal" value="FRATERNAL" tabindex="11" type="radio">
-					<label for="family_member_info_form_twin_status_fraternal">Yes - Not Identical (Fraternal)</label>
-			</td>
+            		<label for="family_member_info_form_twin_status_no" class="translate" data-i18n='info_dialog.no'>No</label>
+								<input name="family.member.twin_status" id="family_member_info_form_twin_status_identical" value="IDENTICAL" tabindex="11" type="radio">
+								<label for="family_member_info_form_twin_status_identical" class="translate" data-i18n='info_dialog.identical'>Yes - Identical (Same)</label>
+								<input name="family.member.twin_status" id="family_member_info_form_twin_status_fraternal" value="FRATERNAL" tabindex="11" type="radio">
+								<label for="family_member_info_form_twin_status_fraternal" class="translate" data-i18n='info_dialog.fraternal'>Yes - Not Identical (Fraternal)</label>
+						</td>
         </tr>
         <tr>
-            <th class="label"><label for="family_member_info_form_adopted">  
+            <th class="label">
+            	<label data-i18n='info_dialog.family_adopted' class='label translate' for="family_member_info_form_adopted">  
                 Was this person adopted?
-             </label></th>
+            	</label>
+            </th>
             <td><input name="family.member.adopted" value="true" tabindex="12" id="family_member_info_form_adopted_no" type="checkbox">
             	<input id="family_member_info_form_adopted_yes" name="person.adopted" value="true" type="hidden"> Yes
             </td>

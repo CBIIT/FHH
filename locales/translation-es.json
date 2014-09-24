@@ -155,6 +155,8 @@
 		"ethnicity_puerto_rican" : "Puertorriqueño",
 		"ethnicity_south_american" : "Sudamericano",
 
+		"consanguinity": "Marque aquí si tus padres están relacionados entre sí de alguna manera que no sea el matrimonio.",
+		"multiple_races_selectable" : "Dado el caso, puede seleccionar más de una raza o grupo étnico.",
 		"ashkezani_q": "¿Por qué preguntamos sobre el origen judío Ashkenazi?",
 
 		"personal_health_subtitle" : "Su Información de Salud",
@@ -171,7 +173,109 @@
 
 		"done" : "done"
 	},
+
+	"fhh_fhh": {		
+		"a_Home": "Inicio",
+		"a_myfhh": "Mi Historial de Salud Familiar",
+		"a_copy_for_family_member": "Copia para el miembro de la familia",
+		"a_disease_risk_calculator": "Calculadora de Riesgo de Enfermedades",
+		"a_view_diag_n_table": "Ver el Diagrama & Tabla",
+		"a_get_help": "Obtener ayuda",
+		"h1_my_fhh": "Mi Historial de Salud Familiar",
+		"h2_new_fhh": "Crear una nueva historia de la familia",
+		"p_create_my_history": "Seleccione 'Crear mi historia' para crear tu perfil personal, introduzca su información de salud, y nos dice cuántas personas hay en su familia inmediata Usted puede agregar otros miembros de la familia y entrar en sus historias de salud más adelante",
+		"btn_create_my_history": "Crear mi historia",
+		"btn_save_my_history": "Guardar Mi Historia",
+		"btn_add_a_family_mbr": "Añadir otro miembro de la familia",
+		"btn_save_fam_hist": "Guardar los antecedentes familiares",
+		"btn_save_fam_hist": "Guardar los antecedentes familiares",
+		"btn_view_dia_n_table": "Ver el Diagrama y Tabla",
+		"btn_risk_assess": "Su Evaluación de Riesgos de Salud",
+
+		"th_name": "Nombre",
+		"th_relation": "Relación con Me",
+		"th_add_hist": "Add Historia",
+		"th_upd_hist": "Actualización de la Historia",
+		"th_rem_rel": "Eliminar relativa",
+		"h2_help_main_page": "Actualizar Mi Historial de Salud Familiar",
+		"p_help_main_page": "Después de la adición de información de la familia inmediata, se puede:",
+		"li1_help_main_page": "Echa sobre los parientes en la tabla de miembros de la familia haciendo lo siguiente:",
+		"li1_1_help_main_page": "agregar historial de salud para cada miembro de la familia que desee oprimiendo el símbolo en la columna de la Historia Añádase",
+		"li1_2_help_main_page": "actualizar información de salud para usted o cualquier persona que desee oprimiendo el símbolo en la columna de la historia de la actualización",
+
+		"li1_3_help_main_page": "eliminar un miembro de la familia que desee oprimiendo el símbolo en la columna relativa remove",
+		"li1_4_help_main_page": "Añadir parientes adicionales presionando la 'Agregar otro familiar' botón ",
+		"li1_5_help_main_page": "Guarda tu historial de salud familiar a su ordenador haciendo clic en 'Guardar Historia Familiar'",
+		"li2_help_main_page": "En todas las páginas, incluyendo esta página, también puede:",
+		"li2_1_help_main_page": "Comienza una nueva historia pulsando en 'Inicio'.",
+		"li2_2_help_main_page": "Regreso a la pantalla que muestra una tabla de su familia pulsando 'My Family'.",
+		"li2_3_help_main_page": "Hacer una copia de su historial de salud familiar para un miembro de la familia pulsando 'Copia de miembro de la familia.'",
+		"li2_4_help_main_page": "Ver un diagrama de su árbol genealógico y una mesa de su historial de salud familiar pulsando 'Ver el Diagrama de mesa.'",
+		"li2_5_help_main_page": "Obtener ayuda adicional pulsando 'Obtener ayuda.'",	
+
 	
+		"done" : "done"
+	},
+	
+	"info_dialog": {
+		"div_personal_info": "Tu información personal",
+		"div_family_info" : "Información personal de su familiar",
+		"instructions": "Comenzamos el historial de salud familiar con introducir la información personal que se requiere y la información de su historial de salud En la parte inferior de la página (puede que tenga que desplazarse) pulse el botón 'Siguiente' A continuación se le pedirá que indicar al sistema que los miembros de la familia usted le gustaría añadir a la historia de la salud.",
+		"health_vault": "Si usted tiene una cuenta de Microsoft HealthVault, se puede optar por copiar su HealthVault información de antecedentes familiares en este sitio web Información que agregar o modificar aquí. Se puede copiar de nuevo a HealthVault Pulse 'Copiar de HealthVault' para empezar.",
+		"family_instructions":"Entre la información personal que se requiere y la información del historial de salud para este miembro de la familia. Información de fondo también puede ser ingresado. En la parte inferior de la página (puede que tenga que desplazarse), presione el botón 'Guardar' para guardar la información de esta persona.",
+		"required":"Indica la información requerida.",
+		"relationship":"Relación:",
+		"name":"Nombre:",
+		"gender":"Sexo:",
+		"male":"Masculino",
+		"female":"Femenino",
+		"alive":"¿Es esta persona sigue viva?:",
+		"dob":"Fecha de nacimiento",
+		"twin_status": "¿Nació un gemelo?",
+		"family_twin_status" : "¿Fue esta persona nació un gemelo?",
+		"adopted": "¿Era usted aprobó?",
+		"family_adopted" : "¿Fue esta persona adoptada?",
+		"yes": "Sí",
+		"no":"No",
+		"unknown":"Desconocido",
+		"age":"Edad",
+		"estimated_age":"Edad estimada",
+		"cause_of_death":"Causa de muerte",
+		"age_at_death":"La edad de muerte",
+		"identical":"Sí - Idénticos",
+		"fraternal":"Sí - No idénticos (Fraternales)",
+		"height": "Altura",
+		"weight": "Peso",
+		"feet": "Pies",
+		"inches": "Pulgadas",
+		"or": "-O-",
+		"centimeters": "Centímetros",
+		"lbs": "lbs",
+		"kgs": "kgs",
+		"di3_fam_hist": "información de salud",
+		"di4_fam_hist": "la familia información de fondo",
+		"btn1_fam_hist": "Siguiente",
+		"btn2_fam_hist": "Cancelar",
+		
+		"done": "done"
+	},	
+		
+	"fhh_add_family": {
+		"instructions" : "Ahora vamos a construir su familia. Háblenos de su familia inmediata, incluyendo a sus hermanos, hermanas, hijos, tías y tíos. Usted puede agregar más miembros de la familia como primos, sobrinas, sobrinos, hermanos, medio y nietos posteriores. Añadimos automáticamente sus padres y abuelos para usted. (Recopilamos información únicamente para los parientes de sangre, y no los miembros del hogar, padrastros parientes o cónyuges no relacionados por la sangre.)",
+		"brothers":"¿Cuántos hermanos tiene usted?",
+		"sisters":"¿Cuántas hermanas tiene usted?",
+		"sons":"¿Cuántos hijos tiene usted?",
+		"daughters":"¿Cuántas hijas tiene usted?",
+		"muncles":"¿Cuántos hermanos tiene tu madre? (sus tíos)",
+		"maunts":"¿Cuántas hermanas tiene tu madre? (sus tías)",
+		"puncles":"¿Cuántos hermanos tiene tu padre? (sus tíos)",
+		"paunts":"¿Cuántas hermanas tiene tu padre? (sus tías)",
+
+		"save":"Siguiente",
+		"cancel":"Cancelar",
+
+		"done" : "done"
+	},
 	
 	"fhh_why_ask_ashkenazi": {
 		"help_title" : "Ayuda para Ashkenazi Judio",

@@ -95,7 +95,7 @@ function start()
 	// personal_information_dialog
 	$("#add_personal_information_dialog").load ("add_personal_information_dialog.html", function () {
 		build_personal_health_information_section();
-		build_personal_race_ethnicity_section();
+		build_race_ethnicity_section($("#personal_race_ethnicity"), true);
 		bind_personal_submit_button_action();
 		bind_personal_cancel_button_action();
 		clear_and_set_personal_health_history_dialog();
@@ -140,7 +140,7 @@ function start()
 	// family_member_information_dialog
 	$("#update_family_member_health_history_dialog").load ("update_family_member_health_history_dialog.html", function () {
 		build_family_health_information_section();
-		build_family_race_ethnicity_section();
+		build_race_ethnicity_section($("#family_race_ethnicity"), false);
 		bind_family_member_submit_button_action();
 		bind_family_member_cancel_button_action();
 		
@@ -1557,8 +1557,8 @@ function remove_disease() {
 
 // Health Information Section
 
-function build_personal_race_ethnicity_section() {
-	var race_ethnicity = $("#personal_race_ethnicity");
+function build_race_ethnicity_section(race_ethnicity, personal_flag) {
+//	var race_ethnicity = $("#personal_race_ethnicity");
 	// First put up accordion entry
 	var bar = $("<div class='title-bar' id='bi=title'>" + $.t("fhh_js.race_ethnicity_title") + "</div>");
 	race_ethnicity.empty().append(bar);
@@ -1636,31 +1636,31 @@ function build_personal_race_ethnicity_section() {
 			"<label for='selectedEthnicities-17' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_south_american") + "</label>" +
 			"</td>");
 
-
-	race_ethnicity.
-		append($("<table>")
-				.append($("<tr>")
-						.append("<td colspan='3'><label for='person_consanguinity'>Check here if your parents are related to each other in any way other than marriage.</label>"
-								+ "<input name='person.consanguinity' value='true' tabindex='20' id='person_consanguinity' type='checkbox'/></td>"))
-
-
-				.append($("<tr>")
-						.append("<td colspan='2'>Multiple races and ethnicities may be selected.</td>") )
-				.append($("<tr>")
+	var table = $("<table>");
+	race_ethnicity.append(table);
+	
+	if (personal_flag) {
+		
+		table.append($("<tr>")
+						.append("<td colspan='3'><label for='person_consanguinity'>" + $.t("fhh_js.consanguinity") + "</label>"
+								+ "<input name='person.consanguinity' value='true' tabindex='20' id='person_consanguinity' type='checkbox'/></td>"));
+	}
+	table.append($("<tr>").append("<td colspan='2'>" + $.t("fhh_js.multiple_races_selectable") + "</td>") );
+	table.append($("<tr>")
 						.append("<td style='width:150px;'>" + $.t("fhh_js.race") + "</td>")
-						.append(race_checkboxes) )
-				.append($("<tr id='asian_checkboxes'>")
+						.append(race_checkboxes) );
+	table.append($("<tr id='asian_checkboxes'>")
 						.append("<td>" + $.t("fhh_js.more_race") + "</td>")
-						.append(asian_race_checkboxes) )
-				.append($("<tr id='south_pacific_checkboxes'>")
+						.append(asian_race_checkboxes) );
+	table.append($("<tr id='south_pacific_checkboxes'>")
 						.append("<td>" + $.t("fhh_js.more_race") + "</td>")
-						.append(south_pacific_race_checkboxes) )
-				.append($("<tr>")
+						.append(south_pacific_race_checkboxes) );
+	table.append($("<tr>")
 						.append("<td>" + $.t("fhh_js.ethnicity") + "</td>")
-						.append(ethnicity_checkboxes) )
-				.append($("<tr id='hispanic_checkboxes'>")
+						.append(ethnicity_checkboxes) );
+	table.append($("<tr id='hispanic_checkboxes'>")
 						.append("<td>" + $.t("fhh_js.more_ethnicity") + "</td>")
-						.append(hispanic_ethnicity_checkboxes) ));
+						.append(hispanic_ethnicity_checkboxes) );
 
 	var why_ask_ashkenazi_link = $("<td><a tabindex='29' href='#' id='why_ask_ashkenazi_link'>" + $.t("fhh_js.ashkezani_q") + "</a></td>");
 	why_ask_ashkenazi_link.click(function () {
@@ -1670,108 +1670,6 @@ function build_personal_race_ethnicity_section() {
 	
 }
 
-function build_family_race_ethnicity_section() {
-	var race_ethnicity = $("#family_race_ethnicity");
-	// First put up accordion entry
-	var bar = $("<div class='title-bar' id='bi-title'>This Person's Family Background Information</div>");
-	race_ethnicity.empty().append(bar);
-	
-	
-	var race_checkboxes = $("<td>" +
-			"<input tabindex='21' name='selectedRaces' value='1' id='selectedRaces-1'  type='checkbox'>" +
-			"<label for='selectedRaces-1' class='checkboxLabel'>American Indian or Alaska Native</label>" +
-			"<input tabindex='21' name='selectedRaces' value='2' id='selectedRaces-2' type='checkbox'>" +
-			"<label for='selectedRaces-2' class='checkboxLabel'>Asian</label>" +
-			"<input tabindex='21' name='selectedRaces' value='3' id='selectedRaces-3' type='checkbox'>" +
-			"<label for='selectedRaces-3' class='checkboxLabel'>Black or African-American</label>" +
-		    "<br>" +
-			"<input tabindex='21' name='selectedRaces' value='4' id='selectedRaces-4'  type='checkbox'>" +
-			"<label for='selectedRaces-4' class='checkboxLabel'>Native Hawaiian or Other Pacific Islander</label>" +
-			"<input tabindex='21' name='selectedRaces' value='5' id='selectedRaces-5'  type='checkbox'>" +
-			"<label for='selectedRaces-5' class='checkboxLabel'>White</label>" +
-			"</td>");
-
-	var asian_race_checkboxes = $("<td>" +
-			"<input tabindex='22' name='selectedRaces' value='11' id='selectedRaces-11'  type='checkbox'>" +
-			"<label for='selectedRaces-11' class='checkboxLabel'>Asian Indian</label>" +
-			"<input tabindex='22' name='selectedRaces' value='12' id='selectedRaces-12' type='checkbox'>" +
-			"<label for='selectedRaces-12' class='checkboxLabel'>Chinese</label>" +
-			"<input tabindex='22' name='selectedRaces' value='13' id='selectedRaces-13' type='checkbox'>" +
-			"<label for='selectedRaces-13' class='checkboxLabel'>Filipino</label>" +
-			"<input tabindex='22' name='selectedRaces' value='14' id='selectedRaces-14' type='checkbox'>" +
-			"<label for='selectedRaces-14' class='checkboxLabel'>Japanese</label>" +
-			"<input tabindex='22' name='selectedRaces' value='15' id='selectedRaces-15' type='checkbox'>" +
-			"<label for='selectedRaces-15' class='checkboxLabel'>Korean</label>" +
-			"<input tabindex='22' name='selectedRaces' value='16' id='selectedRaces-16' type='checkbox'>" +
-			"<label for='selectedRaces-16' class='checkboxLabel'>Vietnamese</label>" +
-			"<input tabindex='22' name='selectedRaces' value='17' id='selectedRaces-17' type='checkbox'>" +
-			"<label for='selectedRaces-17' class='checkboxLabel'>Other Asian</label>" +
-			"<input tabindex='22' name='selectedRaces' value='18' id='selectedRaces-18' type='checkbox'>" +
-			"<label for='selectedRaces-18' class='checkboxLabel'>Unknown Asian</label>" +
-			"</td>");
-
-	var south_pacific_race_checkboxes = $("<td>" +
-			"<input tabindex='23' name='selectedRaces' value='21' id='selectedRaces-21'  type='checkbox'>" +
-			"<label for='selectedRaces-21' class='checkboxLabel'>Chamorro</label>" +
-			"<input tabindex='23' name='selectedRaces' value='22' id='selectedRaces-22' type='checkbox'>" +
-			"<label for='selectedRaces-22' class='checkboxLabel'>Guamanian</label>" +
-			"<input tabindex='23' name='selectedRaces' value='23' id='selectedRaces-23' type='checkbox'>" +
-			"<label for='selectedRaces-23' class='checkboxLabel'>Native Hawaiian</label>" +
-			"<input tabindex='23' name='selectedRaces' value='24' id='selectedRaces-24' type='checkbox'>" +
-			"<label for='selectedRaces-24' class='checkboxLabel'>Samoan</label>" +
-			"<input tabindex='23' name='selectedRaces' value='25' id='selectedRaces-25' type='checkbox'>" +
-			"<label for='selectedRaces-25' class='checkboxLabel'>Unknown South Pacific Islander</label>" +
-			"</td>");
-
-	var ethnicity_checkboxes = $("<td>" +
-			"<input tabindex='24' name='selectedEthnicities' value='1' id='selectedEthnicities-1' type='checkbox'>" +
-			"<label for='selectedEthnicities-1' class='checkboxLabel'>Hispanic or Latino</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='2' id='selectedEthnicities-2' type='checkbox'>" +
-			"<label for='selectedEthnicities-2' class='checkboxLabel'>Ashkenazi Jewish</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='3' id='selectedEthnicities-3' type='checkbox'>" +
-			"<label for='selectedEthnicities-3' class='checkboxLabel'>Not Hispanic or Latino</label>" +
-			"</td>");
-
-	var hispanic_ethnicity_checkboxes = $("<td>" +
-			"<input tabindex='24' name='selectedEthnicities' value='11' id='selectedEthnicities-11' type='checkbox'>" +
-			"<label for='selectedEthnicities-11' class='checkboxLabel'>Central American</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='12' id='selectedEthnicities-12' type='checkbox'>" +
-			"<label for='selectedEthnicities-12' class='checkboxLabel'>Cuban</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='13' id='selectedEthnicities-13' type='checkbox'>" +
-			"<label for='selectedEthnicities-13' class='checkboxLabel'>Dominican</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='14' id='selectedEthnicities-14' type='checkbox'>" +
-			"<label for='selectedEthnicities-14' class='checkboxLabel'>Mexican</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='15' id='selectedEthnicities-15' type='checkbox'>" +
-			"<label for='selectedEthnicities-15' class='checkboxLabel'>Other Hispanic</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='16' id='selectedEthnicities-16' type='checkbox'>" +
-			"<label for='selectedEthnicities-16' class='checkboxLabel'>Puerto Rican</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='17' id='selectedEthnicities-17' type='checkbox'>" +
-			"<label for='selectedEthnicities-17' class='checkboxLabel'>South American</label>" +
-			"</td>");
-
-	race_ethnicity.
-		append($("<table>")
-				.append($("<tr>")
-						.append("<td colspan='2'>Multiple races and ethnicities may be selected.</td>") )
-				.append($("<tr>")
-						.append("<td style='width:150px;'>Race:</td>")
-						.append(race_checkboxes) )
-				.append($("<tr id='asian_checkboxes'>")
-						.append("<td>More Race Options:</td>")
-						.append(asian_race_checkboxes) )
-				.append($("<tr id='south_pacific_checkboxes'>")
-						.append("<td>More Race Options:</td>")
-						.append(south_pacific_race_checkboxes) )
-				.append($("<tr>")
-						.append("<td> Ethnicity </td>")
-						.append(ethnicity_checkboxes))
-				.append($("<tr id='hispanic_checkboxes'>")
-						.append("<td> More Ethnicity </td>")
-						.append(hispanic_ethnicity_checkboxes) )
-				.append($("<tr>")
-						.append("<td colspan='2'><a tabindex='29' href='#' >Why are we asking about Ashkenazi Jewish heritage?</a></td>")));
-	
-}
 
 function clear_family_member_health_history_dialog() {
 	$("#family_member_parent_id").val("");
@@ -2059,7 +1957,8 @@ function clear_and_set_personal_health_history_dialog() {
 		$("#personal_height_centimeters").val(personal_information.height);
 	}
 	$("#personal_weight").val(personal_information.weight);
-	$("#personal_weight_unit").val(personal_information.weight_unit);
+	if (personal_information.weight_unit == 'lbs' || personal_information.weight_unit == 'kgs')
+		$("#personal_weight_unit").val(personal_information.weight_unit);
 	
 	$(".disease_detail").each(function () {
 		$(this).remove();

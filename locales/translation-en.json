@@ -155,6 +155,8 @@
 		"ethnicity_puerto_rican" : "Puerto Rican",
 		"ethnicity_south_american" : "South American",
 		
+		"consanguinity": "Check here if your parents are related to each other in any way other than marriage.",
+		"multiple_races_selectable" : "Multiple races and ethnicities may be selected.",
 		"ashkezani_q": "Why are we asking about Ashkenazi Jewish heritage?",
 		
 		"personal_health_subtitle" : "Your Health Information",
@@ -172,12 +174,114 @@
 		
 		"done" : "done"		
 	},
+	
+	"fhh_fhh": {
+		"a_Home" : "Home",
+		"a_myfhh" : "My Family Health History",
+		"a_copy_for_family_member" : "Copy for Family Member",
+		"a_disease_risk_calculator" : "Disease Risk Calculator",
+		"a_view_diag_n_table" : "View Diagram & Table",
+		"a_get_help" : "Get Help",
+		"h1_my_fhh" : "My Family Health History",
+		"h2_new_fhh" : "Create A New Family History",
+		"p_create_my_history" : "Select 'Create My History' to create your personal profile, enter your health information, and tell us how many people are in your immediate family. You can add other family members and enter their health histories later.",
+		"btn_create_my_history" : "Create My History",
+		"btn_save_my_history" : "Save My History",
+		"btn_add_a_family_mbr" : "Add Another Family Member",
+		"btn_save_fam_hist" : "Save Family History",
+		"btn_save_fam_hist" : "Save Family History",
+		"btn_view_dia_n_table" : "View Diagram and Table",
+		"btn_risk_assess" : "Your Health Risk Assessment",
+		"th_name" : "Name",
+		"th_relation" : "Relationship to Me",
+		"th_add_hist" : "Add History",
+		"th_upd_hist" : "Update History",
+		"th_rem_rel" : "Remove Relative",
+		"h2_help_main_page" : "Update My Family Health History",
+		"p_help_main_page" : "After adding immediate family information, you can:",
+		"li1_help_main_page" : "Check over the relatives in the family member table by doing the following:",
+		"li1_1_help_main_page" : "add health history for each family member by pressing on the symbol in the Add History column",
+		"li1_2_help_main_page" : "update health information for you or anyone by pressing on the symbol in the update history column",
+		"li1_3_help_main_page" : "remove a family member by pressing on the symbol in the remove relative column",
+		"li1_4_help_main_page" : "Add additional relatives by pressing the 'Add Another Family Member' button",
+		"li1_5_help_main_page" : "Save your family health history to your computer by clicking on 'Save Family History'",
+		"li2_help_main_page" : "On all pages including this page, you can also: ",
+		"li2_1_help_main_page" : "Start a new history by pressing on 'Home.'",
+		"li2_2_help_main_page" : "Return to the screen showing a table of your family by pressing 'My Family.'",
+		"li2_3_help_main_page" : "Make a copy of your family health history for a family member by pressing 'Copy for Family Member.'",
+		"li2_4_help_main_page" : "View a diagram of your family tree and a table of your family health history by pressing 'View Diagram & Table.'",
+		"li2_5_help_main_page" : "Get extra help by pressing 'Get Help.'",
+	
+		"done" : "done"
+	},
+	
+	"info_dialog": {
+		"div_personal_info" : "Your Personal Information",
+		"div_family_info" : "Your Family Member's Personal Information",
+		"instructions" : "We start the family health history with you. Enter the required personal information and your health history information. At the bottom of the page (you may need to scroll), press the 'Next' button. You will then be asked to tell the system which family members you would like to add to the health history.",
+		"health_vault" : "If you have a Microsoft HealthVault account, you can choose to copy your HealthVault family history information into this website. Information that you add or modify here can then be copied back to HealthVault. Press 'Copy from HealthVault' to get started.",
+		"family_instructions":"Enter required personal information and health history information for this family member. Background information may also be entered. At the bottom of the page (you may need to scroll), press the 'Save' button to save this person's information.",
+		"required":"Indicates required information.",
+		"relationship":"Relationship:",
+		"name":"Name:",
+		"gender":"Gender:",
+		"male":"Male",
+		"female":"Female",
+		"alive":"Is this person still alive:",
+		"dob":"Date of Birth:",
+		"twin_status" : "Were you born a twin?",
+		"family_twin_status" : "Was this person born a twin?",
+		"adopted" : "Were you adopted?",
+		"family_adopted" : "Was this person adopted?",
+		
+		"yes": "Yes",
+		"no":"No",
+		"unknown":"Unknown",
+		"age":"Age",
+		"estimated_age":"Estimated Age",
+		"cause_of_death":"Cause of Death",
+		"age_at_death":"Age at Death",
+		"identical":"Yes - Indentical (Same)",
+		"fraternal":"Yes - Not Identical (Fraternal)",
+		"height": "Height",
+		"weight": "Weight",
+		"feet": "Feet",
+		"inches": "Inches",
+		"or": "-OR-",
+		"centimeters": "Centimeters",
+		"lbs": "lbs",
+		"kgs": "kgs",
+		
+		
+		"di3_fam_hist" : "health info",
+		"di4_fam_hist" : "family background info",
+		"btn1_fam_hist" : "Next",
+		"btn2_fam_hist" : "Cancel",
+		
+		"done" : "done"
+	},
+	
+	"fhh_add_family": {
+		"instructions" : "Now we will build your family. Tell us about your immediate family, including your brothers, sisters, children, aunts, and uncles. You can add more family members like cousins, nieces, nephews, half siblings, and grandchildren later. We automatically add your parents and grandparents for you. (We collect information only for blood relatives, not household members, step-relatives, or spouses not related by blood.)",
+		"brothers":"How many brothers do you have?",
+		"sisters":"How many sisters do you have?",
+		"sons":"How many sons do you have?",
+		"daughters":"How many daughters do you have?",
+		"muncles":"How many brothers does your mother have? (your uncles)",
+		"maunts":"How many sisters does your mother have? (your aunts)",
+		"puncles":"How many brothers does your father have? (your uncles)",
+		"paunts":"How many sisters does your father have? (your aunts)",
 
+		"save":"Save",
+		"cancel":"Cancel",
+
+		"done" : "done"
+	},
+	
 	"fhh_why_ask_ashkenazi": {
 		"help_title" : "Help for Ashkenazi Jew",
 		"help_para" : "For certain conditions, such as ovarian and breast cancer, it is important to know if a person has Ashkenazi Jewish heritage for risk assessment purposes.",
 		"done" : "done"
 	}
-
 
 }	
