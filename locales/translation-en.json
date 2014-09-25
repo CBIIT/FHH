@@ -171,6 +171,12 @@
 		"cancel" : "Remove",
 		"save" : "Save",
 		
+		"export_instructions":"This will output the information from the point of view of one of your relatives.",
+		"export_instructions2":"You can export for your immedaite family members: Brothers, Sisters, Mother, Father, Sons, and Daughters",
+		"choose_relative":"Choose a Relative:",
+		"please_select_relative":"-- Please make a selection -- ",
+		"export":"Export",
+		
 		
 		"done" : "done"		
 	},
@@ -274,6 +280,24 @@
 
 		"save":"Save",
 		"cancel":"Cancel",
+
+		"done" : "done"
+	},
+
+	"fhh_load_save": {
+		"load_from_file" : "Load Your Personal Information from a File",
+		"load_health_vault" : "Load Your Personal Information from Microsoft's Health Vault",
+		"load_google_drive" : "Load Your Personal Information from Google Drive",
+		"load_dropbox" : "Load Your Personal Information from Dropbox",
+		"load_dropbox_button" : "Load from Dropbox",
+		"load_file_button" : "Load from a File",
+
+		"save_to_file" : "Save Your Personal Information to a File",
+		"save_health_vault" : "Save Your Personal Information to Microsoft's Health Vault",
+		"save_google_drive" : "Save Your Personal Information to Google Drive",
+		"save_dropbox" : "Save Your Personal Information to Dropbox",
+		"save_dropbox_button" : "Save to Dropbox",
+		"save_file_button" : "Save to a File",
 
 		"done" : "done"
 	},

@@ -23,7 +23,7 @@ function bind_relative_select_change() {
 	var xml_document = make_export_string(pi);
 
 	$("#export_to_relative").remove();
-	var export_button = $("<A id='export_to_relative' class='link-button'>Export</A>");
+	var export_button = $("<A id='export_to_relative' class='link-button'>" + $.t("fhh_js.export") + "</A>");
 	export_button.on("click", function () {
 		$("#copy_for_family_member").empty().dialog("close");
 	});
@@ -310,15 +310,14 @@ function make_export_string(pi) {
 }
 
 function give_instructions() {
-	$("#copy_for_family_member").empty().append("<DIV class='instructions'>This will output the information from the point of view "
-		+ "of one of your relatives.</DIV><br/>");
-	$("#copy_for_family_member").append("<DIV class='instructions'>You can export for your immedaite family members: Brothers, Sisters, Mother, Father, Sons, and Daughters</DIV><br/>");	
+	$("#copy_for_family_member").empty().append("<DIV class='instructions'>" + $.t("fhh_js.export_instructions") + "</DIV><br/>");
+	$("#copy_for_family_member").append("<DIV class='instructions'>" + $.t("fhh_js.export_instructions2") + "</DIV><br/>");	
 }
 
 function create_family_member_select() {
-	$("#copy_for_family_member").append("<LABEL for='choose_a_relative'>Choose a relative:</LABEL><br /><br />");
+	$("#copy_for_family_member").append("<LABEL for='choose_a_relative'>" + $.t("fhh_js.choose_relative") + "</LABEL><br /><br />");
 	var relative_select = $("<SELECT id='choose_a_relative'></SELECT>");
-	relative_select.append("<OPTION> -- Please make a selection -- </OPTION>");
+	relative_select.append("<OPTION>" + $.t("fhh_js.please_select_relative") + " </OPTION>");
 	$("#copy_for_family_member").append(relative_select);
 	
 	$.each(personal_information, function (key, item) {

@@ -171,6 +171,12 @@
 		"cancel" : "Cancelar",
 		"save" : "Guardar",
 
+		"export_instructions":"Esta es la salida de la información desde el punto de vista de uno de sus parientes.",
+		"export_instructions2":"Puede exportar para sus miembros immedaite familia: hermanos, hermanas, madre, padre, hijos e hijas",
+		"choose_relative":"Elija una relativa:",
+		"please_select_relative":"-- Por favor haga una selección -- ",
+		"export":"Exportación",
+
 		"done" : "done"
 	},
 
@@ -276,6 +282,25 @@
 
 		"done" : "done"
 	},
+
+	"fhh_load_save": {
+		"load_from_file" : "Cargue su información personal a partir de un archivo",
+		"load_health_vault" : "Cargue su información personal a Health Vault de Microsoft",
+		"load_google_drive" : "Cargue su información personal de Google Drive",
+		"load_dropbox" : "Cargue su información personal de Dropbox",
+		"load_file_button" : "Cargar archivo",
+		"load_dropbox_button" : "Cargar desde Dropbox",
+
+		"save_to_file" : "Guarde su información personal a un archivo",
+		"save_health_vault" : "Guarde su información personal a Health Vault de Microsoft",
+		"save_google_drive" : "Guarde su información personal a Google Drive",
+		"save_dropbox" : "Guarde su información personal a Dropbox",
+		"save_dropbox_button" : "Guardar en Dropbox",
+		"save_file_button" : "Guardar en un archivo",
+		
+		"done" : "done"
+	},
+	
 	
 	"fhh_why_ask_ashkenazi": {
 		"help_title" : "Ayuda para Ashkenazi Judio",

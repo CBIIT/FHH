@@ -8,6 +8,10 @@ var SNOMED_CT_CODES = {
 }
 
 function bind_load_xml() {
+	// Change the name of the Load File here to support internationalization
+	
+	$("#file_upload_button").val($.t("fhh_load_save.load_file_button"));
+	
 	$("#file_upload_button").on("click", function () {
     $("#view_diagram_and_table_button").attr('onclick', 'xmlload()');
 		personal_information = new Object();
@@ -24,7 +28,7 @@ function bind_load_xml() {
 		return false;
 	});
 	
-	var button = $("<BUTTON id='dropbox_load_button'> Load from Dropbox </BUTTON>");
+	var button = $("<BUTTON id='dropbox_load_button'>" + $.t("fhh_load_save.load_dropbox_button") + "</BUTTON>");
 	button.on("click", function () {
 		personal_information = new Object();
 		Dropbox.choose({

@@ -37,7 +37,7 @@ function bind_save_xml() {
 		
 	});
 
-	var button = $("<BUTTON id='dropbox_save_button'> Save to Dropbox </BUTTON>");
+	var button = $("<BUTTON id='dropbox_save_button'>" + $.t("fhh_load_save.save_dropbox_button") + "</BUTTON>");
 	
 	button.on("click", function () {
 		doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
