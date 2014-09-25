@@ -284,6 +284,17 @@ i#options .ui-button.ui-state-active .ui-button-text {
     /*overflow-x: auto; overflow-y: auto;*/
     /*aspectRatio: 400/200;*/
 
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*background: red;*/
+    padding: 5px;
+    border: #CCC solid 1px;
+    text-align: center;
+    /*position: fixed;*/
+    /*margin-left: -375px;*/
+    /*margin-top: -75px;*/
+    /*left: -10%;*/
+    /*top: 10%;*/
 
 }
 
@@ -317,7 +328,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
 }
 
 #health_table th {
-    font: bold 12px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+    font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     color: white;
     border-right: 1px solid navy;
     border-bottom: 1px solid navy;
@@ -334,7 +345,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
     border-right: 1px solid #C1DAD7;
     background: darkslategray;
     color: white;
-    font: bold 12px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+    font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
 
 #health_table td {
@@ -355,7 +366,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
     border-left: 1px solid #C1DAD7;
     border-top: 0;
     background:darkslategray;
-    font: bold 12px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+    font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
 
 #health_table th.specalt {
@@ -368,7 +379,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
 #health_table td.diseaseid{
     background-color: darkslategray;
     color: white;
-    font: bold 14px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+    font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
 .infobox{
     border-right: 1px solid #C1DAD7;
@@ -399,4 +410,20 @@ svg#sky {
 
 .bmi_table td{
     font: bold 14px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+}
+
+#box
+{
+    width: 150px;
+    height: 150px;
+    background: red;
+    padding: 5px;
+    border: #CCC solid 1px;
+    text-align: center;
+    position: fixed;
+    margin-left: -75px;
+    margin-top: -75px;
+    left: 50%;
+    top: 50%;
+
 }
