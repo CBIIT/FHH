@@ -260,7 +260,24 @@ i#options .ui-button.ui-state-active .ui-button-text {
     overflow-x:scroll;
 }
 
+.option_dialog{
 
+    border: 3px solid #c7c7c7;
+    padding-bottom: 0;
+    weight: 800px;
+    height: 600px;
+    overflow-x:scroll;
+    color:
+}
+
+.tablebutton{
+    background-color:darkslategray;
+    color:white;
+    visibility:visible;
+    padding: 5 5 5 5;
+    font: bold 25px "Arial", Verdana, Arial, Helvetica, sans-serif;
+    cursor:pointer;
+}
 
 #svgframe {
     display: block;

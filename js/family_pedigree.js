@@ -17,6 +17,7 @@ var MYNAME,MYGENDER;
 var svgw;
 var diseasearray=new Array();
 var pstart,pend,mstart,mend;
+var $optdialog;
 
 //var diseasearray=['Heart Disease','Stroke','Diabetes','Colon Cancer','Breast Cancer','Ovarian Cancer','Additional Diseases'];
 
@@ -27,7 +28,8 @@ function xmlload() {
         '<div id="family_pedigree_info">' +
 
         '<div align="left" >' +
-        '<input id="printer" align="right" type="button" value="PRINT REPORT"/>' +
+        '<input id="printer" align="right" type="button" class="tablebutton" value="Print Report"/>' +
+        '<input id="downoptions" align="right" type="button"  class="tablebutton" onclick="createDialog()" value="Diagram Table & Options"/>' +
         '<table id="bmi_table"><tr>' +
         '<td><b>My Personal Information:</b></td>' +
         '<tr><td id="age">Age:</td></tr>' +
@@ -132,7 +134,13 @@ function xmlload() {
     //Outer Frame
     //svg.rect(25, 5, ['95%'], 700, 1, 1, {id: 'diagramframe', fill: 'none', stroke: 'navy', strokeWidth: 1});
     svg.text(masterleft - 120, 30, "Paternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
-    svg.text(masterleft + 120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
+    svg.text(masterleft + 120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray' });
+
+    svg.rect(masterleft + 420, 50, 300, 50, 10, 10, {id: 'options', fill: 'darkslategray', stroke: 'white', strokeWidth: 1, onclick:'createDialog()', cursor:'pointer'});
+    svg.text(masterleft + 450, 80, "Diagram Table & Options", {fontWeight: 'bold', fontSize: '18.5', fill: 'white',onclick:'createDialog()', cursor:'pointer'});
+
+    $('#optionsPanel').attr('width', '800px');
+
     svg.line(LINEGROUP, masterleft - 100, 220, masterleft + 120, 220, {id: 'mel', stroke: 'black'});
     svg.line(LINEGROUP, masterleft + 25, 220, masterleft + 25, top, {id: 'mei', stroke: 'black'});
     svg.line(LINEGROUP, masterleft + 25, 220, masterleft + 25, top, {id: 'grmei', stroke: 'black'});
@@ -451,7 +459,7 @@ function xmlload() {
             var id;
             if (item.id == "" || item.id == null)id = key + rand;
             else id = item.id;
-            ChildrenArray.push(['MALE', id, 'me']);
+            ChildrenArray.push(['MALE', id, key, 'me']);
             var t = {"id": [item.id], "name": [item.name], "gender": [item.gender], key: [key]};
             NAMEARRAY.push(t);
         }
@@ -493,9 +501,11 @@ function xmlload() {
     }
 
     //Are children involved?
-    if (ChildrenArray.length > 0) CHILDREN_LOAD(p1, p2, pid);
+    //if (ChildrenArray.length > 0) CHILDREN_LOAD();
+    if (ChildrenArray.length > 0) CHILDREN_MAIN_LOAD();
     //Are grandchildren involved?
     //if (GrandChildrenArray.length > 0) GRANDCHILDREN_LOAD(p1, p2, pid);
+    if (GrandChildrenArray.length > 0) GRANDCHILDREN_MAIN_LOAD();
 
 
     //Begin process
@@ -679,10 +689,10 @@ function xmlload() {
         var k = svg.group({stroke: 'red', strokeWidth: 2, 'z-index': '9999'});
 
         //Index keys
-        svg.rect(30, 20 + pos, 400, 100, 1, 1, {
+        svg.rect(30, 40 + pos, 980, 100, 1, 1, {
             id: 'panel',
             fill: 'none',
-            stroke: 'silver',
+            stroke: 'slategray',
             strokeWidth: 1
         });
 
@@ -690,14 +700,23 @@ function xmlload() {
         var krr = 40;
 
         //Live
-        svg.text(100, 10 + pos, "Alive", {fontWeight: 'bold', fontSize: '16.5', fill: 'gray'});
-        svg.circle(75, 75 + pos, kcr, {id: 'kfd', fill: gencolor, stroke: 'red', strokeWidth: 2});
-        svg.rect(120, 54 + pos, krr, krr, 1, 1, {id: 'kma', fill: gencolor, stroke: 'red', strokeWidth: 3});
+        svg.text(100, 30 + pos, "Alive", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray'});
+        svg.circle(75, 95 + pos, kcr, {id: 'kfd', fill: gencolor, stroke: 'red', strokeWidth: 2});
+        svg.rect(120, 74 + pos, krr, krr, 1, 1, {id: 'kma', fill: gencolor, stroke: 'red', strokeWidth: 3});
 
         //Deceased
-        svg.text(270, 10 + pos, "Deceased", {fontWeight: 'bold', fontSize: '16.5', fill: 'gray'});
-        svg.circle(270, 75 + pos, kcr, {id: 'kf', fill: gencolor, stroke: 'red', strokeWidth: 2});
-        svg.rect(325, 53 + pos, krr, krr, 1, 1, {id: 'kmd', fill: gencolor, stroke: 'red', strokeWidth: 2});
+        svg.text(270, 30 + pos, "Deceased", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray'});
+        svg.circle(270, 95 + pos, kcr, {id: 'kf', fill: gencolor, stroke: 'red', strokeWidth: 2});
+        svg.rect(325, 74 + pos, krr, krr, 1, 1, {id: 'kmd', fill: gencolor, stroke: 'red', strokeWidth: 2});
+
+        svg.text(470, 30 + pos, "A non-blood relative or relative through marriage.", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray'});
+        svg.rect(570, 74 + pos, krr, krr, 1, 1, {id: 'exw', fill: gencolor, stroke: 'red', strokeWidth: 2});
+        svg.circle(690, 95 + pos, kcr, {id: 'ex', fill: 'white', stroke: 'red', strokeWidth: 2});
+        svg.line(LINEGROUP, 570,  95 + pos, 690,  95 + pos, {id: 'xl', stroke: 'black', strokeWidth: 3});
+
+        svg.circle(820, 95 + pos, kcr, {id: 'ex', fill: gencolor, stroke: 'red', strokeWidth: 2});
+        svg.rect(900, 74 + pos, krr, krr, 1, 1, {id: 'exw', fill: 'white', stroke: 'red', strokeWidth: 2});
+        svg.line(LINEGROUP, 820,  95 + pos, 900,  95 + pos, {id: 'xl', stroke: 'black', strokeWidth: 3});
 
         //Set live status
         circlestatus('kf');
@@ -1028,13 +1047,13 @@ function xmlload() {
                     if (temp.length >= 2) {
                         name1 = temp[0].substr(0, 5);
                         name2 = temp[1].substr(0, 5);
-                        svg.text(p1, p2, name1.toString(), {fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
-                        svg.text(p1, p2 + 20, name2.toString(), {fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
+                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
+                        svg.text(p1, p2 + 20, name2.toString(), {id:'name2_'+ID, fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
                     }
                     else {
                         name1 = temp[0].substr(0, 5);
                         name2 = "";
-                        svg.text(p1, p2, name1.toString(), {fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
+                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
                     }
                 }
                 else {
@@ -1046,13 +1065,13 @@ function xmlload() {
                     if (temp.length >= 2) {
                         name1 = temp[0].substr(0, 5);
                         name2 = temp[1].substr(0, 5);
-                        svg.text(p1, p2, name1.toString(), {fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
-                        svg.text(p1, p2 + 20, name2.toString(), {fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
+                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
+                        svg.text(p1, p2 + 20, name2.toString(), {id:'name2_'+ID, fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
                     }
                     else {
                         name1 = temp[0].substr(0, 5);
                         name2 = "";
-                        svg.text(p1, p2, name1.toString(), {fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
+                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
                     }
                 }
             }
@@ -1292,11 +1311,51 @@ function xmlload() {
         });
     }
 
+    //Parse Maternals Load
+    function CHILDREN_MAIN_LOAD() {
+        var pid, mid, G, midgen;
+        var PIDS = new Array();
+        var MIDS = new Array();
+        var PID, PIDGEN, MID, MIDGEN, DATAKEY;
+        var DATA = new Array();
+
+        //NephewArray.sort(SortByName);
+        var pnr = 0;
+        var mnr = 0;
+        var ptid = "";
+        var mtid = "";
+        //alert ("MaternalHalfSiblingsArray ARRAY Information:" + JSON.stringify(MaternalHalfSiblingsArray, null, 2) );
+        if(ChildrenArray.length==0)return;
+        for (t = 0; t < ChildrenArray.length; t++) {
+            var midgen = ChildrenArray[t][0];
+            var mid = ChildrenArray[t][1];
+            var id = ChildrenArray[t][2];
+            var pid = ChildrenArray[t][3];
+
+            //Do candidate have children
+            var cnr = COUNT_KIDS(GrandChildrenArray, mid);
+
+            var side = id.substring(0, 1);
+            var key = id.substring(id.indexOf('_')+1, id.length);
+            DATA.push({"id": id, "value": [midgen, mid, 'me'], "nr": pnr, "cnr": cnr});
+            pnr = pnr + 1;
+        }
+        //SORT
+        DATA = DATA.sort(SortByNr);
+        CHILDREN_LOAD(DATA);
+    }
+
+
     //Collect the children
-    function CHILDREN_LOAD(d1, d2, pid) {
+    function CHILDREN_LOAD(ARRAY) {
         var MIDGEN = $('#me').attr("class");
-        //Load my spouce
-        LOAD_SPOUCE_MATERNAL('me', $('#me').attr("class"))
+        var xl = new Array();
+        var P1 = new Array();
+
+        var TOTALKIDS = COUNT_FAMILY_KIDS(GrandChildrenArray);
+        var TOTALMYKIDS = COUNT_FAMILY_KIDS(ChildrenArray);
+
+        //alert ("CHILDER ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
         if (MIDGEN.toUpperCase() == "MALE")svg.line(LINEGROUP, masterx + 65, mastery + 25, masterx + 65, mastery + 130, {
             id: 'childs',
@@ -1304,50 +1363,547 @@ function xmlload() {
         });
         else svg.line(LINEGROUP, masterx + 45, mastery + 20, masterx + 45, mastery + 130, {id: 'childs', stroke: 'black'});
 
-        //Prevent too many hooks
-        if (ChildrenArray.length > 1) {
+        //alert ("CHILDER ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
-            $.each(ChildrenArray, function (key, value) {
-                var temp = "";
-                var id = "";
-                //for (var item in value) {
-                var MIDGEN = value[0];
-                id = value[1];
-                if (id == "" || id == null) id = 'chl_' + key;
-                if (key == 0) p1 = parseInt(masterx);
-                else p1 = parseInt(masterx) + 20 + (parseInt(key) * 60);
+        if (ARRAY.length > 0) {
+            for (var p in ARRAY) {
+                var DATAKEY = ARRAY[p].id;
+                var CNR = ARRAY[p].cnr;
+                var MIDGEN = ARRAY[p].value[0];
+                var MID = ARRAY[p].value[1];
+                var PID = ARRAY[p].value[2];
+                var PIDGEN = $('#' + PID).attr('class').toUpperCase();
+                var p1temp = new Array();
 
-                if (MIDGEN == 'FEMALE') {svg.circle(p1 + 50, Level4F, cr, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
-                else if (MIDGEN == 'MALE') {svg.rect(p1 + 25, Level4M, rr, rr, 1, 1, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-            });
+
+
+                if (p == 0) {
+                    var DATAKEY = ARRAY[p].id;
+                    var ps = CHILD_START_LINE(PIDGEN,PID);
+                    var p1 = ps[0];
+                    //SINGLE_RIGHT_CORNER_CONNECTOR(PID, MID, MIDGEN, PIDGEN, Level3M, p1);
+
+                    p1temp.push(MIDGEN, MID, p1, PID, CNR);
+                    P1.push(p1temp);
+
+                    //single_straight_parent_child_connection(MIDGEN,Level3M,p1,'tess')
+
+
+                    if (MIDGEN == 'MALE') {
+                        svg.rect(p1+25, Level4M, rr, rr, 1, 1, {
+                            id: MID,
+                            datakey: DATAKEY,
+                            fill: gencolor,
+                            stroke: 'red',
+                            strokeWidth: 2,
+                            class: 'male',
+                            cursor: 'pointer'
+                        });
+                    }
+                    else if (MIDGEN == 'FEMALE') {
+                        svg.circle(p1+45, Level4F, cr, {
+                            id: MID,
+                            datakey: DATAKEY,
+                            fill: gencolor,
+                            stroke: 'red',
+                            strokeWidth: 2,
+                            class: 'female',
+                            cursor: 'pointer'
+                        });
+                    }
+                }
+                //else if (DATAKEY != ARRAY[p].id) {
+                //    var ps;
+                //    var LINE = ARRAY[p].nr;
+                //    DATAKEY = ARRAY[p].id;
+                //
+                //
+                //}
+                else{
+                    var DATAKEY = ARRAY[p].id;
+                    var PREVIOUSGEN = P1[P1.length - 1][0];
+                    var PREVIOUSID = P1[P1.length - 1][1];
+                    var TARGET = P1[P1.length - 1][2];
+                    var PREVIOUSCNR = P1[P1.length - 1][4];
+
+                    //alert(PREVIOUSGEN + "  --  " + PREVIOUSID + " *** " + TARGET + " ^^^ " + PREVIOUSCNR)
+
+                    //if(PREVIOUSCNR==0) var p1 = parseInt(TARGET) + 60;
+                    //else var p1 = parseInt(TARGET) + (parseInt(PREVIOUSCNR) * 80);
+                    //Does the sibling have childern?
+                    if(PREVIOUSCNR==0) var p1 = parseInt(TARGET) + 120;
+                    //else var p1 = parseInt(TARGET) + (parseInt(PREVIOUSCNR) * 40);
+                    else{
+                        //alert(TOTALKIDS + " *** " +PREVIOUSCNR )
+                        if(PREVIOUSCNR==1) var p1 = parseInt(TARGET) + (parseInt(PREVIOUSCNR) * 200);
+                        else if(PREVIOUSCNR>1) var p1 = parseInt(TARGET) + (parseInt(TOTALMYKIDS) * 20) + (parseInt(TOTALKIDS) * 30);
+                        else if(TOTALKIDS>1) var p1 = parseInt(TARGET) + (parseInt(TOTALKIDS) * 30);
+                        //else var p1 = parseInt(TARGET) + (parseInt(TOTALKIDS) * 150)
+                    }
+
+
+
+
+
+                    p1temp.push(MIDGEN, MID, p1, PID, CNR);
+                    P1.push(p1temp);
+
+                    if (MIDGEN == 'MALE') {
+                        svg.rect(p1, Level4M, rr, rr, 1, 1, {
+                            id: MID,
+                            datakey: DATAKEY,
+                            fill: gencolor,
+                            stroke: 'red',
+                            strokeWidth: 2,
+                            class: 'male',
+                            cursor: 'pointer'
+                        });
+                    }
+                    else if (MIDGEN == 'FEMALE') {
+                        svg.circle(p1, Level4F, cr, {
+                            id: MID,
+                            datakey: DATAKEY,
+                            fill: gencolor,
+                            stroke: 'red',
+                            strokeWidth: 2,
+                            class: 'female',
+                            cursor: 'pointer'
+                        });
+                    }
+
+                }
+
+            }
         }
-        else {
-            $.each(ChildrenArray, function (key, value) {
-                var temp = "";
-                var id = "";
-                //for (var item in value) {
-                var MIDGEN = value[0];
-                id = value[1];
-                if (id == "" || id == null) id = 'chl_' + key;
-                if (key == 0) p1 = parseInt(masterx) + 20;
-
-                if (MIDGEN == 'FEMALE') {svg.circle(p1 + 45, Level4F - 20, cr, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
-                else if (MIDGEN == 'MALE') {svg.rect(p1 + 25, Level4M - 20, rr, rr, 1, 1, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-            });
-
-        }
 
 
+//Load my spouce
+        LOAD_SPOUCE_MATERNAL('me', $('#me').attr("class"))
         OBJECTS_CONNECT(ChildrenArray, 'ctest');
+
+            //Prevent too many hooks
+            //if (ChildrenArray.length > 1) {
+            //
+            //    if(GrandChildrenArray.length > 1){
+            //
+            //    }
+            //
+            //    $.each(ChildrenArray, function (key, value) {
+            //        var temp = "";
+            //        var id = "";
+            //        //for (var item in value) {
+            //        var MIDGEN = value[0];
+            //        id = value[1];
+            //        if (id == "" || id == null) id = 'chl_' + key;
+            //        if (key == 0) p1 = parseInt(masterx);
+            //
+            //        else p1 = parseInt(masterx) + 20 + (parseInt(key) * 110);
+            //
+            //        if (MIDGEN == 'FEMALE') {svg.circle(p1 + 50, Level4F, cr, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+            //        else if (MIDGEN == 'MALE') {svg.rect(p1 + 25, Level4M, rr, rr, 1, 1, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+            //    });
+            //}
+            //else {
+            //    $.each(ChildrenArray, function (key, value) {
+            //        var temp = "";
+            //        var id = "";
+            //        //for (var item in value) {
+            //        var MIDGEN = value[0];
+            //        id = value[1];
+            //        if (id == "" || id == null) id = 'chl_' + key;
+            //        if (key == 0) p1 = parseInt(masterx) + 20;
+            //
+            //        if (MIDGEN == 'FEMALE') {svg.circle(p1 + 45, Level4F - 20, cr, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+            //        else if (MIDGEN == 'MALE') {svg.rect(p1 + 25, Level4M - 20, rr, rr, 1, 1, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+            //    });
+            //
+            //}
+
+
+            //OBJECTS_CONNECT(ARRAY, 'ctest');
+        }
+
+
+
+
+
+
+        //Collect the children
+    //function CHILDREN_LOADXX(ARRAY) {
+    //    var PID, PIDGEN, MID, MIDGEN, DATAKEY, lx, p1;
+    //    var xl = new Array();
+    //    var P1 = new Array();
+    //    alert ("CHILDER ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
+    //
+    //    if (ARRAY.length > 0) {
+    //        p2 = mastery;
+    //        //$.each(ARRAY, function (key, value) {
+    //        for (var p in ARRAY) {
+    //            var DATAKEY = ARRAY[p].id;
+    //            var CNR = ARRAY[p].cnr;
+    //            var MIDGEN = ARRAY[p].value[0];
+    //            var MID = ARRAY[p].value[1];
+    //            var PID = ARRAY[p].value[2];
+    //            var PIDGEN = $('#' + PID).attr('class').toUpperCase();
+    //            var p1temp = new Array();
+    //            //var datakey = value[2];
+    //
+    //
+    //            //Parse array and build diagram
+    //            if (p == 0) {
+    //                DATAKEY = ARRAY[p].id;
+    //                //if (SistersArray.length > 1) {
+    //                //    var d = SistersArray[SistersArray.length - 1];
+    //                //    var lx = $('#' + d[1]).attr('cx');
+    //                //    if(MIDGEN=='MALE') p1 = parseInt(lx) + 200;
+    //                //    else  p1 = parseInt(lx) + 145;
+    //                //    SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
+    //                //}
+    //                //else {
+    //                    //p1 = parseInt($('#' + PID).attr('x')) - lx;
+    //                    var p1 = SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level5M, p1);
+    //                    //p1 = ps[0] + 80;
+    //                //}
+    //
+    //                //Get previous object coordninates
+    //                p1temp.push(MIDGEN, MID, p1, PID, CNR);
+    //                P1.push(p1temp);
+    //                if (MIDGEN == 'MALE') {
+    //                    svg.rect(p1, Level3M, rr, rr, 1, 1, {
+    //                        id: MID,
+    //                        datakey: DATAKEY,
+    //                        fill: gencolor,
+    //                        stroke: 'red',
+    //                        strokeWidth: 2,
+    //                        class: 'male',
+    //                        cursor: 'pointer'
+    //                    });
+    //                }
+    //                else if (MIDGEN == 'FEMALE') {
+    //                    svg.circle(p1, Level3F, cr, {
+    //                        id: MID,
+    //                        datakey: DATAKEY,
+    //                        fill: gencolor,
+    //                        stroke: 'red',
+    //                        strokeWidth: 2,
+    //                        class: 'female',
+    //                        cursor: 'pointer'
+    //                    });
+    //                }
+    //
+    //            }
+    //            else {
+    //                DATAKEY = ARRAY[p].id;
+    //                var PREVIOUSGEN = P1[P1.length - 1][0];
+    //                var PREVIOUSID = P1[P1.length - 1][1];
+    //                var TARGET = P1[P1.length - 1][2];
+    //                var PREVIOUSCNR = P1[P1.length - 1][3];
+    //                if(PREVIOUSCNR==0) var p1 = parseInt(TARGET) + 60;
+    //                else var p1 = parseInt(TARGET) + (parseInt(PREVIOUSCNR) * 80);
+    //
+    //
+    //                //var ps = RIGHT_HALF_SIBLINGS_GEN(PREVIOUSGEN, PREVIOUSID, MIDGEN);
+    //                //p1 = ps[0];
+    //
+    //                p1temp.push(MIDGEN, MID, p1);
+    //                P1.push(p1temp);
+    //                if (MIDGEN == 'MALE') {
+    //                    svg.rect(p1, Level3M, rr, rr, 1, 1, {
+    //                        id: MID,
+    //                        datakey: DATAKEY,
+    //                        fill: gencolor,
+    //                        stroke: 'red',
+    //                        strokeWidth: 2,
+    //                        class: 'male',
+    //                        cursor: 'pointer'
+    //                    });
+    //                }
+    //                else if (MIDGEN == 'FEMALE') {
+    //                    svg.circle(p1, Level3F, cr, {
+    //                        id: MID,
+    //                        datakey: DATAKEY,
+    //                        fill: gencolor,
+    //                        stroke: 'red',
+    //                        strokeWidth: 2,
+    //                        class: 'female',
+    //                        cursor: 'pointer'
+    //                    });
+    //                }
+    //            }
+    //
+    //        }
+    //    }
+    //
+    //
+    //    STACK_CONNECTOR(ARRAY,'ChildArr');
+    //
+    //}
+
+
+    //Collect the children
+    //function CHILDREN_LOADXX(ARRAY) {
+    //    var MIDGEN = $('#me').attr("class");
+    //    //Load my spouce
+    //    LOAD_SPOUCE_MATERNAL('me', $('#me').attr("class"))
+    //
+    //    alert ("CHILDER ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
+    //
+    //    if (MIDGEN.toUpperCase() == "MALE")svg.line(LINEGROUP, masterx + 65, mastery + 25, masterx + 65, mastery + 130, {
+    //        id: 'childs',
+    //        stroke: 'black'
+    //    });
+    //    else svg.line(LINEGROUP, masterx + 45, mastery + 20, masterx + 45, mastery + 130, {id: 'childs', stroke: 'black'});
+    //
+    //    //Prevent too many hooks
+    //    if (ChildrenArray.length > 1) {
+    //
+    //        if(GrandChildrenArray.length > 1){
+    //
+    //        }
+    //
+    //        $.each(ChildrenArray, function (key, value) {
+    //            var temp = "";
+    //            var id = "";
+    //            //for (var item in value) {
+    //            var MIDGEN = value[0];
+    //            id = value[1];
+    //            if (id == "" || id == null) id = 'chl_' + key;
+    //            if (key == 0) p1 = parseInt(masterx);
+    //            else p1 = parseInt(masterx) + 20 + (parseInt(key) * 110);
+    //
+    //            if (MIDGEN == 'FEMALE') {svg.circle(p1 + 50, Level4F, cr, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+    //            else if (MIDGEN == 'MALE') {svg.rect(p1 + 25, Level4M, rr, rr, 1, 1, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+    //        });
+    //    }
+    //    else {
+    //        $.each(ChildrenArray, function (key, value) {
+    //            var temp = "";
+    //            var id = "";
+    //            //for (var item in value) {
+    //            var MIDGEN = value[0];
+    //            id = value[1];
+    //            if (id == "" || id == null) id = 'chl_' + key;
+    //            if (key == 0) p1 = parseInt(masterx) + 20;
+    //
+    //            if (MIDGEN == 'FEMALE') {svg.circle(p1 + 45, Level4F - 20, cr, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+    //            else if (MIDGEN == 'MALE') {svg.rect(p1 + 25, Level4M - 20, rr, rr, 1, 1, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+    //        });
+    //
+    //    }
+    //
+    //
+    //    OBJECTS_CONNECT(ChildrenArray, 'ctest');
+    //}
+
+    //Load paternal cousins
+    function GRANDCHILDREN_MAIN_LOAD() {
+
+        var lx = 0;
+        var ly = 0;
+        var pid, mid, G, midgen;
+        var xl = new Array();
+        var start = new Array();
+        var PIDS = new Array();
+        var MIDS = new Array();
+        var PID, PIDGEN, MID, MIDGEN, DATAKEY;
+        var P1 = new Array();
+        var ptemp = new Array();
+        var mtemp = new Array();
+
+        GrandChildrenArray = GrandChildrenArray.sort(SortById);
+        var nr = 0;
+        var id = "";
+        for (t = 0; t < GrandChildrenArray.length; t++) {
+            var parentid = GrandChildrenArray[t][2];
+            var ckey = GrandChildrenArray[t][3];
+            var key = $('#' + parentid).attr('datakey');
+            if (id != key)nr = 0;
+            var id = key;
+            var midgen = GrandChildrenArray[t][0];
+            var mid = GrandChildrenArray[t][1];
+            var pid = GrandChildrenArray[t][2];
+            var side = $('#' + pid).attr('datakey').substring(0, 1);
+            //if (side == 'M') {
+                mtemp.push({"id": id, "value": [midgen, mid, pid], "nr": nr})
+                nr = nr + 1;
+            //}
+        }
+        //mtemp.sort(SortById);
+        GRANDCHILDREN_LOAD(mtemp);
+
     }
 
+
+
+    function GRANDCHILDREN_LOAD(ARRAY) {
+        var PID, PIDGEN, MID, MIDGEN, DATAKEY;
+        var P1 = new Array();
+        var idarray = new Array();
+        var DATAKEY = null;
+        var objectsarray = new Array();
+
+        //alert ("GRANDCHILDREN_LOAD ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
+
+        for (var p in ARRAY) {
+            var idarray = new Array();
+            var MIDGEN = ARRAY[p].value[0];
+            var PID = ARRAY[p].value[2];
+            var MID = ARRAY[p].value[1];
+            var PIDGEN = $('#' + PID).attr('class').toUpperCase();
+            var p1temp = new Array();
+
+            if (p == 0) {
+                DATAKEY = ARRAY[p].id;
+                var ps = RIGHT_START_COUSINS_GEN(PIDGEN, PID, MIDGEN);
+                p1 = ps[0];
+                //Get previous object coordninates
+                p1temp.push(MIDGEN, MID, p1, PID);
+                P1.push(p1temp);
+                //Connect to parent
+                single_right_parent_child_connector(PID, MID, MIDGEN, PIDGEN, Level5M);
+                if (MIDGEN == 'MALE') {
+                    svg.rect(p1, Level5M, rr, rr, 1, 1, {
+                        id: MID,
+                        fill: gencolor,
+                        stroke: 'red',
+                        strokeWidth: 2,
+                        class: 'male',
+                        cursor: 'pointer'
+                    });
+                }
+                else if (MIDGEN == 'FEMALE') {
+                    svg.circle(p1, Level5F, cr, {
+                        id: MID,
+                        fill: gencolor,
+                        stroke: 'red',
+                        strokeWidth: 2,
+                        class: 'female',
+                        cursor: 'pointer'
+                    });
+                }
+                LOAD_SPOUCE_MATERNAL(PID, PIDGEN);
+
+            }
+            //The Next Parent is Loaded
+            else if (DATAKEY != ARRAY[p].id) {
+                var ps;
+                var LINE = ARRAY[p].nr;
+                DATAKEY = ARRAY[p].id;
+                var PREVMID = ARRAY[p].id;
+                var PREVIOUSGEN = P1[P1.length - 1][0];
+                var PREVIOUSID = P1[P1.length - 1][1];
+                //Begin new elemnt
+                if (LINE == 0) {
+                    ps = RIGHT_START_COUSINS_GEN(PIDGEN, PID, MIDGEN);
+                    p1 = ps[0];
+                    p1temp.push(MIDGEN, MID, p1, PID);
+                    P1.push(p1temp);
+                    //Connect to parent
+                    single_right_parent_child_connector(PID, MID, MIDGEN, PIDGEN, Level5M);
+                    if (MIDGEN == 'MALE') {
+                        svg.rect(p1, Level5M, rr, rr, 1, 1, {
+                            id: MID,
+                            fill: gencolor,
+                            stroke: 'red',
+                            strokeWidth: 2,
+                            class: 'male',
+                            cursor: 'pointer'
+                        });
+                    }
+                    else if (MIDGEN == 'FEMALE') {
+                        svg.circle(p1, Level5F, cr, {
+                            id: MID,
+                            fill: gencolor,
+                            stroke: 'red',
+                            strokeWidth: 2,
+                            class: 'female',
+                            cursor: 'pointer'
+                        });
+                    }
+                }
+                else {
+                    ps = RIGHT_COUSINS_GEN(PREVIOUSGEN, PREVIOUSID, MIDGEN);
+                    p1 = ps[0];
+                    p1temp.push(MIDGEN, MID, p1, PID);
+                    P1.push(p1temp);
+                    //Connect to parent
+                    right_parent_child_connector(PID, MID, MIDGEN, PIDGEN, Level5M);
+                    if (MIDGEN == 'MALE') {
+                        svg.rect(p1, Level5M, rr, rr, 1, 1, {
+                            id: MID,
+                            fill: gencolor,
+                            stroke: 'red',
+                            strokeWidth: 2,
+                            class: 'male',
+                            cursor: 'pointer'
+                        });
+                    }
+                    else if (MIDGEN == 'FEMALE') {
+                        svg.circle(p1, Level5F, cr, {
+                            id: MID,
+                            fill: gencolor,
+                            stroke: 'red',
+                            strokeWidth: 2,
+                            class: 'female',
+                            cursor: 'pointer'
+                        });
+                    }
+                }
+
+                LOAD_SPOUCE_MATERNAL(PID, PIDGEN);
+
+            }
+            else {
+                DATAKEY = ARRAY[p].id;
+                var PREVIOUSGEN = P1[P1.length - 1][0];
+                var PREVIOUSID = P1[P1.length - 1][1];
+                var ps = RIGHT_COUSINS_GEN(PREVIOUSGEN, PREVIOUSID, MIDGEN);
+                p1 = ps[0];
+
+
+                p1temp.push(MIDGEN, MID, p1, PID);
+                P1.push(p1temp);
+
+                if (MIDGEN == 'MALE') {
+                    svg.rect(p1, Level5M, rr, rr, 1, 1, {
+                        id: MID,
+                        fill: gencolor,
+                        stroke: 'red',
+                        strokeWidth: 2,
+                        class: 'male',
+                        cursor: 'pointer'
+                    });
+                }
+                else if (MIDGEN == 'FEMALE') {
+                    svg.circle(p1, Level5F, cr, {
+                        id: MID,
+                        fill: gencolor,
+                        stroke: 'red',
+                        strokeWidth: 2,
+                        class: 'female',
+                        cursor: 'pointer'
+                    });
+                }
+            }
+        }
+
+
+        CONNECTOR(ARRAY,'TEST');
+
+
+    }
+
+
     //Collect the grandchildren
-    function GRANDCHILDREN_LOAD(d1, d2, pid) {
+    function GRANDCHILDREN_LOADXX(d1, d2, pid) {
         var MIDGEN = $('#me').attr("class");
         ////Load my spouce
         //LOAD_SPOUCE_MATERNAL('me', $('#me').attr("class"))
 
+        alert ("GrandChildrenArray ARRAY Information:" + JSON.stringify(GrandChildrenArray, null, 2) );
 
+
+        if(GrandChildrenArray.length==0) return;
         //Prevent too many hooks
         if (GrandChildrenArray.length > 1) {
 
@@ -1359,26 +1915,27 @@ function xmlload() {
                 var MID = value[1];
                 var PID = value[2];
                 if (MID == "" || MID == null) MID = 'gchl_' + key;
-
                 //Load my spouce
                 LOAD_SPOUCE_MATERNAL(PID, $('#'+PID).attr("class"));
-
-
                 var ps = SPOTLINE(PID);
                 var p1 = ps[0];
 
-                //if (key == 0) p1 = parseInt(masterx);
-                //else p1 = parseInt(masterx) + 20 + (parseInt(key) * 60);
-                if (key == 0) {
-                    if (MIDGEN.toUpperCase() == "MALE")svg.line(LINEGROUP, p1 + 45, Level4M + 0, p1 + 45, Level4M + 130, {
+
+                if(key==0){
+                    if (MIDGEN.toUpperCase() == "MALE")svg.line(LINEGROUP, p1 + 45, Level4M + 20, p1 + 45, Level4M + 120, {
                         id: 'gchilds',
-                        stroke: 'black'
+                        stroke: 'black',strokeWidth: 3
                     });
-                    else svg.line(LINEGROUP, p1 + 45, Level4F + 20, p1 + 45, Level4F + 130, {
+                    else svg.line(LINEGROUP, p1 + 45, Level4F + 0, p1 + 45, Level4F + 120, {
                         id: 'gchilds',
-                        stroke: 'black'
+                        stroke: 'black',strokeWidth: 3
                     });
                 }
+                ////else{
+                //    alert(key)
+                ////}
+
+
                 if (key == 0) p1 = parseInt(p1);
                 else p1 = parseInt(p1) - 20 - (parseInt(key) * 60);
 
@@ -1396,19 +1953,19 @@ function xmlload() {
                 var PID = value[2];
                 var PIDGEN = $('#'+PID).attr("class");
                 if (MID == "" || MID == null) MID = 'gchl_' + key;
-
                 //Load my spouce
-                LOAD_SPOUCE_MATERNAL(PID, $('#'+PID).attr("class"));
+                LOAD_SPOUCE_MATERNAL(PID, PIDGEN);
+
 
 
                 var ps = SPOTLINE(PID);
                 var p1 = ps[0];
 
-                if (MIDGEN.toUpperCase() == "MALE")svg.line(LINEGROUP, p1 + 45, Level4M + 0, p1 + 45, Level4M + 130, {
+                if (MIDGEN.toUpperCase() == "MALE")svg.line(LINEGROUP, p1 + 45, Level4M + 20, p1 + 45, Level4M + 120, {
                     id: 'gchilds',
-                    stroke: 'black'
+                    stroke: 'black',strokeWidth: 3
                 });
-                else svg.line(LINEGROUP, p1 + 45, Level4F + 20, p1 + 45, Level4F + 130, {id: 'gchilds', stroke: 'black'});
+                else svg.line(LINEGROUP, p1 + 45, Level4F + 25, p1 + 45, Level4F + 120, {id: 'gchilds', stroke: 'black',strokeWidth: 3});
                 //single_straight_parent_child_connection(MIDGEN,Level5M,p1,'grchild')
 
                 //if(MIDGEN=='MALE') sigle_strait_parent_child_connection(PIDGEN,Level5M,p1,'gchild');
@@ -2454,6 +3011,19 @@ function xmlload() {
         return [p1, p2]
     }
 
+    function CHILD_START_LINE(PARENTGEN, ID) {
+        var p1, p2;
+        if (PARENTGEN == 'MALE') {
+            p1 = parseInt($('#' + ID).attr('x')) + 20;
+            p2 = parseInt($('#' + ID).attr('y'));
+        }
+        else if (PARENTGEN == 'FEMALE') {
+            p1 = parseInt($('#' + ID).attr('cx'));
+            p2 = parseInt($('#' + ID).attr('cy')) - 20;
+        }
+        return [p1, p2]
+    }
+
     function START_PAT_GENLINE(PARENTGEN, PARENTID) {
         var p1, p2;
 
@@ -2665,20 +3235,7 @@ function xmlload() {
         LOAD_HALF_PATERNAL_OBJECTS(PATERNALDATA);
     }
 
-    function SPOTLINE(ID) {
-        var GEN = $('#' + ID).attr("class").toUpperCase();
 
-        var p1, p2;
-        if (GEN == 'MALE') {
-            p1 = parseInt($('#' + ID).attr('x')) + 20;
-            p2 = parseInt($('#' + ID).attr('y'));
-        }
-        else if (GEN == 'FEMALE') {
-            p1 = parseInt($('#' + ID).attr('cx'));
-            p2 = parseInt($('#' + ID).attr('cy')) - 20;
-        }
-        return [p1,p2]
-    }
 
     //Paternal Half Broters
     function LOAD_HALF_PATERNAL_OBJECTS(ARRAY) {
@@ -2960,6 +3517,9 @@ function xmlload() {
         var xl = new Array();
 
         //alert ("SistersArray ARRAY Information:" + JSON.stringify(SistersArray, null, 2) );
+        //Are any family children around
+        var TOTALGRANDKIDS = COUNT_FAMILY_KIDS(GrandChildrenArray);
+        var TOTALMYKIDS = COUNT_FAMILY_KIDS(ChildrenArray);
 
         if(SistersArray.length==0)return;
 
@@ -2978,8 +3538,8 @@ function xmlload() {
                 }
                 else if (ChildrenArray.length > 0) {
                     var d = ChildrenArray[ChildrenArray.length - 1];
-                    if (d[0] == 'MALE')lx = parseInt($('#' + d[1]).attr('x'));
-                    else lx = parseInt($('#' + d[1]).attr('cx'));
+                    if (d[0] == 'MALE')lx = parseInt($('#' + d[1]).attr('x'))+ 80;
+                    else lx = parseInt($('#' + d[1]).attr('cx'))+ 80;
                 }
 
                 if (SistersArray.length > 1) {
@@ -3016,7 +3576,11 @@ function xmlload() {
                 else {
                     var PIDGEN = $('#' + PID).attr('class').toUpperCase();
                     if (lx > 0) {
-                        p1 =  parseInt(lx) + 160;
+                        if(TOTALGRANDKIDS>0){
+                            if(TOTALMYKIDS>1) p1 = parseInt(lx) +  (parseInt(TOTALMYKIDS) * 30) + (parseInt(TOTALGRANDKIDS) * 60);
+                            else p1 = parseInt(lx) + (parseInt(TOTALGRANDKIDS) * 60);
+                        }
+                        else {p1 =  parseInt(lx) + 160}
                     }
                     else{
                         if (PIDGEN == 'MALE') p1 = parseInt($('#' + PID).attr('x')) + 100;
@@ -3063,6 +3627,22 @@ function xmlload() {
         xl.push([[p1, p2 - 20], [mx, POLYLINE3]]);
         //Load the polyline
         svg.polyline(xl, {id: 'Td_' + pid, fill: 'none', stroke: 'black', strokeWidth: 3});
+    }
+
+    //Get direct X Y coordinates
+    function SPOTLINE(ID) {
+        var GEN = $('#' + ID).attr("class").toUpperCase();
+
+        var p1, p2;
+        if (GEN == 'MALE') {
+            p1 = parseInt($('#' + ID).attr('x')) + 20;
+            p2 = parseInt($('#' + ID).attr('y'));
+        }
+        else if (GEN == 'FEMALE') {
+            p1 = parseInt($('#' + ID).attr('cx'));
+            p2 = parseInt($('#' + ID).attr('cy')) - 20;
+        }
+        return [p1,p2]
     }
 
     //Sort the array values by female / male
@@ -3687,6 +4267,19 @@ function xmlload() {
         return amt;
     }
 
+    //Check any array condition if has children
+    function COUNT_FAMILY_KIDS(ARRAY) {
+        var res = -1;
+        var amt=0;
+        $.each(ARRAY, function (k, data) {
+            if (data[2]) {
+                amt = parseInt(amt) + 1;
+            }
+        });
+
+        return amt;
+    }
+
     function COUNT_IN_ARRAY(ARRAY, ID) {
         var res = -1;
         var count = 0;
@@ -3783,7 +4376,7 @@ function xmlload() {
         return;
     }
 
-//Load paternal cousins
+    //Load paternal cousins
     function MATERNAL_COUSINS_LOAD() {
 
         var lx = 0;
@@ -3801,6 +4394,9 @@ function xmlload() {
         MaternalCousinArray = MaternalCousinArray.sort(SortById);
         var nr = 0;
         var id = "";
+
+
+
         for (t = 0; t < MaternalCousinArray.length; t++) {
             var parentid = MaternalCousinArray[t][2];
             var ckey = MaternalCousinArray[t][3];
@@ -4702,3 +5298,172 @@ function BMI_CALCULATE(W,H) {
     }
     return Math.floor(finalBmi);
 }
+
+
+function createDialog() {
+
+    //alert($optdialog)
+
+
+    if($("#optionsPanel").dialog( "isOpen" ) == true) {
+      $("#optionsPanel").dialog( "open" );
+
+    }
+    else {
+
+        var array = new Array();
+        array.push("<option value='0' selected></option>")
+
+        $.each(personal_information, function (key, item) {
+            if (typeof item.id != 'undefined') {
+                if (item['Health History']) {
+                    var health = new Array();
+                    health = item['Health History'];
+                    $.each(health, function (k, data) {
+                        var disname = data['Disease Name'];
+                        var detdisname = data['Detailed Disease Name'];
+                        var temp = "<option id=" + +" value=" + disname + ">" + detdisname + "</option>"
+                        array.push(temp)
+                    });
+                }
+            }
+        });
+
+        var $optdialog = $("<div id='optionsPanel' width='800px' class='option_dialog' style='width:800px;'><p>"
+        + "You can view, save or print your family health history to share with your health care worker. They can assess your risk for certain diseases, and develop disease prevention strategies that are right for you. You can also share the table with other family members to your your family's disease history. You can change what is shown in the table yourself by selecting from the options below. Please select from the options below what you would like to show on your table, and then press: Update Report."
+        + "<table>"
+        + "<tr>"
+        + "<td>"
+        + "<label for='diseaseopts'>Select a disease or condition to highlight in the table  </label>"
+        + "<select id='diseaseopts' onchange='DiseaseDna()'>>"
+        + array.toString()
+        + "<option value='one'></option>"
+        + "</select>"
+        + "</td>"
+        + "</tr>"
+        + "<tr>"
+        + "<td>"
+        + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfo()' checked />Show my personal information in the report (such as Date of Birth, Height, or Weight)<br />"
+        + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfo()' checked />Show names of family members in the report<br />"
+        + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfo()' checked/>Show drawing (the tree diagram of your family's health history)<br />"
+        + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfo()' checked/>Show table (your family's health history displayed as a listing table)<br />"
+
+        + "</td>"
+        + "</tr></table>"
+
+
+        + "</p></div>").dialog({
+            width: 900,
+            title: 'Diagram & Table Options',
+            close: function (ev, ui) {
+                ClearDna();
+                $(this).empty();
+                $(this).dialog('destroy').remove();
+            }
+            //open: function(event, ui) { $('#family_pedigree').bind('clickoutside', function(){ ClearDna(); }); }
+        });
+
+        //Reset All to Original
+        ResetInfo();
+
+        return $optdialog
+    }
+
+}
+
+function ClearDna(){
+    $.each(personal_information, function (key, item) {
+        var ID = item.id;
+        if (typeof ID != 'undefined') {
+            $('#'+ID).attr({fill: 'silver',stroke: 'red'});
+        }
+    });
+}
+
+function ClearNames(comp){
+    if(comp=='hide') {
+        $.each(personal_information, function (key, item) {
+            var ID = item.id;
+            var name1 = 'name1_' + ID;
+            var name2 = 'name2_' + ID;
+            if (typeof ID != 'undefined') {
+                $('#' + name1).hide();
+                $('#' + name2).hide();
+            }
+        });
+    }
+    else{
+        $.each(personal_information, function (key, item) {
+            var ID = item.id;
+            var name1 = 'name1_' + ID;
+            var name2 = 'name2_' + ID;
+            if (typeof ID != 'undefined') {
+                $('#' + name1).show();
+                $('#' + name2).show();
+            }
+        });
+    }
+}
+
+function DiseaseDna(){
+
+    ClearDna();
+
+    var selectBox = document.getElementById("diseaseopts");
+    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+    $.each(personal_information, function (key, item) {
+        var ID = item.id;
+        if(typeof ID!='undefined'){
+            if(item['Health History']){
+                var health = new Array();
+                health = item['Health History'];
+                $.each(health, function (k, data) {
+                    var disname = data['Detailed Disease Name'];
+
+                    if(selectedValue == disname){
+                        $('#'+ID).attr({fill: 'yellow',stroke: 'black'});
+
+                    }
+                });
+            }
+        }
+    });
+
+}
+
+function HideInfo(){
+
+    if(document.getElementById("bmi").checked == true) $('#bmi_table').show();
+    else if(document.getElementById("bmi").checked == false) $('#bmi_table').hide();
+
+    if(document.getElementById("names").checked == true) ClearNames('show');
+    else if(document.getElementById("names").checked == false) ClearNames('hide');
+
+    if(document.getElementById("diagram").checked == true) {
+        $('#svgframe').show();
+        $('#downoptions').hide();
+    }
+    else if(document.getElementById("diagram").checked == false) {
+        $('#svgframe').hide();
+        $('#downoptions').show();
+    }
+
+    if(document.getElementById("table").checked == true) $('#health_table').show();
+    else if(document.getElementById("table").checked == false) $('#health_table').hide();
+
+
+}
+
+function ResetInfo(){
+    $('#bmi_table').show();
+    ClearNames('show');
+    $('#svgframe').show();
+    $('#health_table').show();
+
+
+
+}
+
+
+
+
