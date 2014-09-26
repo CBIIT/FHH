@@ -853,6 +853,23 @@ function bind_personal_cancel_button_action () {
 function bind_family_member_submit_button_action () {
 	
 	$("#addFamilyMemberSubmitButton").on("click", function(){ 
+		$("#family_invalid_gender_warning").remove();
+		var errors=false;
+		// All Family members must have a gender, most already do, but cousins may be an issue.
+		if ($("#family_member_info_form_gender_male").prop('checked') == false &&
+				$("#family_member_info_form_gender_female").prop('checked') == false) {
+			if (!$("#family_invalid_gender_warning").length) {		
+				$('#family_member_info_form_gender_female').next().after(
+				$("<span id='family_invalid_gender_warning'> " + $.t("fhh_js.invalid_gender") + " </span>").css("color","red"));
+			}
+			errors = true;			
+		}
+		if (errors) {
+			alert ($.t("fhh_js.invalid_data_alert"));
+			return false;
+		}
+
+
 		
 		var relationship = "";
 		if (current_relationship == 'father' || current_relationship == 'mother' 
@@ -1274,12 +1291,18 @@ function add_new_family_history_row(table, family_member, relationship, relation
 
 function remove_family_member(relationship_id, confirm_flag) {
 	if (personal_information[relationship_id] == null) return;
-	
+
 	var name = personal_information[relationship_id]['name'];
 	if (name == "") name = relationship_id;
+
 	var should_remove_family_member = true;
-	if (confirm_flag) should_remove_family_member = confirm($.t("fhh_js.remove_q") + " " + name + "?");
+	if (confirm_flag) should_remove_family_member = confirm($.t("fhh_js.remove_q") + " " + name + "?  " + $.t("fhh_js.remove_q2"));
 	if (should_remove_family_member == true) {
+		var children = check_for_children(personal_information[relationship_id].id);
+		for (i=0;i<children.length;i++) {
+			remove_family_member_by_id(children[i]);
+		}
+
 		delete personal_information[relationship_id];
 		$("#" + relationship_id).remove();
 	} else {
@@ -1287,6 +1310,33 @@ function remove_family_member(relationship_id, confirm_flag) {
 	}
 	
 }
+
+function check_for_children(id) {
+	var children = [];
+	$.each(personal_information, function (key, item) {
+    if(key.substring(0,5) == 'niece' 
+    || key.substring(0,6) == 'nephew' 
+    || key.substring(0,15) == 'maternal_cousin' 
+    || key.substring(0,15) == 'paternal_cousin' 
+    || key.substring(0,8) == 'grandson'
+    || key.substring(0,13) == 'granddaughter') {
+      if (item.parent_id == id) {
+      	children.push(item.id);
+      }
+    }
+	});
+	return children;	
+}
+
+function remove_family_member_by_id(id) {
+	$.each(personal_information, function (key, item) {
+		if (item["id"] && item["id"] == id) {
+			delete personal_information[key];
+			$("#" + key).remove();			
+		}	
+	});
+}
+
 
 function update_family_history_row(relationship_id, family_member_information) {
 //	alert ("Rel:" + relationship_id);

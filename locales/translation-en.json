@@ -94,6 +94,7 @@
 		"remove_relative" : "Remove Relative",
 
 		"remove_q" : "Do you really want to remove",
+		"remove_q2" : "This will also delete all their children",
 
 
 		"family_health_subtitle" : "Your Family's Health Information",

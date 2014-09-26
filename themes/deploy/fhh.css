@@ -164,7 +164,7 @@ th.label {
 }
 
 a.button_link {
-  background-color:#cfcfcf;
+  background-color:#EEE;
   color:black;
   white-space:nowrap
   /* DRC/CR Calculator: Added rounded corners <div> */
@@ -172,12 +172,13 @@ a.button_link {
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 	border:1px solid black;
-	padding:5px;
+	padding:4px;
 	text-decoration: none;
 }
 
-a.button_link a:hover {
-    background-color:#c476ff;
+a.button_link:hover {
+	border:1px solid #444;
+  cursor:pointer
 }
 
 .instructions {

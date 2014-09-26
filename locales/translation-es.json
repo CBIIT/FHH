@@ -95,6 +95,7 @@
 		"remove_relative" : "Retire relativa",
 
 		"remove_q" : "Realmente desea eliminar",
+		"remove_q2" : "Esto también eliminará todos sus hijos",
 		
 		"family_health_information_subtitle" : "Información sobre la Salud de su Familia",
 		"add_disease_instructions" : "En la siguiente lista, seleccione una Enfermedad o Condición (si los hay) en el cuadro desplegable. A continuación, seleccione la edad de diagnóstico y pulse el botón Agregar. Puede repetir este proceso la necesaria.",
