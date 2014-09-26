@@ -407,6 +407,16 @@ i#options .ui-button.ui-state-active .ui-button-text {
     font-weight: 100;
 
 }
+.namebox{
+    border-right: 1px solid #C1DAD7;
+    border-bottom: 1px solid #C1DAD7;
+    background: #F5FAFA;
+    stroke-width: '0.1';
+    font-size: 12.5;
+    font-weight: 100;
+
+
+}
 .pivotlist{
     width: 400px;
 }
