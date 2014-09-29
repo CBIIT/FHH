@@ -280,22 +280,22 @@ i#options .ui-button.ui-state-active .ui-button-text {
 }
 
 #svgframe {
-    display: block;
-    position: relative;
+    /*display: block;*/
+    /*position: relative;*/
     /*width: 1000;*/
     /*width: 100%;*/
-    padding-bottom: 1px;
+    /*padding-bottom: 1px;*/
     /*padding-left: 10%;*/
     /*overflow: hidden;*/
-    right:0;
-    background-color: white;
-    border-bottom-style: solid;
-    border-bottom-color: darkslateblue;
-    border-bottom-width: thick;
+    /*left:0;*/
+    /*background-color: white;*/
+    /*border-bottom-style: solid;*/
+    /*border-bottom-color: darkslateblue;*/
+    /*border-bottom-width: thick;*/
 
-    border-top-style: solid;
-    border-top-color: darkslateblue;
-    border-top-width: thick;
+    /*border-top-style: solid;*/
+    /*border-top-color: darkslateblue;*/
+    /*border-top-width: thick;*/
 
     /*overflow: scroll;*/
     /*overflow-x: auto; overflow-y: auto;*/
@@ -304,9 +304,9 @@ i#options .ui-button.ui-state-active .ui-button-text {
     /*width: 100%;*/
     /*height: 100%;*/
     /*background: red;*/
-    padding: 5px;
-    border: #CCC solid 1px;
-    text-align: center;
+    /*padding: 5px;*/
+    /*border: #CCC solid 1px;*/
+    /*text-align: center;*/
     /*position: fixed;*/
     /*margin-left: -375px;*/
     /*margin-top: -75px;*/
@@ -315,6 +315,34 @@ i#options .ui-button.ui-state-active .ui-button-text {
 
 }
 
+@media printer /*--This is for Print Preview Screen--*/
+
+{
+
+    .btn
+
+    {
+
+        display: none;
+
+    }
+
+    #health_table
+
+    {
+
+        background-color: #CD853F;
+
+        border:1px solid green;
+
+    }
+
+}
+
+/*@Media Print {*/
+    /*border: 2px solid black;*/
+/*}*/
+
 /*#health_table{*/
 /*font:  8px Arial;*/
 /*font-weight: bold;*/
@@ -322,8 +350,6 @@ i#options .ui-button.ui-state-active .ui-button-text {
 
 #family_pedigree_info{
     vertical-align: top;
-
-
 }
 
 /*
