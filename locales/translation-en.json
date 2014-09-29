@@ -168,8 +168,8 @@
 		
 		"add" : "Add",
 		"remove" : "Remove",
-		"next" : "Remove",
-		"cancel" : "Remove",
+		"next" : "Next",
+		"cancel" : "Cancel",
 		"save" : "Save",
 		
 		"export_instructions":"This will output the information from the point of view of one of your relatives.",
