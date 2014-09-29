@@ -32,24 +32,6 @@ var diseases = {
 
 var disease_list = new Array();
 
-// Used for showing the labels
-var relationship_to_label = {
-		'father':'Father',									'mother':'Mother',
-		'paternal_grandfather':'Paternal Grandfather',		'maternal_grandfather':'Maternal Grandfather',
-		'paternal_grandmother':'Paternal Grandmother',		'maternal_grandmother':'Maternal Grandmother',
-
-		'brother':'Brother',								'sister':'Sister',
-		'son':'Son',										'daughter':'Daughter',
-		'grandson':'Grandson',								'granddaughter':'Granddaughter',
-		'nephew':'Nephew',									'niece':'Niece',
-		
-		'paternal_aunt':'Paternal Aunt',					'maternal_aunt':'Maternal Aunt',
-		'paternal_uncle':'Paternal Uncle',					'maternal_uncle':'Maternal Uncle',
-		'paternal_cousin':'Paternal Cousin',				'maternal_cousin':'Maternal Cousin',
-		'paternal_halfbrother':'Paternal Half Brother',		'maternal_halfbrother':'Maternal Half Brother',
-		'paternal_halfsister':'Paternal Half Sister',		'maternal_halfsister':'Maternal Half Sister'
-};
-
 $(document).ready(function() {
 	if (typeof i18n != "undefined") {
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
@@ -444,8 +426,8 @@ function bind_add_another_family_member_button_action() {
 		.append("<OPTION value='halfsister'> " + $.t("fhh_js.half_sister") + " </OPTION>")
 		.append("<OPTION value='halfbrother'> " + $.t("fhh_js.half_brother") + " </OPTION>");
 		
-	if (personal_information.maternal_aunt_0 != null || personal_information.maternal_uncle_0 != null ||
-			personal_information.paternal_aunt_0 != null || personal_information.paternal_uncle_0 != null) { 
+	if (any_relatives(personal_information, 'maternal_aunt') || any_relatives(personal_information, 'maternal_uncle')
+			|| any_relatives(personal_information, 'paternal_aunt') || any_relatives(personal_information,'paternal_uncle')) { 
 		new_family_member_select.append("<OPTION value='cousin'> " + $.t("fhh_js.cousin") + " </OPTION>");
 	}
 
@@ -455,7 +437,7 @@ function bind_add_another_family_member_button_action() {
 			.append("<OPTION value='nephew'> " + $.t("fhh_js.nephew") + " </OPTION>");
 	}
 		
-	if (personal_information.son_0 != null || personal_information.duaghter_0 != null) { 
+	if (personal_information.son_0 != null || personal_information.daughter_0 != null) { 
 		new_family_member_select
 			.append("<OPTION value='granddaughter'> " + $.t("fhh_js.granddaughter") + " </OPTION>")
 			.append("<OPTION value='grandson'> " + $.t("fhh_js.grandson") + " </OPTION>")
@@ -514,36 +496,30 @@ function new_family_member_relationship_selection_change_action() {
 			new_family_member_dialog.append("<INPUT id='new_family_member_exact_relationship' type='hidden' value='sister'>");
 			exact_family_member_relationship_selection_change_action();
 			break;
-		// Below needs to be fixed using real people defined from pedigree
 		case 'cousin':
 			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/><B>" + $.t("fhh_js.cousin_parent_q") + " </B> </span>");
 			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
 			new_family_member_dialog.append(new_family_member_select);
 			add_cousin_select(new_family_member_select);
 			break;
-		// Below needs to be fixed using real people defined from pedigree
 		case 'niece':
 			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.niece_parent_q") + " </B> </span>");
 			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
 			new_family_member_dialog.append(new_family_member_select);
 			add_niece_select(new_family_member_select);
-//			exact_family_member_relationship_selection_change_action();
 			break;
-			// Below needs to be fixed using real people defined from pedigree
 		case 'nephew':
 			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.nephew_parent_q") + " </B> </span>");
 			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
 			new_family_member_dialog.append(new_family_member_select);
 			add_nephew_select(new_family_member_select);
 			break;
-			// Below needs to be fixed using real people defined from pedigree
 		case 'granddaughter':
 			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.granddaughter_parent_q") + " </B> </span>");
 			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
 			new_family_member_dialog.append(new_family_member_select);
 			add_granddaughter_select(new_family_member_select);
 			break;
-			// Below needs to be fixed using real people defined from pedigree
 		case 'grandson':
 			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.grandson_parent_q") + " </B> </span>");
 			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
@@ -573,15 +549,19 @@ function new_family_member_relationship_selection_change_action() {
 
 function add_dynamic_relative_to_dropdown(select_dropdown, current_relationship, parent_relationship) {
 	var i = 0;
-	while (personal_information[parent_relationship + '_' + i] != null) {
+	for (var i=0;i<30;i++) {
+		if (personal_information[parent_relationship + '_' + i] == null) continue;
 		var parent = personal_information[parent_relationship + '_' + i];
 		var parent_name = parent.name;
 		if (parent_name == null || parent_name.length == 0) {
-			parent_name = relationship_to_label[parent_relationship] + " #" + (i+1);
+			parent_name = $.t("fhh_js." + parent_relationship) + " #" + (i+1);
 		}
 		select_dropdown.append("<OPTION value='" + current_relationship + ":" + parent.id + "'> " + parent_name + " </OPTION>");
-		i++;
+		
 	}
+//	while (personal_information[parent_relationship + '_' + i] != null) {
+//		i++;
+//	}
 	
 }
 
@@ -646,6 +626,7 @@ function exact_family_member_relationship_selection_change_action() {
 	current_relationship = relationship + "_" + i;
 //	alert ("Exact Relationship ID: " + current_relationship);
 	create_new_family_member(current_relationship, relationship, parent_id);
+	family_member_information.relationship = relationship;
 
 	clear_and_set_current_family_member_health_history_dialog(family_member_information);
 	$("#new_family_member_dialog").dialog("close");
@@ -666,7 +647,7 @@ function create_new_family_member(current_relationship, relationship, parent_id)
 	personal_information[current_relationship] = family_member_information;
 	
 	var table = $("#history_summary_table");
-	add_new_family_history_row(table, "", relationship_to_label[relationship], current_relationship, false, true);
+	add_new_family_history_row(table, "", $.t("fhh_js." + relationship), current_relationship, false, true);
 	
 }
 
@@ -734,7 +715,7 @@ function bind_personal_submit_button_action () {
 		personal_information['gender'] = $('input[name="person.gender"]:checked').val();
 		personal_information['date_of_birth'] = $('#personal_info_form_date_of_birth').val();
 		personal_information['twin_status'] = $('input[name="person.twin_status"]:checked').val();
-		personal_information['adopted'] = $('input[name="person.adopted"]:checked').val();
+		personal_information['adopted'] = $('input[name="person.adopted"]:checked').prop('checked');
 		
 		var height_inches = parseInt($('#personal_height_inches').val());
 		var height_feet = parseInt($('#personal_height_feet').val());
@@ -778,7 +759,7 @@ function bind_personal_submit_button_action () {
 		personal_information['race']['Unknown Asian'] = $("#personal_race_ethnicity").find("#selectedRaces-18").is(':checked');
 
 		personal_information['race']['Chamorro'] = $("#personal_race_ethnicity").find("#selectedRaces-21").is(':checked');
-		personal_information['race']['Gaumanian'] = $("#personal_race_ethnicity").find("#selectedRaces-22").is(':checked');
+		personal_information['race']['Guamanian'] = $("#personal_race_ethnicity").find("#selectedRaces-22").is(':checked');
 		personal_information['race']['Native Hawaiian'] = $("#personal_race_ethnicity").find("#selectedRaces-23").is(':checked');
 		personal_information['race']['Samoan'] = $("#personal_race_ethnicity").find("#selectedRaces-24").is(':checked');
 		personal_information['race']['Unknown South Pacific Islander'] = $("#personal_race_ethnicity").find("#selectedRaces-25").is(':checked');
@@ -891,7 +872,7 @@ function bind_family_member_submit_button_action () {
 		family_member_information['name'] = $("#family_member_info_form_name").val();
 		family_member_information['gender'] = $('input[name="family.member.gender"]:checked').val();
 		family_member_information['twin_status'] = $('input[name="family.member.twin_status"]:checked').val();
-		family_member_information['adopted'] = $('input[name="family.member.adopted"]:checked').val();
+		family_member_information['adopted'] = $('input[name="family.member.adopted"]:checked').prop("checked");
 
 		// Cause of Death or Age/Estimated-Age
 		var alive_flag = $("#is_person_alive").val();
@@ -1250,6 +1231,9 @@ function add_new_family_history_row(table, family_member, relationship, relation
 
 			family_member = personal_information[$(this).attr('relationship_id')];
 			current_relationship = $(this).attr('relationship_id');
+//			alert(relationship_id + ":" + JSON.stringify(family_member,null,2));
+			family_member.relationship = relationship_id;
+			
 			clear_and_set_current_family_member_health_history_dialog(family_member);
 			$( "#update_family_member_health_history_dialog" ).dialog( "open" );
 		});
@@ -1262,7 +1246,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 
 		add_history.on("click", function(){ 
 //			alert("Updating history for: " + relationship)
-			$("#accordian_title_relationship").html(" <h2> Your " + relationship + "'s Health Information</h2>");
+			$("#accordian_title_relationship").html(" <h2> Your " + relationship_id + "'s Health Information</h2>");
 			
 			current_relationship = relationship_id;
 			clear_family_member_health_history_dialog();
@@ -1352,6 +1336,7 @@ function update_family_history_row(relationship_id, family_member_information) {
 	$("#" + relationship_id).find(".update_history").unbind().on("click", function(){
 		family_member = personal_information[$(this).attr('relationship_id')];
 		current_relationship = $(this).attr('relationship_id');
+		family_member.relationship = relationship_id;
 		clear_and_set_current_family_member_health_history_dialog(family_member);
 		$( "#update_family_member_health_history_dialog" ).dialog( "open" );
 	});
@@ -1742,7 +1727,7 @@ function clear_family_member_health_history_dialog() {
 	$("#family_member_info_form_twin_status_no").prop('checked',true);
 	$("#family_member_info_form_twin_status_identical").prop('checked',false);
 	$("#family_member_info_form_twin_status_fraternal").prop('checked',false);
-	$("#family_member_info_form_adopted_no").prop('checked',false);
+	$("#family_member_info_form_adopted_yes").prop('checked',false);
 	
 	$(".disease_detail").each(function () {
 		$(this).remove();
@@ -1789,24 +1774,22 @@ function clear_family_member_health_history_dialog() {
 }
 
 function clear_and_set_current_family_member_health_history_dialog(family_member) {
-	
-
-	
+	var relationship_name = get_relationship_from_relationship_id(family_member.relationship);
 	$("#family_member_parent_id").val(family_member.parent_id);
-	$("#family_member_relationship").empty().append(family_member.relationship);
+	$("#family_member_relationship").empty().append($.t("fhh_js." + relationship_name));
 	if (family_member.name == null) family_member.name = "";
 	$("#family_member_info_form_name").val(family_member.name);
 	
 	var person_name_or_relationship;
 	if (!(family_member.name == "")) person_name_or_relationship = family_member.name;
-	else person_name_or_relationship = "Your " + relationship_to_label[family_member.relationship];
-		
+	else person_name_or_relationship = $.t("info_dialog.your") + " " + $.t("fhh_js." + relationship_name);
+
 	$("#update_family_member_health_history_dialog").find("#family-title")
-		.text(person_name_or_relationship + "'s Personal Information");
+		.text($.t("info_dialog.personal_information_for") + " " + person_name_or_relationship);
 	$("#update_family_member_health_history_dialog").find("#hi-title")
-		.text(person_name_or_relationship + "'s Health Information");
+		.text($.t("info_dialog.personal_information_for") + " " + person_name_or_relationship);
 	$("#update_family_member_health_history_dialog").find("#bi-title")
-		.text(person_name_or_relationship + "'s Race and Ethnicity");
+		.text($.t("info_dialog.race_ethnicity_information_for") + " " + person_name_or_relationship);
 		
 	
 	if (family_member.gender == "MALE") $('#family_member_info_form_gender_male').prop('checked',true);
@@ -1821,8 +1804,8 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	if (family_member.twin_status == "NO") $("#family_member_info_form_twin_status_no").prop('checked',true);
 	else if (family_member.twin_status == "IDENTICAL") $("#family_member_info_form_twin_status_identical").prop('checked',true);
 	else if (family_member.twin_status == "FRATERNAL") $("#family_member_info_form_twin_status_fraternal").prop('checked',true);
-	
-	$("#family_member_info_form_adopted_no").prop('checked',family_member.adopted);
+//	$("#family_member_info_form_adopted_yes").prop('checked', family_member.adopted);
+	$("#family_member_info_form_adopted_yes").prop('checked', (family_member.adopted == 'true' || family_member.adopted == true));
 
 	// Age/Estimated Age or Cause of Death
 	if (family_member.date_of_birth) {
@@ -1997,8 +1980,8 @@ function clear_and_set_personal_health_history_dialog() {
 	if (personal_information.twin_status == "NO") $("#personal_info_form_twin_status_no").prop('checked',true);
 	else if (personal_information.twin_status == "IDENTICAL") $("#personal_info_form_twin_status_identical").prop('checked',true);
 	else if (personal_information.twin_status == "FRATERNAL") $("#personal_info_form_twin_status_fraternal").prop('checked',true);
-		
-	$("#personal_info_form_adopted_no").prop('checked',personal_information.adopted);
+	
+	$("#personal_info_form_adopted_yes").prop('checked',personal_information.adopted == true );
 	
 	if (personal_information.height_unit == 'inches') {
 		$("#personal_height_feet").val(Math.floor(personal_information.height/12) );
@@ -2032,7 +2015,7 @@ function clear_and_set_personal_health_history_dialog() {
 	$("#personal_health_information").find("#detailed_disease_choice_select").val($("#detailed_disease_choice_select").find('option').first().val());
 	$("#personal_health_information").find("#age_at_diagnosis_select").val($("#age_at_diagnosis_select").find('option').first().val());
 
-	$("#personal_race_ethnicity").find('#person.consanguinity').prop("checked", personal_information.consanguinity);
+	$("#personal_race_ethnicity").find('input[name="person.consanguinity"]').prop("checked", personal_information.consanguinity);
 
 
 	if (personal_information.race && personal_information.race['Asian'] == true) {
@@ -2109,7 +2092,7 @@ function clear_and_set_personal_health_history_dialog() {
 		$("#personal_race_ethnicity").find("#selectedEthnicities-12").prop('checked',personal_information.ethnicity['Cuban']);
 		$("#personal_race_ethnicity").find("#selectedEthnicities-13").prop('checked',personal_information.ethnicity['Dominican']);
 		$("#personal_race_ethnicity").find("#selectedEthnicities-14").prop('checked',personal_information.ethnicity['Mexican']);
-		$("#personal_race_ethnicity").find("#selectedEthnicities-15").prop('checked',personal_information.ethnicity['Other Mexican']);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-15").prop('checked',personal_information.ethnicity['Other Hispanic']);
 		$("#personal_race_ethnicity").find("#selectedEthnicities-16").prop('checked',personal_information.ethnicity['Puerto Rican']);
 		$("#personal_race_ethnicity").find("#selectedEthnicities-17").prop('checked',personal_information.ethnicity['South American']);
 
@@ -2216,4 +2199,41 @@ function bind_number_only_fields() {
                return false;
     }
    });
+}
+
+function any_relatives (pi, relative_name) {
+	var relatives_exist = false;
+	for (var i=0;i<30;i++) {
+		if (pi[relative_name + "_" + i] != null) relatives_exist = relatives_exist || true;
+	}
+	return relatives_exist;
+}
+
+function get_relationship_from_relationship_id (id) {
+	if (id == 'father' || id == 'mother'
+		|| id == 'maternal_grandfather' || id == 'maternal_grandmother'
+		|| id == 'paternal_grandfather' || id == 'paternal_grandmother') return id;
+		
+	if (id.substring(0,7) == 'brother') return 'brother';
+	if (id.substring(0,6) == 'sister') return 'sister';
+	if (id.substring(0,20) == 'paternal_halfbrother') return 'paternal_halfbrother';
+	if (id.substring(0,19) == 'paternal_halfsister') return 'paternal_halfsister';
+	if (id.substring(0,20) == 'maternal_halfbrother') return 'maternal_halfbrother';
+	if (id.substring(0,19) == 'maternal_halfsister') return 'maternal_halfsister';
+	if (id.substring(0,14) == 'paternal_uncle') return 'paternal_uncle';
+	if (id.substring(0,13) == 'paternal_aunt') return 'paternal_aunt';
+	if (id.substring(0,14) == 'maternal_uncle') return 'maternal_uncle';
+	if (id.substring(0,13) == 'maternal_aunt') return 'maternal_aunt';
+	if (id.substring(0,15) == 'maternal_cousin') return 'maternal_cousin';
+	if (id.substring(0,15) == 'paternal_cousin') return 'paternal_cousin';
+
+	if (id.substring(0,3) == 'son') return 'son';
+	if (id.substring(0,8) == 'daughter') return 'daughter';
+	if (id.substring(0,8) == 'grandson') return 'grandson';
+	if (id.substring(0,13) == 'granddaughter') return 'granddaughter';
+	
+	if (id.substring(0,5) == 'niece') return 'niece';
+	if (id.substring(0,6) == 'nephew') return 'nephew';
+	
+	return 'unknown'
 }

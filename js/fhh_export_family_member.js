@@ -60,8 +60,6 @@ function export_brother_or_sister(relative_being_exported, my_gender) {
 	move_relatives(pi, 'maternal_aunt', 'maternal_aunt');
 	move_relatives(pi, 'paternal_cousin', 'paternal_cousin');
 	move_relatives(pi, 'maternal_cousin', 'maternal_cousin');
-	move_relatives(pi, 'grandson', 'grandson');
-	move_relatives(pi, 'granddaughter', 'granddaughter');
 	move_relatives(pi, 'paternal_halfbrother', 'paternal_halfbrother');
 	move_relatives(pi, 'paternal_halfsister', 'paternal_halfsister');
 	move_relatives(pi, 'maternal_halfbrother', 'maternal_halfbrother');
@@ -70,10 +68,8 @@ function export_brother_or_sister(relative_being_exported, my_gender) {
 //	move_relatives(pi, 'niece', 'niece');
 	move_nieces_to_daughters_or_nieces(pi,  personal_information[relative_being_exported].id); 
 	move_nephews_to_sons_or_nephews(pi,  personal_information[relative_being_exported].id); 
-	move_relatives(pi, 'son', 'nephew');
-	move_relatives(pi, 'daughter', 'niece');
-
-
+	move_relatives(pi, 'son', 'nephew', 'add_parent_id', my_information_as_a_relative.id);
+	move_relatives(pi, 'daughter', 'niece', 'add_parent_id', my_information_as_a_relative.id);
 	
 	return pi;	
 }
@@ -208,7 +204,7 @@ function move_relatives(pi, from, to, special_type, special_value) {
 	var num_to_move = find_first_available_relative_location(pi, to);
 	var i = 0;
 	while (personal_information[from + "_" + i] != null ) {
-		if ( special_type = 'except' && (from + "_" + i) == special_value) {i++; continue;}  // Skip copying the exported sibling
+		if ( special_type == 'except' && (from + "_" + i) == special_value) {i++; continue;}  // Skip copying the exported sibling
 		if (to == 'niece/nephew') {
 			if (personal_information[from + "_" + i].gender == 'MALE') {
 				pi['nephew' + '_' + num_to_move] = JSON.parse(JSON.stringify(personal_information[from + '_' + i]));
@@ -217,6 +213,10 @@ function move_relatives(pi, from, to, special_type, special_value) {
 			}
 		} else {
 			pi[to + '_' + num_to_move] = JSON.parse(JSON.stringify(personal_information[from + '_' + i]));
+			if (special_type == 'add_parent_id') {
+				pi[to + '_' + num_to_move].parent_id = special_value;
+				alert (JSON.stringify(pi[to + '_' + num_to_move], null, 2));
+			}
 		}
 		num_to_move = find_first_available_relative_location(pi, to);
 		i++;
@@ -324,6 +324,7 @@ function create_family_member_select() {
     var temp = key.substring(0,4);
     if(temp == 'brot' || temp == 'sist' || temp == 'fath' || temp == 'moth' || temp == 'daug' || temp == 'son_') {
     	var relative_name = item.name;
+    	if (relative_name == null || relative_name == "") relative_name = $.t("fhh_js." + get_relationship_from_relationship_id(key));
     	relative_select.append("<OPTION value='" + key + "'>" + relative_name + "</OPTION>");
     }
 	});

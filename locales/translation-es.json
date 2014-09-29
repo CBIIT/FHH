@@ -226,6 +226,11 @@
 	
 	"info_dialog": {
 		"div_personal_info": "Tu información personal",
+		"your":"su",
+		"personal_information_for" : "Información personal para ",
+		"health_information_for" : "Información de salud para ",
+		"race_ethnicity_information_for":"Raza y Etnicidad Información para",
+
 		"div_family_info" : "Información personal de su familiar",
 		"instructions": "Comenzamos el historial de salud familiar con introducir la información personal que se requiere y la información de su historial de salud En la parte inferior de la página (puede que tenga que desplazarse) pulse el botón 'Siguiente' A continuación se le pedirá que indicar al sistema que los miembros de la familia usted le gustaría añadir a la historia de la salud.",
 		"health_vault": "Si usted tiene una cuenta de Microsoft HealthVault, se puede optar por copiar su HealthVault información de antecedentes familiares en este sitio web Información que agregar o modificar aquí. Se puede copiar de nuevo a HealthVault Pulse 'Copiar de HealthVault' para empezar.",

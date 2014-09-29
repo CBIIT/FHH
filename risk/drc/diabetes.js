@@ -188,8 +188,10 @@ function apply_required_additional_data_entry_button () {
 		if ($("#date_of_birth").val() != null && $("#date_of_birth").val() != "") personal_information.date_of_birth = $("#date_of_birth").val();
 		if ($("#gender_choice").val() != null && $("#gender_choice").val() != "") personal_information.gender = $("#gender_choice").val();
 		
-		if ($("#physically_active_choice").val() == 'true') personal_information.physically_active = true;
-		else personal_information.physically_active = false;
+		if (!personal_information.physically_active) {
+			if ($("#physically_active_choice").val() == 'true') personal_information.physically_active = true;
+			else personal_information.physically_active = false;
+		}
 
 		if ($("#height_feet").val() != "" || $("#height_inches").val() != "" || $("#height_centimeters").val() != "") {
 			var height_inches = parseInt($('#height_inches').val());
@@ -264,15 +266,22 @@ function set_gender(id) {
 }
 
 function load_gestational_diabetes() {
+	var gestational_diabetes = false;
 	$.each(personal_information['Health History'], function (key, item) {
-	    if (item['Detailed Disease Name']=="Gestational Diabetes" && personal_information.gender == 'FEMALE') set_gestational_diabetes('gdpos')
-	    else set_gestational_diabetes('gdneg')
+	    if (item['Detailed Disease Name']=="Gestational Diabetes" && personal_information.gender == 'FEMALE') gestational_diabetes = true;
 	});	
+	
+	if (gestational_diabetes) {
+		set_gestational_diabetes('gdpos');
+	} else {
+		set_gestational_diabetes('gdneg');
+	}
+	
 }
 
 function set_gestational_diabetes(id){
 	var $element = $('#'+id);
-	$('#gdiabetes').attr('value',$element.attr('value'));
+	$('#gdiabetes').attr('value',parseInt($element.attr('value')));
 	score.gestational = $element.attr('value');
   $('label[for= ' + id + ']').removeClass("not-selected").addClass("selected");
 }

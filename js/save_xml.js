@@ -203,6 +203,15 @@ function add_all_ethnic_groups(tag, ethnic_group_list) {
 	if (ethnic_group_list["Hispanic or Latino"]	== true) add_individual_ethnic_group(tag, "Hispanic or Latino");
 	if (ethnic_group_list["Ashkenazi Jewish"]	== true) add_individual_ethnic_group(tag, "Ashkenazi Jewish");
 	if (ethnic_group_list["Not Hispanic or Latino"]	== true) add_individual_ethnic_group(tag, "Not Hispanic or Latino");
+
+	if (ethnic_group_list["Central American"]	== true) add_individual_ethnic_group(tag, "Central American");
+	if (ethnic_group_list["Cuban"]	== true) add_individual_ethnic_group(tag, "Cuban");
+	if (ethnic_group_list["Dominican"]	== true) add_individual_ethnic_group(tag, "Dominican");
+	if (ethnic_group_list["Mexican"]	== true) add_individual_ethnic_group(tag, "Mexican");
+	if (ethnic_group_list["Other Hispanic"] == true) add_individual_ethnic_group(tag, "Other Hispanic");
+	if (ethnic_group_list["Puerto Rican"]	== true) add_individual_ethnic_group(tag, "Puerto Rican");
+	if (ethnic_group_list["South American"]	== true) add_individual_ethnic_group(tag, "South American");
+	
 }
 
 function add_individual_ethnic_group(tag, ethnic_group) {
@@ -220,7 +229,6 @@ function add_individual_ethnic_group(tag, ethnic_group) {
 
 function add_all_races(tag, race_list) {
 	if (race_list == null) return
-
 	if (race_list["American Indian or Alaska Native"]	== true) add_individual_race(tag, "American Indian or Alaska Native");
 	if (race_list["Asian"]	== true) add_individual_race(tag, "Asian");
 	if (race_list["Black or African-American"]	== true) add_individual_race(tag, "Black or African-American");
@@ -237,9 +245,9 @@ function add_all_races(tag, race_list) {
 	if (race_list["Unknown Asian"]	== true) add_individual_race(tag, "Unknown Asian");
 
 	if (race_list["Chamorro"]	== true) add_individual_race(tag, "Chamorro");
-	if (race_list["Guamanian"]	== true) add_individual_race(tag, "Guamanian");
-	if (race_list["Native Hawaiian"]	== true) add_individual_race(tag, "Native Hawaiian");
-	if (race_list["Somoan"]	== true) add_individual_race(tag, "Somoan");
+	if (race_list["Guamanian"] == true) add_individual_race(tag, "Guamanian");
+	if (race_list["Native Hawaiian"] == true) add_individual_race(tag, "Native Hawaiian");
+	if (race_list["Samoan"]	== true) add_individual_race(tag, "Samoan");
 	if (race_list["Unknown South Pacific Islander"]	== true) add_individual_race(tag, "Unknown South Pacific Islander");
 
 }
@@ -302,7 +310,7 @@ function add_twin_tag(tag, twin_status) {
 }
 
 function add_adopted_tag(tag, adopted_tag) {
-	if (adopted_tag == null || adopted_tag != "true") return;
+	if (adopted_tag == null || !(adopted_tag == "true" || adopted_tag == true)) return;
 
 	var observation_tag = doc.createElement("clinicalObservation");
 	tag.appendChild(observation_tag);

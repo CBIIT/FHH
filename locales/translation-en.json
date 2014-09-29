@@ -225,6 +225,11 @@
 	"info_dialog": {
 		"div_personal_info" : "Your Personal Information",
 		"div_family_info" : "Your Family Member's Personal Information",
+		"your":"your",
+		"personal_information_for" : "Personal Information for ",
+		"health_information_for" : "Health Information for ",
+		"race_ethnicity_information_for":"Race and Ethnicity Information for",
+		
 		"instructions" : "We start the family health history with you. Enter the required personal information and your health history information. At the bottom of the page (you may need to scroll), press the 'Next' button. You will then be asked to tell the system which family members you would like to add to the health history.",
 		"health_vault" : "If you have a Microsoft HealthVault account, you can choose to copy your HealthVault family history information into this website. Information that you add or modify here can then be copied back to HealthVault. Press 'Copy from HealthVault' to get started.",
 		"family_instructions":"Enter required personal information and health history information for this family member. Background information may also be entered. At the bottom of the page (you may need to scroll), press the 'Save' button to save this person's information.",
