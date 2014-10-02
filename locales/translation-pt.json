@@ -89,7 +89,6 @@
 		"mothers_side": "lado da minha mãe da família",
 		"recently_added": "Recentemente Adicionado membros da família",
 		"name": "Nome",
-		"relationship_to_me": "Quanto a mim",
 		"add_history": "Adicionar History",
 		"update_history": "História Update",
 		"remove_relative": "Remover relativa",
@@ -261,7 +260,7 @@
 		"feet": "Pés",
 		"inches": "polegadas",
 		"or": "-OU-",
-		"cenimeters": "Centímetros",
+		"centimeters": "Centímetros",
 		"lbs": "libras",
 		"kgs": "kgs",
 
