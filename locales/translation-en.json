@@ -292,18 +292,22 @@
 
 	"fhh_load_save": {
 		"load_from_file" : "Load Your Personal Information from a File",
+		"load_file_button" : "Load from a File",
 		"load_health_vault" : "Load Your Personal Information from Microsoft's Health Vault",
+		"load_health_vault_button" : "Load from Microsoft's Health Vault",
 		"load_google_drive" : "Load Your Personal Information from Google Drive",
+		"load_google_drive_button" : "Load from Google Drive",
 		"load_dropbox" : "Load Your Personal Information from Dropbox",
 		"load_dropbox_button" : "Load from Dropbox",
-		"load_file_button" : "Load from a File",
 
 		"save_to_file" : "Save Your Personal Information to a File",
+		"save_file_button" : "Save to a File",
 		"save_health_vault" : "Save Your Personal Information to Microsoft's Health Vault",
+		"save_health_vault_button" : "Save to Microsoft's Health Vault",
 		"save_google_drive" : "Save Your Personal Information to Google Drive",
+		"save_google_drive_button" : "Save to Google Drive",
 		"save_dropbox" : "Save Your Personal Information to Dropbox",
 		"save_dropbox_button" : "Save to Dropbox",
-		"save_file_button" : "Save to a File",
 
 		"done" : "done"
 	},
