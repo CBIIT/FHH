@@ -39,6 +39,11 @@ function bind_load_file() {
 }
 
 function 	bind_load_dropbox() {
+	if (typeof DROPBOX_APP_KEY == 'undefined') {
+		if (typeof DEBUG != 'undefined' && DEBUG) $("#load_from_dropbox").append("No Dropbox App Key Defined");				
+		return;
+	}
+
 	var button = $("<BUTTON id='dropbox_load_button'>" + $.t("fhh_load_save.load_dropbox_button") + "</BUTTON>");
 	button.on("click", function () {
 		personal_information = new Object();
@@ -64,14 +69,18 @@ function 	bind_load_dropbox() {
 	$("#load_from_dropbox").append(button);		
 }
 
-var CLIENT_ID = '459770573635-ohh6qdb4gu4i8nlnlap609oogsoa0ub8.apps.googleusercontent.com';
-var SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
 function bind_load_google_drive() {
+	if (typeof GOOGLE_CLIENT_ID == 'undefined') {
+		if (typeof DEBUG != 'undefined' && DEBUG) $("#load_from_google_drive").append("No Google Drive App Key Defined");				
+		return;
+	}
+	
+	
 	var button = $("<BUTTON id='dropbox_load_button'>" + $.t("fhh_load_save.load_google_drive_button") + "</BUTTON>");
 	button.on("click", function () {
 		personal_information = new Object();
-		gapi.auth.authorize( {'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': false}, googlePostAuthLoad);
+		gapi.auth.authorize( {'client_id': GOOGLE_CLIENT_ID, 'scope': GOOGLE_SCOPES, 'immediate': false}, googlePostAuthLoad);
 	});
 	
 	$("#load_from_google_drive").append(button);			

@@ -81,8 +81,8 @@ function xmlload() {
         autoOpen: false,
         position: ['middle', 0],
         title: 'Family Pedigree Chart',
-        height: 1000,
-        width: ['97%'],
+        height: 'auto',
+        width: 'auto',
         modal: true,
         open: function () {
             $(this).dialog("open");
@@ -145,7 +145,7 @@ function xmlload() {
             "bPaginate": true,
             //"scrollY": "300px",
             //"sScrollY": "250px",
-            "bAutoWidth": false,
+            "bAutoWidth": true,
             "bScrollCollapse": false,
             "bLengthChange": false,
             "bFilter": true,

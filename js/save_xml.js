@@ -64,6 +64,11 @@ function bind_save_download() {
 }
 
 function bind_save_dropbox () {
+	if (typeof DROPBOX_APP_KEY == 'undefined') {
+		if (typeof DEBUG != 'undefined' && DEBUG) $("#save_to_dropbox").append("No Dropbox App Key Defined");				
+		return;
+	}
+
 	var button = $("<BUTTON id='dropbox_save_button'>" + $.t("fhh_load_save.save_dropbox_button") + "</BUTTON>");
 	
 	button.on("click", function () {
@@ -78,10 +83,11 @@ function bind_save_dropbox () {
 	$("#save_to_dropbox").append(button);
 }
 
-var CLIENT_ID = '459770573635-ohh6qdb4gu4i8nlnlap609oogsoa0ub8.apps.googleusercontent.com';
-var SCOPES = 'https://www.googleapis.com/auth/drive.file';
-
 function bind_save_google_drive () {
+	if (typeof GOOGLE_CLIENT_ID == 'undefined') {
+		if (typeof DEBUG != 'undefined' && DEBUG) $("#save_to_google_drive").append("No Google Drive App Key Defined");				
+		return;
+	}
 	var button = $("<BUTTON id='google_drive_save_button'>" + $.t("fhh_load_save.save_google_drive_button") + "</BUTTON>");
 	button.on("click", function () {
 		output_string = get_xml_string();

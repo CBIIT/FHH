@@ -10,6 +10,7 @@
     <script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="../jquery/jquery-ui-1.10.4.js"></script>
     <link rel="stylesheet" type="text/css" href="../jquery/jquery-ui-1.10.4.css">
+    <script type="text/javascript" src="../js/config.js"></script>
     <script type="text/javascript" src="../js/fhh.js"></script>
     <script type="text/javascript" src="../js/fhh_export_family_member.js"></script>
     <script type="text/javascript" src="../js/load_xml.js"></script>
@@ -43,14 +44,25 @@
     <link rel="stylesheet" type="text/css" href="../static/css/dataTables.colReorder.css">
     <link rel="stylesheet" type="text/css" href="../static/css/dataTables.tableTools.css">
 
-		<!-- Dropbox Integration -->
-		<script type="text/javascript" src="../static/js/dropbox_dropins.js" id="dropboxjs" data-app-key="y6lqfl7fx0oc5vo"></script>
+    <script type="text/javascript" src="../js/keys.js"></script>
+</head>
+<body>
+		<!-- Dropbox Integration -->		
+		<!-- Need to dynamically create the script tag as the data-app-key comes from the keys.js file -->
+		<script type="text/javascript">
+			if (typeof DROPBOX_APP_KEY != 'undefined')  {
+			  var s = document.createElement( 'script' );
+			  s.setAttribute( 'src', "../static/js/dropbox_dropins.js" );
+			  s.setAttribute( 'id', "dropboxjs" );
+			  s.setAttribute( 'data-app-key', DROPBOX_APP_KEY );
+			  document.body.appendChild( s );			
+			}
+		</script> 
  
 		<!-- Google Drive Integration -->
     <script type="text/javascript" src="https://apis.google.com/js/client.js"></script>
 
-</head>
-<body>
+
 <div id="wrapper" class="main_container">
 
 <!-- BEGIN HEADER -->
