@@ -1,6 +1,6 @@
 var XML_FORMAT_ID = 718163810183;
 var TOOL_NAME = "Surgeon General's Family Heath History Tool";
-var doc;
+
 var SNOMED_CODE = {
 	MALE:248153007, FEMALE:248152002,
 	HEIGHT:271603002, WEIGHT:107647005,
@@ -18,61 +18,146 @@ var LOINC_CODE = {
 
 var XMLNS_SCHEMA= "http://www.w3.org/2001/XMLSchema-instance";
 
+// Important for generating the xml
+var doc;
+var filename;
+var output_string;
 
 
 function bind_save_xml() {
-	$("#download_xml").on("click", function () {
-		doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
+	doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
+
+	bind_save_download();
+	bind_save_dropbox ();
+	bind_save_google_drive ();
+	bind_save_heath_vault();
+
+}
+
+function get_filename(pi) {
+	var filename = "family_health_history.xml";
+	if (pi && pi.name) {
+		filename = pi.name.replace(/ /g,"_") + "_Health_History.xml";
+	} 
+	return filename;	
+}
+
+function get_xml_string() {
 
 		var root = doc.createElement("FamilyHistory");
 		add_root_information(root);
 		root.appendChild(add_personal_history(personal_information));
 
-		
-		save_document($(this), root, personal_information);
+		var s = new XMLSerializer();
+		return(s.serializeToString(root));
+}
 
-		
-		$("#save_personal_history_dialog").dialog("close");
 
+function bind_save_download() {
+	$("#download_xml").on("click", function () {
+		output_string = get_xml_string();
+		filename = get_filename(personal_information);
 		
-	});
+		save_document($(this), output_string, filename);
+		$("#save_personal_history_dialog").dialog("close");		
+	});	
+}
 
+function bind_save_dropbox () {
 	var button = $("<BUTTON id='dropbox_save_button'>" + $.t("fhh_load_save.save_dropbox_button") + "</BUTTON>");
 	
 	button.on("click", function () {
-		doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
-		var root = doc.createElement("FamilyHistory");
-		add_root_information(root);
-		root.appendChild(add_personal_history(personal_information));
-		var s = new XMLSerializer();
-		var output_string = s.serializeToString(root);
-		var filename = "family_health_history.xml";
-		if (personal_information && personal_information.name) {
-			filename = personal_information.name.replace(/ /g,"_") + "_Health_History.xml";
-		} 
-
+		output_string = get_xml_string();
+		filename = get_filename(personal_information);
 		Dropbox.save({
 		   files: [ {'url': 'data:application/xml,' + output_string, 'filename': filename } ],
-			 success: function () { alert ("SUCCESS"); },
+			 success: function () { $("#save_personal_history_dialog").dialog("close");},
 			 error: function (errorMessage) { alert ("ERROR:" + errorMessage);}
 		});
-		
 	});
 	$("#save_to_dropbox").append(button);
-
-//	var button = Dropbox.createSaveButton({
-//	   files: [ {'url': 'data:application/xml,<TEST>Data</TEST>', 'filename': 'data.xml' } ],
-//		 success: function () { alert ("SUCCESS"); },
-//		 error: function (errorMessage) { alert ("ERROR:" + errorMessage);}
-//	});
-	
-
-
-//	$("#save_to_dropbox").on("click", function () {
-//		alert ("Here");
-//	});
-
 }
+
+var CLIENT_ID = '459770573635-ohh6qdb4gu4i8nlnlap609oogsoa0ub8.apps.googleusercontent.com';
+var SCOPES = 'https://www.googleapis.com/auth/drive.file';
+
+function bind_save_google_drive () {
+	var button = $("<BUTTON id='google_drive_save_button'>" + $.t("fhh_load_save.save_google_drive_button") + "</BUTTON>");
+	button.on("click", function () {
+		output_string = get_xml_string();
+		filename = get_filename(personal_information);
+		// this is an aysncronous call, we need to improve the user experience here somehow.
+		gapi.auth.authorize( {'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': false}, googlePostAuthSave);
+	});
+	$("#save_to_google_drive").append(button);
+		
+}
+
+function googlePostAuthSave(authResult) {
+	// output_string is a global 
+
+	if (authResult && !authResult.error) {
+	///  See google examples for how this works
+		var request = gapi.client.request({
+				'path': 'drive/v2/files',
+				'method': 'GET'
+		});
+		var	cb2 = function(data) {
+			var items = data.items;
+			var file_id = "";
+			var request_type = 'POST';
+			if (items.length > 0) {
+				file_id = items[0].id;
+				request_type = 'PUT'
+			}
+			
+			const boundary = '-------314159265358979323846';
+			const delimiter = "\r\n--" + boundary + "\r\n";
+			const close_delim = "\r\n--" + boundary + "--";
+		
+			var content_type ='text/plain';
+			var string_data = $("#input").val();
+		  var metadata = {
+		    'title': filename,
+		    'mimeType': content_type
+		  };
+		
+			var base64Data = btoa(output_string);
+			var multipartRequestBody =
+				delimiter +
+				'Content-Type: application/json\r\n\r\n' +
+				JSON.stringify(metadata) +
+				delimiter +
+				'Content-Type: ' + content_type + '\r\n' +
+				'Content-Transfer-Encoding: base64\r\n' +
+				'\r\n' +
+				base64Data +
+				close_delim;
+			
+			var request = gapi.client.request({
+					'path': '/upload/drive/v2/files/' + file_id,
+					'method': request_type,
+					'params': {'uploadType': 'multipart'},
+					'headers': {
+					  'Content-Type': 'multipart/mixed; boundary="' + boundary + '"'
+					},
+					'body': multipartRequestBody
+			});
+		
+			var	callback = function(file) {
+				$("#save_personal_history_dialog").dialog("close");
+			};
+			request.execute(callback);
+		};
+		request.execute(cb2);
+	}
+}
+
+
+function bind_save_heath_vault() {
+	
+}
+
 function add_root_information(root) {
 	root.setAttribute("moodCode", "EVN");
 	root.setAttribute("classCode", "OBS");
@@ -700,14 +785,7 @@ function get_age_values_from_estimated_age(age_at_diagnosis) {
 	return null;
 }
 
-function save_document(save_link, doc, pi) {
-		var s = new XMLSerializer();
-		var output_string = s.serializeToString(doc);
-		
-		var filename = "family_health_history.xml";
-		if (pi && pi.name) {
-			filename = pi.name.replace(/ /g,"_") + "_Health_History.xml";
-		} 
+function save_document(save_link, output_string, filename) {
 		if (isIE10) {
 	    var blobObject = new Blob([output_string]); 
 	    window.navigator.msSaveBlob(blobObject, filename); // The user only has the option of clicking the Save button.

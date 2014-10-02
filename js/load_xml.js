@@ -10,8 +10,15 @@ var SNOMED_CT_CODES = {
 function bind_load_xml() {
 	// Change the name of the Load File here to support internationalization
 	
-	$("#file_upload_button").val($.t("fhh_load_save.load_file_button"));
+	bind_load_file();
+	bind_load_dropbox();
+	bind_load_google_drive();
+	bind_load_health_vault();
 	
+}
+
+function bind_load_file() {
+	$("#file_upload_button").val($.t("fhh_load_save.load_file_button"));	
 	$("#file_upload_button").on("click", function () {
     $("#view_diagram_and_table_button").attr('onclick', 'xmlload()');
 		personal_information = new Object();
@@ -28,14 +35,18 @@ function bind_load_xml() {
 		return false;
 	});
 	
+	
+}
+
+function 	bind_load_dropbox() {
 	var button = $("<BUTTON id='dropbox_load_button'>" + $.t("fhh_load_save.load_dropbox_button") + "</BUTTON>");
 	button.on("click", function () {
 		personal_information = new Object();
 		Dropbox.choose({
-		   multiselect: false,
-		   linkType: "direct",
-		   extensions: ['.xml'],
-			 success: function (files) { 
+			multiselect: false,
+			linkType: "direct",
+			extensions: ['.xml'],
+			success: function (files) { 
 				$.get( files[0].link, function( xmlData ) {
 					var out = (new XMLSerializer()).serializeToString(xmlData);
 					
@@ -43,14 +54,67 @@ function bind_load_xml() {
 					build_family_history_data_table();
 					$("#add_another_family_member_button").show();
 				}); 
-			 },
-			 error: function (errorMessage) { alert ("ERROR:" + errorMessage);}
+			},
+			error: function (errorMessage) { alert ("ERROR:" + errorMessage);}
 		});
 		$("#load_personal_history_dialog").dialog("close");
 		
 		return false;
 	});
-	$("#load_from_dropbox").append(button);	
+	$("#load_from_dropbox").append(button);		
+}
+
+var CLIENT_ID = '459770573635-ohh6qdb4gu4i8nlnlap609oogsoa0ub8.apps.googleusercontent.com';
+var SCOPES = 'https://www.googleapis.com/auth/drive.file';
+
+function bind_load_google_drive() {
+	var button = $("<BUTTON id='dropbox_load_button'>" + $.t("fhh_load_save.load_google_drive_button") + "</BUTTON>");
+	button.on("click", function () {
+		personal_information = new Object();
+		gapi.auth.authorize( {'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': false}, googlePostAuthLoad);
+	});
+	
+	$("#load_from_google_drive").append(button);			
+}
+
+function googlePostAuthLoad(authResult) {
+	
+	if (authResult && !authResult.error) {
+		var request = gapi.client.request({
+				'path': 'drive/v2/files',
+				'method': 'GET'
+		});
+		var	callback = function(data) {
+			var items = data.items;
+			
+			if (items.length <= 0) {
+				alert( "No File Found"  );
+				return;
+			}
+			
+			var file_link = items[0].downloadUrl;
+	
+	    var accessToken = gapi.auth.getToken().access_token;
+	    
+	    $.ajax({
+	    	url: file_link,
+	    	headers: {"Authorization": 'Bearer ' + accessToken},
+	    }).done(function(data) {
+					
+					parse_xml(data);
+					build_family_history_data_table();
+					$("#add_another_family_member_button").show();
+
+					$("#load_personal_history_dialog").dialog("close");
+			});
+	   
+		};
+		request.execute(callback);	
+	}
+}
+
+function 	bind_load_health_vault() {
+	
 }
 
 
