@@ -315,38 +315,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
 
 }
 
-@media printer /*--This is for Print Preview Screen--*/
 
-{
-
-    .btn
-
-    {
-
-        display: none;
-
-    }
-
-    #health_table
-
-    {
-
-        background-color: #CD853F;
-
-        border:1px solid green;
-
-    }
-
-}
-
-/*@Media Print {*/
-    /*border: 2px solid black;*/
-/*}*/
-
-/*#health_table{*/
-/*font:  8px Arial;*/
-/*font-weight: bold;*/
-/*}*/
 
 #family_pedigree_info{
     vertical-align: top;
@@ -358,7 +327,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
 
 #health_table {
     width:  98%;
-    padding-top: 10;
+    padding-top: 1;
     padding-left: 20;
     margin: 0;
 }
@@ -366,7 +335,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
 #health_table caption {
     padding: 0 0 5px 0;
     width: 98%;
-    font: italic 9px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+    font: bold 20px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     text-align: right;
 }
 
@@ -461,8 +430,17 @@ svg#sky {
 }
 /*embed {  overflow:scroll; position: absolute; width: 100%; height: 100%; background-color: #AAAAAA}*/
 
-.bmi_table td{
-    font: bold 14px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+#bmi_table caption {
+    padding: 0 0 5px 0;
+    width: 98%;
+    font: bold 18px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+    text-align: left;
+}
+
+#bmi_table td{
+    font: bold 15px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+    text-align: end;
+    border-bottom:1px solid darkslategray;
 }
 
 #box
@@ -479,4 +457,40 @@ svg#sky {
     left: 50%;
     top: 50%;
 
+}
+
+#diseaseopts{
+    width:350px
+}
+
+.ctable table
+{
+    width:100%;
+    background:#d5d5d5;
+    padding:8px 4px 8px 4px;
+    border-radius: 4px;
+    -moz-border-radius:4px;
+    -webkit-border-radius: 4px;
+    border:1px solid #dbdbe2;
+    visibility: hidden;
+
+}
+.ctable td
+{
+    text-align:left;
+    font-family:"Arial MS";
+    font-size:8px;
+    padding:5px;
+    border-bottom:1px solid darkslategray;
+    border-right:1px dashed slategray;
+    border-left:1px dashed slategray;
+}
+
+.closer button{
+    font-family:"Arial MS";
+    font-size:8px;
+    background-color: darkslategrey;
+    color: white;
+    border: none;
+    padding-right: 25px;
 }
