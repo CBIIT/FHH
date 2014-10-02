@@ -247,6 +247,7 @@
 		"family_twin_status" : "¿Tenia hermano(a) gemelo(a)?",
 		"adopted": "¿Fue usted adoptado?",
 		"family_adopted" : "¿Fue esta persona adoptada?",
+
 		"yes": "Sí",
 		"no":"No",
 		"unknown":"Desconocido",
@@ -264,6 +265,7 @@
 		"centimeters": "Centímetros",
 		"lbs": "lbs",
 		"kgs": "kgs",
+
 		"di3_fam_hist": "información de salud",
 		"di4_fam_hist": "Información de antecedentes familiares",
 		"btn1_fam_hist": "Siguiente",
