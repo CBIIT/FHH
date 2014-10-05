@@ -18,8 +18,8 @@
 	"fhh_js": {
 		"Ashkenazi": "Perché chiedere di Ashkenazi?",
 		"pi": "inserire informazioni personali",
-		"select_age": "- Selezionare Età stimata -",
-		"select_age_death": "- Selezionare Età stimata al decesso -",
+		"select_age": "Selezionare Età stimata",
+		"select_age_death": "Selezionare Età stimata al decesso",
 		"family_health_history_title": "Inserire Salute Storia di Famiglia Stati",
 		"load_dialog_title": "Carica la tua salute storia familiare",
 		"save_dialog_title": "Salva la tua salute storia familiare",
@@ -34,8 +34,8 @@
 		"add_relative_title": "Chi vorresti aggiungere alla vostra storia?",
 		"add_relative_para": "Parenti nella vostra famiglia immediata che non sono elencati qui sono probabilmente nella pagina precedente e può essere raggiunta chiudendo questa finestra e selezionando l'immagine segno più ('Aggiungi History') accanto al nome del coniuge relativi e cugini di secondo grado non sono elencati perché non influenzano la vostra storia di salute della famiglia.",
 		
-		"select_relationship": "- Selezionare Rapporto -",
-		"please_specify": "- Si prega di specificare -",
+		"select_relationship": "Selezionare Rapporto",
+		"please_specify": "Si Prega di Specificare",
 
 		"self": "Sé",
 		"mother": "Madre",
@@ -80,9 +80,11 @@
 		"halfbrother_parent_q": "Chi è il padre di tuo fratellastro:",
 		"halfsister_parent_q": "Chi è il padre di tua sorellastra:",
 		
+		"invalid_name" : "Nome non valido",
 		"invalid_data_of_birth": "Invalid Data di nascita",
 		"invalid_gender": "Selezione di genere non valido",
 		"invalid_data_alert": "Alcuni dei dati tuo immessi non sono validi, si prega di correggere i vostri errori e riprovare.",
+		"halfway_through_adding_disease" : "Non hai salvato la nuova malattia informazioni, si prega di fare clic su 'Aggiungi' per aggiungere la malattia prima.",
 
 		"my_family": "La mia famiglia",
 		"fathers_side": "Parte di mio padre di famiglia",
@@ -104,7 +106,7 @@
 		"age_at_diagnosis": "L'età alla diagnosi",
 		"action": "Azione",
 
-		"age_at_diagnosis_select": "- Select Età al Diagnosis -",
+		"age_at_diagnosis_select": "Select Età al Diagnosis",
 		"prebirth": "Pre-Birth",
 		"newborn": "Newborn",
 		"infant": "nella prima infanzia",
@@ -117,7 +119,7 @@
 		"senior": "60 anni o più",
 		"unknown": "Sconosciuto",
 
-		"razza": "Razza:",
+		"race": "Razza:",
 		"more_race": "Altre opzioni di Razza:",
 		"ethnicity": "Etnia:",
 		"more_ethnicity": "Più Etnia:",
@@ -163,9 +165,10 @@
 
 		"personal_health_subtitle": "La tua informazione sanitaria",
 
-		"disease_select": "- Seleziona una malattia -",
-		"add_new": "Altro - Aggiungi nuovo",
-		"disease_subtype_select": "- Selezionare un sottotipo specifico -",
+		"disease_select": "Seleziona una Malattia",
+		"add_new": "Altro - Aggiungi Nuovo",
+		"disease_subtype_select": "Selezionare un Sottotipo Specifico",
+		"disease_name_enter": "Immettere un Nome Della Malattia",
 
 		"add": "Aggiungi",
 		"remove": "Rimuovi",
@@ -176,8 +179,10 @@
 		"export_instructions": ". Questa uscita le informazioni dal punto di vista di uno dei tuoi parenti",
 		"export_instructions2": "È possibile esportare i tuoi immedaite membri della famiglia: fratelli, sorelle, madre, padre, figli e figlie",
 		"choose_relative": "Scegliere un parente:",
-		"please_select_relative": "- Si prega di effettuare una selezione -",
+		"please_select_relative": "Si prega di effettuare una selezione",
 		"export": "Esportazione",
+	
+		"leave_page_warning": "Se si lascia prima di salvare le modifiche andranno perse.",
 	
 		"done": "fatto"
 	},
@@ -231,7 +236,7 @@
 		"race_ethnicity_information_for": "razza ed etnia Informazioni per",
 
 		"div_family_info": "Informazioni personali sul Cognome membro",
-		"istruzioni": "Iniziamo la storia di salute della famiglia con voi Immettere le informazioni personali richieste e le informazioni di storia di salute Nella parte inferiore della pagina (potrebbe essere necessario scorrere), premere il pulsante 'Avanti' Sarà quindi. chiesto di dire al sistema che i membri della famiglia che si desidera aggiungere alla storia della salute.",
+		"instructions": "Iniziamo la storia di salute della famiglia con voi Immettere le informazioni personali richieste e le informazioni di storia di salute Nella parte inferiore della pagina (potrebbe essere necessario scorrere), premere il pulsante 'Avanti' Sarà quindi. chiesto di dire al sistema che i membri della famiglia che si desidera aggiungere alla storia della salute.",
 		
 		
 		"health_vault": "Se si dispone di un account Microsoft HealthVault, è possibile scegliere di copiare le informazioni di storia di famiglia HealthVault in questo sito Le informazioni che si aggiungono o si modificano qui può quindi essere copiato tornare a HealthVault Press 'Copia da HealthVault' per arrivare. iniziato. ",
@@ -259,12 +264,12 @@
 		"identical": "Sì - coincidono (stesso)",
 		"fraternal": "Sì - non identico (Fraterno)",
 		"height": "Altezza",
-		"peso": "Peso",
-		"piedi": "Feet",
-		"pollici": "Cm",
+		"weight": "Peso",
+		"feet": "Piedi",
+		"inches": "Pollici",
 		"or": "-OPPURE-",
 		"centimeters": "Centimetri",
-		"lbs": "libbre",
+		"lbs": "lbs",
 		"kg": "kg",
 		
 
@@ -287,13 +292,15 @@
 		"puncles": "Quanti fratelli fa tuo padre ha (i tuoi zii)",
 		"paunts": "Quanti sorelle fa tuo padre ha (le tue zie)",
 		
-		"salvare": "Salva",
+		"save": "Salvare",
 		"cancel": "Annulla",
 		
 		"done": "fatto"
 	},
 
 	"fhh_load_save": {
+		"choose_a_file": "Scegli un file da caricare",
+		
 		"load_from_file": "Carica vostre informazioni personali da un file",
 		"load_file_button": "Carica da un file",
 		"load_health_vault": "Carica vostre informazioni personali da Health Vault di Microsoft",

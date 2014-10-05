@@ -20,7 +20,12 @@ function bind_load_xml() {
 function bind_load_file() {
 	$("#file_upload_button").val($.t("fhh_load_save.load_file_button"));	
 	$("#file_upload_button").on("click", function () {
-    $("#view_diagram_and_table_button").attr('onclick', 'xmlload()');
+		
+		if ($('#pedigree_file')[0].files[0] == null) {
+			alert ($.t("fhh_load_save.choose_a_file"));
+			return false;
+		}
+//    $("#view_diagram_and_table_button").attr('onclick', 'xmlload()');
 		personal_information = new Object();
 		
 		var fsize = $('#pedigree_file')[0].files[0].size;
@@ -133,7 +138,7 @@ function loaded (evt) {
 	build_family_history_data_table();
 	$("#add_another_family_member_button").show();
 }
-
+/*
 function make_disease_array () {
 	var keys = Object.keys(diseases);
 	for (var i=0; i<keys.length;i++) {
@@ -143,7 +148,7 @@ function make_disease_array () {
 		}
 	}	
 }
-
+*/
 function parse_xml(data) {
 	personal_information.id = $(data).find("patientPerson > id").attr("extension");
 	// Handle the misspelling from the previous version of the software
@@ -256,12 +261,24 @@ function parse_xml(data) {
 
 		var death = $(this).find("relationshipHolder > subjectOf2 > clinicalObservation > sourceOf > code[displayName='death']");
 		if (death.length) {
-			var death_age = get_age_at_diagnosis("", $(this).find("relationshipHolder > subjectOf1 > deceasedEstimatedAge"));
-			var cause_of_death = death.parent().parent().children("code").attr("displayName");
+			var death_age = get_age_at_diagnosis($(this).find("relationshipHolder > subjectOf1 > deceasedEstimatedAge"));
+			var detailed_cause_of_death = death.parent().parent().children("code").attr("displayName");
+			var cause_of_death_code = death.parent().parent().children("code").attr("code");
+			var cause_of_death_system = death.parent().parent().children("code").attr("codeSystemName");
 			
 //			alert (relative.name + " died around [" + death_age + "] of :[" + cause_of_death+ "]");
-			relative.cause_of_death = get_disease_name_from_detailed_name(cause_of_death);
-			if (relative.cause_of_death != cause_of_death) relative.detailed_cause_of_death = cause_of_death;
+			relative.cause_of_death = get_disease_name_from_detailed_name(detailed_cause_of_death);
+			if (cause_of_death_code) {
+				relative.cause_of_death_code = cause_of_death_code;				
+			} else {
+				relative.cause_of_death_code = get_disease_code_from_detailed_disease(detailed_cause_of_death);
+			}
+			
+			if (cause_of_death_system == 'undefined' || cause_of_death_system == null) relative.cause_of_death_system = 'SNOMED_CT';
+			else if (cause_of_death_system == 'SNOMED COMPLETE') relative.cause_of_death_system = 'SNOMED_CT';
+			else relative.cause_of_death_system = cause_of_death_system;
+			
+			if (relative.detailed_cause_of_death != detailed_cause_of_death) relative.detailed_cause_of_death = detailed_cause_of_death;
 			relative.estimated_death_age = death_age;
 		}
 		
@@ -480,22 +497,47 @@ function get_specific_health_issue (relative_name, data) {
 	
 //	alert(relative_name + " " + $(data).attr('displayName'));
 	var detailedDiseaseName = $(data).attr('displayName');
+	var diseaseCode = $(data).attr('code');
+	if (typeof diseaseCode == 'string') diseaseCode = diseaseCode.trim();
+	var diseaseCodeSystem = $(data).attr('codeSystemName');
+	if (diseaseCodeSystem == 'undefined') diseaseCodeSystem = 'SNOMED_CT'; // Default if not found is SNOMED_CT
+	if (diseaseCodeSystem == 'SNOMED COMPLETE') diseaseCodeSystem = 'SNOMED_CT'; // For backwards compatibility
 
+	
 	highLevelDiseaseName = get_disease_name_from_detailed_name(detailedDiseaseName);
 	if (highLevelDiseaseName == null) highLevelDiseaseName = detailedDiseaseName;
 
 	// Now have to get age at diagnosis
-	ageAtDiagnosis = get_age_at_diagnosis(relative_name + ","+ highLevelDiseaseName + ", " + detailedDiseaseName, 
-			$(data).parent().find('subject > dataEstimatedAge'));
+	ageAtDiagnosis = get_age_at_diagnosis($(data).parent().find('subject > dataEstimatedAge'));
 
-
+	if (ageAtDiagnosis == null) return null; // Not a disease
+	// If we have a disease code, use it to determine the disease name, otherwise use the name to find the code
+	// Disease code includes the system format is <system>-<code>
+	if (diseaseCode) {
+		detailedDiseaseName = get_detailed_disease_name_from_code(diseaseCode);
+	} else {
+		diseaseCode = get_disease_code_from_detailed_disease(detailedDiseaseName);
+		diseaseCodeSystem = 'SNOMED_CT'; // The default
+	}
 	var specific_health_issue = {"Disease Name": highLevelDiseaseName,
                   "Detailed Disease Name": detailedDiseaseName,
                   "Age At Diagnosis": ageAtDiagnosis};
+  if (diseaseCode) specific_health_issue["Disease Code"] = diseaseCodeSystem + "-" + diseaseCode;
+  
 	return specific_health_issue;
 }
 
 function get_disease_name_from_detailed_name(detailedDiseaseName) {
+	var high_level_disease_list = Object.keys(diseases);
+	for (var i=0; i<high_level_disease_list.length;i++) {
+		var detailed_disease_list = diseases[high_level_disease_list[i]];
+		for (var j=0;j<detailed_disease_list.length;j++) {
+			if (detailed_disease_list[j].name == detailedDiseaseName) return high_level_disease_list[i];
+		}
+	}
+	return detailedDiseaseName;
+}
+/*
 	if ($.inArray(detailedDiseaseName, disease_list) != -1) {
 		// We have the detailed disease name, now we need the high-level disease name
 		var keys = Object.keys(diseases);
@@ -515,8 +557,20 @@ function get_disease_name_from_detailed_name(detailedDiseaseName) {
 		return null;
 	}
 }
+*/
 
-
+/*
+var disease_list = new Array();
+function make_disease_array () {
+	var keys = Object.keys(diseases);
+	for (var i=0; i<keys.length;i++) {
+		disease_list.push(keys[i]);
+		for (var j=0; j<diseases[keys[i]].length; j++) {
+		disease_list.push(diseases[keys[i]][j]);
+		}
+	}	
+}
+*/
 function load_ethnicity(node) {
 	// Race and Ethnicity
 	ethnicity = new Object(); 
@@ -542,26 +596,55 @@ function load_race(data) {
 }
 
 
-function get_age_at_diagnosis (text, xml_snippet) {
-	if (xml_snippet == null) return "";
+function get_age_at_diagnosis (xml_snippet) {
+	if (xml_snippet == null) return null;
 	
-	if (xml_snippet.html() && xml_snippet.html().indexOf("pre-birth") > -1) return 'Pre-Birth';
+	if (xml_snippet.html() && xml_snippet.html().indexOf("prebirth") > -1) return 'Pre-Birth';
 	var estimated_age = xml_snippet.html();
 	if (estimated_age && estimated_age.indexOf('unit="day"') > -1) {
-		if (estimated_age.indexOf('value="0"') > -1) return "NewBorn";
-		if (estimated_age.indexOf('value="29"') > -1) return "In Infancy";
+		if (estimated_age.indexOf('value="0"') > -1) return "newborn";
+		if (estimated_age.indexOf('value="29"') > -1) return "infant";
 	}
 	if (estimated_age && estimated_age.indexOf('unit="year"') > -1) {
-		if (estimated_age.indexOf('value="2"') > -1) return "In Childhood";
-		if (estimated_age.indexOf('value="10"') > -1) return "In Adolescence";
-		if (estimated_age.indexOf('value="20"') > -1) return "20-29 years";
-		if (estimated_age.indexOf('value="30"') > -1) return "30-39 years";
-		if (estimated_age.indexOf('value="40"') > -1) return "40-49 years";
-		if (estimated_age.indexOf('value="50"') > -1) return "50-59 years";
-		if (estimated_age.indexOf('value="60"') > -1) return "60 years or older";
+		if (estimated_age.indexOf('value="2"') > -1) return "child";
+		if (estimated_age.indexOf('value="10"') > -1) return "teen";
+		if (estimated_age.indexOf('value="20"') > -1) return "twenties";
+		if (estimated_age.indexOf('value="30"') > -1) return "thirties";
+		if (estimated_age.indexOf('value="40"') > -1) return "fourties";
+		if (estimated_age.indexOf('value="50"') > -1) return "fifties";
+		if (estimated_age.indexOf('value="60"') > -1) return "senior";
 	}
-	if (xml_snippet.html() && xml_snippet.html().indexOf("unknown") > -1) return 'Unknown';
+	if (xml_snippet.html() && xml_snippet.html().indexOf("unknown") > -1) return 'unknown';
 
 	return null;
 }
 
+function get_disease_code_from_detailed_disease(detailedDiseaseName) {
+	// Must search through every code until we have a match,
+	var disease_categories = Object.keys(diseases);
+	for (var i=0; i <	disease_categories.length; i++) {
+		disease_list = diseases[ disease_categories[i] ];
+		for (var j=0; j<disease_list.length;j++) {
+			individual_disease = disease_list[j];
+			if (individual_disease && individual_disease.name == detailedDiseaseName) {
+				return individual_disease.code;
+			}
+		}
+	}
+	return null; // No disease code found
+	
+}
+function get_detailed_disease_name_from_code(disease_code) {
+	// Must search through every code until we have a match,
+	var disease_categories = Object.keys(diseases);
+	for (var i=0; i <	disease_categories.length; i++) {
+		disease_list = diseases[ disease_categories[i] ];
+		for (var j=0; j<disease_list.length;j++) {
+			individual_disease = disease_list[j];
+			if (individual_disease && individual_disease.code == disease_code) {
+				return individual_disease.name;
+			}
+		}
+	}
+	return null; // No disease code found
+}

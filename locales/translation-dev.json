@@ -17,8 +17,8 @@
 	"fhh_js": {
 		"ashkenazi" : "Why Ask About Ashkenazi?",
 		"pi":"Enter Personal Information",
-		"select_age": "-- Select Estimated Age --",
-		"select_age_death": "-- Select Estimated Age at Death --",
+		"select_age": "Select Estimated Age",
+		"select_age_death": "Select Estimated Age at Death",
 		"family_health_history_title":"Enter Family Member's Health History",
 		"load_dialog_title": "Load Your Family Health History",
 		"save_dialog_title": "Save Your Family Health History",
@@ -33,8 +33,8 @@
 		"add_relative_title":"Who would you like to add to your history?",
 		"add_relative_para":"Relatives in your immediate family who aren't listed here are probably on the previous page and can be reached by closing this window and selecting the plus sign image ('Add History') next to the relative's name. Spouses and second cousins are not listed because they don't impact your family health history.",
 						
-		"select_relationship":" -- Select Relationship -- ",
-		"please_specify":" -- Please Specify -- ",
+		"select_relationship":"Select Relationship",
+		"please_specify":"Please Specify",
 
 		"self": "Self",
 		"mother":"Mother",
@@ -79,9 +79,11 @@
 		"halfbrother_parent_q" : "Who is the parent of your half brother:",
 		"halfsister_parent_q" : "Who is the parent of your half sister:",
 		
+		"invalid_name" : "Invalid Name",
 		"invalid_data_of_birth" : "Invalid Date of Birth",
 		"invalid_gender" : "Invalid Gender Selection",
 		"invalid_data_alert" : "Some of the data your entered was invalid, please fix your errors and try again.",
+		"halfway_through_adding_disease" : "You have not saved the new disease information, please click 'Add' to add the disease first.",
 		
 		"my_family" : "My Family",
 		"fathers_side" : "My Father's Side of the Family",
@@ -102,7 +104,7 @@
 		"age_at_diagnosis" : "Age at Diagnosis",
 		"action" : "Action",
 
-		"age_at_diagnosis_select" : " -- Select Age at Diagnosis -- ",
+		"age_at_diagnosis_select" : "Select Age at Diagnosis",
 		"prebirth" : "Pre-Birth",
 		"newborn" : "Newborn",
 		"infant" : "In Infancy",
@@ -161,9 +163,10 @@
 		
 		"personal_health_subtitle" : "Your Health Information",
 
-		"disease_select" : " -- Please Select a Disease -- ",
+		"disease_select" : "Please Select a Disease",
 		"add_new" : "Other - Add New",
-		"disease_subtype_select" : " -- Please Select a Specific Subtype -- ",
+		"disease_subtype_select" : "Please Select a Specific Subtype",
+		"disease_name_enter": "Please Enter a Disease Name",
 		
 		"add" : "Add",
 		"remove" : "Remove",
@@ -174,10 +177,11 @@
 		"export_instructions":"This will output the information from the point of view of one of your relatives.",
 		"export_instructions2":"You can export for your immedaite family members: Brothers, Sisters, Mother, Father, Sons, and Daughters",
 		"choose_relative":"Choose a Relative:",
-		"please_select_relative":"-- Please make a selection -- ",
+		"please_select_relative":"Please make a selection",
 		"export":"Export",
 		
-		
+		"leave_page_warning": "If you leave before saving your changes will be lost.",
+
 		"done" : "done"		
 	},
 	
@@ -290,6 +294,7 @@
 	},
 
 	"fhh_load_save": {
+		"choose_a_file": "Please choose a file to upload",
 		"load_from_file" : "Load Your Personal Information from a File",
 		"load_file_button" : "Load from a File",
 		"load_health_vault" : "Load Your Personal Information from Microsoft's Health Vault",

@@ -1,9 +1,9 @@
 {
 	"fhh_index": {
 		"usage": "Usando Retrato Meu Saúde da Família, você pode:",
-		"li1": ". Digite o seu histórico de saúde da família",
-		"li2": ". Imprima seu histórico de saúde da família para compartilhar com a família ou o seu profissional de saúde",
-		"li3": ". Salve seu histórico de saúde da família para que você possa atualizá-lo ao longo do tempo",
+		"li1": "Digite o seu histórico de saúde da família",
+		"li2": "Imprima seu histórico de saúde da família para compartilhar com a família ou o seu profissional de saúde",
+		"li3": "Salve seu histórico de saúde da família para que você possa atualizá-lo ao longo do tempo",
 		"talking": "Conversando com o seu profissional de saúde sobre seu histórico de saúde da família pode ajudá-lo a manter-se saudável!",
 		"create": "Criar uma História de Saúde da Família",
 		"load": "Use um histórico gravado",
@@ -18,8 +18,8 @@
 	"fhh_js": {
 		"ashkenazi": "Por que perguntar sobre Ashkenazi?",
 		"pi": "Inserir informações pessoais",
-		"select_age": "- Selecione idade estimada -",
-		"select_age_death": "- Selecione idade estimada da morte -",
+		"select_age": "Selecione idade estimada",
+		"select_age_death": "Selecione idade estimada da morte",
 		"family_health_history_title": "entrar na história do membro da família de Saúde",
 		"load_dialog_title": "Carregue seu histórico de Saúde da Família",
 		"save_dialog_title": "Save Your History Saúde da Família",
@@ -34,8 +34,8 @@
 		"add_relative_title": "Quem você gostaria de adicionar à sua história?",
 		"add_relative_para": "Parentes em sua família imediata que não estão listadas aqui são, provavelmente, na página anterior e pode ser alcançado por fechar esta janela e selecionar a imagem de sinal de mais (' Adicionar History ') ao lado do nome do parente Cônjuges e primos de segundo grau não estão listados porque não afetar o seu histórico de saúde da família. ",
 
-		"select_relationship": "- Selecione relacionamento -",
-		"please_specify": "- Especifique -",
+		"select_relationship": "Selecione relacionamento",
+		"please_specify": "Especifique",
 		
 		"self": "Eu",
 		"mother": "Mãe",
@@ -80,9 +80,11 @@
 		"halfbrother_parent_q": "Quem é o pai de seu meio-irmão:",
 		"halfsister_parent_q": "Quem é o pai de sua meia-irmã:",
 
+		"invalid_name" : "Nome Inválido",
 		"invalid_data_of_birth": "Invalid Data de Nascimento",
-		"invalid_gender": "Seleção Sexo inválido",
+		"invalid_gender": "Seleção Sexo Inválido",
 		"invalid_data_alert": "Alguns dos dados digitados sua era inválido, por favor corrija seus erros e tente novamente.",
+		"halfway_through_adding_disease" : "Você não salvou as novas informações doença, por favor clique em 'Adicionar' para adicionar a doença em primeiro lugar.",
 
 		"my_family": "Minha Família",
 		"fathers_side": "lado do meu pai da família",
@@ -103,7 +105,7 @@
 		"age_at_diagnosis": "A idade de diagnóstico",
 		"action": "Ação",
 
-		"age_at_diagnosis_select": "- Select Idade de Diagnóstico -",
+		"age_at_diagnosis_select": "Select Idade de Diagnóstico",
 		"prebirth": "Pré-Parto",
 		"newborn": "recém-nascido",
 		"infant": "na infância",
@@ -162,9 +164,10 @@
 
 		"personal_health_subtitle": "Sua Informação em Saúde",
 
-		"disease_select": "- Selecione uma Doença -",
+		"disease_select": "Selecione uma Doença",
 		"add_new": "Outros - Adicionar Novo",
-		"disease_subtype_select": "- Selecione um subtipo específico -",
+		"disease_subtype_select": "Selecione um subtipo específico",
+		"disease_name_enter": "Por favor insira um nome da doença",
 
 		"add": "Adicionar",
 		"remove": "Remover",
@@ -172,11 +175,13 @@
 		"cancel": "Cancelar",
 		"save": "Salvar",
 
-		"export_instructions": ". Esta saída da informação do ponto de vista de um de seus parentes",
+		"export_instructions": "Esta saída da informação do ponto de vista de um de seus parentes",
 		"export_instructions2": "Você pode exportar para os seus familiares immedaite: irmãos, irmãs, mãe, pai, filhos e filhas",
 		"choose_relative": "Escolha um Relativa:",
-		"please_select_relative": "- Por favor, faça uma seleção -",
+		"please_select_relative": "Por favor, faça uma seleção",
 		"export": "Exportação",
+
+		"leave_page_warning": "Se você sair antes de salvar as alterações serão perdidas.",
 		
 		"done": "done"
 	},
@@ -190,7 +195,7 @@
 		"a_get_help": "Obter Ajuda",
 		"h1_my_fhh": "Minha História Saúde da Família",
 		"h2_new_fhh": "Criar uma nova História da Família",
-		"p_create_my_history": ".. Selecione 'Criar a minha história' para criar o seu perfil pessoal, digite suas informações de saúde, e diga-nos quantas pessoas estão em sua família imediata Você pode adicionar outros membros da família e entre os seus históricos de saúde mais tarde ",
+		"p_create_my_history": "Selecione 'Criar a minha história' para criar o seu perfil pessoal, digite suas informações de saúde, e diga-nos quantas pessoas estão em sua família imediata Você pode adicionar outros membros da família e entre os seus históricos de saúde mais tarde ",
 		"btn_create_my_history": "Criar a minha história",
 		"btn_save_my_history": "Salvar minha história",
 		"btn_add_a_family_mbr": "Adicionar outro membro da família",
@@ -231,7 +236,7 @@
 	
 		"div_family_info": "informação pessoal do seu membro da família",
 		"instructions": "Começamos o histórico de saúde da família com você Digite as informações pessoais necessárias e suas informações de histórico de saúde Na parte inferior da página (você pode precisar rolar), pressione o botão 'Next' Então você vai ser. pediu para dizer ao sistema que os membros da família que você gostaria de adicionar ao histórico de saúde. ",
-		"health_vault.": "Se você tiver uma conta Microsoft HealthVault, você pode optar por copiar suas informações de história da família em HealthVault no site Informações que você adicionar ou modificar aqui pode ser copiado de volta para HealthVault Prima 'Copiar HealthVault' para chegar. iniciado. ",
+		"health_vault": "Se você tiver uma conta Microsoft HealthVault, você pode optar por copiar suas informações de história da família em HealthVault no site Informações que você adicionar ou modificar aqui pode ser copiado de volta para HealthVault Prima 'Copiar HealthVault' para chegar. iniciado. ",
 		"family_instructions": "Digite as informações pessoais e as informações necessárias histórico de saúde para este membro da família informações de fundo também pode ser inserido na parte inferior da página (você pode precisar rolar), pressione o botão 'Salvar' para salvar as informações dessa pessoa.. ",
 		"required": "indica as informações necessárias.",
 		"relationship": "Relacionamento:",
@@ -290,6 +295,8 @@
 	},
 
 	"fhh_load_save": {
+		"choose_a_file": "Por favor, escolha um arquivo para upload",
+		
 		"load_from_file": "Baixar de suas informações pessoais a partir um arquivo",
 		"load_file_button": "Baixar a partir um arquivo",
 		"load_health_vault": "Baixar de suas informações pessoais a partir Health Vault, da Microsoft",

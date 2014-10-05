@@ -21,6 +21,7 @@ function bind_relative_select_change() {
   else if (relative_being_exported.substring(0,8) == 'daughter') pi = export_son_or_daughter(relative_being_exported, my_gender);
 
 	var xml_document = make_export_string(pi);
+	var filename = make_filename(pi);
 
 	$("#export_to_relative").remove();
 	var export_button = $("<A id='export_to_relative' class='link-button'>" + $.t("fhh_js.export") + "</A>");
@@ -28,7 +29,7 @@ function bind_relative_select_change() {
 		$("#copy_for_family_member").empty().dialog("close");
 	});
 	$("#copy_for_family_member").append("&nbsp;&nbsp;").append(export_button);
-	save_document($("#export_to_relative"), xml_document, pi);	
+	save_document($("#export_to_relative"), xml_document, filename);	
 }
 
 function export_brother_or_sister(relative_being_exported, my_gender) {
@@ -215,7 +216,7 @@ function move_relatives(pi, from, to, special_type, special_value) {
 			pi[to + '_' + num_to_move] = JSON.parse(JSON.stringify(personal_information[from + '_' + i]));
 			if (special_type == 'add_parent_id') {
 				pi[to + '_' + num_to_move].parent_id = special_value;
-				alert (JSON.stringify(pi[to + '_' + num_to_move], null, 2));
+//				alert (JSON.stringify(pi[to + '_' + num_to_move], null, 2));
 			}
 		}
 		num_to_move = find_first_available_relative_location(pi, to);
@@ -302,11 +303,15 @@ function make_export_string(pi) {
 	root.appendChild(add_personal_history(pi));
 	var s = new XMLSerializer();
 	var output_string = s.serializeToString(root);
+	return output_string;
+}
+
+function make_filename(pi) {
 	var filename = "family_health_history.xml";
 	if (pi && pi.name) {
 		filename = pi.name.replace(/ /g,"_") + "_Health_History.xml";
 	} 
-	return root;
+	return filename	
 }
 
 function give_instructions() {

@@ -470,6 +470,7 @@ function add_diseases(tag, diseases) {
 	for (var i=0; i<diseases.length;i++) {
 		var disease_name = diseases[i]["Disease Name"];
 		var detailed_disease_name = diseases[i]["Detailed Disease Name"];
+		var disease_code_and_system = diseases[i]["Disease Code"];
 		if (!detailed_disease_name) detailed_disease_name = disease_name;
 		var age_at_diagnosis = diseases[i]["Age At Diagnosis"];
 		
@@ -477,9 +478,21 @@ function add_diseases(tag, diseases) {
 		tag.appendChild(observation_tag);
 
 		var code_tag = doc.createElement("code");
+		if (disease_code_and_system) {
+			var dcas =  disease_code_and_system.split("-");
+			var disease_code_system = dcas[0];
+			var disease_code = dcas[1];
+			
+			code_tag.setAttribute("codeSystemName", disease_code_system);  
+			code_tag.setAttribute("code", disease_code);
+			var potential_detailed_disease_name = get_detailed_disease_name_from_code(disease_code);
+			if (potential_detailed_disease_name != null) detailed_disease_name = potential_detailed_disease_name;
+//			alert (potential_detailed_disease_name + "->" + detailed_disease_name);
+		}
 		code_tag.setAttribute("displayName", detailed_disease_name);
 		code_tag.setAttribute("originalText", detailed_disease_name);
-		code_tag.setAttribute("codeSystemName", "SNOMED COMPLETE"); // 
+		
+//		code_tag.setAttribute("codeSystemName", "SNOMED COMPLETE"); // 
 		observation_tag.appendChild(code_tag);
 		
 		var subject_tag = doc.createElement("subject");
@@ -776,17 +789,17 @@ function get_code_for_race(str) {
 
 function get_age_values_from_estimated_age(age_at_diagnosis) {
 	switch (age_at_diagnosis) {
-		case "Pre-Birth": return null;
-		case "Newborn": return {unit:"day", low:"0", high:"28"};
-		case "In Infancy": return {unit:"day", low:"29", high:"729"};
-		case "In Childhood": return {unit:"year", low:"2", high:"10"};
-		case "In Adolescence": return {unit:"year", low:"11", high:"19"};
-		case "20-29 years": return {unit:"year", low:"20", high:"29"};
-		case "30-39 years": return {unit:"year", low:"30", high:"39"};
-		case "40-49 years": return {unit:"year", low:"40", high:"49"};
-		case "50-59 years": return {unit:"year", low:"50", high:"59"};
-		case "60 years or older": return {unit:"year", low:"60", high:null};
-		case "Unknown": return null;
+		case "prebirth": return null;
+		case "newborn": return {unit:"day", low:"0", high:"28"};
+		case "infant": return {unit:"day", low:"29", high:"729"};
+		case "child": return {unit:"year", low:"2", high:"10"};
+		case "teen": return {unit:"year", low:"11", high:"19"};
+		case "twenties": return {unit:"year", low:"20", high:"29"};
+		case "thirties": return {unit:"year", low:"30", high:"39"};
+		case "fourties": return {unit:"year", low:"40", high:"49"};
+		case "fifties": return {unit:"year", low:"50", high:"59"};
+		case "senior": return {unit:"year", low:"60", high:null};
+		case "unknown": return null;
 	}
 	return null;
 }
@@ -795,11 +808,14 @@ function save_document(save_link, output_string, filename) {
 		if (isIE10) {
 	    var blobObject = new Blob([output_string]); 
 	    window.navigator.msSaveBlob(blobObject, filename); // The user only has the option of clicking the Save button.
-		} else {	
+		} else {
 			save_link.attr("href", "data:application/xml," + output_string ).attr("download", filename);
 		}
 		
 }
+
+
+// function get_detailed_disease_name_from_code(disease_code) moved to load_xml.js
 
 ////  Helper to detect IE10
 

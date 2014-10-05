@@ -2,55 +2,36 @@ var personal_information = null;
 var current_health_history = [];
 var current_relationship = "Self";
 
-var diseases = {
-		'Clotting Disorder': ['Deep Vein Thrombosis (DVT)', 'Pulmonary Embolism', 'Clotting Disorder', 'Unknown Clotting Disorder'],
-		'Cancer': 			 ['Bone Cancer', 'Breast Cancer', 'Colon Cancer', 'Esophageal Cancer', 'Gastric Cancer', 'Kidney Cancer',
-				   			  		'Leukemia', 'Lung Cancer', 'Muscle Cancer', 'Ovarian Cancer', 'Prostate Cancer', 'Skin Cancer', 'Thyroid Cancer',
-				   			  		'Uterine Cancer', 'Hereditary Onpolyposis Colon Cancer', 'Pancreatic Cancer', 'Liver Cancer', 'Brain Cancer',
-				   		 	  		'Colorectal Cancer', 'Other Cancer', 'Unknown Cancer'],
-		'Diabetes': 		 ['Type 1 Diabetes', 'Type 2 Diabetes', 'Gestational Diabetes', 'Diabetes Mellitus', 'Unknown Diabetes'],
-		'Gastrointestinal Disorder': ['Familial adenomatous polyposis', 'Colon Polyp', 'Crohn\'s Disease', 'Irritable Bowel Syndrome',
-									  							'Ulcerative Colitis', 'Gastrointestinal Disorder', 'Unknown Gastrointestinal Disorder'],
-		'Heart Disease': 			 ['Heart Disease', 'Heart Attack', 'Coronary Artery Disease', 'Angina', 'Unknown Heart Disease'],					  
-		'High Cholesterol' : [],
-		'Hypertension': [],
-		'Kidney Disease': ['Cystic Kidney Disease', 'Diabetic Kidney Disease', 'Nephritis', 'Kidney Nephrosis', 'Nephrotic Syndrome',
-						   				 'Unknown Kidney Disease', 'Kidney Disease Present from Birth', 'Other Kidney Disease'],
-		'Lung Disease': ['Asthma', 'Chronic Bronchitis', 'Chronic Lower Respiratory Disease', 'COPD', 'Emphysema', 'Influenza/Pneumonia',
-					     			 'Unknown Lung Disease'],
-		'Dementia/Alzheimer\'s': [],
-		'Osteoporosis': [],
-		'Mental Disorder': ['Anxiety', 'Attention Deficit Disorder-Hyperactivity', 'Autism', 'Bipolar Disorder', 'Dementia',  'Depression',
-						   					'Eating Disorder', 'Obsessive Compulsive Disorder', 'Panic Disorder', 'Personality Disorder', 
-						    				'Post Traumatic Stress Disorder', 'Schizophrenia', 'Social Phobia', 'Unspecified', 'Unknown Psychological Disorder'],
-		'Septicemia': [],
-		'Stroke/Brain Attack': [],
-		'Sudden Infant Death Syndrome': [],
-		'Other Disease': [],
-		'Unknown Disease': []
-	};
-
-var disease_list = new Array();
+var diseases;
 
 $(document).ready(function() {
-	if (typeof i18n != "undefined") {
-		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
-		i18n.init(option, function () {
-			$(".translate").i18n();
-			start();
-		});
-	}
-});
-	
-function start() 
-{
 	// Check to see whether this browser has the FileAPI
 	var FileApiSupported = window.File && window.FileReader && window.FileList && window.Blob;
 	if (!FileApiSupported) {		
 		if ($("body").attr("page") != "unsupported_browser") window.location.replace("./unsupported_browser.html");
 	}
+	
+	if (typeof i18n != "undefined") {
+		var option = { 
+			resGetPath: '../locales/__ns__-__lng__.json',
+			ns: { 
+		    namespaces: ['translation', 'diseases'], 
+		    defaultNs: 'translation'
+		  } 
+		};
 
-	// Setup Language Translation
+		i18n.init(option, function () {
+			$(".translate").i18n();
+			$.getJSON("../data/diseases.json", function (data) {
+				diseases = data;
+				start();
+			});
+		});
+	}
+});
+
+function start() 
+{
 
 	$("#why_ask_ashkenazi_dialog").load ("why_ask_ashkenazi.html", function () {
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
@@ -72,8 +53,6 @@ function start()
 		$("#dropbox_save").attr("href", "data:application/xml," + JSON.stringify(personal_information, null, 2));
 	});
 	
-	make_disease_array(); // From load_xml
-
 	// personal_information_dialog
 	$("#add_personal_information_dialog").load ("add_personal_information_dialog.html", function () {
 		build_personal_health_information_section();
@@ -104,10 +83,10 @@ function start()
 			}
 		});
 
-		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
-		i18n.init(option, function () {
-			$(".translate").i18n();
-		});
+//		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
+//		i18n.init(option, function () {
+//			$(".translate").i18n();
+//		});
 
 	});
 
@@ -684,10 +663,19 @@ function get_gender(relationship) {
 }
 function bind_personal_submit_button_action () {
 	$("#addPersonInformationSubmitButton").on("click", function(){ 
+		$("#invalid_name_warning").remove();
 		$("#invalid_date_of_birth_warning").remove();
 		$("#invalid_gender_warning").remove();
 		
 		var errors = false;
+		if (!check_name_exists($('#personal_info_form_name').val())) {
+			if (!$("#invalid_name_warning").length) {
+			$('#personal_info_form_name').after(
+				$("<span id='invalid_name_warning'> " + $.t("fhh_js.invalid_name") + " </span>").css("color","red"));
+			}
+			errors = true;
+		}
+
 		if (!check_date_of_birth_in_correct_format($('#personal_info_form_date_of_birth').val())) {
 			if (!$("#invalid_date_of_birth_warning").length) {
 			$('#personal_info_form_date_of_birth').after(
@@ -708,6 +696,22 @@ function bind_personal_submit_button_action () {
 			alert ($.t("fhh_js.invalid_data_alert"));
 			return false;
 		}
+		
+		// Check to ensure the user has not entered anything in the disease section that they have not saved.
+		var disease_name = $("#add_personal_information_dialog").find("#disease_choice_select").val();
+		var disease_code = $("#add_personal_information_dialog").find("#detailed_disease_choice_select").val();
+		var age_at_diagnosis = $("#add_personal_information_dialog").find("#age_at_diagnosis_select").val();
+
+		var half_way_through_adding_disease = false;
+		if (disease_name && disease_name != 'not_picked') half_way_through_adding_disease = true;
+		if (disease_code && disease_code != 'not_picked') half_way_through_adding_disease = true;
+		if (age_at_diagnosis && age_at_diagnosis != 'not_picked') half_way_through_adding_disease = true;
+		
+		if (half_way_through_adding_disease) {
+			alert ($.t("fhh_js.halfway_through_adding_disease"));
+			return false;
+		}
+		
 		// Determine the values from the form
 		if (personal_information == null) personal_information = new Object();
 		if (personal_information.id == null) personal_information['id'] = guid();
@@ -792,6 +796,11 @@ function bind_personal_submit_button_action () {
 	});	
 }
 
+function check_name_exists(name) {
+	if (name == null || name.length == 0) return false;	
+	else return true;
+}
+
 function check_date_of_birth_in_correct_format (date_of_birth) {
 	if (date_of_birth == null || date_of_birth.length == 0) return false;	
 
@@ -816,7 +825,15 @@ function check_date_of_birth_in_correct_format (date_of_birth) {
   if (date_info[0] == 11 && date_info[1] > 30) return false;
   if (date_info[0] == 12 && date_info[1] > 31) return false;
   
-  if (date_info[2] < 1890 || date_info[2] > 2100) return false;
+  var today = new Date();
+  var this_year = today.getFullYear();
+  var this_month =  today.getMonth()+1;
+  var this_day = today.getDate();
+  
+  if (date_info[2] < 1890 || date_info[2] > this_year) return false;
+  if (date_info[2] == this_year && date_info[0] > this_month) return false;
+  if (date_info[2] == this_year && date_info[0] == this_month && date_info[1] > this_day) return false;
+   
   if (date_info[2] % 4 != 0 && date_info[0] == 2 && date_info[1] == 29) return false;
 	
 	return true;
@@ -824,6 +841,7 @@ function check_date_of_birth_in_correct_format (date_of_birth) {
 
 function bind_personal_cancel_button_action () {
 	$("#addPersonInformationCancelButton").on("click", function(){ 
+		$("#invalid_name_warning").remove();
 		$("#invalid_date_of_birth_warning").remove();
 		$("#invalid_gender_warning").remove();
 
@@ -850,6 +868,20 @@ function bind_family_member_submit_button_action () {
 			return false;
 		}
 
+		// Check to ensure the user has not entered anything in the disease section that they have not saved.
+		var disease_name = $("#update_family_member_health_history_dialog").find("#disease_choice_select").val();
+		var disease_code = $("#update_family_member_health_history_dialog").find("#detailed_disease_choice_select").val();
+		var age_at_diagnosis = $("#update_family_member_health_history_dialog").find("#age_at_diagnosis_select").val();
+
+		var half_way_through_adding_disease = false;
+		if (disease_name && disease_name != 'not_picked') half_way_through_adding_disease = true;
+		if (disease_code && disease_code != 'not_picked') half_way_through_adding_disease = true;
+		if (age_at_diagnosis && age_at_diagnosis != 'not_picked') half_way_through_adding_disease = true;
+		
+		if (half_way_through_adding_disease) {
+			alert ($.t("fhh_js.halfway_through_adding_disease"));
+			return false;
+		}
 
 		
 		var relationship = "";
@@ -1455,9 +1487,9 @@ function build_personal_health_information_section() {
 
 function set_disease_choice_select (disease_select, detailed_disease_select) {
 	detailed_disease_select.hide();
-	disease_select.append("<option value='NotPicked'>" + $.t("fhh_js.disease_select") + "</option>");
+	disease_select.append("<option value='not_picked'>" + $.t("fhh_js.disease_select") + "</option>");
 	for (disease_name in diseases) {
-		disease_select.append("<option> " + disease_name + " </option>");		
+		disease_select.append("<option value='" + disease_name + "'> " + $.t("diseases:" + disease_name) + " </option>");		
 	}
 	disease_select.append("<option value='other'>" + $.t("fhh_js.add_new") + "</option>");
 	
@@ -1466,7 +1498,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select) {
 			$(this).after($("<span id='new_disease'><br /><INPUT id='new_disease_name' type='text' size='50'></INPUT></span>"));
 						
 		} else {
-			var chosen_disease_name = $.trim($(this).find("option:selected" ).text());
+			var chosen_disease_name = $.trim($(this).find("option:selected" ).val());
 			var disease_box = disease_select.parent();
 	//		$(this).next().remove();
 	//		$("#detailed_disease_choice_select").remove();
@@ -1475,10 +1507,11 @@ function set_disease_choice_select (disease_select, detailed_disease_select) {
 			var detailed_disease_list = "";
 			if (detailed_disease && detailed_disease.length > 0) {
 	//			disease_box.append(detailed_disease_select);
-				detailed_disease_select.show().append("<option value='NotPicked'>" + $.t("fhh_js.disease_subtype_select") + "</option>");
+				detailed_disease_select.show().append("<option value='not_picked'>" + $.t("fhh_js.disease_subtype_select") + "</option>");
 				
 				for (var i = 0; i < detailed_disease.length;i++) {
-					detailed_disease_select.append("<option> " + detailed_disease[i] + " </option>");					
+					detailed_disease_select.append("<option value='" + detailed_disease[i].system + "-" + detailed_disease[i].code + "'> " 
+						+ $.t("diseases:" + detailed_disease[i].system + "-" + detailed_disease[i].code) + " </option>");					
 				}			
 			}
 		}
@@ -1487,21 +1520,22 @@ function set_disease_choice_select (disease_select, detailed_disease_select) {
 }
 
 function get_detailed_disease (disease_name) {
+//	alert (disease_name + ":" + JSON.stringify(diseases[disease_name],null,2));
 	return diseases[disease_name];
 }
 
 function set_age_at_diagnosis_pulldown(instructions, age_at_diagnosis_select) {
-	age_at_diagnosis_select.append("<option value='NotPicked'> "+instructions+"  </option>");
-	age_at_diagnosis_select.append("<option value='Pre-Birth'>" + $.t("fhh_js.prebirth") + "</option>");
-	age_at_diagnosis_select.append("<option value='Newborn'>" + $.t("fhh_js.newborn") + "</option>");
-	age_at_diagnosis_select.append("<option value='In Infancy'>" + $.t("fhh_js.infant") + "</option>");
-	age_at_diagnosis_select.append("<option value='In Childhood'>" + $.t("fhh_js.child") + "</option>");
-	age_at_diagnosis_select.append("<option value='In Adolescence'>" + $.t("fhh_js.teen") + "</option>");
-	age_at_diagnosis_select.append("<option value='20-29 years'>" + $.t("fhh_js.twenties") + "</option>");
-	age_at_diagnosis_select.append("<option value='30-39 years'>" + $.t("fhh_js.thirties") + "</option>");
-	age_at_diagnosis_select.append("<option value='40-49 years'>" + $.t("fhh_js.fourties") + "</option>");
-	age_at_diagnosis_select.append("<option value='50-59 years'>" + $.t("fhh_js.fifties") + "</option>");
-	age_at_diagnosis_select.append("<option value='60 years or older'>" + $.t("fhh_js.senior") + "</option>");
+	age_at_diagnosis_select.append("<option value='not_picked'> "+instructions+"  </option>");
+	age_at_diagnosis_select.append("<option value='prebirth'>" + $.t("fhh_js.prebirth") + "</option>");
+	age_at_diagnosis_select.append("<option value='newborn'>" + $.t("fhh_js.newborn") + "</option>");
+	age_at_diagnosis_select.append("<option value='infant'>" + $.t("fhh_js.infant") + "</option>");
+	age_at_diagnosis_select.append("<option value='child'>" + $.t("fhh_js.child") + "</option>");
+	age_at_diagnosis_select.append("<option value='teen'>" + $.t("fhh_js.teen") + "</option>");
+	age_at_diagnosis_select.append("<option value='twenties'>" + $.t("fhh_js.twenties") + "</option>");
+	age_at_diagnosis_select.append("<option value='thirties'>" + $.t("fhh_js.thirties") + "</option>");
+	age_at_diagnosis_select.append("<option value='fourties'>" + $.t("fhh_js.fourties") + "</option>");
+	age_at_diagnosis_select.append("<option value='fifties'>" + $.t("fhh_js.fifties") + "</option>");
+	age_at_diagnosis_select.append("<option value='senior'>" + $.t("fhh_js.senior") + "</option>");
 	age_at_diagnosis_select.append("<option value='Unknown'>" + $.t("fhh_js.unknown") + "</option>");
 	
 	return age_at_diagnosis_select;
@@ -1510,21 +1544,22 @@ function set_age_at_diagnosis_pulldown(instructions, age_at_diagnosis_select) {
 function add_disease() {
 //	alert($(this).parent().parent().parent().html());
 	var disease_name = $(this).parent().parent().find("#disease_choice_select").val();
-	var disease_detail = $(this).parent().parent().find("#detailed_disease_choice_select").val();
+	var disease_code = $(this).parent().parent().find("#detailed_disease_choice_select").val();
 	var age_at_diagnosis = $(this).parent().parent().find("#age_at_diagnosis_select").val();
+	var disease_detail = $.t("diseases:" + disease_code);
 	
-	if (disease_name == null || disease_name == '' || disease_name == 'NotPicked') {
-		alert ("Please select a Disease");
+	if (disease_name == null || disease_name == '' || disease_name == 'not_picked') {
+		alert ($.t("fhh_js.disease_select"));
 		return;		
 	}
 
-	if (disease_detail == 'NotPicked') {
-		alert ("Please select a Subtype");
-		return;		
+	if (disease_detail == 'not_picked' || disease_detail == $.t("diseases:not_picked") ) {
+		alert ($.t("fhh_js.disease_subtype_select"));
+		return;
 	}
 
-	if (age_at_diagnosis == null || age_at_diagnosis == '' || age_at_diagnosis == 'NotPicked') {
-		alert ("Please select an Age at Diagnosis");
+	if (age_at_diagnosis == null || age_at_diagnosis == '' || age_at_diagnosis == 'not_picked') {
+		alert ($.t("fhh_js.age_at_diagnosis_select"));
 		return;		
 	}
 	
@@ -1535,14 +1570,15 @@ function add_disease() {
 			disease_name = new_disease_name;
 			disease_detail = new_disease_name;
 		} else {
-			alert ("Please Enter a Disease Name");
+			alert ($.t("disease_name_enter"));
 			return;		
 		}
 	}
 	
 	specific_health_issue = {"Disease Name": disease_name,
 	                          "Detailed Disease Name": disease_detail,
-	                          "Age At Diagnosis": age_at_diagnosis};
+	                          "Age At Diagnosis": age_at_diagnosis,
+	                          "Disease Code": disease_code};
 	current_health_history.push(specific_health_issue);
 	var row_number = current_health_history.length;
 	
@@ -1560,14 +1596,17 @@ function add_disease() {
 	return false;
 }
 
-function create_disease_row(disease_name, disease_detail, age_at_diagnosis) {
+function create_disease_row(disease_name, disease_detail, age_at_diagnosis, code) {
 	var new_row=$("<tr class='disease_detail'>");
-	if (disease_detail != null && disease_detail != 'none') {
+	if (code != null) {
+		new_row.append("<td>" + $.t("diseases:" + code) + "</td>");
+	} else if (disease_detail != null && disease_detail != 'none') {
 		new_row.append("<td>" + disease_detail + "</td>");
 	} else {
 		new_row.append("<td>" + disease_name + "</td>");		
 	}
-	new_row.append("<td>" + age_at_diagnosis + "</td>");
+	new_row.append("<td>" + $.t("fhh_js." + age_at_diagnosis) + "</td>");
+//	new_row.append("<td>" +  age_at_diagnosis + "</td>");
 	
 	var remove_disease_button = $("<button id='remove_disease_button'>" + $.t("fhh_js.remove") + "</button>");
 	remove_disease_button.on('click', remove_disease);
@@ -1797,6 +1836,14 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	
 	if (family_member.gender == "FEMALE") $('#family_member_info_form_gender_female').prop('checked',true);
 	else $('#family_member_info_form_gender_female').prop('checked',false);
+		
+	if (relationship_name == 'maternal_cousin' || relationship_name == 'paternal_cousin' ) {
+		$('#family_member_info_form_gender_male').prop('disabled',false);
+		$('#family_member_info_form_gender_female').prop('disabled',false);
+	} else {
+		$('#family_member_info_form_gender_male').prop('disabled',true);
+		$('#family_member_info_form_gender_female').prop('disabled',true);		
+	}
 	
 	$("#age_determination_text").val(family_member.date_of_birth);
 	$("#family_member_info_form_date_of_birth").val(family_member.date_of_birth);
@@ -1834,7 +1881,9 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		$("#cause_of_death_select").val(family_member.cause_of_death);
 		$("#cause_of_death_select").trigger("change");
 		if (family_member.detailed_cause_of_death) {
-			$("#detailed_cause_of_death_select").show().val(family_member.detailed_cause_of_death);
+			var code = family_member.cause_of_death_system + "-" + family_member.cause_of_death_code;
+//			alert ("D: " + code);
+			$("#detailed_cause_of_death_select").show().val(code);
 		}
 		$('#estimated_death_age_select').val(family_member.estimated_death_age);
 		$("#person_is_alive").hide();
@@ -1858,7 +1907,8 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 			new_row = create_disease_row(
 					current_health_history[i]['Disease Name'], 
 					current_health_history[i]['Detailed Disease Name'], 
-					current_health_history[i]['Age At Diagnosis']);
+					current_health_history[i]['Age At Diagnosis'],
+					current_health_history[i]['Disease Code']);
 			data_entry_row.before(new_row);
 		}		
 	}
@@ -1988,10 +2038,17 @@ function clear_and_set_personal_health_history_dialog() {
 		$("#personal_height_inches").val(Math.floor(personal_information.height % 12) );
 	} else if (personal_information.height_unit == 'centimeters') {
 		$("#personal_height_centimeters").val(personal_information.height);
+	} else {
+		$("#personal_height_feet").val("");
+		$("#personal_height_inches").val("");
+		$("#personal_height_centimeters").val("");
 	}
 	$("#personal_weight").val(personal_information.weight);
-	if (personal_information.weight_unit == 'lbs' || personal_information.weight_unit == 'kgs')
+	if (personal_information.weight_unit == 'lbs' || personal_information.weight_unit == 'kgs') {
 		$("#personal_weight_unit").val(personal_information.weight_unit);
+	} else {		
+		$("#personal_weight_unit").val("");
+	}
 	
 	$(".disease_detail").each(function () {
 		$(this).remove();
@@ -2005,7 +2062,8 @@ function clear_and_set_personal_health_history_dialog() {
 			new_row = create_disease_row(
 					current_health_history[i]['Disease Name'], 
 					current_health_history[i]['Detailed Disease Name'], 
-					current_health_history[i]['Age At Diagnosis']);
+					current_health_history[i]['Age At Diagnosis'],
+					current_health_history[i]['Disease Code']);
 			data_entry_row.before(new_row);
 		}		
 	}
@@ -2112,7 +2170,7 @@ function clear_and_set_personal_health_history_dialog() {
 	}
 }
 // Helper functions
-
+/*
 function make_disease_array () {
 	var keys = Object.keys(diseases);
 	for (var i=0; i<keys.length;i++) {
@@ -2122,6 +2180,7 @@ function make_disease_array () {
 		}
 	}	
 }
+*/
 
 // Will get the querystring parameters for a url
 function getParameterByName(name) {
@@ -2237,3 +2296,13 @@ function get_relationship_from_relationship_id (id) {
 	
 	return 'unknown'
 }
+
+// To prevent losing info when leaving page
+
+
+
+function closeEditorWarning(){
+    if (personal_information) return "Leaving";
+}
+window.onbeforeunload = closeEditorWarning
+

@@ -18,8 +18,8 @@
 	"fhh_js": {
 		"ashkenazi": "¿Por qué preguntamos sobre el origen judio Ashkenazi?",
 		"pi":"Introduzca información personal",
-		"select_age": "-- Seleccione Edad estimada --",
-		"select_age_death": "-- Seleccione la edad en la que murió --",
+		"select_age": "Seleccione Edad estimada",
+		"select_age_death": "Seleccione la edad en la que murió",
 		"family_health_history_title":"Introduzca el historial médico de miembros de la familia",
 		"load_dialog_title": "Cargue su historial de salud familiar",
 		"save_dialog_title": "Archive su historial de salud familiar",
@@ -34,8 +34,8 @@
 		"add_relative_title":"¿A quién le gustaría añadir a su historial familiar de salud?",
 		"add_relative_para":"Parientes en su familia inmediata que no figuran en esta lista están probablemente en la página anterior y se puede llegar mediante el cierre de esta ventana y seleccionar el signo más ('Agregar Historia') al lado del nombre del pariente. Los cónyuges y los primos segundos no aparecen porque no afecten a su historial de salud familiar.",
 
-		"select_relationship":" -- Seleccionar Relación -- ",
-		"please_specify":" -- Por favor especifique -- ",
+		"select_relationship":"Seleccionar Relación",
+		"please_specify":"Por favor especifique",
 
 		"self" : "Yo",
 		"mother":"Madre",
@@ -80,9 +80,11 @@
 		"halfbrother_parent_q" : "¿Quiénes son los padres de su medio hermano?:",
 		"halfsister_parent_q" : "¿Quiénes son los padres de su media hermana?:",
 
+		"invalid_name" : "Nombre Inválido",
 		"invalid_data_of_birth" : "Fecha de Nacimiento Inválida",
 		"invalid_gender" : "Género Inválido",
 		"invalid_data_alert" : "Algunos de los datos no son válidos, por favor corrija sus errores y vuelva a intentarlo.",
+		"halfway_through_adding_disease" : "Usted no ha guardado la nueva información de la enfermedad, por favor haga clic en 'Añadir' para añadir la enfermedad primero.",
 
 		"my_family" : "Mi familia",
 		"fathers_side" : "Lado de Mi Padre",
@@ -102,7 +104,7 @@
 		"age_at_diagnosis" : "Edad al diagnóstico",
 		"action" : "Acción",
 
-		"age_at_diagnosis_select" : " -- Seleccione Edad al diagnóstico -- ",
+		"age_at_diagnosis_select" : "Seleccione Edad al diagnóstico",
 		"prebirth" : "Prenatal",
 		"newborn" : "Recién Nacido",
 		"infant" : "En la Infancia",
@@ -161,9 +163,10 @@
 
 		"personal_health_subtitle" : "Su Información de Salud",
 
-		"disease_select" : " -- Seleccione una de las Enfermedades -- ",
+		"disease_select" : "Seleccione una de las Enfermedades",
 		"add_new" : "Otros - Crear Nuevo",
-		"disease_subtype_select" : " -- Seleccione un subtipo específico -- ",
+		"disease_subtype_select" : "Seleccione un subtipo específico",
+		"disease_name_enter": "Por favor ingrese un Nombre de Enfermedades",
 
 		"add" : "Añadir",
 		"remove" : "Eliminar",
@@ -174,8 +177,10 @@
 		"export_instructions":"Este es el resultado desde el punto de vista de uno de sus parientes.",
 		"export_instructions2":"Puede exportar Información de miembros familiares inmediatos: hermanos, hermanas, madre, padre, hijos e hijas",
 		"choose_relative":"Elija un pariente:",
-		"please_select_relative":"-- Por favor haga una selección -- ",
+		"please_select_relative":"Por favor haga una selección",
 		"export":"Exportación",
+
+		"leave_page_warning": "Si te vas antes de guardar los cambios se perderán.",
 
 		"done" : "done"
 	},
@@ -291,6 +296,8 @@
 	},
 
 	"fhh_load_save": {
+		"choose_a_file": "Por favor elija un archivo para cargar",
+
 		"load_from_file" : "Cargue su información personal desde un archivo",
 		"load_file_button" : "Cargar archivo",
 		"load_health_vault" : "Cargue su información personal de Health Vault de Microsoft",

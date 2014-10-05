@@ -21,6 +21,10 @@ function test_past_cancer() {
 				risk_reason += "You have had Colorectal Cancer in the past.<br />";
 				risk=true;
 		}
+		if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
+				risk_reason += "You have had Rectal Cancer in the past.<br />";
+				risk=true;
+		}
 		if (h[i]['Detailed Disease Name'] == 'Uterine Cancer') {
 				risk_reason += "You have had Uterine Cancer in the past.<br />";
 				risk=true;
@@ -140,6 +144,12 @@ function test_immediate_family_members_cancer() {
 							risk=true;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
+						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
+							name = get_name_or_relationship(this.name, key);
+							risk_reason += name + " has had Colorectal Cancer in the past.<br />";
+							risk=true;
+							i = h.length; break;  // We do not need to check this person anyore
+						}
 					}
 				}
 			}
@@ -225,6 +235,12 @@ function test_secondary_family_members_cancer() {
 							i = h.length; break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer') {
+							name = get_name_or_relationship(this.name, key);
+							risk_reason += name + " has had Colorectal Cancer in the past.<br />";
+							count++;
+							i = h.length; break;  // We do not need to check this person anyore
+						}
+						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had Colorectal Cancer in the past.<br />";
 							count++;
