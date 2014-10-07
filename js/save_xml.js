@@ -95,7 +95,7 @@ function bind_save_google_drive () {
 		output_string = get_xml_string();
 		filename = get_filename(personal_information);
 		// this is an aysncronous call, we need to improve the user experience here somehow.
-		gapi.auth.authorize( {'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': false}, googlePostAuthSave);
+		gapi.auth.authorize( {'client_id': GOOGLE_CLIENT_ID, 'scope': GOOGLE_SCOPES, 'immediate': false}, googlePostAuthSave);
 	});
 	$("#save_to_google_drive").append(button);
 		
