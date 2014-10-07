@@ -248,15 +248,17 @@ i#options .ui-button.ui-state-active .ui-button-text {
 
 #family_pedigree{
     border:2px black solid;
-    padding:0 1em;
+    padding-top: 10px;
+    vertical-align: top;
     overflow-x:scroll;
 
 }
 .family_dialog{
 
     border: 3px solid #c7c7c7;
+    padding-top: 10px;
     padding-bottom: 0;
-    height: 500;
+    /*height: 500;*/
     overflow-x:scroll;
 }
 
@@ -286,6 +288,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
     /*width: 100%;*/
     padding-bottom: 1px;
     margin-bottom: 25px;
+    vertical-align: top;
     /*padding-left: 10%;*/
     /*overflow: hidden;*/
     /*left:0;*/
