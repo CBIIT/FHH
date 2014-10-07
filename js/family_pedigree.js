@@ -51,39 +51,25 @@ var defaultfamilyarray=[
 ];
 
 function xmlload() {
-
-
-            <!-- this will be our navigation menu -->
-        //'<div id="sticky_navigation_wrapper">' +
-        //'<div id="sticky_navigation">' +
-        //'<div class="main_container">' +
-        //'<ul>' +
-        //    //'<li><a href="#" class="selected">HOME</a></li>' +
-        //'<li><a href="#">Print</a></li>' +
-        //'<li><a href="#">Diagram Table & Options</a></li>' +
-        //'</ul>' +
-        //'</div>' +
-        //'</div>' +
-        //'</div>' +
-
-            //'<input align="right" type="button" value="pivot" onclick="GET_FAMILY()"/>' +
-
-
     mdialog = $(
         '<div id="family_pedigree" class="family_dialog" >' +
-            '<div id="family_pedigree_info">' +
 
-                '<div align="left" >' +
-                    '<input id="printer" align="right" type="button" class="tablebutton" value="Print Report"/>' +
-                    '<input id="downoptions" align="right" type="button"  class="tablebutton" onclick="createDialog()" value="Diagram Table & Options"/>' +
-                    '<table id="bmi_table" class="htable">' +
-                    '<caption>My Personal Information</caption>' +
-                    '<tr><td id="age">Age:</td></tr>' +
-                    '<tr><td id="height">Height:</td></tr>' +
-                    '<tr><td id="weight">Weight:</td></tr>' +
-                    '<tr><td id="abmi">BMI:</td></tr>' +
-                    '</tr></table>' +
-                '</div>' +
+        '<div id="nav" class="sticky">' +
+        '<ul>' +
+        '<li><a class="top" href="#top"><span></span></a></li>' +
+        '<li><a class="bottom" href="#bottom"><span></span></a></li>' +
+        '<li><a id="printer">Print</a></li>' +
+        '<li><a onclick="createDialog()">Diagram Table & Options</a></li>' +
+        '</ul>' +
+        '</div>' +
+        '<div id="top"></div>' +
+        '<div class="desc"></div>' +
+        '<div id="bottom"></div>' +
+        '<div class="scroll"></div>' +
+        '<div class="info">' +
+        '</div>' +
+
+        '<div id="family_pedigree_info">' +
                 '<div>' +
                     '<table id="closed_table" ><tr><td></td></tr></table>' +
                     '<table id="health_table" class="display compact">' +
@@ -102,7 +88,7 @@ function xmlload() {
 
     $(mdialog).dialog({
         autoOpen: false,
-        position: ['top', 0],
+        position: ['top', 5],
         title: 'Family Pedigree Chart',
         minHeight:450,
         height:'auto',
@@ -111,7 +97,6 @@ function xmlload() {
         open: function () {
             $(this).dialog("open");
             $(this).load(LOAD_HEALTH_TABLE());
-
             PARENTWIDTH = $(this).closest("div").attr("id");
             DIALOGWIDTH = $(this).width();
             SCREENWIDTH = parseInt($(window).width())-100;
@@ -196,7 +181,7 @@ function xmlload() {
             "bLengthChange": false,
             "bFilter": true,
             "displayLength": 25,
-            "dom": 'Rlfrtip',
+            "dom": '<"toolbar">Rlfrtip',
             //"dom": 'Rlfrtip','T<"clear">lfrtip',
             tableTools: {
                 "aButtons": [ "print" ]
@@ -205,6 +190,21 @@ function xmlload() {
 
         });
 
+
+        $("div.toolbar").html(
+
+            '<div id="lightbox">' +
+            '<table id="bmi_table" class="htable">' +
+            '<caption>My Personal Information</caption>' +
+            '<tr><td id="age">Age:</td></tr>' +
+            '<tr><td id="height">Height:</td></tr>' +
+            '<tr><td id="weight">Weight:</td></tr>' +
+            '<tr><td id="abmi">BMI:</td></tr>' +
+            '</tr></table>' +
+            '</div>'
+
+            //'<b>Custom tool bar! Text/images etc.</b>'
+        );
         //oTable
 
 
@@ -223,6 +223,7 @@ function xmlload() {
         //        // otherwise change it back to relative
         //        if (scroll_top > sticky_navigation_offset_top) {
         //            $('#sticky_navigation').css({ 'position': 'fixed', 'top':0, 'left':0 });
+        //
         //        } else {
         //            $('#sticky_navigation').css({ 'position': 'relative' });
         //        }
@@ -238,6 +239,30 @@ function xmlload() {
         //
         //});
 
+        $(function() {
+            $(window).scroll(function(){
+                var scrollTop = $(window).scrollTop();
+                if(scrollTop != 0)
+                    $('#nav').stop().animate({'opacity':'0.2'},400);
+                else
+                    $('#nav').stop().animate({'opacity':'1'},400);
+            });
+
+            $('#nav').hover(
+                function (e) {
+                    var scrollTop = $(window).scrollTop();
+                    if(scrollTop != 0){
+                        $('#nav').stop().animate({'opacity':'1'},400);
+                    }
+                },
+                function (e) {
+                    var scrollTop = $(window).scrollTop();
+                    if(scrollTop != 0){
+                        $('#nav').stop().animate({'opacity':'0.2'},400);
+                    }
+                }
+            );
+        });
 
 
     });
@@ -313,8 +338,8 @@ function xmlload() {
     svg.text(masterleft - 120, 30, "Paternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
     svg.text(masterleft + 120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray' });
 
-    svg.rect(20, 10, 360, 50, 10, 10, {id: 'options', class: 'tablebutton', fill: 'darkslategray', stroke: 'white', strokeWidth: 1, onclick:'createDialog()', cursor:'pointer'});
-    svg.text(50, 40, "Diagram Table & Options", {class: 'tablebutton', fontWeight: 'bold', fontSize: '18.5', fill: 'white', onclick:'createDialog()', cursor:'pointer'});
+    //svg.rect(20, 10, 360, 50, 10, 10, {id: 'options', class: 'tablebutton', fill: 'darkslategray', stroke: 'white', strokeWidth: 1, onclick:'createDialog()', cursor:'pointer'});
+    //svg.text(50, 40, "Diagram Table & Options", {class: 'tablebutton', fontWeight: 'bold', fontSize: '18.5', fill: 'white', onclick:'createDialog()', cursor:'pointer'});
 
     $('#optionsPanel').attr('width', '800px');
 
@@ -992,14 +1017,10 @@ function xmlload() {
     PATERNALS_MAIN_LOAD();
     //Load Nephews
     NEPHEWS_LOAD();
-
     //Load paternal Cousins
     PATERNAL_COUSINS_LOAD();
     //Load Maternal Cousins
     MATERNAL_COUSINS_LOAD();
-
-
-
 
     //Ensure the table is belw
     var SVG = document.getElementById('svgframe');
@@ -1020,8 +1041,8 @@ function xmlload() {
 
     $( "#printer" ).click(function() {
 
-        $('.tablebutton').hide();
-        $('#health_table').hide();
+        $('.sticky').hide();
+        //$('#health_table').hide();
 
         var container = $(mdialog);
         var tableelement = $( "table" );
@@ -1045,7 +1066,6 @@ function xmlload() {
             var width = parseInt(container.attr("width"));
             var height = parseInt(container.attr("height"))
             var printWindow = window.open('',windowName, 'width=' + width    + ',height=' + height, top=50,left=50,toolbars='no',scrollbars='yes',status='no',resizable='yes');
-            //var printWindow = window.open('',windowName, 'width=' + masterRight + ',height=' + masterHeight, top=50,left=50,toolbars='no',scrollbars='yes',status='no',resizable='yes');
             printWindow.document.writeln('<!DOCTYPE html>');
             printWindow.document.writeln('<html><head><title>Disease Matrix</title>');
             printWindow.document.writeln('<link rel="stylesheet" type="text/css" href="../static/css/print.css" media="all">');
@@ -1060,20 +1080,16 @@ function xmlload() {
             var timer = setInterval(function() {
                 if(printWindow.closed) {
                     clearInterval(timer);
-                    $('.tablebutton').show();
-                    $('#health_table').show();
-
+                    $('.sticky').show();
+                    //$('#health_table').show();
                 }
             }, 1000);
-
         } catch ( e ) {
             alert("Error: " + e.description );
         }
-
-
-
     });
 
+    //Qtip app
     $.each(HEALTHARRAY, function (key, value) {
         var temp = "";
         var e, name;
@@ -1084,8 +1100,7 @@ function xmlload() {
 
             if (value.length > 1 && item != 0 && item != 1) temp = temp + '<li>' + value[item] + '</li>';
             else  temp + '<li> No Disease Report </li>';
-        }
-        ;
+        };
 
         $('#' + e).qtip({
             overwrite: false,
@@ -1157,10 +1172,6 @@ function xmlload() {
                     border: true, // Detect border from tooltip style
                     offset: 0 // Do not apply an offset from corner
                 }
-
-
-
-
             }
         });
     });
@@ -2101,10 +2112,6 @@ function xmlload() {
                         stroke: 'black',strokeWidth: 3
                     });
                 }
-                ////else{
-                //    alert(key)
-                ////}
-
 
                 if (key == 0) p1 = parseInt(p1);
                 else p1 = parseInt(p1) - 20 - (parseInt(key) * 60);
@@ -2829,8 +2836,6 @@ function xmlload() {
             var xy;
             var datakey = value[2];
 
-            //alert("MATERNALS---->"+MID + " -<-MID --pid-->  " + pid + "**MIDGEN " + MIDGEN + " datakey -->"+datakey )
-
             /** Parse array and build diagram -
              * Each array object must follow the previous object values
              * in the array when multuple person are in the array
@@ -3509,8 +3514,6 @@ function xmlload() {
 
     function LEFT_HALF_SIBLINGS_GEN(PREVIOUSGEN, PREVIOUSID, MIDGEN) {
 
-        //alert([PREVIOUSGEN,PREVIOUSID,MIDGEN])
-
         var p1, p2;
         if (MIDGEN == 'MALE') {
             if (PREVIOUSGEN == 'MALE') {
@@ -3898,7 +3901,6 @@ function xmlload() {
                 //Parse array and build diagram
                 if (p == 0) {
                     DATAKEY = ARRAY[p].id;
-                    //alert(BrothersArray.length)
                     if (BrothersArray.length > 1) {
                         var d = BrothersArray[BrothersArray.length - 1];
                         lx = parseInt($('#' + d[1]).attr('x'));
@@ -5095,7 +5097,6 @@ function xmlload() {
             for (i = 0; i < ARRAY.length; i++) {
                 var GEN = ARRAY[i][0];
                 var ID = ARRAY[i][1];
-                //alert(GEN + " ** " + ID)
                 var ps = GENLINE(GEN,ID);
                 p1 = ps[0];
                 p2 = ps[1];
@@ -5654,8 +5655,6 @@ function xmlload() {
             }
         }
 
-        //alert (objectsarray.length + " --- " + ID + " *** STACK_CONNECTOR Information:" + JSON.stringify(objectsarray, null, 2) );
-
         OBJECTS_CONNECT(objectsarray, ID);
     }
 
@@ -5899,9 +5898,6 @@ function xmlload() {
         return 'translate(' + transform.x + ' ' + transform.y + ') scale(' + transform.scale + ')';
     }
     var w = svgw.getAttribute('width');
-    //alert(w + "  -- " + masterRight + " *** " + masterleft)
-
-
 
    var offset = $('#svgframe').offset().left;
     var wit = $(window).height();
@@ -5915,15 +5911,6 @@ function xmlload() {
     var DIALOGHEIGHT =  $(mdialog).height();
     var DIALOGOUTERWIDTH =  $(mdialog).outerWidth();
     var TABLEHEIGHT = $('health_table').height();
-
-    //alert(" ### --dialog width --> " + $(mdialog).width()
-    //+ " ### --outer outerWidth --> " + $(mdialog).outerWidth()
-    //    + " ### --outer wit --> " + wit
-    //    + " #SVGW width --> "+ SVGW
-    //    + " #SVGH height --> "+ SVGH
-    //
-    //    + " #DIALOGHEIGHT  --> "+ DIALOGHEIGHT
-    //);
 
     var allXarray = new Array();
     var container = $('#svgframe');
@@ -6306,35 +6293,38 @@ function createDialog() {
         array.push("<option value='0' selected></option>")
 
         $.each(personal_information, function (key, item) {
-            if (typeof item.id != 'undefined') {
-                if (item['Health History']) {
-                    var health = new Array();
-                    health = item['Health History'];
-                    $.each(health, function (k, data) {
-                        var thename,temp;
-                        var disname = data['Disease Name'];
-                        var detdisname = data['Detailed Disease Name'];
 
-                        if(detdisname==null) thename = disname;
-                        else thename = detdisname;
+            if(item) {
+                if (typeof item.id != 'undefined') {
+                    if (item['Health History']) {
+                        var health = new Array();
+                        health = item['Health History'];
+                        $.each(health, function (k, data) {
+                            var thename, temp;
+                            var disname = data['Disease Name'];
+                            var detdisname = data['Detailed Disease Name'];
 
-                        if ($.inArray(thename, allnames) == -1) {
-                            allnames.push(thename);
-                            //var temp = "<option id=" + " value=" + disname + ">" + thename + "</option>";
-                            array.push("<option id=" + " value=" + disname + ">" + thename + "</option>")
-                        }
+                            if (detdisname == null) thename = disname;
+                            else thename = detdisname;
 
-                        //if(detdisname==null) var temp = "<option id=" + " value=" + disname + ">" + thename + "</option>"
-                        //else var temp = "<option id=" + +" value=" + disname + ">" + thename + "</option>"
+                            if ($.inArray(thename, allnames) == -1) {
+                                allnames.push(thename);
+                                //var temp = "<option id=" + " value=" + disname + ">" + thename + "</option>";
+                                array.push("<option id=" + " value=" + disname + ">" + thename + "</option>")
+                            }
+
+                            //if(detdisname==null) var temp = "<option id=" + " value=" + disname + ">" + thename + "</option>"
+                            //else var temp = "<option id=" + +" value=" + disname + ">" + thename + "</option>"
 
 
-                    });
+                        });
+                    }
                 }
             }
         });
 
         var $optdialog = $("<div id='optionsPanel' width='800px' class='option_dialog' style='width:800px;'><p>"
-        + "You can view, save or print your family health history to share with your health care worker. They can assess your risk for certain diseases, and develop disease prevention strategies that are right for you. You can also share the table with other family members to your your family's disease history. You can change what is shown in the table yourself by selecting from the options below. Please select from the options below what you would like to show on your table, and then press: Update Report."
+        + "You can view, save or print your family health history to share with your health care worker. They can assess your risk for certain diseases, and develop disease prevention strategies that are right for you. You can also share the table with other family members to your your family's disease history. You can change what is shown in the table yourself by selecting from the options below. Please select from the options below what you would like to show on your table."
         + "<table>"
         + "<tr>"
         + "<td>"
