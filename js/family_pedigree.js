@@ -102,7 +102,7 @@ function xmlload() {
 
     $(mdialog).dialog({
         autoOpen: false,
-        position: ['left', 0],
+        position: ['top', 0],
         title: 'Family Pedigree Chart',
         minHeight:450,
         height:'auto',
@@ -118,13 +118,15 @@ function xmlload() {
 
             //SCREENWIDTH = parseInt($(window).width())-100;
 
+
             $(this).css("width", SCREENWIDTH);
 
-            //var myDialogX = $(this).position().left - $(this).outerWidth();
-            //var myDialogY = $(this).position().top - ( $(document).scrollTop() + $('.ui-dialog').outerHeight() );
-            //$(this).dialog( 'option', 'position', [myDialogX, myDialogY] );
+            var myDialogX = $(this).position().left - $(this).outerWidth();
+            var myDialogY = $(this).position().top - ( $(document).scrollTop() + $('.ui-dialog').outerHeight() );
+            $(this).dialog( 'option', 'position', [myDialogX, myDialogY] );
 
             //window.scrollBy(1500, 10 );
+
         },
         close: function () {
             $(this).empty();
@@ -5912,6 +5914,7 @@ function xmlload() {
     var DIALOGWIDTH =  $(mdialog).width();
     var DIALOGHEIGHT =  $(mdialog).height();
     var DIALOGOUTERWIDTH =  $(mdialog).outerWidth();
+    var TABLEHEIGHT = $('health_table').height();
 
     //alert(" ### --dialog width --> " + $(mdialog).width()
     //+ " ### --outer outerWidth --> " + $(mdialog).outerWidth()
@@ -5967,47 +5970,71 @@ function xmlload() {
     var wscale,hscale;
 
     if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
-
         if (DIAWIDTH > SVGW) {
-            wscale = parseInt(DIAWIDTH) + 0;
-            hscale = parseInt(SVGH);
-            //svgw.setAttribute('viewBox', +(parseInt(FARLEFT) - 50) + ' 0 ' + wscale + ' ' + 1200);
-            //document.getElementById("svgframe").getSVGDocument().getElementById("SVGTest").setAttribute(
-            var svgdoc = document.getElementById("svgframe");
-            svgdoc.setAttribute("viewBox", +(parseInt(FARLEFT) - 50) + ' 0 ' + wscale + ' ' + 25);
 
-                //document.getElementById("svgframe").getSVGDocument().setAttribute(
-                //"viewBox", +(parseInt(FARLEFT) - 50) + ' 0 ' + wscale + ' ' + 1200);
-            var lft = parseInt(absleft) / 2;
-            svgdoc.setAttribute('transform', 'translate('+ (parseInt(absleft)/2.2) +',10)');
+            var svgdoc = document.getElementById("svgframe");
+            var FRAMEHEIGHT = svgdoc.getAttribute("height");
+            var FRAMEWIDTH = svgdoc.getAttribute("width");
+
+            var COMBINEDHEIGHT= parseInt(TABLEHEIGHT) + parseInt(FRAMEHEIGHT) + 300;
+
+
+            var wscale = parseInt(DIAWIDTH) + 300;
+            var hscale = parseInt(SVGH);
+
+            var LARGELEFT = parseInt(FARLEFT) - 150;
+
+            svgdoc.setAttribute("viewBox", + LARGELEFT + ' 200 ' + wscale + ' ' + 25);
+            svgdoc.setAttribute("height", COMBINEDHEIGHT);
+            svgdoc.setAttribute("margin-top", '10px');
+
         }
         else {
-            wscale = parseInt(SVGW) + 0;
-            hscale = parseInt(hei) + 100;
+
             var svgdoc = document.getElementById("svgframe");
+            var FRAMEHEIGHT = svgdoc.getAttribute("height");
+            var FRAMEWIDTH = svgdoc.getAttribute("width");
 
+            var COMBINEDHEIGHT= parseInt(TABLEHEIGHT) + parseInt(FRAMEHEIGHT) + 300;
 
-
+            var wscale = parseInt(SVGW) + 200;
+            var hscale = parseInt(hei) + 100;
 
             if(FARLEFT<0) {
-                svgdoc.setAttribute("viewBox", FARLEFT + ' 0 ' + wscale + ' ' + 25);
-                svgdoc.setAttribute("height", '60%');
+
+                var FULLSCALE = parseInt(wscale) + 300;
+                svgdoc.setAttribute("viewBox", FARLEFT + ' 400 ' + FULLSCALE + ' ' + 25);
+                svgdoc.setAttribute("height", 800);
                 svgdoc.setAttribute("margin-top", '10px');
-                absleft = parseInt(absleft) + 400;
-                //svgdoc.setAttribute("transform", "translate(700,10)");
-                //svgdoc.transform.setAttribute('transform', 'translate('+absleft+',10  )');
             }
             else{
-                svgdoc.setAttribute("viewBox", '0 0 ' + wscale + ' ' + 25);
-                svgdoc.setAttribute("height", '60%');
+                var FULLSCALE = parseInt(wscale) + 300;
+
+                svgdoc.setAttribute("viewBox", '20 400 ' + FULLSCALE + ' 25');
+                svgdoc.setAttribute("height", 800);
                 svgdoc.setAttribute("margin-top", '10px');
-                absleft = parseInt(absleft) + 400;
+
+
 
             }
-            //document.getElementById("svgframe").getSVGDocument().setAttribute("viewBox", '0 0 ' + wscale + ' ' + 1200);
         }
+
+        $(mdialog).dialog({
+            //title: titleStr,
+            //width: width,
+            modal: true
+        }).height("auto");
+
+        //$(mdialog).dialog({
+        //    //title: titleStr,
+        //    //width: width,
+        //    modal: true
+        //}).width("auto");
+
     }
     else {
+
+
 
         if (DIAWIDTH > SVGW) {
             wscale = parseInt(DIAWIDTH) + 200;
