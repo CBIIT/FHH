@@ -45,7 +45,8 @@ function bind_load_file() {
 
 function 	bind_load_dropbox() {
 	if (typeof DROPBOX_APP_KEY == 'undefined') {
-		if (typeof DEBUG != 'undefined' && DEBUG) $("#load_from_dropbox").append("No Dropbox App Key Defined");				
+		if (typeof DEBUG != 'undefined' && DEBUG) $("#load_from_dropbox").append("No Dropbox App Key Defined");	
+		else $("#load_from_dropbox").append("Coming Soon");	
 		return;
 	}
 
@@ -78,6 +79,7 @@ function 	bind_load_dropbox() {
 function bind_load_google_drive() {
 	if (typeof GOOGLE_CLIENT_ID == 'undefined') {
 		if (typeof DEBUG != 'undefined' && DEBUG) $("#load_from_google_drive").append("No Google Drive App Key Defined");				
+		else $("#load_from_google_drive").append("Coming Soon");	
 		return;
 	}
 	
@@ -514,7 +516,8 @@ function get_specific_health_issue (relative_name, data) {
 	// If we have a disease code, use it to determine the disease name, otherwise use the name to find the code
 	// Disease code includes the system format is <system>-<code>
 	if (diseaseCode) {
-		detailedDiseaseName = get_detailed_disease_name_from_code(diseaseCode);
+		potentialDetailedDiseaseName = get_detailed_disease_name_from_code(diseaseCode);
+		if (potentialDetailedDiseaseName != null) detailedDiseaseName = potentialDetailedDiseaseName;
 	} else {
 		diseaseCode = get_disease_code_from_detailed_disease(detailedDiseaseName);
 		diseaseCodeSystem = 'SNOMED_CT'; // The default
@@ -535,7 +538,7 @@ function get_disease_name_from_detailed_name(detailedDiseaseName) {
 			if (detailed_disease_list[j].name == detailedDiseaseName) return high_level_disease_list[i];
 		}
 	}
-	return detailedDiseaseName;
+	return 'other';
 }
 /*
 	if ($.inArray(detailedDiseaseName, disease_list) != -1) {

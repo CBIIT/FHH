@@ -66,6 +66,7 @@ function bind_save_download() {
 function bind_save_dropbox () {
 	if (typeof DROPBOX_APP_KEY == 'undefined') {
 		if (typeof DEBUG != 'undefined' && DEBUG) $("#save_to_dropbox").append("No Dropbox App Key Defined");				
+		else $("#save_to_dropbox").append("Coming Soon");	
 		return;
 	}
 
@@ -86,6 +87,7 @@ function bind_save_dropbox () {
 function bind_save_google_drive () {
 	if (typeof GOOGLE_CLIENT_ID == 'undefined') {
 		if (typeof DEBUG != 'undefined' && DEBUG) $("#save_to_google_drive").append("No Google Drive App Key Defined");				
+		else $("#save_to_google_drive").append("Coming Soon");	
 		return;
 	}
 	var button = $("<BUTTON id='google_drive_save_button'>" + $.t("fhh_load_save.save_google_drive_button") + "</BUTTON>");

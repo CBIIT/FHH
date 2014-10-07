@@ -116,6 +116,7 @@
 		"fifties" : "50-59 años",
 		"senior" : "60 años o más",
 		"unknown" : "Desconocido",
+		"Unknown" : "Desconocido",
 
 		"race": "Raza:",
 		"more_race": "Más Opciones:",
