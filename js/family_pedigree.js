@@ -9,6 +9,7 @@ var clone;
 var masterRight = $(window).width();
 var masterHeight = $(window).height();
 var masterleft=Math.floor(parseInt(masterRight)/2);
+var browser = navigator.userAgent;
 var mastery,masterx;
 var x = new Array();
 var y = new Array();
@@ -25,6 +26,10 @@ var SINGLEGROUPS = 0;
 var GRANDSGROUP = 0;
 var SISTERSGROUP = 0;
 var oTable;
+var SCREENWIDTH=0;
+var SVGWIDTH=0;
+var PARENTWIDTH=0;
+var DIALOGWIDTH=0;
 
 var defaultfamilyarray=[
     'maternal_grandfather',
@@ -47,45 +52,49 @@ var defaultfamilyarray=[
 
 function xmlload() {
 
-    mdialog = $('<div id="family_pedigree" class="family_dialog" >' +
 
             <!-- this will be our navigation menu -->
-        '<div id="sticky_navigation_wrapper">' +
-        '<div id="sticky_navigation">' +
-        '<div class="main_container">' +
-        '<ul>' +
-            //'<li><a href="#" class="selected">HOME</a></li>' +
-        '<li><a href="#">Print</a></li>' +
-        '<li><a href="#">Diagram Table & Options</a></li>' +
-        '</ul>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
+        //'<div id="sticky_navigation_wrapper">' +
+        //'<div id="sticky_navigation">' +
+        //'<div class="main_container">' +
+        //'<ul>' +
+        //    //'<li><a href="#" class="selected">HOME</a></li>' +
+        //'<li><a href="#">Print</a></li>' +
+        //'<li><a href="#">Diagram Table & Options</a></li>' +
+        //'</ul>' +
+        //'</div>' +
+        //'</div>' +
+        //'</div>' +
 
             //'<input align="right" type="button" value="pivot" onclick="GET_FAMILY()"/>' +
-        '<div id="family_pedigree_info">' +
 
 
-        '<div align="left" >' +
-        '<input id="printer" align="right" type="button" class="tablebutton" value="Print Report"/>' +
-        '<input id="downoptions" align="right" type="button"  class="tablebutton" onclick="createDialog()" value="Diagram Table & Options"/>' +
-        '<table id="bmi_table" class="htable">' +
-        '<caption>My Personal Information</caption>' +
-        '<tr><td id="age">Age:</td></tr>' +
-        '<tr><td id="height">Height:</td></tr>' +
-        '<tr><td id="weight">Weight:</td></tr>' +
-        '<tr><td id="abmi">BMI:</td></tr>' +
-        '</tr></table>' +
-        '</div>' +
+    mdialog = $(
+        '<div id="family_pedigree" class="family_dialog" >' +
+            '<div id="family_pedigree_info">' +
 
-        '<table id="closed_table" ><tr><td></td></tr></table>' +
-        '<table id="health_table" class="display compact">' +
-        '<caption>Disease Matrix Table</caption>' +
-        '<thead></thead>' +
-        '<tfoot></tfoot>' +
-        '<tbody></tbody>' +
-        '</table>' +
-        '</div>' +
+                '<div align="left" >' +
+                    '<input id="printer" align="right" type="button" class="tablebutton" value="Print Report"/>' +
+                    '<input id="downoptions" align="right" type="button"  class="tablebutton" onclick="createDialog()" value="Diagram Table & Options"/>' +
+                    '<table id="bmi_table" class="htable">' +
+                    '<caption>My Personal Information</caption>' +
+                    '<tr><td id="age">Age:</td></tr>' +
+                    '<tr><td id="height">Height:</td></tr>' +
+                    '<tr><td id="weight">Weight:</td></tr>' +
+                    '<tr><td id="abmi">BMI:</td></tr>' +
+                    '</tr></table>' +
+                '</div>' +
+                '<div>' +
+                    '<table id="closed_table" ><tr><td></td></tr></table>' +
+                    '<table id="health_table" class="display compact">' +
+                    '<caption>Disease Matrix Table</caption>' +
+                    '<thead></thead>' +
+                    '<tfoot></tfoot>' +
+                    '<tbody></tbody>' +
+                    '</table>' +
+                '</div>' +
+
+            '</div>' +
         '</div>'
     );
 
@@ -95,13 +104,27 @@ function xmlload() {
         autoOpen: false,
         position: ['left', 0],
         title: 'Family Pedigree Chart',
-        height: 'auto',
+        minHeight:450,
+        height:'auto',
         width: 'auto',
         modal: true,
         open: function () {
             $(this).dialog("open");
             $(this).load(LOAD_HEALTH_TABLE());
-            window.scrollBy(1500, 10 );
+
+            PARENTWIDTH = $(this).closest("div").attr("id");
+            DIALOGWIDTH = $(this).width();
+            SCREENWIDTH = parseInt($(window).width())-100;
+
+            //SCREENWIDTH = parseInt($(window).width())-100;
+
+            $(this).css("width", SCREENWIDTH);
+
+            //var myDialogX = $(this).position().left - $(this).outerWidth();
+            //var myDialogY = $(this).position().top - ( $(document).scrollTop() + $('.ui-dialog').outerHeight() );
+            //$(this).dialog( 'option', 'position', [myDialogX, myDialogY] );
+
+            //window.scrollBy(1500, 10 );
         },
         close: function () {
             $(this).empty();
@@ -109,6 +132,13 @@ function xmlload() {
         }
     });
 
+    //No info
+
+    if(typeof personal_information.name == 'undefined'){
+        if (confirm("Please enter valid information for a Diagram!")){
+            return;
+        }
+    }
 
     $(document).ready(function() {
 
@@ -178,33 +208,33 @@ function xmlload() {
 
 
 
-        $(function() {
-
-            // grab the initial top offset of the navigation
-            var sticky_navigation_offset_top = $('#sticky_navigation').offset().top;
-
-            // our function that decides weather the navigation bar should have "fixed" css position or not.
-            var sticky_navigation = function(){
-                var scroll_top = $(window).scrollTop(); // our current vertical position from the top
-
-                // if we've scrolled more than the navigation, change its position to fixed to stick to top,
-                // otherwise change it back to relative
-                if (scroll_top > sticky_navigation_offset_top) {
-                    $('#sticky_navigation').css({ 'position': 'fixed', 'top':0, 'left':0 });
-                } else {
-                    $('#sticky_navigation').css({ 'position': 'relative' });
-                }
-            };
-
-            // run our function on load
-            sticky_navigation();
-
-            // and run it again every time you scroll
-            $(window).scroll(function() {
-                sticky_navigation();
-            });
-
-        });
+        //$(function() {
+        //
+        //    // grab the initial top offset of the navigation
+        //    var sticky_navigation_offset_top = $('#sticky_navigation').offset().top;
+        //
+        //    // our function that decides weather the navigation bar should have "fixed" css position or not.
+        //    var sticky_navigation = function(){
+        //        var scroll_top = $(window).scrollTop(); // our current vertical position from the top
+        //
+        //        // if we've scrolled more than the navigation, change its position to fixed to stick to top,
+        //        // otherwise change it back to relative
+        //        if (scroll_top > sticky_navigation_offset_top) {
+        //            $('#sticky_navigation').css({ 'position': 'fixed', 'top':0, 'left':0 });
+        //        } else {
+        //            $('#sticky_navigation').css({ 'position': 'relative' });
+        //        }
+        //    };
+        //
+        //    // run our function on load
+        //    sticky_navigation();
+        //
+        //    // and run it again every time you scroll
+        //    $(window).scroll(function() {
+        //        sticky_navigation();
+        //    });
+        //
+        //});
 
 
 
@@ -268,11 +298,12 @@ function xmlload() {
     var svgw = mdialog.find('svg')[0];
 
     svgw.setAttribute('id', 'svgframe');
-    svgw.setAttribute('height', '100%');
+    svgw.setAttribute('height', '80%');
+    svgw.setAttribute('valign', 'top');
 
 
     //svgw.setAttribute('viewBox','-1000 -350 2800 1000');
-    svgw.setAttribute('viewBox','0 0 1000 1300');
+    //svgw.setAttribute('viewBox','0 0 1000 1300');
     //svgw.setAttribute('style','overflow-x:scroll; overflow-y:scroll');
 
     //Outer Frame
@@ -280,8 +311,8 @@ function xmlload() {
     svg.text(masterleft - 120, 30, "Paternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
     svg.text(masterleft + 120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray' });
 
-    svg.rect(masterleft + 420, 50, 360, 50, 10, 10, {id: 'options', class: 'tablebutton', fill: 'darkslategray', stroke: 'white', strokeWidth: 1, onclick:'createDialog()', cursor:'pointer'});
-    svg.text(masterleft + 450, 80, "Diagram Table & Options", {class: 'tablebutton', fontWeight: 'bold', fontSize: '18.5', fill: 'white', onclick:'createDialog()', cursor:'pointer'});
+    svg.rect(20, 10, 360, 50, 10, 10, {id: 'options', class: 'tablebutton', fill: 'darkslategray', stroke: 'white', strokeWidth: 1, onclick:'createDialog()', cursor:'pointer'});
+    svg.text(50, 40, "Diagram Table & Options", {class: 'tablebutton', fontWeight: 'bold', fontSize: '18.5', fill: 'white', onclick:'createDialog()', cursor:'pointer'});
 
     $('#optionsPanel').attr('width', '800px');
 
@@ -2607,6 +2638,7 @@ function xmlload() {
         var idarray = new Array();
         var DATAKEY = null;
         var objectsarray = new Array();
+        var FARRIGHT;
 
         //alert ("MATERNALS_LOAD ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
@@ -2614,8 +2646,9 @@ function xmlload() {
         var NEPHEWS = COUNT_FAMILY_KIDS(NephewArray);
         var MATERNALHALFS = COUNT_FAMILY_KIDS(MaternalHalfSiblingsArray);
 
-        var FARRIGHT = COORDINATES_OF_FAMILY(MaternalHalfSiblingsArray,NephewArray);
 
+        if(MaternalHalfSiblingsArray.length>0) FARRIGHT = COORDINATES_OF_FAMILY(MaternalHalfSiblingsArray,NephewArray);
+        else FARRIGHT = COORDINATES_OF_FAMILY(SistersArray,NephewArray);
 
         for (var p in ARRAY) {
             var idarray = new Array();
@@ -2630,7 +2663,9 @@ function xmlload() {
             if (p == 0) {
                 DATAKEY = ARRAY[p].id;
                 var ps = START_MAT_GENLINE(PIDGEN, PID, MIDGEN);
-                p1 =  parseInt(FARRIGHT) + 100;
+
+                if(typeof FARRIGHT!= 'undefined')p1 = parseInt(FARRIGHT) + 80;
+                else p1 = ps[0] + 40;
 
                 //p1 = parseInt(ps[0]) + ((parseInt(SISTERS)*50) + (parseInt(NEPHEWS)*30) + (parseInt(MATERNALHALFS)*40));
                 //Get previous object coordninates
@@ -2678,14 +2713,15 @@ function xmlload() {
                 //Begin new elemnt
                 if (LINE == 0) {
                     var KIDS = COUNT_MY_KIDS(MaternalCousinArray, PREVIOUSID);
-
-                    p1 = parseInt(PREVIOUSP1) + (80 + (parseInt(KIDS)*70));
+                    if(KIDS==0)KIDS=1;
+                    p1 = parseInt(PREVIOUSP1) + (60 + (parseInt(KIDS)*60));
                     p1temp.push(MIDGEN, MID, p1);
                     P1.push(p1temp);
                 }
                 else {
                     var KIDS = COUNT_MY_KIDS(MaternalCousinArray, PREVIOUSID);
-                    p1 = parseInt(PREVIOUSP1) + (80 + (parseInt(KIDS)*70));
+                    if(KIDS==0)KIDS=1;
+                    p1 = parseInt(PREVIOUSP1) + (60 + (parseInt(KIDS)*60));
                     p1temp.push(MIDGEN, MID, p1);
                     P1.push(p1temp);
 
@@ -3999,6 +4035,7 @@ function xmlload() {
         var P1 = new Array();
 
         //alert ("'MatHalfSib' *** PATERNAL ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
+        var FARRIGHT = COORDINATES_OF_FAMILY(SistersArray,NephewArray);
 
         if (ARRAY.length > 0) {
             p2 = mastery;
@@ -4017,18 +4054,25 @@ function xmlload() {
                 //Parse array and build diagram
                 if (p == 0) {
                     DATAKEY = ARRAY[p].id;
-                    if (SistersArray.length > 1) {
-                        var d = SistersArray[SistersArray.length - 1];
-                        var lx = $('#' + d[1]).attr('cx');
-                        if(MIDGEN=='MALE') p1 = parseInt(lx) + 200;
-                        else  p1 = parseInt(lx) + 145;
-                        SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
-                    }
-                    else {
-                        var ps = RIGHT_START_HALF_SIBLINGS_GEN(PIDGEN,PID,MIDGEN);
-                        p1 = ps[0];
-                        SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
-                    }
+
+                    //if (SistersArray.length > 1) {
+                    //    var d = SistersArray[SistersArray.length - 1];
+                    //    var lx = $('#' + d[1]).attr('cx');
+                    //    if(MIDGEN=='MALE') p1 = parseInt(lx) + 200;
+                    //    else  p1 = parseInt(lx) + 145;
+                    //    SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
+                    //}
+                    //else {
+                    //    var ps = RIGHT_START_HALF_SIBLINGS_GEN(PIDGEN,PID,MIDGEN);
+                    //    p1 = ps[0];
+                    //    SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
+                    //}
+
+
+                    if(typeof FARRIGHT!= 'undefined')p1 = parseInt(FARRIGHT) + 120;
+                    else p1 = ps[0] + 40;
+
+                    SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
 
                     //Get previous object coordninates
                     p1temp.push(MIDGEN, MID, p1, CNR);
@@ -4145,10 +4189,11 @@ function xmlload() {
                         var PREVIOUSID = P1[P1.length - 1][1];
                         var PREVIOUSP1 = P1[P1.length - 1][2];
                         var KIDS = COUNT_KIDS(NephewArray, PREVIOUSID);
+
                         if(KIDS==0)KIDS=1;
 
                         var check = IS_IN_ARRAY(NephewArray, SID);
-                        var p1 = PREVIOUSP1 + (parseInt(KIDS) * 75);
+                        var p1 = PREVIOUSP1 + (80 + (parseInt(KIDS)*(parseInt(KIDS) * 65))/parseInt(KIDS));
                         //if (check != -1) p1 = parseInt(p1) + 120;
 
                         p1temp.push(MIDGEN, MID, p1, PID);
@@ -4175,7 +4220,8 @@ function xmlload() {
                         if(KIDS==0) KIDS=1;
 
                         var check = IS_IN_ARRAY(NephewArray, SID);
-                        var p1 = PREVIOUSP1 + (120 + (parseInt(KIDS)*(parseInt(KIDS) * 35))/parseInt(KIDS));
+
+                        var p1 = PREVIOUSP1 + (60 + (parseInt(KIDS)*(parseInt(KIDS) * 45))/parseInt(KIDS));
                         //p1 = PREVIOUSP1 + 120;
                         //if (check != -1) p1 = parseInt(p1) + 120;
 
@@ -4941,6 +4987,8 @@ function xmlload() {
         var res = -1;
         var amt=0;
         $.each(ARRAY, function (k, data) {
+
+
             if (ID == data[3]) {
                 amt = parseInt(amt) + 1;
 
@@ -4971,22 +5019,61 @@ function xmlload() {
         $.each(ARRAY1, function (k, data) {
             var ID = data[1];
 
-
-            var KIDS = COUNT_MY_KIDS(ARRAY2,ID);
-
+            var KIDS = COUNT_SIBLING_KIDS(ARRAY2,ID);
             var  x = SPOTLINE(ID);
+            if (KIDS>0) {
 
-            if (KIDS>0) array.push(parseInt(x[0])+120);
+                var Nk = parseInt(x[0]);
+                array.push(parseInt(x[0])+parseInt(KIDS)*30+60)
+            }
             else array.push(x[0]);
 
         });
 
-        array = array.reverse();
+        //array = array.reverse();
 
-        //alert(array.toString())
-
+        array = array.sort(function(a,b){return b - a}) //Array now becomes [7, 8, 25, 41]
         return array[0];
     }
+
+    //Check array condition if has children
+    function COUNT_SIBLING_KIDS(ARRAY, ID) {
+        var res = -1;
+        var amt=0;
+
+        //alert ( ID + " *** ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
+
+
+        $.each(ARRAY, function (k, data) {
+
+            if (ID == data[2]) {
+                amt = parseInt(amt) + 1;
+
+            }
+        });
+
+        return amt;
+    }
+
+    //function COUNT_FAR_RIGHT_IN_ARRAY(ARRAY, ID) {
+    //    var res = -1;
+    //    var count = 0;
+    //    var array = new Array();
+    //    $.each(ARRAY, function (k, data) {
+    //        if (ID == data[2]) {
+    //            alert("childx-->"+data[1])
+    //            var x = SPOTLINE(data[1]);
+    //            array.push(x[0]);
+    //            //count = count + 1;
+    //        }
+    //    });
+    //
+    //    array = array.sort(function(a,b){return b - a}) //Array now becomes [7, 8, 25, 41]
+    //
+    //    alert("COUNT_FAR_RIGHT_IN_ARRAY-->"+array.toString())
+    //
+    //    return array[0];
+    //}
 
     function COUNT_IN_ARRAY(ARRAY, ID) {
         var res = -1;
@@ -5815,57 +5902,127 @@ function xmlload() {
 
 
    var offset = $('#svgframe').offset().left;
-    var wit = $('#svgframe').width();
+    var wit = $(window).height();
+    var hei = $('#svgframe').height();
     var X = $('#me').attr('x');
+    var DIVL = $('#family_pedigree').attr('width');
+    var SVGW = svgw.getAttribute('width');
+    var SVGH = svgw.getAttribute('height');
+
+    var DIALOGWIDTH =  $(mdialog).width();
+    var DIALOGHEIGHT =  $(mdialog).height();
+    var DIALOGOUTERWIDTH =  $(mdialog).outerWidth();
+
+    //alert(" ### --dialog width --> " + $(mdialog).width()
+    //+ " ### --outer outerWidth --> " + $(mdialog).outerWidth()
+    //    + " ### --outer wit --> " + wit
+    //    + " #SVGW width --> "+ SVGW
+    //    + " #SVGH height --> "+ SVGH
+    //
+    //    + " #DIALOGHEIGHT  --> "+ DIALOGHEIGHT
+    //);
+
+    var allXarray = new Array();
+    var container = $('#svgframe');
+    $("#svgframe").each(function() {
+        $('circle').each(function (index) {
+            var cla = $(this).attr('class')
+            var cx = $(this).attr('cx');
+            if (typeof cla != 'undefined') {
+                cla = $(this).attr('class').toLowerCase();
+                if ($.inArray(cx, allXarray) == -1 && cla == 'female') {
+                    allXarray.push(cx);
+                }
+            }
+        });
+    });
+    $("#svgframe").each(function() {
+        $('rect').each(function (index) {
+            var cla = $(this).attr('class')
+            var x = $(this).attr('x');
+            if (typeof cla != 'undefined') {
+                cla = $(this).attr('class').toLowerCase();
+                if ($.inArray(x, allXarray) == -1 && cla == 'male') {
+                    allXarray.push(x);
+                }
+            }
+        });
+    });
+
+    allXarray = allXarray.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
+    var FARLEFT = allXarray[0];
+    var FARRIGHT = allXarray[allXarray.length - 1];
+    var DIAWIDTH = parseInt(FARRIGHT) - parseInt(FARLEFT);
 
 
-    //alert(wit + " off--> "+ offset)
 
-    if (NephewArray.length > 5) {
+    var absleft = 0;
 
-        if (PaternalCousinArray.length > 8) {
-            var scale = parseInt(wit) + 3400;
-            svgw.setAttribute('viewBox', '0 0 '+scale+' 1800');
-            svgw.setAttribute   ('transform', 'translate(430,125)');
-            svgw.setAttribute('align', 'right');
+    if(FARLEFT < 0 )absleft = Math.abs(FARLEFT);
+    if(FARRIGHT > DIALOGWIDTH )FARRIGHT = FARRIGHT - DIALOGWIDTH;
 
-            svgw.setAttribute('width', masterRight - 50);
+
+
+    //1786 <--@@ 942 <--## 1445
+    var wscale,hscale;
+
+    if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
+
+        if (DIAWIDTH > SVGW) {
+            wscale = parseInt(DIAWIDTH) + 0;
+            hscale = parseInt(SVGH);
+            //svgw.setAttribute('viewBox', +(parseInt(FARLEFT) - 50) + ' 0 ' + wscale + ' ' + 1200);
+            //document.getElementById("svgframe").getSVGDocument().getElementById("SVGTest").setAttribute(
+            var svgdoc = document.getElementById("svgframe");
+            svgdoc.setAttribute("viewBox", +(parseInt(FARLEFT) - 50) + ' 0 ' + wscale + ' ' + 25);
+
+                //document.getElementById("svgframe").getSVGDocument().setAttribute(
+                //"viewBox", +(parseInt(FARLEFT) - 50) + ' 0 ' + wscale + ' ' + 1200);
+            var lft = parseInt(absleft) / 2;
+            svgdoc.setAttribute('transform', 'translate('+ (parseInt(absleft)/2.2) +',10)');
         }
         else {
-            var dis = parseInt(masterRight)-parseInt(offset);
-            //alert(wit + " *** " + offset + " ***> " + X)
-            var shift = parseInt(wit) - offset;
+            wscale = parseInt(SVGW) + 0;
+            hscale = parseInt(hei) + 100;
+            var svgdoc = document.getElementById("svgframe");
 
-            svgw.setAttribute('viewBox', '0 0 ' + dis + ' 1200');
-            svgw.setAttribute ('transform', 'translate(-'+ shift +',125)');
-            svgw.setAttribute('width', parseInt(masterRight) - 50);
+
+
+
+            if(FARLEFT<0) {
+                svgdoc.setAttribute("viewBox", FARLEFT + ' 0 ' + wscale + ' ' + 25);
+                svgdoc.setAttribute("height", '60%');
+                svgdoc.setAttribute("margin-top", '10px');
+                absleft = parseInt(absleft) + 400;
+                //svgdoc.setAttribute("transform", "translate(700,10)");
+                //svgdoc.transform.setAttribute('transform', 'translate('+absleft+',10  )');
+            }
+            else{
+                svgdoc.setAttribute("viewBox", '0 0 ' + wscale + ' ' + 25);
+                svgdoc.setAttribute("height", '60%');
+                svgdoc.setAttribute("margin-top", '10px');
+                absleft = parseInt(absleft) + 400;
+
+            }
+            //document.getElementById("svgframe").getSVGDocument().setAttribute("viewBox", '0 0 ' + wscale + ' ' + 1200);
         }
     }
-    else if (PaternalRelatives.length > 3) {
-        if (PaternalRelatives.length > 9) {
-            var scale = parseInt(wit) + 1300;
-            svgw.setAttribute('viewBox', '0 0 '+scale+' 1800');
-            svgw.setAttribute   ('transform', 'translate(430,125)');
-            svgw.setAttribute('width', masterRight - 50);
+    else {
+
+        if (DIAWIDTH > SVGW) {
+            wscale = parseInt(DIAWIDTH) + 200;
+            hscale = parseInt(SVGH);
+            svgw.setAttribute('viewBox', +(parseInt(FARLEFT) - 50) + ' 0 ' + wscale + ' ' + 1200);
+            var lft = parseInt(absleft) / 2;
+            svgw.setAttribute('transform', 'translate('+ (parseInt(absleft)/2.2) +',10)');
 
         }
         else {
-            svgw.setAttribute('viewBox', '-20 0 2000 1300');
-            svgw.setAttribute('width', masterRight - 50);
+            wscale = parseInt(SVGW) + 100;
+            hscale = parseInt(hei) + 100;
+            svgw.setAttribute('viewBox', '0 0 ' + wscale + ' ' + 1200);
+            if(FARLEFT<0) svgw.setAttribute('transform', 'translate('+absleft+',10  )');
         }
-        //svgw.setAttribute('width', 2000);
-    }
-    else{
-        var dis = parseInt(masterRight)-parseInt(offset);
-        var shift = parseInt(wit) - offset;
-
-        svgw.setAttribute('viewBox', '0 0 ' + dis + ' 1200');
-        //svgw.setAttribute ('transform', 'translate(-'+ shift +',125)');
-        svgw.setAttribute('width', parseInt(masterRight) - 50);
-
-        //svgw.setAttribute('viewBox', '0 0 1800 1200');
-        //svgw.setAttribute('width', masterRight - 50);
-        //svgw.setAttribute('width', 1800);
     }
 }
 
@@ -5876,13 +6033,11 @@ function LOAD_HEALTH_TABLE(){
     var DISEASESARRAY = new Array();
     var item;
 
-
     //Add my self to table
     var TABLE_DATA_ARRAY = new Array();
     var temp1 = new Array();
     var temp2 = new Array();
     var diss;
-
 
     temp1.push(personal_information.name)
     temp1.push('Self')
@@ -6050,14 +6205,17 @@ function openTab(TXT){
 
 function ADOPTED_FAMILY(){
     $.each(personal_information, function (key, item) {
-        var adopt = item.adopted;
-        if(typeof adopt != 'undefined'){
-            if (adopt == 'true') {
-                var id = item.id;
-                $('#' + id).attr({fill: 'palegoldenrod'});
+        if(item) {
+            var adopt = item.adopted;
+            if (typeof adopt != 'undefined') {
+                if (adopt == 'true') {
+                    var id = item.id;
+                    $('#' + id).attr({fill: 'palegoldenrod'});
+                }
             }
         }
     });
+
 }
 
 function LOAD_TR(cod,nr){
