@@ -307,6 +307,12 @@ function test_secondary_family_members_colon_cancer_before_60() {
 							risk=true;
 							i = h.length; break; // We do not need to check this person anyore
 						}
+						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
+							name = get_name_or_relationship(this.name, key);
+							risk_reason += name + " has had Rectal Cancer before the age of 60.<br />";
+							risk=true;
+							i = h.length; break; // We do not need to check this person anyore
+						}
 					}
 				}
 			}
@@ -389,20 +395,20 @@ function test_final() {
 function is_age_before(age_to_check, age_at_diagnosis) {
 	switch(age_to_check) {
 		case 'Under60':
-			if (age_at_diagnosis == '50-59 years') return true;
+			if (age_at_diagnosis == 'fifties') return true;
 		case 'Under50':
-			if (age_at_diagnosis == '40-49 years') return true; 
+			if (age_at_diagnosis == 'fourties') return true; 
 		case 'Under40':
-			if (age_at_diagnosis == '30-39 years') return true;
+			if (age_at_diagnosis == 'thirties') return true;
 		case 'Under30':
-			if (age_at_diagnosis == '20-29 years') return true;
+			if (age_at_diagnosis == 'twenties') return true;
 		case 'Under20':
-			if (age_at_diagnosis == 'In Adolescence') return true;
+			if (age_at_diagnosis == 'teen') return true;
 		case 'Under10':
-			if (age_at_diagnosis == 'In Childhood') return true;
-			if (age_at_diagnosis == 'In Infancy') return true;
-			if (age_at_diagnosis == 'Newborn') return true;
-			if (age_at_diagnosis == 'Pre-Birth') return true;
+			if (age_at_diagnosis == 'child') return true;
+			if (age_at_diagnosis == 'infant') return true;
+			if (age_at_diagnosis == 'newborn') return true;
+			if (age_at_diagnosis == 'prebirth') return true;
 	}
 	return false;
 }

@@ -916,23 +916,14 @@ function bind_family_member_submit_button_action () {
 		var estimated_age = $('#estimated_age_select').val();
 		var cause_of_death = $('#cause_of_death_select').val();
 		
-		var cause_of_death_code = $('#detailed_cause_of_death_select').val();
-		if (cause_of_death_code != null && cause_of_death_code != "") {
-			detailed_cause_of_death = $.t($('#detailed_cause_of_death_select').val());
-		} else {
-			if ($("#new_disease_name").val() != "") detailed_cause_of_death;
- 			else detailed_cause_of_death = cause_of_death;
-		}
-		var estimated_death_age = $('#estimated_death_age_select').val();
-		if (estimated_death_age == 'not_picked') estimated_death_age = 'unknown';
 		
 		if (alive_flag == 'alive') {
 			
 			if (age_determination_flag == 'date_of_birth') {
-				delete family_member_information['cause_of_death'];
-				delete family_member_information['detailed_cause_of_death'];
-				delete family_member_information['estimated_death_age'];
-				delete family_member_information['cause_of_death_code'];
+				if (family_member_information['cause_of_death']) delete family_member_information['cause_of_death'];
+				if (family_member_information['detailed_cause_of_death']) delete family_member_information['detailed_cause_of_death'];
+				if (family_member_information['estimated_death_age']) delete family_member_information['estimated_death_age'];
+				if (family_member_information['cause_of_death_code']) delete family_member_information['cause_of_death_code'];
 				
 				family_member_information['date_of_birth'] = age_determination_text;
 			} else if (age_determination_flag == 'age') {
@@ -941,6 +932,16 @@ function bind_family_member_submit_button_action () {
 				family_member_information['estimated_age'] = estimated_age;
 			}
 		} else if (alive_flag == 'dead') {
+				var cause_of_death_code = $('#detailed_cause_of_death_select').val();
+				if (cause_of_death_code != null && cause_of_death_code != "") {
+					detailed_cause_of_death = $.t($('#detailed_cause_of_death_select').val());
+				} else {
+					if ($("#new_disease_name").val() != "") detailed_cause_of_death = $("#new_disease_name").val();
+		 			else detailed_cause_of_death = cause_of_death;
+				}
+				var estimated_death_age = $('#estimated_death_age_select').val();
+				if (estimated_death_age == 'not_picked') estimated_death_age = 'unknown';
+				
 				family_member_information['cause_of_death'] = cause_of_death;
 				if (cause_of_death == 'other') family_member_information['detailed_cause_of_death'] = $("#new_disease_name").val();
 				else family_member_information['detailed_cause_of_death'] = $.t("diseases:" + cause_of_death_code);

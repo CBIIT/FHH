@@ -149,13 +149,12 @@ function export_mother(relative_being_exported, my_gender) {
 	pi.maternal_grandfather = new Object(); pi.maternal_grandfather.gender = 'MALE';
 	pi.maternal_grandmother = new Object(); pi.maternal_grandmother.gender = 'FEMALE';
 
-	return pi;	
+	return pi;
 }
 
 function export_son_or_daughter(relative_being_exported, my_gender) {
 	var pi = new Object();
 	set_personal_information_based_on_relative(pi, personal_information[relative_being_exported]);	
-	
 	
 	var my_information_as_a_relative = get_personal_information_of_relative (personal_information) ;	
 
@@ -175,6 +174,11 @@ function export_son_or_daughter(relative_being_exported, my_gender) {
 		move_relatives(pi, 'paternal_halfbrother', 'paternal_uncle');
 		move_relatives(pi, 'paternal_halfsister', 'paternal_aunt');
 
+		move_relatives(pi, 'grandson', 'niece/nephew', 'except_descendants', pi.id);
+		move_relatives(pi, 'granddaughter', 'niece/nephew', 'except_descendants', pi.id);
+		move_relatives(pi, 'grandson', 'son', 'only_descendants', pi.id);
+		move_relatives(pi, 'granddaughter', 'daughter', 'only_descendants', pi.id);
+		
 		pi.maternal_grandfather = new Object(); pi.maternal_grandfather.gender = 'MALE';
 		pi.maternal_grandmother = new Object(); pi.maternal_grandmother.gender = 'FEMALE';
 		
@@ -189,6 +193,11 @@ function export_son_or_daughter(relative_being_exported, my_gender) {
 		move_relatives(pi, 'daughter', 'sister', 'except', relative_being_exported);
 		move_relatives(pi, 'maternal_halfbrother', 'maternal_uncle');
 		move_relatives(pi, 'maternal_halfsister', 'maternal_aunt');
+
+		move_relatives(pi, 'grandson', 'niece/nephew', 'except_descendants', pi.id);
+		move_relatives(pi, 'granddaughter', 'niece/nephew', 'except_descendants', pi.id);
+		move_relatives(pi, 'grandson', 'son', 'only_descendants', pi.id);
+		move_relatives(pi, 'granddaughter', 'daughter', 'only_descendants', pi.id);
 
 		pi.paternal_grandfather = new Object(); pi.maternal_grandfather.gender = 'MALE';
 		pi.paternal_grandmother = new Object(); pi.maternal_grandmother.gender = 'FEMALE';
@@ -206,6 +215,13 @@ function move_relatives(pi, from, to, special_type, special_value) {
 	var i = 0;
 	while (personal_information[from + "_" + i] != null ) {
 		if ( special_type == 'except' && (from + "_" + i) == special_value) {i++; continue;}  // Skip copying the exported sibling
+		if ( special_type == 'except_descendants' && personal_information[from + "_" + i].parent_id == special_value) {
+			i++; continue;
+		}
+		if ( special_type == 'only_descendants' && personal_information[from + "_" + i].parent_id != special_value) {
+			i++; continue;
+		}
+		
 		if (to == 'niece/nephew') {
 			if (personal_information[from + "_" + i].gender == 'MALE') {
 				pi['nephew' + '_' + num_to_move] = JSON.parse(JSON.stringify(personal_information[from + '_' + i]));
