@@ -18,11 +18,16 @@
 <script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
 
 <body>
-<div id="wrapper" class="main_container">
+<div id="wrapper" class="main_container" style='border:1px solid black;'>
 	<!-- BEGIN HEADER -->
 	<div id="skipNavBegin" style="width: 0; height: 0; overflow: hidden;">
 	    <a href="#skipNavEnd" accesskey="n">Skip navigation</a>
 	</div>
+    <div class="nav">
+			<a href="javascript://nop/" id="nav_help" class='help_item translate' data-i18n='fhh_fhh.a_get_help' onclick="get_help()">Get Help</a>
+    </div>
+	
+	
 	<div>
 	    <table class="">
 			<tr>
@@ -38,6 +43,8 @@
 				</UL>
 				
 				<div class='translate' data-i18n='fhh_index.talking' >Talking with your health care worker about your family health history can help you stay healthy!</div>
+				<br />
+				<a href='#' class='translate' data-i18n='fhh_index.learn_more' onclick="learn_more()" >Learn more about <em> My Family Health Portrait </em></a>
 				<br /><br />
 				<TABLE style='width:100%'>
 				<TR>
@@ -61,13 +68,39 @@
 				</TABLE>
 				 
 				</td>
-				<td style='width:50%'><img src="../themes/deploy/photos_frontpage_main.jpg" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></td>
+				<td style='vertical-align:bottom; padding:10px;'><img width='248' src="../themes/deploy/photos_frontpage_main.jpg" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></td>
 	        </tr>
 			<tr>
-	            <td colspan='2'><img src="../themes/deploy/photos_frontpage_bottom.jpg" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></td>
+	            <td colspan='2'><img width='712' src="../themes/deploy/photos_frontpage_bottom.jpg" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></td>
 	        </tr>
 	    </table>
 	</div>
+<!-- BEGIN FOOTER -->
+
+<table class="footerTable">
+    <tbody><tr>
+        <td class="footerTdLinks">
+            
+            <a href="javascript://nop/" onclick="glossary()" class='translate' data-i18n='fhh_index.glossary'>Glossary</a> | 
+            
+            <a href="javascript://nop/" onclick="faq()"  class='translate' data-i18n='fhh_index.faq'>FAQ</a> | 
+            <a href="http://www.hhs.gov/Accessibility.html" target="_blank"  class='translate' data-i18n='fhh_index.accessability'>Accessibility</a> | 
+            <a href="http://www.hhs.gov/Privacy.html" target="_blank"  class='translate' data-i18n='fhh_index.privacy'>Privacy &amp; Security Policy</a> | 
+            
+            <a href="javascript://nop/" onclick="about()"  class='translate' data-i18n='fhh_index.about'>About This Site</a> | 
+            
+            <a href="javascript://nop/" onclick="contact()"  class='translate' data-i18n='fhh_index.contact'>Contact Us</a> | 
+            
+            <a href="javascript://nop/" onclick="site_updates()"  class='translate' data-i18n='fhh_index.updates'>Site Updates</a>
+        </td>
+        <td class="footerTdLogos">
+            <img src="../images/logo_hhs.gif" alt="HHS Logo">&nbsp;&nbsp;<img src="../images/logo_phs.gif" alt="PHS Logo">
+        </td>
+    </tr>
+</tbody></table>
+
+<!-- END FOOTER -->
+	
 </div>
 </body>
 <!-- Need to set the language on the links out to create or load -->
@@ -85,6 +118,32 @@ function goto_load() {
 	else location.href='fhh.html?action=load'
 }
 
+
+// Static links need to know what language
+
+function get_help() {
+	window.open("./static/help_" + i18n.lng() + ".html", "", "width=800, height=600, scrollbars=yes");
+}
+
+function learn_more() {
+	window.open("./static/learn_more_" + i18n.lng() + ".html", "", "width=800, height=600, scrollbars=yes");
+}
+
+function glossary() {
+	window.open("./static/glossary_" + i18n.lng() + ".html", "", "width=800, height=600, scrollbars=yes");
+}
+function faq() {
+	window.open("./static/faq_" + i18n.lng() + ".html", "", "width=800, height=600, scrollbars=yes");
+}
+function about() {
+	window.open("./static/about_" + i18n.lng() + ".html", "", "width=800, height=600, scrollbars=yes");
+}
+function contact() {
+	window.open("./static/contact_" + i18n.lng() + ".html", "", "width=800, height=600, scrollbars=yes");
+}
+function site_updates() {
+	window.open("./static/site_update_" + i18n.lng() + ".html", "", "width=800, height=600, scrollbars=yes");
+}
 </script>
 
 </html>

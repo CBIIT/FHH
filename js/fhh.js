@@ -848,6 +848,7 @@ function bind_personal_cancel_button_action () {
 		$("#invalid_date_of_birth_warning").remove();
 		$("#invalid_gender_warning").remove();
 
+		alert (typeof personal_information);
 		$("#add_personal_information_dialog").dialog("close");
 	});
 }

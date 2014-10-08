@@ -5,25 +5,44 @@
 }
 
 body {
-    background: rgba(255, 255, 255, 1);
+		background: url('page_background.jpg') repeat-x scroll center top #ECE0D3;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 75%;
     padding: 10px;
     text-align: center;
-    min-width:900px;
+    min-width:800px;
 }
 
 div.main_container {
-    margin: 0 auto 0px auto;
-    padding: 0px;
+		background-color: #FFF;
+		border:1px solid black;
+    margin: 5px auto 5px auto;
+    padding: 10px;
     text-align: left;
     vertical-align: top;
-    width: 1000px;
+    width: 720px;
 }
 
+div.nav {
+	text-align:right;
+}
 
-button.frontpage {
-	border:1px solid black;
+a.help_item {
+	color:#FFF;
+	background-color:#610;
+	font-weight:bold;
 	padding:5px;
+}
+button.frontpage {
+	background-color: #FA9;
+	border:2px solid black;
+	padding:5px;
+	margin-left:10px;
+	margin-right:10px;
 	width:200px;
+}
+
+button.frontpage:hover {
+	background-color: #D87;
+	cursor:pointer;
 }
