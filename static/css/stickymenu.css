@@ -1,11 +1,11 @@
 #nav{
-    height:35px;
+    height:45px;
     border-bottom:1px solid #ddd;
     position:fixed;
     top:0px;
     left:0px;
     right:0px;
-    background:#fff url(../images/nav.png) repeat-x center left;
+    background: darkslategray url(../images/nav.png) repeat-x center left;
 }
 #nav ul{
     height:25px;
@@ -23,7 +23,7 @@
     font-weight:bold;
     float:left;
     padding: 2px 4px;
-    color:#999;
+    color: white;
     text-decoration: none;
     border:1px solid #ccc;
     cursor: pointer;

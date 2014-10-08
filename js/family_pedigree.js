@@ -30,6 +30,7 @@ var SCREENWIDTH=0;
 var SVGWIDTH=0;
 var PARENTWIDTH=0;
 var DIALOGWIDTH=0;
+var originalContents;
 
 var defaultfamilyarray=[
     'maternal_grandfather',
@@ -51,44 +52,94 @@ var defaultfamilyarray=[
 ];
 
 function xmlload() {
+    /*
+    Get Date
+     */
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+    var currentdate = new Date();
+
+    var day = days[ currentdate.getDay() ];
+    var month = months[ currentdate.getMonth() ];
+    //Date
+    var hours = currentdate.getHours();
+    var hours = (hours+24-2)%24;
+    var mid='AM';
+    if(hours==0){ //At 00 hours we need to show 12 am
+        hours=12;
+    }
+    else if(hours>12){
+        hours=hours%12;
+        mid='PM';
+    }
+    var today =  "Date of Report: " +
+        day + ", " + month + " "
+        + currentdate.getDay() + ", "
+        + currentdate.getFullYear() + " "
+        + hours + ":"
+        + currentdate.getMinutes() + " "
+        + mid;
+
+
+
+
     mdialog = $(
+
         '<div id="family_pedigree" class="family_dialog" >' +
 
-        '<div id="nav" class="sticky">' +
-        '<ul>' +
-        '<li><a class="top" href="#top"><span></span></a></li>' +
-        '<li><a class="bottom" href="#bottom"><span></span></a></li>' +
-        '<li><a id="printer">Print</a></li>' +
-        '<li><a onclick="createDialog()">Diagram Table & Options</a></li>' +
-        '</ul>' +
-        '</div>' +
-        '<div id="top"></div>' +
-        '<div class="desc"></div>' +
-        '<div id="bottom"></div>' +
-        '<div class="scroll"></div>' +
-        '<div class="info">' +
-        '</div>' +
+            '<div id="nav" class="sticky">' +
+                '<ul>' +
+                    '<li><a class="top" href="#top"><span></span></a></li>' +
+                    '<li><a class="bottom" href="#bottom"><span></span></a></li>' +
+                    '<li><a id="printer">Print</a></li>' +
+                    '<li><a onclick="createDialog()">Diagram Table & Options</a></li>' +
+                    '<li>' +
+                    '<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" ' +
+                    'type="button" role="button" aria-disabled="false" title="close" onclick="closedialog()"></button>' +
+                    '</li>' +
+                '</ul>' +
+            '</div>' +
+            '<div id="top"></div>' +
+            '<div class="desc"></div>' +
+            '<div id="bottom"></div>' +
+            '<div class="scroll"></div>' +
+            '<div class="info"></div>' +
 
-        '<div id="family_pedigree_info">' +
-                '<div>' +
-                    '<table id="closed_table" ><tr><td></td></tr></table>' +
-                    '<table id="health_table" class="display compact">' +
-                    '<caption>Disease Matrix Table</caption>' +
-                    '<thead></thead>' +
-                    '<tfoot></tfoot>' +
-                    '<tbody></tbody>' +
-                    '</table>' +
+                '<div id="family_pedigree_info">' +
+                    '<div>' +
+                        '<table id="closed_table" ><tr><td></td></tr></table>' +
+                        '<table id="health_table" class="display compact">' +
+                        '<caption>Table ' + today + '</caption>' +
+                        '<thead></thead>' +
+                        '<tfoot></tfoot>' +
+                        '<tbody></tbody>' +
+                        '</table>' +
+                    '</div>' +
                 '</div>' +
 
-            '</div>' +
         '</div>'
+
+            //'<div id="family_pedigree_info">' +
+            //    '<div>' +
+            //    '<table id="closed_table" ><tr><td></td></tr></table>' +
+            //    '<table id="health_table" class="display compact">' +
+            //    '<caption>Disease Matrix Table</caption>' +
+            //    '<thead></thead>' +
+            //    '<tfoot></tfoot>' +
+            //    '<tbody></tbody>' +
+            //    '</table>' +
+            //    '</div>' +
+            //'</div>'
+
+
     );
 
 
 
     $(mdialog).dialog({
         autoOpen: false,
-        position: ['top', 5],
+        position: ['top', '80px'],
         title: 'Family Pedigree Chart',
         minHeight:450,
         height:'auto',
@@ -101,14 +152,12 @@ function xmlload() {
             DIALOGWIDTH = $(this).width();
             SCREENWIDTH = parseInt($(window).width())-100;
 
-            //SCREENWIDTH = parseInt($(window).width())-100;
-
-
             $(this).css("width", SCREENWIDTH);
 
             var myDialogX = $(this).position().left - $(this).outerWidth();
             var myDialogY = $(this).position().top - ( $(document).scrollTop() + $('.ui-dialog').outerHeight() );
-            $(this).dialog( 'option', 'position', [myDialogX, myDialogY] );
+
+            $(this).dialog( 'option', 'position', [myDialogX, 40] );
 
             //window.scrollBy(1500, 10 );
 
@@ -118,6 +167,7 @@ function xmlload() {
             $(this).dialog('destroy').remove()
         }
     });
+
 
     //No info
 
@@ -207,47 +257,14 @@ function xmlload() {
         );
         //oTable
 
-
-
-
-        //$(function() {
-        //
-        //    // grab the initial top offset of the navigation
-        //    var sticky_navigation_offset_top = $('#sticky_navigation').offset().top;
-        //
-        //    // our function that decides weather the navigation bar should have "fixed" css position or not.
-        //    var sticky_navigation = function(){
-        //        var scroll_top = $(window).scrollTop(); // our current vertical position from the top
-        //
-        //        // if we've scrolled more than the navigation, change its position to fixed to stick to top,
-        //        // otherwise change it back to relative
-        //        if (scroll_top > sticky_navigation_offset_top) {
-        //            $('#sticky_navigation').css({ 'position': 'fixed', 'top':0, 'left':0 });
-        //
-        //        } else {
-        //            $('#sticky_navigation').css({ 'position': 'relative' });
-        //        }
-        //    };
-        //
-        //    // run our function on load
-        //    sticky_navigation();
-        //
-        //    // and run it again every time you scroll
-        //    $(window).scroll(function() {
-        //        sticky_navigation();
-        //    });
-        //
-        //});
-
         $(function() {
             $(window).scroll(function(){
                 var scrollTop = $(window).scrollTop();
                 if(scrollTop != 0)
-                    $('#nav').stop().animate({'opacity':'0.2'},400);
+                    $('#nav').stop().animate({'opacity':'0.9'},400);
                 else
                     $('#nav').stop().animate({'opacity':'1'},400);
             });
-
             $('#nav').hover(
                 function (e) {
                     var scrollTop = $(window).scrollTop();
@@ -258,14 +275,19 @@ function xmlload() {
                 function (e) {
                     var scrollTop = $(window).scrollTop();
                     if(scrollTop != 0){
-                        $('#nav').stop().animate({'opacity':'0.2'},400);
+                        $('#nav').stop().animate({'opacity':'0.9'},400);
                     }
                 }
             );
         });
-
-
     });
+
+
+
+
+
+
+
 
 
     var merr = 45;
@@ -327,6 +349,7 @@ function xmlload() {
     svgw.setAttribute('id', 'svgframe');
     svgw.setAttribute('height', '80%');
     svgw.setAttribute('valign', 'top');
+    svgw.setAttribute('margin-top', '5px');
 
 
     //svgw.setAttribute('viewBox','-1000 -350 2800 1000');
@@ -433,7 +456,7 @@ function xmlload() {
             $.each(item['Health History'], function (k, data) {
                 var disname = data['Disease Name'];
                 var disdet = data['Detailed Disease Name'];
-                ids.push(disname);
+                ids.push([disname,disdet]);
                 dis.push([disname,disdet]);
 
                 //dis.push(disname);
@@ -453,14 +476,14 @@ function xmlload() {
     $.each(personal_information['Health History'], function (k, data) {
         var disname = data['Disease Name'];
         var disdet = data['Detailed Disease Name'];
-        //var dis = [disname,disdet];
-        ids.push(disname);
-
+        ids.push([disname,disdet]);
         dis.push([disname,disdet]);
-        //ids.push(dis)
     });
+
     HEALTHARRAY.push(ids);
     DISEASELISTARRAY.push(dis);
+
+    //alert ("HEALTHARRAY ARRAY Information:" + JSON.stringify(HEALTHARRAY, null, 2) );
 
     //alert ("DISEASELISTARRAY ARRAY Information:" + JSON.stringify(DISEASELISTARRAY, null, 2) );
 
@@ -780,7 +803,7 @@ function xmlload() {
             svg.circle(pstart, 70, cr, {
                 id: id,
                 fill: gencolor,
-                stroke: 'red',
+                stroke: 'black',
                 strokeWidth: 2,
                 cursor: 'pointer',
                 class: item.gender
@@ -804,7 +827,7 @@ function xmlload() {
             svg.rect(pend, 50, rr, rr, 1, 1, {
                 id: id,
                 fill: gencolor,
-                stroke: 'red',
+                stroke: 'black',
                 strokeWidth: 2,
                 cursor: 'pointer',
                 class: item.gender
@@ -835,7 +858,7 @@ function xmlload() {
             svg.circle(parseInt(mend), 70, cr, {
                 id: id,
                 fill: gencolor,
-                stroke: 'red',
+                stroke: 'black',
                 strokeWidth: 2,
                 cursor: 'pointer',
                 class: item.gender
@@ -860,7 +883,7 @@ function xmlload() {
             svg.rect(parseInt(mstart), 50, rr, rr, 1, 1, {
                 id: id,
                 fill: gencolor,
-                stroke: 'red',
+                stroke: 'black',
                 strokeWidth: 2,
                 cursor: 'pointer',
                 class: item.gender
@@ -884,7 +907,7 @@ function xmlload() {
             svg.rect(parseInt(mleft), 200, rr, rr, 1, 1, {
                 id: id,
                 fill: gencolor,
-                stroke: 'red',
+                stroke: 'black',
                 strokeWidth: 2,
                 cursor: 'pointer',
                 class: item.gender
@@ -906,7 +929,7 @@ function xmlload() {
             svg.circle(mleft, 220, cr, {
                 id: id,
                 fill: gencolor,
-                stroke: 'red',
+                stroke: 'black',
                 strokeWidth: 2,
                 cursor: 'pointer',
                 class: item.gender
@@ -963,8 +986,10 @@ function xmlload() {
         var pos = 850;
         var k = svg.group({stroke: 'red', strokeWidth: 2, 'z-index': '9999'});
 
+        var skip = 650;
+
         //Index keys
-        svg.rect(30, 40 + pos, 980, 100, 1, 1, {
+        svg.rect(30+skip, 40 + pos, 980+20, 100, 1, 1, {
             id: 'panel',
             fill: 'none',
             stroke: 'slategray',
@@ -975,23 +1000,23 @@ function xmlload() {
         var krr = 40;
 
         //Live
-        svg.text(100, 30 + pos, "Alive", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray'});
-        svg.circle(75, 95 + pos, kcr, {id: 'kfd', fill: gencolor, stroke: 'red', strokeWidth: 2});
-        svg.rect(120, 74 + pos, krr, krr, 1, 1, {id: 'kma', fill: gencolor, stroke: 'red', strokeWidth: 3});
+        svg.text(100+skip, 30 + pos, "Alive", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray'});
+        svg.circle(75+skip, 95 + pos, kcr, {id: 'kfd', fill: gencolor, stroke: 'black', strokeWidth: 2});
+        svg.rect(120+skip, 74 + pos, krr, krr, 1, 1, {id: 'kma', fill: gencolor, stroke: 'black', strokeWidth: 3});
 
         //Deceased
-        svg.text(270, 30 + pos, "Deceased", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray'});
-        svg.circle(270, 95 + pos, kcr, {id: 'kf', fill: gencolor, stroke: 'red', strokeWidth: 2});
-        svg.rect(325, 74 + pos, krr, krr, 1, 1, {id: 'kmd', fill: gencolor, stroke: 'red', strokeWidth: 2});
+        svg.text(270+skip, 30 + pos, "Deceased", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray'});
+        svg.circle(270+skip, 95 + pos, kcr, {id: 'kf', fill: gencolor, stroke: 'black', strokeWidth: 2});
+        svg.rect(325+skip, 74 + pos, krr, krr, 1, 1, {id: 'kmd', fill: gencolor, stroke: 'black', strokeWidth: 2});
 
-        svg.text(470, 30 + pos, "A non-blood relative or relative through marriage.", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray'});
-        svg.rect(570, 74 + pos, krr, krr, 1, 1, {id: 'exw', fill: gencolor, stroke: 'red', strokeWidth: 2});
-        svg.circle(690, 95 + pos, kcr, {id: 'ex', fill: 'white', stroke: 'red', strokeWidth: 2});
-        svg.line(LINEGROUP, 570,  95 + pos, 690,  95 + pos, {id: 'xl', stroke: 'black', strokeWidth: 3});
+        svg.text(470+skip, 30 + pos, "A non-blood relative or relative through marriage.", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray'});
+        svg.rect(570+skip, 74 + pos, krr, krr, 1, 1, {id: 'exw', fill: gencolor, stroke: 'black', strokeWidth: 2});
+        svg.circle(690+skip, 95 + pos, kcr, {id: 'ex', fill: 'white', stroke: 'black', strokeWidth: 2});
+        svg.line(LINEGROUP, 570+skip,  95 + pos, 690+skip,  95 + pos, {id: 'xl', stroke: 'black', strokeWidth: 3});
 
-        svg.circle(820, 95 + pos, kcr, {id: 'ex', fill: gencolor, stroke: 'red', strokeWidth: 2});
-        svg.rect(900, 74 + pos, krr, krr, 1, 1, {id: 'exw', fill: 'white', stroke: 'red', strokeWidth: 2});
-        svg.line(LINEGROUP, 820,  95 + pos, 900,  95 + pos, {id: 'xl', stroke: 'black', strokeWidth: 3});
+        svg.circle(820+skip, 95 + pos, kcr, {id: 'ex', fill: gencolor, stroke: 'black', strokeWidth: 2});
+        svg.rect(900+skip, 74 + pos, krr, krr, 1, 1, {id: 'exw', fill: 'white', stroke: 'black', strokeWidth: 2});
+        svg.line(LINEGROUP, 820+skip,  95 + pos, 900+skip,  95 + pos, {id: 'xl', stroke: 'black', strokeWidth: 3});
 
         //Set live status
         circlestatus('kf');
@@ -1052,47 +1077,127 @@ function xmlload() {
         var w = $('#svgframe').attr('width');
         var h = $('#svgframe').attr('height');
 
-
         var printContent = document.getElementById('svgframe');
-        //printContent.setAttribute('viewBox', '0 -20 '+ masterRight + ' ' + masterHeight);
-        //$(printContent).attr('transform', 'rotate(90,' + masterRight + ',' + masterHeight + ')');
-
 
         var windowUrl = 'about:blank';
         var uniqueName = new Date();
         var windowName = 'Print' + uniqueName.getTime();
-        try {
-            container.attr({align: 'left'});
-            var width = parseInt(container.attr("width"));
-            var height = parseInt(container.attr("height"))
-            var printWindow = window.open('',windowName, 'width=' + width    + ',height=' + height, top=50,left=50,toolbars='no',scrollbars='yes',status='no',resizable='yes');
-            printWindow.document.writeln('<!DOCTYPE html>');
-            printWindow.document.writeln('<html><head><title>Disease Matrix</title>');
-            printWindow.document.writeln('<link rel="stylesheet" type="text/css" href="../static/css/print.css" media="all">');
-            printWindow.document.writeln('</head><body>');
-            printWindow.document.writeln($(container).html());
-            printWindow.document.writeln('</body></html>');
-            printWindow.document.close();
-            printWindow.focus();
-            printWindow.print();
-            printWindow.close();
+
+        if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
+
+            var DocumentContainer = $(mdialog);
+            var WindowObject = window.open('', "Print", "width=800,height=700,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no");
+            WindowObject.document.writeln('<!DOCTYPE html>'
+            + '<html><head><title>Disease Matrix</title>'
+            +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
+            + $(DocumentContainer).html()
+            + '</head><body>');
+            WindowObject.document.close();
+            WindowObject.focus();
+            WindowObject.print();
+            WindowObject.close();
 
             var timer = setInterval(function() {
-                if(printWindow.closed) {
+                if( WindowObject.closed) {
                     clearInterval(timer);
                     $('.sticky').show();
                     //$('#health_table').show();
                 }
             }, 1000);
-        } catch ( e ) {
-            alert("Error: " + e.description );
         }
+        else {
+            originalContents = document.body.innerHTML;
+
+
+            var myWindow=window.open('','Print','width=800,height=700,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no');
+
+            var container = $(mdialog);
+            myWindow.document.write('<!DOCTYPE html>'
+            + '<html><head><title>Disease Matrix</title>'
+            +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
+            + $(container).html()
+            + '</head><body>');
+
+            myWindow.focus();
+            myWindow.print();
+            myWindow.close();
+
+
+            var timer = setInterval(function() {
+                        if( myWindow.closed) {
+                            clearInterval(timer);
+                            $('.sticky').show();
+                            //$('#health_table').show();
+                        }
+                    }, 1000);
+
+
+
+            //var printable = document.getElementById('svgframe');
+            //var container = $(mdialog);
+            //document.body.innerHTML = '<!DOCTYPE html>'
+            //+ '<html><head><title>Disease Matrix</title>'
+            //+  '<link rel="stylesheet" type="text/css" href="../static/css/print.css" media="all">'
+            //+ $(container).html()
+            //+ '</head><body>';
+            //window.print();
+            //
+            //window.onfocus=function(){ window.close();}
+
+            //container.close();
+            //    printWindow.scrollTo(0,0);
+            //    printWindow.focus();
+            //    printWindow.print();
+            //    printWindow.close();
+            //
+            //    var timer = setInterval(function() {
+            //        if(printWindow.closed) {
+            //            clearInterval(timer);
+            //            $('.sticky').show();
+            //            //$('#health_table').show();
+            //        }
+            //    }, 1000);
+
+            //printCoupon();
+        }
+
+        //
+        //try {
+        //    container.attr({align: 'left'});
+        //    var width = parseInt(container.attr("width"));
+        //    var height = parseInt(container.attr("height"))
+        //    var printWindow = window.open('',windowName, 'width=' + width    + ',height=' + height, top=50,left=50,toolbars='no',scrollbars='yes',status='no',resizable='yes');
+        //    printWindow.document.writeln('<!DOCTYPE html>');
+        //    printWindow.document.writeln('<html><head><title>Disease Matrix</title>');
+        //    printWindow.document.writeln('<link rel="stylesheet" type="text/css" href="../static/css/print.css" media="all">');
+        //    printWindow.document.writeln('</head><body>');
+        //    printWindow.document.writeln($(container).html());
+        //    printWindow.document.writeln('</body></html>');
+        //    printWindow.document.close();
+        //    printWindow.scrollTo(0,0);
+        //    printWindow.focus();
+        //    printWindow.print();
+        //    printWindow.close();
+        //
+        //    var timer = setInterval(function() {
+        //        if(printWindow.closed) {
+        //            clearInterval(timer);
+        //            $('.sticky').show();
+        //            //$('#health_table').show();
+        //        }
+        //    }, 1000);
+        //} catch ( e ) {
+        //    alert("Error: " + e.description );
+        //}
     });
 
     //Qtip app
     $.each(HEALTHARRAY, function (key, value) {
         var temp = "";
         var e, name;
+
+//alert ("HEALTHARRAY ARRAY Information:" + JSON.stringify(HEALTHARRAY, null, 2) );
+
 
         for (var item in value) {
             e = value[0];
@@ -1113,7 +1218,7 @@ function xmlload() {
                 }
             },
             show: {
-                event: 'click',
+                event: 'mouseover',
                 solo: true,
                 ready: false,
                 effect: function (offset) {
@@ -1125,7 +1230,6 @@ function xmlload() {
                     escape: false //dont hide on escape button
                 }
             },
-
             position: {
                 my: 'top right', // ...at the center of the viewport
                 at: 'center',
@@ -1151,18 +1255,10 @@ function xmlload() {
 
                 },
                 hide: function (api, event) {
-                    $('#' + e).attr('stroke', 'red');
-                    //$('#' + e).qtip('destroy');
-                    //return $(this).qtip('destroy');
+                    $('#' + e).attr('stroke', 'black');
                 }
-                //hide: function(event, api) {
-                //    api.destroy(true); // Destroy it immediately
-                //}
             },
             style: {
-                //classes:  'qtip-bootstrap'
-                //classes:  'qtip-dark'
-                //classes:  'qtip-shadow'
                 classes:  'qtip-dark qtip-shadow',
                 tip: { // Requires Tips plugin
                     corner: true, // Use position.my by default
@@ -1692,7 +1788,7 @@ function xmlload() {
                     svg.circle(d1, parseInt(d2) + 125, cr, {
                         id: mid,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -1782,7 +1878,7 @@ function xmlload() {
                             id: MID,
                             datakey: DATAKEY,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -1793,7 +1889,7 @@ function xmlload() {
                             id: MID,
                             datakey: DATAKEY,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -1855,7 +1951,7 @@ function xmlload() {
                             id: MID,
                             datakey: DATAKEY,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -1866,7 +1962,7 @@ function xmlload() {
                             id: MID,
                             datakey: DATAKEY,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -1946,7 +2042,7 @@ function xmlload() {
                     svg.rect(p1, Level5M, rr, rr, 1, 1, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -1956,7 +2052,7 @@ function xmlload() {
                     svg.circle(p1, Level5F, cr, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -1985,7 +2081,7 @@ function xmlload() {
                         svg.rect(p1, Level5M, rr, rr, 1, 1, {
                             id: MID,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -1995,7 +2091,7 @@ function xmlload() {
                         svg.circle(p1, Level5F, cr, {
                             id: MID,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -2013,7 +2109,7 @@ function xmlload() {
                         svg.rect(p1, Level5M, rr, rr, 1, 1, {
                             id: MID,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -2023,7 +2119,7 @@ function xmlload() {
                         svg.circle(p1, Level5F, cr, {
                             id: MID,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -2049,7 +2145,7 @@ function xmlload() {
                     svg.rect(p1, Level5M, rr, rr, 1, 1, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -2059,7 +2155,7 @@ function xmlload() {
                     svg.circle(p1, Level5F, cr, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -2116,8 +2212,8 @@ function xmlload() {
                 if (key == 0) p1 = parseInt(p1);
                 else p1 = parseInt(p1) - 20 - (parseInt(key) * 60);
 
-                if (MIDGEN == 'FEMALE') {svg.circle(p1 + 50, Level5F, cr, {id: MID, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
-                else if (MIDGEN == 'MALE') {svg.rect(p1 + 25, Level5M, rr, rr, 1, 1, {id: MID, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+                if (MIDGEN == 'FEMALE') {svg.circle(p1 + 50, Level5F, cr, {id: MID, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+                else if (MIDGEN == 'MALE') {svg.rect(p1 + 25, Level5M, rr, rr, 1, 1, {id: MID, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
             });
         }
         else {
@@ -2148,8 +2244,8 @@ function xmlload() {
                 //if(MIDGEN=='MALE') sigle_strait_parent_child_connection(PIDGEN,Level5M,p1,'gchild');
                 //else sigle_strait_parent_child_connection(PIDGEN,Level5F,p1,'gchild');
 
-                if (MIDGEN == 'FEMALE') {svg.circle(p1 + 45, Level5F - 20, cr, {id: MID, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
-                else if (MIDGEN == 'MALE') {svg.rect(p1 + 25, Level5M - 20, rr, rr, 1, 1, {id: MID, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+                if (MIDGEN == 'FEMALE') {svg.circle(p1 + 45, Level5F - 20, cr, {id: MID, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+                else if (MIDGEN == 'MALE') {svg.rect(p1 + 25, Level5M - 20, rr, rr, 1, 1, {id: MID, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
             });
 
         }
@@ -2197,8 +2293,8 @@ function xmlload() {
     //
     //            single_right_parent_child_connector(PID,MID,MIDGEN,PIDGEN,Level4F);
     //
-    //            if (MIDGEN == 'FEMALE') {svg.circle(p1 + 50, Level4F, cr, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
-    //            else if (MIDGEN == 'MALE') {svg.rect(p1 + 25, Level4M, rr, rr, 1, 1, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+    //            if (MIDGEN == 'FEMALE') {svg.circle(p1 + 50, Level4F, cr, {id: id, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+    //            else if (MIDGEN == 'MALE') {svg.rect(p1 + 25, Level4M, rr, rr, 1, 1, {id: id, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
     //        });
     //
     //    }
@@ -2216,8 +2312,8 @@ function xmlload() {
     //
     //            single_right_parent_child_connector(PID,MID,MIDGEN,PIDGEN,Level4F);
     //
-    //            if (MIDGEN == 'FEMALE') {svg.circle(ps[0] + 65, Level4F - 20, cr, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
-    //            else if (MIDGEN == 'MALE') {svg.rect(ps[0] + 20, Level4M - 20, rr, rr, 1, 1, {id: id, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+    //            if (MIDGEN == 'FEMALE') {svg.circle(ps[0] + 65, Level4F - 20, cr, {id: id, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+    //            else if (MIDGEN == 'MALE') {svg.rect(ps[0] + 20, Level4M - 20, rr, rr, 1, 1, {id: id, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
     //        });
     //
     //
@@ -2248,7 +2344,7 @@ function xmlload() {
                     svg.circle(a1, a2 + 100, cr, {
                         id: mid,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -2337,8 +2433,8 @@ function xmlload() {
                 SINGLE_SIDE_START_PATERNAL_CORNER_CONNECTOR(SID,SIDGEN,MID,MIDGEN,Level2M, p1);
 
                 //single_left_parent_child_connector(PID, MID, MIDGEN, PIDGEN, Level2M);
-                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: DATAKEY, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: DATAKEY, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: DATAKEY, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: DATAKEY, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
             }
             //The Next Parent is Loaded
             else if (DATAKEY != ARRAY[p].id) {
@@ -2369,8 +2465,8 @@ function xmlload() {
 
 
 
-                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: DATAKEY, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: DATAKEY, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: DATAKEY, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: DATAKEY, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
             }
             else {
                 DATAKEY = ARRAY[p].id;
@@ -2387,7 +2483,7 @@ function xmlload() {
                         id: MID,
                         datakey: DATAKEY,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -2398,7 +2494,7 @@ function xmlload() {
                         id: MID,
                         datakey: DATAKEY,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -2503,8 +2599,8 @@ function xmlload() {
     //
     //
     //                //else p1 = parseInt(p1) - 40;
-    //                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-    //                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+    //                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+    //                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
     //            }
     //            else if (key == (PaternalRelatives.length - 1)) {
     //                var PERVMID = PaternalRelatives[key - 1][1];
@@ -2522,8 +2618,8 @@ function xmlload() {
     //                else {
     //                    p1 = parseInt(p1) - 60;
     //                }
-    //                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-    //                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+    //                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+    //                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
     //            }
     //            else if (key > 0 && (key < (PaternalRelatives.length - 1))) {
     //                PERVMID = PaternalRelatives[key - 1][1];
@@ -2543,8 +2639,8 @@ function xmlload() {
     //                    p1 = parseInt(p1) - 80;
     //                }
     //
-    //                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-    //                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+    //                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+    //                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
     //            }
     //        }
     //        else {
@@ -2585,8 +2681,8 @@ function xmlload() {
     //            }
     //
     //
-    //            if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-    //            else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'})}
+    //            if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+    //            else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'})}
     //        }
     //    });
     //
@@ -2689,7 +2785,7 @@ function xmlload() {
                         id: MID,
                         datakey: DATAKEY,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -2700,7 +2796,7 @@ function xmlload() {
                         id: MID,
                         datakey: DATAKEY,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -2746,7 +2842,7 @@ function xmlload() {
                         id: MID,
                         datakey: DATAKEY,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -2757,7 +2853,7 @@ function xmlload() {
                         id: MID,
                         datakey: DATAKEY,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -2781,7 +2877,7 @@ function xmlload() {
                         id: MID,
                         datakey: DATAKEY,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -2792,7 +2888,7 @@ function xmlload() {
                         id: MID,
                         datakey: DATAKEY,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -2876,8 +2972,8 @@ function xmlload() {
                     if (check != -1) {
                         p1 = parseInt(p1) + 80
                     }
-                    if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-                    else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+                    if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+                    else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
                 }
                 else if (key == (MaternalRelatives.length - 1)) {
                     var PERVMID = MaternalRelatives[key - 1][1];
@@ -2896,8 +2992,8 @@ function xmlload() {
                         p1 = parseInt(p1) + 80;
                     }
 
-                    if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-                    else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+                    if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+                    else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
                 }
                 else if (key > 0 && (key < (MaternalRelatives.length - 1))) {
                     var PERVMID = MaternalRelatives[key - 1][1];
@@ -2917,8 +3013,8 @@ function xmlload() {
                         p1 = parseInt(p1) + 80;
                     }
 
-                    if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-                    else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+                    if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+                    else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
                 }
             }
 
@@ -2940,8 +3036,8 @@ function xmlload() {
                 }
                 //p1 = p1 + parseInt(lx);
 
-                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
 
             }
         });
@@ -3750,7 +3846,7 @@ function xmlload() {
                             id: MID,
                             datakey: datakey,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -3767,7 +3863,7 @@ function xmlload() {
                             id: MID,
                             datakey: datakey,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -3785,7 +3881,7 @@ function xmlload() {
                             id: MID,
                             datakey: datakey,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -3801,7 +3897,7 @@ function xmlload() {
                         id: MID,
                         datakey: datakey,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -3925,7 +4021,7 @@ function xmlload() {
                             id: MID,
                             datakey: DATAKEY,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -3936,7 +4032,7 @@ function xmlload() {
                             id: MID,
                             datakey: DATAKEY,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -3970,7 +4066,7 @@ function xmlload() {
                             id: MID,
                             datakey: DATAKEY,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -3981,7 +4077,7 @@ function xmlload() {
                             id: MID,
                             datakey: DATAKEY,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -4086,7 +4182,7 @@ function xmlload() {
                             id: MID,
                             datakey: DATAKEY,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -4097,7 +4193,7 @@ function xmlload() {
                             id: MID,
                             datakey: DATAKEY,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -4120,7 +4216,7 @@ function xmlload() {
                             id: MID,
                             datakey: DATAKEY,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -4131,7 +4227,7 @@ function xmlload() {
                             id: MID,
                             datakey: DATAKEY,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -4207,7 +4303,7 @@ function xmlload() {
                             id: MID,
                             datakey: datakey,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -4233,7 +4329,7 @@ function xmlload() {
                             id: MID,
                             datakey: datakey,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -4241,13 +4337,13 @@ function xmlload() {
                     }
                     else {
                         var KIDS = COUNT_MY_KIDS(ChildrenArray, PID);
-                        if(KIDS==0) KIDS=2;
+                        if(KIDS==0) KIDS=1;
 
                         if ($('#' + PID).attr("class").toUpperCase() == "MALE") {
-                            p1 = parseInt($('#' + PID).attr('x')) + (parseInt(KIDS) * 85) + (parseInt(TOTALGRANDKIDS) * 60);
+                            p1 = parseInt($('#' + PID).attr('x')) + (parseInt(KIDS) * 95) + (parseInt(TOTALGRANDKIDS) * 60);
                         }
                         else {
-                            p1 = parseInt($('#' + PID).attr('cx')) + (parseInt(KIDS) * 85) + (parseInt(TOTALGRANDKIDS) * 60);
+                            p1 = parseInt($('#' + PID).attr('cx')) + (parseInt(KIDS) * 95) + (parseInt(TOTALGRANDKIDS) * 60);
                         }
 
                         p1temp.push(MIDGEN, MID, p1, PID);
@@ -4257,7 +4353,7 @@ function xmlload() {
                             id: MID,
                             datakey: datakey,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -4268,7 +4364,7 @@ function xmlload() {
                     //    id: MID,
                     //    datakey: datakey,
                     //    fill: gencolor,
-                    //    stroke: 'red',
+                    //    stroke: 'black',
                     //    strokeWidth: 2,
                     //    class: 'female',
                     //    cursor: 'pointer'
@@ -4299,7 +4395,7 @@ function xmlload() {
                         id: MID,
                         datakey: datakey,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -4476,7 +4572,7 @@ function xmlload() {
                     svg.rect(p1, Level4M, rr, rr, 1, 1, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -4486,7 +4582,7 @@ function xmlload() {
                     svg.circle(p1, Level4F, cr, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -4523,7 +4619,7 @@ function xmlload() {
                     svg.rect(p1, Level4M, rr, rr, 1, 1, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -4533,7 +4629,7 @@ function xmlload() {
                     svg.circle(p1, Level4F, cr, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -4559,7 +4655,7 @@ function xmlload() {
                     svg.rect(p1, Level4M, rr, rr, 1, 1, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -4569,7 +4665,7 @@ function xmlload() {
                     svg.circle(p1, Level4F, cr, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -4634,7 +4730,7 @@ function xmlload() {
                     svg.rect(p1, Level4M, rr, rr, 1, 1, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -4644,7 +4740,7 @@ function xmlload() {
                     svg.circle(p1, Level4F, cr, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -4673,7 +4769,7 @@ function xmlload() {
                         svg.rect(p1, Level4M, rr, rr, 1, 1, {
                             id: MID,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -4683,7 +4779,7 @@ function xmlload() {
                         svg.circle(p1, Level4F, cr, {
                             id: MID,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -4702,7 +4798,7 @@ function xmlload() {
                         svg.rect(p1, Level4M, rr, rr, 1, 1, {
                             id: MID,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -4712,7 +4808,7 @@ function xmlload() {
                         svg.circle(p1, Level4F, cr, {
                             id: MID,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -4740,7 +4836,7 @@ function xmlload() {
                     svg.rect(p1, Level4M, rr, rr, 1, 1, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -4750,7 +4846,7 @@ function xmlload() {
                     svg.circle(p1, Level4F, cr, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -4824,7 +4920,7 @@ function xmlload() {
             svg.rect(p1, p2, rr, rr, 1, 1, {
                 id: SPOUCE,
                 fill: spoucecolor,
-                stroke: 'red',
+                stroke: 'black',
                 strokeWidth: 2,
                 class: 'male',
                 cursor: 'pointer'
@@ -4834,7 +4930,7 @@ function xmlload() {
             svg.circle(p1, p2, cr, {
                 id: SPOUCE,
                 fill: spoucecolor,
-                stroke: 'red',
+                stroke: 'black',
                 strokeWidth: 2,
                 class: 'female',
                 cursor: 'pointer'
@@ -4866,7 +4962,7 @@ function xmlload() {
             svg.rect(p1, p2, rr, rr, 1, 1, {
                 id: SPOUCE,
                 fill: spoucecolor,
-                stroke: 'red',
+                stroke: 'black',
                 strokeWidth: 2,
                 class: 'male',
                 cursor: 'pointer'
@@ -4876,7 +4972,7 @@ function xmlload() {
             svg.circle(p1, p2, cr, {
                 id: SPOUCE,
                 fill: spoucecolor,
-                stroke: 'red',
+                stroke: 'black',
                 strokeWidth: 2,
                 class: 'female',
                 cursor: 'pointer'
@@ -4930,7 +5026,7 @@ function xmlload() {
     //        svg.rect(p1, p2, rr, rr, 1, 1, {
     //            id: SPOUCE,
     //            fill: gencolor,
-    //            stroke: 'red',
+    //            stroke: 'black',
     //            strokeWidth: 2,
     //            class: 'male',
     //            cursor: 'pointer'
@@ -4940,7 +5036,7 @@ function xmlload() {
     //        svg.circle(p1, p2, cr, {
     //            id: SPOUCE,
     //            fill: gencolor,
-    //            stroke: 'red',
+    //            stroke: 'black',
     //            strokeWidth: 2,
     //            class: 'female',
     //            cursor: 'pointer'
@@ -5261,7 +5357,7 @@ function xmlload() {
                     svg.rect(p1, Level3M, rr, rr, 1, 1, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -5271,7 +5367,7 @@ function xmlload() {
                     svg.circle(p1, Level3F, cr, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -5301,7 +5397,7 @@ function xmlload() {
                         svg.rect(p1, Level3M, rr, rr, 1, 1, {
                             id: MID,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -5311,7 +5407,7 @@ function xmlload() {
                         svg.circle(p1, Level3F, cr, {
                             id: MID,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -5332,7 +5428,7 @@ function xmlload() {
                         svg.rect(p1, Level3M, rr, rr, 1, 1, {
                             id: MID,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'male',
                             cursor: 'pointer'
@@ -5342,7 +5438,7 @@ function xmlload() {
                         svg.circle(p1, Level3F, cr, {
                             id: MID,
                             fill: gencolor,
-                            stroke: 'red',
+                            stroke: 'black',
                             strokeWidth: 2,
                             class: 'female',
                             cursor: 'pointer'
@@ -5378,7 +5474,7 @@ function xmlload() {
                     svg.rect(p1, Level3M, rr, rr, 1, 1, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -5388,7 +5484,7 @@ function xmlload() {
                     svg.circle(p1, Level3F, cr, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -5504,8 +5600,8 @@ function xmlload() {
                 p1temp.push(MIDGEN, MID, p1);
                 P1.push(p1temp);
                 single_left_parent_child_connector(PID, MID, MIDGEN, PIDGEN, Level3M);
-                if (MIDGEN == 'MALE') {svg.rect(p1, mastery, rr, rr, 1, 1, {id: MID, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level3F, cr, {id: MID, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+                if (MIDGEN == 'MALE') {svg.rect(p1, mastery, rr, rr, 1, 1, {id: MID, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level3F, cr, {id: MID, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
                 LOAD_SPOUCE_PATERNAL(PID, PIDGEN);
                 //Connect to parent
             }
@@ -5539,8 +5635,8 @@ function xmlload() {
                     left_parent_child_connector(PID, MID, MIDGEN, PIDGEN, Level3M);
                 }
 
-                if (MIDGEN == 'MALE') {svg.rect(p1, mastery, rr, rr, 1, 1, {id: MID, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
-                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level3F, cr, {id: MID, fill: gencolor, stroke: 'red', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
+                if (MIDGEN == 'MALE') {svg.rect(p1, mastery, rr, rr, 1, 1, {id: MID, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'male', cursor: 'pointer'});}
+                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level3F, cr, {id: MID, fill: gencolor, stroke: 'black', strokeWidth: 2, class: 'female', cursor: 'pointer'});}
                 LOAD_SPOUCE_PATERNAL(PID, PIDGEN);
                 //Connect to parent
             }
@@ -5557,7 +5653,7 @@ function xmlload() {
                     svg.rect(p1, mastery, rr, rr, 1, 1, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'male',
                         cursor: 'pointer'
@@ -5567,7 +5663,7 @@ function xmlload() {
                     svg.circle(p1, Level3F, cr, {
                         id: MID,
                         fill: gencolor,
-                        stroke: 'red',
+                        stroke: 'black',
                         strokeWidth: 2,
                         class: 'female',
                         cursor: 'pointer'
@@ -5913,15 +6009,19 @@ function xmlload() {
     var TABLEHEIGHT = $('health_table').height();
 
     var allXarray = new Array();
+    var allYarray = new Array();
     var container = $('#svgframe');
+
     $("#svgframe").each(function() {
         $('circle').each(function (index) {
             var cla = $(this).attr('class')
             var cx = $(this).attr('cx');
+            var cy = $(this).attr('cy');
             if (typeof cla != 'undefined') {
                 cla = $(this).attr('class').toLowerCase();
                 if ($.inArray(cx, allXarray) == -1 && cla == 'female') {
                     allXarray.push(cx);
+                    allYarray.push(cy);
                 }
             }
         });
@@ -5930,50 +6030,63 @@ function xmlload() {
         $('rect').each(function (index) {
             var cla = $(this).attr('class')
             var x = $(this).attr('x');
+            var y = $(this).attr('y');
             if (typeof cla != 'undefined') {
                 cla = $(this).attr('class').toLowerCase();
                 if ($.inArray(x, allXarray) == -1 && cla == 'male') {
                     allXarray.push(x);
+                    allYarray.push(y);
                 }
             }
         });
     });
 
     allXarray = allXarray.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
+    allYarray = allYarray.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
+
+
     var FARLEFT = allXarray[0];
     var FARRIGHT = allXarray[allXarray.length - 1];
+
+    var FARUP = allXarray[0];
+    var FARDOWN = allXarray[allXarray.length - 1];
+    var DIAHEIGHT = parseInt(FARDOWN) - parseInt(FARUP);
+
     var DIAWIDTH = parseInt(FARRIGHT) - parseInt(FARLEFT);
-
-
 
     var absleft = 0;
 
     if(FARLEFT < 0 )absleft = Math.abs(FARLEFT);
     if(FARRIGHT > DIALOGWIDTH )FARRIGHT = FARRIGHT - DIALOGWIDTH;
 
-
-
     //1786 <--@@ 942 <--## 1445
     var wscale,hscale;
 
     if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
         if (DIAWIDTH > SVGW) {
-
             var svgdoc = document.getElementById("svgframe");
             var FRAMEHEIGHT = svgdoc.getAttribute("height");
             var FRAMEWIDTH = svgdoc.getAttribute("width");
 
-            var COMBINEDHEIGHT= parseInt(TABLEHEIGHT) + parseInt(FRAMEHEIGHT) + 300;
-
+            var COMBINEDHEIGHT= parseInt(FARDOWN)*0.2;
 
             var wscale = parseInt(DIAWIDTH) + 300;
             var hscale = parseInt(SVGH);
 
             var LARGELEFT = parseInt(FARLEFT) - 150;
 
-            svgdoc.setAttribute("viewBox", + LARGELEFT + ' 200 ' + wscale + ' ' + 25);
-            svgdoc.setAttribute("height", COMBINEDHEIGHT);
-            svgdoc.setAttribute("margin-top", '10px');
+            svgdoc.setAttribute("viewBox", + LARGELEFT + ' 100 ' + wscale + ' 400');
+            //svgdoc.setAttribute("preserveAspectRatio","none");
+
+            var arr = new Array();
+            var T = svgdoc.getAttribute("viewBox");
+            arr = T.split(' ');
+
+            //var PANEL = $('#panel').attr('y');
+            var PANEL =parseInt(arr[1]);
+
+            //$('#family_pedigree').setAttribute("margin-top", '250px');
+            $('#family_pedigree_info').css("margin-top", PANEL+'px')
 
         }
         else {
@@ -5988,20 +6101,43 @@ function xmlload() {
             var hscale = parseInt(hei) + 100;
 
             if(FARLEFT<0) {
-
                 var FULLSCALE = parseInt(wscale) + 300;
-                svgdoc.setAttribute("viewBox", FARLEFT + ' 400 ' + FULLSCALE + ' ' + 25);
-                svgdoc.setAttribute("height", 800);
-                svgdoc.setAttribute("margin-top", '10px');
+                svgdoc.setAttribute("viewBox", FARLEFT + ' 400 ' + FULLSCALE + ' 260');
+                //svgdoc.setAttribute("preserveAspectRatio","none");
+
+                var arr = new Array();
+                var T = svgdoc.getAttribute("viewBox");
+                arr = T.split(' ');
+
+                //var PANEL = $('#panel').attr('y');
+                var PANEL =parseInt(arr[3]);
+                //$('#family_pedigree').setAttribute("margin-top", '250px');
+                $('#svgframe').css("height", '180px');
+                $('#svgframe').css("margin-top", '270px');
+                //$('#svgframe').css("height", '250px');
+                $('#family_pedigree_info').css("margin-top", PANEL+'px')
+                //svgdoc.setAttribute("height", 800);
+                //svgdoc.setAttribute("margin-top", '10px');
             }
             else{
+                //alert("1")
                 var FULLSCALE = parseInt(wscale) + 300;
 
-                svgdoc.setAttribute("viewBox", '20 400 ' + FULLSCALE + ' 25');
-                svgdoc.setAttribute("height", 800);
-                svgdoc.setAttribute("margin-top", '10px');
+                svgdoc.setAttribute("viewBox", '20 400 ' + FULLSCALE + ' 300');
+                //svgdoc.setAttribute("preserveAspectRatio","none");
 
+                var arr = new Array();
+                var T = svgdoc.getAttribute("viewBox");
+                arr = T.split(' ');
 
+                //var PANEL = $('#panel').attr('y');
+                var PANEL =parseInt(arr[3]);
+                $('#svgframe').css("height", '180px');
+                $('#svgframe').css("margin-top", '270px');
+                $('#family_pedigree_info').css("margin-top", PANEL+'px')
+
+                //svgdoc.setAttribute("height", 800);
+                //svgdoc.setAttribute("margin-top", '10px');
 
             }
         }
@@ -6019,16 +6155,19 @@ function xmlload() {
         //}).width("auto");
 
     }
+    /*
+    Chrome and FF
+     */
     else {
-
-
 
         if (DIAWIDTH > SVGW) {
             wscale = parseInt(DIAWIDTH) + 200;
             hscale = parseInt(SVGH);
             svgw.setAttribute('viewBox', +(parseInt(FARLEFT) - 50) + ' 0 ' + wscale + ' ' + 1200);
             var lft = parseInt(absleft) / 2;
-            svgw.setAttribute('transform', 'translate('+ (parseInt(absleft)/2.2) +',10)');
+            //svgw.setAttribute('transform', 'translate('+ (parseInt(absleft)/2.2) +',10)');
+
+            $('#svgframe').css("margin-top", '50px');
 
         }
         else {
@@ -6036,6 +6175,8 @@ function xmlload() {
             hscale = parseInt(hei) + 100;
             svgw.setAttribute('viewBox', '0 0 ' + wscale + ' ' + 1200);
             if(FARLEFT<0) svgw.setAttribute('transform', 'translate('+absleft+',10  )');
+
+            $('#svgframe').css("margin-top", '100px');
         }
     }
 }
@@ -6076,7 +6217,7 @@ function LOAD_HEALTH_TABLE(){
                 });
                 var disst = diss[1];
                 if(disst==null)disst = tmp;
-                cols[diss[0]+1]= '<span style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + disst + '</span>';
+                cols[diss[0]+1]= '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + disst + '</div>';
             }
         });
 
@@ -6149,7 +6290,7 @@ function LOAD_HEALTH_TABLE(){
                                 });
                                 var disst = diss[1];
                                 if(disst==null) disst = tmp;
-                                cols[diss[0] + 1] = '<span style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + disst + '</span>';
+                                cols[diss[0] + 1] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + disst + '</div>';
                             }
                         });
                         TABLE_DATA_ARRAY = $.merge( $.merge( [], temp1 ), cols );
@@ -6458,11 +6599,42 @@ function ResetInfo(){
     ClearNames('show');
     $('#svgframe').show();
     $('#health_table').show();
+}
+
+function printCoupon() {
+    window.print();
+
+    var timer = setInterval(function() {
+        if(window.close()) {
+            clearInterval(timer);
+            $('.sticky').show();
+            //$('#health_table').show();
+        }
+    }, 1000);
+
+    //endPrintCoupon();
+}
+
+function endPrintCoupon() {
+
+    var timer = setInterval(function() {
+                if(printWindow.closed) {
+                    clearInterval(timer);
+                    $('.sticky').show();
+                    //$('#health_table').show();
+                }
+            }, 1000);
+
+    document.body.innerHTML = originalContents;
+    document.getElementById('svgframe').scrollIntoView(true);
+    //location.reload();
+}
+
+function closedialog(){
+
+    $(mdialog).dialog("close");
 
 
 
 }
-
-
-
 

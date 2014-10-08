@@ -287,7 +287,8 @@ i#options .ui-button.ui-state-active .ui-button-text {
     /*width: 1000;*/
     /*width: 100%;*/
     padding-bottom: 1px;
-    margin-bottom: 25px;
+    margin-bottom: 100px;
+    margin-top: 125px;
     vertical-align: top;
     /*padding-left: 10%;*/
     /*overflow: hidden;*/
@@ -327,25 +328,24 @@ i#options .ui-button.ui-state-active .ui-button-text {
 }
 
 div.toolbar{
-    height: 150px;
+    height: 60px;
     width: 250px;
+    bottom:10px;
 }
 
 #lightbox {
     background-clip: padding-box;
     background-color: rgba(82, 139, 139, 0.5);
     color: white;
-    border: 5px solid rgba(0, 0, 0, 0.3);
+    border: 3px solid rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    left: 20px;
-    padding: 30px;
-    position: absolute;
+    left: 40px;
+    padding: 5px;
+    position: relative;
     text-align: center;
-    top: 10px;
-    width: 350px;
+    top: 0px;
+    width: 250px;
 }
-
-
 
 /*
 //build health table
@@ -355,7 +355,7 @@ div.toolbar{
     width:  98%;
     padding-top: 1px;
     padding-left: 20px;
-    margin-top: 25px;
+    /*margin-top: 250px;*/
 }
 
 #health_table caption {
@@ -520,6 +520,8 @@ svg#sky {
     border: none;
     padding-right: 25px;
 }
+
+
 
 /*Sticky menu*/
 

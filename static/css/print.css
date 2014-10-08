@@ -42,8 +42,8 @@
     font-size:15px;
     padding:5px;
     border-bottom:1px solid darkslategray;
-    border-right:1px dashed slategray;
-    border-left:1px dashed slategray;
+    border-right:1px solid slategray;
+    border-left:1px solid slategray;
 }
 .htable input[type="text"]
 {
@@ -90,9 +90,15 @@
     font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
 
-.bmi_table td{
+#bmi_table td{
     font: bold 20px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
-    text-align: end;
+    text-align: left;
+    background-color: lightgrey;
+    border-bottom:1px solid darkslategray;
+}
+#health_table{
+    font: bold 15px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+    text-align: left;
     background-color: lightgrey;
     border-bottom:1px solid darkslategray;
 }
