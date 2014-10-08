@@ -326,6 +326,27 @@ i#options .ui-button.ui-state-active .ui-button-text {
     padding-top: 25px;
 }
 
+div.toolbar{
+    height: 150px;
+    width: 250px;
+}
+
+#lightbox {
+    background-clip: padding-box;
+    background-color: rgba(82, 139, 139, 0.5);
+    color: white;
+    border: 5px solid rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    left: 20px;
+    padding: 30px;
+    position: absolute;
+    text-align: center;
+    top: 10px;
+    width: 350px;
+}
+
+
+
 /*
 //build health table
 */
@@ -437,15 +458,15 @@ svg#sky {
 
 #bmi_table caption {
     padding: 0 0 5px 0;
-    width: 98%;
-    font: bold 18px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+    width: 250px;
+    font: bold 15px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     text-align: left;
 }
 
 #bmi_table td{
-    font: bold 15px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+    font: bold 12px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     text-align: end;
-    border-bottom:1px solid darkslategray;
+    /*border-bottom:1px solid darkslategray;*/
 }
 
 #box
@@ -499,3 +520,57 @@ svg#sky {
     border: none;
     padding-right: 25px;
 }
+
+/*Sticky menu*/
+
+/*body{*/
+    /*margin:0px;*/
+    /*padding:0px;*/
+    /*font-family:Arial;*/
+    /*background:url(..static/css/images/fixedmenu.png) no-repeat top center;*/
+/*}*/
+a.back{
+    width:256px;
+    height:73px;
+    position:fixed;
+    bottom:15px;
+    right:15px;
+    background:transparent url(..static/css/images/codrops_back.png) no-repeat top left;
+}
+.scroll{
+    width:133px;
+    height:61px;
+    position:fixed;
+    bottom:15px;
+    left:20px;
+    background:transparent url(..static/css/images/scroll.png) no-repeat top left;
+}
+.info{
+    text-align:right;
+
+}
+.desc{
+    height:90px;
+    width:100%;
+    position:absolute;
+    top:1000px;
+    left:0px;
+    background:transparent url(..static/css/images/hover.png) no-repeat center center;
+}
+#top{
+    top:0px;
+    left:0px;
+    position:absolute;
+    width:100%;
+    height:10px;
+}
+#bottom{
+    top:1500px;
+    left:0px;
+    position:absolute;
+    width:100%;
+    height:90px;
+    background:transparent url(..static/css/images/end.png) no-repeat center center;
+}
+
+
