@@ -227,4 +227,33 @@
 </div>
 
 </body>
+
+<script>
+// Static links need to know what language
+
+function get_help() {
+	window.open("./static/help_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+}
+
+function learn_more() {
+	window.open("./static/learn_more_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+}
+
+function glossary() {
+	window.open("./static/glossary_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+}
+function faq() {
+	window.open("./static/faq_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+}
+function about() {
+	window.open("./static/about_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+}
+function contact() {
+	window.open("./static/contact_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+}
+function site_updates() {
+	window.open("./static/site_update_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+}
+</script>
+
 </html>
