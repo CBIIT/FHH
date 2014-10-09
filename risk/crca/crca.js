@@ -53,6 +53,14 @@ function test_past_cancer() {
 				risk_reason += "You have had Kidney Cancer in the past.<br />";
 				risk=true;
 		}
+		if (h[i]['Detailed Disease Name'] == 'Hereditary nonpolyposis colon cancer') {
+				risk_reason += "You have had Colon Cancer in the past.<br />";
+				risk=true;
+		}
+		if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Non-hereditary polyposis colon cancer') {
+				risk_reason += "You have had Colon Cancer in the past.<br />";
+				risk=true;
+		}
 	}
 	if (risk) {
 		set_icon($("#past_cancers"), 'positive');
@@ -79,6 +87,10 @@ function test_polyps() {
 				risk_reason += "You have had Colon Polyps in the past.<br />";
 				risk=true;
 		}
+		if (h[i]['Detailed Disease Name'] == 'Familial adnenomatous polyposis (FAP)') {
+				risk_reason += "You have had Familial adnenomatous polyposis (FAP) in the past.<br />";
+				risk=true;
+		}
 	}
 
 	if (risk) {
@@ -101,8 +113,12 @@ function test_inflammatory_bowel_disease() {
 	var risk = false;
 	risk_reason = "";
 	for (i=0;i<h.length;i++) {
-		if (h[i]['Detailed Disease Name'] == 'Irritable Bowel Syndrome') {
-				risk_reason += "You have had Irritable Bowel Syndrome in the past.<br />";
+		if (h[i]['Detailed Disease Name'] == "Crohn's Disease") {
+				risk_reason += "You have had Crohn's Disease in the past.<br />";
+				risk=true;
+		}
+		if (h[i]['Detailed Disease Name'] == 'Ulcerative Colitis') {
+				risk_reason += "You have had Ulcerative Colitis in the past.<br />";
 				risk=true;
 		}
 	}
@@ -146,7 +162,19 @@ function test_immediate_family_members_cancer() {
 						}
 						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Colorectal Cancer in the past.<br />";
+							risk_reason += name + " has had Rectal Cancer in the past.<br />";
+							risk=true;
+							i = h.length; break;  // We do not need to check this person anyore
+						}
+						if (h[i]['Detailed Disease Name'] == 'Hereditary nonpolyposis colon cancer') {
+							name = get_name_or_relationship(this.name, key);
+							risk_reason += name + " has had Colon Cancer in the past.<br />";
+							risk=true;
+							i = h.length; break;  // We do not need to check this person anyore
+						}
+						if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Non-hereditary polyposis colon cancer') {
+							name = get_name_or_relationship(this.name, key);
+							risk_reason += name + " has had Colon Cancer in the past.<br />";
 							risk=true;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
@@ -185,6 +213,12 @@ function test_immediate_family_members_polyps() {
 						if (h[i]['Detailed Disease Name'] == 'Colon Polyp') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had Colon Polyps in the past.<br />";
+							risk=true;
+							i = h.length; break;  // We do not need to check this person anyore
+						}
+						if (h[i]['Detailed Disease Name'] == 'Familial adnenomatous polyposis (FAP)') {
+							name = get_name_or_relationship(this.name, key);
+							risk_reason += name + " has had Familial adnenomatous polyposis (FAP) in the past.<br />";
 							risk=true;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
@@ -243,6 +277,18 @@ function test_secondary_family_members_cancer() {
 						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had Colorectal Cancer in the past.<br />";
+							count++;
+							i = h.length; break;  // We do not need to check this person anyore
+						}
+						if (h[i]['Detailed Disease Name'] == 'Hereditary nonpolyposis colon cancer') {
+							name = get_name_or_relationship(this.name, key);
+							risk_reason += name + " has had Colon Cancer in the past.<br />";
+							count++;
+							i = h.length; break;  // We do not need to check this person anyore
+						}
+						if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Non-hereditary polyposis colon cancer') {
+							name = get_name_or_relationship(this.name, key);
+							risk_reason += name + " has had Colon Cancer in the past.<br />";
 							count++;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
@@ -310,6 +356,18 @@ function test_secondary_family_members_colon_cancer_before_60() {
 						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had Rectal Cancer before the age of 60.<br />";
+							risk=true;
+							i = h.length; break; // We do not need to check this person anyore
+						}
+						if (h[i]['Detailed Disease Name'] == 'Hereditary nonpolyposis colon cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
+							name = get_name_or_relationship(this.name, key);
+							risk_reason += name + " has had Colon Cancer before the age of 60.<br />";
+							risk=true;
+							i = h.length; break; // We do not need to check this person anyore
+						}
+						if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Non-hereditary polyposis colon cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
+							name = get_name_or_relationship(this.name, key);
+							risk_reason += name + " has had Colon Cancer before the age of 60.<br />";
 							risk=true;
 							i = h.length; break; // We do not need to check this person anyore
 						}

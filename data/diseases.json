@@ -38,7 +38,7 @@
 		{"name":"Impaired Fasting Glucose","abbr":"IFG","code":"82141001","system":"SNOMED_CT"},
 		{"name":"Impaired Glucose Tolerance","abbr":"IGT","code":"9414007","system":"SNOMED_CT"},
 		{"name":"Insulin Resistance","abbr":"INR","code":"32284009","system":"SNOMED_CT"},
-		{"name":"Maturity Onset Diabetesmellitus in Young (MODY)","abbr":"MODY","code":"472972006","system":"SNOMED_CT"},
+		{"name":"Maturity Onset Diabetes mellitus in Young (MODY)","abbr":"MODY","code":"472972006","system":"SNOMED_CT"},
 		{"name":"Pre-Diabetes","abbr":"PreD","code":"PREDIABE","system":"SNOMED_CT"},
 		{"name":"Type 1 Diabetes","abbr":"DIA1","code":"46635009","system":"SNOMED_CT"},
 		{"name":"Type 2 Diabetes","abbr":"DIA2","code":"44054006","system":"SNOMED_CT"},
