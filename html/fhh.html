@@ -86,7 +86,6 @@
             <td class="nav">
                 <!-- Note: Any line breaks here will add spacers in the header -->
                 <a id="warnAndGoHome" href="index.html" class='translate' data-i18n='fhh_fhh.a_Home'>Home</a>
-                <a id="navFamilyHistory" href="#" class='translate' data-i18n='fhh_fhh.a_myfhh'>My Family Health History</a>
                 <a id="navCopyFamily" href="#" class='translate' data-i18n='fhh_fhh.a_copy_for_family_member' >Copy for Family Member</a>
                 <a id="navRiskCalculator" href="#" class='translate' data-i18n='fhh_fhh.a_disease_risk_calculator' >Disease Risk Calculator</a>
                 <a id="navViewDiagram" href="#" class='translate' data-i18n='fhh_fhh.a_view_diag_n_table' >View Diagram &amp; Table</a>
@@ -103,12 +102,12 @@
 <form id="personForm" name="personForm" action="/fhh-web/familyHistory/start.action" method="post" class="form">
 
 <h1 class='translate' data-i18n='fhh_fhh.h1_my_fhh'>My Family Health History</h1>
-<h2 class='translate' data-i18n='fhh_fhh.h2_new_fhh'>Create A New Family History</h2>
-<p class='translate' data-i18n='fhh_fhh.p_create_my_history'>Select 'Create My History' to create your 
-	personal profile, enter your health information, and tell us how many 
-	people are in your immediate family. You can add other family members 
-	and enter their health histories later.</p>
-
+<h2 class='translate' data-i18n='fhh_fhh.h2_update_fhh'>Update My Family History</h2>
+<p class='translate instructions' data-i18n='fhh_fhh.p_update_my_history'>On this screen you can:</p>
+<ul>
+<li class='translate instructions' data-i18n='fhh_fhh.quick_guide_li1'> Change your Family Health History by adding, removing or changing your relatives</li>
+<li class='translate instructions' data-i18n='fhh_fhh.quick_guide_li2'> Use the tools to view your family tree diagram, find out your risks for certain diseases, or export your tree to help your close family member get started.</li>
+<p class='translate instructions' data-i18n='fhh_fhh.update_more_help'>To find out more about what you can do, click on the 'Get Help' link on the menu bar above.</p>
 <hr />
 <br />
 				<!-- if we don't have a person, show this button -->
@@ -194,30 +193,36 @@
 </div>
 <div id='help_dialog' >
 	<div id='help_main_page' class='help'>
-		<h2 class='translate' data-i18n='fhh_fhh.h2_help_main_page'>Update My Family Health History</h2>
-		<P class='translate' data-i18n='fhh_fhh.p_help_main_page'>After adding immediate family information, you can:</P>
-		<OL>
-	    <LI class='translate' data-i18n='fhh_fhh.li1_help_main_page'>
-	    	Check over the relatives in the family member table by doing the following:
-	    	<UL>
-	    		<LI class='translate' data-i18n='fhh_fhh.li1_1_help_main_page'>add health history for each family member by pressing on the symbol in the Add History column</LI>
-	    		<LI class='translate' data-i18n='fhh_fhh.li1_2_help_main_page'>update health information for you or anyone by pressing on the symbol in the update history column</LI>
-	    		<LI class='translate' data-i18n='fhh_fhh.li1_3_help_main_page'>remove a family member by pressing on the symbol in the remove relative column</LI>
-	    		<LI class='translate' data-i18n='fhh_fhh.li1_4_help_main_page'>Add additional relatives by pressing the "Add Another Family Member" button</LI>
-	    		<LI class='translate' data-i18n='fhh_fhh.li1_5_help_main_page'>Save your family health history to your computer by clicking on "Save Family History"</LI>
-	    	</UL>
-	    </LI>
-	    <LI class='translate' data-i18n='fhh_fhh.li2_help_main_page'>
-	    	On all pages including this page, you can also:
-	    	<UL>
-	    		<LI class='translate' data-i18n='fhh_fhh.li2_1_help_main_page'>Start a new history by pressing on "Home."</LI>
-	    		<LI class='translate' data-i18n='fhh_fhh.li2_2_help_main_page'>Return to the screen showing a table of your family by pressing "My Family."</LI>
-	    		<LI class='translate' data-i18n='fhh_fhh.li2_3_help_main_page'>Make a copy of your family health history for a family member by pressing "Copy for Family Member."</LI>
-	    		<LI class='translate' data-i18n='fhh_fhh.li2_4_help_main_page'>View a diagram of your family tree and a table of your family health history by pressing "View Diagram & Table."</LI>
-	    		<LI class='translate' data-i18n='fhh_fhh.li2_5_help_main_page'>Get extra help by pressing "Get Help."</LI>
-	    	</UL>
-	    </LI>
-		</OL>
+<h2 class='translate' data-i18n='fhh_fhh.h2_update_fhh'>Update My Family History</h2>
+<p class='translate instructions' data-i18n='fhh_fhh.p_update_my_history'>On this screen you can:</p>
+<ul>
+
+<li >
+	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_before'>Add information for a family member by pressing Add History</span>
+	 <IMG src='../images/icon_add.gif' alt= 'Add History' height='16'/>
+	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_after'> next to the name in the list.</span>
+</li>
+<li>
+	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b1_before'>Change your information or a family member's information by pressing Update History</span>
+	 <IMG src='../images/icon_edit.gif' alt= 'Update History' height='16'/>
+	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b1_after'> next to the name in the list.</span>
+</li>
+<li>
+	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_before'>Remove a family member from your history by pressing Remove</span>
+	 <IMG src='../images/icon_trash.gif' alt= 'Remove History' height='16'/>
+	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_after'>  next to the name in the list. (You cannot remove yourself, your parents, or grandparents.)</span>
+</li>
+</ul>
+<p class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2'>You can Also:</p>
+<ul>
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b1'>Restart your family history by clicking on the 'Restart My History' Button </li>	
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b2'>Save you history to a file on your computer or into the cloud by clicking on 'Save My History' button</li>	
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b3'>Add another family member to your family history by clicking 'Add Another Family Member' button or menu item</li>	
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b4'>View a diagram and table of your family tree by clicking on 'View Diagram and Table' button</li>	
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b5'>Export your family infomation to give a close relative a headstart on his/her family tree by clicking on the 'Copy for Family Member' menu item </li>	
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b6'>Use one of the Disease Risk Calculators to determine if you are at increased risk of a disease based on your family history by clicking on the 'Disease Risk Calculator' menu item</li>	
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b7'>Get additional Help by clicking on the 'Get Help' menu item</li>	
+
 	</div>	
 </div>
 

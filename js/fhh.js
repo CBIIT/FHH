@@ -1524,7 +1524,7 @@ function build_personal_health_information_section() {
 
 function set_disease_choice_select (disease_select, detailed_disease_select) {
 	detailed_disease_select.hide();
-	disease_select.append("<option value='not_picked'>" + $.t("fhh_js.disease_select") + "</option>");
+	disease_select.append("<option value='not_picked'>" + $.t("fhh_js.disease_select") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>");
 	for (disease_name in diseases) {
 		disease_select.append("<option value='" + disease_name + "'> " + $.t("diseases:" + disease_name) + " </option>");		
 	}
