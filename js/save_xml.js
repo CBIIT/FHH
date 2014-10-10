@@ -811,7 +811,8 @@ function save_document(save_link, output_string, filename) {
 	    var blobObject = new Blob([output_string]); 
 	    window.navigator.msSaveBlob(blobObject, filename); // The user only has the option of clicking the Save button.
 		} else {
-			save_link.attr("href", "data:application/xml," + output_string ).attr("download", filename);
+//			save_link.attr("href", "data:application/xml," + output_string ).attr("download", filename);
+			save_link.attr("download", filename).attr("href", "data:application/force-download," + encodeURIComponent(output_string) ).attr("target", "download");
 		}
 		
 }
