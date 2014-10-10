@@ -6,12 +6,10 @@ var diseases;
 
 $(document).ready(function() {
 	// Check to see whether this browser has the FileAPI
-	/*
 	var FileApiSupported = window.File && window.FileReader && window.FileList && window.Blob;
 	if (!FileApiSupported) {		
 		if ($("body").attr("page") != "unsupported_browser") window.location.replace("./unsupported_browser.html");
 	}
-	*/
 	
 	if (typeof i18n != "undefined") {
 		var option = { 
