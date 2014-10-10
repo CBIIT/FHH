@@ -11,7 +11,7 @@ function bind_load_xml() {
 	// Change the name of the Load File here to support internationalization
 	
 	bind_uploader();
-	bind_load_file();
+	//bind_load_file();
 	bind_load_dropbox();
 	bind_load_google_drive();
 	bind_load_health_vault();
@@ -83,6 +83,18 @@ function bind_uploader() {
 
 			Error: function(up, err) {
 				document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+			},
+
+			UploadComplete: function(up, files) {
+				// Called when all files are either uploaded or failed
+                alert('[UploadComplete]');
+
+				console.dir(up);
+				console.dir(files);
+
+
+				$("#load_personal_history_dialog").dialog("close");
+				load_family_history(files[0]);				
 			}
 		}
 	});
@@ -181,7 +193,19 @@ function 	bind_load_health_vault() {
 }
 
 
-function loaded (evt) {
+function load_family_history(loaded_file) {
+	var fsize = loaded_file.size;
+	alert ("Filename is (" + fsize + "): " + $("#pickfiles").val());
+	
+	var reader = new FileReader();
+	//reader.readAsText(, "UTF-8");
+	reader.readAsText(loaded_file, "UTF-8");
+
+	reader.onload = read_family_history;
+}
+
+function read_family_history (evt) {
+	alert('read_family_history');
 	var fileString = evt.target.result;	
 	parse_xml(fileString);
 	build_family_history_data_table();
