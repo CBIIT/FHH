@@ -37,9 +37,12 @@ div.drawcanvas{
     max-height:100%;
     max-width:100%;
 }
+<<<<<<< HEAD
 /*select option {*/
     /*width: 120 ;*/
 /*}*/
+=======
+>>>>>>> 6eb11bc5cd95f5944e8b39ddbb853fb0f46a736b
 select.addchild{
 
     visibility: hidden;

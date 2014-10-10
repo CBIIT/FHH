@@ -205,6 +205,30 @@
 		"h1_my_fhh": "Minha História Saúde da Família",
 		"h2_new_fhh": "Criar uma nova História da Família",
 		"p_create_my_history": "Selecione 'Criar a minha história' para criar o seu perfil pessoal, digite suas informações de saúde, e diga-nos quantas pessoas estão em sua família imediata Você pode adicionar outros membros da família e entre os seus históricos de saúde mais tarde ",
+
+		"h2_update_fhh": "Actualizar Mi Historia Familiar",
+		"p_update_my_history" : "Nesta tela você pode:",
+		"quick_guide_li1" : "Mude sua História de Saúde da Família, adicionando, removendo ou alterando seus parentes",
+		"quick_guide_li2" : "Usar as ferramentas para visualizar o seu diagrama de árvore de família, descobrir os riscos de certas doenças, ou exportar a sua árvore para ajudar o seu familiar próximo começar.",
+		
+		"update_more_help" : "Para saber mais sobre o que você pode fazer, clique no botão 'Obter Ajuda' link na barra de menu acima.",
+		"p_update_my_history_b1_before" : "Adicionar informações de um membro da família, pressionando Adicione História ",
+		"p_update_my_history_b1_after" : " ao lado do nome na lista.",
+		"p_update_my_history_b2_before" : "Altere suas informações ou as informações de um membro da família, pressionando histórico de atualização ",
+		"p_update_my_history_b2_after" : " ao lado do nome na lista.",
+		"p_update_my_history_b3_before" : "Remover um membro da família do seu histórico pressionando Remover ",
+		"p_update_my_history_b3_after" : " ao lado do nome na lista. (Você não pode remover a si mesmo, seus pais, ou avós).",
+		"p_update_my_history2" : "Você também pode:",
+		"p_update_my_history2_b1" : "Reinicie o seu histórico familiar, clicando no botão 'Reiniciar a minha história '",
+		"p_update_my_history2_b2" : "Salve-se a história de um arquivo no seu computador ou na nuvem, clicando no botão 'Salve a Minha História' em",
+		"p_update_my_history2_b3" : "Adicionar outro membro da família a sua história familiar, clicando em 'Adicionar outro membro da família' botão",
+		"p_update_my_history2_b4" : "Ver um diagrama ea tabela de sua árvore genealógica clicando em 'Exibir Diagrama e Tabela' botão ou item de menu",
+		"p_update_my_history2_b5" : "Exporte seu infomation família para dar um parente próximo um avanço em seu / sua árvore genealógica clicando no 'Copiar para membro da família' item de menu",
+		"p_update_my_history2_b6" : "Usar uma das doenças de risco calculadoras para determinar se você está em maior risco de uma doença com base em seu histórico familiar, clicando no item de menu 'Risco Doença Calculator' ",
+		"p_update_my_history2_b7" : "Obter ajuda adicional, clicando no item do menu 'Obtenha ajuda'",
+		
+		
+
 		"btn_create_my_history": "Criar a minha história",
 		"btn_save_my_history": "Salvar minha história",
 		"btn_add_a_family_mbr": "Adicionar outro membro da família",

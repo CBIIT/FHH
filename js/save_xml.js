@@ -119,9 +119,9 @@ function googlePostAuthSave(authResult) {
 				request_type = 'PUT'
 			}
 			
-			const boundary = '-------314159265358979323846';
-			const delimiter = "\r\n--" + boundary + "\r\n";
-			const close_delim = "\r\n--" + boundary + "--";
+			var boundary = '-------314159265358979323846';
+			var delimiter = "\r\n--" + boundary + "\r\n";
+			var close_delim = "\r\n--" + boundary + "--";
 		
 			var content_type ='text/plain';
 			var string_data = $("#input").val();
@@ -812,6 +812,7 @@ function save_document(save_link, output_string, filename) {
 	    window.navigator.msSaveBlob(blobObject, filename); // The user only has the option of clicking the Save button.
 		} else {
 			save_link.attr("href", "data:application/xml," + output_string ).attr("download", filename);
+//			save_link.attr("download", filename).attr("href", "data:application/force-download," + encodeURIComponent(output_string) ).attr("target", "download");
 		}
 		
 }

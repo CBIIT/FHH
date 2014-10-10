@@ -200,10 +200,36 @@
 		"a_copy_for_family_member": "Copia para el pariente",
 		"a_disease_risk_calculator": "Calculadora de Riesgos",
 		"a_view_diag_n_table": "Ver Diagrama & Tabla",
-		"a_get_help": "Ayuda",
+		"a_get_help": "Obtener Ayuda",
 		"h1_my_fhh": "Mi Historial de Salud Familiar",
 		"h2_new_fhh": "Crear una nueva historia de la familia",
+		
+		"h2_update_fhh": "Atualize história da minha família",
+		"p_update_my_history" : "En esta pantalla puede:",
+		"quick_guide_li1" : "Cambia tu Historial de Salud Familiar al agregar, eliminar o cambiar sus parientes",
+		"quick_guide_li2" : "Use as ferramentas para visualizar o seu diagrama de árvore de família, descobrir os riscos de certas doenças, ou exportar a sua árvore para ajudar o seu familiar próximo começar.",
+		
+		"update_more_help" : "Para saber más acerca de lo que puede hacer, haga clic en el 'Obtener Ayuda' vínculo en la barra de menú superior. ",
+		"p_update_my_history_b1_before" : "Agregar información a un familiar pulsando Agregar Historia ",
+		"p_update_my_history_b1_after" : " junto al nombre en la lista.",
+		"p_update_my_history_b2_before" : "Cambiar su información o la información de un miembro de la familia presionando Actualización de la historia",
+		"p_update_my_history_b2_after" : " junto al nombre en la lista.",
+		"p_update_my_history_b3_before" : "Retirar un miembro de la familia de su historial pulsando Retirar ",
+		"p_update_my_history_b3_after" : " junto al nombre en la lista. (No se puede quitar a ti mismo, a tus padres, o abuelos.)",
+		"p_update_my_history2" : "También puede:",
+		"p_update_my_history2_b1" : "Reinicie su historia familiar haciendo clic en el botón 'reiniciar mi historia'",
+		"p_update_my_history2_b2" : "Ahorrar historia a un archivo en el ordenador o en la nube haciendo clic en el botón 'Guardar Mi Historia' ",
+		"p_update_my_history2_b3" : "Añadir otro miembro de la familia a su historia familiar haciendo clic en 'Añadir otro miembro de la familia' botón",
+		"p_update_my_history2_b4" : "Ver un diagrama y la tabla de su árbol genealógico, haga clic en 'Ver el Diagrama y Tabla' botón o elemento de menú",
+		"p_update_my_history2_b5" : "Exportar su infomación familia para dar un cierre una ventaja relativa sobre su / su árbol haciendo clic en el 'Ejemplar para miembros de la familia' del menú",
+		"p_update_my_history2_b6" : "Utilice una de las calculadoras de riesgo de enfermedades para determinar si usted está en mayor riesgo de una enfermedad sobre la base de sus antecedentes familiares haciendo clic en el elemento de menú 'Calculadora de Riesgo de Enfermedades'",
+		"p_update_my_history2_b7" : "Obtener ayuda adicional, haga clic en el 'Obtener Ayuda' elemento de menú",
 		"p_create_my_history": "Seleccione 'Crear mi historia' para crear tu perfil personal, introduzca su información de salud, y nos dice cuántas personas hay en su familia inmediata Usted puede agregar otros miembros de la familia y entrar en sus historias de salud más adelante",
+
+		
+		
+		
+		
 		"btn_create_my_history": "Crear mi historia",
 		"btn_save_my_history": "Guardar Mi Historia",
 		"btn_add_a_family_mbr": "Añadir otro miembro de la familia",
@@ -233,7 +259,6 @@
 		"li2_4_help_main_page": "Ver un diagrama de su árbol genealógico y una tabla de su historial de salud familiar pulsando 'Ver el Diagrama y la Tabla.'",
 		"li2_5_help_main_page": "Obtener ayuda adicional pulsando 'Obtener ayuda.'",	
 
-	
 		"done" : "done"
 	},
 	
