@@ -18,9 +18,10 @@ $(document).ready(function() {
 	
 	var valid = test_for_any_missing_data();
 		
-	if (valid.age == false || valid.gender == false || valid.height == false || valid.weight == false ||
-		valid.physically_active == false) get_required_info_dialog(valid);
-	else load_all_data_and_calculate_score();
+	// always show this because we added a disclaimer	
+	get_required_info_dialog(valid); 
+	
+	load_all_data_and_calculate_score();
 	
 });
 
@@ -54,6 +55,8 @@ function enable_appropriate_changers() {
 }
 
 function load_all_data_and_calculate_score() {
+		
+		
 		load_age();
 		load_gender();
 		load_gestational_diabetes();
@@ -61,7 +64,66 @@ function load_all_data_and_calculate_score() {
 		load_high_blood_pressure();
 		load_activity();
 		load_bmi();
-		calculate_score();		
+		calculate_score();	
+
+		var diabetes_types = check_for_diabetes_prediabetes();
+		if (diabetes_types.length > 0) {
+			create_have_diabetes_dialog(diabetes_types);
+		}
+}
+
+function create_have_diabetes_dialog(diabetes_types) {
+	var automatic_elevated_diabetes_dialog = $("<div id='automatic_elevated_diabetes_dialog'></div>");
+	automatic_elevated_diabetes_dialog.append("<P class='instructions'> You have indicated in your personal health history: </P>");
+	var list = $("<UL>");
+	for (i=0;i<diabetes_types.length;i++) {
+		list.append("<LI class='instructions'>" + diabetes_types[i] + "</LI>");
+	}
+	automatic_elevated_diabetes_dialog.append(list);
+	automatic_elevated_diabetes_dialog.append("<P class='instructions'>Due to this indicator, you are at an elevated risk for Diabetes.</P>");
+	automatic_elevated_diabetes_dialog.append("<P class='instructions'>Below are links to two letters, a personal letter showing your risks and what your can do about them, and a Physician Letter that you can give to your physician about your risks.</P>");
+	automatic_elevated_diabetes_dialog.append("<table class='pdf'><tr><td>"
+	  + "<button id='elev_submit' onClick='submit_high()'>Get Personal <br />Elevated Risk Letter </button>"
+	  + "</td><td>"
+	  + "<button id='elev_letter' onClick='submit_high_physician()'>Get Physician <br />Elevated Risk Letter </button>"
+	  + "</td></tr>"
+	  + "</table>");
+	
+	
+	automatic_elevated_diabetes_dialog.dialog({
+		position:['middle',0],
+		height:400,
+		width:600,
+		modal: true,
+		beforeClose: function( event, ui ) {
+				$("#disease_risk_calculator").dialog("close");	
+		},
+		buttons: {
+			Ok: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	});
+	$("#main_table").append(automatic_elevated_diabetes_dialog);
+}
+
+function check_for_diabetes_prediabetes() {
+	var h = personal_information["Health History"];
+	
+	var diabetes_types = [];
+	for (var i=0; i<h.length; i++) {
+
+		if (h[i]['Detailed Disease Name'] == 'Diabetes') diabetes_types.push(h[i]['Detailed Disease Name']);
+		if (h[i]['Detailed Disease Name'] == 'Impaired Fasting Glucose')  diabetes_types.push(h[i]['Detailed Disease Name']);
+		if (h[i]['Detailed Disease Name'] == 'Impaired Glucose Tolerance')  diabetes_types.push(h[i]['Detailed Disease Name']);
+		if (h[i]['Detailed Disease Name'] == 'Insulin Resistance')  diabetes_types.push(h[i]['Detailed Disease Name']);
+		if (h[i]['Detailed Disease Name'] == 'Maturity Onset Diabetesmellitus in Young (MODY)')  diabetes_types.push(h[i]['Detailed Disease Name']);
+		if (h[i]['Detailed Disease Name'] == 'Pre-Diabetes') diabetes_types.push(h[i]['Detailed Disease Name']);
+		if (h[i]['Detailed Disease Name'] == 'Type 1 Diabetes') diabetes_types.push(h[i]['Detailed Disease Name']);
+		if (h[i]['Detailed Disease Name'] == 'Type 2 Diabetes') diabetes_types.push(h[i]['Detailed Disease Name']);
+		if (h[i]['Detailed Disease Name'] == 'Unknown Diabetes') diabetes_types.push(h[i]['Detailed Disease Name']);
+	}
+	return diabetes_types;
 }
 
 function test_for_any_missing_data() {
@@ -71,6 +133,8 @@ function test_for_any_missing_data() {
 	valid.physically_active = test_for_physically_active();
 	valid.height = test_for_height();
 	valid.weight = test_for_weight();
+	valid.hypertension = test_for_hypertension();
+	valid.gestational_diabetes = test_for_gestational_diabetes();
 	
 	return valid;
 }
@@ -110,6 +174,34 @@ function test_for_weight() {
 	return true;
 }
 
+function test_for_hypertension() {
+	if (personal_information == null) return false;
+	var h = personal_information["Health History"]
+	if (h == null) return false;
+	
+	var has_hypertension = false;
+	for (var i=0; i<h.length; i++) {
+		if (h[i]['Detailed Disease Name'] == 'Hypertension') has_hypertension = true;
+	}
+	
+	return has_hypertension;
+}
+
+function test_for_gestational_diabetes() {
+	if (personal_information == null) return false;
+	if (personal_information.gender == 'MALE') return true;
+	
+	var h = personal_information["Health History"]
+	if (h == null) return false;
+	
+	var has_gestational_diabetes = false;
+	for (var i=0; i<h.length; i++) {
+		if (h[i]['Detailed Disease Name'] == 'Gestational Diabetes') has_gestational_diabetes = true;
+	}
+	
+	return has_gestational_diabetes;
+}
+
 function test_for_necessary_info() {
 	if (personal_information == null) return false;
 	if (personal_information.date_of_birth == null) return false;
@@ -121,6 +213,8 @@ function test_for_necessary_info() {
 }
 
 function get_required_info_dialog(valid) {
+	$("#extra_info_dialog").show()
+			.append("<P class='instructions'><B>Please check that the information you have added about you and your relatives is complete and correct</B></P>");
 	$("#extra_info_dialog").show()
 			.append("<P class='instructions'>In order to calculate your diabetes risk, we need some additonal information</P>");
 	var input_table = $("<TABLE>");
@@ -139,6 +233,15 @@ function get_required_info_dialog(valid) {
 				.append($("<SELECT id='gender_choice'>")
 					.append("<OPTION value='MALE'>Male</OPTION>")
 					.append("<OPTION value='FEMALE'>Female</OPTION>"))));
+	}
+
+	if (valid.gestational_diabetes == false) {
+		input_table.append($("<TR>")
+			.append("<TD>Have you ever had Gestational Diabetes?</TD>")
+			.append($("<TD>")
+				.append($("<SELECT id='gestational_diabetes_choice'>")
+					.append("<OPTION value='false'>No</OPTION>")
+					.append("<OPTION value='true'>Yes</OPTION>"))));
 	}
 
 	if (valid.height== false) {
@@ -170,6 +273,15 @@ function get_required_info_dialog(valid) {
 
 //			.append("Physical activity is defined as 150 minutes of moderate exercise per week<br/>")
 
+	}
+	
+	if (valid.hypertension == false) {
+		input_table.append($("<TR>")
+			.append("<TD>Do you have High Blood Pression (Hypertension):</TD>")
+			.append($("<TD>")
+				.append($("<SELECT id='hypertension_choice'>")
+					.append("<OPTION value='false'>No</OPTION>")
+					.append("<OPTION value='true'>Yes</OPTION>"))));
 	}
 	
 	var continue_button = $("<BUTTON> Continue </BUTTON>");
@@ -214,6 +326,24 @@ function apply_required_additional_data_entry_button () {
 			personal_information['weight_unit'] = $('#weight_unit').val();
 			
 		}
+
+		if ($("#hypertension_choice").val() == 'true') {
+			var specific_health_issue = {"Disease Name": "Hypertension",
+	                          "Detailed Disease Name": "Hypertension",
+	                          "Age At Diagnosis": "Unknown",
+	                          "Disease Code": "SNOMED_CT-38341003"};
+
+			personal_information["Health History"].push(specific_health_issue);
+		} 
+
+		if ($("#gestational_diabetes_choice").val() == 'true') {
+			var specific_health_issue = {"Disease Name": "Diabetes",
+	                          "Detailed Disease Name": "Gestational Diabetes",
+	                          "Age At Diagnosis": "Unknown",
+	                          "Disease Code": "SNOMED_CT-11687002"};
+
+			personal_information["Health History"].push(specific_health_issue);
+		} 
 
 		$("#extra_info_dialog").hide();
 		$("#diabetes_content").show();

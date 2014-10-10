@@ -119,9 +119,9 @@ function googlePostAuthSave(authResult) {
 				request_type = 'PUT'
 			}
 			
-			const boundary = '-------314159265358979323846';
-			const delimiter = "\r\n--" + boundary + "\r\n";
-			const close_delim = "\r\n--" + boundary + "--";
+			var boundary = '-------314159265358979323846';
+			var delimiter = "\r\n--" + boundary + "\r\n";
+			var close_delim = "\r\n--" + boundary + "--";
 		
 			var content_type ='text/plain';
 			var string_data = $("#input").val();

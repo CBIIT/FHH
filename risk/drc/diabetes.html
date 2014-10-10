@@ -7,9 +7,16 @@
 <div id="diabetes_content" >
 
 <!-- Start site -->
-<h1 class='title_bar'> Diabetes Type II Risk Calculator</h1><br />
-<table class="maintable"><tr>
-	<td class="column">
+<h1 class='title_bar'> Your Type 2 Diabetes Risk Information </h1><br />
+<P class='instructions'>On this screen you can:</P>
+<UL>
+<LI class='instructions'>Get your risk for type 2 diabetes based on your personal and family history information</LI>
+<LI class='instructions'>Learn which risk factors you may have for type 2 diabetes</LI>
+<LI class='instructions'>Read and print sharable letters for you and your health care provider explaining your type 2 diabetes risk</LI>
+</UL>
+<hr />
+<table class="maintable">
+	<tr><td class="column">
 	  <!-- Age -->
 	  <table class="risktable">
 	  	<tr><td>
@@ -152,8 +159,8 @@
 			<tr>
     	 	<td>
 	      	<table >
-	        	<TR><TD>0 - 4 points:</TD><TD>Lower Risk of Diabetes</TD></TR>	
-	        	<TR><TD>5+ points:</TD><TD>Elevated Risk</TD></TR>	
+	        	<TR><TD>0 - 4 points:</TD><TD>Risk not increased</TD></TR>	
+	        	<TR><TD>5+ points:</TD><TD>Risk Increased</TD></TR>	
 	      	</table>                
       	</td>
         <td>
@@ -170,28 +177,28 @@
 	          <td>
 	          <table>
 	              <tr>
-	                  <td>
+	                  <td style='text-align:center'>
 	                      <div id="higher" >
-	                          <table class="pdf" style=" ">
+	                          <table class="pdf" style="font-size:18px;">
 	                              <tr><td>
-	                              <button id='elev_submit' onClick='submit_high()'>Get Personal <br />Elevated Risk Letter </button>
-	                              </td><td>
-	                              <button id='elev_letter' onClick='submit_high_physician()'>Get Physician <br />Elevated Risk Letter </button>
+	                              <button id='elev_submit' onClick='submit_high()'>Get&nbsp;Personal <br />Elevated&nbsp;Risk&nbsp;Letter </button>
+	                              </td><TD>&nbsp;</TD><td>
+	                              <button id='elev_letter' onClick='submit_high_physician()'>Get&nbsp;Physician <br />Elevated&nbsp;Risk&nbsp;Letter </button>
 	                              </td></tr>
 	                          </table>
 	                      </div>
 	
 	                  </td>
-	                  <td>
+	                  <td style='text-align:center'>
 	                      <div id="normal" >
-	                      <table class="pdf" style=" ">
+	                      <table class="pdf" style="font-size:18px;">
 	                          <tr><td>
-	                          <button id='drc_submit' onClick='submit_normal()'> Get Personal <br />Lower Risk Letter </button>
-	                          </td><td>
-	                          <button id='drc_letter' onClick='submit_normal_physician()'> Get Physician <br />Lower Risk Letter </button>
+	                          <button id='drc_submit' onClick='submit_normal()'> Get&nbsp;Personal <br />Lower&nbsp;Risk&nbsp;Letter </button>
+	                          </td><TD>&nbsp;</TD><td>
+	                          <button id='drc_letter' onClick='submit_normal_physician()'> Get&nbsp;Physician <br />Lower&nbsp;Risk&nbsp;Letter </button>
 	                          </td></tr>
 	                      </table>
-	                          </div>
+	                    	</div>
 	                  </td>
 	              </tr>
 	          </table>
@@ -201,6 +208,13 @@
 	
 	</td>
 </tr></table>
+      <P class='instructions'>No risk tool is perfect and your actual risk may be higher or lower than this.  If you have questions about your type 2 diabetes risk, please speak with a health care provider.</P>
+      <P class='instructions'>This risk tool is based on a version of the Diabetes Risk Test as developed by the American Diabetes Association.  Additional information about the test can be found in: Heikes KE, et al. Diabetes Risk Calculator: a simple tool for detecting undiagnosed diabetes and pre-diabetes. Diabetes Care. 2008 May;31(5):1040-5.</P>
+      <P class='instructions'>More information about type 2 diabetes risk can be found at:  
+      <a href='http://diabetes.niddk.nih.gov/dm/pubs/riskfortype2/' target='_blank'>http://diabetes.niddk.nih.gov/dm/pubs/riskfortype2/ </a> and 
+      <a href='http://ndep.nih.gov/am-i-at-risk/family-history/index.aspx#main' target='_blank'> http://ndep.nih.gov/am-i-at-risk/family-history/index.aspx#main </a> 
+      </P>
+
 </div>
 
 <script type="text/javascript">
