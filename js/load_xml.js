@@ -10,8 +10,8 @@ var SNOMED_CT_CODES = {
 function bind_load_xml() {
 	// Change the name of the Load File here to support internationalization
 	
-	//bind_load_file();
 	bind_uploader();
+	bind_load_file();
 	bind_load_dropbox();
 	bind_load_google_drive();
 	bind_load_health_vault();
@@ -55,10 +55,9 @@ function bind_uploader() {
 		silverlight_xap_url : '../js/Moxie.xap',
 		
 		filters : {
-			max_file_size : '10mb',
+			max_file_size : '1mb',
 			mime_types: [
-				{title : "Image files", extensions : "jpg,gif,png"},
-				{title : "Zip files", extensions : "zip"}
+				{title : "XML files", extensions : "xml"}
 			]
 		},
 

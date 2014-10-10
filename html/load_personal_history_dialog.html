@@ -1,9 +1,28 @@
+<!-- For File upload -->
+<script type="text/javascript" src="../js/plupload.full.min.js"></script>
+
+
 <div class="title-bar translate" data-i18n='fhh_load_save.load_from_file'> Load Your Personal Information from a File</div>
 <br /> <br />
+<!--
 <form action="#" enctype="multipart/form-data" method="post"  >
   <input name="pedigree_file" type="file" id='pedigree_file' accept='text/xml' />
   <input type="submit" value="Load File" id='file_upload_button' />
 </form>
+-->
+<!-- PL Uploader -->
+<div id="filelist">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
+<br />
+
+<div id="container">
+    <a id="pickfiles" href="javascript:;">[Select files]</a> 
+    <a id="uploadfiles" href="javascript:;">[Upload files]</a>
+</div>
+<!-- End PL Uploader -->
+
+<br />
+<pre id="console"></pre>
+
 <br /> <br />
 <div class="title-bar translate" data-i18n='fhh_load_save.load_health_vault' > Load Your Personal Information from Microsoft's Health Vault</div>
 <br /> <br /><br /> <br />
