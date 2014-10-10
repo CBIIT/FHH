@@ -37,9 +37,9 @@ div.drawcanvas{
     max-height:100%;
     max-width:100%;
 }
-select option {
-    width: 120 ;
-}
+/*select option {*/
+    /*width: 120 ;*/
+/*}*/
 select.addchild{
 
     visibility: hidden;
@@ -335,8 +335,8 @@ div.toolbar{
 
 #lightbox {
     background-clip: padding-box;
-    background-color: rgba(82, 139, 139, 0.5);
-    color: white;
+    background-color: transparent;
+    color: black;
     border: 3px solid rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     left: 40px;
@@ -345,6 +345,29 @@ div.toolbar{
     text-align: center;
     top: 0px;
     width: 250px;
+}
+
+
+#infobox {
+    background-clip: padding-box;
+    background-color: transparent;
+    color: black;
+    border: 3px solid rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    left: 40px;
+    padding: 5px;
+    position: relative;
+    text-align: top;
+    top: 0px;
+    width: 100%;
+}
+
+.infolayer {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font: bold 15px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+
+    /*line-height:5px;*/
 }
 
 /*
@@ -441,7 +464,11 @@ div.toolbar{
 .pivotlist{
     width: 400px;
 }
-
+#dialogtext{
+    font-weight: 100;
+    font: bold 15px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+    text-align: left;
+}
 /*div#svgframe {*/
     /*height: 400px;*/
     /*width: 400px;*/
@@ -575,4 +602,8 @@ a.back{
     background:transparent url(..static/css/images/end.png) no-repeat center center;
 }
 
-
+/*$('.logo-square').css({*/
+/*'-webkit-transform': 'scale(0.6)',*/
+/*'-moz-transform': 'scale(0.6)',*/
+/*'-o-transform': 'scale(0.6)'*/
+/*});*/

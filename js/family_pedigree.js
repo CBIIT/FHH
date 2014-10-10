@@ -51,6 +51,15 @@ var defaultfamilyarray=[
 
 ];
 
+var STATICDISEASES = [
+    'heart disease',
+    'stroke',
+    'diabetes',
+    'colon cancer',
+    'breast cancer',
+    'ovarian cancer'
+];
+
 function xmlload() {
     /*
     Get Date
@@ -87,17 +96,24 @@ function xmlload() {
     mdialog = $(
 
         '<div id="family_pedigree" class="family_dialog" >' +
+            '<div id="dialogtext" style="position: absolute;top: 20px"></div>' +
 
             '<div id="nav" class="sticky">' +
                 '<ul>' +
-                    '<li><a class="top" href="#top"><span></span></a></li>' +
-                    '<li><a class="bottom" href="#bottom"><span></span></a></li>' +
+                    '<li><a class="top" href="#top">Go To Diagram</a></li>' +
+                    '<li><a class="bottom" href="#bottom">Go To Table</a></li>' +
                     '<li><a id="printer">Print</a></li>' +
                     '<li><a onclick="createDialog()">Diagram Table & Options</a></li>' +
+                    '<li><select class="selector"><option value="100">+100</option><option value="200">+200</option></select></li>' +
                     '<li>' +
-                    '<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" ' +
-                    'type="button" role="button" aria-disabled="false" title="close" onclick="closedialog()"></button>' +
+                    '<input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close"' +
+                    'type="button"role="button" aria-disabled="false" title="close" value="close" onclick="closedialog()" style="width:50px"></input>' +
                     '</li>' +
+                    //'<li><a><select><option value="100">+100</option><option value="200">+200</option></select></a></li>' +
+
+                    //'<li><a class="zoom-in" onclick="Zoom(200)">+200</a></li>' +
+                    //'<li><a class="zoom-out">Zoom Out</a></li>' +
+
                 '</ul>' +
             '</div>' +
             '<div id="top"></div>' +
@@ -135,8 +151,6 @@ function xmlload() {
 
     );
 
-
-
     $(mdialog).dialog({
         autoOpen: false,
         position: ['top', '80px'],
@@ -159,18 +173,39 @@ function xmlload() {
 
             $(this).dialog( 'option', 'position', [myDialogX, 40] );
 
-            //window.scrollBy(1500, 10 );
-
+                diseasearray=new Array();
+            //if (oTable != null) {
+            //    oTable.empty();
+            //}
+            //oTable.fnDestroy();
         },
         close: function () {
+            //oTable.empty();
+            //oTable.destroy();
+            oTable.fnDestroy();
+            //$("#health_table").dataTable().destroy();
+            $("#health_table").empty();
+            diseasearray=new Array();
             $(this).empty();
-            $(this).dialog('destroy').remove()
+            $(this).dialog('destroy').remove();
         }
     });
 
+    $("#dialogtext").html(
+        '<h1>View Diagram & Table</h1><br/>'+
+        '<table class="infolayer">' +
+        '<tr><td>' +
+        '<p>You can print your family health history in a diagram and table form to share with your health care worker. Talking with your health care worker about your family health history can help you stay healthy!</p><br style="line-height: 0px"/>' +
+        '</td></tr>' +
+        '<tr><td>' +
+        '<p>If you would like to change the way the information below is shown, click "Diagram & Table Options." The bottom and right scroll bars are useful navigation tools when viewing larger tables and diagrams.</p>' +
+        '</td></tr></table>'
+        //'<tr>' +
+        //'<td><input type="button" value="Diagram & Table options"></td>' +
+        //'<td><input type="button" value="Print History">' +
+    );
 
     //No info
-
     if(typeof personal_information.name == 'undefined'){
         if (confirm("Please enter valid information for a Diagram!")){
             return;
@@ -178,67 +213,126 @@ function xmlload() {
     }
 
     $(document).ready(function() {
-
-
         $.each(personal_information['Health History'], function (key, item) {
             if (item == 'undefined' || item == null) item = "";
             var dn = item['Disease Name'];
-            if(diseasearray.length == 0){
-                diseasearray.push(dn)
-            }
-            else if ($.inArray(dn, diseasearray) == -1){
-                diseasearray.push(dn)
+            var details =  item['Detailed Disease Name'] ;
+            if(dn)dn = dn.toLowerCase();
+            if(details)details = details.toLowerCase();
+
+            if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
+                if (diseasearray.length == 0) diseasearray.push([dn,details])
+                else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
+
             }
         });
 
         $.each(personal_information, function (key, item) {
             if (item == 'undefined' || item == null) item = "";
             if (item.id) {
+
                 $.each(item['Health History'], function (k, data) {
                     var dn = data['Disease Name'];
-                    if(diseasearray.length == 0){
-                        diseasearray.push(dn)
-                    }
-                    else if ($.inArray(dn, diseasearray) == -1){
-                        diseasearray.push(dn)
+                    var details =  data['Detailed Disease Name'];
+                    if(dn)dn = dn.toLowerCase();
+                    if(details)details = details.toLowerCase();
+
+                    if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
+                        if (diseasearray.length == 0) diseasearray.push([dn,details])
+                        else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
                     }
                 });
             }
         });
 
+//alert ("diseasearray ARRAY Information:" + JSON.stringify(diseasearray, null, 2) );
+
+
+
         var HEADERS = new Array;
-        HEADERS.push({"title":'Name'});
-        HEADERS.push({"title":'Relationship'});
+        HEADERS.push({"title":'Id'});
+        HEADERS.push({"title":'Name & Relationship'});
+        //HEADERS.push({"title":'Relationship'});
         HEADERS.push({"title":'Still Living'});
 
-        for (i = 0; i < diseasearray.length; i++) {
-            var NAME = diseasearray[i];
-            var COL = i + 3;
+        //HEADERS.push({"title":'Heart Disease'});
+        //HEADERS.push({"title":'Stroke'});
+        //HEADERS.push({"title":'Diabetes'});
+        //HEADERS.push({"title":'Colon Cancer'});
+        //
+        //HEADERS.push({"title":'Breast Cancer'});
+        //HEADERS.push({"title":'Ovarian Cancer'});
+
+        //alert ("diseasearray ARRAY Information:" + JSON.stringify(diseasearray, null, 2) );
+
+        for (var t = 0; t < STATICDISEASES.length; t++) {
+            var NAME = STATICDISEASES[t];
+            var COL = t + 3;
             var DID = 'D_' + COL;
+
+            if(NAME)NAME=NAME.toLowerCase();
+
+            /*
+             Get only values that are not static
+             */
+            //if ($.inArray(NAME.toLowerCase(), STATICDISEASES) == -1){alert(NAME)}
+
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" style="padding-right: 5px;padding-top: 2px"/></a>' +
-            NAME
+            '<img src="../static/images/close.png" style="padding-right: 5px;padding-top: 2px"/></a>' + NAME
             });
         }
 
-        oTable = $('#health_table').dataTable({
-            "bPaginate": true,
-            //"scrollY": "300px",
-            //"sScrollY": "250px",
-            "bAutoWidth": true,
-            "bScrollCollapse": false,
-            "bLengthChange": false,
-            "bFilter": true,
-            "displayLength": 25,
-            "dom": '<"toolbar">Rlfrtip',
-            //"dom": 'Rlfrtip','T<"clear">lfrtip',
-            tableTools: {
-                "aButtons": [ "print" ]
-            },
-            "columns": HEADERS
+        for (var i = 0; i < diseasearray.length; i++) {
+            var NAME = diseasearray[i][0];
+            var COL = i + 9;
+            var DID = 'D_' + COL;
 
-        });
+            if(NAME)NAME=NAME.toLowerCase();
+
+            /*
+            Get only values that are not static
+             */
+            //if ($.inArray(NAME.toLowerCase(), STATICDISEASES) == -1){alert(NAME)}
+
+            HEADERS.push({"title": '<a class="toggle-vis"  ' +
+            'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
+            '<img src="../static/images/close.png" style="padding-right: 5px;padding-top: 2px"/></a>' + NAME
+            });
+        }
+
+        //if (!isDataTable($("#health_table")[0])) {
+            oTable = $('#health_table').dataTable({
+                "bPaginate": true,
+                //"scrollX": true,
+                //"scrollY": "300px",
+                //"sScrollY": "250px",
+                "bAutoWidth": true,
+                "bScrollCollapse": false,
+                "bLengthChange": false,
+                "bFilter": true,
+                "displayLength": 100,
+                "dom": '<"toolbar">Rlfrtip',
+                //"dom": 'Rlfrtip','T<"clear">lfrtip',
+                tableTools: {
+                    "aButtons": ["print"]
+                },
+                "columns": HEADERS,
+                "columnDefs": [
+                    {
+                        "targets": [0],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
+                "aaSortingFixed": [[0, 'desc']]
+
+            });
+        //}
+
+        //new $.fn.dataTable.FixedColumns( oTable, {
+        //    leftColumns: [1,2,3,4,5,6]
+        //} );
 
 
         $("div.toolbar").html(
@@ -281,14 +375,6 @@ function xmlload() {
             );
         });
     });
-
-
-
-
-
-
-
-
 
     var merr = 45;
     var ferr = 25;
@@ -347,6 +433,7 @@ function xmlload() {
     var svgw = mdialog.find('svg')[0];
 
     svgw.setAttribute('id', 'svgframe');
+    svgw.setAttribute('class', 'panzoom');
     svgw.setAttribute('height', '80%');
     svgw.setAttribute('valign', 'top');
     svgw.setAttribute('margin-top', '5px');
@@ -435,14 +522,11 @@ function xmlload() {
         BMI = "";
     }
 
-
-
     $('#age').text = age;
     $('#age').append($("<span><b></b></span>").text(age));
     if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + height_unit));
     if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + weight_unit));
     $('#abmi').append($("<span><b></b></span>").text( BMI));
-
 
     //Build health array
     $.each(personal_information, function (key, item) {
@@ -464,7 +548,6 @@ function xmlload() {
             HEALTHARRAY.push(ids);
             if ($.inArray(dis, DISEASELISTARRAY) == -1) DISEASELISTARRAY.push(dis);
         }
-
     });
 
     var ids = new Array();
@@ -1395,8 +1478,8 @@ function xmlload() {
             var ID = this.id;
             var NAME = this.name;
             var GEN = this.gender;
-            var TITLE = this.key;
-            var p1, p2, name1, name2;
+            var TITLE = this.key.toString();
+            var p1, p2, name1, name2,rel;
 
             //alert ("NAMEARRAY ARRAY Information:" + JSON.stringify(NAMEARRAY, null, 2) );
 
@@ -1415,10 +1498,21 @@ function xmlload() {
                 //svg.text(p1, p2, TITLE.toString(), {fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
             }
             else if (ID != "") {
+                var splits = new Array();
 
                 if (GEN == "FEMALE") {
                     p1 = parseInt($('#' + ID).attr('cx')) - 20;
                     p2 = parseInt($('#' + ID).attr('cy')) + 40;
+
+                    //alert(TITLE + " %% " +TITLE.toString().indexOf('_'))
+                    if(TITLE.indexOf('_')>0){
+                        splits = TITLE.split('_');
+                        if (splits[0] == 'paternal' || splits[0] == 'maternal')rel = splits[1];
+                        else rel = splits[0];
+                    }
+                    else rel = TITLE;
+
+                    var REL = '[' + rel + ']';
                     temp = NAME.toString().split(' ');
 
                     if (temp.length >= 2) {
@@ -1426,17 +1520,26 @@ function xmlload() {
                         name2 = temp[1].substr(0, 8);
                         svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'red'});
                         svg.text(p1, p2 + 20, name2.toString(), {id:'name2_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 40, REL, {id:'rel_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'navy'});
                     }
                     else {
                         name1 = temp[0].substr(0, 8);
                         name2 = "";
                         svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, class: 'namebox',fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 20, REL, {id:'rel_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'navy'});
                     }
                 }
                 else {
                     p1 = parseInt($('#' + ID).attr('x')) - 0;
                     p2 = parseInt($('#' + ID).attr('y')) + 60;
+                    if(TITLE.indexOf('_')>0) {
+                        splits = TITLE.split('_');
+                        if (splits[0] == 'paternal' || splits[0] == 'maternal')rel = splits[1];
+                        else rel = splits[0];
+                    }
+                    else rel = TITLE;
 
+                    var REL = '[' + rel + ']';
 
                     temp = NAME.toString().split(' ');
                     if (temp.length >= 2) {
@@ -1444,11 +1547,13 @@ function xmlload() {
                         name2 = temp[1].substr(0, 8);
                         svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, class: 'namebox',fontWeight: 'bold', fill: 'red'});
                         svg.text(p1, p2 + 20, name2.toString(), {id:'name2_'+ID, class: 'namebox',fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 40, REL, {id:'rel_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'navy'});
                     }
                     else {
                         name1 = temp[0].substr(0, 8);
                         name2 = "";
                         svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, class: 'namebox',fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 20, REL, {id:'rel_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'navy'});
                     }
                 }
             }
@@ -1524,9 +1629,6 @@ function xmlload() {
             r = r + 20;
         });
     }
-
-
-
 
     function BUILD_DISEASE_LIST(){
         var pos = 850;
@@ -6167,7 +6269,7 @@ function xmlload() {
             var lft = parseInt(absleft) / 2;
             //svgw.setAttribute('transform', 'translate('+ (parseInt(absleft)/2.2) +',10)');
 
-            $('#svgframe').css("margin-top", '50px');
+            $('#svgframe').css("margin-top", '180px');
 
         }
         else {
@@ -6176,12 +6278,37 @@ function xmlload() {
             svgw.setAttribute('viewBox', '0 0 ' + wscale + ' ' + 1200);
             if(FARLEFT<0) svgw.setAttribute('transform', 'translate('+absleft+',10  )');
 
-            $('#svgframe').css("margin-top", '100px');
+            $('#svgframe').css("margin-top", '180px');
         }
     }
+
+
 }
 
 
+//(function() {
+//    var $section = $('#family_pedigree');
+//    var $panzoom = $section.find('.panzoom').panzoom({
+//        $zoomIn: $section.find(".zoom-in"),
+//        $zoomOut: $section.find(".zoom-out"),
+//        $zoomRange: $section.find(".zoom-range"),
+//        $reset: $section.find(".reset"),
+//        startTransform: 'scale(0.9)',
+//        maxScale: 0.9,
+//        increment: 0.1,
+//        contain: true
+//    }).panzoom('zoom', true);
+//})();
+
+function Zoom(level){
+    var svgdoc = document.getElementById("svgframe");
+    alert( svgdoc.getAttribute('viewBox'))
+    //wscale = parseInt(DIAWIDTH) + level;
+    //hscale = parseInt(SVGH);
+    svgdoc.setAttribute('viewBox', '0 0 1000 ' + 1000);
+    svgdoc.css( 'width', '100%', 'overflow' , 'scroll' );
+
+}
 
 //Build a table of health issues
 function LOAD_HEALTH_TABLE(){
@@ -6192,57 +6319,101 @@ function LOAD_HEALTH_TABLE(){
     var TABLE_DATA_ARRAY = new Array();
     var temp1 = new Array();
     var temp2 = new Array();
+    var MYPRIMARY_DISEASE = new Array();
+    var MYSECONDARY_DISEASE = new Array();
+    var mystatics = new Array();
+    var MYSTART_COD = new Array();
+
     var diss;
 
-    temp1.push(personal_information.name)
-    temp1.push('Self')
+    temp1.push(-1);
+    temp1.push(personal_information.name + '( Self )');
     var cod = ((typeof personal_information.cause_of_death == 'undefined') ? 'Yes' : 'No / ' + personal_information.cause_of_death);
 
+    /*
+     Load first Self Information
+     */
     var myhealth = new Array();
     myhealth = personal_information['Health History'];
 
-    var cols = new Array();
-    cols = LOAD_DATA(cod,diseasearray.length)
+    //var cols = new Array();
+
+    for (var k=0; k<STATICDISEASES.length;k++){
+        MYPRIMARY_DISEASE[k] = "-";
+    }
+
+    for (var k=0; k<diseasearray.length;k++){
+        MYSECONDARY_DISEASE[k] = "-";
+    }
+
+
+    MYSTART_COD = LOAD_DATA(cod,0);
+    mystatics = $.merge( $.merge( [], temp1 ), MYSTART_COD );
+
+    //cols = LOAD_DATA(cod,diseasearray.length)
 
     if(myhealth.length>0) {
         $.each(myhealth, function (key, item) {
             var tmp = item['Disease Name'];
             var details = item['Detailed Disease Name'];
-            if ($.inArray(tmp, diseasearray) != -1) {
-                diss = "";
-                $.each(diseasearray, function(key, item) {
-                    if(tmp == item){
-                        diss = [key,details];
+            if(tmp)tmp = tmp.toLowerCase();
+            if(details)details=details.toLowerCase();
+
+            if(($.inArray(tmp, STATICDISEASES) != -1) || ($.inArray(details, STATICDISEASES) != -1)) {
+                var nr = STATICDISEASES.indexOf(details.toLowerCase());
+                for (var k=0; k<STATICDISEASES.length;k++){
+                    if (k==nr){
+                        if(details==null || typeof details=='undefined')details = tmp;
+                        MYPRIMARY_DISEASE[k] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                        break;
                     }
-                });
-                var disst = diss[1];
-                if(disst==null)disst = tmp;
-                cols[diss[0]+1]= '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + disst + '</div>';
+                }
+            }
+
+            for(var i =0;i<diseasearray.length;i++){
+                var b = diseasearray[i][1];
+                if(b==details){
+                    if (details == null || typeof details == 'undefined')details = tmp;
+                    MYSECONDARY_DISEASE[i] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                    break;
+                }
             }
         });
 
-        TABLE_DATA_ARRAY = $.merge( $.merge( [], temp1 ), cols );
+        TABLE_DATA_ARRAY = $.merge($.merge( $.merge( [], mystatics ), MYPRIMARY_DISEASE ), MYSECONDARY_DISEASE);
 
+        //DISEASESARRAY.push(TABLE_DATA_ARRAY);
+
+        //TABLE_DATA_ARRAY = $.merge( $.merge( [], temp1 ), cols );
 
         //TABLE_DATA_ARRAY.push(cols.toString());
         //temp.push(cols)
     }
-    else {
-        var cols = new Array();
-        cols = LOAD_DATA(cod,diseasearray.length);
-        TABLE_DATA_ARRAY = $.merge( $.merge( [], temp1 ), cols );
-    }
+    //else {
+    //    var cols = new Array();
+    //    var fulllength = parseInt(diseasearray.length) + parseInt(STATICDISEASES.length);
+    //    cols = LOAD_DATA(cod,fulllength);
+    //    TABLE_DATA_ARRAY = $.merge( $.merge( [], temp1 ), cols );
+    //}
     DISEASESARRAY.push(TABLE_DATA_ARRAY);
 
-
-
-
-    //Load remaining family
+    /*
+    Load remaining family
+     */
     var TABLE_DATA_ARRAY = new Array();
+    var que = 0;
 
     $.each(personal_information, function(key, item) {
         var temp1 = new Array();
         var temp2 = new Array();
+        var statics = new Array();
+        var PRIMARY_DISEASE = new Array();
+        var SECONDARY_DISEASE = new Array();
+        var TOTAL_DISEASE = new Array();
+
+
+        //alert ("diseasearray ARRAY Information:" + JSON.stringify(diseasearray, null, 2) );
+
         //var temp = new Array();
         if(item!=null && typeof item != 'undefined') {
             var FAMNAME = item.name;
@@ -6266,51 +6437,80 @@ function LOAD_HEALTH_TABLE(){
 
             if (FAMNAME != null && typeof FAMNAME != 'undefined') {
                 var NAME = FAMNAME;
-                temp1.push(NAME );
-                temp1.push(RELATION);
+                temp1.push(que);
+                var NAMEREL = NAME + '(' + RELATION + ')';
+                temp1.push(NAMEREL);
 
-                var cod = ((typeof item.cause_of_death == 'undefined') ? 'Yes' :  'No / ' + item.cause_of_death);
-                var cols = new Array();
+                var COD = ((typeof item.cause_of_death == 'undefined') ? 'Yes' :  'No / ' + item.cause_of_death);
+                var START_COD = new Array();
+                statics = new Array();
                 var diss;
 
-                cols = LOAD_DATA(cod,diseasearray.length)
+                START_COD = LOAD_DATA(COD,0);
+                statics = $.merge( $.merge( [], temp1 ), START_COD );
 
-                //Is in Disease array
+                for (var k=0; k<STATICDISEASES.length;k++){
+                    PRIMARY_DISEASE[k] = "-";
+                }
+
+                for (var k=0; k<diseasearray.length;k++){
+                    SECONDARY_DISEASE[k] = "-";
+                }
+
                 if (typeof item['Health History'] != 'undefined') {
+                    var temp_stat = new Array();
                     if (item['Health History'].length > 0) {
                         $.each(item['Health History'], function (key, item) {
                             var tmp = item['Disease Name'];
                             var details =  item['Detailed Disease Name'] ;
-                            if ($.inArray(tmp, diseasearray) != -1) {
-                                diss = "";
-                                $.each(diseasearray, function (key, item) {
-                                    if (tmp == item) {
-                                        diss = [key, details];
+
+                            if(tmp)tmp=tmp.toLowerCase();
+                            if(details)details=details.toLowerCase();
+
+
+                            if(($.inArray(tmp, STATICDISEASES) != -1) || ($.inArray(details, STATICDISEASES) != -1)) {
+                                var nr = STATICDISEASES.indexOf(details.toLowerCase());
+                                for (var k=0; k<STATICDISEASES.length;k++){
+                                    if (k==nr){
+                                        if(details==null || typeof details=='undefined')details = tmp;
+                                        PRIMARY_DISEASE[k] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                                        break;
                                     }
-                                });
-                                var disst = diss[1];
-                                if(disst==null) disst = tmp;
-                                cols[diss[0] + 1] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + disst + '</div>';
+                                }
+                            }
+
+
+                            for(var i =0;i<diseasearray.length;i++){
+                                var b = diseasearray[i][1];
+                                if(b==details){
+                                    if (details == null || typeof details == 'undefined')details = tmp;
+                                    SECONDARY_DISEASE[i] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                                    break;
+                                }
                             }
                         });
-                        TABLE_DATA_ARRAY = $.merge( $.merge( [], temp1 ), cols );
-                        //temp.push(cols);
                     }
                     else {
-                        var cols = new Array();
-                        cols = LOAD_DATA(cod, diseasearray.length)
-                        TABLE_DATA_ARRAY = $.merge( $.merge( [], temp1 ), cols );
-                        //temp.push(cols)
+                        var START_COD = new Array();
+
+                        //alert(diseasearray.length)
+                        START_COD = LOAD_DATA(cod, diseasearray.length)
+                        TABLE_DATA_ARRAY = $.merge( $.merge( [], temp1 ), START_COD );
+                        //temp.push(START_COD)
                     }
                 }
                 else {
-                    var cols = new Array();
-                    cols = LOAD_DATA(cod, diseasearray.length)
-                    TABLE_DATA_ARRAY = $.merge( $.merge( [], temp1 ), cols );
-                    //temp.push(cols)
+                    var START_COD = new Array();
+                    START_COD = LOAD_DATA(cod, diseasearray.length)
+                    TABLE_DATA_ARRAY = $.merge( $.merge( [], temp1 ), START_COD );
+                    //temp.push(START_COD)
                 }
+
+                TABLE_DATA_ARRAY = $.merge($.merge( $.merge( [], statics ), PRIMARY_DISEASE ), SECONDARY_DISEASE);
+
                 DISEASESARRAY.push(TABLE_DATA_ARRAY);
             }
+            //que = que + 1;
         }
     });
     /*
@@ -6374,24 +6574,24 @@ function ADOPTED_FAMILY(){
 }
 
 function LOAD_TR(cod,nr){
-    var cols = new Array();
+    var START_COD = new Array();
     for(var i=0;i<nr+1;i++){
-        if(i==0) cols.push('<td>'+ cod + '</td>');
-        else cols.push('<td></td>');
+        if(i==0) START_COD.push('<td>'+ cod + '</td>');
+        else START_COD.push('<td></td>');
 
     }
-    //cols.push('<td>' + cod + '</td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>');
-    return cols;
+    //START_COD.push('<td>' + cod + '</td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>');
+    return START_COD;
 }
 
 function LOAD_DATA(cod,nr){
-    var cols = new Array();
+    var START_COD = new Array();
     for(var i=0;i<nr+1;i++){
-        if(i==0) cols.push(cod.toString());
-        else cols.push(" - ");
+        if(i==0) START_COD.push(cod.toString());
+        else START_COD.push(" - ");
 
     }
-    return cols;
+    return START_COD;
 }
 
 
@@ -6492,6 +6692,7 @@ function createDialog() {
             title: 'Diagram & Table Options',
             close: function (ev, ui) {
                 //ClearDna();
+
                 $(this).empty();
                 $(this).dialog('destroy').remove();
             }
@@ -6599,6 +6800,7 @@ function ResetInfo(){
     ClearNames('show');
     $('#svgframe').show();
     $('#health_table').show();
+
 }
 
 function printCoupon() {

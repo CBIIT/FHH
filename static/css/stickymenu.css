@@ -11,7 +11,7 @@
     height:25px;
     list-style:none;
     margin:6px auto 0px auto;
-    width:600px;
+    width:850px;
 }
 #nav ul li{
     display:inline;
@@ -37,7 +37,7 @@
 }
 #nav a.top span, #nav a.bottom span{
     float:left;
-    width:16px;
+    width:160px;
     height:16px;
 }
 #nav a.top span{
@@ -66,4 +66,17 @@ input.searchbutton{
 }
 input.searchbutton:hover{
     background-color:#D9D9DA;
+}
+.selector select{
+    font-size:25px;
+    font-weight:bold;
+    background-color: darkslategrey;
+    color:white;
+}
+
+.selector option{
+    font-size:25px;
+    font-weight:bold;
+    background-color: darkslategrey;
+    color:white;
 }

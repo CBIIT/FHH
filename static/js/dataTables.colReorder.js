@@ -956,7 +956,16 @@ ColReorder.prototype = {
 			this.dom.pointer.remove();
 			this.dom.drag = null;
 			this.dom.pointer = null;
-
+			//alert(this.s.mouse.fromIndex)
+			if (this.s.mouse.fromIndex < 9) { // 4 means last  column index
+				e.stopPropagation(true);
+				return null;
+			}
+			if (this.s.mouse.toIndex < 9) { // 4 means last  column index
+				e.stopPropagation(true);
+				return null;
+			}
+			else
 			/* Actually do the reorder */
 			this.s.dt.oInstance.fnColReorder( this.s.mouse.fromIndex, this.s.mouse.toIndex );
 			this._fnSetColumnIndexes();
