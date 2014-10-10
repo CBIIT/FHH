@@ -11,7 +11,7 @@ function bind_load_xml() {
 	// Change the name of the Load File here to support internationalization
 	
 	bind_uploader();
-	//bind_load_file();
+	bind_load_file();
 	bind_load_dropbox();
 	bind_load_google_drive();
 	bind_load_health_vault();
@@ -211,6 +211,15 @@ function read_family_history (evt) {
 	build_family_history_data_table();
 	$("#add_another_family_member_button").show();
 }
+
+function loaded (evt) {
+	alert('loaded');
+	var fileString = evt.target.result;	
+	parse_xml(fileString);
+	build_family_history_data_table();
+	$("#add_another_family_member_button").show();
+}
+
 /*
 function make_disease_array () {
 	var keys = Object.keys(diseases);
