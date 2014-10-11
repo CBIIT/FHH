@@ -229,12 +229,38 @@ function add_id(tag, id_text) {
 	tag.appendChild(id_tag);
 }
 
+
 function add_name(tag, personal_name) {
 	if (personal_name == null || personal_name=='undefined') personal_name="";
 	name_tag = doc.createElement("name");
 	name_tag.setAttribute("formatted", personal_name);
 
 	tag.appendChild(name_tag);
+}
+
+function add_relative_estimated_age_tag(relationship_tag, estimated_age) {
+	if (estimated_age == null) return;
+	dataEstimatedAge_tag = doc.createElement("dataEstimatedAge");
+	relationship_tag.appendChild(dataEstimatedAge_tag);
+	var code_tag = doc.createElement("code");
+	code_tag.setAttribute("displayName", "Estimated Age");
+	code_tag.setAttribute("codeSystemName", "LOINC");
+	code_tag.setAttribute("code", "21611-9");
+	dataEstimatedAge_tag.appendChild(code_tag);
+	add_estimated_age_tag(dataEstimatedAge_tag, estimated_age);
+}
+
+function add_relative_age_tag(relationship_tag, age) {
+	if (age == null) return;
+	
+	var d = new Date();
+	var n = d.getFullYear();
+	
+	birthday_tag = doc.createElement("birthTime");
+	birthday_tag.setAttribute("value", (n-parseInt(age)));
+
+	relationship_tag.appendChild(birthday_tag);
+
 }
 
 function add_birthday(tag, birthday) {
@@ -742,7 +768,15 @@ function add_individual_relative(tag, relative_type, code, relative) {
 	); 
 	add_id(relationshipHolder_tag, relative.id);
 	add_name(relationshipHolder_tag, relative.name);
+
+//	if (relative.date_of_birth != null || relative.date_of_birth != "") add_birthday(relationshipHolder_tag, relative.date_of_birth);
+//	else if (relative.estimated_age != null || relative.estimated_age != "") add_relative_estimated_age_tag(relationshipHolder_tag, relative.estimated_age);
+//	else if (relative.age != null || relative.age != "") add_relative_age_tag(relationshipHolder_tag,relative.age);
+
 	add_birthday(relationshipHolder_tag, relative.date_of_birth);
+	add_relative_estimated_age_tag(relationshipHolder_tag, relative.estimated_age);
+	add_relative_age_tag(relationshipHolder_tag,relative.age);
+		 
 	add_death_status(relationshipHolder_tag, relative.cause_of_death);
 
 }

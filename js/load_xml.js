@@ -241,7 +241,9 @@ function parse_xml(data) {
 	personal_information.name = $(data).find("patientPerson > name").attr("formatted");
 	if (personal_information.name == null || personal_information.name.length == 0) personal_information.name = "";
 
-	personal_information.date_of_birth = $(data).find("patientPerson > birthTime").attr("value");
+	var date_of_birth = $(data).find("patientPerson > birthTime").attr("value");
+	personal_information.date_of_birth = date_of_birth;
+		
 	personal_information.gender = $(data).find("patientPerson > administrativeGenderCode").attr("displayName").toUpperCase();
 	consanguity_flag = $(data).find('patientPerson > subjectOf2 > ClinicalObservation > code[originalText="Parental consanguinity indicated"]')
 	if (consanguity_flag && consanguity_flag.length > 0) personal_information.consanguinity = true;
@@ -331,8 +333,23 @@ function parse_xml(data) {
 
 		var gender_code =  $(this).find("administrativeGenderCode").attr("displayName");
 		if (gender_code) relative.gender = gender_code.toUpperCase();
-		relative.date_of_birth = $(this).find("relationshipHolder > birthTime").attr("value");
-
+		
+		
+		var date_of_birth = $(this).find("relationshipHolder > birthTime").attr("value");
+		if (date_of_birth) {			
+			if (date_of_birth.length > 4) {
+				relative.date_of_birth = date_of_birth;
+			} else {
+				var d = new Date();
+				var n = d.getFullYear();
+				
+				var age = n - date_of_birth;
+				relative.age = age;
+			}
+		}
+		var estimated_age =  get_age_at_diagnosis($(this).find("relationshipHolder > dataEstimatedAge"));
+		if (estimated_age) relative.estimated_age = estimated_age;
+		
 		relative.twin_status = 'NO';
 		relative.adopted = 'false';
 		$(this).find("relationshipHolder > subjectOf2 > clinicalObservation > code").each( function() {
@@ -352,16 +369,19 @@ function parse_xml(data) {
 			var cause_of_death_system = death.parent().parent().children("code").attr("codeSystemName");
 			
 //			alert (relative.name + " died around [" + death_age + "] of :[" + cause_of_death+ "]");
-			relative.cause_of_death = get_disease_name_from_detailed_name(detailed_cause_of_death);
-			if (cause_of_death_code) {
-				relative.cause_of_death_code = cause_of_death_code;				
-			} else {
-				relative.cause_of_death_code = get_disease_code_from_detailed_disease(detailed_cause_of_death);
-			}
 			
 			if (cause_of_death_system == 'undefined' || cause_of_death_system == null) relative.cause_of_death_system = 'SNOMED_CT';
 			else if (cause_of_death_system == 'SNOMED COMPLETE') relative.cause_of_death_system = 'SNOMED_CT';
 			else relative.cause_of_death_system = cause_of_death_system;
+
+
+
+			relative.cause_of_death = get_disease_name_from_detailed_name(detailed_cause_of_death);
+			if (cause_of_death_code) {
+				relative.cause_of_death_code = relative.cause_of_death_system + "-" + cause_of_death_code;				
+			} else {
+				relative.cause_of_death_code = get_disease_code_from_detailed_disease(detailed_cause_of_death);
+			}
 			
 			if (relative.detailed_cause_of_death != detailed_cause_of_death) relative.detailed_cause_of_death = detailed_cause_of_death;
 			relative.estimated_death_age = death_age;
@@ -542,7 +562,7 @@ function parse_xml(data) {
 		if (relationship_code == "NIECE") {
 			var i = 0;
 			while (personal_information["niece_" + i] != null) i++;
-			relative.relationship = 'neice';
+			relative.relationship = 'niece';
 			personal_information["niece_" + i] = relative;
 		}
 

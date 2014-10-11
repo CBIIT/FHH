@@ -562,6 +562,10 @@ function add_niece_select(select_dropdown) {
 	select_dropdown.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>");
 	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "sister");
 	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "brother");
+	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "maternal_halfsister");
+	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "maternal_halfbrother");
+	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "paternal_halfsister");
+	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "paternal_halfbrother");
 	
 	select_dropdown.on("change", exact_family_member_relationship_selection_change_action);
 }
@@ -570,6 +574,10 @@ function add_nephew_select(select_dropdown) {
 	select_dropdown.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>");
 	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "sister");
 	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "brother");
+	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "maternal_halfsister");
+	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "maternal_halfbrother");
+	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "paternal_halfsister");
+	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "paternal_halfbrother");
 	
 	select_dropdown.on("change", exact_family_member_relationship_selection_change_action);
 }
@@ -929,10 +937,18 @@ function bind_family_member_submit_button_action () {
 				if (family_member_information['cause_of_death_code']) delete family_member_information['cause_of_death_code'];
 				
 				family_member_information['date_of_birth'] = age_determination_text;
+				if (family_member_information['estimated_age'] != null) delete family_member_information['estimated_age'];
+				if (family_member_information['age'] != null) delete family_member_information['age'];
+				
 			} else if (age_determination_flag == 'age') {
 				family_member_information['age'] = age_determination_text;
+				if (family_member_information['date_of_birth'] != null) delete family_member_information['date_of_birth'];
+				if (family_member_information['estimated_age'] != null) delete family_member_information['estimated_age'];
+
 			}	else if (age_determination_flag == 'estimated_age') {
 				family_member_information['estimated_age'] = estimated_age;
+				if (family_member_information['date_of_birth'] != null) delete family_member_information['date_of_birth'];
+				if (family_member_information['age'] != null) delete family_member_information['age'];
 			}
 		} else if (alive_flag == 'dead') {
 				var cause_of_death_code = $('#detailed_cause_of_death_select').val();
@@ -1299,7 +1315,6 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		update_history.on("click", function(){ 
 //			alert("Updating history for: " + $(this).attr('relationship_id') );
 			//			$( "#addPersonalInformation" ).dialog( "open" );
-
 			family_member = personal_information[$(this).attr('relationship_id')];
 			current_relationship = $(this).attr('relationship_id');
 //			alert(relationship_id + ":" + JSON.stringify(family_member,null,2));
@@ -1550,7 +1565,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select) {
 			var detailed_disease_list = "";
 			if (detailed_disease && detailed_disease.length > 0) {
 				if (detailed_disease.length == 1) {
-					alert ("Exactly one subtype: " + JSON.stringify(detailed_disease));
+//					alert ("Exactly one subtype: " + JSON.stringify(detailed_disease));
 					detailed_disease_select.hide();
 					detailed_disease_select.append("<option value='" + detailed_disease[0].system + "-" + detailed_disease[0].code + "'> " 
 						+ $.t("diseases:" + detailed_disease[0].system + "-" + detailed_disease[0].code) + " </option>");					
@@ -1923,7 +1938,9 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		if (family_member.detailed_cause_of_death) {
 			if (family_member.cause_of_death == 'other') $("#new_disease_name").val(family_member.detailed_cause_of_death);
 			else {
-				var code = family_member.cause_of_death_system + "-" + family_member.cause_of_death_code;
+//				var code = family_member.cause_of_death_system + "-" + family_member.cause_of_death_code;
+				var code = family_member.cause_of_death_code;
+				alert (code);
 				$("#detailed_cause_of_death_select").show().val(code);
 			}
 		}
@@ -1939,7 +1956,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		$("#person_is_not_alive").hide();
 	} else if (family_member.age) {
 		$("#is_person_alive").val('alive');
-		$("#age_determination_select").val('age');
+		$("#age_determination").val('age');
 		$('#age_determination_text').show().val(family_member.age);
 		$('#estimated_age_select').hide();
 		$("#person_is_alive").show();
