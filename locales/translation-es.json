@@ -183,9 +183,10 @@
 		"cancel" : "Cancelar",
 		"save" : "Guardar",
 
-		"export_instructions":"Este es el resultado desde el punto de vista de uno de sus parientes.",
-		"export_instructions2":"Puede exportar Información de miembros familiares inmediatos: hermanos, hermanas, madre, padre, hijos e hijas",
-		"choose_relative":"Elija un pariente:",
+		"export_instructions":"Usted puede hacer su padre, madre, hermanos, hermanas, hijos y ser la persona central de la historia de salud familiar. Esta persona puede entonces agregar parientes de sus familias para crear una nueva historia familiar de salud sin tener que empezar desde el principio.",
+		"export_instructions2":"Su historial de salud familiar no se guarda en este sitio web o cualquier otro sistema. Debe guardar su historial de salud familiar a su propia área de almacenamiento local (como el disco duro de su computadora, un CD-ROM, o disco USB), si usted está ahorrando su propia historia o guardar una copia de un familiar.",
+		"export_instructions3":"Para copiar a otro miembro de la familia, seleccione la persona a copiar y haga clic en 'Exportación'.",
+		"choose_relative":"Elija un pariente",
 		"please_select_relative":"Por favor haga una selección",
 		"export":"Exportación",
 

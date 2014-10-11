@@ -183,9 +183,10 @@
 		"cancel" : "Cancel",
 		"save" : "Save",
 		
-		"export_instructions":"This will output the information from the point of view of one of your relatives.",
-		"export_instructions2":"You can export for your immedaite family members: Brothers, Sisters, Mother, Father, Sons, and Daughters",
-		"choose_relative":"Choose a Relative:",
+		"export_instructions":"You may make your father, mother, brothers, sisters, and children be the center person of the family health history. This person can then add relatives from their families to create a new family health history without having to start from the very beginning.",
+		"export_instructions2":"Your family health history is not saved on this website or any other system. You must save your family health history to your own local storage area (such as your computer's hard drive, a CD-ROM, or USB thumb drive), whether you are saving your own history or saving a copy for a family member.",
+		"export_instructions3":"To copy for another family member, select the person to copy and click 'Export.'",
+		"choose_relative":"Choose a Relative",
 		"please_select_relative":"Please make a selection",
 		"export":"Export",
 		
@@ -341,7 +342,7 @@
 		"load_dropbox_button" : "Load from Dropbox",
 
 		"save_instructions_title" : "Why save your family health history file?",
-		"save_instructions" : "To respect individual privacy concerns, this website does not save your family health history information. However, you can save your family health history to your own local storage area (such as your computer's hard drive, a CD-ROM, or USB thumb drive). In addition, you can save to a third-party system such as Microsoft® HealthVault, Google Drive, and Dropbox (other third party systems will be added in the future). Some hospitals and doctors' offices will be able to obtain this family health history information stored with a third party system, if you grant them permission, and directly incorporate your family health history into an electronic medical record.",
+		"save_instructions" : "To respect individual privacy concerns, this website does not save your family health history information. However, you can save your family health history to your own local storage area (such as your computer's hard drive, a CD-ROM, or USB thumb drive). In addition, you can save to a third-party system such as MicrosoftÂ® HealthVault, Google Drive, and Dropbox (other third party systems will be added in the future). Some hospitals and doctors' offices will be able to obtain this family health history information stored with a third party system, if you grant them permission, and directly incorporate your family health history into an electronic medical record.",
 		"save_to_file" : "Save Your Personal Information to a File",
 		"save_file_instructions1" : "In this step, you can save your family health history to your computer or portable storage device as an XML data file. This data file can be uploaded to this website later to update your family health history.",
 		"save_file_instructions2" : "Press 'Save to Computer' and your browser will put the file in your preferred download location",

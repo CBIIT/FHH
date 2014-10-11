@@ -333,10 +333,11 @@ function make_filename(pi) {
 function give_instructions() {
 	$("#copy_for_family_member").empty().append("<DIV class='instructions'>" + $.t("fhh_js.export_instructions") + "</DIV><br/>");
 	$("#copy_for_family_member").append("<DIV class='instructions'>" + $.t("fhh_js.export_instructions2") + "</DIV><br/>");	
+	$("#copy_for_family_member").append("<DIV class='instructions'>" + $.t("fhh_js.export_instructions3") + "</DIV><br/>");	
 }
 
 function create_family_member_select() {
-	$("#copy_for_family_member").append("<LABEL for='choose_a_relative'>" + $.t("fhh_js.choose_relative") + "</LABEL><br /><br />");
+	$("#copy_for_family_member").append("<LABEL for='choose_a_relative'>" + $.t("fhh_js.choose_relative") + "</LABEL>:&nbsp;&nbsp;");
 	var relative_select = $("<SELECT id='choose_a_relative'></SELECT>");
 	relative_select.append("<OPTION>" + $.t("fhh_js.please_select_relative") + " </OPTION>");
 	$("#copy_for_family_member").append(relative_select);
