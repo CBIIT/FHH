@@ -213,7 +213,7 @@ function start()
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
-		width:600
+		width:800
 	});
 
 	// This page lets you save a history
@@ -233,7 +233,7 @@ function start()
 		position:['middle',0],
 		autoOpen: false,
 		height:'auto',
-		width:600
+		width:800
 	});
 
 	// This is the second page when you are initially creating a personal history, it asks how many of each type of member
