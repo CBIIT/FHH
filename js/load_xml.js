@@ -11,7 +11,7 @@ function bind_load_xml() {
 	// Change the name of the Load File here to support internationalization
 	
 	bind_uploader();
-	bind_load_file();
+	//bind_load_file();
 	bind_load_dropbox();
 	bind_load_google_drive();
 	bind_load_health_vault();
@@ -31,6 +31,8 @@ function bind_load_file() {
 		
 		var fsize = $('#pedigree_file')[0].files[0].size;
 //		alert ("Filename is (" + fsize + "): " + $("#pedigree_file").val());
+		console.dir(fsize);
+		console.dir($('#pedigree_file')[0].files);
 		
 		var reader = new FileReader();
 		reader.readAsText($('#pedigree_file')[0].files[0], "UTF-8");
@@ -53,7 +55,6 @@ function bind_uploader() {
 		url : '../upload/upload.php',
 		flash_swf_url : '../js/Moxie.swf',
 		silverlight_xap_url : '../js/Moxie.xap',
-		
 		filters : {
 			max_file_size : '1mb',
 			mime_types: [
@@ -83,6 +84,26 @@ function bind_uploader() {
 
 			Error: function(up, err) {
 				document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+			},
+
+			UploadComplete: function(up, files) {
+				// Called when all files are either uploaded or failed
+            
+				console.dir(up);
+				console.dir(files);
+				var file = files[0].getNative();
+				console.log("FILE NATIVE");
+				console.dir(files[0].getNative());
+				if(files[0].getNative() == null) {
+					console.log("FILES[0]");
+					console.dir(files[0]);
+					alert('files[0].getNative() is null...  Can not send to reader');
+					load_family_history(files[0]);				
+				} else {
+					load_family_history(files[0].getNative());				
+				}
+
+				$("#load_personal_history_dialog").dialog("close");
 			}
 		}
 	});
@@ -181,12 +202,27 @@ function 	bind_load_health_vault() {
 }
 
 
-function loaded (evt) {
+function load_family_history(loaded_file) {
+	var reader = new FileReader();
+	reader.readAsText(loaded_file, "UTF-8");
+	reader.onload = read_family_history;
+}
+
+function read_family_history (evt) {
 	var fileString = evt.target.result;	
 	parse_xml(fileString);
 	build_family_history_data_table();
 	$("#add_another_family_member_button").show();
 }
+
+function loaded (evt) {
+	var fileString = evt.target.result;	
+	console.dir(evt);
+	parse_xml(fileString);
+	build_family_history_data_table();
+	$("#add_another_family_member_button").show();
+}
+
 /*
 function make_disease_array () {
 	var keys = Object.keys(diseases);
