@@ -281,10 +281,11 @@ table.footerTable {
 .title-bar {
 	text-align:left;
 	font-weight:bold;	
-  color: #666666;
+  color: #000;
   background-color: rgba(244, 169, 167, 1);;
   border-top: 1px solid #003366;
   border-bottom: 1px solid #003366;
+  padding-left:10px;
 }
 
 .risk_calculator {
@@ -292,6 +293,10 @@ table.footerTable {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
+}
+
+.risk_calculator:hover {
+	background-color:#DDF;
 }
 
 .ui-widget-header {

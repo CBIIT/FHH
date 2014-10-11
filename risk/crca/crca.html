@@ -2,9 +2,16 @@
 <link rel="stylesheet" type="text/css" href="../risk/crca/crca.css">
 
 <div id="crca_content">
+	<h1 class='title_bar'> Your Colorectal Cancer Risk Information </h1><br />
 	
-	<P class='crca' >Based on the data you entered for your family history 
-		we can calculate your personal and familty risk factors for Colo-Rectal Cancer</P>
+<P class='instructions'>On this screen you can:</P>
+<UL>
+<LI class='instructions'>Get your risk for colorectal cancer based on your personal and family history information</LI>
+<LI class='instructions'>Learn which risk factors you may have for colorectal cancer</LI>
+<LI class='instructions'>Read and print sharable letters for you and your health care provider explaining your colorectal cancer risk</LI>
+</UL>	
+<P  class='instructions'> Below it will run a series of tests, one at a time, to determine your risk for colorectal cancer.</P>
+<hr />
 	<TABLE id='crca_table'>
 		<TR>
 			<TH>Test</TH><TH>Reason</TH>
@@ -47,36 +54,12 @@
 	<div id='bottom-area'>
 		<div id='explanation_side' style='float:left;width:700px;'>
 			<TABLE id='explanation_low_risk' style='display:none;'><TR>
-				<TD>
-					Your familial risk for colorectal cancer is <b>not elevated</b>. However, no tool for estimating health risks 
-					is perfect. The familial colorectal cancer risk estimate generated for you by the Surgeon General's tool 
-					is based on both the family and personal medical information that you provided. This determination of 
-					risk might over-estimate or under-estimate your colon cancer risk as it does not take into account 
-					risk factors like diet, obesity, or race and ethnicity. This information is not intended to replace 
-					a visit to a health professional. You should discuss this information about your risk for colon cancer 
-					with a health care professional.		
-				</TD>
-				<TD>
-          <button id='crca_personal_lower_risk' onClick='submit_low()'> Get Personal <br />Lower Risk Letter </button>
-          <button id='crca_provider_lower_risk' onClick='submit_low_physician()'> Get Physician <br />Lower Risk Letter </button>
-				</TD>
+				<TD><button id='crca_personal_lower_risk' onClick='submit_low()' style='font-size:18px;font-weight:bold;'> Get <br />Risk&nbsp;Letter </button></TD>
+        <TD><button id='crca_provider_lower_risk' onClick='submit_low_physician()' style='font-size:18px;font-weight:bold;'> Get&nbsp;Risk<br />Provider&nbsp;Letter </button></TD>
 			</TR></TABLE>			
 			<TABLE id='explanation_high_risk' style='display:none;'><TR>
-				<TD>
-					Your familial risk for colorectal cancer is <b>elevated</b>. You may benefit from colon cancer screening tests 
-					at a younger age than usually is recommended. Talk to a health professional soon about your family history, 
-					how it affects your colon cancer risk, and your options for screening and prevention. However, no tool for 
-					estimating health risks is perfect. The familial colorectal cancer risk estimate generated for you by the 
-					Surgeon General's tool is based on both the family and personal medical information that you provided. This 
-					determination of risk might over-estimate or under-estimate your colon cancer risk as it does not take into 
-					account risk factors like diet, obesity, or race and ethnicity. This information is not intended to replace 
-					a visit to a health professional. You should discuss this information about your risk for colon cancer with 
-					a health care professional. 
-				</TD>
-				<TD>
-          <button id='crca_personal_higher_risk' onClick='submit_high()'> Get Personal <br />Elevated Risk Letter </button>
-          <button id='crca_provider_higher_risk' onClick='submit_high_physician()'> Get Physician <br />Elevated Risk Letter </button>
-				</TD>
+				<TD><button id='crca_personal_higher_risk' onClick='submit_high()' style='font-size:18px;font-weight:bold;'> Get&nbsp;Increased<br />Risk&nbsp;Letter </button></TD>
+        <TD><button id='crca_provider_higher_risk' onClick='submit_high_physician()' style='font-size:18px;font-weight:bold;'> Get&nbsp;Increased<br />Risk&nbsp;Provider&nbsp;Letter </button></TD>
 			</TR></TABLE>			
 		</div>
 		<div id='key_side' style='float:right;width:300px;'>
@@ -85,36 +68,41 @@
 					<TD colspan='4'>Table Key:</TD>
 				</TR>
 				<TR>
-					<TD><IMG src='../risk/crca/blue_waiting.png' alt='Waiting' height='40'> </TD><TD>Waiting </TD>
-					<TD><IMG src='../risk/crca/blue_calculating_static.png' alt='Calculating' height='40'> </TD><TD>Calculating the Risk </TD>
-				</TR>
-				<TR>
-					<TD><IMG src='../risk/crca/green_x.png' alt='No History Found' height='40'> </TD><TD colspan='3'>No Personal or Family History with this test</TD>
-				</TR>
-				<TR>
-					<TD><IMG src='../risk/crca/red_check.png' alt='History Found' height='40'> </TD><TD colspan='3'>There was personal or Family History with this test</TD></TR>	
+					<TD><IMG src='../risk/crca/green_x.png' alt='No history found' height='40'> </TD><TD colspan='3'>No personal or family history with this test</TD>
+					<TD><IMG src='../risk/crca/red_check.png' alt='History found' height='40'> </TD><TD colspan='3'>There was personal or family history with this test</TD></TR>	
 				</TR>
 			</TABLE>			
-			
 		</div>
-
+		<div id='bottom_info' style='float:left;width:100%;'>
+      <P class='instructions'>No risk tool is perfect and your actual risk may be higher or lower than this.  If you have questions about your colorectal cancer risk, please speak with a health care provider.</P>
+      <P class='instructions'>This risk tool is based on information from United States Preventive Services Task Force and National Comprehensive Cancer Network®.</P>
+      <P class='instructions'>More information about colorectal cancer risk can be found at: </P>
+			<UL>
+				<LI class='instructions'> National Cancer Institute Colorectal Cancer Information
+					<A href ='http://www.cancer.gov/cancertopics/types/colon-and-rectal' target='_blank'>http://www.cancer.gov/cancertopics/types/colon-and-rectal</A>
+      	</LI>
+				<LI class='instructions'>National Cancer Institute Colorectal Cancer PDQ for Healthcare Professionals:<br />
+					<A href ='http://www.cancer.gov/cancertopics/pdq/genetics/colorectal/HealthProfessional' target='_blank'>http://www.cancer.gov/cancertopics/pdq/genetics/colorectal/HealthProfessional</A>
+      	</LI>
+      </UL>
+		</div>
 </div>
 
 <script type="text/javascript">
 
     function submit_high() {
-        window.open('../risk/crca/Increased_CRCA_Risk.pdf', "_blank", "fullscreen=yes");
+        window.open('../risk/crca/CRC_Increased_Risk_Patient_Letter.pdf', "_blank", "fullscreen=yes");
     }
     function submit_high_physician() {
-        window.open('../risk/crca/Increased_CRCA_Risk_Physician_Letter.pdf', "_blank", "fullscreen=yes");
+        window.open('../risk/crca/CRC_Increased_Risk_Physician_Letter.pdf', "_blank", "fullscreen=yes");
     }
 
     function submit_low() {
-        window.open('../risk/crca/Lower_CRCA_Risk.pdf', "_blank", "fullscreen=yes");
+        window.open('../risk/crca/CRC_Lower_Risk_Patient_Letter.pdf', "_blank", "fullscreen=yes");
     }
 
     function submit_low_physician() {
-        window.open('../risk/crca/Lower_CRCA_Risk_Physician_Letter.pdf', "_blank", "fullscreen=yes");
+        window.open('../risk/crca/CRC_Lower_Risk Physician Letter.pdf', "_blank", "fullscreen=yes");
     }
 
 </script>

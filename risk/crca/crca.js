@@ -14,51 +14,51 @@ function test_past_cancer() {
 	risk_reason = "";
 	for (i=0;i<h.length;i++) {
 		if (h[i]['Detailed Disease Name'] == 'Colon Cancer') {
-				risk_reason += "You have had Colon Cancer in the past.<br />";
+				risk_reason += "You have had colon cancer in the past.<br />";
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer') {
-				risk_reason += "You have had Colorectal Cancer in the past.<br />";
+				risk_reason += "You have had colorectal cancer in the past.<br />";
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
-				risk_reason += "You have had Rectal Cancer in the past.<br />";
+				risk_reason += "You have had rectal cancer in the past.<br />";
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Uterine Cancer') {
-				risk_reason += "You have had Uterine Cancer in the past.<br />";
+				risk_reason += "You have had uterine cancer in the past.<br />";
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Pancreatic Cancer') {
-				risk_reason += "You have had Pancreatic Cancer in the past.<br />";
+				risk_reason += "You have had pancreatic cancer in the past.<br />";
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Ovarian Cancer') {
-				risk_reason += "You have had Ovarian Cancer in the past.<br />";
+				risk_reason += "You have had ovarian cancer in the past.<br />";
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Gastric Cancer') {
-				risk_reason += "You have had Gastric Cancer in the past.<br />";
+				risk_reason += "You have had gastric cancer in the past.<br />";
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Brain Cancer') {
-				risk_reason += "You have had Brain Cancer in the past.<br />";
+				risk_reason += "You have had brain cancer in the past.<br />";
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Liver Cancer') {
-				risk_reason += "You have had Liver Cancer in the past.<br />";
+				risk_reason += "You have had liver cancer in the past.<br />";
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Kidney Cancer') {
-				risk_reason += "You have had Kidney Cancer in the past.<br />";
+				risk_reason += "You have had kidney cancer in the past.<br />";
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Hereditary nonpolyposis colon cancer') {
-				risk_reason += "You have had Colon Cancer in the past.<br />";
+				risk_reason += "You have had colon cancer in the past.<br />";
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Non-hereditary polyposis colon cancer') {
-				risk_reason += "You have had Colon Cancer in the past.<br />";
+				risk_reason += "You have had colon cancer in the past.<br />";
 				risk=true;
 		}
 	}
@@ -68,7 +68,7 @@ function test_past_cancer() {
 	} else {
 		set_icon($("#past_cancers"), 'negative');
 		set_reason($("#past_cancers"), "You have never had any of the following cancer types: " 
-		  + "Colon, Colorectal, Uterine, Pancreatic, Ovarian, Gastric, Brain, Liver, or Kidney Cancer.");
+		  + "colon, colorectal, uterine, pancreatic, ovarian, gastric, brain, liver, or kidney cancer.");
 	}
 
 	final_risk |= risk;
@@ -84,11 +84,11 @@ function test_polyps() {
 	risk_reason = "";
 	for (i=0;i<h.length;i++) {
 		if (h[i]['Detailed Disease Name'] == 'Colon Polyp') {
-				risk_reason += "You have had Colon Polyps in the past.<br />";
+				risk_reason += "You have had colon polyps in the past.<br />";
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Familial adnenomatous polyposis (FAP)') {
-				risk_reason += "You have had Familial adnenomatous polyposis (FAP) in the past.<br />";
+				risk_reason += "You have had familial adnenomatous polyposis (FAP) in the past.<br />";
 				risk=true;
 		}
 	}
@@ -98,7 +98,7 @@ function test_polyps() {
 		set_reason($("#polyps"), risk_reason);
 	} else {
 		set_icon($("#polyps"), 'negative');
-		set_reason($("#polyps"), "You have never had any Polyps.");
+		set_reason($("#polyps"), "You have never had any polyps.");
 	}
 
 	final_risk |= risk;
@@ -114,11 +114,11 @@ function test_inflammatory_bowel_disease() {
 	risk_reason = "";
 	for (i=0;i<h.length;i++) {
 		if (h[i]['Detailed Disease Name'] == "Crohn's Disease") {
-				risk_reason += "You have had Crohn's Disease in the past.<br />";
+				risk_reason += "You have had crohn's disease in the past.<br />";
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Ulcerative Colitis') {
-				risk_reason += "You have had Ulcerative Colitis in the past.<br />";
+				risk_reason += "You have had ulcerative colitis in the past.<br />";
 				risk=true;
 		}
 	}
@@ -128,7 +128,7 @@ function test_inflammatory_bowel_disease() {
 		set_reason($("#inflammatory_bowel_disease"), risk_reason);
 	} else {
 		set_icon($("#inflammatory_bowel_disease"), 'negative');
-		set_reason($("#inflammatory_bowel_disease"), "You have never had Irritable Bowel Syndrome.");
+		set_reason($("#inflammatory_bowel_disease"), "You have never had inflammatory bowel disease (either ulcerative colitis or chohn's disease).");
 	}
 
 	final_risk |= risk;
@@ -148,19 +148,19 @@ function test_any_family_members_fap_hnpcc() {
 				for (i=0;i<h.length;i++) {
 					if (h[i]['Detailed Disease Name'] == 'Hereditary nonpolyposis colon cancer') {
 						name = get_name_or_relationship(this.name, key);
-						risk_reason += name + " has had Hereditary nonpolyposis colon cancer in the past.<br />";
+						risk_reason += name + " has had hereditary nonpolyposis colon cancer in the past.<br />";
 						risk=true;
 						i = h.length; break;  // We do not need to check this person anyore
 					}
 					if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Non-hereditary polyposis colon cancer') {
 						name = get_name_or_relationship(this.name, key);
-						risk_reason += name + " has had Lynch Syndrome/Non-hereditary polyposis colon cancer in the past.<br />";
+						risk_reason += name + " has had lynch syndrome/non-hereditary polyposis colon cancer in the past.<br />";
 						risk=true;
 						i = h.length; break;  // We do not need to check this person anyore
 					}
 					if (h[i]['Detailed Disease Name'] == 'Familial adnenomatous polyposis (FAP)') {
 						name = get_name_or_relationship(this.name, key);
-						risk_reason += name + " has had Familial adnenomatous polyposis (FAP) in the past.<br />";
+						risk_reason += name + " has had familial adnenomatous polyposis (FAP) in the past.<br />";
 						risk=true;
 						i = h.length; break;  // We do not need to check this person anyore
 					}
@@ -175,7 +175,7 @@ function test_any_family_members_fap_hnpcc() {
 	} else {
 		set_icon($("#any_family_members_fap_hnpcc"), 'negative');
 		set_reason($("#any_family_members_fap_hnpcc"), 
-			"None of your family members have had Hereditary nonpolyposis colon cancer, Lynch Syndrome or Familial adnenomatous polyposis (FAP)");
+			"None of your family members have had hereditary nonpolyposis colon cancer, lynch syndrome or familial adnenomatous polyposis (FAP)");
 	}
 	
 	final_risk |= risk;
@@ -198,25 +198,25 @@ function test_immediate_family_members_cancer() {
 					for (i=0;i<h.length;i++) {
 					if (h[i]['Detailed Disease Name'] == 'Colon Cancer') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Colon Cancer in the past.<br />";
+							risk_reason += name + " has had colon cancer in the past.<br />";
 							risk=true;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Colorectal Cancer in the past.<br />";
+							risk_reason += name + " has had colorectal cancer in the past.<br />";
 							risk=true;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Rectal Cancer in the past.<br />";
+							risk_reason += name + " has had rectal cancer in the past.<br />";
 							risk=true;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Gastric Cancer') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Colon Cancer in the past.<br />";
+							risk_reason += name + " has had colon cancer in the past.<br />";
 							risk=true;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
@@ -232,7 +232,7 @@ function test_immediate_family_members_cancer() {
 	} else {
 		set_icon($("#immediate_family_members_cancer"), 'negative');
 		set_reason($("#immediate_family_members_cancer"), 
-			"None of your Immediate relatives (Father, Mother, Brothers, Sisters, Children) have had Colon Cancer.");
+			"None of your immediate relatives (father, mother, brothers, sisters, children) have had colon cancer.");
 	}
 	
 	final_risk |= risk;
@@ -254,7 +254,7 @@ function test_immediate_family_members_polyps() {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Polyp') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Colon Polyps in the past.<br />";
+							risk_reason += name + " has had colon polyps in the past.<br />";
 							risk=true;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
@@ -270,7 +270,7 @@ function test_immediate_family_members_polyps() {
 	} else {
 		set_icon($("#immediate_family_members_polyps"), 'negative');
 		set_reason($("#immediate_family_members_polyps"), 
-			"None of your Immediate Relatives (Father, Mother, Brothers, Sisters, Children) have had Polyps.");
+			"None of your immediate relatives (father, mother, brothers, sisters, children) have had polyps.");
 	}
 	
 
@@ -300,19 +300,19 @@ function test_secondary_family_members_cancer() {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Cancer') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Colon Cancer in the past.<br />";
+							risk_reason += name + " has had colon cancer in the past.<br />";
 							count++;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Colorectal Cancer in the past.<br />";
+							risk_reason += name + " has had colorectal cancer in the past.<br />";
 							count++;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Colorectal Cancer in the past.<br />";
+							risk_reason += name + " has had colorectal cancer in the past.<br />";
 							count++;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
@@ -324,7 +324,7 @@ function test_secondary_family_members_cancer() {
 	if (count == 0) {
 		risk = false;
 		risk_reason = 
-			"None of your Secondary Relatives (Aunts, Uncles, Grandparents, Grandchildren, Halfsiblings) have had Colon or Colorectal Cancer."
+			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) have had colon or colorectal cancer."
 		
 	} else if (count == 1) {
 		risk = false;
@@ -367,19 +367,19 @@ function test_secondary_family_members_colon_cancer_before_60() {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Colon Cancer before the age of 60.<br />";
+							risk_reason += name + " has had colon cancer before the age of 60.<br />";
 							risk=true;
 							i = h.length; break; // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Colorectal Cancer before the age of 60.<br />";
+							risk_reason += name + " has had colorectal cancer before the age of 60.<br />";
 							risk=true;
 							i = h.length; break; // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Rectal Cancer before the age of 60.<br />";
+							risk_reason += name + " has had rectal cancer before the age of 60.<br />";
 							risk=true;
 							i = h.length; break; // We do not need to check this person anyore
 						}
@@ -395,8 +395,8 @@ function test_secondary_family_members_colon_cancer_before_60() {
 	} else {
 		set_icon($("#secondary_family_members_colon_cancer_before_60"), 'negative');
 		set_reason($("#secondary_family_members_colon_cancer_before_60"), 			
-			"None of your Secondary Relatives (Aunts, Uncles, Grandparents, Grandchildren, Halfsiblings) " +
-			"have had Colon or Colorectal Cancer before the age of 60.");
+			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) " +
+			"have had colon or colorectal cancer before the age of 60.");
 	}
 
 	final_risk |= risk;
@@ -423,7 +423,7 @@ function test_secondary_family_members_uterine_cancer_before_50() {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Uterine Cancer' && is_age_before('Under50', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Uterine Cancer before the age of 50.<br />";
+							risk_reason += name + " has had uterine cancer before the age of 50.<br />";
 							risk=true;
 							i = h.length; break; // We do not need to check this person anyore
 						}
@@ -439,9 +439,9 @@ function test_secondary_family_members_uterine_cancer_before_50() {
 	} else {
 		set_icon($("#secondary_family_members_uterine_cancer_before_50"), 'negative');
 		set_reason($("#secondary_family_members_uterine_cancer_before_50"), 			
-			"None of your Primary or Secondary Relatives (Mother, Father, Sisters, Brothers, Sons, Daughters, "
-			+ "Aunts, Uncles, Grandparents, Grandchildren, Halfsiblings) "
-			+ "have had Uterine Cancer before the age of 50.");
+			"None of your primary or secondary relatives (mother, father, sisters, brothers, sons, daughters, "
+			+ "aunts, uncles, grandparents, grandchildren, halfsiblings) "
+			+ "have had uterine cancer before the age of 50.");
 	}
 
 	final_risk |= risk;
@@ -470,7 +470,7 @@ function test_secondary_family_members_uterine_cancer() {
 						for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Uterine Cancer') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had Uterine Cancer in the past.<br />";
+							risk_reason += name + " has had uterine cancer in the past.<br />";
 							count++;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
@@ -482,7 +482,7 @@ function test_secondary_family_members_uterine_cancer() {
 	if (count == 0) {
 		risk = false;
 		risk_reason = 
-			"None of your Secondary Relatives (Aunts, Uncles, Grandparents, Grandchildren, Halfsiblings) have had Uterine Cancer."
+			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) have had uterine cancer."
 		
 	} else if (count == 1) {
 		risk = false;
@@ -512,12 +512,12 @@ function test_final() {
 	if (final_risk) {
 		set_icon($("#final"), 'positive');
 		set_reason($("#final"), 			
-			"You have at least one of the above risks.  Therefore your risk of Colorectal Cancer is Elevated");
+			"You have at least one of the above risk factors.  Based on this your risk of colorectal cancer is increased.");
 		$("#explanation_low_risk").hide();
 		$("#explanation_high_risk").show();
 	} else {
 		set_icon($("#final"), 'negative');
-		set_reason($("#final"), "You have none of the above risks.  Therefore your risk of Colorectal Cancer is Average");
+		set_reason($("#final"), "You have none of the above risks.  Therefore your risk of colorectal cancer is average");
 		$("#explanation_high_risk").hide();
 		$("#explanation_low_risk").show();
 	}
