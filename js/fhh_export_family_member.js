@@ -331,9 +331,14 @@ function make_filename(pi) {
 }
 
 function give_instructions() {
-	$("#copy_for_family_member").empty().append("<DIV class='instructions'>" + $.t("fhh_js.export_instructions") + "</DIV><br/>");
-	$("#copy_for_family_member").append("<DIV class='instructions'>" + $.t("fhh_js.export_instructions2") + "</DIV><br/>");	
-	$("#copy_for_family_member").append("<DIV class='instructions'>" + $.t("fhh_js.export_instructions3") + "</DIV><br/>");	
+	$("#copy_for_family_member").empty().append($("<TABLE>")
+			.append($("<TR>")
+				.append("<TD rowspan='2' style='padding:5px;'><IMG src='../images/export_xml.gif' alt='Export Picture'></IMG></TD>"
+							+ "<TD class='instructions'style='padding:5px;'>" + $.t("fhh_js.export_instructions") + "</TD>"))
+			.append($("<TR>")
+				.append("<TD class='instructions' style='padding:5px;'>" + $.t("fhh_js.export_instructions2") + "</TD>"))
+			.append($("<TR>")
+				.append("<TD class='instructions' style='padding:5px;' colspan='2'>" + $.t("fhh_js.export_instructions3") + "</TD>")));	
 }
 
 function create_family_member_select() {
