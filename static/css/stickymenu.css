@@ -5,6 +5,7 @@
     top:0px;
     left:0px;
     right:0px;
+    z-index: 99999;
     background: darkslategray url(../images/nav.png) repeat-x center left;
 }
 #nav ul{

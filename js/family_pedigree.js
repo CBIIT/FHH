@@ -31,6 +31,7 @@ var SVGWIDTH=0;
 var PARENTWIDTH=0;
 var DIALOGWIDTH=0;
 var originalContents;
+var svg;
 
 var defaultfamilyarray=[
     'maternal_grandfather',
@@ -60,6 +61,11 @@ var STATICDISEASES = [
     'ovarian cancer'
 ];
 
+//IE 8
+//if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
+//    alert(navigator.userAgent)
+//}
+
 function xmlload() {
     /*
     Get Date
@@ -84,18 +90,27 @@ function xmlload() {
     }
     var today =  "Date of Report: " +
         day + ", " + month + " "
-        + currentdate.getDay() + ", "
+        + currentdate.getDate() + ", "
         + currentdate.getFullYear() + " "
         + hours + ":"
         + currentdate.getMinutes() + " "
         + mid;
 
-
+//alert(new Date(0).toString())
 
 
     mdialog = $(
+        '<div id="main">' +
+            '<div id="topsvg"> ' +
+            '<svg id="svgframe">' +
+            '<g id="glass" class="my-class">' +
 
-        '<div id="family_pedigree" class="family_dialog" >' +
+            '</g>' +
+            '</svg>' +
+            '</div>' +
+
+
+        '<div id="family_pedigree" class="">' +
             '<div id="dialogtext" style="position: absolute;top: 20px"></div>' +
 
             '<div id="nav" class="sticky">' +
@@ -104,7 +119,13 @@ function xmlload() {
                     '<li><a class="bottom" href="#bottom">Go To Table</a></li>' +
                     '<li><a id="printer">Print</a></li>' +
                     '<li><a onclick="createDialog()">Diagram Table & Options</a></li>' +
-                    '<li><select class="selector"><option value="100">+100</option><option value="200">+200</option></select></li>' +
+                    '<li>' +
+                        '<select id="zoomer" class="selector" onchange="zoom(this);">'+
+                            '<option value="100">+100</option>' +
+                            '<option value="200">+200</option>' +
+                        '</select>' +
+                    '</li>' +
+
                     '<li>' +
                     '<input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close"' +
                     'type="button"role="button" aria-disabled="false" title="close" value="close" onclick="closedialog()" style="width:50px"></input>' +
@@ -116,39 +137,26 @@ function xmlload() {
 
                 '</ul>' +
             '</div>' +
+
+
             '<div id="top"></div>' +
             '<div class="desc"></div>' +
             '<div id="bottom"></div>' +
             '<div class="scroll"></div>' +
             '<div class="info"></div>' +
-
+            '</div>' +
                 '<div id="family_pedigree_info">' +
                     '<div>' +
                         '<table id="closed_table" ><tr><td></td></tr></table>' +
                         '<table id="health_table" class="display compact">' +
-                        '<caption>Table ' + today + '</caption>' +
+                        '<caption style="font-size:12px;text-align: center">' + today + '</caption>' +
                         '<thead></thead>' +
                         '<tfoot></tfoot>' +
                         '<tbody></tbody>' +
                         '</table>' +
                     '</div>' +
                 '</div>' +
-
         '</div>'
-
-            //'<div id="family_pedigree_info">' +
-            //    '<div>' +
-            //    '<table id="closed_table" ><tr><td></td></tr></table>' +
-            //    '<table id="health_table" class="display compact">' +
-            //    '<caption>Disease Matrix Table</caption>' +
-            //    '<thead></thead>' +
-            //    '<tfoot></tfoot>' +
-            //    '<tbody></tbody>' +
-            //    '</table>' +
-            //    '</div>' +
-            //'</div>'
-
-
     );
 
     $(mdialog).dialog({
@@ -419,29 +427,38 @@ function xmlload() {
     var PaternalCousinArray = new Array();
     var PaternalRelatives = new Array();
     var MaternalRelatives = new Array();
-    //var son1 = new Array();
-    //var levelneg1 = new Array();
-    //var levelneg2 = new Array();
 
-    //Start SVG
+
     mdialog.dialog('open');
-    mdialog.svg();
+    //mdialog.svg();
 
-    //Set SVG frame
-    var svg = mdialog.svg('get');
+    //mdialog.svg('svgframe')
+
+    $('#svgframe').svg();
+    var svg = $('#svgframe').svg('get');
+
+    //var svg = $.svg._getSVG('#svgframe');
+
+
+
     var LINEGROUP = svg.group({stroke: 'black', strokeWidth: 2});
-    var svgw = mdialog.find('svg')[0];
 
-    svgw.setAttribute('id', 'svgframe');
-    svgw.setAttribute('class', 'panzoom');
+    //var LINEGROUP = svg.group({stroke: 'black', strokeWidth: 2});
+    //var svgdiv = document.createElement('div');
+
+
+
+
+
+    var svgw = mdialog.find('#svgframe')[0];
+
+
+    //svgw.setAttribute('class', 'panzoom');
     svgw.setAttribute('height', '80%');
     svgw.setAttribute('valign', 'top');
     svgw.setAttribute('margin-top', '5px');
 
 
-    //svgw.setAttribute('viewBox','-1000 -350 2800 1000');
-    //svgw.setAttribute('viewBox','0 0 1000 1300');
-    //svgw.setAttribute('style','overflow-x:scroll; overflow-y:scroll');
 
     //Outer Frame
     //svg.rect(25, 5, ['95%'], 700, 1, 1, {id: 'diagramframe', fill: 'none', stroke: 'navy', strokeWidth: 1});
@@ -628,6 +645,7 @@ function xmlload() {
             NAMEARRAY.push(t);
         }
         if (key == 'mother') {
+
             var id;
             if (item.id == "" || item.id == null)id = key + rand;
             else id = item.id;
@@ -1630,6 +1648,20 @@ function xmlload() {
         });
     }
 
+    function PARSEDISEASE(id){
+        var ret;
+        var cart = id.substring(0,id.indexOf(':'));
+        var dot = id.substring(id.indexOf(':')+1,id.length);
+        //alert(dot + "-- " +(dot=='null'))
+        if(dot=='null')ret = cart;
+        //else return;
+        alert(ret)
+        return ret;
+
+    }
+
+
+
     function BUILD_DISEASE_LIST(){
         var pos = 850;
         var cr = 25;
@@ -2095,6 +2127,9 @@ function xmlload() {
         var P1 = new Array();
         var DATAARRAY = new Array();
 
+//alert ("GrandChildrenArray ARRAY Information:" + JSON.stringify(GrandChildrenArray, null, 2) );
+
+
         GrandChildrenArray = GrandChildrenArray.sort(SortById);
         var nr = 0;
         var id = "";
@@ -2511,6 +2546,7 @@ function xmlload() {
         var BROTHERS = COUNT_FAMILY_KIDS(BrothersArray);
         var NEPHEWS = COUNT_FAMILY_KIDS(NephewArray);
         var PATERNALHALFS = COUNT_FAMILY_KIDS(PaternalHalfSiblingsArray);
+        if(BROTHERS==0)BROTHERS=1;
 
         //alert ("PATERNALS_LOAD ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
         //alert ("PaternalCousinArray ARRAY Information:" + JSON.stringify(PaternalCousinArray, null, 2) );
@@ -6097,6 +6133,8 @@ function xmlload() {
     }
     var w = svgw.getAttribute('width');
 
+
+
    var offset = $('#svgframe').offset().left;
     var wit = $(window).height();
     var hei = $('#svgframe').height();
@@ -6192,7 +6230,6 @@ function xmlload() {
 
         }
         else {
-
             var svgdoc = document.getElementById("svgframe");
             var FRAMEHEIGHT = svgdoc.getAttribute("height");
             var FRAMEWIDTH = svgdoc.getAttribute("width");
@@ -6203,6 +6240,7 @@ function xmlload() {
             var hscale = parseInt(hei) + 100;
 
             if(FARLEFT<0) {
+
                 var FULLSCALE = parseInt(wscale) + 300;
                 svgdoc.setAttribute("viewBox", FARLEFT + ' 400 ' + FULLSCALE + ' 260');
                 //svgdoc.setAttribute("preserveAspectRatio","none");
@@ -6261,11 +6299,12 @@ function xmlload() {
     Chrome and FF
      */
     else {
-
         if (DIAWIDTH > SVGW) {
-            wscale = parseInt(DIAWIDTH) + 200;
+
+
+            wscale = parseInt(DIAWIDTH) + 100;
             hscale = parseInt(SVGH);
-            svgw.setAttribute('viewBox', +(parseInt(FARLEFT) - 50) + ' 0 ' + wscale + ' ' + 1200);
+            svgw.setAttribute('viewBox', +(parseInt(FARLEFT) - 50) + ' 0 ' + wscale + ' ' + 700);
             var lft = parseInt(absleft) / 2;
             //svgw.setAttribute('transform', 'translate('+ (parseInt(absleft)/2.2) +',10)');
 
@@ -6277,8 +6316,9 @@ function xmlload() {
             hscale = parseInt(hei) + 100;
             svgw.setAttribute('viewBox', '0 0 ' + wscale + ' ' + 1200);
             if(FARLEFT<0) svgw.setAttribute('transform', 'translate('+absleft+',10  )');
-
             $('#svgframe').css("margin-top", '180px');
+
+
         }
     }
 
@@ -6305,7 +6345,7 @@ function Zoom(level){
     alert( svgdoc.getAttribute('viewBox'))
     //wscale = parseInt(DIAWIDTH) + level;
     //hscale = parseInt(SVGH);
-    svgdoc.setAttribute('viewBox', '0 0 1000 ' + 1000);
+    svgdoc.setAttribute('viewBox', '0 0 1000 ' + 1200);
     svgdoc.css( 'width', '100%', 'overflow' , 'scroll' );
 
 }
@@ -6833,10 +6873,85 @@ function endPrintCoupon() {
 }
 
 function closedialog(){
-
     $(mdialog).dialog("close");
+}
+
+function zoom(sel) {
+
+    var selectedValue = sel.options[sel.selectedIndex].value;
+
+    var arr = new Array();
+    var X=0;
+    var Y=0;
+    var width=500;
+    var height=600;
+    var newX=100;
+    var newY=100;
+    var svgdoc = document.getElementById("svgframe");
+    var FRAMEHEIGHT = svgdoc.getAttribute("height");
+    var FRAMEWIDTH = svgdoc.getAttribute("width");
+    var BOX = svgdoc.getAttribute("viewBox");
+    arr = BOX.split(' ');
+    newX = arr[0];
+    newY = arr[1];
+
+    //alert(arr[2] + " --- " + masterRight)
+    if(arr[2]>masterRight) {
+
+        if (selectedValue == '200') {
+            width = parseInt(arr[2]) * 0.95;
+            height = parseInt(arr[3]) * 0.95;
+        }
+        var strech = parseInt(arr[3]) * 1.1;
+
+        X = -50;
+        var REALLONG = parseInt(masterRight) * 1.2;
+
+        var TOTWIDTH = parseInt(width) + parseInt(X);
+        svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
+
+        //$('#family_pedigree_info').css("margin-top", PANEL+'px')
+        $('#svgframe').css("height", 'auto');
+        $('#svgframe').css("width", TOTWIDTH);
+
+        $('#svgframe').css("margin-left", 'auto');
+        $('#svgframe').css("margin-right", 'auto');
+
+        $('#family_pedigree_info').css("margin-top", parseInt(height) + 'px')
+        $('#topsvg').css("overflow", "auto");
+        $('#topsvg').css('width', masterRight)
+    }
+    //else{
+    //    if (selectedValue == '200') {
+    //        width = parseInt(arr[2]) * 1.05;
+    //        height = parseInt(arr[3]) * 1.05;
+    //    }
+    //    svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
+    //}
 
 
+    //$('#svgframe')
+    //    .resizable({
+    //        start: function(e, ui) {
+    //            alert('resizing started');
+    //        },
+    //        resize: function(e, ui) {
+    //
+    //        },
+    //        stop: function(e, ui) {
+    //            alert('resizing stopped');
+    //        }
+    //    });
+
+    //$('#svgframe').bind('drag', function(event){
+    //    var translate = 'translate(' + Math.round(event.offsetX/30)*20 + ', '+ Math.round(event.offsetY/30)*20 + ')';
+    //    g.setAttribute('transform', translate + ' scale(' + scale + ')');
+    //});
+
+    //alert(svgdoc.getAttribute("viewBox"));
 
 }
+
+
+
 
