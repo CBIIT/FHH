@@ -1940,7 +1940,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 			else {
 //				var code = family_member.cause_of_death_system + "-" + family_member.cause_of_death_code;
 				var code = family_member.cause_of_death_code;
-				alert (code);
+//				alert (code);
 				$("#detailed_cause_of_death_select").show().val(code);
 			}
 		}
@@ -2124,10 +2124,10 @@ function clear_and_set_personal_health_history_dialog() {
 		$("#personal_height_centimeters").val("");
 	}
 	$("#personal_weight").val(personal_information.weight);
-	if (personal_information.weight_unit == 'lbs' || personal_information.weight_unit == 'kgs') {
-		$("#personal_weight_unit").val(personal_information.weight_unit);
+	if (personal_information.weight_unit == 'kgs' || personal_information.weight_unit == 'kilogram') {
+		$("#personal_weight_unit").val("kilogram");
 	} else {		
-		$("#personal_weight_unit").val("");
+		$("#personal_weight_unit").val("pound");
 	}
 	
 	$(".disease_detail").each(function () {

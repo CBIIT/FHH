@@ -85,19 +85,22 @@ function bind_uploader() {
 			Error: function(up, err) {
 				document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 			},
+			
+			FileUploaded: function(upldr, file, obj) {
+//				alert (JSON.stringify(file));
+//				load_family_history(file.getNative());
+			},
 
 			UploadComplete: function(up, files) {
+	//			alert (JSON.stringify(files[0]));
 				// Called when all files are either uploaded or failed
-            
 				console.dir(up);
 				console.dir(files);
 				var file = files[0].getNative();
 				console.log("FILE NATIVE");
 				console.dir(files[0].getNative());
 				if(files[0].getNative() == null) {
-					console.log("FILES[0]");
-					console.dir(files[0]);
-					alert('files[0].getNative() is null...  Can not send to reader');
+					alert('files[0].getNative() is null...  Can not send to reader:' + files[0]);
 					load_family_history(files[0]);				
 				} else {
 					load_family_history(files[0].getNative());				
@@ -105,6 +108,7 @@ function bind_uploader() {
 
 				$("#load_personal_history_dialog").dialog("close");
 			}
+
 		}
 	});
 

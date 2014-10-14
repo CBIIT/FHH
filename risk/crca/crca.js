@@ -54,11 +54,11 @@ function test_past_cancer() {
 				risk=true;
 		}
 		if (h[i]['Detailed Disease Name'] == 'Hereditary nonpolyposis colon cancer') {
-				risk_reason += "You have had colon cancer in the past.<br />";
+				risk_reason += "You have had hereditary nonpolyposis colon cancer in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Non-hereditary polyposis colon cancer') {
-				risk_reason += "You have had colon cancer in the past.<br />";
+		if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Hereditary non-polyposis colon cancer') {
+				risk_reason += "You have had lynch syndrome/hereditary non-polyposis colon cancer cancer in the past.<br />";
 				risk=true;
 		}
 	}
@@ -68,7 +68,7 @@ function test_past_cancer() {
 	} else {
 		set_icon($("#past_cancers"), 'negative');
 		set_reason($("#past_cancers"), "You have never had any of the following cancer types: " 
-		  + "colon, colorectal, uterine, pancreatic, ovarian, gastric, brain, liver, or kidney cancer.");
+		  + "colon, colorectal, rectal, lynch syndrome/hereditary non-polyposis colon cancer, uterine, pancreatic, ovarian, gastric, brain, liver, or kidney cancer.");
 	}
 
 	final_risk |= risk;
@@ -152,7 +152,7 @@ function test_any_family_members_fap_hnpcc() {
 						risk=true;
 						i = h.length; break;  // We do not need to check this person anyore
 					}
-					if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Non-hereditary polyposis colon cancer') {
+					if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Hereditary non-polyposis colon cancer') {
 						name = get_name_or_relationship(this.name, key);
 						risk_reason += name + " has had lynch syndrome/non-hereditary polyposis colon cancer in the past.<br />";
 						risk=true;
@@ -216,7 +216,7 @@ function test_immediate_family_members_cancer() {
 						}
 						if (h[i]['Detailed Disease Name'] == 'Gastric Cancer') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had colon cancer in the past.<br />";
+							risk_reason += name + " has had gastric cancer in the past.<br />";
 							risk=true;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
@@ -312,7 +312,7 @@ function test_secondary_family_members_cancer() {
 						}
 						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had colorectal cancer in the past.<br />";
+							risk_reason += name + " has had rectal cancer in the past.<br />";
 							count++;
 							i = h.length; break;  // We do not need to check this person anyore
 						}
@@ -324,7 +324,7 @@ function test_secondary_family_members_cancer() {
 	if (count == 0) {
 		risk = false;
 		risk_reason = 
-			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) have had colon or colorectal cancer."
+			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) have had colon, rectal, or colorectal cancer. (There should be two or more to trigger this test.)"
 		
 	} else if (count == 1) {
 		risk = false;
@@ -396,7 +396,7 @@ function test_secondary_family_members_colon_cancer_before_60() {
 		set_icon($("#secondary_family_members_colon_cancer_before_60"), 'negative');
 		set_reason($("#secondary_family_members_colon_cancer_before_60"), 			
 			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) " +
-			"have had colon or colorectal cancer before the age of 60.");
+			"have had colon, rectal, or colorectal cancer before the age of 60.");
 	}
 
 	final_risk |= risk;
@@ -482,7 +482,7 @@ function test_secondary_family_members_uterine_cancer() {
 	if (count == 0) {
 		risk = false;
 		risk_reason = 
-			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) have had uterine cancer."
+			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) have had uterine cancer. (There should be two or more to trigger this test.)"
 		
 	} else if (count == 1) {
 		risk = false;

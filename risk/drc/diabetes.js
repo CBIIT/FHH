@@ -19,7 +19,10 @@ $(document).ready(function() {
 	var valid = test_for_any_missing_data();
 		
 	// always show this because we added a disclaimer	
-	get_required_info_dialog(valid); 
+	if (!valid.age || !valid.gender || !valid.gestational_diabetes || !valid.height || 
+			!valid.weight || !valid.physically_active || !valid.hypertension) {
+		get_required_info_dialog(valid); 
+	}
 	
 	load_all_data_and_calculate_score();
 	
@@ -91,6 +94,7 @@ function create_have_diabetes_dialog(diabetes_types) {
 	
 	
 	automatic_elevated_diabetes_dialog.dialog({
+		title: "You are at an Elevated Risk for Diabetes",
 		position:['middle',0],
 		height:400,
 		width:600,
@@ -215,8 +219,11 @@ function test_for_necessary_info() {
 function get_required_info_dialog(valid) {
 	$("#extra_info_dialog").show()
 			.append("<P class='instructions'><B>Please check that the information you have added about you and your relatives is complete and correct</B></P>");
-	$("#extra_info_dialog").show()
+	if (!valid.age || !valid.gender || !valid.gestational_diabetes || !valid.height || 
+			!valid.weight || !valid.physically_active || !valid.hypertension) {
+		$("#extra_info_dialog").show()
 			.append("<P class='instructions'>In order to calculate your diabetes risk, we need some additonal information</P>");
+	}
 	var input_table = $("<TABLE>");
 	$("#extra_info_dialog").append(input_table);
 	

@@ -275,7 +275,7 @@
 		"male":"Male",
 		"female":"Female",
 		"alive":"Is this person still alive:",
-		"dob":"Date of Birth:",
+		"dob":"Date of Birth",
 		"twin_status" : "Were you born a twin?",
 		"family_twin_status" : "Was this person born a twin?",
 		"adopted" : "Were you adopted?",

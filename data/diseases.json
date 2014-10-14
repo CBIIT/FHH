@@ -10,13 +10,13 @@
 		{"name":"Hereditary nonpolyposis colon cancer","abbr":"HnpcC","code":"315058005","system":"SNOMED_CT"},
 		{"name":"Kidney Cancer","abbr":"KiC","code":"363518003","system":"SNOMED_CT"},
 		{"name":"Leukemia","abbr":"Leu","code":"93143009","system":"SNOMED_CT"},
-		{"name":"Liver cancer","abbr":"LiC","code":"93870000","system":"SNOMED_CT"},
+		{"name":"Liver Cancer","abbr":"LiC","code":"93870000","system":"SNOMED_CT"},
 		{"name":"Lung Cancer","abbr":"LuC","code":"363358000","system":"SNOMED_CT"},
 		{"name":"Lynch Syndrome/Hereditary non-polyposis colon cancer","abbr":"LS","code":"28412004","system":"SNOMED_CT"},
 		{"name":"Muscle Cancer","abbr":"MuC","code":"363495004","system":"SNOMED_CT"},
 		{"name":"Other Cancer","abbr":"OtC","code":"OTCANCER","system":"SNOMED_CT"},
 		{"name":"Ovarian Cancer","abbr":"OvC","code":"363443007","system":"SNOMED_CT"},
-		{"name":"Pancreatic cancer","abbr":"PnC","code":"363418001","system":"SNOMED_CT"},
+		{"name":"Pancreatic Cancer","abbr":"PnC","code":"363418001","system":"SNOMED_CT"},
 		{"name":"Prostate Cancer","abbr":"PrC","code":"399068003","system":"SNOMED_CT"},
 		{"name":"Rectal Cancer","abbr":"ReC","code":"254582000","system":"SNOMED_CT"},
 		{"name":"Skin Cancer","abbr":"SkC","code":"372130007","system":"SNOMED_CT"},
@@ -30,7 +30,7 @@
 		{"name":"Pulmonary Embolism","abbr":"PuE","code":"59282003","system":"SNOMED_CT"},
 		{"name":"Unknown Clotting Disorder","abbr":"UCD","code":"UNCLODIS","system":"SNOMED_CT"}
 	],
-	"Dementia/Alzheimer's": [
+	"Dementia/Alzheimers": [
 		{"name":"Dementia/Alzheimer's","abbr":"Alz","code":"26929004","system":"SNOMED_CT"}
 	],
 	"Diabetes": [
@@ -39,7 +39,7 @@
 		{"name":"Impaired Fasting Glucose","abbr":"IFG","code":"82141001","system":"SNOMED_CT"},
 		{"name":"Impaired Glucose Tolerance","abbr":"IGT","code":"9414007","system":"SNOMED_CT"},
 		{"name":"Insulin Resistance","abbr":"INR","code":"32284009","system":"SNOMED_CT"},
-		{"name":"Maturity Onset Diabetes mellitus in Young (MODY)","abbr":"MODY","code":"472972006","system":"SNOMED_CT"},
+		{"name":"Maturity Onset Diabetesmellitus in Young (MODY)","abbr":"MODY","code":"472972006","system":"SNOMED_CT"},
 		{"name":"Pre-Diabetes","abbr":"PreD","code":"PREDIABE","system":"SNOMED_CT"},
 		{"name":"Type 1 Diabetes","abbr":"DIA1","code":"46635009","system":"SNOMED_CT"},
 		{"name":"Type 2 Diabetes","abbr":"DIA2","code":"44054006","system":"SNOMED_CT"},
@@ -119,8 +119,5 @@
 	"Unknown Disease": [
 		{"name":"Unknown Disease","abbr":"HD","code":"00000001","system":"FHH"}
 
-	],
-	"Other Disease": [
-		{"name":"Other Disease","abbr":"HD","code":"00000002","system":"FHH"}
 	]
 }
