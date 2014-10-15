@@ -28,7 +28,6 @@ var output_string;
 				Downloadify.create('downloadify',{
 					filename: function(){
 						filename = get_filename(personal_information)
-						alert("Checking Filename: " + filename);
 						return filename;
 					},
 					data: function(){ 
@@ -38,9 +37,9 @@ var output_string;
 					onCancel: function(){ alert('You have cancelled the saving of this file.'); },
 					onError: function(){ alert('You must put something in the File Contents or there will be nothing to save!'); },
 					swf: '../downloadify/media/downloadify.swf',
-					downloadImage: '../downloadify/images/download.png',
-					width: 100,
-					height: 30,
+					downloadImage: '../downloadify/images/download2.png',
+					width: 105,
+					height: 32,
 					transparent: true,
 					append: false
 				});
@@ -77,6 +76,13 @@ function get_xml_string() {
 
 
 function bind_save_download() {
+	var a = document.createElement('a');
+	if (typeof a.download != "undefined") {
+		$("#downloadify").hide();
+	} else {
+		$("#download_xml").hide();
+	}
+	
 	$("#download_xml").on("click", function () {
 		output_string = get_xml_string();
 		filename = get_filename(personal_information);
