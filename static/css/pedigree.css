@@ -278,6 +278,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
 #topsvg{
     overflow-x:scroll;
     width:'100%';
+    margin-top:200px;
 }
 
 .tablebutton{
@@ -289,15 +290,15 @@ i#options .ui-button.ui-state-active .ui-button-text {
     cursor:pointer;
 }
 
-#svgframe {
+/*#svgframe {*/
     /*display: block;*/
     /*position: relative;*/
     /*width: 1000;*/
-    width: 100%;
-    padding-bottom: 1px;
-    margin-bottom: 100px;
-    margin-top: 125px;
-    vertical-align: top;
+    /*width: 100%;*/
+    /*padding-bottom: 1px;*/
+    /*margin-bottom: 100px;*/
+    /*margin-top: 25px;*/
+    /*vertical-align: top;*/
     /*padding-left: 10%;*/
     /*overflow: hidden;*/
     /*left:0;*/
@@ -326,7 +327,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
     /*left: -10%;*/
     /*top: 10%;*/
 
-}
+/*}*/
 
 
 
@@ -341,9 +342,9 @@ i#options .ui-button.ui-state-active .ui-button-text {
 }
 
 div.toolbar{
-    height: 60px;
-    width: 250px;
-    bottom:10px;
+    height: 80px;
+    width: 350px;
+    bottom:20px;
 }
 
 #lightbox {
@@ -482,12 +483,12 @@ div.toolbar{
     font: bold 15px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     text-align: left;
 }
-/*div#svgframe {*/
-    /*height: 400px;*/
-    /*width: 400px;*/
-    /*border:2px solid #000;*/s
-    /*overflow: scroll;*/
-/*}*/
+div#svgframe {
+    height: 400px;
+    width: 400px;
+
+    overflow: scroll;
+}
 /*svg#sky {*/
     /*height: 100px;*/
     /*width: 1100px;*/
@@ -625,7 +626,16 @@ svg#svgframe {
     height: 500px;
     width: 100%;
     border:1px dotted #ccc;
-    background-color: white;
+    /*background-color: white;*/
+}
+
+svg#svgcloneframe {
+    height: 0px;
+    width: 100%;
+    border:1px dotted #ccc;
+    background-color: lightcyan;
+
+    visibility: hidden;
 }
 /*$('.logo-square').css({*/
 /*'-webkit-transform': 'scale(0.6)',*/
