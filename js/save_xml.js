@@ -23,6 +23,29 @@ var doc;
 var filename;
 var output_string;
 
+//  For downliadify to support Safari and IE downloading
+			function load_downloadify(){
+				Downloadify.create('downloadify',{
+					filename: function(){
+						filename = get_filename(personal_information)
+						alert("Checking Filename: " + filename);
+						return filename;
+					},
+					data: function(){ 
+						return get_xml_string();
+					},
+					onComplete: function(){ alert('Your File Has Been Saved!'); },
+					onCancel: function(){ alert('You have cancelled the saving of this file.'); },
+					onError: function(){ alert('You must put something in the File Contents or there will be nothing to save!'); },
+					swf: '../downloadify/media/downloadify.swf',
+					downloadImage: '../downloadify/images/download.png',
+					width: 100,
+					height: 30,
+					transparent: true,
+					append: false
+				});
+			}
+
 
 function bind_save_xml() {
 	doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
