@@ -817,7 +817,7 @@ function check_name_exists(name) {
 function check_date_of_birth_in_correct_format (date_of_birth) {
 	if (date_of_birth == null || date_of_birth.length == 0) return false;	
 
- 	re = /^\d{1,2}\/\d{1,2}\/\d{4}$/; 
+ 	re = /^\d{2}\/\d{2}\/\d{4}$/; 
  	if(!date_of_birth.match(re)) { 
  		return false; 
  	}	

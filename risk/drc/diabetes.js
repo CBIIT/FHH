@@ -360,15 +360,32 @@ function apply_required_additional_data_entry_button () {
 }
 
 function load_age() {
-	var currentYear = (new Date).getFullYear();
+	var date = new Date;
+	
+	var currentYear = date.getFullYear();
+	var currentMonth = date.getMonth()+1;
+	var currentDay = date.getDate();
+	
+	var birthYear = personal_information.date_of_birth.substr(6,4);
+	var birthMonth = personal_information.date_of_birth.substr(0,2);
+	var birthDay = personal_information.date_of_birth.substr(3,2);
+
 	var yob;
-	if (personal_information.date_of_birth) yob = personal_information.date_of_birth.substr(6,10);
+	if (personal_information.date_of_birth) yob = personal_information.date_of_birth.substr(6,4);
 	else yob = currentYear;
 	var age =  parseInt(currentYear) - parseInt(yob);
 	
+	
+	
+	if (currentMonth < birthMonth) age--;
+	else if (currentMonth == birthMonth && currentDay < birthDay) age--;
+	
+
+	// This may be off if the day of the year is in the future
+	
 	if (age <= 40) set_age(0);
-	else if (age >= 40 && age <= 50) set_age(1);
-	else if(age >= 50 && age <= 60) set_age(2)
+	else if (age >= 40 && age < 50) set_age(1);
+	else if(age >= 50 && age < 60) set_age(2)
 	else if(age >= 60) set_age(3)
 	else set_age(0)
 }
