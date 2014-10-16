@@ -9,7 +9,6 @@ var SNOMED_CT_CODES = {
 
 function bind_load_xml() {
 	// Change the name of the Load File here to support internationalization
-	
 	bind_uploader();
 	//bind_load_file();
 	bind_load_dropbox();
@@ -89,24 +88,47 @@ function bind_uploader() {
 			FileUploaded: function(upldr, file, obj) {
 //				alert (JSON.stringify(file));
 //				load_family_history(file.getNative());
+				if(file.getNative() !== null) {
+					load_family_history(file.getNative());				
+				} else {
+					alert("about to get "+file.name);
+/*
+					$.get( "/tmp/plupload/" + file.name, function(data, status){
+      					alert("Data: " + data + "\nStatus: " + status);
+      					load_raw_string(data);
+    				});
+    				$.ajax("/tmp/plupload/" + file.name,){
+
+    				}
+
+*/
+					 $.ajax({url:"/tmp/plupload/"+file.name, success:function(result){
+					    alert(result);
+      					load_raw_string(data);
+					  }});
+
+/*
+	                $.get( "/tmp/plupload/" + file.name , function( data, status) {
+	                	alert(status);
+	                    if ( status == "error" ) {
+	                        var msg = "Sorry but there was an error: ";
+	                        $( "#filelist" ).html( msg + xhr.status + " " + xhr.statusText );
+	                        //alert(status);
+	                        alert(xhr.statusText);
+	                    }
+*/	                    
+                    	
+					// load_family_history(response);				
+				
+				}
+
+				$("#load_personal_history_dialog").dialog("close");			
 			},
 
 			UploadComplete: function(up, files) {
 	//			alert (JSON.stringify(files[0]));
 				// Called when all files are either uploaded or failed
-				console.dir(up);
-				console.dir(files);
-				var file = files[0].getNative();
-				console.log("FILE NATIVE");
-				console.dir(files[0].getNative());
-				if(files[0].getNative() == null) {
-					alert('files[0].getNative() is null...  Can not send to reader:' + files[0]);
-					load_family_history(files[0]);				
-				} else {
-					load_family_history(files[0].getNative());				
-				}
 
-				$("#load_personal_history_dialog").dialog("close");
 			}
 
 		}
@@ -217,6 +239,12 @@ function read_family_history (evt) {
 	parse_xml(fileString);
 	build_family_history_data_table();
 	$("#add_another_family_member_button").show();
+}
+function load_raw_string(str) {
+	parse_xml(fileString);
+	build_family_history_data_table();
+	$("#add_another_family_member_button").show();
+
 }
 
 function loaded (evt) {

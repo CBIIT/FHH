@@ -39,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 // Settings
 $targetDir = ini_get("upload_tmp_dir") . DIRECTORY_SEPARATOR . "plupload";
+$targetDir = "C:\\a\\htdocs\\tmp\\plupload";
+
 //$targetDir = 'uploads';
 $cleanupTargetDir = true; // Remove old files
 $maxFileAge = 5 * 3600; // Temp file age in seconds
