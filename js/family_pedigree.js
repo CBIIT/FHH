@@ -105,70 +105,63 @@ function xmlload() {
 
 
     mdialog = $(
-        '<div id="main">' +
+        '<div id="family_pedigree">' +
             '<div id="topsvg"> ' +
+        //'<svg id="svgframe" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
                 '<svg id="svgframe">' +
-                    '<g id="glass" class="my-class">' +
-                    '</g>' +
+                    //'<g id="glass" class="">' +
+                    //'</g>' +
                 '</svg>' +
-                //'<svg id="svgcloneframe">' +
-                //'<g id="glass" class="my-class">' +
-                //'</g>' +
-                //'</svg>' +
             '</div>' +
 
-        '<div id="family_pedigree" class="">' +
+        '<div id="main" class="">' +
+
             '<div id="dialogtext" style="position: absolute;top: 20px"></div>' +
 
-            '<div id="nav" class="sticky">' +
-                '<ul>' +
-                    '<li><a class="top" href="#top">Go To Diagram</a></li>' +
-                    '<li><a class="bottom" href="#bottom">Go To Table</a></li>' +
-                    '<li><a id="printer">Print</a></li>' +
-                    '<li><a onclick="createDialog()">Diagram Table & Options</a></li>' +
-                    '<li>' +
-                        '<select id="zoomer" class="selector" onchange="TheZoom(this);">'+
-                            '<option id="the1" value="100">+100</option>' +
-                            '<option id="the2" value="200">+200</option>' +
-                        '</select>' +
-                    '</li>' +
+                    '<div id="nav" class="sticky">' +
+                        '<ul>' +
+                            '<li><a class="top" href="#top">Go To Diagram</a></li>' +
+                            '<li><a class="bottom" href="#bottom">Go To Table</a></li>' +
+                            '<li><a id="printer">Print</a></li>' +
+                            '<li><a href="#top" onclick="createDialog()">Diagram & Table Options</a></li>' +
+                            '<li>' +
+                                '<select id="zoomer" class="selector" onchange="TheZoom(this);">'+
+                                    '<option id="the1" value="100">+100</option>' +
+                                    '<option id="the2" value="200">+200</option>' +
+                                '</select>' +
+                            '</li>' +
 
-                    '<li>' +
-                    '<input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close"' +
-                    'type="button"role="button" aria-disabled="false" title="close" value="close" onclick="closedialog()" style="width:50px"></input>' +
-                    '</li>' +
-                    //'<li><a><select><option value="100">+100</option><option value="200">+200</option></select></a></li>' +
-
-                    //'<li><a class="TheZoom-in" onclick="TheZoom(200)">+200</a></li>' +
-                    //'<li><a class="TheZoom-out">TheZoom Out</a></li>' +
-
-                '</ul>' +
-            '</div>' +
+                            '<li>' +
+                            '<input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close"' +
+                            'type="button"role="button" aria-disabled="false" title="close" value="close" onclick="closedialog()" style="right:50px;width:50px"></input>' +
+                            '</li>' +
+                        '</ul>' +
+                    '</div>' +
 
 
-            '<div id="top"></div>' +
-            //'<div class="desc"></div>' +
-            '<div id="bottom"></div>' +
-            //'<div class="scroll"></div>' +
-            '<div class="info"></div>' +
+                '<div id="top"></div>' +
+                //'<div class="desc"></div>' +
+                '<div id="bottom"></div>' +
+                //'<div class="scroll"></div>' +
+                '<div class="info"></div>' +
             '</div>' +
                 '<div id="family_pedigree_info">' +
                     '<div>' +
                         '<table id="closed_table" ><tr><td></td></tr></table>' +
                         '<table id="health_table" class="display compact">' +
-                        '<caption style="font-size:12px;text-align: center">' + today + '</caption>' +
-                        '<thead></thead>' +
-                        '<tfoot></tfoot>' +
-                        '<tbody></tbody>' +
+                            '<caption style="font-size:12px;text-align: center">' + today + '</caption>' +
+                            '<thead></thead>' +
+                            '<tfoot></tfoot>' +
+                            '<tbody></tbody>' +
                         '</table>' +
                     '</div>' +
                 '</div>' +
-        '</div>'
+            '</div>'
     );
 
     $(mdialog).dialog({
         autoOpen: false,
-        position: ['top', '80px'],
+        position: ['top', '30px'],
         title: 'Family Pedigree Chart',
         minHeight:450,
         height:'auto',
@@ -234,6 +227,7 @@ function xmlload() {
             var details =  item['Detailed Disease Name'] ;
             if(dn)dn = dn.toLowerCase();
             if(details)details = details.toLowerCase();
+            if(details=='diseases:null') details = "";
 
             if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
                 if (diseasearray.length == 0) diseasearray.push([dn,details])
@@ -251,6 +245,7 @@ function xmlload() {
                     var details =  data['Detailed Disease Name'];
                     if(dn)dn = dn.toLowerCase();
                     if(details)details = details.toLowerCase();
+                    if(details=='diseases:null') details = "";
 
                     if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
                         if (diseasearray.length == 0) diseasearray.push([dn,details])
@@ -437,9 +432,6 @@ function xmlload() {
 
 
     mdialog.dialog('open');
-    //mdialog.svg();
-
-    //mdialog.svg('svgframe')
     /*
     Start SVG
      */
@@ -447,8 +439,8 @@ function xmlload() {
     svg = $('#svgframe').svg('get');
 
     $('#svgframe')
-        .draggable()
-        .resizable();
+        .draggable();
+        //.resizable();
 
 
     var LINEGROUP = svg.group({stroke: 'black', strokeWidth: 2});
@@ -465,9 +457,6 @@ function xmlload() {
     svg.text(masterleft - 120, 30, "Paternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
     svg.text(masterleft + 120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray' });
 
-    //svg.rect(20, 10, 360, 50, 10, 10, {id: 'options', class: 'tablebutton', fill: 'darkslategray', stroke: 'white', strokeWidth: 1, onclick:'createDialog()', cursor:'pointer'});
-    //svg.text(50, 40, "Diagram Table & Options", {class: 'tablebutton', fontWeight: 'bold', fontSize: '18.5', fill: 'white', onclick:'createDialog()', cursor:'pointer'});
-
     $('#optionsPanel').attr('width', '800px');
 
     svg.line(LINEGROUP, masterleft - 100, 220, masterleft + 120, 220, {id: 'mel', stroke: 'black', strokeWidth: 3});
@@ -476,9 +465,6 @@ function xmlload() {
     svg.line(LINEGROUP, masterleft - 140, 220, masterleft + 180, 220, {id: 'grmei1', stroke: 'black', strokeWidth: 3});
     svg.line(LINEGROUP, masterleft - 140, 200, masterleft - 140, 70, {id: 'grmei2', stroke: 'black', strokeWidth: 3});
     svg.line(LINEGROUP, masterleft + 180, 200, masterleft + 180, 70, {id: 'grmei3', stroke: 'black', strokeWidth: 3});
-
-
-    //alert ("personal_information ARRAY Information:" + JSON.stringify(personal_information, null, 2) );
 
     //Gender
     if (personal_information.gender == 'MALE') {
@@ -1147,10 +1133,10 @@ function xmlload() {
     MATERNAL_COUSINS_LOAD();
 
     //Ensure the table is belw
-    var SVG = document.getElementById('svgframe');
-    var parent = SVG.parentNode;
-    var TBL = parent.firstChild;
-    parent.insertBefore(SVG, TBL);
+    //var SVG = document.getElementById('svgframe');
+    //var parent = SVG.parentNode;
+    //var TBL = parent.firstChild;
+    //parent.insertBefore(SVG, TBL);
 
     /*
     Tables and other information tools
@@ -1163,7 +1149,11 @@ function xmlload() {
 
     ADOPTED_FAMILY();
 
+
     $( "#printer" ).click(function() {
+
+
+        $('#svgframe').draggable('disable');
 
         $('.sticky').hide();
         //$('#health_table').hide();
@@ -1176,14 +1166,14 @@ function xmlload() {
         var w = $('#svgframe').attr('width');
         var h = $('#svgframe').attr('height');
 
-        var printContent = document.getElementById('svgframe');
+        //var printContent = document.getElementById('svgframe');
 
         var windowUrl = 'about:blank';
         var uniqueName = new Date();
         var windowName = 'Print' + uniqueName.getTime();
 
         if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
-
+            $('#dialogtext').hide();
             var DocumentContainer = $(mdialog);
             var WindowObject = window.open('', "Print", "width=800,height=700,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no");
             WindowObject.document.writeln('<!DOCTYPE html>'
@@ -1200,14 +1190,15 @@ function xmlload() {
                 if( WindowObject.closed) {
                     clearInterval(timer);
                     $('.sticky').show();
+                    $('#dialogtext').show();
+                    $('#svgframe').draggable('enable');
                     //$('#health_table').show();
                 }
             }, 1000);
         }
         else {
             originalContents = document.body.innerHTML;
-
-
+            $('#dialogtext').hide();
             var myWindow=window.open('','Print','width=800,height=700,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no');
 
             var container = $(mdialog);
@@ -1223,20 +1214,236 @@ function xmlload() {
 
 
             var timer = setInterval(function() {
-                        if( myWindow.closed) {
-                            clearInterval(timer);
-                            $('.sticky').show();
-                            //$('#health_table').show();
-                        }
-                    }, 1000);
+                if( myWindow.closed) {
+                    clearInterval(timer);
+                    $('.sticky').show();
+                    $('#dialogtext').show();
+                    $('#svgframe').draggable('enable');
+                    //$('#health_table').show();
+                }
+            }, 1000);
 
 
 
 
         }
-
-
     });
+
+
+
+
+
+
+
+//        $( "#printer2" ).click(function() {
+//
+//
+//
+//        $('.sticky').hide();
+//        //$('#health_table').hide();
+//
+//
+////alert("start")
+////        printDiv('svgframe');
+//
+//
+//
+//        var container = $(mdialog);
+//        var tableelement = $( "table" );
+//        var TABLE = $( container ).find( tableelement );
+//
+//
+//        var svgelement = $( "#topsvg" );
+//        //var SVG = $( container ).find( svgelement );
+//
+//        var PIC = $( container ).find("svg"  );
+//
+//        var svgDoc = PIC.contentDocument;
+//
+//        var w = $('#svgframe').attr('width');
+//        var h = $('#svgframe').attr('height');
+//
+//        var printContent = document.getElementById('svgframe');
+//
+//        var windowUrl = 'about:blank';
+//        var uniqueName = new Date();
+//        var windowName = 'Print' + uniqueName.getTime();
+//
+//
+//
+//
+//        //alert("FAT ARRAY Information:" + JSON.stringify(FAT, null, 2) );
+//
+//
+//        if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
+//
+//            var DocumentContainer = $(mdialog);
+//            var WindowObject = window.open('', "Print", "width=800,height=700,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no");
+//            WindowObject.document.writeln('<!DOCTYPE html>'
+//            + '<html><head><title>Disease Matrix</title>'
+//            +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
+//            + $(DocumentContainer).html()
+//            + '</head><body>');
+//            WindowObject.document.close();
+//            WindowObject.focus();
+//            WindowObject.print();
+//            WindowObject.close();
+//
+//            var timer = setInterval(function() {
+//                if( WindowObject.closed) {
+//                    clearInterval(timer);
+//                    $('.sticky').show();
+//                    //$('#health_table').show();
+//                }
+//            }, 1000);
+//        }
+//        else {
+//            $('#topsvg').attr('overflow','none');
+//            $('#dialogtext').hide();
+//
+//            var DocumentContainer = $(mdialog);
+//            var WindowObject = window.open('', "Print", "width=800,height=700,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+//            WindowObject.document.writeln('<!DOCTYPE html>'
+//            + '<html><head><title>Disease Matrix</title>'
+//            +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
+//            + $(DocumentContainer).html()
+//            + '</head><body>');
+//            WindowObject.document.close();
+//            WindowObject.focus();
+//            WindowObject.print();
+//            WindowObject.close();
+//
+//            var timer = setInterval(function() {
+//                if( WindowObject.closed) {
+//                    clearInterval(timer);
+//                    $('.sticky').show();
+//                    $('#dialogtext').show();
+//                    //$('#health_table').show();
+//                }
+//            }, 1000);
+//
+//
+//
+//            //originalContents = document.body.innerHTML;
+//            //
+//            //var popUpAndPrint = function()
+//            //{
+//            //
+//            //var container = $('#topsvg');
+//            //var w = $('#svgframe').attr('width');
+//            //var h = $('#svgframe').attr('height');
+//            //
+//            ////var width = parseFloat(WorldSVG.getAttribute("width"))
+//            ////var height = parseFloat(WorldSVG.getAttribute("height"))
+//            //var printWindow = window.open('', 'PrintMap',
+//            //    'width=' + w + ',height=1000px');
+//            //printWindow.document.writeln($(container).html());
+//            //printWindow.document.close();
+//            //printWindow.print();
+//            //printWindow.close();
+//            //};
+//            //setTimeout(popUpAndPrint, 500);
+//
+//            //pageNode.html(docNode);
+//
+//            //var FAT = container.find('#svgframe')[0];
+//            //var docNode = document.adoptNode(FAT);
+//            //var pageNode = $("#topsvg");
+//            //pageNode.html(docNode);
+//            //
+//            //
+//            //var printContent = document.getElementById('svgframe');
+//            //
+//            //
+//            ////var svgelement = $( "#topsvg" );
+//            ////var DIT = svgelement.getContext('svgframe')
+//            //
+//            //
+//            //var myWindow=window.open('','Print','width=800,height=700,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no');
+//            //
+//            //var container = $(mdialog);
+//            //myWindow.document.write(
+//            //    '<!DOCTYPE html>'
+//            //+ '<html><head><title>Disease Matrix</title>'
+//            //+  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
+//            //+ '--> ' + pageNode.html()
+//            //+ '</head><body>');
+//
+//
+//
+//            //myWindow.focus();
+//            //myWindow.print();
+//            //myWindow.close();
+//
+//
+//            //var timer = setInterval(function() {
+//            //            if( myWindow.closed) {
+//            //                clearInterval(timer);
+//            //                $('.sticky').show();
+//            //                //$('#health_table').show();
+//            //            }
+//            //        }, 1000);
+//
+//
+//
+//
+//        }
+//
+//
+//    });
+
+    function printDiv(elementId) {
+        var popUpAndPrint = function()
+        {
+            var container = $('#topsvg');
+            var svgframe = $('svgframe');
+
+            var width = $('#svgframe').attr('width');
+            var height = $('#svgframe').attr('height');
+
+
+            //var width = parseFloat(svgframe.getAttribute("width"))
+            //var height = parseFloat(svgframe.getAttribute("height"))
+            var printWindow = window.open('', 'PrintMap',
+                'width=' + width + ',height=' + height);
+            printWindow.document.writeln(
+                '<!DOCTYPE html>'
+                + '<html><head><title>Disease Matrix</title>'
+                +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
+                + $(container).html()
+                    //+ printContents
+                + '</head><body>'
+                //$(container).html()
+            );
+            printWindow.document.close();
+            printWindow.print();
+            printWindow.close();
+        };
+        setTimeout(popUpAndPrint, 500);
+    }
+
+
+    function printDivA(divName) {
+        var printContents = $(mdialog).find('svg');
+
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = '<!DOCTYPE html>'
+        + '<html><head><title>Disease Matrix</title>'
+        +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
+        + $(printContents).html()
+        //+ printContents
+        + '</head><body>';
+
+        //document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+
+
+
 
     //Qtip app
     $.each(HEALTHARRAY, function (key, value) {
@@ -1482,15 +1689,15 @@ function xmlload() {
                     if (temp.length >= 2) {
                         name1 = temp[0].substr(0, 8);
                         name2 = temp[1].substr(0, 8);
-                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'red'});
-                        svg.text(p1, p2 + 20, name2.toString(), {id:'name2_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'red'});
-                        svg.text(p1, p2 + 40, REL, {id:'rel_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'navy'});
+                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID,  'class': 'namebox', fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 20, name2.toString(), {id:'name2_'+ID,  'class': 'namebox', fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 40, REL, {id:'rel_'+ID,  'class': 'namebox', fontWeight: 'bold', fill: 'navy'});
                     }
                     else {
                         name1 = temp[0].substr(0, 8);
                         name2 = "";
-                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, class: 'namebox',fontWeight: 'bold', fill: 'red'});
-                        svg.text(p1, p2 + 20, REL, {id:'rel_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'navy'});
+                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID,  'class': 'namebox',fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 20, REL, {id:'rel_'+ID,  'class': 'namebox', fontWeight: 'bold', fill: 'navy'});
                     }
                 }
                 else {
@@ -1509,15 +1716,15 @@ function xmlload() {
                     if (temp.length >= 2) {
                         name1 = temp[0].substr(0, 8);
                         name2 = temp[1].substr(0, 8);
-                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, class: 'namebox',fontWeight: 'bold', fill: 'red'});
-                        svg.text(p1, p2 + 20, name2.toString(), {id:'name2_'+ID, class: 'namebox',fontWeight: 'bold', fill: 'red'});
-                        svg.text(p1, p2 + 40, REL, {id:'rel_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'navy'});
+                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID,  'class': 'namebox',fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 20, name2.toString(), {id:'name2_'+ID,  'class': 'namebox',fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 40, REL, {id:'rel_'+ID,  'class': 'namebox', fontWeight: 'bold', fill: 'navy'});
                     }
                     else {
                         name1 = temp[0].substr(0, 8);
                         name2 = "";
-                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, class: 'namebox',fontWeight: 'bold', fill: 'red'});
-                        svg.text(p1, p2 + 20, REL, {id:'rel_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'navy'});
+                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID,  'class': 'namebox',fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 20, REL, {id:'rel_'+ID,  'class': 'namebox', fontWeight: 'bold', fill: 'navy'});
                     }
                 }
             }
@@ -1594,17 +1801,16 @@ function xmlload() {
         });
     }
 
-    function PARSEDISEASE(id){
-        var ret;
-        var cart = id.substring(0,id.indexOf(':'));
-        var dot = id.substring(id.indexOf(':')+1,id.length);
-        //alert(dot + "-- " +(dot=='null'))
-        if(dot=='null')ret = cart;
-        //else return;
-        alert(ret)
-        return ret;
-
-    }
+    //function PARSEDISEASE(id){
+    //    var ret;
+    //    var cart = id.substring(0,id.indexOf(':'));
+    //    var dot = id.substring(id.indexOf(':')+1,id.length);
+    //    //alert(dot + "-- " +(dot=='null'))
+    //    if(dot=='null')ret = cart;
+    //    //else return;
+    //    return ret;
+    //
+    //}
 
 
 
@@ -1730,7 +1936,7 @@ function xmlload() {
             stroke: 'black',
             'stroke-width': '0.5',
             lengthAdjust: 'spacingAndGlyphs',
-            class: 'infobox'
+             'class': 'infobox'
         });
         return;
     }
@@ -5239,25 +5445,7 @@ function xmlload() {
         return amt;
     }
 
-    //function COUNT_FAR_RIGHT_IN_ARRAY(ARRAY, ID) {
-    //    var res = -1;
-    //    var count = 0;
-    //    var array = new Array();
-    //    $.each(ARRAY, function (k, data) {
-    //        if (ID == data[2]) {
-    //            alert("childx-->"+data[1])
-    //            var x = SPOTLINE(data[1]);
-    //            array.push(x[0]);
-    //            //count = count + 1;
-    //        }
-    //    });
-    //
-    //    array = array.sort(function(a,b){return b - a}) //Array now becomes [7, 8, 25, 41]
-    //
-    //    alert("COUNT_FAR_RIGHT_IN_ARRAY-->"+array.toString())
-    //
-    //    return array[0];
-    //}
+
 
     function COUNT_IN_ARRAY(ARRAY, ID) {
         var res = -1;
@@ -6184,7 +6372,11 @@ function xmlload() {
             var wscale = parseInt(SVGW) + 200;
             var hscale = parseInt(hei) + 100;
 
+            //var TLEFT = parseInt(masterRight) - parseInt(TOTWIDTH);
+
             if(FARLEFT<0) {
+            //if (TLEFT < 0) {
+
 
                 var FULLSCALE = parseInt(wscale) + 300;
                 svgdoc.setAttribute("viewBox", FARLEFT + ' 400 ' + FULLSCALE + ' 260');
@@ -6206,7 +6398,7 @@ function xmlload() {
                 //svgdoc.setAttribute("margin-top", '10px');
             }
             else{
-                //alert("1")
+
                 var FULLSCALE = parseInt(wscale) + 300;
 
                 svgdoc.setAttribute("viewBox", '20 400 ' + FULLSCALE + ' 300');
@@ -6248,7 +6440,6 @@ function xmlload() {
      */
     else {
         if (DIAWIDTH > SVGW) {
-
 
             wscale = parseInt(DIAWIDTH) + 100;
             hscale = parseInt(SVGH);
@@ -6344,6 +6535,7 @@ function LOAD_HEALTH_TABLE(){
             var details = item['Detailed Disease Name'];
             if(tmp)tmp = tmp.toLowerCase();
             if(details)details=details.toLowerCase();
+            if(details=='diseases:null') details = "";
 
             if(($.inArray(tmp, STATICDISEASES) != -1) || ($.inArray(details, STATICDISEASES) != -1)) {
                 var nr = STATICDISEASES.indexOf(details.toLowerCase());
@@ -6452,6 +6644,7 @@ function LOAD_HEALTH_TABLE(){
 
                             if(tmp)tmp=tmp.toLowerCase();
                             if(details)details=details.toLowerCase();
+                            if(details=='diseases:null') details = "Other";
 
 
                             if(($.inArray(tmp, STATICDISEASES) != -1) || ($.inArray(details, STATICDISEASES) != -1)) {
@@ -6631,6 +6824,9 @@ function createDialog() {
                             var disname = data['Disease Name'];
                             var detdisname = data['Detailed Disease Name'];
 
+                            if(detdisname=='diseases:null') detdisname = null;
+                            //if(disname=='diseases:null') disname = "";
+
                             if (detdisname == null) thename = disname;
                             else thename = detdisname;
 
@@ -6745,6 +6941,12 @@ function DiseaseDna(){
                     var detdisname = data['Detailed Disease Name'];
                     var disname = data['Disease Name'];
 
+                    //if(detdisname=='diseases:null') detdisname = "";
+                    //if(disname=='diseases:null') disname = "";
+                    //
+                    //if(selectedValue=='diseases:null')alert(selectedValue)
+                    //if(detdisname=='diseases:null')alert(detdisname)
+
                     if(selectedValue == detdisname){
                         $('#'+ID).attr({fill: 'yellow',stroke: 'black'});
                     }
@@ -6803,20 +7005,20 @@ function printCoupon() {
     //endPrintCoupon();
 }
 
-function endPrintCoupon() {
-
-    var timer = setInterval(function() {
-                if(printWindow.closed) {
-                    clearInterval(timer);
-                    $('.sticky').show();
-                    //$('#health_table').show();
-                }
-            }, 1000);
-
-    document.body.innerHTML = originalContents;
-    document.getElementById('svgframe').scrollIntoView(true);
-    //location.reload();
-}
+//function endPrintCoupon() {
+//
+//    var timer = setInterval(function() {
+//                if(printWindow.closed) {
+//                    clearInterval(timer);
+//                    $('.sticky').show();
+//                    //$('#health_table').show();
+//                }
+//            }, 1000);
+//
+//    document.body.innerHTML = originalContents;
+//    document.getElementById('svgframe').scrollIntoView(true);
+//    //location.reload();
+//}
 
 function closedialog(){
     $(mdialog).dialog("close");
@@ -6824,9 +7026,7 @@ function closedialog(){
 
 function TheZoom(sel) {
 
-
     var selectedVal = sel.options[sel.selectedIndex].value;
-
 
     var arr = new Array();
     var X=0;
@@ -6842,9 +7042,6 @@ function TheZoom(sel) {
     if (selectedVal == '200') {
         if(nowselected=='200')return;
         nowselected = selectedVal;
-
-
-
 
             var svgdoc = document.getElementById("svgframe");
             var FRAMEHEIGHT = svgdoc.getAttribute("height");
@@ -6884,7 +7081,7 @@ function TheZoom(sel) {
             Y = 30;
             var REALLONG = parseInt(masterRight) * 1.2;
 
-            var TOTWIDTH = parseInt(width) + parseInt(X);
+            var TOTWIDTH = parseInt(width) + (2 * parseInt(X));
 
         if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ) {
             height = parseInt(arr[3]) * 0.40;
@@ -6896,27 +7093,101 @@ function TheZoom(sel) {
             svgdoc.setAttribute("viewBox",  '-350 100 ' + -20 + ' -15');
             $('#topsvg').css("height", "750px");
             $('#topsvg').css("overflow", "scroll");
+            $('#theclone').css("width", TOTWIDTH);
             /*overflow: scroll;*/
 
             //svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
 
             //alert(svgdoc.getAttribute("viewBox"))
         }
+        else if(/chrome/i.test( navigator.userAgent )){
+
+            var TLEFT = parseInt(masterRight) - parseInt(TOTWIDTH);
+            if (TLEFT < 0) {
+                var REALLONG = parseInt(masterRight) * 1.2;
+
+                //alert(TOTWIDTH)
+
+                height = parseInt(arr[3]) * 0.60;
+                width = parseInt(arr[2]) * 1.09;
+                X = 0 - 1500;
+                Y = 10;
+                TOTWIDTH = parseInt(TOTWIDTH);
+                //alert(X)
+                svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
+
+                //$('#topsvg').css("overflow", "auto");
+                $('#topsvg').css("height", "750px");
+                $('#topsvg').css("overflow-x", "scroll")
+                var ALLWIDTH = 2 * parseInt(masterRight);
+                $('#topsvg').css('width', masterRight);
+                $('#theclone').css("width", TOTWIDTH);
+            }
+            else{
+
+
+                height = parseInt(arr[3]) * 0.85;
+                width = parseInt(arr[2]) * 1.70;
+                X = -10 ;
+                Y = -25;
+                svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
+                $('#theclone').css("width", TOTWIDTH);
+
+
+
+            }
+        }
         else {
+            var TLEFT = parseInt(masterRight) - parseInt(TOTWIDTH);
 
+//alert([masterRight,TOTWIDTH])
+            if (TLEFT < 0) {
 
-            if (FARLEFT < 0) {
+                var REALLONG = parseInt(masterRight) * 1.2;
 
-                FARLEFT = parseInt(FARLEFT) - 200
-                svgdoc.setAttribute("viewBox", [FARLEFT + " " + Y + " " + width + " " + height]);
+                //alert(TOTWIDTH)
+
+                height = parseInt(arr[3]) * 0.60;
+                width = parseInt(arr[2]) * 1.12;
+                X = 0 - 1500;
+                Y = 10;
+                TOTWIDTH = parseInt(TOTWIDTH);
+                //alert(X)
+                svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
+
+                //$('#topsvg').css("overflow", "auto");
+                $('#topsvg').css("height", "750px");
+                $('#topsvg').css("overflow-x", "scroll")
+                var ALLWIDTH = 2 * parseInt(masterRight);
+                $('#topsvg').css('width', masterRight);
+                $('#theclone').css("width", TOTWIDTH);
+
+                //height = parseInt(arr[3]) * 1.98;
+                //width = parseInt(arr[2]) * 0.99;
+                //X = - 200;
+                //Y = -30;
+                //FARLEFT = parseInt(FARLEFT) - 200;
+                //svgdoc.setAttribute("viewBox", [X + " " + Y + " " + 3500 + " " + 1500]);
+                //$('#theclone').css("width", '4000px');
 
             }
             else {
-                svgdoc.setAttribute("viewBox", [200 + " " + Y + " " + width + " " + height]);
+                height = parseInt(arr[3]) * 0.90;
+                width = parseInt(arr[2]) * 1.79;
+                X = -10 ;
+                Y = -20;
+                svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
+                $('#theclone').css("width", TOTWIDTH);
 
             }
 
-            svgdoc.setAttribute("viewBox", [358 + " " + Y + " " + width + " " + height]);
+            //alert(svgdoc.getAttribute("viewBox"))
+            //svgdoc.setAttribute("viewBox", [358 + " " + Y + " " + width + " " + height]);
+
+            $('#topsvg').css("overflow", "auto");
+            var ALLWIDTH = 2 * parseInt(masterRight);
+            $('#topsvg').css('width', masterRight);
+
         }
 
             //CLONE = svgdoc.getAttribute("viewBox");
@@ -6926,13 +7197,11 @@ function TheZoom(sel) {
 
             //$('#family_pedigree_info').css("margin-top", PANEL+'px')
 
-            $('#theclone').css("width", TOTWIDTH);
+
             $('#theclone').css("margin-left", 'auto');
             $('#theclone').css("margin-right", 'auto');
             $('#family_pedigree_info').css("margin-top", '50px')
-            $('#topsvg').css("overflow", "auto");
-            var ALLWIDTH = 2 * parseInt(masterRight);
-            $('#topsvg').css('width', masterRight);
+
             var ALLHEIGHT = 2 * parseInt(height);
 
             //$('#svgframe').css("height", '0px');
@@ -6952,18 +7221,6 @@ function TheZoom(sel) {
         xmlload();
 
 
-        //$('#svgframe').css("height", '500px');
-        //$('#svgframe').css("margin-top", '10px');
-        //$('#topsvg').css("padding-top", '100px');
-        //$('#topsvg').css("padding-down", '100px');
-        //$('#topsvg').css("padding-down", '600px');
-        //$("#topsvg").html(TOPCLONE);
-        //TOPCLONE.setAttribute('visibility','visible');
-        //TOPCLONE.setAttribute('id','svgframe');
-        //$('#svgframe').css("top", '10px');
-        //$('#svgframe')
-        //    .draggable()
-        //    .resizable();
     }
    }
 

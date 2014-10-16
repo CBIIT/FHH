@@ -37,12 +37,12 @@ div.drawcanvas{
     max-height:100%;
     max-width:100%;
 }
-<<<<<<< HEAD
+/*<<<<<<< HEAD*/
 /*select option {*/
     /*width: 120 ;*/
 /*}*/
-=======
->>>>>>> 6eb11bc5cd95f5944e8b39ddbb853fb0f46a736b
+/*=======*/
+/*>>>>>>> 6eb11bc5cd95f5944e8b39ddbb853fb0f46a736b*/
 select.addchild{
 
     visibility: hidden;
@@ -483,19 +483,6 @@ div.toolbar{
     font: bold 15px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     text-align: left;
 }
-div#svgframe {
-    height: 400px;
-    width: 400px;
-
-    overflow: scroll;
-}
-/*svg#sky {*/
-    /*height: 100px;*/
-    /*width: 1100px;*/
-    /*border:1px dotted #ccc;*/
-    /*background-color: #ccc;*/
-/*}*/
-/*embed {  overflow:scroll; position: absolute; width: 100%; height: 100%; background-color: #AAAAAA}*/
 
 #bmi_table caption {
     padding: 0 0 5px 0;
@@ -608,7 +595,7 @@ a.back{
     height:10px;
 }
 #bottom{
-    top:1500px;
+    top:1000px;
     left:0px;
     position:absolute;
     width:100%;
