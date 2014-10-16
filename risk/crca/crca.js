@@ -128,7 +128,7 @@ function test_inflammatory_bowel_disease() {
 		set_reason($("#inflammatory_bowel_disease"), risk_reason);
 	} else {
 		set_icon($("#inflammatory_bowel_disease"), 'negative');
-		set_reason($("#inflammatory_bowel_disease"), "You have never had inflammatory bowel disease (either ulcerative colitis or chohn's disease).");
+		set_reason($("#inflammatory_bowel_disease"), "You have never had inflammatory bowel disease (either ulcerative colitis or crohn's disease).");
 	}
 
 	final_risk |= risk;
