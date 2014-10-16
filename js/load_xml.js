@@ -186,7 +186,7 @@ function googlePostAuthLoad(authResult) {
 	    
 	    $.ajax({
 	    	url: file_link,
-	    	headers: {"Authorization": 'Bearer ' + accessToken},
+	    	headers: {"Authorization": 'Bearer ' + accessToken}
 	    }).done(function(data) {
 					
 					parse_xml(data);
@@ -262,7 +262,7 @@ function parse_xml(data) {
 	
 	var adopted_status_field = $(data).find("patientPerson > subjectOf2 > ClinicalObservation > code[code="
 			+ SNOMED_CT_CODES.ADOPTED_CODE + "]");
-	if (adopted_status_field.length > 0) personal_information.adopted = "true";
+	if (adopted_status_field.length > 0) personal_information.adopted = true;
 	
 	
 	

@@ -47,8 +47,13 @@ var output_string;
 
 
 function bind_save_xml() {
-	doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
+	try {
+		doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
+	} catch (e) {
+		doc = new ActiveXObject("msxml2.DOMDocument.6.0");
+	}
 
+	
 	bind_save_download();
 	bind_save_dropbox ();
 	bind_save_google_drive ();

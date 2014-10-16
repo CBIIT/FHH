@@ -117,7 +117,7 @@
 		{"name":"Sudden Infant Death Syndrome","abbr":"SIDS","code":"51178009","system":"SNOMED_CT"}
 	],
 	"Unknown Disease": [
-		{"name":"Unknown Disease","abbr":"HD","code":"00000001","system":"FHH"}
+		{"name":"Unknown Disease","abbr":"HD","code":"315645005","system":"SNOMED_CT"}
 
 	]
 }

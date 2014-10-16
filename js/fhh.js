@@ -1613,7 +1613,7 @@ function add_disease() {
 	var disease_name = $(this).parent().parent().find("#disease_choice_select").val();
 	var disease_code = $(this).parent().parent().find("#detailed_disease_choice_select").val();
 	var age_at_diagnosis = $(this).parent().parent().find("#age_at_diagnosis_select").val();
-	var disease_detail = $.t("diseases:" + disease_code);
+	var disease_detail = $.t("diseases:" + disease_code, disease_name);
 	
 	if (disease_name == null || disease_name == '' || disease_name == 'not_picked' || disease_name == 'diseases:null') {
 		alert ($.t("fhh_js.disease_select"));
@@ -1664,17 +1664,17 @@ function add_disease() {
 }
 
 function create_disease_row(row_number, disease_name, disease_detail, age_at_diagnosis, code) {
-	var new_row=$("<tr class='disease_detail'>");
+	var new_row=$("<tr class='disease_detail' row_number='" + (row_number+1) + "'>");
 	if (code != null) {
 		var translated_disease = $.t("diseases:" + code);
 		if (translated_disease.substr(0,9) == "diseases:") translated_disease = disease_detail;
-		new_row.append("<td>" + translated_disease + "</td>");
+		new_row.append("<td class='disease_name'>" + translated_disease + "</td>");
 	} else if (disease_detail != null && disease_detail != 'none') {
-		new_row.append("<td>" + disease_detail + "</td>");
+		new_row.append("<td class='disease_name'>" + disease_detail + "</td>");
 	} else {
-		new_row.append("<td>" + disease_name + "</td>");		
+		new_row.append("<td class='disease_name'>" + disease_name + "</td>");		
 	}
-	new_row.append("<td>" + $.t("fhh_js." + age_at_diagnosis) + "</td>");
+	new_row.append("<td class='age_at_diagnosis'>" + $.t("fhh_js." + age_at_diagnosis) + "</td>");
 //	new_row.append("<td>" +  age_at_diagnosis + "</td>");
 	
 	var remove_disease_button = $("<button id='remove_disease_button'>" + $.t("fhh_js.remove") + "</button>");
@@ -1688,9 +1688,20 @@ function create_disease_row(row_number, disease_name, disease_detail, age_at_dia
 function remove_disease() {
 	
 	var row_number = $(this).attr("row_number");
+	var disease_name = $(this).parent().parent().find(".disease_name").text();
+
+	h = current_health_history;
+	
+	for (i=0;i<h.length;i++) {
+		if (disease_name == h[i]["Disease Name"] || disease_name == h[i]["Detailed Disease Name"]) {
+			disease_row_number = i; 
+			break;
+		}
+	}
 
 	// row_number starts at 1, the array starts at 0 so we need to subtract 1
-	current_health_history.splice(row_number-1, 1);	
+	
+	current_health_history.splice(disease_row_number, 1);	
 	
 	$(this).parent().parent().remove();
 //	alert ("Removing Disease Row: " + row_number);
