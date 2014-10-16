@@ -465,8 +465,8 @@ function xmlload() {
     svg.text(masterleft - 120, 30, "Paternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
     svg.text(masterleft + 120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray' });
 
-    //svg.rect(20, 10, 360, 50, 10, 10, {id: 'options', 'class': 'tablebutton', fill: 'darkslategray', stroke: 'white', strokeWidth: 1, onclick:'createDialog()', cursor:'pointer'});
-    //svg.text(50, 40, "Diagram Table & Options", {'class': 'tablebutton', fontWeight: 'bold', fontSize: '18.5', fill: 'white', onclick:'createDialog()', cursor:'pointer'});
+    //svg.rect(20, 10, 360, 50, 10, 10, {id: 'options', class: 'tablebutton', fill: 'darkslategray', stroke: 'white', strokeWidth: 1, onclick:'createDialog()', cursor:'pointer'});
+    //svg.text(50, 40, "Diagram Table & Options", {class: 'tablebutton', fontWeight: 'bold', fontSize: '18.5', fill: 'white', onclick:'createDialog()', cursor:'pointer'});
 
     $('#optionsPanel').attr('width', '800px');
 
@@ -1482,15 +1482,15 @@ function xmlload() {
                     if (temp.length >= 2) {
                         name1 = temp[0].substr(0, 8);
                         name2 = temp[1].substr(0, 8);
-                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, 'class': 'namebox', fontWeight: 'bold', fill: 'red'});
-                        svg.text(p1, p2 + 20, name2.toString(), {id:'name2_'+ID, 'class': 'namebox', fontWeight: 'bold', fill: 'red'});
-                        svg.text(p1, p2 + 40, REL, {id:'rel_'+ID, 'class': 'namebox', fontWeight: 'bold', fill: 'navy'});
+                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 20, name2.toString(), {id:'name2_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 40, REL, {id:'rel_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'navy'});
                     }
                     else {
                         name1 = temp[0].substr(0, 8);
                         name2 = "";
-                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, 'class': 'namebox',fontWeight: 'bold', fill: 'red'});
-                        svg.text(p1, p2 + 20, REL, {id:'rel_'+ID, 'class': 'namebox', fontWeight: 'bold', fill: 'navy'});
+                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, class: 'namebox',fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 20, REL, {id:'rel_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'navy'});
                     }
                 }
                 else {
@@ -1509,15 +1509,15 @@ function xmlload() {
                     if (temp.length >= 2) {
                         name1 = temp[0].substr(0, 8);
                         name2 = temp[1].substr(0, 8);
-                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, 'class': 'namebox',fontWeight: 'bold', fill: 'red'});
-                        svg.text(p1, p2 + 20, name2.toString(), {id:'name2_'+ID, 'class': 'namebox',fontWeight: 'bold', fill: 'red'});
-                        svg.text(p1, p2 + 40, REL, {id:'rel_'+ID, 'class': 'namebox', fontWeight: 'bold', fill: 'navy'});
+                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, class: 'namebox',fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 20, name2.toString(), {id:'name2_'+ID, class: 'namebox',fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 40, REL, {id:'rel_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'navy'});
                     }
                     else {
                         name1 = temp[0].substr(0, 8);
                         name2 = "";
-                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, 'class': 'namebox',fontWeight: 'bold', fill: 'red'});
-                        svg.text(p1, p2 + 20, REL, {id:'rel_'+ID, 'class': 'namebox', fontWeight: 'bold', fill: 'navy'});
+                        svg.text(p1, p2, name1.toString(), {id:'name1_'+ID, class: 'namebox',fontWeight: 'bold', fill: 'red'});
+                        svg.text(p1, p2 + 20, REL, {id:'rel_'+ID, class: 'namebox', fontWeight: 'bold', fill: 'navy'});
                     }
                 }
             }
@@ -1730,7 +1730,7 @@ function xmlload() {
             stroke: 'black',
             'stroke-width': '0.5',
             lengthAdjust: 'spacingAndGlyphs',
-            'class': 'infobox'
+            class: 'infobox'
         });
         return;
     }
