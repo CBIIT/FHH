@@ -150,19 +150,16 @@ function test_any_family_members_fap_hnpcc() {
 						name = get_name_or_relationship(this.name, key);
 						risk_reason += name + " has had hereditary nonpolyposis colon cancer in the past.<br />";
 						risk=true;
-						i = h.length; break;  // We do not need to check this person anyore
 					}
 					if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Hereditary non-polyposis colon cancer') {
 						name = get_name_or_relationship(this.name, key);
 						risk_reason += name + " has had lynch syndrome/non-hereditary polyposis colon cancer in the past.<br />";
 						risk=true;
-						i = h.length; break;  // We do not need to check this person anyore
 					}
 					if (h[i]['Detailed Disease Name'] == 'Familial adnenomatous polyposis (FAP)') {
 						name = get_name_or_relationship(this.name, key);
 						risk_reason += name + " has had familial adnenomatous polyposis (FAP) in the past.<br />";
 						risk=true;
-						i = h.length; break;  // We do not need to check this person anyore
 					}
 				}
 			}
@@ -200,25 +197,21 @@ function test_immediate_family_members_cancer() {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colon cancer in the past.<br />";
 							risk=true;
-							i = h.length; break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colorectal cancer in the past.<br />";
 							risk=true;
-							i = h.length; break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had rectal cancer in the past.<br />";
 							risk=true;
-							i = h.length; break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Gastric Cancer') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had gastric cancer in the past.<br />";
 							risk=true;
-							i = h.length; break;  // We do not need to check this person anyore
 						}
 					}
 				}
@@ -256,7 +249,6 @@ function test_immediate_family_members_polyps() {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colon polyps in the past.<br />";
 							risk=true;
-							i = h.length; break;  // We do not need to check this person anyore
 						}
 					}
 				}
@@ -302,19 +294,19 @@ function test_secondary_family_members_cancer() {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colon cancer in the past.<br />";
 							count++;
-							i = h.length; break;  // We do not need to check this person anyore
+							break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colorectal cancer in the past.<br />";
 							count++;
-							i = h.length; break;  // We do not need to check this person anyore
+							break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had rectal cancer in the past.<br />";
 							count++;
-							i = h.length; break;  // We do not need to check this person anyore
+							break;  // We do not need to check this person anyore
 						}
 					}
 				}
@@ -369,19 +361,16 @@ function test_secondary_family_members_colon_cancer_before_60() {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colon cancer before the age of 60.<br />";
 							risk=true;
-							i = h.length; break; // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colorectal cancer before the age of 60.<br />";
 							risk=true;
-							i = h.length; break; // We do not need to check this person anyore
 						}
 						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had rectal cancer before the age of 60.<br />";
 							risk=true;
-							i = h.length; break; // We do not need to check this person anyore
 						}
 					}
 				}
@@ -425,7 +414,6 @@ function test_secondary_family_members_uterine_cancer_before_50() {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had uterine cancer before the age of 50.<br />";
 							risk=true;
-							i = h.length; break; // We do not need to check this person anyore
 						}
 					}
 				}
@@ -472,7 +460,6 @@ function test_secondary_family_members_uterine_cancer() {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had uterine cancer in the past.<br />";
 							count++;
-							i = h.length; break;  // We do not need to check this person anyore
 						}
 					}
 				}
