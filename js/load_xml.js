@@ -41,8 +41,6 @@ function bind_load_file() {
 		
 		return false;
 	});
-	
-	
 }
 
 function bind_uploader() {
@@ -86,58 +84,57 @@ function bind_uploader() {
 			},
 			
 			FileUploaded: function(upldr, file, obj) {
-//				alert (JSON.stringify(file));
-//				load_family_history(file.getNative());
 				if(file.getNative() !== null) {
 					load_family_history(file.getNative());				
 				} else {
-					alert("about to get "+file.name);
-/*
-					$.get( "/tmp/plupload/" + file.name, function(data, status){
-      					alert("Data: " + data + "\nStatus: " + status);
-      					load_raw_string(data);
-    				});
-    				$.ajax("/tmp/plupload/" + file.name,){
 
-    				}
-
-*/
-					 $.ajax({url:"/tmp/plupload/"+file.name, success:function(result){
-					    alert(result);
-      					load_raw_string(data);
-					  }});
-
-/*
-	                $.get( "/tmp/plupload/" + file.name , function( data, status) {
-	                	alert(status);
-	                    if ( status == "error" ) {
-	                        var msg = "Sorry but there was an error: ";
-	                        $( "#filelist" ).html( msg + xhr.status + " " + xhr.statusText );
-	                        //alert(status);
-	                        alert(xhr.statusText);
-	                    }
-*/	                    
-                    	
-					// load_family_history(response);				
-				
+					$.ajax({url:"/tmp/plupload/"+file.name, 
+					 	dataType: 'text',
+					 	success:function(data){
+					    	//alert(result);
+      						load_xml(data);
+      					},
+						error: function (xhr, ajaxOptions, thrownError) {
+					    	//alert(xhr.status);
+					    	//alert(xhr.response);
+					    	//alert(thrownError);
+					    }, 
+					    complete: afterCompletion
+					});
 				}
 
 				$("#load_personal_history_dialog").dialog("close");			
-			},
-
-			UploadComplete: function(up, files) {
-	//			alert (JSON.stringify(files[0]));
-				// Called when all files are either uploaded or failed
-
 			}
-
 		}
 	});
 
 	uploader.init();
 }
 
-function 	bind_load_dropbox() {
+function afterCompletion(xhr,status){
+	if(status == 'parsererror'){
+		xmlDoc = null;
+		// Create the XML document from the responseText string
+		if(window.DOMParser) {
+			//alert('Creating DOMParser');
+			parser = new DOMParser();
+		  	xml = parser.parseFromString(xhr.responseText,"text/xml");
+			load_xml(xml);
+
+		} else {
+			// Internet Explorer
+			//alert('Creating Microsoft.XMLDOM');
+			xml = new ActiveXObject("Microsoft.XMLDOM");
+			xml.async = "false";
+			xml.loadXML(xhr.responseText);
+			load_xml(xml);
+		}
+	}
+	//alert('complete: ' + xhr.responseText);
+}
+
+
+function bind_load_dropbox() {
 	if (typeof DROPBOX_APP_KEY == 'undefined') {
 		if (typeof DEBUG != 'undefined' && DEBUG) $("#load_from_dropbox").append("No Dropbox App Key Defined");	
 		else $("#load_from_dropbox").append("Coming Soon");	
@@ -240,13 +237,24 @@ function read_family_history (evt) {
 	build_family_history_data_table();
 	$("#add_another_family_member_button").show();
 }
-function load_raw_string(str) {
-	parse_xml(fileString);
+
+function load_xml(xmlInput) {
+	//var xmlDom = $.parseXML(xmlInput).text());
+/*
+	var xml = "<rss version='2.0'><channel><title>RSS Title</title></channel></rss>";
+	xmlDoc = $.parseXML( xml );
+	xml = $(xmlDoc);
+	title = xml.find( "title" );
+	alert("TITLE is "+title);
+*/
+//	$('#xmlData').empty().append(xmlInput);
+//	alert('did the data show up');
+	var xmlDom = $.parseXML(xmlInput);
+//	alert(xmlDom);
+	parse_xml(xmlDom);
 	build_family_history_data_table();
 	$("#add_another_family_member_button").show();
-
 }
-
 function loaded (evt) {
 	var fileString = evt.target.result;	
 	console.dir(evt);
@@ -254,7 +262,6 @@ function loaded (evt) {
 	build_family_history_data_table();
 	$("#add_another_family_member_button").show();
 }
-
 /*
 function make_disease_array () {
 	var keys = Object.keys(diseases);
@@ -267,6 +274,7 @@ function make_disease_array () {
 }
 */
 function parse_xml(data) {
+	alert(data);
 	personal_information.id = $(data).find("patientPerson > id").attr("extension");
 	// Handle the misspelling from the previous version of the software
 	if (personal_information.id == null) personal_information.id = $(data).find("patientPerson > id").attr("extention");
