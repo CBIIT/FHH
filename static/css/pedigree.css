@@ -251,7 +251,8 @@ i#options .ui-button.ui-state-active .ui-button-text {
 
 #family_pedigree{
     /*border:2px black solid;*/
-    padding-top: 10px;
+    top: 10px;
+    /*position: absolute;*/
     /*vertical-align: top;*/
     /*overflow-x:scroll;*/
     /*overflow: scroll;*/
@@ -273,6 +274,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
     weight: 800px;
     height: 600px;
     overflow-x:scroll;
+    top:20px;
 }
 
 #topsvg{
@@ -356,7 +358,7 @@ div.toolbar{
     left: 40px;
     padding: 5px;
     position: relative;
-    text-align: center;
+    text-align: left;
     top: 0px;
     width: 250px;
 }
@@ -379,9 +381,7 @@ div.toolbar{
 .infolayer {
     padding-top: 0px;
     padding-bottom: 0px;
-    font: bold 15px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
-
-    /*line-height:5px;*/
+    font: bold 12px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
 
 /*
@@ -493,8 +493,12 @@ div.toolbar{
 
 #bmi_table td{
     font: bold 12px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
-    text-align: end;
-    /*border-bottom:1px solid darkslategray;*/
+    text-align: left;
+}
+
+.closeimg{
+    padding-right: 5px;
+    padding-top: 2px;
 }
 
 #box
@@ -612,7 +616,8 @@ a.back{
 svg#svgframe {
     height: 500px;
     width: 100%;
-    border:1px dotted #ccc;
+    border-bottom:1px dotted darkslategray;
+    border-top:1px dotted darkslategray;
     /*background-color: white;*/
 }
 
