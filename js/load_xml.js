@@ -274,7 +274,7 @@ function make_disease_array () {
 }
 */
 function parse_xml(data) {
-	alert(data);
+//	alert(data);
 	personal_information.id = $(data).find("patientPerson > id").attr("extension");
 	// Handle the misspelling from the previous version of the software
 	if (personal_information.id == null) personal_information.id = $(data).find("patientPerson > id").attr("extention");
