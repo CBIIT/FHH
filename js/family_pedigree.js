@@ -565,6 +565,8 @@ function xmlload() {
 
     var NAMEARRAY = new Array();
 
+    //alert ("personal_information Information:" + JSON.stringify(personal_information, null, 2) );
+
 
 
     //Prepare all data to array formats for processing
@@ -702,12 +704,14 @@ function xmlload() {
             var ITEMGEN = item.gender;
             if(typeof ITEMGEN == 'undefined') ITEMGEN = 'MALE';
 
-            if (item.parent_id == "" || item.parent_id == null)pid = 'paternal_uncle' + rand;
+            if (typeof item.parent_id == "undefined" || item.parent_id == "" || item.parent_id == null) pid = 'maternal_uncle' + rand;
             else pid = item.parent_id;
 
             MaternalCousinArray.push([ITEMGEN, id, key, item.parent_id]);
             var t = {"id": [item.id], "name": [item.name], "gender": [ITEMGEN], key: [key]};
             NAMEARRAY.push(t);
+            //alert ("MaternalCousinArray ARRAY Information:" + JSON.stringify(MaternalCousinArray, null, 2) );
+
         }
         else if (key.substring(0, 15) == "paternal_cousin") {
             var id,pid;
@@ -1192,10 +1196,20 @@ function xmlload() {
             var myWindow=window.open('','Print','width=800,height=700,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no');
 
             var container = $(mdialog);
+            var diaelem = $('#topsvg');
+            var infoelem = $('#family_pedigree_info');
+
+            infoelem.attr('class','page-break');
+
+
             myWindow.document.write('<!DOCTYPE html>'
             + '<html><head><title>Disease Matrix</title>'
             +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
+
+                //+ $(diaelem).html()
+                //+ $(infoelem).html()
             + $(container).html()
+
             + '</head><body>');
 
             myWindow.focus();
@@ -1212,6 +1226,7 @@ function xmlload() {
                     $('#health_table_filter').show();
                     $('#health_table_info').show();
                     $('#health_table_paginate').show();
+                    infoelem.attr('class','family_pedigree_info');
 
                     $('#svgframe').draggable('enable');
                     $('#topsvg').css('overflow', 'visible');
@@ -2527,6 +2542,9 @@ function xmlload() {
         var NEPHEWS = COUNT_FAMILY_KIDS(NephewArray);
         var PATERNALHALFS = COUNT_FAMILY_KIDS(PaternalHalfSiblingsArray);
         if(BROTHERS==0)BROTHERS=1;
+        //if(NEPHEWS==0)NEPHEWS=1;
+        if(PATERNALHALFS==0)PATERNALHALFS=1;
+
 
         //alert ("PATERNALS_LOAD ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
         //alert ("PaternalCousinArray ARRAY Information:" + JSON.stringify(PaternalCousinArray, null, 2) );
@@ -2564,10 +2582,8 @@ function xmlload() {
                 var PREVIOUSID = P1[P1.length - 1][1];
                 var PREVIOUSP1 = P1[P1.length - 1][2];
 
-
                 if (LINE == 0) {
                     var KIDS = COUNT_MY_KIDS(PaternalCousinArray, PREVIOUSID);
-
                     p1 = parseInt(PREVIOUSP1) - (100 + (parseInt(KIDS)*70));
                     p1temp.push(MIDGEN, MID, p1);
                     P1.push(p1temp);
@@ -2578,10 +2594,8 @@ function xmlload() {
                     p1temp.push(MIDGEN, MID, p1);
                     P1.push(p1temp);
                 }
-
+//alert([PREVIOUSID,MID,MIDGEN,PREVIOUSGEN,Level2M, p1])
                 SINGLE_SIDE_CORNER_CONNECTOR(PREVIOUSID,MID,MIDGEN,PREVIOUSGEN,Level2M, p1);
-
-
 
                 if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: DATAKEY, fill: gencolor, stroke: 'black', strokeWidth: 2, genders: 'male', cursor: 'pointer'});}
                 else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: DATAKEY, fill: gencolor, stroke: 'black', strokeWidth: 2, genders: 'female', cursor: 'pointer'});}
@@ -2705,8 +2719,8 @@ function xmlload() {
                 DATAKEY = ARRAY[p].id;
                 var ps = START_MAT_GENLINE(PIDGEN, PID, MIDGEN);
 
-                if(typeof FARRIGHT!= 'undefined')p1 = parseInt(FARRIGHT) + 80;
-                else p1 = ps[0] + 40;
+                if(typeof FARRIGHT != 'undefined')p1 = parseInt(FARRIGHT) + 60;
+                else p1 = ps[0] + 20;
 
                 //p1 = parseInt(ps[0]) + ((parseInt(SISTERS)*50) + (parseInt(NEPHEWS)*30) + (parseInt(MATERNALHALFS)*40));
                 //Get previous object coordninates
@@ -2755,14 +2769,14 @@ function xmlload() {
                 if (LINE == 0) {
                     var KIDS = COUNT_MY_KIDS(MaternalCousinArray, PREVIOUSID);
                     if(KIDS==0)KIDS=1;
-                    p1 = parseInt(PREVIOUSP1) + (60 + (parseInt(KIDS)*60));
+                    p1 = parseInt(PREVIOUSP1) + (60 + (parseInt(KIDS)*80));
                     p1temp.push(MIDGEN, MID, p1);
                     P1.push(p1temp);
                 }
                 else {
                     var KIDS = COUNT_MY_KIDS(MaternalCousinArray, PREVIOUSID);
                     if(KIDS==0)KIDS=1;
-                    p1 = parseInt(PREVIOUSP1) + (60 + (parseInt(KIDS)*60));
+                    p1 = parseInt(PREVIOUSP1) + (60 + (parseInt(KIDS)*80));
                     p1temp.push(MIDGEN, MID, p1);
                     P1.push(p1temp);
 
@@ -5190,27 +5204,12 @@ function xmlload() {
 
     //Load paternal cousins
     function MATERNAL_COUSINS_LOAD() {
-
-        var lx = 0;
-        var ly = 0;
-        var pid, mid, G, midgen;
-        var xl = new Array();
-        var start = new Array();
-        var PIDS = new Array();
-        var MIDS = new Array();
-        var PID, PIDGEN, MID, MIDGEN, DATAKEY;
-        var P1 = new Array();
+        var pid, mid, midgen;
         var DATAARRAY = new Array();
-        var mtemp = new Array();
-
         var nr = 0;
-        var id = "";
-        var pid = "";
 
         //MaternalCousinArray = MaternalCousinArray.sort(SortById);
-        //alert ("ARRAY ARRAY Information:" + JSON.stringify(PaternalCousinArray, null, 2) );
-
-
+        //alert ("MaternalCousinArray ARRAY Information:" + JSON.stringify(MaternalCousinArray, null, 2) );
         for (t = 0; t < MaternalCousinArray.length; t++) {
             var key = MaternalCousinArray[t][2];
             var midgen = MaternalCousinArray[t][0];
@@ -5233,7 +5232,6 @@ function xmlload() {
                 var groupkey = $('#' + pid).attr('datakey');
                 nr = 0;
                 DATAARRAY.push({"id": groupkey, "value": [midgen, mid, pid], "nr": nr})
-
             }
         }
 
@@ -5730,7 +5728,7 @@ function xmlload() {
             var p2 = parseInt($('#' + PID).attr('y')) + 0;
             //target1 = parseInt(target1)+20;
         }
-        if(MIDGEN=='FEMALE')var target1 = parseInt(target1) - 20;
+        if(MIDGEN=='FEMALE')var target1 = parseInt(target1) - 0;
         else var target1 = parseInt(target1) + 20;
 
         xl.push([[target1, parseInt(LEVEL)-20], [target1, parseInt(LEVEL)-20],[target1,parseInt(LEVEL)-20],[parseInt(p1)+45, parseInt(LEVEL)-20]]);
@@ -6071,15 +6069,26 @@ function xmlload() {
     else if(/chrome/i.test( navigator.userAgent )){
 
         if (DIAWIDTH > SVGW) {
+            var RIGHT_X = allXarray.pop();
+            var LEFT_X = allXarray[0];
 
-            wscale = parseInt(DIAWIDTH) + 400;
+            var wscale = parseInt(RIGHT_X)*1.2;
+            var left = parseInt(LEFT_X) - 10;
+            var right = parseInt(RIGHT_X)*0.8;
             hscale = parseInt(SVGH);
-            svgw.setAttribute('viewBox', '0 0 ' + wscale + ' 1200');
-            var lft = parseInt(absleft) / 2;
-            //svgw.setAttribute('transform', 'translate('+ (parseInt(absleft)/2.2) +',10)');
 
-            $('#svgframe').css("margin-top", '10px');
+            svgw.setAttribute('viewBox', left + ' 0 ' + wscale + ' ' + right);
+            svgw.setAttribute("preserveAspectRatio","xMinYMin slice");
+            svgw.setAttribute("width",wscale + "px");
+            svgw.setAttribute("height","1000px");
+            var lft = parseInt(absleft) / 2;
+
+            $('#topsvg').css("overflow-y", "scroll")
+            $('#topsvg').css('width', parseInt(masterRight)-100);
             $('#topsvg').css('overflow', 'visible');
+            $('#svgframe').css("margin-top", '10px');
+
+
 
             //$('#the2').css('display', 'none');
             infoframemargin = $('#family_pedigree_info').css("margin-top");
@@ -6091,10 +6100,14 @@ function xmlload() {
 
         }
         else {
-            wscale = parseInt(SVGW) + 100;
+            var RIGHT_X = allXarray.pop();
+            var LEFT_X = allXarray[0];
+
+            var wscale = parseInt(RIGHT_X) + 100;
+            var left = parseInt(LEFT_X) - 100;
+            //wscale = parseInt(SVGW) + 100;
             hscale = parseInt(hei) + 0;
-            svgw.setAttribute('viewBox', '0 0 ' + wscale + ' 900');
-            //if(FARLEFT<0) svgw.setAttribute('transform', 'translate('+absleft+',10  )');
+            svgw.setAttribute('viewBox', left + ' 0 ' + wscale + ' 900');
             $('#svgframe').css("margin-top", '10px');
             $('#svgframe').css("height", '1000px');
             $('#topsvg').css('overflow', 'hidden');
@@ -6167,9 +6180,15 @@ function xmlload() {
 
         }
         else {
-            wscale = parseInt(SVGW) + 100;
+
+            //alert ("allXarray ARRAY Information:" + JSON.stringify(allXarray, null, 2) );
+            var RIGHT_X = allXarray.pop();
+            var LEFT_X = allXarray[0];
+
+            var wscale = parseInt(RIGHT_X) + 100;
+            var left = parseInt(LEFT_X) - 100;
             hscale = parseInt(hei) + 0;
-            svgw.setAttribute('viewBox', '0 0 ' + wscale + ' 900');
+            svgw.setAttribute('viewBox', left + ' 0 ' + wscale + ' 900');
             //if(FARLEFT<0) svgw.setAttribute('transform', 'translate('+absleft+',10  )');
             $('#svgframe').css("margin-top", '10px');
             $('#svgframe').css("height", '1000px');
@@ -6723,6 +6742,42 @@ function closedialog(){
 
 function TheZoom(sel) {
 
+    var allXarray = new Array();
+    var allYarray = new Array();
+
+    $("#svgframe").each(function() {
+        $('circle').each(function (index) {
+            var cla = $(this).attr('genders')
+            var cx = $(this).attr('cx');
+            var cy = $(this).attr('cy');
+            if (typeof cla != 'undefined') {
+                cla = $(this).attr('genders').toLowerCase();
+                if ($.inArray(cx, allXarray) == -1 && cla == 'female') {
+                    allXarray.push(cx);
+                    allYarray.push(cy);
+                }
+            }
+        });
+    });
+    $("#svgframe").each(function() {
+        $('rect').each(function (index) {
+            var cla = $(this).attr('genders')
+            var x = $(this).attr('x');
+            var y = $(this).attr('y');
+            if (typeof cla != 'undefined') {
+                cla = $(this).attr('genders').toLowerCase();
+                if ($.inArray(x, allXarray) == -1 && cla == 'male') {
+                    allXarray.push(x);
+                    allYarray.push(y);
+                }
+            }
+        });
+    });
+
+    allXarray = allXarray.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
+    allYarray = allYarray.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
+
+
     var selectedVal = sel.options[sel.selectedIndex].value;
 
     var arr = new Array();
@@ -6776,11 +6831,23 @@ function TheZoom(sel) {
 
             X = -200;
             Y = 30;
-            var REALLONG = parseInt(masterRight) * 1.2;
+            var REALLONG = parseInt(masterRight) * 1.3;
 
             var TOTWIDTH = parseInt(width) + (2 * parseInt(X));
 
         if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ) {
+            var RIGHT_X = allXarray.pop();
+            var LEFT_X = allXarray[0];
+
+            if (arr[0] < 0)X = parseInt(arr[0]) - 100;
+            else X = -100;
+
+            var wscale = parseInt(RIGHT_X)*0.5;
+            var left = -Math.abs(RIGHT_X);
+            var right = parseInt(RIGHT_X)*0.01;
+            var REALLONG = parseInt(masterRight) * 3.1;
+
+
             height = parseInt(arr[3]) * 0.40;
             width = parseInt(arr[2]) * 1.99;
             X = -200;
@@ -6788,125 +6855,69 @@ function TheZoom(sel) {
             //svgdoc.setAttribute("viewBox", [200 + " 80 " + width + " " + height]);
 
             svgdoc.setAttribute("viewBox",  '-350 100 ' + -20 + ' -15');
-            $('#topsvg').css("height", "750px");
+            svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
+            svgdoc.setAttribute("width",REALLONG + "px");
+            svgdoc.setAttribute("height","1000px");
+
+
+            $('#topsvg').css("height", "1000px");
             $('#topsvg').css("overflow", "scroll");
-            $('#theclone').css("width", TOTWIDTH);
+            $('#theclone').css("left", '50px');
+            $('#theclone').css("margin-top", '10px');
             /*overflow: scroll;*/
             //svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
 
+            svgdoc.setAttribute('id', 'theclone');
+            $('#theclone').css("width", '3000px');
+            $('#theclone').css("height", '600px');
+            $('#theclone').css("left", '50px');
+            $('#theclone').attr("transform", 'translate(2000 300)');
+
+
         }
         else if(/chrome/i.test( navigator.userAgent )){
+            var RIGHT_X = allXarray.pop();
+            var LEFT_X = allXarray[0];
 
-            var TLEFT = parseInt(masterRight) - parseInt(TOTWIDTH);
-            if (TLEFT < 0) {
-                var REALLONG = parseInt(masterRight) * 1.2;
-                height = parseInt(arr[3]) * 0.60;
-                width = parseInt(arr[2]) * 0.95;
-                X = - 100;
-                Y = 10;
-                TOTWIDTH = parseInt(TOTWIDTH);
-                svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + 1000]);
+            if (arr[0] < 0)X = parseInt(arr[0]) - 100;
+            else X = -100;
+                var REALLONG = parseInt(masterRight) * 3.1;
+                svgdoc.setAttribute("viewBox", [X + " -10 " + REALLONG + " 1200"]);
                 //svgdoc.setAttribute("preserveAspectRatio","none");
+                svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
+                svgdoc.setAttribute("width",REALLONG + "px");
+                svgdoc.setAttribute("height","1000px");
+            $('#topsvg').css("overflow-y", "scroll")
+            $('#topsvg').css('width', parseInt(masterRight)-100);
+            svgdoc.setAttribute('id', 'theclone');
+            $('#theclone').css("height", '1000px');
+            $('#theclone').css("left", '50px');
+            $('#theclone').css("margin-top", '10px');
 
-                //$('#topsvg').css("overflow", "auto");
-                $('#topsvg').css("height", "750px");
-                $('#topsvg').css("overflow-x", "scroll")
-                var ALLWIDTH = 2 * parseInt(masterRight);
-                $('#topsvg').css('width', masterRight);
-                $('#theclone').css("width", TOTWIDTH);
-            }
-            else{
-                height = parseInt(arr[3]) * 0.85;
-                width = parseInt(arr[2]) * 1.70;
-                X = -10 ;
-                Y = -25;
-                svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
-                $('#theclone').css("width", TOTWIDTH);
-            }
         }
         else {
-            var TLEFT = parseInt(masterRight) - parseInt(TOTWIDTH);
 
-            if (TLEFT < 0) {
-
-
-                //height = parseInt(arr[3]) * 0.85;
-                //width = parseInt(arr[2]) * 1.70;
-                //X = -10 ;
-                //Y = -25;
-                //svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
-                //$('#theclone').css("width", TOTWIDTH);
-
-                var REALLONG = parseInt(masterRight) * 1.2;
-
-                height = parseInt(arr[3]) * 0.98;
-                width = parseInt(arr[2]) * 0.92;
-
-                //1176,2461
-
-                X = - 100;
-                Y = 0;
+            if (arr[0] < 0)X = parseInt(arr[0]) - 100;
+            else X = -100;
+                var REALLONG = parseInt(masterRight) * 2.8;
                 TOTWIDTH = parseInt(TOTWIDTH);
-                svgdoc.setAttribute("viewBox", [X + " " + Y + " " + 2500 + " " + 1000]);
+                svgdoc.setAttribute("viewBox", [X + " -10 " + REALLONG + " 1000"]);
+                svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
+                svgdoc.setAttribute("width",REALLONG + "px");
+                svgdoc.setAttribute("height","1000px");
                 //svgdoc.setAttribute("preserveAspectRatio","none");
 
-                //$('#topsvg').css("overflow", "auto");
-                $('#topsvg').css("height", "750px");
-                $('#topsvg').css("overflow-x", "scroll")
-                var ALLWIDTH = 2 * parseInt(masterRight);
-                $('#topsvg').css('width', masterRight);
-                $('#theclone').css("width", TOTWIDTH);
-
-                //height = parseInt(arr[3]) * 1.98;
-                //width = parseInt(arr[2]) * 0.99;
-                //X = - 200;
-                //Y = -30;
-                //FARLEFT = parseInt(FARLEFT) - 200;
-                //svgdoc.setAttribute("viewBox", [X + " " + Y + " " + 3500 + " " + 1500]);
-                //$('#theclone').css("width", '4000px');
-
-            }
-            else {
-                height = parseInt(arr[3]) * 0.90;
-                width = parseInt(arr[2]) * 1.79;
-                X = -10 ;
-                Y = -20;
-                svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
-                $('#theclone').css("width", TOTWIDTH);
-
-            }
-
-            //alert(svgdoc.getAttribute("viewBox"))
-            //svgdoc.setAttribute("viewBox", [358 + " " + Y + " " + width + " " + height]);
-
-            $('#topsvg').css("overflow", "auto");
-            var ALLWIDTH = 2 * parseInt(masterRight);
-            $('#topsvg').css('width', masterRight);
+            $('#topsvg').css("overflow-y", "scroll")
+            $('#topsvg').css('width', parseInt(masterRight)-100);
+            svgdoc.setAttribute('id', 'theclone');
+            $('#theclone').css("height", '1000px');
+            $('#theclone').css("left", '50px');
+            $('#theclone').css("margin-top", '10px');
+            //$('#theclone').attr("transform", 'translate(2000 300)');
 
         }
-
-            //CLONE = svgdoc.getAttribute("viewBox");
-
-            svgdoc.setAttribute('id', 'theclone');
-
-
-            //$('#family_pedigree_info').css("margin-top", PANEL+'px')
-
-
-            $('#theclone').css("margin-left", 'auto');
-            $('#theclone').css("margin-right", 'auto');
-            $('#family_pedigree_info').css("margin-top", '50px')
-
             var ALLHEIGHT = 2 * parseInt(height);
-
-            //$('#svgframe').css("height", '0px');
-            $('#svgframe').css("display", 'none');
-
-            CLONE = svg.clone(null, svgdoc)[0];
-            CLONE.setAttribute('visibility', 'hidden');
-
         $('.namebox').css('font-size','15px');
-        //}
     }
     else if(selectedVal == '100') {
 

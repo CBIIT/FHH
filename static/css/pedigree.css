@@ -279,6 +279,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
 
 #topsvg{
     overflow-x:scroll;
+    overflow-y:scroll;
     width:'100%';
     margin-top:200px;
 }
@@ -634,3 +635,11 @@ svg#svgcloneframe {
 /*'-moz-transform': 'scale(0.6)',*/
 /*'-o-transform': 'scale(0.6)'*/
 /*});*/
+
+@media all {
+    .page-break  { display: none; }
+}
+
+@media print {
+    .page-break  { display: block; page-break-before: always; }
+}
