@@ -361,6 +361,7 @@ function bind_create_new_personal_history_button_action () {
 	if (personal_information != null) {
 	    if (confirm($.t("fhh_js.confirm_delete")) == true) {
 	    	personal_information = new Object();
+//	    	current_health_history = [];
 	    	build_family_history_data_table();
 	    } else {
 	        return false;
@@ -1063,20 +1064,69 @@ function bind_add_all_family_members_submit_button_action() {
 		var number_paternal_aunts = parseInt($("#family_paternal_aunts").val()) || 0;
 		
 		personal_information['father'] = {'gender':'MALE'};
+		personal_information['father'].id = guid();
+		personal_information['father']['Health History'] = [];
+		
 		personal_information['mother'] = {'gender':'FEMALE'};
-		personal_information['maternal_grandfather'] = {'gender':'MALE'};
-		personal_information['maternal_grandmother'] = {'gender':'FEMALE'};
-		personal_information['paternal_grandfather'] = {'gender':'MALE'};
-		personal_information['paternal_grandmother'] = {'gender':'FEMALE'};
+		personal_information['mother'].id = guid();
+		personal_information['mother']['Health History'] = [];
 
-		for (var i=0; i<number_brothers;i++) personal_information['brother_' + i] = {'gender':'MALE'};
-		for (var i=0; i<number_sisters;i++) personal_information['sister_' + i] = {'gender':'FEMALE'};
-		for (var i=0; i<number_sons;i++) personal_information['son_' + i] = {'gender':'MALE'};
-		for (var i=0; i<number_daughters;i++) personal_information['daughter_' + i] = {'gender':'FEMALE'};
-		for (var i=0; i<number_maternal_uncles;i++) personal_information['maternal_uncle_' + i] = {'gender':'MALE'};
-		for (var i=0; i<number_maternal_aunts;i++) personal_information['maternal_aunt_' + i] = {'gender':'FEMALE'};
-		for (var i=0; i<number_paternal_uncles;i++) personal_information['paternal_uncle_' + i] = {'gender':'MALE'};
-		for (var i=0; i<number_paternal_aunts;i++) personal_information['paternal_aunt_' + i] = {'gender':'FEMALE'};
+		personal_information['maternal_grandfather'] = {'gender':'MALE'};
+		personal_information['maternal_grandfather'].id = guid();
+		personal_information['maternal_grandfather']['Health History'] = [];
+
+		personal_information['maternal_grandmother'] = {'gender':'FEMALE'};
+		personal_information['maternal_grandmother'].id = guid();
+		personal_information['maternal_grandmother']['Health History'] = [];
+
+		personal_information['paternal_grandfather'] = {'gender':'MALE'};
+		personal_information['paternal_grandfather'].id = guid();
+		personal_information['paternal_grandfather']['Health History'] = [];
+
+		personal_information['paternal_grandmother'] = {'gender':'FEMALE'};
+		personal_information['paternal_grandmother'].id = guid();
+		personal_information['paternal_grandmother']['Health History'] = [];
+
+		for (var i=0; i<number_brothers;i++) {
+			personal_information['brother_' + i] = {'gender':'MALE'};
+			personal_information['brother_' + i].id = guid();
+			personal_information['brother_' + i]['Health History'] = [];
+		}
+		for (var i=0; i<number_sisters;i++) {
+			personal_information['sister_' + i] = {'gender':'FEMALE'};
+			personal_information['sister_' + i].id = guid();
+			personal_information['sister_' + i]['Health History'] = [];
+		}
+		for (var i=0; i<number_sons;i++) {
+			personal_information['son_' + i] = {'gender':'MALE'};
+			personal_information['son_' + i].id = guid();
+			personal_information['son_' + i]['Health History'] = [];
+		}
+		for (var i=0; i<number_daughters;i++) {
+			personal_information['daughter_' + i] = {'gender':'FEMALE'};
+			personal_information['daughter_' + i].id = guid();
+			personal_information['daughter_' + i]['Health History'] = [];
+		}
+		for (var i=0; i<number_maternal_uncles;i++) {
+			personal_information['maternal_uncle_' + i] = {'gender':'MALE'};
+			personal_information['maternal_uncle_' + i].id = guid();
+			personal_information['maternal_uncle_' + i]['Health History'] = [];
+		}
+		for (var i=0; i<number_maternal_aunts;i++) {
+			personal_information['maternal_aunt_' + i] = {'gender':'FEMALE'};
+			personal_information['maternal_aunt_' + i].id = guid();
+			personal_information['maternal_aunt_' + i]['Health History'] = [];
+		}
+		for (var i=0; i<number_paternal_uncles;i++) {
+			personal_information['paternal_uncle_' + i] = {'gender':'MALE'};
+			personal_information['paternal_uncle_' + i].id = guid();
+			personal_information['paternal_uncle_' + i]['Health History'] = [];
+		}
+		for (var i=0; i<number_paternal_aunts;i++) {
+			personal_information['paternal_aunt_' + i] = {'gender':'FEMALE'};
+			personal_information['paternal_aunt_' + i].id = guid();
+			personal_information['paternal_aunt_' + i]['Health History'] = [];
+		}
 		build_family_history_data_table();
 
 		$("#add_another_family_member_button").show();
