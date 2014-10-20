@@ -142,6 +142,17 @@ function test_any_family_members_fap_hnpcc() {
 	risk_reason = "";
   $.each(personal_information, function (key, item) {
   	if (item != null) {
+	  	if (check_blood_relative(key) == false) return true; // Skip adopted relatives
+  		if (key.substring(0,8) == 'maternal' && personal_information['mother'].adopted == true) return true;
+  		if (key.substring(0,8) == 'paternal' && personal_information['father'].adopted == true) return true;
+  		// Got to figure out grandchildren for adopted parents.
+			if (key.substring(0,8) == 'granddau' || key.substring(0,8) == 'grandson') {
+  			var relative = get_relative_by_id(item.parent_id);
+  			if (typeof personal_information[relative] != 'undefined' && personal_information[relative].adopted == true) return true;
+			}
+
+
+
 			var h = item['Health History'];
 			
 			if (h != null) {
@@ -192,6 +203,7 @@ function test_immediate_family_members_cancer() {
 			if (h != null) {
 				var temp = key.substring(0,4);
 				if(temp == 'fath' || temp == 'moth' || temp == 'brot' || temp == 'sist' || temp == 'daug' || temp == 'son_') {
+		  		if (check_blood_relative(key) == false) return true; // Skip adopted relatives
 					for (i=0;i<h.length;i++) {
 					if (h[i]['Detailed Disease Name'] == 'Colon Cancer') {
 							name = get_name_or_relationship(this.name, key);
@@ -244,7 +256,8 @@ function test_immediate_family_members_polyps() {
 			if (h != null) {
 				var temp = key.substring(0,4);
 				if(temp == 'fath' || temp == 'moth' || temp == 'brot' || temp == 'sist' || temp == 'daug' || temp == 'son_') {
-						for (i=0;i<h.length;i++) {
+  				if (check_blood_relative(key) == false) return true; // Skip adopted relatives
+					for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Polyp') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colon polyps in the past.<br />";
@@ -279,6 +292,15 @@ function test_secondary_family_members_cancer() {
 	risk_reason = "";
   $.each(personal_information, function (key, item) {
   	if (item != null) {
+  		if (item.adopted == true) return true;  // Skip adopted relatives
+  		if (key.substring(0,8) == 'maternal' && personal_information['mother'].adopted == true) return true;
+  		if (key.substring(0,8) == 'paternal' && personal_information['father'].adopted == true) return true;
+  		// Got to figure out grandchildren for adopted parents.
+			if (key.substring(0,8) == 'granddau' || key.substring(0,8) == 'grandson') {
+  			var relative = get_relative_by_id(item.parent_id);
+  			if (typeof personal_information[relative] != 'undefined' && personal_information[relative].adopted == true) return true;
+			}
+  		
 			var h = item['Health History'];
 			if (h != null) {
 
@@ -289,7 +311,8 @@ function test_secondary_family_members_cancer() {
 					 temp13 == 'maternal_gran' || temp13 == 'paternal_gran' ||
 					 temp13 == 'maternal_half' || temp13 == 'paternal_half' ||
 					 temp8 == 'granddau' || temp8 == 'grandson') {
-						for (i=0;i<h.length;i++) {
+  				if (check_blood_relative(key) == false) return true; // Skip adopted relatives
+					for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Cancer') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colon cancer in the past.<br />";
@@ -345,6 +368,15 @@ function test_secondary_family_members_colon_cancer_before_60() {
 	var risk = false;
 	risk_reason = "";
   $.each(personal_information, function (key, item) {
+		if (item.adopted == true) return true;  // Skip adopted relatives
+		if (key.substring(0,8) == 'maternal' && personal_information['mother'].adopted == true) return true;
+		if (key.substring(0,8) == 'paternal' && personal_information['father'].adopted == true) return true;
+		// Got to figure out grandchildren for adopted parents.
+		if (key.substring(0,8) == 'granddau' || key.substring(0,8) == 'grandson') {
+			var relative = get_relative_by_id(item.parent_id);
+			if (typeof personal_information[relative] != 'undefined' && personal_information[relative].adopted == true) return true;
+		}
+
   	if (item != null) {
 			var h = item['Health History'];
 			if (h != null) {
@@ -356,7 +388,8 @@ function test_secondary_family_members_colon_cancer_before_60() {
 					 temp13 == 'maternal_gran' || temp13 == 'paternal_gran' ||
 					 temp13 == 'maternal_half' || temp13 == 'paternal_half' ||
 					 temp8 == 'granddau' || temp8 == 'grandson') {
-						for (i=0;i<h.length;i++) {
+	  			if (check_blood_relative(key) == false) return true; // Skip adopted relatives
+					for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colon cancer before the age of 60.<br />";
@@ -398,6 +431,16 @@ function test_secondary_family_members_uterine_cancer_before_50() {
 	var risk = false;
 	risk_reason = "";
   $.each(personal_information, function (key, item) {
+ 		if (item.adopted == true) return true;  // Skip adopted relatives
+		if (key.substring(0,8) == 'maternal' && personal_information['mother'].adopted == true) return true;
+		if (key.substring(0,8) == 'paternal' && personal_information['father'].adopted == true) return true;
+		// Got to figure out grandchildren for adopted parents.
+		if (key.substring(0,8) == 'granddau' || key.substring(0,8) == 'grandson') {
+			var relative = get_relative_by_id(item.parent_id);
+			if (typeof personal_information[relative] != 'undefined' && personal_information[relative].adopted == true) return true;
+		}
+
+
   	if (item != null) {
 			var h = item['Health History'];
 			if (h != null) {
@@ -409,7 +452,8 @@ function test_secondary_family_members_uterine_cancer_before_50() {
 					|| temp13 == 'maternal_uncl' || temp13 == 'paternal_uncl' || temp13 == 'maternal_aunt' || temp13 == 'paternal_aunt'
 					|| temp13 == 'maternal_gran' || temp13 == 'paternal_gran' || temp13 == 'maternal_half' || temp13 == 'paternal_half'
 					|| temp8 == 'granddau' || temp8 == 'grandson') {
-						for (i=0;i<h.length;i++) {
+			  	if (check_blood_relative(key) == false) return true; // Skip adopted relatives
+					for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Uterine Cancer' && is_age_before('Under50', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had uterine cancer before the age of 50.<br />";
@@ -444,6 +488,15 @@ function test_secondary_family_members_uterine_cancer() {
 	var count = 0;
 	risk_reason = "";
   $.each(personal_information, function (key, item) {
+ 		if (item.adopted == true) return true;  // Skip adopted relatives
+		if (key.substring(0,8) == 'maternal' && personal_information['mother'].adopted == true) return true;
+		if (key.substring(0,8) == 'paternal' && personal_information['father'].adopted == true) return true;
+		// Got to figure out grandchildren for adopted parents.
+		if (key.substring(0,8) == 'granddau' || key.substring(0,8) == 'grandson') {
+			var relative = get_relative_by_id(item.parent_id);
+			if (typeof personal_information[relative] != 'undefined' && personal_information[relative].adopted == true) return true;
+		}
+
   	if (item != null) {
 			var h = item['Health History'];
 			if (h != null) {
@@ -455,7 +508,8 @@ function test_secondary_family_members_uterine_cancer() {
 					 temp13 == 'maternal_gran' || temp13 == 'paternal_gran' ||
 					 temp13 == 'maternal_half' || temp13 == 'paternal_half' ||
 					 temp8 == 'granddau' || temp8 == 'grandson') {
-						for (i=0;i<h.length;i++) {
+			  	if (check_blood_relative(key) == false) return true; // Skip adopted relatives
+					for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Uterine Cancer') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had uterine cancer in the past.<br />";
@@ -562,4 +616,88 @@ function get_name_or_relationship (name, relationship) {
 	s = relationship.substring(0, n != -1 ? n : relationship.length);
 	s = s.replace ("_", " ");
 	return "Your " + s;
+}
+
+// Used for determining if relative is adopted
+function get_relative_by_id(id) {
+	for (var relative in personal_information) {
+		if (typeof personal_information[relative].id != 'undefined') {
+			if (personal_information[relative].id == id) return relative;
+		}
+	}
+	return null;
+}
+
+// Three different checks for blood relatives.
+// 1st, 2nd, 3rd level
+// 1st: brother, sister, mother, father, son, daughter
+// 2nd: grandparents, grandchildren, aunts, uncles, half-siblings (but halfsiblings count as primary in this case only)
+// 3rd: cousins, niece/nephews
+
+function check_blood_relative(relative) {
+
+	// All cases check if that person is adopted, if they are, they are not blood relative
+	if (typeof personal_information[relative] != 'undefined')
+	{
+//		alert (personal_information[relative].name + ":" + (personal_information[relative].adopted == 'true') );
+		if (personal_information[relative].adopted == 'true') return false;
+	}
+// Primary, no other tests required
+	if (relative.substring(0,7) == 'brother' || relative.substring(0,6) == 'sister' 
+	 || relative.substring(0,6) == 'mother'  || relative.substring(0,6) == 'father'
+	 || relative.substring(0,3) == 'son'     || relative.substring(0,8) == 'daughter') {
+		return true;
+	}
+
+// Half-siblings also do not need another test
+	if (relative.substring(0,20) == 'maternal_halfbrother' || relative.substring(0,19) == 'maternal_halfsister' 
+	 || relative.substring(0,20) == 'paternal_halfbrother' || relative.substring(0,19) == 'paternal_halfsister') {
+	 	return true;	
+	}
+	
+// For 2nd degree relatives, check mother or father as well
+	if (relative.substring(0,13) == 'maternal_aunt' || relative.substring(0,14) == 'maternal_uncle'
+	 || relative.substring(0,20) == 'maternal_grandfather' || relative.substring(0,20) == 'maternal_grandmother') {
+	 	if (typeof personal_information['mother'] != 'undefined'  && personal_information['mother'].adopted == 'true') return false;
+	 	else return true;
+	}
+
+	if (relative.substring(0,13) == 'paternal_aunt' || relative.substring(0,14) == 'paternal_uncle'
+	 || relative.substring(0,20) == 'paternal_grandfather' || relative.substring(0,20) == 'paternal_grandmother') {
+	 	if (typeof personal_information['father'] != 'undefined'  && personal_information['father'].adopted == 'true') return false;
+	 	else return true;
+	}
+	
+// Grandchildren need to check the child as well
+	if (relative.substring(0,8) == 'grandson' || relative.substring(0,13) == 'granddaughter') {
+	 var parent_of_relative = get_relative_by_id(personal_information[relative].parent_id);
+   if (personal_information[parent_of_relative].adopted == true || personal_information[parent_of_relative].adopted == 'true') return false;
+	 return true;
+	}
+
+	
+// For 3rd degree relatives, check parent of the person and the mother or father as well
+	if (relative.substring(0,15) == 'maternal_cousin' ) {
+	 if (typeof personal_information['mother'] != 'undefined'  && personal_information['mother'].adopted == 'true') return false;
+	 var parent_of_relative = get_relative_by_id(personal_information[relative].parent_id);
+//	 alert (personal_information[parent_of_relative].name + ":" + personal_information[parent_of_relative].adopted);
+	 	if (personal_information[parent_of_relative].adopted == true || personal_information[parent_of_relative].adopted == 'true') return false;
+	 return true;
+	}
+	
+	if (relative.substring(0,15) == 'paternal_cousin') {
+	 if (typeof personal_information['father'] != 'undefined'  && personal_information['father'].adopted == 'true') return false;
+	 var parent_of_relative = get_relative_by_id(personal_information[relative].parent_id);
+	 	if (personal_information[parent_of_relative].adopted == true || personal_information[parent_of_relative].adopted == 'true') return false;
+	 return true;
+	}
+	
+	if (relative.substring(0,5) == 'niece' || relative.substring(0,6) == 'nephew' ) {
+		var parent_of_relative = get_relative_by_id(personal_information[relative].parent_id);
+//		alert (personal_information[parent_of_relative].name + ":" + personal_information[parent_of_relative].adopted);
+	 	if (personal_information[parent_of_relative].adopted == true || personal_information[parent_of_relative].adopted == 'true') return false;
+		return true;
+	}
+	
+	return true; // Non-relative entries should be ignored
 }
