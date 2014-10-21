@@ -49,7 +49,7 @@ function bind_uploader() {
 		runtimes : 'html5,html4,flash,silverlight',
 		browse_button : 'pickfiles', // you can pass in id...
 		container: document.getElementById('container'), // ... or DOM Element itself
-		url : '../upload/upload.php',
+		url : '../upload/upload2.php',
 		flash_swf_url : '../js/Moxie.swf',
 		silverlight_xap_url : '../js/Moxie.xap',
 		filters : {
@@ -87,20 +87,8 @@ function bind_uploader() {
 				if(file.getNative() !== null) {
 					load_family_history(file.getNative());				
 				} else {
-
-					$.ajax({url:"/tmp/plupload/"+file.name, 
-					 	dataType: 'text',
-					 	success:function(data){
-					    	//alert(result);
-      						load_xml(data);
-      					},
-						error: function (xhr, ajaxOptions, thrownError) {
-					    	//alert(xhr.status);
-					    	//alert(xhr.response);
-					    	//alert(thrownError);
-					    }, 
-					    complete: afterCompletion
-					});
+					//We do not have a getNative object so send response from upload2.php.
+					load_xml(obj.response);
 				}
 
 				$("#load_personal_history_dialog").dialog("close");			
