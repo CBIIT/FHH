@@ -46,7 +46,8 @@ function bind_load_file() {
 function bind_uploader() {
 
 	var uploader = new plupload.Uploader({
-		runtimes : 'html5,html4,flash,silverlight',
+//		runtimes : 'html5,html4,flash,silverlight',
+		runtimes : 'html4',
 		browse_button : 'pickfiles', // you can pass in id...
 		container: document.getElementById('container'), // ... or DOM Element itself
 		url : '../upload/upload2.php',
@@ -68,22 +69,21 @@ function bind_uploader() {
 					return false;
 				};
 			},
-
 			FilesAdded: function(up, files) {
 				plupload.each(files, function(file) {
 					document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
 				});
 			},
-
 			UploadProgress: function(up, file) {
 				document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
 			},
-
 			Error: function(up, err) {
 				document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 			},
-			
 			FileUploaded: function(upldr, file, obj) {
+				console.log("obj");
+				console.dir(obj);
+				alert(obj.response);
 				if(file.getNative() !== null) {
 					load_family_history(file.getNative());				
 				} else {
@@ -98,7 +98,7 @@ function bind_uploader() {
 
 	uploader.init();
 }
-
+/*
 function afterCompletion(xhr,status){
 	if(status == 'parsererror'){
 		xmlDoc = null;
@@ -120,6 +120,7 @@ function afterCompletion(xhr,status){
 	}
 	//alert('complete: ' + xhr.responseText);
 }
+*/
 
 
 function bind_load_dropbox() {
@@ -238,6 +239,7 @@ function load_xml(xmlInput) {
 //	$('#xmlData').empty().append(xmlInput);
 //	alert('did the data show up');
 	var xmlDom = $.parseXML(xmlInput);
+
 //	alert(xmlDom);
 	parse_xml(xmlDom);
 	build_family_history_data_table();
@@ -263,6 +265,8 @@ function make_disease_array () {
 */
 function parse_xml(data) {
 //	alert(data);
+	console.log("Here is the file XMLified");
+	console.log(data);
 	personal_information.id = $(data).find("patientPerson > id").attr("extension");
 	// Handle the misspelling from the previous version of the software
 	if (personal_information.id == null) personal_information.id = $(data).find("patientPerson > id").attr("extention");
