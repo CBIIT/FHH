@@ -46,8 +46,7 @@ function bind_load_file() {
 function bind_uploader() {
 
 	var uploader = new plupload.Uploader({
-//		runtimes : 'html5,html4,flash,silverlight',
-		runtimes : 'html4',
+		runtimes : 'html5,html4,flash,silverlight',
 		browse_button : 'pickfiles', // you can pass in id...
 		container: document.getElementById('container'), // ... or DOM Element itself
 		url : '../upload/upload2.php',
@@ -88,7 +87,8 @@ function bind_uploader() {
 					load_family_history(file.getNative());				
 				} else {
 					//We do not have a getNative object so send response from upload2.php.
-					load_xml(obj.response);
+					var decoded = $("<div/>").html(obj.response).text();
+                    load_xml(decoded);
 				}
 
 				$("#load_personal_history_dialog").dialog("close");			

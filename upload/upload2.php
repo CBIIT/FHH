@@ -18,7 +18,7 @@ $file = $_FILES["file"]["tmp_name"];
 if(file_exists($file)) {
 	header('Content-Description: File Transfer');
 	header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-	//header('Content-Type: application/octet-stream');
+	header('Content-Type: text/plain');
 	//header('Content-Disposition: attachment; filename='.basename($file));
 	//header('Content-Transfer-Encoding: binary');
 	header('Expires: 0');
