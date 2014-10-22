@@ -3,7 +3,7 @@
  */
 
 
-var mdialog,tdialog;
+var mdialog=null;
 var original;
 var clone;
 var masterRight = $(window).width();
@@ -73,7 +73,7 @@ var STATICDISEASES = [
 
 function xmlload() {
     /*
-    Get Date
+     Get Date
      */
     var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -106,66 +106,77 @@ function xmlload() {
 
     mdialog = $(
         '<div id="family_pedigree">' +
-            '<div id="topsvg"> ' +
-        //'<svg id="svgframe" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
-                '<svg id="svgframe">' +
-                    //'<g id="glass" class="">' +
-                    //'</g>' +
-                '</svg>' +
-            '</div>' +
+        '<div id="topsvg"> ' +
+            //'<svg id="svgframe" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
+        '<svg id="svgframe">' +
+            //'<g id="glass" class="">' +
+            //'</g>' +
+        '</svg>' +
+        '</div>' +
 
         '<div id="main" class="">' +
 
-            '<div id="dialogtext" style="position: absolute;top: 20px"></div>' +
+        '<div id="dialogtext" style="position: absolute;top: 20px"></div>' +
 
-                    '<div id="nav" class="sticky">' +
-                        '<ul>' +
-                            '<li><a class="top" href="#top">Go To Diagram</a></li>' +
-                            '<li><a class="bottom" href="#bottom">Go To Table</a></li>' +
-                            '<li><a id="printer">Print</a></li>' +
-                            '<li><a href="#top" onclick="createDialog()">Diagram & Table Options</a></li>' +
-                            '<li>' +
-                                '<select id="zoomer" class="selector" onchange="TheZoom(this);">'+
-                                    '<option id="the1" value="100">+100</option>' +
-                                    '<option id="the2" value="200">+200</option>' +
-                                '</select>' +
-                            '</li>' +
+        '<div id="nav" class="sticky">' +
+        '<ul>' +
+        '<li><a class="top" onclick="ToTop();return false;" href="#">Go To Diagram</a></li>' +
+        '<li><a class="bottom" onclick="ToTable();return false;" href="#">Go To Table</a></li>' +
+        '<li><a id="printer">Print</a></li>' +
+        '<li><a href="#top" onclick="createDialog()">Diagram & Table Options</a></li>' +
+        '<li>' +
+        '<select id="zoomer" class="selector" onchange="TheZoom(this);">'+
+        '<option id="the1" value="100">+100</option>' +
+        '<option id="the2" value="200">+200</option>' +
+        '</select>' +
+        '</li>' +
+        '<li>' +
+        '<input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close"' +
+        'type="button"role="button" aria-disabled="false" title="close" value="close" onclick="closedialog()" style="right:50px;width:50px"></input>' +
+        '</li>' +
+        '</ul>' +
+        '</div>' +
+            //'<div id="top"></div>' +
+            //'<div class="desc"></div>' +
+            //'<div id="bottom" style="height:1px;border-left:solid 1px black"></div>' +
+            //'<div class="scroll"></div>' +
+        '<div class="info"></div>' +
+        '</div>' +
 
-                            '<li>' +
-                            '<input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close"' +
-                            'type="button"role="button" aria-disabled="false" title="close" value="close" onclick="closedialog()" style="right:50px;width:50px"></input>' +
-                            '</li>' +
-                        '</ul>' +
-                    '</div>' +
-                '<div id="top"></div>' +
-                //'<div class="desc"></div>' +
-                '<div id="bottom"></div>' +
-                //'<div class="scroll"></div>' +
-                '<div class="info"></div>' +
-            '</div>' +
-                '<div id="family_pedigree_info">' +
-                    '<div>' +
-                        '<table id="closed_table" ><tr><td></td></tr></table>' +
-                        '<table id="health_table" class="display compact">' +
-                            '<caption style="font-size:12px;text-align: center">' + today + '</caption>' +
-                            '<thead></thead>' +
-                            '<tfoot></tfoot>' +
-                            '<tbody></tbody>' +
-                        '</table>' +
-                    '</div>' +
-                '</div>' +
-            '</div>'
+
+        '<div id="family_pedigree_info" class="brk">' +
+        '<div>' +
+        '<table id="closed_table" ><tr><td></td></tr></table>' +
+
+        '<table id="health_table" class="display compact">' +
+        '<caption style="font-size:12px;text-align: center">' + today + '</caption>' +
+        '<thead></thead>' +
+        '<tfoot></tfoot>' +
+        '<tbody></tbody>' +
+        '</table>' +
+        '</div>' +
+        '</div>' +
+        '</div>'
     );
 
     $(mdialog).dialog({
+        id: 'maindialog',
         autoOpen: false,
-        position: ['top',20] ,
+        position: ['top',0] ,
         //position: ['top', '10px'],
         title: 'Family Pedigree Chart',
         minHeight:450,
         height:'auto',
         width: 'auto',
-        modal: true,
+        position: 'fixed',
+        modal: false,
+        //afterOpen: function(){
+        //    $(this).position(['top',0]);
+        //    $(this).position('fixed');
+        //    $('html,body').animate({
+        //            scrollTop: $("#dialogtext").offset().top},
+        //        'fast');
+        //},
         open: function () {
             var target = $(this);
             $(this).dialog("open");
@@ -177,15 +188,29 @@ function xmlload() {
             var myDialogX = $(this).position().left - $(this).outerWidth();
             //var myDialogY = $(this).position().top - ( $(document).scrollTop() + $('.ui-dialog').outerHeight() );
             $(this).dialog( 'option', 'position', [myDialogX, 40] );
-                diseasearray=new Array();
+            diseasearray=new Array();
+
+
         },
-        close: function () {
+        beforeClose: function(){
+            $(this).position(['top',0]);
+            $(this).position('fixed');
+        },
+        close: function() {
             oTable.fnDestroy();
-            $("#dialog").dialog("widget").position(['top',0]);
+
             $("#health_table").empty();
             diseasearray=new Array();
             $(this).empty();
-            $(this).dialog('destroy').remove();
+            //$(this).dialog('close', true);
+            $(".ui-dialog-content").dialog("close");
+            $('#maindialog').dialog('destroy').remove();
+
+
+
+            //$(this).find('.ui-dialog-content').dialog('destroy').remove();
+
+
         }
     });
 
@@ -276,7 +301,7 @@ function xmlload() {
             if(NAME)NAME=NAME.toLowerCase();
 
             /*
-            Get only values that are not static
+             Get only values that are not static
              */
             //if ($.inArray(NAME.toLowerCase(), STATICDISEASES) == -1){alert(NAME)}
 
@@ -286,39 +311,32 @@ function xmlload() {
             });
         }
 
-        //if (!isDataTable($("#health_table")[0])) {
-            oTable = $('#health_table').dataTable({
-                "bPaginate": true,
-                //"scrollX": true,
-                //"scrollY": "300px",
-                //"sScrollY": "250px",
-                "bAutoWidth": true,
-                "bScrollCollapse": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "displayLength": 100,
-                "dom": '<"toolbar">Rlfrtip',
-                //"dom": 'Rlfrtip','T<"clear">lfrtip',
-                tableTools: {
-                    "aButtons": ["print"]
-                },
-                "columns": HEADERS,
-                "columnDefs": [
-                    {
-                        "targets": [0],
-                        "visible": false,
-                        "searchable": false
-                    }
-                ],
-                "aaSortingFixed": [[0, 'desc']]
+        oTable = $('#health_table').dataTable({
+            "bPaginate": true,
+            //"scrollX": true,
+            //"scrollY": "300px",
+            //"sScrollY": "250px",
+            "bAutoWidth": true,
+            "bScrollCollapse": false,
+            "bLengthChange": false,
+            "bFilter": true,
+            "displayLength": 100,
+            "dom": '<"toolbar">Rlfrtip',
+            //"dom": 'Rlfrtip','T<"clear">lfrtip',
+            tableTools: {
+                "aButtons": ["print"]
+            },
+            "columns": HEADERS,
+            "columnDefs": [
+                {
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                }
+            ],
+            "aaSortingFixed": [[0, 'desc']]
 
-            });
-        //}
-
-        //new $.fn.dataTable.FixedColumns( oTable, {
-        //    leftColumns: [1,2,3,4,5,6]
-        //} );
-
+        });
 
         $("div.toolbar").html(
 
@@ -405,18 +423,23 @@ function xmlload() {
     var MaternalRelatives = new Array();
 
     //mdialog.dialog({ position: ['top', 20] });
-    mdialog.dialog('open');
 
-    //alert(mdialog.dialog.position)
+    ToTop();
+    setTimeout(
+        function()
+        {
+            mdialog.dialog('open');
+        }, 3000);
+
     /*
-    Start SVG
+     Start SVG
      */
     $('#svgframe').svg();
     svg = $('#svgframe').svg('get');
 
     $('#svgframe')
         .draggable();
-        //.resizable();
+    //.resizable();
     var LINEGROUP = svg.group({stroke: 'black', strokeWidth: 2});
 
     //var TOPCLONE = svg.clone( null, rect1)[0];
@@ -429,8 +452,8 @@ function xmlload() {
 
     //Outer Frame
     //svg.rect(25, 5, ['95%'], 700, 1, 1, {id: 'diagramframe', fill: 'none', stroke: 'navy', strokeWidth: 1});
-    svg.text(masterleft - 120, 30, "Paternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
-    svg.text(masterleft + 120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray' });
+    svg.text(masterleft - 120, 30, "Paternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'pattext'});
+    svg.text(masterleft + 120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'mattext'});
 
     $('#optionsPanel').attr('width', '800px');
 
@@ -850,10 +873,10 @@ function xmlload() {
         var pstart,pend,mstart,mend;
 
         //var mleft = parseInt(masterleft) - 185;
-            pend = parseInt(masterleft) - 220;
-            pstart = parseInt(masterleft) - 75;
-            mend = parseInt(masterleft) + 245;
-            mstart = parseInt(masterleft) + 100;
+        pend = parseInt(masterleft) - 220;
+        pstart = parseInt(masterleft) - 75;
+        mend = parseInt(masterleft) + 245;
+        mstart = parseInt(masterleft) + 100;
 
 
         if (key == 'paternal_grandmother') {
@@ -1066,21 +1089,21 @@ function xmlload() {
 
 
         //Adopted
-        svg.text(10+skipa, 30 + pos, "Adopted", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray'});
+        svg.text(10+skipa, 30 + pos, "Adopted", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray', id: 'f1text'});
         svg.circle(0+skipa, 95 + pos, kcr, {id: 'afd', fill: 'palegoldenrod', stroke: 'black', strokeWidth: 2});
         svg.rect(50+skipa, 74 + pos, krr, krr, 1, 1, {id: 'ama', fill: 'palegoldenrod', stroke: 'black', strokeWidth: 3});
 
         //Live
-        svg.text(100+skip, 30 + pos, "Alive", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray'});
+        svg.text(100+skip, 30 + pos, "Alive", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray', id: 'f2text'});
         svg.circle(75+skip, 95 + pos, kcr, {id: 'kfd', fill: gencolor, stroke: 'black', strokeWidth: 2});
         svg.rect(120+skip, 74 + pos, krr, krr, 1, 1, {id: 'kma', fill: gencolor, stroke: 'black', strokeWidth: 3});
 
         //Deceased
-        svg.text(270+skip, 30 + pos, "Deceased", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray'});
+        svg.text(270+skip, 30 + pos, "Deceased", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray', id: 'f3text'});
         svg.circle(270+skip, 95 + pos, kcr, {id: 'kf', fill: gencolor, stroke: 'black', strokeWidth: 2});
         svg.rect(325+skip, 74 + pos, krr, krr, 1, 1, {id: 'kmd', fill: gencolor, stroke: 'black', strokeWidth: 2});
 
-        svg.text(470+skip, 30 + pos, "A non-blood relative or relative through marriage.", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray'});
+        svg.text(470+skip, 30 + pos, "A non-blood relative or relative through marriage.", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray', id: 'f4text'});
         svg.rect(570+skip, 74 + pos, krr, krr, 1, 1, {id: 'exw', fill: gencolor, stroke: 'black', strokeWidth: 2});
         svg.circle(690+skip, 95 + pos, kcr, {id: 'ex', fill: 'white', stroke: 'black', strokeWidth: 2});
         svg.line(LINEGROUP, 570+skip,  95 + pos, 690+skip,  95 + pos, {id: 'xl', stroke: 'black', strokeWidth: 3});
@@ -1118,28 +1141,16 @@ function xmlload() {
     //Load Maternal Cousins
     MATERNAL_COUSINS_LOAD();
 
-    //Ensure the table is belw
-    //var SVG = document.getElementById('svgframe');
-    //var parent = SVG.parentNode;
-    //var TBL = parent.firstChild;
-    //parent.insertBefore(SVG, TBL);
-
     /*
-    Tables and other information tools
+     Tables and other information tools
      */
     LOAD_NAMES(NAMEARRAY);
 
-    //LOAD_HEALTH(HEALTHARRAY);
-    //LOAD_DISEASE_LIST(DISEASELISTARRAY);
-    //BUILD_DISEASE_LIST();
-
     ADOPTED_FAMILY();
-
 
     $( "#printer" ).click(function() {
 
 
-        $('#svgframe').draggable('disable');
         $('#topsvg').css('overflow', 'hidden');
 
         $('.sticky').hide();
@@ -1167,7 +1178,7 @@ function xmlload() {
             var DocumentContainer = $(mdialog);
             var WindowObject = window.open('', "Print", "width=800,height=700,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no");
             WindowObject.document.writeln('<!DOCTYPE html>'
-            + '<html><head><title>Disease Matrix</title>'
+            + '<html><head><title>My Family Health Portrait-Diagram</title>'
             +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
             + $(DocumentContainer).html()
             + '</head><body>');
@@ -1190,16 +1201,133 @@ function xmlload() {
                 }
             }, 1000);
         }
+        //else if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1){   // Chrome Browser Detected?
+        //
+        //    $('#svgframe').draggable('disable');
+        //    window.PPClose = false;                                     // Clear Close Flag
+        //    window.onbeforeunload = function(){                         // Before Window Close Event
+        //        if(window.PPClose === false){                           // Close not OK?
+        //            return 'Leaving this page will block the parent window!' +
+        //                '\nPlease select "Stay on this Page option" and use the' +
+        //                '\nCancel button instead to close the Print Preview Window.\n';
+        //        }
+        //    }
+        //
+        //    //var infoelem = $('#family_pedigree_info');
+        //    //infoelem.attr('class','page-break');
+        //
+        //
+        //    //var topdiv = $('#topsvg').clone();
+        //
+        //    //$('#topsvg').attr('class','landscape');
+        //    //var tableclass = $('#health_table').attr('class');
+        //
+        //
+        //
+        //
+        //    //$(diaelem).addClass("landscape");
+        //
+        //    $('#topsvg').attr('height',masterHeight);
+        //    $('#topsvg').attr('margin-top',10);
+        //    //$('#topsvg').attr('class','page-break');
+        //
+        //    //document.getElementById("health-table").style.pageBreakAfter="always";
+        //
+        //
+        //    //var printContents = document.getElementById('topsvg').innerHTML;
+        //    //var originalContents = document.body.innerHTML;
+        //    //document.body.innerHTML = printContents;
+        //
+        //    //window.print();
+        //
+        //
+        //
+        //        originalContents = document.body.innerHTML;
+        //    //originalContents = mdialog.innerHTML;
+        //        //coupon=couponID;
+        //        var printable = document.getElementById('topsvg');
+        //        var htable = document.getElementById('health_table');
+        //        var printContents = printable.innerHTML;
+        //        document.body.innerHTML = printContents + '<br/> + htable';
+        //
+        //
+        //    window.print();
+        //
+        //
+        //        //setTimeout(printCoupon,50);
+        //
+        //
+        //    document.body.innerHTML = originalContents;
+        //    //document.getElementById('topsvg').scrollIntoView(true);
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //    //window.print();                                             // Print preview
+        //    //window.PPClose = true;                                      // Set Close Flag to OK.
+        //
+        //
+        //
+        //    var timer = setInterval(function() {
+        //        if( window.PPClose = true) {
+        //
+        //            clearInterval(timer);
+        //            $('.sticky').show();
+        //            $('#dialogtext').show();
+        //            $('.closeimg').show();
+        //            $('#health_table_filter').show();
+        //            $('#health_table_info').show();
+        //            $('#health_table_paginate').show();
+        //            //infoelem.attr('class','family_pedigree_info');
+        //
+        //            //$('#svgframe').draggable('enable');
+        //            //$('#topsvg').css('overflow', 'visible');
+        //            //$('#topsvg').attr('class','');
+        //            //$('#health_table').attr('class','');
+        //        }
+        //    }, 1000);
+        //}
         else {
-            originalContents = document.body.innerHTML;
-            $('#dialogtext').hide();
-            var myWindow=window.open('','Print','width=800,height=700,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no');
+            var myWindow=null;
+            var prand = Math.floor((Math.random() * 10000) + 1);
+            $('#svgframe').draggable('disable');
+            //originalContents = document.body.innerHTML;
+            //$('#dialogtext').hide();
+            var myWindow=window.open(prand,'Print','width=900,height=900,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no');
 
-            var container = $(mdialog);
-            var diaelem = $('#topsvg');
+            //var container = $(mdialog);
+            //var diaelem = $('#svgframe').clone();
+            //var diaelem = $('#topsvg').clone();
+
+
+            //var rotation = 90;
+            //$(diaelem).css({'-webkit-transform' : 'rotate('+ rotation +'deg)',
+            //    '-moz-transform' : 'rotate('+ rotation +'deg)',
+            //    '-ms-transform' : 'rotate('+ rotation +'deg)',
+            //    'transform' : 'rotate('+ rotation +'deg)'});
+
             var infoelem = $('#family_pedigree_info');
 
+            //transform = "rotate(-45 100 100)"
+            //$(diaelem).attr('transform','rotate(-90 100 100)')
+
             infoelem.attr('class','page-break');
+
+            var topsvg = $('#topsvg');
+            var healthtable = $('#health_table');
+
+
+
+            //$('#topsvg').attr('class','landscape');
+            //$(diaelem).addClass("landscape");
+
+            //$('#topsvg').attr('height',masterHeight);
+            //$('#topsvg').attr('margin-top',10);
+
 
 
             myWindow.document.write('<!DOCTYPE html>'
@@ -1208,11 +1336,11 @@ function xmlload() {
 
                 //+ $(diaelem).html()
                 //+ $(infoelem).html()
-            + $(container).html()
+            + $(topsvg).html()
 
             + '</head><body>');
 
-            myWindow.focus();
+            //myWindow.focus();
             myWindow.print();
             myWindow.close();
 
@@ -1230,10 +1358,23 @@ function xmlload() {
 
                     $('#svgframe').draggable('enable');
                     $('#topsvg').css('overflow', 'visible');
+                    $('#topsvg').attr('class','');
                 }
             }, 1000);
+
+            myWindow.close();
         }
     });
+
+
+    function printCoupon(){
+        window.print();
+        setTimeout(endPrintCoupon,50);
+    }
+    function endPrintCoupon(){
+        document.body.innerHTML = originalContents;
+        document.getElementById(coupon).scrollIntoView(true);
+    }
 
     function printDiv(elementId) {
         var popUpAndPrint = function()
@@ -1275,7 +1416,7 @@ function xmlload() {
         + '<html><head><title>Disease Matrix</title>'
         +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
         + $(printContents).html()
-        //+ printContents
+            //+ printContents
         + '</head><body>';
 
         //document.body.innerHTML = printContents;
@@ -1714,59 +1855,59 @@ function xmlload() {
         });
 
         $.each(personal_information, function (key, item) {
-                if (item['Health History']) {
-                    var health = new Array();
-                    health = item['Health History'];
-                    $.each(health, function (k, data) {
-                        var disname = data['Disease Name'];
-                        var detdisname = data['Detailed Disease Name'];
-                        var ln = detdisname.length;
+            if (item['Health History']) {
+                var health = new Array();
+                health = item['Health History'];
+                $.each(health, function (k, data) {
+                    var disname = data['Disease Name'];
+                    var detdisname = data['Detailed Disease Name'];
+                    var ln = detdisname.length;
 
-                        var F3 = disname.substr(0,3);
-                        var L2 = detdisname.substr(ln - 2,ln).toUpperCase();
+                    var F3 = disname.substr(0,3);
+                    var L2 = detdisname.substr(ln - 2,ln).toUpperCase();
 
-                        var Abr = F3+L2;
+                    var Abr = F3+L2;
 
-                        if ($.inArray(Abr, array) == -1) {
-                            array.push(Abr);
-                            if (detdisname == null)ident = disname;
-                            else ident = detdisname;
-                            var identInfo = Abr + " = " + ident;
+                    if ($.inArray(Abr, array) == -1) {
+                        array.push(Abr);
+                        if (detdisname == null)ident = disname;
+                        else ident = detdisname;
+                        var identInfo = Abr + " = " + ident;
 
-                            if (cr == 25) {
-                                $('#itempanel').attr('height', cr + 85);
-                                var f2 = pos + cr;
-                                var t2 = f2 + 25;
-                                cr = cr + 25;
-                                svg.rect(1100, pos, 550, 100, 3, 3, {
-                                    id: 'itempanel',
-                                    fill: 'none',
-                                    stroke: 'slategray',
-                                    strokeWidth: 1
-                                });
+                        if (cr == 25) {
+                            $('#itempanel').attr('height', cr + 85);
+                            var f2 = pos + cr;
+                            var t2 = f2 + 25;
+                            cr = cr + 25;
+                            svg.rect(1100, pos, 550, 100, 3, 3, {
+                                id: 'itempanel',
+                                fill: 'none',
+                                stroke: 'slategray',
+                                strokeWidth: 1
+                            });
 
-                                svg.text(1150, t2, identInfo, {
-                                    id: Abr,
-                                    fontWeight: 'bold',
-                                    fontSize: '22.5',
-                                    fill: 'slategray'
-                                });
-                            }
-                            else {
-                                var f2 = pos + cr;
-                                var t2 = f2 + 25;
-                                cr = cr + 25;
-                                $('#itempanel').attr('height', cr);
-                                svg.text(1150, t2, identInfo, {
-                                    id: Abr,
-                                    fontWeight: 'bold',
-                                    fontSize: '22.5',
-                                    fill: 'slategray'
-                                });
-                            }
+                            svg.text(1150, t2, identInfo, {
+                                id: Abr,
+                                fontWeight: 'bold',
+                                fontSize: '22.5',
+                                fill: 'slategray'
+                            });
                         }
-                    });
-                }
+                        else {
+                            var f2 = pos + cr;
+                            var t2 = f2 + 25;
+                            cr = cr + 25;
+                            $('#itempanel').attr('height', cr);
+                            svg.text(1150, t2, identInfo, {
+                                id: Abr,
+                                fontWeight: 'bold',
+                                fontSize: '22.5',
+                                fill: 'slategray'
+                            });
+                        }
+                    }
+                });
+            }
         });
 
         $('#itempanel').attr('height',cr + 55);
@@ -1779,7 +1920,7 @@ function xmlload() {
             stroke: 'black',
             'stroke-width': '0.5',
             lengthAdjust: 'spacingAndGlyphs',
-             'class': 'infobox'
+            'class': 'infobox'
         });
         return;
     }
@@ -1998,10 +2139,8 @@ function xmlload() {
                     var DATAKEY = ARRAY[p].id;
                     var ps = CHILD_START_LINE(PIDGEN,PID);
                     var p1 = ps[0];
-                    //SINGLE_RIGHT_CORNER_CONNECTOR(PID, MID, MIDGEN, PIDGEN, Level3M, p1);
                     p1temp.push(MIDGEN, MID, p1, PID, CNR);
                     P1.push(p1temp);
-                    //single_straight_parent_child_connection(MIDGEN,Level3M,p1,'tess')
                     if (MIDGEN == 'MALE') {
                         svg.rect(p1+25, Level4M, rr, rr, 1, 1, {
                             id: MID,
@@ -2055,22 +2194,10 @@ function xmlload() {
                             //var p1 = parseInt(PREVIOUSP1) + (parseInt(PREVIOUSCNR) * 180)
                         }
                         else if(PREVIOUSCNR>1) {
-
                             if (PREVIOUSGEN == 'MALE') var p1 = parseInt(PREVIOUSP1) + 20 + (parseInt(PREVIOUSCNR) * 80);
                             else  var p1 = parseInt(PREVIOUSP1) + 20  + (parseInt(PREVIOUSCNR) * 100);
-
-                            //if(TOTALKIDS==0){var p1 = parseInt(PREVIOUSP1) + (parseInt(TOTALMYKIDS) * 30)}
-                            //else {
-                            //    var p1 = parseInt(PREVIOUSP1) + (parseInt(PREVIOUSCNR) * 80)
-                            //}
                         }
-                        //else if(TOTALKIDS>1) var p1 = parseInt(PREVIOUSP1) + (parseInt(TOTALKIDS) * 30);
-                        //else var p1 = parseInt(TARGET) + (parseInt(TOTALKIDS) * 150)
                     }
-
-
-
-
 
                     p1temp.push(MIDGEN, MID, p1, PID, CNR);
                     P1.push(p1temp);
@@ -2104,8 +2231,10 @@ function xmlload() {
         }
 //Load my spouce
         LOAD_SPOUCE_MATERNAL('me', $('#me').attr("genders"))
-        OBJECTS_CONNECT(ChildrenArray, 'ctest');
-        }
+        CHILD_START_LINE(ChildrenArray, 'ctest');
+
+        STACK_CONNECTOR(ARRAY,'MyKids');
+    }
 
 
     //Load paternal cousins
@@ -2138,8 +2267,8 @@ function xmlload() {
             var mid = GrandChildrenArray[t][1];
             var pid = GrandChildrenArray[t][2];
             var side = $('#' + pid).attr('datakey').substring(0, 1);
-                DATAARRAY.push({"id": id, "value": [midgen, mid, pid], "nr": nr})
-                nr = nr + 1;
+            DATAARRAY.push({"id": id, "value": [midgen, mid, pid], "nr": nr})
+            nr = nr + 1;
         }
         GRANDCHILDREN_LOAD(DATAARRAY);
     }
@@ -4105,28 +4234,29 @@ function xmlload() {
                 if (p == 0) {
                     DATAKEY = ARRAY[p].id;
 
-                    //if (SistersArray.length > 1) {
-                    //    var d = SistersArray[SistersArray.length - 1];
-                    //    var lx = $('#' + d[1]).attr('cx');
-                    //    if(MIDGEN=='MALE') p1 = parseInt(lx) + 200;
-                    //    else  p1 = parseInt(lx) + 145;
-                    //    SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
-                    //}
-                    //else {
-                    //    var ps = RIGHT_START_HALF_SIBLINGS_GEN(PIDGEN,PID,MIDGEN);
-                    //    p1 = ps[0];
-                    //    SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
-                    //}
+                    if (SistersArray.length > 1) {
+                        var d = SistersArray[SistersArray.length - 1];
+                        var lx = $('#' + d[1]).attr('cx');
+                        if(MIDGEN=='MALE') p1 = parseInt(lx) + 200;
+                        else  p1 = parseInt(lx) + 145;
+                        SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
+                    }
+                    else {
+                        var ps = RIGHT_START_HALF_SIBLINGS_GEN(PIDGEN,PID,MIDGEN);
+                        p1 = ps[0];
+                        SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
+                    }
 
 
                     if(typeof FARRIGHT!= 'undefined')p1 = parseInt(FARRIGHT) + 120;
                     else p1 = ps[0] + 40;
 
-                    SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
+                    //SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
 
                     //Get previous object coordninates
                     p1temp.push(MIDGEN, MID, p1, CNR);
                     P1.push(p1temp);
+
                     if (MIDGEN == 'MALE') {
                         svg.rect(p1, Level3M, rr, rr, 1, 1, {
                             id: MID,
@@ -5690,7 +5820,7 @@ function xmlload() {
             [target1,parseInt(LEVEL) - 20],
             [target1, parseInt(LEVEL)-20]
         ]);
-            svg.polyline(xl, {id: 'Pss_' + MID, fill: 'none', stroke: 'black', strokeWidth: 3});
+        svg.polyline(xl, {id: 'Pss_' + MID, fill: 'none', stroke: 'black', strokeWidth: 3});
     }
 
     function SINGLE_SIDE_START_MATERNAL_CORNER_CONNECTOR(PID, PIDGEN, MID, MIDGEN, LEVEL, target1) {
@@ -5912,8 +6042,7 @@ function xmlload() {
     var w = svgw.getAttribute('width');
 
 
-
-   var offset = $('#svgframe').offset().left;
+    var offset = $('#svgframe').offset().left;
     var wit = $(window).height();
     var hei = $('#svgframe').height();
     var X = $('#me').attr('x');
@@ -6064,7 +6193,7 @@ function xmlload() {
         }
     }
     /*
-    Chrome and FF
+     Chrome and FF
      */
     else if(/chrome/i.test( navigator.userAgent )){
 
@@ -6213,7 +6342,7 @@ function xmlload() {
     }
 
     /*
-    Start clone and hide
+     Start clone and hide
      */
     //TOPCLONE = svg.clone( null, svgw)[0];
     //TOPCLONE.setAttribute('visibility','hidden');
@@ -6239,6 +6368,7 @@ function LOAD_HEALTH_TABLE(){
 
     temp1.push(-1);
     temp1.push(personal_information.name + '( Self )');
+    //if(personal_information.cause_of_death == 'undefined')
     var cod = ((typeof personal_information.cause_of_death == 'undefined') ? 'Yes' : 'No / ' + personal_information.cause_of_death);
 
     /*
@@ -6302,7 +6432,7 @@ function LOAD_HEALTH_TABLE(){
     DISEASESARRAY.push(TABLE_DATA_ARRAY);
 
     /*
-    Load remaining family
+     Load remaining family
      */
     var TABLE_DATA_ARRAY = new Array();
     var que = 0;
@@ -6414,7 +6544,7 @@ function LOAD_HEALTH_TABLE(){
         }
     });
     /*
-    Add disease headers
+     Add disease headers
      */
     oTable.fnAddData(DISEASESARRAY);
 
@@ -6427,7 +6557,7 @@ function LOAD_HEALTH_TABLE(){
         var NAME = $(this).attr('name');
         oTable.fnSetColumnVis( ID, false );
         /*
-        Infor of the closed diseases
+         Infor of the closed diseases
          */
         if($("#closed_table tr td" ).length == 1) {
             $('#closed_table tr').append('<td>' +
@@ -6480,7 +6610,6 @@ function LOAD_TR(cod,nr){
         else START_COD.push('<td></td>');
 
     }
-    //START_COD.push('<td>' + cod + '</td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>','<td></td>');
     return START_COD;
 }
 
@@ -6525,15 +6654,37 @@ function createDialog() {
     var allnames = new Array();
 
     if($("#optionsPanel").dialog( "isOpen" ) == true) {
-      $("#optionsPanel").dialog( "open" );
+        $("#optionsPanel").dialog( "open" );
     }
     else {
-
         var array = new Array();
         array.push("<option value='0' selected></option>")
 
-        $.each(personal_information, function (key, item) {
+        /**
+         * Me values
+         */
+        $.each(personal_information['Health History'], function (k, data) {
 
+            //var health = new Array();
+            //health = data['Health History'];
+
+            var thename, temp;
+            var disname = data['Disease Name'];
+            var detdisname = data['Detailed Disease Name'];
+            if(detdisname=='diseases:null') detdisname = null;
+            if (detdisname == null) thename = disname;
+            else thename = detdisname;
+
+            if ($.inArray(thename, allnames) == -1) {
+                allnames.push(thename);
+                array.push("<option id=" + disname + " value='" + detdisname + "'>" + thename + "</option>")
+            }
+        });
+
+        /**
+         * family Values
+         */
+        $.each(personal_information, function (key, item) {
             if(item) {
                 if (typeof item.id != 'undefined') {
                     if (item['Health History']) {
@@ -6543,24 +6694,22 @@ function createDialog() {
                             var thename, temp;
                             var disname = data['Disease Name'];
                             var detdisname = data['Detailed Disease Name'];
-
                             if(detdisname=='diseases:null') detdisname = null;
-                            //if(disname=='diseases:null') disname = "";
-
                             if (detdisname == null) thename = disname;
                             else thename = detdisname;
-
                             if ($.inArray(thename, allnames) == -1) {
                                 allnames.push(thename);
-                                //var temp = "<option id=" + " value=" + disname + ">" + thename + "</option>";
-                                array.push("<option id=" + " value=" + disname + ">" + thename + "</option>")
+                                array.push("<option id=" + disname + " value='" + detdisname + "'>" + thename + "</option>")
                             }
-
                         });
                     }
                 }
             }
         });
+
+
+        //alert ("detdisname ARRAY Information:" + JSON.stringify(array, null, 2) );
+
 
         var $optdialog = $("<div id='optionsPanel' width='800px' class='option_dialog' style='width:800px;'><p>"
         + "You can view, save or print your family health history to share with your health care worker. They can assess your risk for certain diseases, and develop disease prevention strategies that are right for you. You can also share the table with other family members to your your family's disease history. You can change what is shown in the table yourself by selecting from the options below. Please select from the options below what you would like to show on your table."
@@ -6587,10 +6736,9 @@ function createDialog() {
 
         + "</p></div>").dialog({
             width: 900,
+            position: ['top',100],
             title: 'Diagram & Table Options',
             close: function (ev, ui) {
-                //ClearDna();
-
                 $(this).empty();
                 $(this).dialog('destroy').remove();
             }
@@ -6606,9 +6754,11 @@ function createDialog() {
 
 function ClearDna(){
     $.each(personal_information, function (key, item) {
-        var ID = item.id;
-        if (typeof ID != 'undefined') {
-            $('#'+ID).attr({fill: 'silver',stroke: 'red'});
+        if (typeof item != 'undefined'){
+            var ID = item.id;
+            if (typeof ID != 'undefined') {
+                $('#' + ID).attr({fill: 'silver', stroke: 'red'});
+            }
         }
     });
 }
@@ -6616,12 +6766,14 @@ function ClearDna(){
 function ClearNames(comp){
     if(comp=='hide') {
         $.each(personal_information, function (key, item) {
-            var ID = item.id;
-            var name1 = 'name1_' + ID;
-            var name2 = 'name2_' + ID;
-            if (typeof ID != 'undefined') {
-                $('#' + name1).hide();
-                $('#' + name2).hide();
+            if (typeof item != 'undefined') {
+                var ID = item.id;
+                var name1 = 'name1_' + ID;
+                var name2 = 'name2_' + ID;
+                if (typeof ID != 'undefined') {
+                    $('#' + name1).hide();
+                    $('#' + name2).hide();
+                }
             }
         });
         oTable.fnSetColumnVis( 0, false );
@@ -6629,12 +6781,14 @@ function ClearNames(comp){
     }
     else{
         $.each(personal_information, function (key, item) {
-            var ID = item.id;
-            var name1 = 'name1_' + ID;
-            var name2 = 'name2_' + ID;
-            if (typeof ID != 'undefined') {
-                $('#' + name1).show();
-                $('#' + name2).show();
+            if(typeof item != 'undefined') {
+                var ID = item.id;
+                var name1 = 'name1_' + ID;
+                var name2 = 'name2_' + ID;
+                if (typeof ID != 'undefined') {
+                    $('#' + name1).show();
+                    $('#' + name2).show();
+                }
             }
         });
         oTable.fnSetColumnVis( 0, true );
@@ -6647,29 +6801,50 @@ function DiseaseDna(){
 
     var selectBox = document.getElementById("diseaseopts");
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+
+    /**
+     * Me values
+     */
+    $.each(personal_information['Health History'], function (k, data) {
+        if(typeof data !='undefined') {
+            var ID = 'me';
+            var health = new Array();
+            //health = data['Health History'];
+            health = data;
+            $.each(health, function (t, value) {
+
+                if (selectedValue == value) {
+                    $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
+                }
+                else if (selectedValue == value) {
+                    $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
+                }
+            });
+        }
+    });
+
+
     $.each(personal_information, function (key, item) {
-        var ID = item.id;
-        if(typeof ID!='undefined'){
-            if(item['Health History']){
-                var health = new Array();
-                health = item['Health History'];
-                $.each(health, function (k, data) {
-                    var detdisname = data['Detailed Disease Name'];
-                    var disname = data['Disease Name'];
+        if(typeof item !='undefined') {
+            var ID = item.id;
+            if (typeof ID != 'undefined') {
+                if (item['Health History']) {
+                    var health = new Array();
+                    health = item['Health History'];
+                    $.each(health, function (k, data) {
 
-                    //if(detdisname=='diseases:null') detdisname = "";
-                    //if(disname=='diseases:null') disname = "";
-                    //
-                    //if(selectedValue=='diseases:null')alert(selectedValue)
-                    //if(detdisname=='diseases:null')alert(detdisname)
+                        var detdisname = data['Detailed Disease Name'];
+                        var disname = data['Disease Name'];
 
-                    if(selectedValue == detdisname){
-                        $('#'+ID).attr({fill: 'yellow',stroke: 'black'});
-                    }
-                    else if(selectedValue == disname){
-                        $('#'+ID).attr({fill: 'yellow',stroke: 'black'});
-                    }
-                });
+                        if (selectedValue == detdisname) {
+                            $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
+                        }
+                        else if (selectedValue == disname) {
+                            $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
+                        }
+                    });
+                }
             }
         }
     });
@@ -6721,23 +6896,27 @@ function printCoupon() {
     //endPrintCoupon();
 }
 
-//function endPrintCoupon() {
-//
-//    var timer = setInterval(function() {
-//                if(printWindow.closed) {
-//                    clearInterval(timer);
-//                    $('.sticky').show();
-//                    //$('#health_table').show();
-//                }
-//            }, 1000);
-//
-//    document.body.innerHTML = originalContents;
-//    document.getElementById('svgframe').scrollIntoView(true);
-//    //location.reload();
-//}
+
+
+function ToTop(){
+    $('html,body').animate({
+            scrollTop: $("#dialogtext").offset().top},
+        'slow');
+    return;
+}
+function ToTable(){
+    $('html,body').animate({
+            scrollTop: $("#bmi_table").offset().top},
+        'slow');
+}
 
 function closedialog(){
-    $(mdialog).dialog("close");
+    ToTop();
+    setTimeout(
+        function()
+        {
+            $(mdialog).dialog("close");
+        }, 3000);
 }
 
 function TheZoom(sel) {
@@ -6777,7 +6956,6 @@ function TheZoom(sel) {
     allXarray = allXarray.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
     allYarray = allYarray.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
 
-
     var selectedVal = sel.options[sel.selectedIndex].value;
 
     var arr = new Array();
@@ -6788,52 +6966,45 @@ function TheZoom(sel) {
     var newX=100;
     var newY=100;
 
-
-    //if(arr[2]>masterRight) {
-
     if (selectedVal == '200') {
         if(nowselected=='200')return;
         nowselected = selectedVal;
 
-            var svgdoc = document.getElementById("svgframe");
-            var FRAMEHEIGHT = svgdoc.getAttribute("height");
-            var FRAMEWIDTH = svgdoc.getAttribute("width");
-            var BOX = svgdoc.getAttribute("viewBox");
-            arr = BOX.split(' ');
-            var Xarray = new Array()
+        var svgdoc = document.getElementById("svgframe");
+        var FRAMEHEIGHT = svgdoc.getAttribute("height");
+        var FRAMEWIDTH = svgdoc.getAttribute("width");
+        var BOX = svgdoc.getAttribute("viewBox");
+        arr = BOX.split(' ');
+        var Xarray = new Array()
 
-
-            $("#svgframe").each(function () {
-                $('rect').each(function (index) {
-                    var cla = $(this).attr('genders')
-                    var x = $(this).attr('x');
-                    var y = $(this).attr('y');
-                    if (typeof cla != 'undefined') {
-                        cla = $(this).attr('genders').toLowerCase();
-                        if ($.inArray(x, Xarray) == -1 && cla == 'male') {
-                            Xarray.push(x);
-                            //allYarray.push(y);
-                        }
+        $("#svgframe").each(function () {
+            $('rect').each(function (index) {
+                var cla = $(this).attr('genders')
+                var x = $(this).attr('x');
+                var y = $(this).attr('y');
+                if (typeof cla != 'undefined') {
+                    cla = $(this).attr('genders').toLowerCase();
+                    if ($.inArray(x, Xarray) == -1 && cla == 'male') {
+                        Xarray.push(x);
                     }
-                });
+                }
             });
+        });
 
-            Xarray = Xarray.sort(function (a, b) {
-                return a - b
-            }) //Array now becomes [7, 8, 25, 41]
-
-        //alert ("Xarray ARRAY Information:" + JSON.stringify(Xarray, null, 2) );
+        Xarray = Xarray.sort(function (a, b) {
+            return a - b
+        }) //Array now becomes [7, 8, 25, 41]
 
         var FARLEFT = Xarray[0];
 
-            width = parseInt(arr[2]) * 0.99;
-            height = parseInt(arr[3]) * 1.50;
+        width = parseInt(arr[2]) * 0.99;
+        height = parseInt(arr[3]) * 1.50;
 
-            X = -200;
-            Y = 30;
-            var REALLONG = parseInt(masterRight) * 1.3;
+        X = -200;
+        Y = 30;
+        var REALLONG = parseInt(masterRight) * 1.3;
 
-            var TOTWIDTH = parseInt(width) + (2 * parseInt(X));
+        var TOTWIDTH = parseInt(width) + (2 * parseInt(X));
 
         if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ) {
             var RIGHT_X = allXarray.pop();
@@ -6852,13 +7023,11 @@ function TheZoom(sel) {
             width = parseInt(arr[2]) * 1.99;
             X = -200;
             Y = 80;
-            //svgdoc.setAttribute("viewBox", [200 + " 80 " + width + " " + height]);
 
             svgdoc.setAttribute("viewBox",  '-350 100 ' + -20 + ' -15');
             svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
             svgdoc.setAttribute("width",REALLONG + "px");
             svgdoc.setAttribute("height","1000px");
-
 
             $('#topsvg').css("height", "1000px");
             $('#topsvg').css("overflow", "scroll");
@@ -6871,9 +7040,17 @@ function TheZoom(sel) {
             $('#theclone').css("width", '3000px');
             $('#theclone').css("height", '600px');
             $('#theclone').css("left", '50px');
-            $('#theclone').attr("transform", 'translate(2000 300)');
+            $('#theclone').css("z-index", '99999');
+
+            $('#pattext').css("font-size", '20px');
+            $('#mattext').css("font-size", '20px');
+            $('#f1text').css("font-size", '20px');
+            $('#f2text').css("font-size", '20px');
+            $('#f3text').css("font-size", '20px');
+            $('#f4text').css("font-size", '20px');
 
 
+            //$('#theclone').attr("transform", 'translate(2000 300)');
         }
         else if(/chrome/i.test( navigator.userAgent )){
             var RIGHT_X = allXarray.pop();
@@ -6881,12 +7058,12 @@ function TheZoom(sel) {
 
             if (arr[0] < 0)X = parseInt(arr[0]) - 100;
             else X = -100;
-                var REALLONG = parseInt(masterRight) * 3.1;
-                svgdoc.setAttribute("viewBox", [X + " -10 " + REALLONG + " 1200"]);
-                //svgdoc.setAttribute("preserveAspectRatio","none");
-                svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
-                svgdoc.setAttribute("width",REALLONG + "px");
-                svgdoc.setAttribute("height","1000px");
+            var REALLONG = parseInt(masterRight) * 3.1;
+            svgdoc.setAttribute("viewBox", [X + " -10 " + REALLONG + " 1200"]);
+            //svgdoc.setAttribute("preserveAspectRatio","none");
+            svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
+            svgdoc.setAttribute("width",REALLONG + "px");
+            svgdoc.setAttribute("height","1000px");
             $('#topsvg').css("overflow-y", "scroll")
             $('#topsvg').css('width', parseInt(masterRight)-100);
             svgdoc.setAttribute('id', 'theclone');
@@ -6899,13 +7076,13 @@ function TheZoom(sel) {
 
             if (arr[0] < 0)X = parseInt(arr[0]) - 100;
             else X = -100;
-                var REALLONG = parseInt(masterRight) * 2.8;
-                TOTWIDTH = parseInt(TOTWIDTH);
-                svgdoc.setAttribute("viewBox", [X + " -10 " + REALLONG + " 1000"]);
-                svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
-                svgdoc.setAttribute("width",REALLONG + "px");
-                svgdoc.setAttribute("height","1000px");
-                //svgdoc.setAttribute("preserveAspectRatio","none");
+            var REALLONG = parseInt(masterRight) * 2.8;
+            TOTWIDTH = parseInt(TOTWIDTH);
+            svgdoc.setAttribute("viewBox", [X + " -10 " + REALLONG + " 1000"]);
+            svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
+            svgdoc.setAttribute("width",REALLONG + "px");
+            svgdoc.setAttribute("height","1000px");
+            //svgdoc.setAttribute("preserveAspectRatio","none");
 
             $('#topsvg').css("overflow-y", "scroll")
             $('#topsvg').css('width', parseInt(masterRight)-100);
@@ -6916,21 +7093,19 @@ function TheZoom(sel) {
             //$('#theclone').attr("transform", 'translate(2000 300)');
 
         }
-            var ALLHEIGHT = 2 * parseInt(height);
+        var ALLHEIGHT = 2 * parseInt(height);
         $('.namebox').css('font-size','15px');
     }
     else if(selectedVal == '100') {
 
-
         nowselected = selectedVal;
-
         $(mdialog).dialog("close");
         //$(mdialog).find('form')[0].reset();
         xmlload();
 
 
     }
-   }
+}
 
 
 

@@ -37,12 +37,7 @@ div.drawcanvas{
     max-height:100%;
     max-width:100%;
 }
-/*<<<<<<< HEAD*/
-/*select option {*/
-    /*width: 120 ;*/
-/*}*/
-/*=======*/
-/*>>>>>>> 6eb11bc5cd95f5944e8b39ddbb853fb0f46a736b*/
+
 select.addchild{
 
     visibility: hidden;
@@ -282,6 +277,8 @@ i#options .ui-button.ui-state-active .ui-button-text {
     overflow-y:scroll;
     width:'100%';
     margin-top:200px;
+    border-bottom: solid 1px #000000;
+    border-top: solid 1px #000000;
 }
 
 .tablebutton{
@@ -608,6 +605,33 @@ a.back{
     background:transparent url(..static/css/images/end.png) no-repeat center center;
 }
 
+/* The real code */
+.rotated {
+    -webkit-transform: rotate(90deg);  /* Chrome, Safari 3.1+ */
+    -moz-transform: rotate(90deg);  /* Firefox 3.5-15 */
+    -ms-transform: rotate(90deg);  /* IE 9 */
+    -o-transform: rotate(90deg);  /* Opera 10.50-12.00 */
+    transform: rotate(90deg);  /* Firefox 16+, IE 10+, Opera 12.10+ */
+}
+
+
+.landscape {
+    width: 400px;
+    background-color: transparent;  /* Temp bg color, for testing */
+    border-bottom: none 1px #000000;
+    border-top: none 1px #000000;
+
+    -webkit-transform-origin: 0 0;
+    -moz-transform-origin:    0 0;
+    -ms-transform-origin:     0 0;
+    transform-origin:         0 0;
+
+    -webkit-transform: rotate(-90deg) translate(100px, 500px) ;
+    -moz-transform:    translate(100px, 500px) rotate(-90deg);
+    -ms-transform:     translate(100px, 500px) rotate(-90deg);
+    transform:         translate(100px, 500px) rotate(-90deg);
+}
+
 /*div#container {*/
     /*height: 400px;*/
     /*width: 400px;*/
@@ -617,8 +641,8 @@ a.back{
 svg#svgframe {
     height: 500px;
     width: 100%;
-    border-bottom:1px dotted darkslategray;
-    border-top:1px dotted darkslategray;
+    /*border-bottom:1px dotted darkslategray;*/
+    /*border-top:1px dotted darkslategray;*/
     /*background-color: white;*/
 }
 
@@ -641,5 +665,38 @@ svg#svgcloneframe {
 }
 
 @media print {
-    .page-break  { display: block; page-break-before: always; }
+
+    /*body * {*/
+        /*visibility: hidden;*/
+    /*}*/
+    #wrapper * {
+        visibility: hidden;
+    }
+    #dialogtext * {
+        visibility: hidden;
+    }
+    #nav * {
+        visibility: hidden;
+    }
+
+    #family_pedigree * {
+        border: none;
+    }
+
+    #ui-dialog * {
+        border-style: none;
+    }
+
+
+    #topsvg * {
+        visibility: visible;
+    }
+    #topsvg {
+        page-break-after:always;
+    }
+
+    #health_table * {
+        visibility: visible;
+    }
+
 }
