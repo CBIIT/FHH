@@ -151,8 +151,6 @@ function test_any_family_members_fap_hnpcc() {
   			if (typeof personal_information[relative] != 'undefined' && personal_information[relative].adopted == true) return true;
 			}
 
-
-
 			var h = item['Health History'];
 			
 			if (h != null) {
@@ -292,16 +290,7 @@ function test_secondary_family_members_cancer() {
 	risk_reason = "";
   $.each(personal_information, function (key, item) {
   	if (item != null) {
-  		if (item.adopted == true) return true;  // Skip adopted relatives
-  		if (key.substring(0,8) == 'maternal' && personal_information['mother'].adopted == true) return true;
-  		if (key.substring(0,8) == 'paternal' && personal_information['father'].adopted == true) return true;
-  		// Got to figure out grandchildren for adopted parents.
-			if (key.substring(0,8) == 'granddau' || key.substring(0,8) == 'grandson') {
-  			var relative = get_relative_by_id(item.parent_id);
-  			if (typeof personal_information[relative] != 'undefined' && personal_information[relative].adopted == true) return true;
-			}
-  		
-			var h = item['Health History'];
+ 			var h = item['Health History'];
 			if (h != null) {
 
 				var temp8 = key.substring(0,8);
@@ -368,14 +357,6 @@ function test_secondary_family_members_colon_cancer_before_60() {
 	var risk = false;
 	risk_reason = "";
   $.each(personal_information, function (key, item) {
-		if (item.adopted == true) return true;  // Skip adopted relatives
-		if (key.substring(0,8) == 'maternal' && personal_information['mother'].adopted == true) return true;
-		if (key.substring(0,8) == 'paternal' && personal_information['father'].adopted == true) return true;
-		// Got to figure out grandchildren for adopted parents.
-		if (key.substring(0,8) == 'granddau' || key.substring(0,8) == 'grandson') {
-			var relative = get_relative_by_id(item.parent_id);
-			if (typeof personal_information[relative] != 'undefined' && personal_information[relative].adopted == true) return true;
-		}
 
   	if (item != null) {
 			var h = item['Health History'];
@@ -431,16 +412,6 @@ function test_secondary_family_members_uterine_cancer_before_50() {
 	var risk = false;
 	risk_reason = "";
   $.each(personal_information, function (key, item) {
- 		if (item.adopted == true) return true;  // Skip adopted relatives
-		if (key.substring(0,8) == 'maternal' && personal_information['mother'].adopted == true) return true;
-		if (key.substring(0,8) == 'paternal' && personal_information['father'].adopted == true) return true;
-		// Got to figure out grandchildren for adopted parents.
-		if (key.substring(0,8) == 'granddau' || key.substring(0,8) == 'grandson') {
-			var relative = get_relative_by_id(item.parent_id);
-			if (typeof personal_information[relative] != 'undefined' && personal_information[relative].adopted == true) return true;
-		}
-
-
   	if (item != null) {
 			var h = item['Health History'];
 			if (h != null) {
@@ -488,14 +459,6 @@ function test_secondary_family_members_uterine_cancer() {
 	var count = 0;
 	risk_reason = "";
   $.each(personal_information, function (key, item) {
- 		if (item.adopted == true) return true;  // Skip adopted relatives
-		if (key.substring(0,8) == 'maternal' && personal_information['mother'].adopted == true) return true;
-		if (key.substring(0,8) == 'paternal' && personal_information['father'].adopted == true) return true;
-		// Got to figure out grandchildren for adopted parents.
-		if (key.substring(0,8) == 'granddau' || key.substring(0,8) == 'grandson') {
-			var relative = get_relative_by_id(item.parent_id);
-			if (typeof personal_information[relative] != 'undefined' && personal_information[relative].adopted == true) return true;
-		}
 
   	if (item != null) {
 			var h = item['Health History'];
@@ -566,23 +529,29 @@ function test_final() {
 ///  Support functions 
 
 // Basically a lookup table
+// Note as 60 and older includes 60 we need to be consevative and say that they are 60 or under
+// Same with 50,40,30,20,10
+ 
 function is_age_before(age_to_check, age_at_diagnosis) {
 	switch(age_to_check) {
 		case 'Under60':
-			if (age_at_diagnosis == 'fifties') return true;
+			if (age_at_diagnosis == 'senior') return true;
 		case 'Under50':
-			if (age_at_diagnosis == 'fourties') return true; 
+			if (age_at_diagnosis == 'fifties') return true;
 		case 'Under40':
-			if (age_at_diagnosis == 'thirties') return true;
+			if (age_at_diagnosis == 'fourties') return true; 
 		case 'Under30':
-			if (age_at_diagnosis == 'twenties') return true;
+			if (age_at_diagnosis == 'thirties') return true;
 		case 'Under20':
-			if (age_at_diagnosis == 'teen') return true;
+			if (age_at_diagnosis == 'twenties') return true;
 		case 'Under10':
+			if (age_at_diagnosis == 'teen') return true;
 			if (age_at_diagnosis == 'child') return true;
 			if (age_at_diagnosis == 'infant') return true;
 			if (age_at_diagnosis == 'newborn') return true;
 			if (age_at_diagnosis == 'prebirth') return true;
+			if (age_at_diagnosis == 'Unknown') return true;
+			if (age_at_diagnosis == 'unknown') return true;
 	}
 	return false;
 }
@@ -635,7 +604,14 @@ function get_relative_by_id(id) {
 // 3rd: cousins, niece/nephews
 
 function check_blood_relative(relative) {
-
+	// If the proband is adopted, then only son,daughter, grandson, granddaughter could possibly be blood
+	if (personal_information.adopted == true || personal_information.adopted == 'true') {
+		if (! (relative.substring(0,3) == 'son'     || relative.substring(0,8) == 'daughter' 
+		 || relative.substring(0,8) == 'grandson' || relative.substring(0,13) == 'granddaughter')) {
+			return false;
+		}
+	}
+	
 	// All cases check if that person is adopted, if they are, they are not blood relative
 	if (typeof personal_information[relative] != 'undefined')
 	{

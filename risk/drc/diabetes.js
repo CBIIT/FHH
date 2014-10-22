@@ -442,22 +442,21 @@ function set_gestational_diabetes(id){
 
 function load_family_diabetes(){
 	var inherited = false;
-	$.each(personal_information, function (key, item) {
-    var temp = key.substring(0,6);
-    if(temp == 'father' || temp == 'mother' || temp == 'brothe' || temp == 'sister') {
-      if (item['Health History']) {
-      	for (i = 0;i < item['Health History'].length; i++) {
-          if (item['Health History'][i]['Disease Name'] == "Diabetes") inherited = true;
-          if (item['Health History'][i]['Disease Name'] == "Impaired Fasting Glucose") inherited = true;
-          if (item['Health History'][i]['Disease Name'] == "Impaired Glucose Tolerance") inherited = true;
-          if (item['Health History'][i]['Disease Name'] == "Insulin Resistance") inherited = true;
-          if (item['Health History'][i]['Disease Name'] == "Maturity Onset Diabetes Mellitus in Young (MODY)") inherited = true;
-          if (item['Health History'][i]['Disease Name'] == "Type 2 Diabetes") inherited = true;
-          if (item['Health History'][i]['Disease Name'] == "Unknown Diabetes") inherited = true;
-      	}
-      }
-    }
-	});
+	if (!(personal_information.adopted == true || personal_information.adopted == "true") ) {
+		$.each(personal_information, function (key, item) {
+	    var temp = key.substring(0,6);
+	    if(temp == 'father' || temp == 'mother' || temp == 'brothe' || temp == 'sister') {
+	      if (!item.adopted == true &&  item['Health History']) {
+	      	for (i = 0;i < item['Health History'].length; i++) {
+	          if (item['Health History'][i]['Detailed Disease Name'] == "Diabetes") inherited = true;
+	          if (item['Health History'][i]['Detailed Disease Name'] == "Maturity Onset Diabetes Mellitus in Young (MODY)") inherited = true;
+	          if (item['Health History'][i]['Detailed Disease Name'] == "Type 2 Diabetes") inherited = true;
+	          if (item['Health History'][i]['Detailed Disease Name'] == "Unknown Diabetes") inherited = true;
+	      	}
+	      }
+	    }
+		});
+	}
 	if (inherited) set_family_diabetes('dpos');
 	else set_family_diabetes('dneg');
 }
