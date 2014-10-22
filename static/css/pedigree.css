@@ -53,7 +53,7 @@ select.addcondition{
 
 table.pop, th {text-decoration: underline }
 th { padding : 1px; }
-td { padding : 1px; }
+td { padding : 1px; text-align:left;}
 
 #navlist li
 {
