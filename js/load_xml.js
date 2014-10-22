@@ -49,7 +49,7 @@ function bind_uploader() {
 		runtimes : 'html5,html4,flash,silverlight',
 		browse_button : 'pickfiles', // you can pass in id...
 		container: document.getElementById('container'), // ... or DOM Element itself
-		url : '../upload/upload2.php',
+		url : '../upload/upload3.php',
 		flash_swf_url : '../js/Moxie.swf',
 		silverlight_xap_url : '../js/Moxie.xap',
 		filters : {
@@ -80,15 +80,19 @@ function bind_uploader() {
 				document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 			},
 			FileUploaded: function(upldr, file, obj) {
-				console.log("obj");
-				console.dir(obj);
-				alert(obj.response);
+				
 				if(file.getNative() !== null) {
 					load_family_history(file.getNative());				
 				} else {
 					//We do not have a getNative object so send response from upload2.php.
-					var decoded = $("<div/>").html(obj.response).text();
-                    load_xml(decoded);
+//					var decoded = $("<div/>").html(obj.response).text();
+//          load_xml(decoded);
+					alert(obj.response);
+					var pi = $.parseJSON(obj.response);
+					alert(JSON.stringify(pi,null, 2));
+					personal_information=pi;
+					build_family_history_data_table();
+
 				}
 
 				$("#load_personal_history_dialog").dialog("close");			
@@ -238,10 +242,14 @@ function load_xml(xmlInput) {
 */
 //	$('#xmlData').empty().append(xmlInput);
 //	alert('did the data show up');
-	var xmlDom = $.parseXML(xmlInput);
+  xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+  xmlDoc.async="false";
+  xmlDoc.loadXML(xmlInput);
 
+
+	var xmlDom = $.parseXML(xmlDoc);
 //	alert(xmlDom);
-	parse_xml(xmlDom);
+	parse_xml(xmlDoc);
 	build_family_history_data_table();
 	$("#add_another_family_member_button").show();
 }
@@ -264,10 +272,8 @@ function make_disease_array () {
 }
 */
 function parse_xml(data) {
-//	alert(data);
-	console.log("Here is the file XMLified");
-	console.log(data);
 	personal_information.id = $(data).find("patientPerson > id").attr("extension");
+	
 	// Handle the misspelling from the previous version of the software
 	if (personal_information.id == null) personal_information.id = $(data).find("patientPerson > id").attr("extention");
 	personal_information.name = $(data).find("patientPerson > name").attr("formatted");
@@ -418,11 +424,9 @@ function parse_xml(data) {
 			if (relative.detailed_cause_of_death != detailed_cause_of_death) relative.detailed_cause_of_death = detailed_cause_of_death;
 			relative.estimated_death_age = death_age;
 		}
-		
 		current_health_history = new Array();
 		// Looking for diseases, first we need to pull out the displayNames for every code tag
 		$(this).find("subjectOf2").find("clinicalObservation").find("code").each( function() {
-			
 //			alert(relative.name +" "+ $(this).attr("displayName"));
 
 			specific_health_issue = get_specific_health_issue(relative.name, this);
