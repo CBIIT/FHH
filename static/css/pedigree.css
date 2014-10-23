@@ -690,13 +690,17 @@ svg#svgcloneframe {
 
     #topsvg * {
         visibility: visible;
+        width:500px;
     }
     #topsvg {
         page-break-after:always;
     }
+    /*#health_table {*/
+        /*page-break-before:always;*/
+    /*}*/
 
-    #health_table * {
-        visibility: visible;
-    }
+    /*#health_table * {*/
+        /*visibility: visible;*/
+    /*}*/
 
 }

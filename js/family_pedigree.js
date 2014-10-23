@@ -93,12 +93,15 @@ function xmlload() {
         hours=hours%12 + 2;
         mid='PM';
     }
+    var thisMinute = currentdate.getMinutes();
+    thisMinute = thisMinute < 10 ? "0"+thisMinute : thisMinute;
+
     var today =  "Date of Report: " +
         day + ", " + month + " "
         + currentdate.getDate() + ", "
         + currentdate.getFullYear() + " "
         + hours + ":"
-        + currentdate.getMinutes() + " "
+        + thisMinute + " "
         + mid;
 
 //alert(new Date(0).toString())
@@ -201,6 +204,8 @@ function xmlload() {
 
             $("#health_table").empty();
             diseasearray=new Array();
+            $('#optionsPanel').dialog('destroy').remove();
+
             $(this).empty();
             //$(this).dialog('close', true);
             $(".ui-dialog-content").dialog("close");
@@ -493,6 +498,7 @@ function xmlload() {
     }
 
     var weight, height,age,weight_unit,height_unit;
+    var BMI;
     if(typeof personal_information.weight == 'undefined' || personal_information.weight == null) {
         weight="";
         weight_unit="";
@@ -518,7 +524,12 @@ function xmlload() {
         age = getAge(personal_information.date_of_birth);
     }
 
-    var BMI = BMI_CALCULATE(weight,height);
+    if(weight_unit=='kilogram'){
+        BMI = BMI_CALCULATE_METRIC(weight, height);
+    }
+    else {
+        BMI = BMI_CALCULATE(weight, height);
+    }
     if(typeof BMI == 'undefined' || BMI == null) {
         BMI = "";
     }
@@ -627,6 +638,8 @@ function xmlload() {
             FatherArray.push({"key": key,  "id": id, "gender":item.gender});
             var t = {"id": [item.id], "name": [item.name], "gender": [item.gender], key: [key]};
             NAMEARRAY.push(t);
+
+
         }
         if (key == 'mother') {
 
@@ -1318,7 +1331,13 @@ function xmlload() {
             infoelem.attr('class','page-break');
 
             var topsvg = $('#topsvg');
-            var healthtable = $('#health_table');
+            //topsvg.attr('class','page-break');
+
+
+            var healthtable = $('#health_table_wrapper');
+            //healthtable.style.pageBreakBefore="always";
+
+            //document.getElementById("dataGrid_paginate").style.display = 'none';
 
 
 
@@ -1331,14 +1350,16 @@ function xmlload() {
 
 
             myWindow.document.write('<!DOCTYPE html>'
-            + '<html><head><title>Disease Matrix</title>'
-            +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
+            + '<html><head><title>My Family Health Portrait-Diagram</title>'
+            + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
                 //+ $(diaelem).html()
                 //+ $(infoelem).html()
             + $(topsvg).html()
+            + $(healthtable).html()
 
-            + '</head><body>');
+                + '</head><body>'
+            );
 
             //myWindow.focus();
             myWindow.print();
@@ -1638,8 +1659,6 @@ function xmlload() {
 
             //alert ("NAMEARRAY ARRAY Information:" + JSON.stringify(NAMEARRAY, null, 2) );
 
-
-
             if (NAME == "") {
                 if (GEN == "FEMALE") {
                     p1 = parseInt($('#' + ID).attr('cx')) - 20;
@@ -1652,7 +1671,7 @@ function xmlload() {
 
                 //svg.text(p1, p2, TITLE.toString(), {fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
             }
-            else if (ID != "") {
+            if (ID != "") {
                 var splits = new Array();
 
                 if (GEN == "FEMALE") {
@@ -2292,7 +2311,7 @@ function xmlload() {
 
             if (p == 0) {
                 DATAKEY = ARRAY[p].id;
-                var ps = RIGHT_START_COUSINS_GEN(PIDGEN, PID, MIDGEN);
+                var ps = RIGHT_START_GRANDKIDS_GEN(PIDGEN, PID, MIDGEN);
                 p1 = ps[0];
                 //Get previous object coordninates
                 p1temp.push(MIDGEN, MID, p1, PID);
@@ -2332,7 +2351,7 @@ function xmlload() {
                 var TARGET = P1[P1.length - 1][2];
                 //Begin new elemnt
                 if (LINE == 0) {
-                    ps = RIGHT_START_COUSINS_GEN(PIDGEN, PID, MIDGEN);
+                    ps = RIGHT_START_GRANDKIDS_GEN(PIDGEN, PID, MIDGEN);
                     p1 = ps[0];
                     p1temp.push(MIDGEN, MID, p1, PID);
                     P1.push(p1temp);
@@ -2666,17 +2685,25 @@ function xmlload() {
         var idarray = new Array();
         var DATAKEY = null;
         var objectsarray = new Array();
+        var FARRIGHT ="";
 
         var BROTHERS = COUNT_FAMILY_KIDS(BrothersArray);
         var NEPHEWS = COUNT_FAMILY_KIDS(NephewArray);
         var PATERNALHALFS = COUNT_FAMILY_KIDS(PaternalHalfSiblingsArray);
         if(BROTHERS==0)BROTHERS=1;
         //if(NEPHEWS==0)NEPHEWS=1;
-        if(PATERNALHALFS==0)PATERNALHALFS=1;
+        //if(PATERNALHALFS==0)PATERNALHALFS=1;
 
+        /**\
+         *
+         * Get the most left X
+         */
+        if(PATERNALHALFS>0){
+             FARRIGHT = COORDINATES_OF_BELOW_LEFT(PaternalHalfSiblingsArray);
+        }
 
         //alert ("PATERNALS_LOAD ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
-        //alert ("PaternalCousinArray ARRAY Information:" + JSON.stringify(PaternalCousinArray, null, 2) );
+        //alert ("PaternalHalfSiblingsArray ARRAY Information:" + JSON.stringify(PaternalHalfSiblingsArray, null, 2) );
 
         for (var p in ARRAY) {
             var idarray = new Array();
@@ -2689,9 +2716,24 @@ function xmlload() {
             var p1temp = new Array();
 
             if (p == 0) {
+                var HALFS;
+                var NEPS;
+                var BROTS;
                 DATAKEY = ARRAY[p].id;
                 var ps = START_PAT_GENLINE(PIDGEN, PID, MIDGEN);
-                p1 = parseInt(ps[0]) - ((parseInt(BROTHERS)*50) + (parseInt(NEPHEWS)*30) + (parseInt(PATERNALHALFS)*40));
+                var STARTX=ps[0];
+
+                if(PATERNALHALFS>0){
+                    STARTX = FARRIGHT;
+                    //HALFS=parseInt(PATERNALHALFS)*80;
+                }
+                else HALFS=100;
+
+                 NEPS=parseInt(NEPHEWS)*50;
+                 BROTS=parseInt(BROTHERS)*50;
+
+                p1 = parseInt(STARTX) - (BROTS + NEPS);
+
                 p1temp.push(MIDGEN, MID, p1);
                 P1.push(p1temp);
 
@@ -2822,17 +2864,34 @@ function xmlload() {
         var idarray = new Array();
         var DATAKEY = null;
         var objectsarray = new Array();
-        var FARRIGHT;
+        var FARRIGHT ="";
 
         //alert ("MATERNALS_LOAD ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
         var SISTERS = COUNT_FAMILY_KIDS(SistersArray);
         var NEPHEWS = COUNT_FAMILY_KIDS(NephewArray);
         var MATERNALHALFS = COUNT_FAMILY_KIDS(MaternalHalfSiblingsArray);
+        if(SISTERS==0)SISTERS=1;
+        //if(NEPHEWS==0)NEPHEWS=1;
+        //if(MATERNALHALFS==0)MATERNALHALFS=1;
+
+        //if(MATERNALHALFS>0){
+        //    var FARRIGHT = COORDINATES_OF_BELOW_LEFT(MaternalHalfSiblingsArray);
+        //    alert("--> "+FARRIGHT)
+        //}
 
 
-        if(MaternalHalfSiblingsArray.length>0) FARRIGHT = COORDINATES_OF_FAMILY(MaternalHalfSiblingsArray,NephewArray);
-        else FARRIGHT = COORDINATES_OF_FAMILY(SistersArray,NephewArray);
+        //if(MaternalHalfSiblingsArray.length>0) FARRIGHT = COORDINATES_OF_FAMILY(MaternalHalfSiblingsArray,NephewArray);
+        //else FARRIGHT = COORDINATES_OF_FAMILY(SistersArray,NephewArray);
+
+
+        /**\
+         *
+         * Get the most left X
+         */
+        if(MATERNALHALFS>0){
+            FARRIGHT = COORDINATES_OF_BELOW_RIGHT(MaternalHalfSiblingsArray);
+        }
 
         for (var p in ARRAY) {
             var idarray = new Array();
@@ -2845,11 +2904,26 @@ function xmlload() {
             var p1temp = new Array();
 
             if (p == 0) {
+                var HALFS;
+                var NEPS;
+                var SIST;
                 DATAKEY = ARRAY[p].id;
                 var ps = START_MAT_GENLINE(PIDGEN, PID, MIDGEN);
+                 var STARTX=ps[0];
+                if(MATERNALHALFS>0){
+                    STARTX = FARRIGHT;
+                    //HALFS=parseInt(PATERNALHALFS)*80;
+                }
+                else HALFS=100;
 
-                if(typeof FARRIGHT != 'undefined')p1 = parseInt(FARRIGHT) + 60;
-                else p1 = ps[0] + 20;
+                NEPS=parseInt(NEPHEWS)*50;
+                SIST=parseInt(SISTERS)*50;
+                p1 = parseInt(STARTX) + (SIST + NEPS);
+
+                //if(typeof FARRIGHT != 'undefined')p1 = parseInt(FARRIGHT) + 60;
+                //else p1 = ps[0] + 80;
+
+                //alert(ps[0] + " -- " + FARRIGHT)
 
                 //p1 = parseInt(ps[0]) + ((parseInt(SISTERS)*50) + (parseInt(NEPHEWS)*30) + (parseInt(MATERNALHALFS)*40));
                 //Get previous object coordninates
@@ -2898,19 +2972,16 @@ function xmlload() {
                 if (LINE == 0) {
                     var KIDS = COUNT_MY_KIDS(MaternalCousinArray, PREVIOUSID);
                     if(KIDS==0)KIDS=1;
-                    p1 = parseInt(PREVIOUSP1) + (60 + (parseInt(KIDS)*80));
+                    p1 = parseInt(PREVIOUSP1) + (70 + (parseInt(KIDS)*70));
                     p1temp.push(MIDGEN, MID, p1);
                     P1.push(p1temp);
                 }
                 else {
                     var KIDS = COUNT_MY_KIDS(MaternalCousinArray, PREVIOUSID);
                     if(KIDS==0)KIDS=1;
-                    p1 = parseInt(PREVIOUSP1) + (60 + (parseInt(KIDS)*80));
+                    p1 = parseInt(PREVIOUSP1) + (70 + (parseInt(KIDS)*70));
                     p1temp.push(MIDGEN, MID, p1);
                     P1.push(p1temp);
-
-                    //Connect to parent
-                    //right_parent_child_connector(PID, MID, MIDGEN, PIDGEN, Level5M);
                 }
 
                 SINGLE_SIDE_MATERNAL_CORNER_CONNECTOR(PREVIOUSID,MID,MIDGEN,PREVIOUSGEN,Level2M, p1);
@@ -2944,8 +3015,29 @@ function xmlload() {
                 DATAKEY = ARRAY[p].id;
                 var PREVIOUSGEN = P1[P1.length - 1][0];
                 var PREVIOUSID = P1[P1.length - 1][1];
-                var ps = PAT_GENLINE(PREVIOUSGEN, PREVIOUSID);
-                var p1 = ps[0];
+
+                var PREVIOUSP1 = P1[P1.length - 1][2];
+
+
+                //Begin new elemnt
+                //if (LINE == 0) {
+                    var KIDS = COUNT_MY_KIDS(MaternalCousinArray, PREVIOUSID);
+                    if(KIDS==0)KIDS=1;
+                    p1 = parseInt(PREVIOUSP1) + (70 + (parseInt(KIDS)*70));
+                    p1temp.push(MIDGEN, MID, p1);
+                    P1.push(p1temp);
+                //}
+                //else {
+                //    var KIDS = COUNT_MY_KIDS(MaternalCousinArray, PREVIOUSID);
+                //    if(KIDS==0)KIDS=1;
+                //    p1 = parseInt(PREVIOUSP1) + (60 + (parseInt(KIDS)*70));
+                //    p1temp.push(MIDGEN, MID, p1);
+                //    P1.push(p1temp);
+                //}
+
+
+                //var ps = PAT_GENLINE(PREVIOUSGEN, PREVIOUSID);
+                //var p1 = ps[0];
                 SINGLE_SIDE_MATERNAL_CORNER_CONNECTOR(PREVIOUSID,MID,MIDGEN,PREVIOUSGEN,Level2M, p1);
 
                 p1temp.push(MIDGEN, MID, p1, PID);
@@ -3287,7 +3379,7 @@ function xmlload() {
                 p2 = parseInt($('#' + PARENTID).attr('y')) + 20;
             }
             else if (PARENTGEN == 'FEMALE') {
-                p1 = parseInt($('#' + PARENTID).attr('cx')) - 40;
+                p1 = parseInt($('#' + PARENTID).attr('cx')) - 65;
                 p2 = parseInt($('#' + PARENTID).attr('cy'));
             }
         }
@@ -3354,6 +3446,27 @@ function xmlload() {
         return count;
     }
 
+    //function MOST_LEFT_GROUPS(ARRAY){
+    //    var ALLS = new Array();
+    //
+    //    //alert ("CHILDER ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
+    //    var count = 0;
+    //    var pid = "";
+    //    for (var p in ARRAY) {
+    //        var g = ARRAY[p][0];
+    //        var c = ARRAY[p][1];
+    //
+    //        if (SPGEN == 'MALE') {
+    //
+    //            if(pid != ARRAY[p][1]) {
+    //                count = count + 1;
+    //                pid = ARRAY[p][2];
+    //            }
+    //
+    //        }
+    //    }
+    //    return count;
+    //}
 
     /** COUNT THE NUMBER OF GROUPS(NON-PARENTS) IN ARRAY **/
     function COUNT_SINGLE_GROUPS(ARRAY){
@@ -3584,6 +3697,32 @@ function xmlload() {
     }
 
     function RIGHT_START_COUSINS_GEN(PARENTGEN, ID, MIDGEN) {
+
+        var p1, p2;
+        if (MIDGEN == 'MALE') {
+            if (PARENTGEN == 'MALE') {
+                p1 = parseInt($('#' + ID).attr('x')) + 45;
+                p2 = parseInt($('#' + ID).attr('y')) + 20;
+            }
+            else if (PARENTGEN == 'FEMALE') {
+                p1 = parseInt($('#' + ID).attr('cx')) + 25;
+                p2 = parseInt($('#' + ID).attr('cy'));
+            }
+        }
+        else {
+            if (PARENTGEN == 'MALE') {
+                p1 = parseInt($('#' + ID).attr('x')) + 60;
+                p2 = parseInt($('#' + ID).attr('y'));
+            }
+            else if (PARENTGEN == 'FEMALE') {
+                p1 = parseInt($('#' + ID).attr('cx')) + 45;
+                p2 = parseInt($('#' + ID).attr('cy'));
+            }
+        }
+        return [p1, p2]
+    }
+
+    function RIGHT_START_GRANDKIDS_GEN(PARENTGEN, ID, MIDGEN) {
 
         var p1, p2;
         if (MIDGEN == 'MALE') {
@@ -4059,6 +4198,8 @@ function xmlload() {
 
         //alert ("'PatHalfSib' *** PATERNAL ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
+        var FARRIGHT = COORDINATES_OF_FAMILY_LEFT(BrothersArray,NephewArray);
+
         if (ARRAY.length > 0) {
             p2 = mastery;
             //$.each(ARRAY, function (key, value) {
@@ -4080,20 +4221,27 @@ function xmlload() {
                         var d = BrothersArray[BrothersArray.length - 1];
                         lx = parseInt($('#' + d[1]).attr('x'));
                         p1 = parseInt(lx) - 165;
-                        SINGLE_LEFT_CORNER_CONNECTOR(PID,d[1],'MALE',PIDGEN,Level3M,p1);
+                        //SINGLE_LEFT_CORNER_CONNECTOR(PID,d[1],'MALE',PIDGEN,Level3M,p1);
                     }
                     else {
                         //p1 = parseInt($('#' + PID).attr('x')) - lx;
                         var ps = LEFT_START_HALF_SIBLINGS_GEN(PIDGEN,PID,MIDGEN);
                         //var ps = GENLINE(PIDGEN, PID);
                         p1 = ps[0];
-                        SINGLE_LEFT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
+                        //SINGLE_LEFT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
                     }
+
+                    //alert(FARRIGHT)
+
+                    if(typeof FARRIGHT!= 'undefined')p1 = parseInt(FARRIGHT) - 140;
+                    else p1 = ps[0] - 60;
+
+                    SINGLE_LEFT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
 
                     //Get previous object coordninates
                     p1temp.push(MIDGEN, MID, p1, CNR);
                     P1.push(p1temp);
-                    STACK_CONNECTOR(ARRAY,'PatHalfSib');
+                    //STACK_CONNECTOR(ARRAY,'PatHalfSib');
 
                     if (MIDGEN == 'MALE') {
                         svg.rect(p1, Level3M, rr, rr, 1, 1, {
@@ -4110,7 +4258,7 @@ function xmlload() {
                         svg.circle(p1, Level3F, cr, {
                             id: MID,
                             datakey: DATAKEY,
-                            fill: gencolor,
+                            fill: 'green',
                             stroke: 'black',
                             strokeWidth: 2,
                             genders: 'female',
@@ -4239,19 +4387,19 @@ function xmlload() {
                         var lx = $('#' + d[1]).attr('cx');
                         if(MIDGEN=='MALE') p1 = parseInt(lx) + 200;
                         else  p1 = parseInt(lx) + 145;
-                        SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
+                        //SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
                     }
                     else {
                         var ps = RIGHT_START_HALF_SIBLINGS_GEN(PIDGEN,PID,MIDGEN);
                         p1 = ps[0];
-                        SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
+                        //SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
                     }
 
 
                     if(typeof FARRIGHT!= 'undefined')p1 = parseInt(FARRIGHT) + 120;
                     else p1 = ps[0] + 40;
 
-                    //SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
+                    SINGLE_RIGHT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
 
                     //Get previous object coordninates
                     p1temp.push(MIDGEN, MID, p1, CNR);
@@ -4581,7 +4729,6 @@ function xmlload() {
 
         var gnr = COUNT_GROUPS(GrandChildrenArray);
 
-        //alert ("GrandChildrenArray ARRAY Information:" + JSON.stringify(GrandChildrenArray, null, 2) );
 
         for (t = 0; t < NephewArray.length; t++) {
             var key = $('#' + NephewArray[t][2]).attr('datakey');
@@ -5210,12 +5357,83 @@ function xmlload() {
 
         });
 
-        //array = array.reverse();
-
         array = array.sort(function(a,b){return b - a}) //Array now becomes [7, 8, 25, 41]
         return array[0];
     }
 
+    //Check any array condition if has children
+    function COORDINATES_OF_FAMILY_LEFT(ARRAY1,ARRAY2) {
+        var res = -1;
+        var amt=0;
+        var array = new Array();
+        $.each(ARRAY1, function (k, data) {
+            var ID = data[1];
+
+            var KIDS = COUNT_SIBLING_KIDS(ARRAY2,ID);
+            var  x = SPOTLINE(ID);
+            if (KIDS>0) {
+
+                var Nk = parseInt(x[0]);
+                array.push(parseInt(x[0])+parseInt(KIDS)*30+60)
+            }
+            else array.push(x[0]);
+
+        });
+
+        array = array.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
+        return array[0];
+    }
+
+
+    //Check any array condition if has children
+    function COORDINATES_OF_BELOW_LEFT(ARRAY1) {
+        var res = -1;
+        var amt=0;
+        var array = new Array();
+        $.each(ARRAY1, function (k, data) {
+            var GEN = data[0];
+            var ID = data[1];
+            var p1="";
+
+            if (GEN == 'MALE') {
+                p1 = parseInt($('#' + ID).attr('x'));
+            }
+            else{
+                p1 = parseInt($('#' + ID).attr('cx'));
+            }
+             array.push(p1);
+
+        });
+
+        array = array.sort(function(a,b){return a - b}) //Array now becomes [41,26,21,13,10]
+        return array[0];
+    }
+
+    //Check any array condition if has children
+    function COORDINATES_OF_BELOW_RIGHT(ARRAY1) {
+        var res = -1;
+        var amt=0;
+        var array = new Array();
+        $.each(ARRAY1, function (k, data) {
+            var GEN = data[0];
+            var ID = data[1];
+            var p1="";
+
+            if (GEN == 'MALE') {
+                p1 = parseInt($('#' + ID).attr('x'));
+            }
+            else{
+                p1 = parseInt($('#' + ID).attr('cx'));
+            }
+            array.push(p1);
+
+        });
+
+        array = array.sort(function(a,b){return b - a}) //Array now becomes [10,13,16,19]
+
+        alert(array)
+        return array[0];
+    }
     //Check array condition if has children
     function COUNT_SIBLING_KIDS(ARRAY, ID) {
         var res = -1;
@@ -6367,9 +6585,22 @@ function LOAD_HEALTH_TABLE(){
     var diss;
 
     temp1.push(-1);
+    //temp1.push(personal_information.name);
     temp1.push(personal_information.name + '( Self )');
-    //if(personal_information.cause_of_death == 'undefined')
-    var cod = ((typeof personal_information.cause_of_death == 'undefined') ? 'Yes' : 'No / ' + personal_information.cause_of_death);
+    //alert(personal_information.cause_of_death)
+    var cod = "";
+    //var cod = ((typeof personal_information.cause_of_death == 'undefined') ? 'Yes' : 'No / ' + personal_information.cause_of_death);
+
+
+    if(typeof personal_information.age == 'undefined' && typeof personal_information.estimated_age == 'undefined' && typeof personal_information.cause_of_death == 'undefined'){
+        cod = 'Unknown';
+    }
+    else if(typeof personal_information.age != 'undefined' || typeof personal_information.estimated_age != 'undefined' || typeof personal_information.date_of_birth != 'undefined'){
+        cod = 'Yes';
+    }
+    else{
+        cod = 'No';
+    }
 
     /*
      Load first Self Information
@@ -6451,31 +6682,75 @@ function LOAD_HEALTH_TABLE(){
         //var temp = new Array();
         if(item!=null && typeof item != 'undefined') {
             var FAMNAME = item.name;
-            var RELATION = $.t("fhh_js." + item.relationship);
+            //alert(FAMNAME)
+            //var RELATION = $.t("fhh_js." + item.relationship);
+            var RELATION = item.relationship;
+
+            //if (typeof item == 'object') {
+            //    var fullid =  ($.inArray(key, defaultfamilyarray));
+            //}
 
             var fullid =  ($.inArray(key, defaultfamilyarray));
             var halfid =  ($.inArray(key.substr(0,key.lastIndexOf('_')), defaultfamilyarray));
 
-            if (fullid != -1){
-                if (item.id == null || typeof item.id == 'undefined') {
+            if(typeof FAMNAME == 'undefined') {
+                //alert("1-->"+FAMNAME)
+                if (fullid != -1) {
+                    //if (item.id == null || typeof item.id == 'undefined') {
                     FAMNAME = key;
-                    RELATION=key.substr(key.indexOf('_')+1,key.length);
+                    RELATION = key.substr(key.indexOf('_') + 1, key.length);
+                    //}
+                }
+                else if (halfid != -1) {
+                    //if (item.id == null || typeof item.id == 'undefined') {
+                    FAMNAME = key;
+                    RELATION = key.substr(0, key.lastIndexOf('_'));
+                    //}
                 }
             }
-            else if (halfid != -1){
-                if (item.id == null || typeof item.id == 'undefined') {
-                    FAMNAME = key;
-                    RELATION=key.substr(0,key.lastIndexOf('_'));
-                }
+            else if (typeof FAMNAME != 'undefined') {
+                FAMNAME = FAMNAME + ' (' + RELATION + ')';
             }
 
-            if (FAMNAME != null && typeof FAMNAME != 'undefined') {
+            //if (FAMNAME == null && typeof FAMNAME == 'undefined') {
+            //    FAMNAME = '(' + RELATION + ')';
+            //}
+
+            //alert("2-->"+FAMNAME)
+            if (typeof FAMNAME != 'undefined') {
+                var NAMEREL;
                 var NAME = FAMNAME;
                 temp1.push(que);
-                var NAMEREL = NAME + '(' + RELATION + ')';
+                //temp1.push(que);
+                //var NAMEREL = NAME + '(' + RELATION + ')';
+                if(typeof item.relationship != 'undefined'){
+                    NAMEREL = FAMNAME;
+                }
+                else {
+                    NAMEREL = RELATION;
+                }
                 temp1.push(NAMEREL);
+                var COD = "";
 
-                var COD = ((typeof item.cause_of_death == 'undefined') ? 'Yes' :  'No / ' + item.cause_of_death);
+                if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
+                     COD = 'Unknown';
+                }
+                else if(typeof item.age != 'undefined' || typeof item.estimated_age != 'undefined' || typeof item.date_of_birth != 'undefined'){
+                    COD = 'Yes';
+                }
+                else{
+                    COD = 'No';
+                }
+                //var ag = item.age;
+                //var ea = item.estimated_age;
+                //if(estimated_age)
+
+                //alert(item.age)
+
+
+
+
+                //var COD = ((typeof item.cause_of_death == 'undefined') ? 'Yes' :  'No / ' + item.cause_of_death);
                 var START_COD = new Array();
                 statics = new Array();
                 var diss;
@@ -6491,8 +6766,41 @@ function LOAD_HEALTH_TABLE(){
                     SECONDARY_DISEASE[k] = "-";
                 }
 
+
+                /**
+                 * Cause of death
+                 */
+                if(item.cause_of_death != null || item.detailed_cause_of_death != null){
+                    var cd = "";
+                    var details = "";
+                    if(item.cause_of_death != null)cd = item.cause_of_death.toLowerCase();
+                    if(item.cause_of_death != null)details = item.cause_of_death.toLowerCase();
+                    if(($.inArray(cd, STATICDISEASES) != -1) || ($.inArray(details, STATICDISEASES) != -1)) {
+                        var nr = STATICDISEASES.indexOf(cd.toLowerCase());
+
+                        for (var k=0; k<STATICDISEASES.length;k++){
+                            if (k==nr){
+                                if(details==null || typeof details=='undefined')details = cd;
+                                PRIMARY_DISEASE[k] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                                break;
+                            }
+                        }
+                    }
+
+                    for(var i =0;i<diseasearray.length;i++){
+                        var b = diseasearray[i][1];
+                        if(b==details){
+                            if (details == null || typeof details == 'undefined')details = cd;
+                            SECONDARY_DISEASE[i] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                            break;
+                        }
+                    }
+                }
+
+
                 if (typeof item['Health History'] != 'undefined') {
                     var temp_stat = new Array();
+
                     if (item['Health History'].length > 0) {
                         $.each(item['Health History'], function (key, item) {
                             var tmp = item['Disease Name'];
@@ -6559,9 +6867,11 @@ function LOAD_HEALTH_TABLE(){
         /*
          Infor of the closed diseases
          */
+
+
         if($("#closed_table tr td" ).length == 1) {
             $('#closed_table tr').append('<td>' +
-            '<span style="font-weight:bold;background-color: white; color: black; padding-right:25px;">Closed Diseases:  </span>' +
+            //'<span id="closedtitle" style="font-weight:bold;background-color: white; color: black; padding-right:25px;">Closed Diseases:  </span>' +
             '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: darkslategrey;color: white;border: none;padding-right: 25px;cursor:pointer">' +
             '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + NAME + '</button>' +
             '</td>');
@@ -6586,21 +6896,27 @@ function openTab(TXT){
     $('#'+TXT).remove();
 }
 
-
+//function IS_ADOPTED_FAMILY(id){
+//    $('#' + id).attr({fill: 'palegoldenrod'});
+//}
 
 function ADOPTED_FAMILY(){
     $.each(personal_information, function (key, item) {
         if(item) {
-            var adopt = item.adopted;
-            if (typeof adopt != 'undefined') {
-                if (adopt == 'true') {
-                    var id = item.id;
-                    $('#' + id).attr({fill: 'palegoldenrod'});
+        var id = item.id;
+            if (typeof item == 'object') {
+            for (var data in item) {
+                if(data=='adopted'){
+                    if (typeof item.adopted != 'undefine') {
+                        if (item.adopted == true) {
+                            $('#' + id).attr({fill: 'palegoldenrod'});
+                        }
+                    }
                 }
+            };
             }
         }
     });
-
 }
 
 function LOAD_TR(cod,nr){
@@ -6647,6 +6963,24 @@ function BMI_CALCULATE(W,H) {
 
     }
     return finalBmi.toFixed(2);
+}
+
+function  BMI_CALCULATE_METRIC(W,H) {
+    var finalBmi=0;
+    var weight = W;
+    var height = H;
+    if(weight > 0 && height > 0) {
+        //var weight = eval(document.form.weight.value)
+        //var height = eval(document.form.height.value)
+        var height2 = height / 100
+        var BMI = weight / (height2 * height2)
+        finalBmi = custRound(BMI, 1);
+    }
+    return finalBmi.toFixed(2);
+}
+
+function custRound(x,places) {
+    return (Math.round(x*Math.pow(10,places)))/Math.pow(10,places)
 }
 
 
@@ -6708,7 +7042,7 @@ function createDialog() {
         });
 
 
-        //alert ("detdisname ARRAY Information:" + JSON.stringify(array, null, 2) );
+        alert ("detdisname ARRAY Information:" + JSON.stringify(array, null, 2) );
 
 
         var $optdialog = $("<div id='optionsPanel' width='800px' class='option_dialog' style='width:800px;'><p>"
@@ -6723,14 +7057,14 @@ function createDialog() {
         + "</select>"
         + "</td>"
         + "</tr>"
-        + "<tr>"
-        + "<td>"
-        + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfo()' checked />Show my personal information in the report (such as Date of Birth, Height, or Weight)<br />"
-        + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfo()' checked />Show names of family members in the report<br />"
-        + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfo()' checked/>Show drawing (the tree diagram of your family's health history)<br />"
-        + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfo()' checked/>Show table (your family's health history displayed as a listing table)<br />"
-
-        + "</td>"
+            + "<tr>"
+            + "<td>"
+            + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfo()' checked />Show my personal information in the report (such as Date of Birth, Height, or Weight)<br />"
+            + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfo()' checked />Show names of family members in the report<br />"
+            + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfo()' checked/>Show drawing (the tree diagram of your family's health history)<br />"
+            + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfo()' checked/>Show table (your family's health history displayed as a listing table)<br />"
+            + "<input type='button' onclick='CloseInfo()' value='close'></button>"
+            + "</td>"
         + "</tr></table>"
 
 
@@ -6751,6 +7085,8 @@ function createDialog() {
     }
 
 }
+
+
 
 function ClearDna(){
     $.each(personal_information, function (key, item) {
@@ -6791,7 +7127,7 @@ function ClearNames(comp){
                 }
             }
         });
-        oTable.fnSetColumnVis( 0, true );
+        oTable.fnSetColumnVis( 0, false );
     }
 }
 
@@ -6880,6 +7216,10 @@ function ResetInfo(){
     $('#svgframe').show();
     $('#health_table').show();
 
+}
+
+function CloseInfo(){
+    $('#optionsPanel').dialog('close');
 }
 
 function printCoupon() {
