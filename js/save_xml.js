@@ -281,7 +281,7 @@ function add_relative_estimated_age_tag(relationship_tag, estimated_age) {
 	code_tag.setAttribute("codeSystemName", "LOINC");
 	code_tag.setAttribute("code", "21611-9");
 	dataEstimatedAge_tag.appendChild(code_tag);
-	add_estimated_age_tag(dataEstimatedAge_tag, estimated_age);
+	add_estimated_age_tag(dataEstimatedAge_tag, code_tag, estimated_age);
 }
 
 function add_relative_age_tag(relationship_tag, age) {
@@ -428,7 +428,7 @@ function add_clinical_observations(tag,
 		adopted_flag, 
 		active_flag) 
 {
-	var subjectOfTwo_tag = doc.createElement("subjectof2");
+	var subjectOfTwo_tag = doc.createElement("subjectOf2");
 	tag.appendChild(subjectOfTwo_tag);
 
 	add_twin_tag(subjectOfTwo_tag, twin_status);
@@ -569,20 +569,16 @@ function add_diseases(tag, diseases) {
 		new_code_tag.setAttribute("code", LOINC_CODE.ESTIMATED_AGE);
 		dataEstimatedAge_tag.appendChild(new_code_tag);		
 		
-		add_estimated_age_tag(dataEstimatedAge_tag, age_at_diagnosis);
+		add_estimated_age_tag(dataEstimatedAge_tag, new_code_tag, age_at_diagnosis);
 		}
 }
 
-function add_estimated_age_tag(tag, estimated_age) {
+function add_estimated_age_tag(tag, code_tag, estimated_age) {
 	var av = get_age_values_from_estimated_age(estimated_age);
-	if (estimated_age == "Pre-Birth") {
-		var new_code_tag = doc.createElement("code");
-		new_code_tag.setAttribute("originalText", "pre-birth");
-		tag.appendChild(new_code_tag);
+	if (estimated_age == "Pre-Birth" || estimated_age == "prebirth") {
+		code_tag.setAttribute("originalText", "pre-birth");
 	} else if (estimated_age == "Unknown") {
-		var new_code_tag = doc.createElement("code");
-		new_code_tag.setAttribute("originalText", "unknown");
-		tag.appendChild(new_code_tag);
+		code_tag.setAttribute("originalText", "unknown");
 	} else {
 		
 		// These estimates ages have high, low, and unit tags/attr
@@ -630,7 +626,7 @@ function add_death_age(tag, estimated_death_age) {
 	deceasedEstimatedAge_tag.appendChild(code_tag);
 	var value_tag = doc.createElement("value");
 	
-	add_estimated_age_tag(deceasedEstimatedAge_tag, estimated_death_age);
+	add_estimated_age_tag(deceasedEstimatedAge_tag, code_tag, estimated_death_age);
 	
 }
 

@@ -741,7 +741,7 @@ function load_race(data) {
 function get_age_at_diagnosis (xml_snippet) {
 	if (xml_snippet == null) return null;
 	
-	if (xml_snippet.html() && xml_snippet.html().indexOf("prebirth") > -1) return 'Pre-Birth';
+	if (xml_snippet.html() && xml_snippet.html().indexOf("pre-birth") > -1) return 'prebirth';
 	var estimated_age = xml_snippet.html();
 	if (estimated_age && estimated_age.indexOf('unit="day"') > -1) {
 		if (estimated_age.indexOf('value="0"') > -1) return "newborn";

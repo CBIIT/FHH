@@ -121,7 +121,7 @@ function check_for_diabetes_prediabetes() {
 		if (h[i]['Detailed Disease Name'] == 'Impaired Fasting Glucose')  diabetes_types.push(h[i]['Detailed Disease Name']);
 		if (h[i]['Detailed Disease Name'] == 'Impaired Glucose Tolerance')  diabetes_types.push(h[i]['Detailed Disease Name']);
 		if (h[i]['Detailed Disease Name'] == 'Insulin Resistance')  diabetes_types.push(h[i]['Detailed Disease Name']);
-		if (h[i]['Detailed Disease Name'] == 'Maturity Onset Diabetesmellitus in Young (MODY)')  diabetes_types.push(h[i]['Detailed Disease Name']);
+		if (h[i]['Detailed Disease Name'] == 'Maturity Onset Diabetes mellitus in Young (MODY)')  diabetes_types.push(h[i]['Detailed Disease Name']);
 		if (h[i]['Detailed Disease Name'] == 'Pre-Diabetes') diabetes_types.push(h[i]['Detailed Disease Name']);
 		if (h[i]['Detailed Disease Name'] == 'Type 1 Diabetes') diabetes_types.push(h[i]['Detailed Disease Name']);
 		if (h[i]['Detailed Disease Name'] == 'Type 2 Diabetes') diabetes_types.push(h[i]['Detailed Disease Name']);
