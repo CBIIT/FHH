@@ -87,9 +87,9 @@ function bind_uploader() {
 					//We do not have a getNative object so send response from upload2.php.
 //					var decoded = $("<div/>").html(obj.response).text();
 //          load_xml(decoded);
-					alert(obj.response);
+//					alert(obj.response);
 					var pi = $.parseJSON(obj.response);
-					alert(JSON.stringify(pi,null, 2));
+//					alert(JSON.stringify(pi,null, 2));
 					personal_information=pi;
 					build_family_history_data_table();
 

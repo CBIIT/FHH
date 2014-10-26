@@ -74,9 +74,18 @@ function get_xml_string() {
 		var root = doc.createElement("FamilyHistory");
 		add_root_information(root);
 		root.appendChild(add_personal_history(personal_information));
+	
+		var str = serializeXmlNode(root)
+		return(str);
+}
 
-		var s = new XMLSerializer();
-		return(s.serializeToString(root));
+function serializeXmlNode(xmlNode) {
+    if (typeof window.XMLSerializer != "undefined") {
+        return (new window.XMLSerializer()).serializeToString(xmlNode);
+    } else if (typeof xmlNode.xml != "undefined") {
+        return xmlNode.xml;
+    }
+    return "";
 }
 
 
@@ -871,6 +880,15 @@ function get_age_values_from_estimated_age(age_at_diagnosis) {
 }
 
 function save_document(save_link, output_string, filename) {
+	var DownloadAttributeSupport = 'download' in document.createElement('a');
+	if (DownloadAttributeSupport) {
+			save_link.attr("download", filename).attr("href", "data:application/force-download," + encodeURIComponent(output_string) ).attr("target", "download");		
+	} else {
+	    var blobObject = new Blob([output_string]); 
+	    window.navigator.msSaveBlob(blobObject, filename); // The user only has the option of clicking the Save button.		
+	}
+
+/*
 		if (isIE10) {
 	    var blobObject = new Blob([output_string]); 
 	    window.navigator.msSaveBlob(blobObject, filename); // The user only has the option of clicking the Save button.
@@ -878,6 +896,7 @@ function save_document(save_link, output_string, filename) {
 //			save_link.attr("href", "data:application/xml," + output_string ).attr("download", filename);
 			save_link.attr("download", filename).attr("href", "data:application/force-download," + encodeURIComponent(output_string) ).attr("target", "download");
 		}
+*/
 		
 }
 

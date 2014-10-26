@@ -1,3 +1,30 @@
+var exported_pi;
+var relative_being_exported;
+
+// For IE8 and Safari, we need to use downloadify
+
+//  For downliadify to support Safari and IE downloading
+function load_export_downloadify(){
+	Downloadify.create('export_downloadify',{
+		filename: function(){
+			if (exported_pi.name != null || exported_pi.name != "") exported_filename = exported_pi.name + "_Health_History.xml";
+			else exported_filename = "Exported_Family_Member_Health_History.xml";
+			return exported_filename;
+		},
+		data: function(){ 
+			return make_export_string(exported_pi);
+		},
+		onComplete: function(){ alert('Your File Has Been Saved!'); },
+		onCancel: function(){ alert('You have cancelled the saving of this file.'); },
+		onError: function(){ alert('You must put something in the File Contents or there will be nothing to save!'); },
+		swf: '../downloadify/media/downloadify.swf',
+		downloadImage: '../downloadify/images/download2.png',
+		width: 105,
+		height: 32,
+		transparent: true,
+		append: false
+	});
+}
 
 function build_copy_for_family_member_dialog() {
 	give_instructions();
@@ -20,17 +47,29 @@ function bind_relative_select_change() {
   else if (relative_being_exported.substring(0,3) == 'son') pi = export_son_or_daughter(relative_being_exported, my_gender);
   else if (relative_being_exported.substring(0,8) == 'daughter') pi = export_son_or_daughter(relative_being_exported, my_gender);
 
+	exported_pi = pi; // global to pass data to export
 	var xml_document = make_export_string(pi);
 	var filename = make_filename(pi);
 
-	$("#export_to_relative").remove();
-	var export_button = $("<A id='export_to_relative' class='link-button'>" + $.t("fhh_js.export") + "</A>");
-	export_button.on("click", function () {
-		$("#copy_for_family_member").empty().dialog("close");
-	});
-	$("#copy_for_family_member").append("&nbsp;&nbsp;").append(export_button);
-	save_document($("#export_to_relative"), xml_document, filename);	
+	var a = document.createElement('a');
+
+	if (typeof a.download != "undefined") {
+		$("#export_to_relative").remove();
+		var export_button = $("<A id='export_to_relative' class='link-button'>" + $.t("fhh_js.export") + "</A>");
+		export_button.on("click", function () {
+			$("#copy_for_family_member").empty().dialog("close");
+		});
+		$("#copy_for_family_member").append("&nbsp;&nbsp;").append(export_button);
+		save_document($("#export_to_relative"), xml_document, filename);	
+	} else {
+		$("#export_to_relative").remove();
+		var export_downloadify = $("<P id='export_downloadify'>" + $.t("fhh_js.export") + "</P>");
+		$("#copy_for_family_member").append("&nbsp;&nbsp;").append(export_downloadify);
+		load_export_downloadify();
+	}
+
 }
+
 
 function export_brother_or_sister(relative_being_exported, my_gender) {
 	var pi = new Object();
@@ -313,13 +352,13 @@ function set_personal_information_based_on_relative(pi, relative) {
 }
 
 function make_export_string(pi) {
-	doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
+//	doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
 	var root = doc.createElement("FamilyHistory");
 	add_root_information(root);
 	root.appendChild(add_personal_history(pi));
-	var s = new XMLSerializer();
-	var output_string = s.serializeToString(root);
-	return output_string;
+	
+	var str = serializeXmlNode(root)
+	return(str);
 }
 
 function make_filename(pi) {
