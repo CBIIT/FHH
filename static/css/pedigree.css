@@ -342,26 +342,30 @@ i#options .ui-button.ui-state-active .ui-button-text {
 }
 
 div.toolbar{
-    height: 80px;
-    width: 350px;
+    height: 120px;
+    width: 100%;
     bottom:20px;
+    background-color: white;
 }
 
 #lightbox {
     background-clip: padding-box;
-    background-color: transparent;
+    background-color: white;
     color: black;
     /*border: 3px solid rgba(0, 0, 0, 0.3);*/
     border-radius: 10px;
     left: 40px;
-    padding: 5px;
+    padding: 0px;
     position: relative;
     text-align: left;
     top: 0px;
-    width: 250px;
+    width: 100%;
+    z-index: 0;
 }
 
-
+#health_table_filter{
+    z-index:999;
+}
 #infobox {
     background-clip: padding-box;
     background-color: transparent;
@@ -387,7 +391,7 @@ div.toolbar{
 */
 
 #health_table {
-    width:  98%;
+    /*width:  100%;*/
     padding-top: 1px;
     padding-left: 20px;
     /*margin-top: 250px;*/
@@ -485,8 +489,10 @@ div.toolbar{
 #bmi_table caption {
     padding: 0 0 5px 0;
     width: 250px;
+    height:20px;
     font: bold 15px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     text-align: left;
+    background-color: white;
 }
 
 #bmi_table td{
@@ -681,6 +687,7 @@ svg#svgcloneframe {
 
     #family_pedigree * {
         border: none;
+        background-color: white;
     }
 
     #ui-dialog * {
@@ -694,6 +701,11 @@ svg#svgcloneframe {
     }
     #topsvg {
         page-break-after:always;
+    }
+
+    .printlegend img {
+        width: 100px;
+        height: 60px;
     }
     /*#health_table {*/
         /*page-break-before:always;*/

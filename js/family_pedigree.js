@@ -3,6 +3,7 @@
  */
 
 
+
 var mdialog=null;
 var original;
 var clone;
@@ -37,6 +38,12 @@ var TOPCLONE,TOPCLONEFRAME;
 var topdivheight,topdivwidht;
 var infoframemargin;
 var nowselected;
+var isIE=0;
+var isCHR=0;
+var isFF=0;
+var HEADERS = new Array;
+var weight, height,age,weight_unit,height_unit;
+var BMI;
 
 var defaultfamilyarray=[
     'maternal_grandfather',
@@ -66,14 +73,28 @@ var STATICDISEASES = [
     'ovarian cancer'
 ];
 
-//IE 8
-//if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
-//    alert(navigator.userAgent)
-//}
+
 
 function xmlload() {
 
-    //alert(oTable)
+    //IE 8
+// if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
+   // IEload();
+// }
+
+    /**
+    * CLEAN RESTART 
+    **/
+    if( mdialog != null) {
+        oTable.fnDraw(true);
+        $(mdialog).dialog('destroy').remove();
+         mdialog = null;
+    }
+
+
+    if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i)) isIE=1;
+    else if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1) isCH=1;
+    else isFF=1;
 
 
     /*
@@ -112,7 +133,7 @@ function xmlload() {
 
 
     mdialog = $(
-        '<div id="family_pedigree">' +
+        '<div id="family_pedigree" style="background-color:white">' +
         '<div id="topsvg"> ' +
             //'<svg id="svgframe" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
         '<svg id="svgframe">' +
@@ -177,15 +198,77 @@ function xmlload() {
         width: 'auto',
         position: 'fixed',
         modal: false,
-        //afterOpen: function(){
-        //    $(this).position(['top',0]);
-        //    $(this).position('fixed');
-        //    $('html,body').animate({
-        //            scrollTop: $("#dialogtext").offset().top},
-        //        'fast');
-        //},
+        // beforeOpen: function(){
+
+
+           
+        // },
         open: function () {
-            //oTable.fnDestroy();
+
+
+var ex = document.getElementById('health_table');
+
+// oTable.fnDestroy();
+
+        // if (typeof oTable == 'undefined') { 
+
+            oTable = $('#health_table').dataTable({
+                // "destroy:" true,
+                "bPaginate": true,
+                //"scrollX": true,
+                //"scrollY": "300px",
+                //"sScrollY": "250px",
+                "bAutoWidth": true,
+                "bScrollCollapse": false,
+                "bLengthChange": false,
+                "bFilter": true,
+                "displayLength": 100,
+                "dom": '<"toolbar">t<plf>',
+
+                 // "dom": '<"top"i>rt<"bottom"flp><"clear">',
+                //"dom": 'Rlfrtip','T<"clear">lfrtip',
+                tableTools: {
+                    "aButtons": ["print"]
+                },
+                "columns": HEADERS,
+                "columnDefs": [
+                    {
+                        //"targets": [0],
+                        "targets": [0, 1],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
+                "aaSortingFixed": [[0, 'desc']]
+
+            });
+
+            $("div.toolbar").html(
+                '<div id="lightbox">' +
+                '<table width="100%"><tr><td style="width:30%">' +
+                        '<table id="bmi_table" class="htable">' +
+                        '<caption>My Personal Information</caption>' +
+                        '<tr><td id="age">Age:</td></tr>' +
+                        '<tr><td id="height">Height:</td></tr>' +
+                        '<tr><td id="weight">Weight:</td></tr>' +
+                        '<tr><td id="abmi">BMI:</td></tr>' +
+                        '</tr></table>' +
+                    '</td>' +
+                    '<td style="width:70%;left:auto;right:auto">' +
+                        '<img id="legendtag" src="../static/images/Legend.png"></img>' + 
+                    '</td>' + 
+                '</tr></table>' +
+
+                '</div>'
+            ); 
+
+        // }
+
+
+$('#health_table').css('width',masterRight);
+
+
+            
             var target = $(this);
             $(this).dialog("open");
             $(this).load(LOAD_HEALTH_TABLE());
@@ -197,7 +280,6 @@ function xmlload() {
             //var myDialogY = $(this).position().top - ( $(document).scrollTop() + $('.ui-dialog').outerHeight() );
             $(this).dialog( 'option', 'position', [myDialogX, 40] );
             diseasearray=new Array();
-
 
         },
         beforeClose: function(){
@@ -216,7 +298,8 @@ function xmlload() {
             $(".ui-dialog-content").dialog("close");
             $('#maindialog').dialog('destroy').remove();
 
-
+            // mdialog = null;
+            // oTable = null;
 
             //$(this).find('.ui-dialog-content').dialog('destroy').remove();
 
@@ -279,7 +362,7 @@ function xmlload() {
 
 
 
-        var HEADERS = new Array;
+        HEADERS = new Array;
         HEADERS.push({"title":'Id'});
         HEADERS.push({"title":'Name & Relationship'});
         HEADERS.push({"title":'Name & Relationship'});
@@ -317,54 +400,9 @@ function xmlload() {
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" style="padding-right: 5px;padding-top: 2px"/></a>' + NAME
+            '<img src="../static/images/close.png" class="closeimg"/></a>' + NAME
             });
         }
-
-        //$(document).ready(function() {
-            oTable = $('#health_table').dataTable({
-                "bPaginate": true,
-                //"scrollX": true,
-                //"scrollY": "300px",
-                //"sScrollY": "250px",
-                "bAutoWidth": true,
-                "bScrollCollapse": false,
-                "bLengthChange": false,
-                "bFilter": true,
-                "displayLength": 100,
-                "dom": '<"toolbar">Rlfrtip',
-                //"dom": 'Rlfrtip','T<"clear">lfrtip',
-                tableTools: {
-                    "aButtons": ["print"]
-                },
-                "columns": HEADERS,
-                "columnDefs": [
-                    {
-                        //"targets": [0],
-                        "targets": [0, 1],
-                        "visible": false,
-                        "searchable": false
-                    }
-                ],
-                "aaSortingFixed": [[0, 'desc']]
-
-            });
-        //});
-
-        $("div.toolbar").html(
-
-            '<div id="lightbox">' +
-            '<table id="bmi_table" class="htable">' +
-            '<caption>My Personal Information</caption>' +
-            '<tr><td id="age">Age:</td></tr>' +
-            '<tr><td id="height">Height:</td></tr>' +
-            '<tr><td id="weight">Weight:</td></tr>' +
-            '<tr><td id="abmi">BMI:</td></tr>' +
-            '</tr></table>' +
-            '</div>'
-
-            //'<b>Custom tool bar! Text/images etc.</b>'
-        );
 
         $(function() {
             $(window).scroll(function(){
@@ -450,6 +488,9 @@ function xmlload() {
     $('#svgframe').svg();
     svg = $('#svgframe').svg('get');
 
+
+
+
     $('#svgframe')
         .draggable();
     //.resizable();
@@ -505,8 +546,8 @@ function xmlload() {
         mastery = parseInt($('#me').attr('cy') - 20);
     }
 
-    var weight, height,age,weight_unit,height_unit;
-    var BMI;
+     weight, height,age,weight_unit,height_unit;
+     BMI;
     if(typeof personal_information.weight == 'undefined' || personal_information.weight == null) {
         weight="";
         weight_unit="";
@@ -541,6 +582,7 @@ function xmlload() {
     if(typeof BMI == 'undefined' || BMI == null) {
         BMI = "";
     }
+
 
     $('#age').text = age;
     $('#age').append($("<span><b></b></span>").text(age));
@@ -1098,44 +1140,44 @@ function xmlload() {
         var skipa = 550;
 
         //Index keys
-        svg.rect(parseInt(skipa) - 30, 40 + pos, 980+150, 100, 1, 1, {
-            id: 'panel',
-            fill: 'none',
-            stroke: 'slategray',
-            strokeWidth: 1
-        });
+        // svg.rect(parseInt(skipa) - 30, 40 + pos, 980+150, 100, 1, 1, {
+        //     id: 'panel',
+        //     fill: 'none',
+        //     stroke: 'slategray',
+        //     strokeWidth: 1
+        // });
 
-        var kcr = 21;
-        var krr = 40;
+        // var kcr = 21;
+        // var krr = 40;
 
 
-        //Adopted
-        svg.text(10+skipa, 30 + pos, "Adopted", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray', id: 'f1text'});
-        svg.circle(0+skipa, 95 + pos, kcr, {id: 'afd', fill: 'palegoldenrod', stroke: 'black', strokeWidth: 2});
-        svg.rect(50+skipa, 74 + pos, krr, krr, 1, 1, {id: 'ama', fill: 'palegoldenrod', stroke: 'black', strokeWidth: 3});
+        // //Adopted
+        // svg.text(10+skipa, 30 + pos, "Adopted", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray', id: 'f1text'});
+        // svg.circle(0+skipa, 95 + pos, kcr, {id: 'afd', fill: 'palegoldenrod', stroke: 'black', strokeWidth: 2});
+        // svg.rect(50+skipa, 74 + pos, krr, krr, 1, 1, {id: 'ama', fill: 'palegoldenrod', stroke: 'black', strokeWidth: 3});
 
-        //Live
-        svg.text(100+skip, 30 + pos, "Alive", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray', id: 'f2text'});
-        svg.circle(75+skip, 95 + pos, kcr, {id: 'kfd', fill: gencolor, stroke: 'black', strokeWidth: 2});
-        svg.rect(120+skip, 74 + pos, krr, krr, 1, 1, {id: 'kma', fill: gencolor, stroke: 'black', strokeWidth: 3});
+        // //Live
+        // svg.text(100+skip, 30 + pos, "Alive", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray', id: 'f2text'});
+        // svg.circle(75+skip, 95 + pos, kcr, {id: 'kfd', fill: gencolor, stroke: 'black', strokeWidth: 2});
+        // svg.rect(120+skip, 74 + pos, krr, krr, 1, 1, {id: 'kma', fill: gencolor, stroke: 'black', strokeWidth: 3});
 
-        //Deceased
-        svg.text(270+skip, 30 + pos, "Deceased", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray', id: 'f3text'});
-        svg.circle(270+skip, 95 + pos, kcr, {id: 'kf', fill: gencolor, stroke: 'black', strokeWidth: 2});
-        svg.rect(325+skip, 74 + pos, krr, krr, 1, 1, {id: 'kmd', fill: gencolor, stroke: 'black', strokeWidth: 2});
+        // //Deceased
+        // svg.text(270+skip, 30 + pos, "Deceased", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray', id: 'f3text'});
+        // svg.circle(270+skip, 95 + pos, kcr, {id: 'kf', fill: gencolor, stroke: 'black', strokeWidth: 2});
+        // svg.rect(325+skip, 74 + pos, krr, krr, 1, 1, {id: 'kmd', fill: gencolor, stroke: 'black', strokeWidth: 2});
 
-        svg.text(470+skip, 30 + pos, "A non-blood relative or relative through marriage.", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray', id: 'f4text'});
-        svg.rect(570+skip, 74 + pos, krr, krr, 1, 1, {id: 'exw', fill: gencolor, stroke: 'black', strokeWidth: 2});
-        svg.circle(690+skip, 95 + pos, kcr, {id: 'ex', fill: 'white', stroke: 'black', strokeWidth: 2});
-        svg.line(LINEGROUP, 570+skip,  95 + pos, 690+skip,  95 + pos, {id: 'xl', stroke: 'black', strokeWidth: 3});
+        // svg.text(470+skip, 30 + pos, "A non-blood relative or relative through marriage.", {fontWeight: 'bold', fontSize: '22.5', fill: 'gray', id: 'f4text'});
+        // svg.rect(570+skip, 74 + pos, krr, krr, 1, 1, {id: 'exw', fill: gencolor, stroke: 'black', strokeWidth: 2});
+        // svg.circle(690+skip, 95 + pos, kcr, {id: 'ex', fill: 'white', stroke: 'black', strokeWidth: 2});
+        // svg.line(LINEGROUP, 570+skip,  95 + pos, 690+skip,  95 + pos, {id: 'xl', stroke: 'black', strokeWidth: 3});
 
-        svg.circle(820+skip, 95 + pos, kcr, {id: 'ex', fill: gencolor, stroke: 'black', strokeWidth: 2});
-        svg.rect(900+skip, 74 + pos, krr, krr, 1, 1, {id: 'exw', fill: 'white', stroke: 'black', strokeWidth: 2});
-        svg.line(LINEGROUP, 820+skip,  95 + pos, 900+skip,  95 + pos, {id: 'xl', stroke: 'black', strokeWidth: 3});
+        // svg.circle(820+skip, 95 + pos, kcr, {id: 'ex', fill: gencolor, stroke: 'black', strokeWidth: 2});
+        // svg.rect(900+skip, 74 + pos, krr, krr, 1, 1, {id: 'exw', fill: 'white', stroke: 'black', strokeWidth: 2});
+        // svg.line(LINEGROUP, 820+skip,  95 + pos, 900+skip,  95 + pos, {id: 'xl', stroke: 'black', strokeWidth: 3});
 
         //Set live status
-        circlestatus('kf');
-        rectstatus('kmd');
+        // circlestatus('kf');
+        // rectstatus('kmd');
 
     });
 
@@ -1162,6 +1204,8 @@ function xmlload() {
     //Load Maternal Cousins
     MATERNAL_COUSINS_LOAD();
 
+   
+
     /*
      Tables and other information tools
      */
@@ -1171,13 +1215,7 @@ function xmlload() {
 
     $( "#printer" ).click(function() {
 
-        $('#topsvg').css('overflow', 'hidden');
-
-        $('.sticky').hide();
-        $('.closeimg').hide();
-        $('#health_table_filter').hide();
-        $('#health_table_info').hide();
-        $('#health_table_paginate').hide();
+       
 
         var container = $(mdialog);
         var tableelement = $( "table" );
@@ -1196,7 +1234,22 @@ function xmlload() {
         var uniqueName = new Date();
         var windowName = 'Print' + uniqueName.getTime();
 
+        
+
         if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
+
+            //Set the pic inside of Div
+        IESVGinPrint();
+
+        $('#topsvg').css('overflow', 'hidden');
+        $('.sticky').hide();
+        $('.closeimg').hide();
+        $('#health_table_filter').hide();
+        $('#health_table_info').hide();
+        $('#health_table_paginate').hide();
+        $('#legendtag').css('width','300px');
+        $('#legendtag').css('height','50px');
+
             $('#dialogtext').hide();
             var DocumentContainer = $(mdialog);
             var WindowObject = window.open('', "Print", "width=800,height=1000,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no");
@@ -1204,17 +1257,16 @@ function xmlload() {
             + '<html><head><title>My Family Health Portrait-Diagram</title>'
             +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
 
-            //+ $(DocumentContainer).html()
-
+            + '<p>My Family Health Portrait-Diagram</p>'
             + $(topsvg).html()
-            + '<DIV style="page-break-after:always"></DIV>'
+            + '<DIV style="page-break-after:always;height:200px;left:10px"></DIV>'
             + $(healthtable).html()
 
             + '</head><body>');
             WindowObject.document.close();
             WindowObject.focus();
-            //WindowObject.print();
-            //WindowObject.close();
+            WindowObject.print();
+            WindowObject.close();
 
             var timer = setInterval(function() {
                 if( WindowObject.closed) {
@@ -1227,144 +1279,51 @@ function xmlload() {
                     $('#health_table_paginate').show();
                     $('#svgframe').draggable('enable');
                     $('#topsvg').css('overflow', 'hidden');
+                    $('#legendtag').attr('class','');
+                    $('#legendtag').css('width','');
+                    $('#legendtag').css('height','');
                 }
             }, 1000);
+
+             WindowObject.close();
         }
-        //else if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1){   // Chrome Browser Detected?
-        //
-        //    $('#svgframe').draggable('disable');
-        //    window.PPClose = false;                                     // Clear Close Flag
-        //    window.onbeforeunload = function(){                         // Before Window Close Event
-        //        if(window.PPClose === false){                           // Close not OK?
-        //            return 'Leaving this page will block the parent window!' +
-        //                '\nPlease select "Stay on this Page option" and use the' +
-        //                '\nCancel button instead to close the Print Preview Window.\n';
-        //        }
-        //    }
-        //
-        //    //var infoelem = $('#family_pedigree_info');
-        //    //infoelem.attr('class','page-break');
-        //
-        //
-        //    //var topdiv = $('#topsvg').clone();
-        //
-        //    //$('#topsvg').attr('class','landscape');
-        //    //var tableclass = $('#health_table').attr('class');
-        //
-        //
-        //
-        //
-        //    //$(diaelem).addClass("landscape");
-        //
-        //    $('#topsvg').attr('height',masterHeight);
-        //    $('#topsvg').attr('margin-top',10);
-        //    //$('#topsvg').attr('class','page-break');
-        //
-        //    //document.getElementById("health-table").style.pageBreakAfter="always";
-        //
-        //
-        //    //var printContents = document.getElementById('topsvg').innerHTML;
-        //    //var originalContents = document.body.innerHTML;
-        //    //document.body.innerHTML = printContents;
-        //
-        //    //window.print();
-        //
-        //
-        //
-        //        originalContents = document.body.innerHTML;
-        //    //originalContents = mdialog.innerHTML;
-        //        //coupon=couponID;
-        //        var printable = document.getElementById('topsvg');
-        //        var htable = document.getElementById('health_table');
-        //        var printContents = printable.innerHTML;
-        //        document.body.innerHTML = printContents + '<br/> + htable';
-        //
-        //
-        //    window.print();
-        //
-        //
-        //        //setTimeout(printCoupon,50);
-        //
-        //
-        //    document.body.innerHTML = originalContents;
-        //    //document.getElementById('topsvg').scrollIntoView(true);
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //    //window.print();                                             // Print preview
-        //    //window.PPClose = true;                                      // Set Close Flag to OK.
-        //
-        //
-        //
-        //    var timer = setInterval(function() {
-        //        if( window.PPClose = true) {
-        //
-        //            clearInterval(timer);
-        //            $('.sticky').show();
-        //            $('#dialogtext').show();
-        //            $('.closeimg').show();
-        //            $('#health_table_filter').show();
-        //            $('#health_table_info').show();
-        //            $('#health_table_paginate').show();
-        //            //infoelem.attr('class','family_pedigree_info');
-        //
-        //            //$('#svgframe').draggable('enable');
-        //            //$('#topsvg').css('overflow', 'visible');
-        //            //$('#topsvg').attr('class','');
-        //            //$('#health_table').attr('class','');
-        //        }
-        //    }, 1000);
-        //}
-        else {
+        /**
+        *CHROME
+        **/
+        else if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1){
             var myWindow=null;
             var prand = Math.floor((Math.random() * 10000) + 1);
-            $('#svgframe').draggable('disable');
-            var myWindow=window.open(prand,'Print','width=900,height=900,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no');
 
-            //bmi_table
+            //Set the pic inside of Div
+        fitSVGinPrint();
+
+            $('#topsvg').css('overflow', 'hidden');
+            $('.sticky').hide();
+            $('.closeimg').hide();
+            $('#health_table_filter').hide();
+            $('#health_table_info').hide();
+            $('#health_table_paginate').hide();
+            $('#svgframe').draggable('disable');
+            $('#legendtag').css('width','300px');
+            $('#legendtag').css('height','50px');
+
+            var myWindow=window.open(prand,'Print','width=900,height=900,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no');
 
             $('#bmi_table').css('font-size','10px');
 
-            //var infoelem = $('#family_pedigree_info');
-            //infoelem.attr('class','page-break');
-
-            //alert( $('#svgframe').attr('width'))
-
-            //if($('#svgframe').attr('width') > masterleft) {
-            //
-            //    $('#svgframe').attr('transform', 'translate(' + masterleft + ', 50) rotate(90) scale(0.5)')
-            //    //$('#svgframe').attr('transform','scale(2)')
-            //}
-
-
             var topsvgc = $('#topsvg');
-
             var healthtable = $('#health_table_wrapper');
-
             var printsvg =$('#svgframe');
-
-                $(printsvg).setAttribute('viewBox', '0 0 800 400');
-
-                //$('#svgframe').attr('transform', 'translate(scale(0.5)')
-
-            //$(topsvgc).css('width',masterRight);
-
-
 
             <!-- PRINT STARTS HERE -->
             myWindow.document.write('<!DOCTYPE html>'
             + '<html><head><title>My Family Health Portrait-Diagram</title>'
             + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
-                //+ $(diaelem).html()
-                //+ $(infoelem).html()
-            //+ $(topsvgc).attr("class", "transform")
+                + '<p>My Family Health Portrait-Diagram</p>'
+                + '<div style="margin-top:300px;margin-left:auto;margin-right:auto">'
             + $(topsvgc).html()
+                + '</div>'
                     + '<DIV style="page-break-after:always"></DIV>'
             + $(healthtable).html()
 
@@ -1372,8 +1331,8 @@ function xmlload() {
             );
 
             //myWindow.focus();
-            //myWindow.print();
-            //myWindow.close();
+            myWindow.print();
+            myWindow.close();
 
             <!-- PRINT ENDS HERE -->
 
@@ -1387,27 +1346,81 @@ function xmlload() {
                     $('#health_table_filter').show();
                     $('#health_table_info').show();
                     $('#health_table_paginate').show();
-                    //infoelem.attr('class','family_pedigree_info');
-
                     $('#svgframe').draggable('enable');
                     $('#topsvg').css('overflow', 'hidden');
                     $('#topsvg').attr('class','');
+                    $('#legendtag').css('width','');
+                    $('#legendtag').css('height','');
                 }
             }, 1000);
 
-            //myWindow.close();
+            myWindow.close();
+        }
+        else {
+            var myWindow=null;
+            var prand = Math.floor((Math.random() * 10000) + 1);
+
+            //Set the pic inside of Div
+        fitSVGinPrint();
+
+            $('#bmi_table').css('font-size','10px');
+            $('.closeimg').css('visibility', 'hidden');
+            $('#health_table_filter').hide();
+            $('#health_table_info').hide();
+            $('#health_table_paginate').hide();            
+            $('#svgframe').draggable('disable');
+            $('.sticky').hide();
+            $('#legendtag').css('width','300px');
+            $('#legendtag').css('height','50px');
+
+
+            <!-- PRINT STARTS HERE -->
+            var myWindow=window.open(prand,'Print','width=900,height=900,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no');
+            var topsvgc = $('#topsvg');
+            var healthtable = $('#health_table_wrapper');
+            var printsvg =$('#svgframe');
+
+            <!-- PRINT STARTS HERE -->
+            myWindow.document.write('<!DOCTYPE html>'
+            + '<html><head><title>My Family Health Portrait-Diagram</title>'
+            + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
+
+            + '<p>My Family Health Portrait-Diagram</p>'
+            + $(topsvgc).html()
+                    + '<DIV style="page-break-after:always"></DIV>'
+            + $(healthtable).html()
+
+                + '</head><body>'
+            );
+
+            myWindow.focus();
+            myWindow.print();
+            myWindow.close();
+
+            <!-- PRINT ENDS HERE -->
+
+
+            var timer = setInterval(function() {
+                if( myWindow.closed) {
+                    clearInterval(timer);
+                    $('.sticky').show();
+                    $('#dialogtext').show();
+                    $('.closeimg').show();
+                    $('#health_table_filter').show();
+                    $('#health_table_info').show();
+                    $('#health_table_paginate').show();
+                    $('#svgframe').draggable('enable');
+                    $('#topsvg').css('overflow', 'hidden');
+                    $('#topsvg').attr('class','');
+                    $('#legendtag').css('width','');
+                    $('#legendtag').css('height','');
+                }
+            }, 1000);
+
+            myWindow.close();
         }
     });
 
-
-    function printCoupon(){
-        window.print();
-        setTimeout(endPrintCoupon,50);
-    }
-    function endPrintCoupon(){
-        document.body.innerHTML = originalContents;
-        document.getElementById(coupon).scrollIntoView(true);
-    }
 
     function printDiv(elementId) {
         var popUpAndPrint = function()
@@ -2784,7 +2797,6 @@ function xmlload() {
                     p1temp.push(MIDGEN, MID, p1);
                     P1.push(p1temp);
                 }
-//alert([PREVIOUSID,MID,MIDGEN,PREVIOUSGEN,Level2M, p1])
                 SINGLE_SIDE_CORNER_CONNECTOR(PREVIOUSID,MID,MIDGEN,PREVIOUSGEN,Level2M, p1);
 
                 if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: DATAKEY, fill: gencolor, stroke: 'black', strokeWidth: 2, genders: 'male', cursor: 'pointer'});}
@@ -2900,7 +2912,7 @@ function xmlload() {
             FARRIGHT = COORDINATES_OF_BELOW_RIGHT(MaternalHalfSiblingsArray);
         }
         else if(SISTERS>0){
-            FARSIS = COORDINATES_OF_BELOW_LEFT(SistersArray);
+            FARSIS = COORDINATES_OF_BELOW_RIGHT(SistersArray);
         }
         //if(MATERNALHALFS>0){
         //    FARRIGHT = COORDINATES_OF_BELOW_RIGHT(MaternalHalfSiblingsArray);
@@ -2931,7 +2943,7 @@ function xmlload() {
                     STARTX = parseInt(FARSIS) + 80;
                 }
                 else {
-                    STARTX = parseInt(STARTX) + 50;
+                    STARTX = parseInt(STARTX) + 80;
                 }
 
                 p1 = parseInt(STARTX) + (80);
@@ -3087,147 +3099,6 @@ function xmlload() {
         //MAT_PARENT_CHILD_POLYLINES(MaternalRelatives, MotherArray);
 
     }
-
-
-
-    //Load paternal aunt / uncle
-    //function MATERNALS_LOAD_OLD(ARRAY) {
-    //    var lx = 0;
-    //    var ly = 0;
-    //    var g, MID, gen, MIDGEN, PERVMID;
-    //    var p1, p2, lx;
-    //    var pid, mid;
-    //    var xl = new Array();
-    //
-    //    var PID, PIDGEN, MID, MIDGEN, DATAKEY;
-    //    var P1 = new Array();
-    //    var idarray = new Array();
-    //    var DATAKEY = null;
-    //    var objectsarray = new Array();
-    //
-    //    //alert ("MATERNALS_LOAD MaternalRelatives Information:" + JSON.stringify(MaternalRelatives, null, 2) );
-    //
-    //    $.each(MaternalRelatives, function (key, value) {
-    //        MIDGEN = value[0];
-    //        MID = value[1];
-    //        pid = value[3];
-    //        var xy;
-    //        var datakey = value[2];
-    //
-    //        /** Parse array and build diagram -
-    //         * Each array object must follow the previous object values
-    //         * in the array when multuple person are in the array
-    //         */
-    //        if (SistersArray.length > 1  || MaternalHalfSiblingsArray.length > 0) {
-    //            if (MaternalHalfSiblingsArray.length > 0) {
-    //                var d = MaternalHalfSiblingsArray[MaternalHalfSiblingsArray.length - 1];
-    //            }
-    //            else {
-    //                var d = SistersArray[SistersArray.length - 1];
-    //            }
-    //            if (d[0] == 'MALE')lx = parseInt($('#' + d[1]).attr('x')) + 60;
-    //            else lx = parseInt($('#' + d[1]).attr('cx'));
-    //        }
-    //        else {
-    //            lx = 60
-    //        }
-    //
-    //        if (MaternalRelatives.length > 1) {
-    //            if (key == 0) {
-    //                var check = IS_IN_ARRAY(MaternalCousinArray, MID);
-    //                //Get mother location
-    //                var PARENTID = MotherArray[0].id;
-    //                var PARENTGEN = MotherArray[0].gender;
-    //                var ps = MAT_GENLINE(PARENTGEN, PARENTID);
-    //                p1 = ps[0];
-    //                p2 = ps[1];
-    //                if (i % 2 == 0) {
-    //                    xl.push([[p1, p2 - 20], [p1, p2], [p1, p2 - 20]]);
-    //                }
-    //                else if (i % 2 != 0) {
-    //                    xl.push([[p1, p2 - 20], [p1, p2], [p1, p2 - 20]]);
-    //                }
-    //                //Get sisters location
-    //                if (SistersArray.length > 1) {
-    //                    p1 = parseInt(lx) + 20;
-    //                }
-    //                if (check != -1) {
-    //                    p1 = parseInt(p1) + 80
-    //                }
-    //                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, genders: 'male', cursor: 'pointer'});}
-    //                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, genders: 'female', cursor: 'pointer'});}
-    //            }
-    //            else if (key == (MaternalRelatives.length - 1)) {
-    //                var PERVMID = MaternalRelatives[key - 1][1];
-    //                var PERVGEN = MaternalRelatives[key - 1][0];
-    //                var check = IS_IN_ARRAY(MaternalCousinArray, PERVMID);
-    //                var ps = LAST_RIGHT_MATERALS_GEN(PERVGEN, PERVMID, MIDGEN);
-    //                p1 = ps[0];
-    //
-    //                if (check != -1){
-    //                    var c = COUNT_IN_ARRAY(MaternalCousinArray, PERVMID);
-    //                    if (c <= 4){p1 = parseInt(p1) + 140;}
-    //                    else if (c > 4 && c < 6){p1 = parseInt(p1) + 200;}
-    //                    else{p1 = parseInt(p1) + 260;}
-    //                }
-    //                else {
-    //                    p1 = parseInt(p1) + 80;
-    //                }
-    //
-    //                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, genders: 'male', cursor: 'pointer'});}
-    //                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, genders: 'female', cursor: 'pointer'});}
-    //            }
-    //            else if (key > 0 && (key < (MaternalRelatives.length - 1))) {
-    //                var PERVMID = MaternalRelatives[key - 1][1];
-    //                var PERVGEN = MaternalRelatives[key - 1][0];
-    //                var check = IS_IN_ARRAY(MaternalCousinArray, PERVMID);
-    //                var ps = RIGHT_MATERALS_GEN(PERVGEN, PERVMID, MIDGEN);
-    //                p1 = ps[0];
-    //                p2 = ps[1];
-    //
-    //                if (check != -1){
-    //                    var c = COUNT_IN_ARRAY(MaternalCousinArray, PERVMID);
-    //                    if (c <= 4){p1 = parseInt(p1) + 140;}
-    //                    else if (c > 4 && c < 6){p1 = parseInt(p1) + 200;}
-    //                    else{p1 = parseInt(p1) + 260;}
-    //                }
-    //                else {
-    //                    p1 = parseInt(p1) + 80;
-    //                }
-    //
-    //                if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, genders: 'male', cursor: 'pointer'});}
-    //                else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, genders: 'female', cursor: 'pointer'});}
-    //            }
-    //        }
-    //
-    //        else {
-    //            var PARENTID = MotherArray[0].id;
-    //            var PARENTGEN = MotherArray[0].gender;
-    //            var ps = MAT_GENLINE(PARENTGEN, PARENTID);
-    //            var check = IS_IN_ARRAY(MaternalCousinArray, MID);
-    //            p1 = ps[0];
-    //            p2 = ps[1];
-    //            if (i % 2 == 0) {
-    //                xl.push([[p1, p2 - 20], [p1, p2], [p1, p2 - 20]]);
-    //            }
-    //            else if (i % 2 != 0) {
-    //                xl.push([[p1, p2 - 20], [p1, p2], [p1, p2 - 20]]);
-    //            }
-    //            if (check != -1) {
-    //                p1 = parseInt(p1) + 140
-    //            }
-    //            //p1 = p1 + parseInt(lx);
-    //
-    //            if (MIDGEN == 'MALE') {svg.rect(p1, Level2M, rr, rr, 1, 1, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, genders: 'male', cursor: 'pointer'});}
-    //            else if (MIDGEN == 'FEMALE') {svg.circle(p1, Level2F, cr, {id: MID, datakey: datakey, fill: gencolor, stroke: 'black', strokeWidth: 2, genders: 'female', cursor: 'pointer'});}
-    //
-    //        }
-    //    });
-    //
-    //    //Load the polylines
-    //    MAT_PARENT_CHILD_POLYLINES(MaternalRelatives, MotherArray);
-    //
-    //}
 
     function MAT_PARENT_CHILD_POLYLINES(ARRAY1, ARRAY2) {
         var PARENTGEN = ARRAY2[0].gender;
@@ -4535,7 +4406,7 @@ function xmlload() {
                         if(KIDS==0)KIDS=1;
 
                         var check = IS_IN_ARRAY(NephewArray, SID);
-                        var p1 = PREVIOUSP1 + (80 + (parseInt(KIDS)*(parseInt(KIDS) * 65))/parseInt(KIDS));
+                        var p1 = PREVIOUSP1 + (80 + (parseInt(KIDS)*(parseInt(KIDS) * 75))/parseInt(KIDS));
                         //if (check != -1) p1 = parseInt(p1) + 120;
 
                         p1temp.push(MIDGEN, MID, p1, PID);
@@ -5396,7 +5267,7 @@ function xmlload() {
 
         array = array.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
 
-alert ("array ARRAY Information:" + JSON.stringify(array, null, 2) );
+// alert ("array ARRAY Information:" + JSON.stringify(array, null, 2) );
 
 
         return array[0];
@@ -6375,6 +6246,8 @@ alert ("array ARRAY Information:" + JSON.stringify(array, null, 2) );
             //$('#family_pedigree').setAttribute("margin-top", '250px');
             $('#family_pedigree_info').css("margin-top", PANEL+'px')
             $('#svgframe').css("border-bottom", '0');
+            $('#topsvg').css('overflow', 'hidden');
+             // $('#svgframe').css("border-bottom", '0');
 
         }
         else {
@@ -6383,6 +6256,8 @@ alert ("array ARRAY Information:" + JSON.stringify(array, null, 2) );
             var FRAMEHEIGHT = svgdoc.getAttribute("height");
             var FRAMEWIDTH = svgdoc.getAttribute("width");
 
+           
+
             var COMBINEDHEIGHT= parseInt(TABLEHEIGHT) + parseInt(FRAMEHEIGHT) + 300;
 
             var wscale = parseInt(SVGW) + 200;
@@ -6390,8 +6265,9 @@ alert ("array ARRAY Information:" + JSON.stringify(array, null, 2) );
 
             if(FARLEFT<0) {
 
+                var LARGELEFT = parseInt(FARLEFT) - 150;
                 var FULLSCALE = parseInt(wscale) + 300;
-                svgdoc.setAttribute("viewBox", FARLEFT + ' 400 ' + FULLSCALE + ' 260');
+                svgdoc.setAttribute("viewBox", LARGELEFT + ' 400 ' + FULLSCALE + ' 260');
                 //svgdoc.setAttribute("preserveAspectRatio","none");
 
                 var arr = new Array();
@@ -6406,26 +6282,25 @@ alert ("array ARRAY Information:" + JSON.stringify(array, null, 2) );
                 //$('#svgframe').css("margin-top", '270px');
                 $('#svgframe').css("border-bottom", '0');
                 $('#family_pedigree_info').css("margin-top", PANEL+'px')
+                $('#topsvg').css('overflow', 'hidden');
             }
             else{
-                var FULLSCALE = parseInt(wscale) + 300;
+                 var LARGELEFT = parseInt(FARLEFT) - 250;
+                var FULLSCALE = parseInt(wscale) + 200;
 
-                svgdoc.setAttribute("viewBox", '20 100 ' + FULLSCALE + '100');
+                // svgdoc.setAttribute("viewBox", '20 100 ' + FULLSCALE + '100');
+                svgdoc.setAttribute("viewBox",  0 + ' 200 ' + FULLSCALE + ' 260');
                 //svgdoc.setAttribute("preserveAspectRatio","none");
 
                 var arr = new Array();
                 T = TOPCLONE.getAttribute("viewBox");
-                //var T = svgdoc.getAttribute("viewBox");
                 arr = T.split(' ');
 
-                //var PANEL = $('#panel').attr('y');
                 var PANEL =parseInt(arr[3]);
-                //$('#svgframe').css("height", '280px');
                 $('#svgframe').css("margin-top", '10px');
                 $('#svgframe').css("border-bottom", '0');
-
-
                 $('#family_pedigree_info').css("margin-top", PANEL+'px')
+                $('#topsvg').css('overflow', 'hidden');
             }
         }
     }
@@ -6434,12 +6309,16 @@ alert ("array ARRAY Information:" + JSON.stringify(array, null, 2) );
      */
     else if(/chrome/i.test( navigator.userAgent )){
 
+// fitSVGinDiv(svgw);
+
+
+
         if (DIAWIDTH > SVGW) {
             var RIGHT_X = allXarray.pop();
             var LEFT_X = allXarray[0];
 
-            var wscale = parseInt(RIGHT_X)*1.2;
-            var left = parseInt(LEFT_X) - 150;
+            var wscale = parseInt(RIGHT_X)*1.5;
+            var left = parseInt(LEFT_X) - 110;
             var right = parseInt(RIGHT_X)*0.8;
             hscale = parseInt(SVGH);
 
@@ -6450,11 +6329,9 @@ alert ("array ARRAY Information:" + JSON.stringify(array, null, 2) );
             var lft = parseInt(absleft) / 2;
 
             $('#topsvg').css("overflow-y", "scroll")
-            $('#topsvg').css('width', parseInt(masterRight)-100);
+            $('#topsvg').css('width', parseInt(masterRight)-10);
             $('#topsvg').css('overflow', 'visible');
             $('#svgframe').css("margin-top", '10px');
-
-
 
             //$('#the2').css('display', 'none');
             infoframemargin = $('#family_pedigree_info').css("margin-top");
@@ -6470,16 +6347,17 @@ alert ("array ARRAY Information:" + JSON.stringify(array, null, 2) );
             var LEFT_X = allXarray[0];
 
             var wscale = parseInt(RIGHT_X) + 100;
-            var left = parseInt(LEFT_X) - 150;
+            var left = parseInt(LEFT_X) - 50;
+            var right = parseInt(RIGHT_X)*1.5;
             //wscale = parseInt(SVGW) + 100;
             hscale = parseInt(hei) + 0;
-            svgw.setAttribute('viewBox', left + ' 0 ' + wscale + ' 900');
+            svgw.setAttribute('viewBox', left + ' 0 ' + wscale + " " + right);
             $('#svgframe').css("margin-top", '10px');
             $('#svgframe').css("height", '1000px');
             $('#topsvg').css('overflow', 'hidden');
 
 
-            $('#the2').css('display', 'none');
+            // $('#the2').css('display', 'none');
 
             infoframemargin = $('#family_pedigree_info').css("margin-top");
             topdivheight = $('#topsvg').css('height');
@@ -6487,43 +6365,9 @@ alert ("array ARRAY Information:" + JSON.stringify(array, null, 2) );
             TOPCLONE = svg.clone( null, svgw)[0];
             TOPCLONE.setAttribute('visibility','hidden');
             TOPCLONE.setAttribute('height','500px');
-
         }
-
-
-
-        //var TLEFT = parseInt(masterRight) - parseInt(TOTWIDTH);
-        //if (TLEFT < 0) {
-        //    var REALLONG = parseInt(masterRight) * 1.2;
-        //    height = parseInt(arr[3]) * 0.60;
-        //    width = parseInt(arr[2]) * 0.95;
-        //    X = - 100;
-        //    Y = 10;
-        //    TOTWIDTH = parseInt(TOTWIDTH);
-        //    //alert(X)
-        //    svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + 1000]);
-        //    //svgdoc.setAttribute("preserveAspectRatio","none");
-        //
-        //    //$('#topsvg').css("overflow", "auto");
-        //    $('#topsvg').css("height", "750px");
-        //    $('#topsvg').css("overflow-x", "scroll")
-        //    var ALLWIDTH = 2 * parseInt(masterRight);
-        //    $('#topsvg').css('width', masterRight);
-        //    $('#theclone').css("width", TOTWIDTH);
-        //}
-        //else{
-        //    height = parseInt(arr[3]) * 0.85;
-        //    width = parseInt(arr[2]) * 1.70;
-        //    X = -10 ;
-        //    Y = -25;
-        //    svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
-        //    $('#theclone').css("width", TOTWIDTH);
-        //}
     }
     else {
-
-
-        //alert([DIAWIDTH,SVGW])
 
         if (DIAWIDTH > SVGW) {
 
@@ -6561,7 +6405,7 @@ alert ("array ARRAY Information:" + JSON.stringify(array, null, 2) );
             $('#topsvg').css('overflow', 'hidden');
 
 
-            $('#the2').css('display', 'none');
+            // $('#the2').css('display', 'none');
 
             infoframemargin = $('#family_pedigree_info').css("margin-top");
             topdivheight = $('#topsvg').css('height');
@@ -6612,7 +6456,7 @@ function LOAD_HEALTH_TABLE(){
 
 
     if(typeof personal_information.age == 'undefined' && typeof personal_information.estimated_age == 'undefined' && typeof personal_information.cause_of_death == 'undefined'){
-        cod = 'Unknown';
+        cod = 'Yes';
     }
     else if(typeof personal_information.age != 'undefined' || typeof personal_information.estimated_age != 'undefined' || typeof personal_information.date_of_birth != 'undefined'){
         cod = 'Yes';
@@ -6752,7 +6596,10 @@ function LOAD_HEALTH_TABLE(){
                 temp1.push(NAMEREL);
                 var COD = "";
 
-                if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
+                if (typeof item.cause_of_death!= 'undefined'){
+                    COD = 'No';
+                }
+                else if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
                      COD = 'Unknown';
                 }
                 else if(typeof item.age != 'undefined' || typeof item.estimated_age != 'undefined' || typeof item.date_of_birth != 'undefined'){
@@ -6908,7 +6755,16 @@ function LOAD_HEALTH_TABLE(){
     } );
 
 
+
+SetPersonalInfo();
+
 }
+
+
+/** 
+* END OF xmlload()
+**/
+
 
 function openTab(TXT){
     var ID = TXT.substr(TXT.indexOf('_')+1 , TXT.length);
@@ -7134,16 +6990,18 @@ function DiseaseDna(){
         if(typeof data !='undefined') {
             var ID = 'me';
             var health = new Array();
-            //health = data['Health History'];
             health = data;
+            $('#' + ID).attr({fill: 'slateblue', stroke: 'black'});
             $.each(health, function (t, value) {
-
                 if (selectedValue == value) {
                     $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
+                    found = value;
                 }
                 else if (selectedValue == value) {
                     $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
+                    found = value;
                 }
+
             });
         }
     });
@@ -7247,22 +7105,6 @@ function CloseInfo(){
     $('#optionsPanel').dialog('close');
 }
 
-function printCoupon() {
-    window.print();
-
-    var timer = setInterval(function() {
-        if(window.close()) {
-            clearInterval(timer);
-            $('.sticky').show();
-            //$('#health_table').show();
-        }
-    }, 1000);
-
-    //endPrintCoupon();
-}
-
-
-
 function ToTop(){
     $('html,body').animate({
             scrollTop: $("#dialogtext").offset().top},
@@ -7281,7 +7123,7 @@ function closedialog(){
         function()
         {
             $(mdialog).dialog("close");
-        }, 3000);
+        }, 1000);
 }
 
 function TheZoom(sel) {
@@ -7472,6 +7314,246 @@ function TheZoom(sel) {
     }
 }
 
+   function fit()
+{
+// var shrink = $('#svgframe');
+
+var shrink=document.getElementById('svgframe')
+
+    var bb=shrink.getBBox()
+    var bbw=bb.width
+    var bbh=bb.height
+
+    var bb=shrink.getBBox()
+    var bbx=bb.x
+    var bby=bb.y
+    var bbw=bb.width
+    var bbh=bb.height
+    //---'native' center of import---
+    NativeCx=bbx+0.7*bbw
+    NativeCy=bby+0.7*bbh
+    //---create scale: ratio of desired width vs current width--
+    var width=1000
+    var scale=width/bbw
+    //---where to move it---
+    var targetX=200
+    var targetY=200
+    //---move its center to target x,y ---
+    var transX=(-NativeCx)*scale + targetX
+    var transY=(-NativeCy)*scale + targetY
 
 
+    // if(stringRadio.checked==true)
+    // {
+        //---string append method:---
+        shrink.setAttribute("transform","translate("+transX+" "+transY+")scale("+scale+" "+scale+")")
+    // }
+    // else //---vs transform matrix object:---
+    // {
+    //     //---start a transform 'request' object---
+    //     var transformRequestObj=mySVG.createSVGTransform()
+    //     //---bind element's current transform to animatable transform list
+    //     var animTransformList=USpath.transform
+    //     //---get baseVal to access/place object transforms
+    //     var transformList=animTransformList.baseVal
+
+    //     //---apply object transforms as matrix---
+    //     //---translate----
+    //     transformRequestObj.setTranslate(transX,transY)
+    //     transformList.appendItem(transformRequestObj)
+    //     transformList.consolidate()
+
+    //     //---scale----
+    //     transformRequestObj.setScale(scale,scale)
+    //     transformList.appendItem(transformRequestObj)
+    //     transformList.consolidate()
+    // }
+    // svgSourceValue.value=shrink.getAttribute("transform")
+}
+
+var SVGId
+function fitSVGinDiv(mySVG){
+
+    var divWH=parseInt(masterRight)
+
+     
+
+    // svgDiv.style.width=divWH+"px"
+    // svgDiv.style.height=divWH+"px"
+    // var mySVG=document.getElementById('svgframe')
+    var FRAMEWIDTH = mySVG.getAttribute("width");
+
+    var bb=mySVG.getBBox()
+    var bbw=bb.width
+    var bbh=bb.height
+
+    //--use greater of bbw vs bbh--
+    if(bbw>=bbh){
+
+        var factor=bbw/divWH
+        // alert(masterRight + "pop =" + FRAMEWIDTH)
+    }
+    else{
+        
+        var factor=bbh/divWH
+    }
+
+    var vbWH=divWH*factor
+
+    var vbX=(bbw-vbWH)/2
+    var vbY=(bbh-vbWH)/2
+    //---IE/CH---
+    // if(isFF==0)
+    // {
+    //     var ViewBox=mySVG.viewBox.baseVal
+    //     ViewBox.x=vbX
+    //     ViewBox.y=vbY
+    //     ViewBox.width=vbWH
+    //     ViewBox.height=vbWH
+    // }
+    // else
+
+    // var matrix='0.2 0 20 1 '+vbX+' '+vbY;
+    // mySVG.setAttribute("transform", "scale(" + 100.2 + " " + 1 +")");
+
+    // mySVG.setAttribute("viewBox", "-500 0 3600 800");//Small
+
+    // alert(mySVG.getAttribute('width'))
+     mySVG.setAttribute('width','1000')
+     mySVG.setAttribute('height','1500')
+     mySVG.setAttribute("viewBox", "-100 0 3000 500");//Small
+    // mySVG.setAttribute("viewBox", "-100 0 2400 400");//Bigger
+    // mySVG.setAttribute("preserveAspectRatio","none");
+     mySVG.setAttribute("preserveAspectRatio", "xMinYMin slice");
+     
+     // mySVG.setAttribute("transform", "translate(0,0) scale(-100.5,100)");
+  // .setAttribute("preserveAspectRatio", "xMinYMin meet")
+  // .append("g")
+     // .setAttribute("transform", "translate(" + 0 + "," + 0 +") scale(-10.5, -10)");
+                                               
+                        // mySVG.setAttribute('transform','matrix('+matrix+') ');
+
+        // mySVG.setAttribute("viewBox",vbX+" "+vbY+" "+vbWH+" "+vbWH)
+
+    //--requred for FF/CH---
+    if(isIE==0)
+    {
+        mySVG.setAttribute("width","200%")
+        // mySVG.setAttribute("height","100%")
+    }
+    else
+    {
+        mySVG.removeAttribute("width")
+        mySVG.removeAttribute("height")
+    }
+}
+
+var SVGId
+function fitSVGinPrint(){
+
+    var divWH=parseInt(masterRight)
+
+    // svgDiv.style.width=divWH+"px"
+    // svgDiv.style.height=divWH+"px"
+    var mySVG=document.getElementById('svgframe')
+
+    var bb=mySVG.getBBox()
+    var bbw=bb.width
+    var bbh=bb.height
+
+    //--use greater of bbw vs bbh--
+    if(bbw>=bbh)
+        var factor=bbw/divWH
+    else
+        var factor=bbh/divWH
+
+    var vbWH=divWH*factor
+
+    var vbX=(bbw-vbWH)/2
+    var vbY=(bbh-vbWH)/2
+    //---IE/CH---
+    // if(isFF==0)
+    // {
+    //     var ViewBox=mySVG.viewBox.baseVal
+    //     ViewBox.x=vbX
+    //     ViewBox.y=vbY
+    //     ViewBox.width=vbWH
+    //     ViewBox.height=vbWH
+    // }
+    // else
+    //     mySVG.setAttribute("viewBox",vbX+" "+vbY+" "+vbWH+" "+vbWH)
+
+    //--requred for FF/CH---
+    if(isIE==0)
+    {
+        mySVG.setAttribute("width","100%")
+        mySVG.setAttribute("height","100%")
+    }
+    else
+    {
+        mySVG.removeAttribute("width")
+        mySVG.removeAttribute("height")
+    }
+}
+
+
+var SVGId
+function IESVGinPrint(){
+
+    var divWH=parseInt(masterRight)
+
+    // svgDiv.style.width=divWH+"px"
+    // svgDiv.style.height=divWH+"px"
+    var mySVG=document.getElementById('svgframe')
+
+    var bb=mySVG.getBBox()
+    var bbw=bb.width
+    var bbh=bb.height
+
+    //--use greater of bbw vs bbh--
+    if(bbw>=bbh)
+        var factor=bbw/divWH
+    else
+        var factor=bbh/divWH
+
+    var vbWH=divWH*factor
+
+    var vbX=(bbw-vbWH)/2
+    var vbY=(bbh-vbWH)/2
+    //---IE/CH---
+    // if(isFF==0)
+    // {
+    //     var ViewBox=mySVG.viewBox.baseVal
+    //     ViewBox.x=vbX
+    //     ViewBox.y=vbY
+    //     ViewBox.width=vbWH
+    //     ViewBox.height=vbWH
+    // }
+    // else
+    //     mySVG.setAttribute("viewBox",vbX+" "+vbY+" "+vbWH+" "+vbWH)
+
+    //--requred for FF/CH---
+    if(isIE==0)
+    {
+        mySVG.setAttribute("width","100%")
+        mySVG.setAttribute("height","100%")
+    }
+    else
+    {
+        mySVG.removeAttribute("width")
+        mySVG.removeAttribute("height")
+    }
+}
+
+
+function SetPersonalInfo(){
+
+    if(age != ""){
+        $('#age').text('Age: ' + age);
+        // $('#age').append($("<span><b></b></span>").text(age));
+    }
+    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + height_unit));
+    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + weight_unit));
+    $('#abmi').append($("<span><b></b></span>").text( BMI));
+}
 

@@ -2,6 +2,7 @@
  * Created by hendrikssonm on 10/14/2014.
  */
 
+'<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />'
 
 
 var mdialog=null;
@@ -71,12 +72,14 @@ var STATICDISEASES = [
 
 function IEload() {
 
+
+
     //IE 8
 //if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
 //    alert(navigator.userAgent)
 //}
 
-    alert("IE")
+    
 
     /*
      Get Date
@@ -114,10 +117,10 @@ function IEload() {
         '<div id="family_pedigree">' +
         '<div id="topsvg"> ' +
             //'<svg id="svgframe" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
-        '<svg id="svgframe">' +
+            // '<svg id="svgframe">' +
             //'<g id="glass" class="">' +
             //'</g>' +
-        '</svg>' +
+            // '</svg>' +
         '</div>' +
 
         '<div id="main" class="">' +
@@ -172,17 +175,11 @@ function IEload() {
         width: 'auto',
         position: 'fixed',
         modal: true,
-        //afterOpen: function(){
-        //    $(this).position(['top',0]);
-        //    $(this).position('fixed');
-        //    $('html,body').animate({
-        //            scrollTop: $("#dialogtext").offset().top},
-        //        'fast');
-        //},
         open: function () {
             var target = $(this);
             $(this).dialog("open");
-            $(this).load(LOAD_HEALTH_TABLE_IE());
+            // $(this).load(STARTRAP()) ;
+            // $(this).load(LOAD_HEALTH_TABLE_IE());
             PARENTWIDTH = $(this).closest("div").attr("id");
             DIALOGWIDTH = $(this).width();
             SCREENWIDTH = parseInt($(window).width())-100;
@@ -191,6 +188,8 @@ function IEload() {
             //var myDialogY = $(this).position().top - ( $(document).scrollTop() + $('.ui-dialog').outerHeight() );
             $(this).dialog( 'option', 'position', [myDialogX, 40] );
             diseasearray=new Array();
+
+
 
 
         },
@@ -225,41 +224,120 @@ function IEload() {
     }
 
     $(document).ready(function() {
-        $.each(personal_information['Health History'], function (key, item) {
-            if (item == 'undefined' || item == null) item = "";
-            var dn = item['Disease Name'];
-            var details =  item['Detailed Disease Name'] ;
-            if(dn)dn = dn.toLowerCase();
-            if(details)details = details.toLowerCase();
-            if(details=='diseases:null') details = "";
 
-            if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
-                if (diseasearray.length == 0) diseasearray.push([dn,details])
-                else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
+         // $(function() {
 
-            }
-        });
+alert("raphael 0")
+// CODE
 
-        $.each(personal_information, function (key, item) {
-            if (item == 'undefined' || item == null) item = "";
-            if (item.id) {
+// var svg = Raphael(0, 0, '100%', '100%');
 
-                $.each(item['Health History'], function (k, data) {
-                    var dn = data['Disease Name'];
-                    var details =  data['Detailed Disease Name'];
-                    if(dn)dn = dn.toLowerCase();
-                    if(details)details = details.toLowerCase();
-                    if(details=='diseases:null') details = "";
+ var svg = new Raphael(document.getElementById('topsvg'), '100%', '100%');
 
-                    if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
-                        if (diseasearray.length == 0) diseasearray.push([dn,details])
-                        else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
-                    }
-                });
-            }
-        });
+ // svg = Raphael("#svgIEframe", 500,500);
+ // var svg = Raphael("paper", 500,500);
+    // var circle3 = svg.circle(13, 13, 10.5);
+    alert("raphael 0a")
 
-//alert ("diseasearray ARRAY Information:" + JSON.stringify(diseasearray, null, 2) );
+    svg.rect(200,100,90,40).attr({fill: "red"}); 
+    svg.text(masterleft - 120, 30, "Paternal").attr({fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
+    svg.text(masterleft + 120, 30, "Maternal").attr({fontWeight: 'bold', fontSize: '14.5', fill: 'gray'});
+
+    // svg.line(LINEGROUP, masterleft - 100, 220, masterleft + 120, 220, {id: 'mel', stroke: 'black', strokeWidth: 3});
+    // svg.line(LINEGROUP, masterleft + 25, 220, masterleft + 25, top, {id: 'mei', stroke: 'black', strokeWidth: 3});
+    // svg.line(LINEGROUP, masterleft + 25, 220, masterleft + 25, top, {id: 'grmei', stroke: 'black', strokeWidth: 3});
+    // svg.line(LINEGROUP, masterleft - 140, 220, masterleft + 180, 220, {id: 'grmei1', stroke: 'black', strokeWidth: 3});
+    // svg.line(LINEGROUP, masterleft - 140, 200, masterleft - 140, 70, {id: 'grmei2', stroke: 'black', strokeWidth: 3});
+    // svg.line(LINEGROUP, masterleft + 180, 200, masterleft + 180, 70, {id: 'grmei3', stroke: 'black', strokeWidth: 3});    
+
+
+
+    // svg.text(masterleft - 120, 30, "Paternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'pattext'});
+    // svg.text(masterleft + 120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'mattext'});
+
+
+ if (personal_information.gender == 'MALE') {
+
+
+        //Center Me
+         var bar = svg.rect(masterleft+5, top, rr, rr).attr({fill: "slateblue"}); 
+         bar.node.id = "me";
+         bar.node.gender = "MALE";
+         
+        // svg.rect(masterleft+5, top, rr, rr, 1, 1, {
+        //     id: 'me',
+        //     genders: 'male',
+        //     fill: 'slateblue',
+        //     stroke: 'red',
+        //     strokeWidth: 2,
+        //     cursor: 'pointer'
+        // });
+        masterx = parseInt($('#me').attr('x'));
+        mastery = parseInt($('#me').attr('y'));
+    }
+    else if (personal_information.gender == 'FEMALE') {
+        var bar = svg.circle(masterleft + 25, Ftop, cr).attr({fill: "slateblue"}); 
+         bar.node.id = "me";
+         bar.node.gender = "FEMALE";
+
+        // svg.circle(masterleft + 25, Ftop, cr, {
+        //     id: 'me',
+        //     genders: 'female',
+        //     fill: 'slateblue',
+        //     stroke: 'red',
+        //     strokeWidth: 2,
+        //     cursor: 'pointer'
+        // });
+        masterx = parseInt($('#me').attr('cx'));
+        mastery = parseInt($('#me').attr('cy') - 20);
+    }
+
+
+  // LINEGROUP = svg.group({stroke: 'black', strokeWidth: 2});
+
+// });
+
+
+
+
+        // $.each(personal_information['Health History'], function (key, item) {
+        //     if (item == 'undefined' || item == null) item = "";
+        //     var dn = item['Disease Name'];
+        //     var details =  item['Detailed Disease Name'] ;
+        //     if(dn)dn = dn.toLowerCase();
+        //     if(details)details = details.toLowerCase();
+        //     if(details=='diseases:null') details = "";
+
+        //     if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
+        //         if (diseasearray.length == 0) diseasearray.push([dn,details])
+        //         else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
+
+        //     }
+        // });
+
+        // $.each(personal_information, function (key, item) {
+        //     if (item == 'undefined' || item == null) item = "";
+        //     if (item.id) {
+
+        //         $.each(item['Health History'], function (k, data) {
+        //             var dn = data['Disease Name'];
+        //             var details =  data['Detailed Disease Name'];
+        //             if(dn)dn = dn.toLowerCase();
+        //             if(details)details = details.toLowerCase();
+        //             if(details=='diseases:null') details = "";
+
+        //             if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
+        //                 if (diseasearray.length == 0) diseasearray.push([dn,details])
+        //                 else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
+        //             }
+        //         });
+        //     }
+        // });
+
+
+        
+
+// alert ("diseasearray ARRAY Information:" + JSON.stringify(diseasearray, null, 2) );
 
 
 
@@ -418,6 +496,20 @@ function IEload() {
 
     //mdialog.dialog({ position: ['top', 20] });
 
+    
+
+
+
+
+// var svg = Raphael($("#svgframe"), 500,500);
+//  // var svg = Raphael("paper", 500,500);
+//     // var circle3 = svg.circle(13, 13, 10.5);
+//     alert("raphael 0a")
+
+//     svg.rect(200,100,90,40).attr({fill: "#4422ff"}); 
+// alert("raphael 1")
+//     // svg.rect(200,100,90,40).attr({fill: "#4422ff"}); 
+
     ToTop_Ie();
     setTimeout(
         function()
@@ -425,16 +517,50 @@ function IEload() {
             mdialog.dialog('open');
         }, 3000);
 
+
+    alert("raphael %% 1")
+
+
+
     /*
      Start SVG
      */
-    $('#svgframe').svg();
-    svg = $('#svgframe').svg('get');
+
+
+    
+
+    // $('#svgframe').svg();
+    // svg = $('#svgframe').svg('get');
+    var svg;
+    var LINEGROUP;
+
+$(document).ready(function() {
+
+   function STARTRAP() {
+
+    alert("raphael 0")
+// CODE
+ svg = Raphael($("#svgframe"), 500,500);
+ // var svg = Raphael("paper", 500,500);
+    // var circle3 = svg.circle(13, 13, 10.5);
+    alert("raphael 0a")
+
+    svg.rect(200,100,90,40).attr({fill: "red"}); 
+
+
+alert("RAPHAEL 1")
+
+alert("$$$ "+personal_information.gender)
+
+  LINEGROUP = svg.group({stroke: 'black', strokeWidth: 2});
+
+
+
 
     $('#svgframe')
         .draggable();
     //.resizable();
-    var LINEGROUP = svg.group({stroke: 'black', strokeWidth: 2});
+    // var LINEGROUP = svg.group({stroke: 'black', strokeWidth: 2});
 
     //var TOPCLONE = svg.clone( null, rect1)[0];
 
@@ -458,8 +584,13 @@ function IEload() {
     svg.line(LINEGROUP, masterleft - 140, 200, masterleft - 140, 70, {id: 'grmei2', stroke: 'black', strokeWidth: 3});
     svg.line(LINEGROUP, masterleft + 180, 200, masterleft + 180, 70, {id: 'grmei3', stroke: 'black', strokeWidth: 3});
 
+
+
+
     //Gender
     if (personal_information.gender == 'MALE') {
+
+
         //Center Me
         svg.rect(masterleft+5, top, rr, rr, 1, 1, {
             id: 'me',
@@ -524,6 +655,7 @@ function IEload() {
     $('#abmi').append($("<span><b></b></span>").text( BMI));
 
     //Build health array
+    /*
     $.each(personal_information, function (key, item) {
         if (item == 'undefined' || item == null) item = "";
 
@@ -542,6 +674,7 @@ function IEload() {
             if ($.inArray(dis, DISEASELISTARRAY) == -1) DISEASELISTARRAY.push(dis);
         }
     });
+*/
 
     var ids = new Array();
     var dis = new Array();
@@ -556,8 +689,21 @@ function IEload() {
         dis.push([disname,disdet]);
     });
 
-    HEALTHARRAY.push(ids);
+/***********************/
+
+HEALTHARRAY.push(ids);
     DISEASELISTARRAY.push(dis);
+
+   
+alert("11")
+
+}
+
+ });
+
+/***********************/
+
+    
 
     //alert ("HEALTHARRAY ARRAY Information:" + JSON.stringify(HEALTHARRAY, null, 2) );
 
@@ -1982,7 +2128,16 @@ function IEload() {
 
     //Collect the children
     function CHILDREN_LOAD_IE(ARRAY) {
-        var MIDGEN = $('#me').attr("genders")
+
+        var thatElement = svg.getById("me");
+
+        alert(thatElement)
+
+var ME = document.getElementById('me');
+
+        var MIDGEN = $(ME).attr("genders")
+        alert(MIDGEN);
+
         var xl = new Array();
         var P1 = new Array();
 
@@ -6002,7 +6157,7 @@ function LOAD_HEALTH_TABLE_IE(){
     /*
      Add disease headers
      */
-    oTable.fnAddData(DISEASESARRAY);
+    // oTable.fnAddData(DISEASESARRAY);
 
 
     $('a.toggle-vis').on( 'click', function (e) {
