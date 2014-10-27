@@ -195,6 +195,7 @@ function add_all_relatives($relatives) {
 	// Cause of Death, BirthDate or Estimated Age
 	$date_of_birth = g($r->relationshipHolder->birthTime['value']);
 	if (strlen($date_of_birth) == 4) {
+		date_default_timezone_set('America/Los_Angeles');
 		$current_year = date("Y");
 		$age = $current_year - $date_of_birth;
 		$new_relative['age'] = $age;
