@@ -393,7 +393,7 @@ function parse_xml(data) {
 		$(this).find("relationshipHolder > subjectOf2 > clinicalObservation > code").each( function() {
 			if ($(this).parent().html().indexOf(SNOMED_CT_CODES.IDENTICAL_TWIN_CODE) > -1) relative.twin_status = 'IDENTICAL';
 			if ($(this).parent().html().indexOf(SNOMED_CT_CODES.FRATERNAL_TWIN_CODE) > -1) relative.twin_status = 'FRATERNAL';
-			if ($(this).parent().html().indexOf(SNOMED_CT_CODES.ADOPTED_CODE) > -1) relative.adopted = 'true';
+			if ($(this).parent().html().indexOf(SNOMED_CT_CODES.ADOPTED_CODE) > -1) relative.adopted = true;
 		});
 
 		// Cause of Death

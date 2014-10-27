@@ -605,7 +605,7 @@ function get_relative_by_id(id) {
 
 function check_blood_relative(relative) {
 	// If the proband is adopted, then only son,daughter, grandson, granddaughter could possibly be blood
-	if (personal_information.adopted == true || personal_information.adopted == 'true') {
+	if (personal_information.adopted == true) {
 		if (! (relative.substring(0,3) == 'son'     || relative.substring(0,8) == 'daughter' 
 		 || relative.substring(0,8) == 'grandson' || relative.substring(0,13) == 'granddaughter')) {
 			return false;
@@ -616,7 +616,7 @@ function check_blood_relative(relative) {
 	if (typeof personal_information[relative] != 'undefined')
 	{
 //		alert (personal_information[relative].name + ":" + (personal_information[relative].adopted == 'true') );
-		if (personal_information[relative].adopted == 'true') return false;
+		if (personal_information[relative].adopted == true) return false;
 	}
 // Primary, no other tests required
 	if (relative.substring(0,7) == 'brother' || relative.substring(0,6) == 'sister' 
@@ -634,20 +634,20 @@ function check_blood_relative(relative) {
 // For 2nd degree relatives, check mother or father as well
 	if (relative.substring(0,13) == 'maternal_aunt' || relative.substring(0,14) == 'maternal_uncle'
 	 || relative.substring(0,20) == 'maternal_grandfather' || relative.substring(0,20) == 'maternal_grandmother') {
-	 	if (typeof personal_information['mother'] != 'undefined'  && personal_information['mother'].adopted == 'true') return false;
+	 	if (typeof personal_information['mother'] != 'undefined'  && personal_information['mother'].adopted == true) return false;
 	 	else return true;
 	}
 
 	if (relative.substring(0,13) == 'paternal_aunt' || relative.substring(0,14) == 'paternal_uncle'
 	 || relative.substring(0,20) == 'paternal_grandfather' || relative.substring(0,20) == 'paternal_grandmother') {
-	 	if (typeof personal_information['father'] != 'undefined'  && personal_information['father'].adopted == 'true') return false;
+	 	if (typeof personal_information['father'] != 'undefined'  && personal_information['father'].adopted == true) return false;
 	 	else return true;
 	}
 	
 // Grandchildren need to check the child as well
 	if (relative.substring(0,8) == 'grandson' || relative.substring(0,13) == 'granddaughter') {
 	 var parent_of_relative = get_relative_by_id(personal_information[relative].parent_id);
-   if (personal_information[parent_of_relative].adopted == true || personal_information[parent_of_relative].adopted == 'true') return false;
+   if (typeof personal_information[parent_of_relative] != 'undefined'  &&  personal_information[parent_of_relative].adopted == true) return false;
 	 return true;
 	}
 
@@ -657,21 +657,21 @@ function check_blood_relative(relative) {
 	 if (typeof personal_information['mother'] != 'undefined'  && personal_information['mother'].adopted == 'true') return false;
 	 var parent_of_relative = get_relative_by_id(personal_information[relative].parent_id);
 //	 alert (personal_information[parent_of_relative].name + ":" + personal_information[parent_of_relative].adopted);
-	 	if (personal_information[parent_of_relative].adopted == true || personal_information[parent_of_relative].adopted == 'true') return false;
+	 	if (typeof personal_information[parent_of_relative] != 'undefined'  &&  personal_information[parent_of_relative].adopted == true) return false;
 	 return true;
 	}
 	
 	if (relative.substring(0,15) == 'paternal_cousin') {
 	 if (typeof personal_information['father'] != 'undefined'  && personal_information['father'].adopted == 'true') return false;
 	 var parent_of_relative = get_relative_by_id(personal_information[relative].parent_id);
-	 	if (personal_information[parent_of_relative].adopted == true || personal_information[parent_of_relative].adopted == 'true') return false;
+	 	if (typeof personal_information[parent_of_relative] != 'undefined'  && personal_information[parent_of_relative].adopted == true) return false;
 	 return true;
 	}
 	
 	if (relative.substring(0,5) == 'niece' || relative.substring(0,6) == 'nephew' ) {
 		var parent_of_relative = get_relative_by_id(personal_information[relative].parent_id);
 //		alert (personal_information[parent_of_relative].name + ":" + personal_information[parent_of_relative].adopted);
-	 	if (personal_information[parent_of_relative].adopted == true || personal_information[parent_of_relative].adopted == 'true') return false;
+	 	if (typeof personal_information[parent_of_relative] != 'undefined'  &&  personal_information[parent_of_relative].adopted == true) return false;
 		return true;
 	}
 	
