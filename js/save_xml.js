@@ -272,6 +272,20 @@ function add_id(tag, id_text) {
 	tag.appendChild(id_tag);
 }
 
+function add_alive_status(tag, alive_text) {
+	if (alive_text == null) return;
+	if (alive_text == 'alive') return;
+	desceased_tag = doc.createElement("deceasedIndCode");
+	
+	if (alive_text == 'dead') {
+		desceased_tag.setAttribute("value", "true");
+	} else {
+		desceased_tag.setAttribute("value", "UNKNOWN");
+	}
+
+	tag.appendChild(desceased_tag);
+	
+}
 
 function add_name(tag, personal_name) {
 	if (personal_name == null || personal_name=='undefined') personal_name="";
@@ -616,9 +630,9 @@ function add_estimated_age_tag(tag, code_tag, estimated_age) {
 
 function add_death_status (tag, cause_of_death) {
 	if (cause_of_death == null) return;
-	var deceasedIndCode_tag = doc.createElement("deceasedIndCode");
-	deceasedIndCode_tag.setAttribute("value", "true");
-	tag.appendChild(deceasedIndCode_tag);
+//	var deceasedIndCode_tag = doc.createElement("deceasedIndCode");
+//	deceasedIndCode_tag.setAttribute("value", "true");
+//	tag.appendChild(deceasedIndCode_tag);
 }
 
 function add_death_age(tag, estimated_death_age) {
@@ -742,13 +756,13 @@ function add_relatives(tag, pi) {
 
 	var i = 0;
 	while (pi['grandson_' + i] != null) {
-		add_individual_relative(tag, "Grandson", "GRDSON", pi['grandson_' + i]);
+		add_individual_relative(tag, "Grandson", "GRNSON", pi['grandson_' + i]);
 		i++;
 	}
 
 	var i = 0;
 	while (pi['granddaughter_' + i] != null) {
-		add_individual_relative(tag, "GrandDaughter", "GRDDAU", pi['granddaughter_' + i]);
+		add_individual_relative(tag, "GrandDaughter", "GRNDAU", pi['granddaughter_' + i]);
 		i++;
 	}
 	
@@ -807,6 +821,7 @@ function add_individual_relative(tag, relative_type, code, relative) {
 	); 
 	add_id(relationshipHolder_tag, relative.id);
 	add_name(relationshipHolder_tag, relative.name);
+	add_alive_status(relationshipHolder_tag, relative.is_alive);
 
 //	if (relative.date_of_birth != null || relative.date_of_birth != "") add_birthday(relationshipHolder_tag, relative.date_of_birth);
 //	else if (relative.estimated_age != null || relative.estimated_age != "") add_relative_estimated_age_tag(relationshipHolder_tag, relative.estimated_age);
@@ -816,7 +831,7 @@ function add_individual_relative(tag, relative_type, code, relative) {
 	add_relative_estimated_age_tag(relationshipHolder_tag, relative.estimated_age);
 	add_relative_age_tag(relationshipHolder_tag,relative.age);
 		 
-	add_death_status(relationshipHolder_tag, relative.cause_of_death);
+//	add_death_status(relationshipHolder_tag, relative.cause_of_death);
 
 }
 // Functions to convert between code systems and display names

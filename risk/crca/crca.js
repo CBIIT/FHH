@@ -559,16 +559,16 @@ function is_age_before(age_to_check, age_at_diagnosis) {
 function set_icon(field, state) {
 	switch (state) {
 		case 'waiting':
-			$(field).find("#test").empty().append("<IMG src='../risk/crca/blue_waiting.png' height='40'/>");
+			$(field).find("#test").empty().append("<IMG alt='waiting' src='../risk/crca/blue_waiting.png' height='40'/>");
 			break;
 		case 'calculating':
-			$(field).find("#test").empty().append("<IMG src='../risk/crca/blue_calculating.gif' height='40'/>");
+			$(field).find("#test").empty().append("<IMG alt='calculating' src='../risk/crca/blue_calculating.gif' height='40'/>");
 			break;
 		case 'negative':
-			$(field).find("#test").empty().append("<IMG src='../risk/crca/green_x.png' height='40'/>");
+			$(field).find("#test").empty().append("<IMG alt='good_because_negative' src='../risk/crca/green_x.png' height='40'/>");
 			break;
 		case 'positive':
-			$(field).find("#test").empty().append("<IMG src='../risk/crca/red_check.png' height='40'/>");
+			$(field).find("#test").empty().append("<IMG alt='bad_because_positive' src='../risk/crca/red_check.png' height='40'/>");
 			break;
 			
 	}
@@ -616,7 +616,11 @@ function check_blood_relative(relative) {
 	if (typeof personal_information[relative] != 'undefined')
 	{
 //		alert (personal_information[relative].name + ":" + (personal_information[relative].adopted == 'true') );
-		if (personal_information[relative].adopted == true) return false;
+		// If your relative is adopted and not your mom, dad, grandparents, then not a blood relative
+		if (personal_information[relative].adopted == true &&
+		 !(relative.substring(0,6) == 'mother'  || relative.substring(0,6) == 'father'
+		 || relative.substring(0,20) == 'maternal_grandfather' || relative.substring(0,20) == 'maternal_grandmother'
+		 || relative.substring(0,20) == 'paternal_grandfather' || relative.substring(0,20) == 'paternal_grandmother' ) ) return false;
 	}
 // Primary, no other tests required
 	if (relative.substring(0,7) == 'brother' || relative.substring(0,6) == 'sister' 

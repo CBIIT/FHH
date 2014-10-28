@@ -52,6 +52,7 @@ function bind_uploader() {
 		url : '../upload/upload3.php',
 		flash_swf_url : '../js/Moxie.swf',
 		silverlight_xap_url : '../js/Moxie.xap',
+		multi_selection: false,
 		filters : {
 			max_file_size : '1mb',
 			mime_types: [
@@ -70,7 +71,7 @@ function bind_uploader() {
 			},
 			FilesAdded: function(up, files) {
 				plupload.each(files, function(file) {
-					document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
+					document.getElementById('filelist').innerHTML = '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
 				});
 			},
 			UploadProgress: function(up, file) {
@@ -80,7 +81,6 @@ function bind_uploader() {
 				document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 			},
 			FileUploaded: function(upldr, file, obj) {
-				
 				if(file.getNative() !== null) {
 					load_family_history(file.getNative());				
 				} else {
@@ -100,6 +100,13 @@ function bind_uploader() {
 		}
 	});
 
+	uploader.bind('FilesAdded', function(up, files) {
+		if(uploader.files.length > 1) {
+		    uploader.removeFile(uploader.files[0]);
+		    uploader.refresh();// must refresh for flash runtime
+		}
+	});
+	
 	uploader.init();
 }
 /*
@@ -355,7 +362,15 @@ function parse_xml(data) {
 		// Handle the misspelling from the previous version of the software
 		if (relative.id == null) relative.id = $(this).find("> relationshipHolder > id").attr("extention");
 		relative.name = $(this).find("relationshipHolder > name").attr("formatted");
+				
 		if (relative.name == null || relative.name.length == 0) relative.name = "";
+
+		var alive_status_code = $(this).find("relationshipHolder > deceasedIndCode ").attr("value");
+		
+		if (alive_status_code == "UNKNOWN") relative.is_alive = 'unknown';
+		else if (alive_status_code == "true") relative.is_alive = 'dead';
+		else relative.is_alive = 'alive';
+
 //		alert(relative.name + ":" +relative.id);
 		
 //		var boo = $(this).find("> relationshipHolder > relative > relationshipHolder").html();
@@ -614,6 +629,19 @@ function parse_xml(data) {
 			relative.relationship = 'paternal_cousin';
 			personal_information["paternal_cousin_" + i] = relative;
 		}
+		if (relationship_code == "GRNSON") {
+			var i = 0;
+			while (personal_information["grandson_" + i] != null) i++;
+			relative.relationship = 'grandson';
+			personal_information["grandson_" + i] = relative;
+		}
+		if (relationship_code == "GRNDAU") {
+			var i = 0;
+			while (personal_information["granddaughter_" + i] != null) i++;
+			relative.relationship = 'granddaughter';
+			personal_information["granddaughter_" + i] = relative;
+		}
+
 		if (relationship_code == "GRDSON") {
 			var i = 0;
 			while (personal_information["grandson_" + i] != null) i++;
@@ -749,7 +777,7 @@ function get_age_at_diagnosis (xml_snippet) {
 	}
 	if (estimated_age && estimated_age.indexOf('unit="year"') > -1) {
 		if (estimated_age.indexOf('value="2"') > -1) return "child";
-		if (estimated_age.indexOf('value="10"') > -1) return "teen";
+		if (estimated_age.indexOf('value="11"') > -1) return "teen";
 		if (estimated_age.indexOf('value="20"') > -1) return "twenties";
 		if (estimated_age.indexOf('value="30"') > -1) return "thirties";
 		if (estimated_age.indexOf('value="40"') > -1) return "fourties";
@@ -758,7 +786,9 @@ function get_age_at_diagnosis (xml_snippet) {
 	}
 	if (xml_snippet.html() && xml_snippet.html().indexOf("unknown") > -1) return 'unknown';
 
-	return null;
+	var snippet = xml_snippet.html();
+	if (typeof snippet == 'undefined') return null;
+	else return "unknown";
 }
 
 function get_disease_code_from_detailed_disease(detailedDiseaseName) {

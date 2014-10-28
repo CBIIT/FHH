@@ -229,13 +229,13 @@ function get_required_info_dialog(valid) {
 	
 	if (valid.age == false) {
 		input_table.append($("<TR>")
-			.append("<TD>Please enter your date of birth:</TD>")
+			.append("<TD><label for='date_of_birth'> Please enter your date of birth:</label></TD>")
 			.append("<TD><INPUT size='10' value='' id='date_of_birth' type='text' /><div class='instructions'>mm/dd/yyyy</div></TD>"));
 	}
 
 	if (valid.gender== false) {
 		input_table.append($("<TR>")
-			.append("<TD>Please enter your gender:</TD>")
+			.append("<TD><label for='gender_choice'> Please enter your gender:</label></TD>")
 			.append($("<TD>")
 				.append($("<SELECT id='gender_choice'>")
 					.append("<OPTION value='MALE'>Male</OPTION>")
@@ -244,7 +244,7 @@ function get_required_info_dialog(valid) {
 
 	if (valid.gestational_diabetes == false) {
 		input_table.append($("<TR>")
-			.append("<TD>Have you ever had Gestational Diabetes?</TD>")
+			.append("<TD><label for='gestational_diabetes_choice'> Have you ever had Gestational Diabetes?</label></TD>")
 			.append($("<TD>")
 				.append($("<SELECT id='gestational_diabetes_choice'>")
 					.append("<OPTION value='false'>No</OPTION>")
@@ -253,7 +253,7 @@ function get_required_info_dialog(valid) {
 
 	if (valid.height== false) {
 		input_table.append($("<TR>")
-			.append("<TD>Please enter your Height:</TD>")
+			.append("<TD><label for='height_feet'> Please enter your Height:</label><label for='height_inches'>&nbsp;</label><label for='height_centimeters'></label></TD>")
 			.append($("<TD>")
 				.append("<INPUT size='2' value='' id='height_feet' type='text' /> feet <INPUT size='2' value='' id='height_inches' type='text' /> inches")
 				.append("&nbsp;-OR-&nbsp; <INPUT size='4' value='' id='height_centimeters' type='text' /> centimeters")));
@@ -261,7 +261,7 @@ function get_required_info_dialog(valid) {
 
 	if (valid.weight== false) {
 		input_table.append($("<TR>")
-			.append("<TD>Please enter your Weight:</TD>")
+			.append("<TD><label for='weight'>Please enter your Weight:</label><label for='weight_unit'>&nbsp;</label></TD>")
 			.append($("<TD>")
 				.append("<INPUT size='5' value='' id='weight' type='text' />")
 				.append($("<SELECT id='weight_unit'>")
@@ -272,7 +272,7 @@ function get_required_info_dialog(valid) {
 	
 	if (valid.physically_active == false) {
 		input_table.append($("<TR>")
-			.append("<TD>Are you physically active*:</TD>")
+			.append("<TD><label for='physically_active_choice'>Are you physically active*:</label></TD>")
 			.append($("<TD>")
 				.append($("<SELECT id='physically_active_choice'>")
 					.append("<OPTION value='false'>No</OPTION>")
@@ -284,7 +284,7 @@ function get_required_info_dialog(valid) {
 	
 	if (valid.hypertension == false) {
 		input_table.append($("<TR>")
-			.append("<TD>Do you have High Blood Pression (Hypertension):</TD>")
+			.append("<TD><label for='hypertension_choice'>Do you have High Blood Pression (Hypertension):</label></TD>")
 			.append($("<TD>")
 				.append($("<SELECT id='hypertension_choice'>")
 					.append("<OPTION value='false'>No</OPTION>")
@@ -446,10 +446,10 @@ function load_family_diabetes(){
 		$.each(personal_information, function (key, item) {
 	    var temp = key.substring(0,6);
 	    if(temp == 'father' || temp == 'mother' || temp == 'brothe' || temp == 'sister') {
-	      if (!item.adopted == true &&  item['Health History']) {
+	      if (!(item.adopted == true) &&  item['Health History']) {
 	      	for (i = 0;i < item['Health History'].length; i++) {
 	          if (item['Health History'][i]['Detailed Disease Name'] == "Diabetes") inherited = true;
-	          if (item['Health History'][i]['Detailed Disease Name'] == "Maturity Onset Diabetes Mellitus in Young (MODY)") inherited = true;
+	          if (item['Health History'][i]['Detailed Disease Name'] == "Maturity Onset Diabetes mellitus in Young (MODY)") inherited = true;
 	          if (item['Health History'][i]['Detailed Disease Name'] == "Type 2 Diabetes") inherited = true;
 	          if (item['Health History'][i]['Detailed Disease Name'] == "Unknown Diabetes") inherited = true;
 	      	}

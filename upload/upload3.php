@@ -250,6 +250,8 @@ function get_relationship_from_relationship_code($code) {
 		case "NIECE": return get_next_available("niece"); 
 		case "MCOUSN": return get_next_available("maternal_cousin"); 
 		case "PCOUSN": return get_next_available("paternal_cousin"); 
+		case "GRNSON": return get_next_available("grandson"); 
+		case "GRNDAU": return get_next_available("granddaughter"); 
 		case "GRDSON": return get_next_available("grandson"); 
 		case "GRDDAU": return get_next_available("granddaughter"); 
 		default: return $code;
@@ -302,6 +304,7 @@ function load_disease($co) {
 //	echo "[" . $new_disease['Detailed Disease Name'] .  ",$age_at_diagnosis]";
 	
 	if (isset($age_at_diagnosis)) $new_disease['Age At Diagnosis'] = $age_at_diagnosis;
+	else $new_disease['Age At Diagnosis'] = 'unknown';
 
 	return $new_disease;
 }

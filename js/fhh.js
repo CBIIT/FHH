@@ -865,10 +865,35 @@ function bind_personal_cancel_button_action () {
 }
 
 function bind_family_member_submit_button_action () {
+	// Validation age determination
+	
 	
 	$("#addFamilyMemberSubmitButton").on("click", function(){ 
+		// Cause of Death or Age/Estimated-Age variables
+		var alive_flag = $("#is_person_alive").val();
+		var age_determination_flag = $('#age_determination').val();
+		var age_determination_text = $('#age_determination_text').val();
+		var estimated_age = $('#estimated_age_select').val();
+		var cause_of_death = $('#cause_of_death_select').val();
+
+		
 		$("#family_invalid_gender_warning").remove();
-		var errors=false;
+		$("#invalid_date_of_birth_warning").remove();
+		
+		var errors = false;
+		
+		if (alive_flag == 'alive' && age_determination_text && age_determination_text.length > 0) {
+			if (age_determination_flag == 'date_of_birth'  && !check_date_of_birth_in_correct_format(age_determination_text)) {
+				errors = true;
+				$('#age_determination_text').after(
+					$("<span id='invalid_date_of_birth_warning'> " + $.t("fhh_js.invalid_data_of_birth") + " </span>").css("color","red"));
+			} else if (age_determination_flag == 'age' && !(parseInt(age_determination_text) > 0 &&  parseInt(age_determination_text) < 150)) {
+				errors = true;
+				$('#age_determination_text').after(
+					$("<span id='invalid_date_of_birth_warning'> " + $.t("fhh_js.invalid_data_of_birth") + " </span>").css("color","red"));			
+			}
+		}
+
 		// All Family members must have a gender, most already do, but cousins may be an issue.
 		if ($("#family_member_info_form_gender_male").prop('checked') == false &&
 				$("#family_member_info_form_gender_female").prop('checked') == false) {
@@ -921,16 +946,9 @@ function bind_family_member_submit_button_action () {
 		family_member_information['twin_status'] = $('input[name="family.member.twin_status"]:checked').val();
 		family_member_information['adopted'] = $('input[name="family.member.adopted"]:checked').prop("checked");
 
-		// Cause of Death or Age/Estimated-Age
-		var alive_flag = $("#is_person_alive").val();
-		var age_determination_flag = $('#age_determination').val();
-		var age_determination_text = $('#age_determination_text').val();
-		var estimated_age = $('#estimated_age_select').val();
-		var cause_of_death = $('#cause_of_death_select').val();
-		
 		
 		if (alive_flag == 'alive') {
-			
+			family_member_information['is_alive'] = 'alive';
 			if (age_determination_flag == 'date_of_birth') {
 				if (family_member_information['cause_of_death']) delete family_member_information['cause_of_death'];
 				if (family_member_information['detailed_cause_of_death']) delete family_member_information['detailed_cause_of_death'];
@@ -952,6 +970,7 @@ function bind_family_member_submit_button_action () {
 				if (family_member_information['age'] != null) delete family_member_information['age'];
 			}
 		} else if (alive_flag == 'dead') {
+			family_member_information['is_alive'] = 'dead';
 				var cause_of_death_code = $('#detailed_cause_of_death_select').val();
 				if (cause_of_death_code != null && cause_of_death_code != "") {
 					detailed_cause_of_death = $.t($('#detailed_cause_of_death_select').val());
@@ -983,6 +1002,8 @@ function bind_family_member_submit_button_action () {
 					                          "Disease Code": cause_of_death_code};
 					current_health_history.push(specific_health_issue);
 				}
+		} else if (alive_flag == 'unknown') {
+			family_member_information['is_alive'] = 'unknown';
 		}
 
 		if ($('#age_determinion').val() == 'Age') family_member_information['age'] = $('#age_determinion_text').val();
@@ -1319,14 +1340,17 @@ function add_personal_history_row(table) {
 	new_row.append("<td class='information' >" + $.t("fhh_js.self") + "</td>");
 	new_row.append("<td class='action add_history'>&nbsp;</td>");
 	
-	var update_history = $("<td class='action update_history'><img src='../images/icon_edit.gif' alt='Update History' title='Update History'></td>");
+	var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
+	var update_history = $("<A href='#' class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
+	update_history_td.append(update_history);
 
 	update_history.on("click", function() { 
 		current_relationship = 'self';
 		clear_and_set_personal_health_history_dialog();
 		$( "#add_personal_information_dialog" ).dialog( "open" );
 	});		
-	new_row.append(update_history);
+
+	new_row.append(update_history_td);
 	
 	new_row.append("<td class='action remove_history'>&nbsp;</td>");
 
@@ -1359,22 +1383,24 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	new_row.append("<td class='information' >" + relationship + "</td>");
 	if (is_already_defined) {
 		new_row.append("<td class='action add_history'>&nbsp;</td>");
-		var update_history = $("<td class='action update_history'><img src='../images/icon_edit.gif' alt='Update History' title='Update History'></td>");
+
+		var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
+
+		var update_history = $("<A href='#' class='action update_history'><img style='border:0px'  src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
+		update_history_td.append(update_history);
+
 		update_history.attr("relationship_id", relationship_id);
 
 		update_history.on("click", function(){ 
-//			alert("Updating history for: " + $(this).attr('relationship_id') );
-			//			$( "#addPersonalInformation" ).dialog( "open" );
 			family_member = personal_information[$(this).attr('relationship_id')];
 			current_relationship = $(this).attr('relationship_id');
-//			alert(relationship_id + ":" + JSON.stringify(family_member,null,2));
 			family_member.relationship = relationship_id;
 			
 			clear_and_set_current_family_member_health_history_dialog(family_member);
 			$( "#update_family_member_health_history_dialog" ).dialog( "open" );
 		});
 		
-		new_row.append(update_history);
+		new_row.append(update_history_td);
 		
 		
 	} else {
@@ -1394,16 +1420,16 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		new_row.append("<td class='action update_history'>&nbsp;</td>");
 	}
 	if (is_removeable) {
-		var remove_history = $("<td class='action remove_history'><img src='../images/icon_trash.gif' alt='Remove History' title='Remove History'></td>")
+		var remove_history_td = $("<td style='text-align:center;border:1px solid #888'>");
+		
+		var remove_history = $("<A href='#' class='action remove_history'><img style='border:0px' src='../images/icon_trash.gif' alt='Remove History' title='Remove History'></A>")
+		remove_history_td.append(remove_history);
 		remove_history.attr("relationship_id", relationship_id);
 		remove_history.on("click", function(){ 
-//			alert("Removing Family Member for: " + $(this).attr('relationship_id') );
 			remove_family_member( $(this).attr('relationship_id'), true);
-			
-			//			$( "#addPersonalInformation" ).dialog( "open" );
 		});
 		
-		new_row.append(remove_history);
+		new_row.append(remove_history_td);
 	} else new_row.append("<td class='action remove_history'>&nbsp;</td>");
 
 	table.append(new_row);
@@ -1790,7 +1816,6 @@ function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 	var bar = $("<div class='title-bar' id='bi=title'>" + $.t("fhh_js.race_ethnicity_title") + "</div>");
 	race_ethnicity.empty().append(bar);
 	
-	
 	var race_checkboxes = $("<td>" +
 			"<input tabindex='21' name='selectedRaces' value='1' id='selectedRaces-1'  type='checkbox'/>" +
 			"<label for='selectedRaces-1' class='checkboxLabel'>" + $.t("fhh_js.race_native_american") + "</label>" +
@@ -2011,44 +2036,43 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$("#cause_of_death_select").val("");
 	$("#detailed_cause_of_death_select").empty().hide();
 	$('#estimated_death_age_select').val("");
-	if (family_member.cause_of_death) {
-		
+	if (family_member.is_alive == 'dead') {
 		$("#is_person_alive").val('dead');
 		$("#cause_of_death_select").val(family_member.cause_of_death);
 		$("#cause_of_death_select").trigger("change");
 		if (family_member.detailed_cause_of_death) {
 			if (family_member.cause_of_death == 'other') $("#new_disease_name").val(family_member.detailed_cause_of_death);
 			else {
-//				var code = family_member.cause_of_death_system + "-" + family_member.cause_of_death_code;
 				var code = family_member.cause_of_death_code;
-//				alert (code);
 				$("#detailed_cause_of_death_select").show().val(code);
 			}
 		}
 		$('#estimated_death_age_select').val(family_member.estimated_death_age);
 		$("#person_is_alive").hide();
 		$("#person_is_not_alive").show();
-	} else if (family_member.date_of_birth) {
-		$("#is_person_alive").val('alive');
-		$("#age_determination").val('date_of_birth');
-		$('#age_determination_text').show().val(family_member.date_of_birth);
-		$('#estimated_age_select').hide();
-		$("#person_is_alive").show();
-		$("#person_is_not_alive").hide();
-	} else if (family_member.age) {
-		$("#is_person_alive").val('alive');
-		$("#age_determination").val('age');
-		$('#age_determination_text').show().val(family_member.age);
-		$('#estimated_age_select').hide();
-		$("#person_is_alive").show();
-		$("#person_is_not_alive").hide();
-	} else if (family_member.estimated_age) {
-		$("#is_person_alive").val('alive');
-		$("#age_determination").val('estimated_age');
-		$('#estimated_age_select').show().val(family_member.estimated_age);
-		$('#age_determination_text').hide();
-		$("#person_is_alive").show();
-		$("#person_is_not_alive").hide();
+	} else if (family_member.is_alive == 'alive') {
+		if (family_member.date_of_birth) {
+			$("#is_person_alive").val('alive');
+			$("#age_determination").val('date_of_birth');
+			$('#age_determination_text').show().val(family_member.date_of_birth);
+			$('#estimated_age_select').hide();
+			$("#person_is_alive").show();
+			$("#person_is_not_alive").hide();
+		} else if (family_member.age) {
+			$("#is_person_alive").val('alive');
+			$("#age_determination").val('age');
+			$('#age_determination_text').show().val(family_member.age);
+			$('#estimated_age_select').hide();
+			$("#person_is_alive").show();
+			$("#person_is_not_alive").hide();
+		} else if (family_member.estimated_age) {
+			$("#is_person_alive").val('alive');
+			$("#age_determination").val('estimated_age');
+			$('#estimated_age_select').show().val(family_member.estimated_age);
+			$('#age_determination_text').hide();
+			$("#person_is_alive").show();
+			$("#person_is_not_alive").hide();
+		}
 	} else {
 		$("#is_person_alive").val('unknown');
 		$("#person_is_alive").hide();
