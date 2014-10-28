@@ -30,26 +30,30 @@
         </tr>
         <tr>
 					<th class="label translate" data-i18n='info_dialog.alive' style='vertical-align:top;'> Is this person still alive </th>
-					<td><select id='is_person_alive'>
+					<td><label for='is_person_alive'> &nbsp; </label></label><select id='is_person_alive'>
 						<option></option>
 						<option value='alive' class='translate' data-i18n='info_dialog.yes'>Yes</option>
 						<option value='dead' class='translate' data-i18n='info_dialog.no'>No</option>
 						<option value='unknown' class='translate' data-i18n='info_dialog.unknown'>Unknown</option>
 						</select>
 						<div id='person_is_alive'>
+							<label for='age_determination'> &nbsp; </label>
 							<select id='age_determination'>
 								<option value='date_of_birth' class='translate' data-i18n='info_dialog.dob'>Date of Birth</option>
 								<option value='age' class='translate' data-i18n='info_dialog.age'>Age</option>
 								<option value='estimated_age' class='translate' data-i18n='info_dialog.estimated_age'>Estimated Age</option>
 							</select>
+							<label for='age_determination_text'> &nbsp; </label>
 							<INPUT id='age_determination_text' type='text' />
+							<label for='estimated_age_select'> &nbsp; </label>
 							<select id='estimated_age_select' ></select>
 						</div>
 						<div id='person_is_not_alive'>
-								<span class='translate' data-i18n='info_dialog.cause_of_death'>Cause of Death </span>
+									<label for='cause_of_death_select'><span class='translate' data-i18n='info_dialog.cause_of_death'>Cause of Death</span></label>
 									<select id='cause_of_death_select' ></select>
+									<label for='detailed_cause_of_death_select'> &nbsp; </label>
 									<select id='detailed_cause_of_death_select' ></select><br/>
-								<span class='translate' data-i18n='info_dialog.age_at_death'>Age at Death</span> 
+									<label for='estimated_death_age_select'><span class='translate' data-i18n='info_dialog.age_at_death'>Age at Death</span> </label>
 									<select id='estimated_death_age_select' ></select>
 						</div>
 					</td>
@@ -66,7 +70,7 @@
         </tr>
         <tr>
             <th class="label">
-            	<label data-i18n='info_dialog.family_adopted' class='label translate' for="family_member_info_form_adopted">  
+            	<label data-i18n='info_dialog.family_adopted' class='label translate' for="family_member_info_form_adopted_yes">  
                 Was this person adopted?
             	</label>
             </th>

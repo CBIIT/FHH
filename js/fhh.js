@@ -1521,19 +1521,24 @@ function build_family_health_information_section() {
 	hi_health_history_table.append(hi_header_row);
 
 	var hi_data_entry_row = $("<tr id='health_data_entry_row'>");
+	var disease_select_label = $("<label for='disease_choice_select'> &nbsp; </label>");
 	var disease_select = $("<select id='disease_choice_select' name='disease_choice_select'></select>");
+	var detailed_disease_select_label = $("<label for='detailed_disease_choice_select'> &nbsp; </label>");
 	var	detailed_disease_select = $("<select id='detailed_disease_choice_select' name='detailed_disease_choice_select'></select>");
 	
 	set_disease_choice_select(disease_select, detailed_disease_select);
-	hi_data_entry_row.append($("<td>").append(disease_select).append("<br />&nbsp;&nbsp;").append(detailed_disease_select));
+	hi_data_entry_row.append($("<td>").append(disease_select_label).append(disease_select)
+		.append("<br />&nbsp;&nbsp;")
+		.append(detailed_disease_select_label).append(detailed_disease_select));
 	
 
 //	var disease_choices = get_disease_choice_select();
 //	hi_data_entry_row.append($("<td>").append(disease_choices).append("<br />&nbsp;&nbsp;"));
 	
+	var age_at_diagnosis_select_label = $("<label for='age_at_diagnosis_select'> &nbsp; </label>");
 	var age_at_diagnosis_select = $("<select name='age_at_diagnosis_select' id='age_at_diagnosis_select'></select>");
 	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
-	hi_data_entry_row.append($("<td>").append(age_at_diagnosis_select));
+	hi_data_entry_row.append($("<td>").append(age_at_diagnosis_select_label).append(age_at_diagnosis_select));
 	
 	var add_new_disease_button = $("<button id='family_add_new_disease_button' name='Add' value'Add'>" + $.t("fhh_js.add") + "</button>");
 	add_new_disease_button.on('click', add_disease);
@@ -1565,6 +1570,21 @@ function build_personal_health_information_section() {
 	hi_header_row.append("<th>" + $.t("fhh_js.action") + "</th>");
 	hi_health_history_table.append(hi_header_row);
 
+/*
+	var hi_data_entry_row = $("<tr id='health_data_entry_row'>");
+	var disease_select_label = $("<label for='disease_choice_select'> &nbsp; </label>");
+	var disease_select = $("<select id='disease_choice_select' name='disease_choice_select'></select>");
+	var detailed_disease_select_label = $("<label for='detailed_disease_choice_select'> &nbsp; </label>");
+	var	detailed_disease_select = $("<select id='detailed_disease_choice_select' name='detailed_disease_choice_select'></select>");
+	
+	set_disease_choice_select(disease_select, detailed_disease_select);
+	hi_data_entry_row.append($("<td>").append(disease_select_label).append(disease_select)
+		.append("<br />&nbsp;&nbsp;")
+		.append(detailed_disease_select_label).append(detailed_disease_select));
+*/	
+
+
+
 	var hi_data_entry_row = $("<tr id='health_data_entry_row'>");
 
 	var disease_select = $("<select id='disease_choice_select' name='disease_choice_select'></select>");
@@ -1572,7 +1592,7 @@ function build_personal_health_information_section() {
 	
 	set_disease_choice_select(disease_select, detailed_disease_select);
 	hi_data_entry_row.append($("<td>").append(disease_select).append("<br />&nbsp;&nbsp;").append(detailed_disease_select));
-
+	
 	var age_at_diagnosis_select = $("<select name='age_at_diagnosis_select' id='age_at_diagnosis_select'></select>");
 	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);	
 	hi_data_entry_row.append($("<td>").append(age_at_diagnosis_select));
