@@ -73,14 +73,21 @@ var STATICDISEASES = [
     'ovarian cancer'
 ];
 
+var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE ");
 
 
 function xmlload() {
 
     //IE 8
-// if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
-   // IEload();
-// }
+if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
+    // alert('Coming soon.')
+    var b = parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)));
+    if(b==8 || b==9) {
+        IEloadTable();
+        return;
+    }
+}
 
     /**
     * CLEAN RESTART 
@@ -206,7 +213,7 @@ function xmlload() {
         open: function () {
 
 
-var ex = document.getElementById('health_table');
+            var ex = document.getElementById('health_table');
 
 // oTable.fnDestroy();
 
@@ -488,12 +495,9 @@ $('#health_table').css('width',masterRight);
     $('#svgframe').svg();
     svg = $('#svgframe').svg('get');
 
-
-
-
-    $('#svgframe')
-        .draggable();
+    $('#svgframe').draggable();
     //.resizable();
+
     var LINEGROUP = svg.group({stroke: 'black', strokeWidth: 2});
 
     //var TOPCLONE = svg.clone( null, rect1)[0];
@@ -548,7 +552,7 @@ $('#health_table').css('width',masterRight);
 
      weight, height,age,weight_unit,height_unit;
      BMI;
-    if(typeof personal_information.weight == 'undefined' || personal_information.weight == null) {
+    if(typeof personal_information.weight == 'undefined' || personal_information.weight == null || personal_information.weight == 'null') {
         weight="";
         weight_unit="";
     }
@@ -573,13 +577,15 @@ $('#health_table').css('width',masterRight);
         age = getAge(personal_information.date_of_birth);
     }
 
+
     if(weight_unit=='kilogram'){
         BMI = BMI_CALCULATE_METRIC(weight, height);
     }
     else {
         BMI = BMI_CALCULATE(weight, height);
     }
-    if(typeof BMI == 'undefined' || BMI == null) {
+
+    if(typeof BMI == 'undefined' || BMI == null || BMI == 'null') {
         BMI = "";
     }
 
@@ -1215,8 +1221,6 @@ $('#health_table').css('width',masterRight);
 
     $( "#printer" ).click(function() {
 
-       
-
         var container = $(mdialog);
         var tableelement = $( "table" );
         var TABLE = $( container ).find( tableelement );
@@ -1224,6 +1228,7 @@ $('#health_table').css('width',masterRight);
         var SVG = $( container ).find( svgelement );
         var w = $('#svgframe').attr('width');
         var h = $('#svgframe').attr('height');
+        var DISPLAY;
 
         //var printContent = document.getElementById('svgframe');
 
@@ -1233,8 +1238,6 @@ $('#health_table').css('width',masterRight);
         var windowUrl = 'about:blank';
         var uniqueName = new Date();
         var windowName = 'Print' + uniqueName.getTime();
-
-        
 
         if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
 
@@ -1249,6 +1252,19 @@ $('#health_table').css('width',masterRight);
         $('#health_table_paginate').hide();
         $('#legendtag').css('width','300px');
         $('#legendtag').css('height','50px');
+
+        /**** ***/
+            var mySVG=document.getElementById('svgframe')
+            var bb=mySVG.getBBox()
+            orgwidth=bb.width;
+            orgheight=bb.height;
+
+            var bbw=bb.width/5;
+            var bbh=bb.height/2
+            var angle  =90;
+            mySVG.setAttribute("transform","rotate("+angle+" "+bbw+" "+bbh+")")
+
+/**** ***/ 
 
             $('#dialogtext').hide();
             var DocumentContainer = $(mdialog);
@@ -1293,6 +1309,7 @@ $('#health_table').css('width',masterRight);
         else if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1){
             var myWindow=null;
             var prand = Math.floor((Math.random() * 10000) + 1);
+            var DISPLAY;
 
             //Set the pic inside of Div
         fitSVGinPrint();
@@ -1311,24 +1328,81 @@ $('#health_table').css('width',masterRight);
 
             $('#bmi_table').css('font-size','10px');
 
-            var topsvgc = $('#topsvg');
-            var healthtable = $('#health_table_wrapper');
+ // $('#svgframe').attr('class', 'gear');
             var printsvg =$('#svgframe');
 
+            var topsvgc = $('#topsvg');
+            var healthtable = $('#health_table_wrapper');
+
+
+/**** ***/
+            var mySVG=document.getElementById('svgframe')
+             DISPLAY = $(mySVG).css('display');
+
+            if( DISPLAY != 'none' ) {
+                fitSVGinPrint();
+                
+                // var bb=mySVG.getBBox()
+                // orgwidth=bb.width;
+                // orgheight=bb.height;
+
+                // var bbw=bb.width/5;
+                // var bbh=bb.height/2
+                // var angle  =90;
+                // mySVG.setAttribute("transform","rotate("+angle+" "+bbw+" "+bbh+")")
+            }
+
+
+/**** ***/   
+
+
+
+            // var mySVG=document.getElementById('svgframe')
+            // $(function(){
+
+            // $(printsvg).attr('transform', 'rotate(-90, 250, 250)');
+
+            // $("#topsvg").append("<div> --- "+ $(printsvg) +"</div>")
+            // $(topsvgc).append(printsvg);
+
+            // });
+            // var bb=mySVG.getBBox()
+            // orgwidth=bb.width;
+            // orgheight=bb.height;
+
+            // var bbw=bb.width/5;
+            // var bbh=bb.height/2
+            // var angle  =90;
+            // mySVG.setAttribute("transform","rotate(90 50 50)")
+
+/**** ***/                 
+
             <!-- PRINT STARTS HERE -->
-            myWindow.document.write('<!DOCTYPE html>'
-            + '<html><head><title>My Family Health Portrait-Diagram</title>'
-            + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
+            if(DISPLAY != 'none' ) {
+                myWindow.document.write('<!DOCTYPE html>'
+                + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
-                + '<p>My Family Health Portrait-Diagram</p>'
-                + '<div style="margin-top:300px;margin-left:auto;margin-right:auto">'
-            + $(topsvgc).html()
-                + '</div>'
-                    + '<DIV style="page-break-after:always"></DIV>'
-            + $(healthtable).html()
+                    + '<p>My Family Health Portrait-Diagram</p>'
+                    + '<div style="margin-top:300px;margin-left:auto;margin-right:auto">'
+                + $(topsvgc).html()
+                    + '</div>'
+                        + '<DIV style="page-break-after:always"></DIV>'
+                + $(healthtable).html()
 
-                + '</head><body>'
-            );
+                    + '</head><body>'
+                );
+            }
+            else if(DISPLAY == 'none' ) {
+                myWindow.document.write('<!DOCTYPE html>'
+                + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
+                        + '<DIV style="page-break-after:none"></DIV>'
+                + $(healthtable).html()
+                    + '</head><body>'
+                );
+             }
+
 
             //myWindow.focus();
             myWindow.print();
@@ -1359,9 +1433,12 @@ $('#health_table').css('width',masterRight);
         else {
             var myWindow=null;
             var prand = Math.floor((Math.random() * 10000) + 1);
+            var orgwidth,orgheight;
+            var DISPLAY;
 
             //Set the pic inside of Div
-        fitSVGinPrint();
+            // ROTATE();
+
 
             $('#bmi_table').css('font-size','10px');
             $('.closeimg').css('visibility', 'hidden');
@@ -1380,22 +1457,56 @@ $('#health_table').css('width',masterRight);
             var healthtable = $('#health_table_wrapper');
             var printsvg =$('#svgframe');
 
+/**** ***/
+            var mySVG=document.getElementById('svgframe')
+             DISPLAY = $(mySVG).css('display');
+
+            if( DISPLAY != 'none' ) {
+                fitSVGinPrint();
+                
+                // var bb=mySVG.getBBox()
+                // orgwidth=bb.width;
+                // orgheight=bb.height;
+
+                // var bbw=bb.width/5;
+                // var bbh=bb.height/2
+                // var angle  =90;
+                // mySVG.setAttribute("transform","rotate("+angle+" "+bbw+" "+bbh+")")
+            }
+
+/**** ***/            
+            
+
             <!-- PRINT STARTS HERE -->
-            myWindow.document.write('<!DOCTYPE html>'
-            + '<html><head><title>My Family Health Portrait-Diagram</title>'
-            + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
+             if(DISPLAY != 'none' ) {
+                myWindow.document.write('<!DOCTYPE html>'
+                + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
-            + '<p>My Family Health Portrait-Diagram</p>'
-            + $(topsvgc).html()
-                    + '<DIV style="page-break-after:always"></DIV>'
-            + $(healthtable).html()
+                + '<p>My Family Health Portrait-Diagram</p>'
+                + $(topsvgc).html()
+                        + '<DIV style="page-break-after:always"></DIV>'
+                + $(healthtable).html()
 
-                + '</head><body>'
-            );
+                    + '</head><body>'
+                );
+            }
+             else if(DISPLAY == 'none' ) {
+                myWindow.document.write('<!DOCTYPE html>'
+                + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
+
+                // + '<p>My Family Health Portrait-Diagram</p>'
+                // + $(topsvgc).html()
+                        + '<DIV style="page-break-after:always"></DIV>'
+                + $(healthtable).html()
+                    + '</head><body>'
+                );
+             }
 
             myWindow.focus();
-            myWindow.print();
-            myWindow.close();
+            // myWindow.print();
+            // myWindow.close();
 
             <!-- PRINT ENDS HERE -->
 
@@ -1403,6 +1514,18 @@ $('#health_table').css('width',masterRight);
             var timer = setInterval(function() {
                 if( myWindow.closed) {
                     clearInterval(timer);
+
+            if(DISPLAY != 'none' ) {
+                var mySVG=document.getElementById('svgframe')
+                var bb=mySVG.getBBox()
+                
+                var bbw=orgwidth*5;
+                var bbh=orgheight*2;
+                var angle  = 180;
+                mySVG.setAttribute("transform","rotate("+angle+" "+bbw+" "+bbh+")")
+            }
+
+
                     $('.sticky').show();
                     $('#dialogtext').show();
                     $('.closeimg').show();
@@ -1414,10 +1537,13 @@ $('#health_table').css('width',masterRight);
                     $('#topsvg').attr('class','');
                     $('#legendtag').css('width','');
                     $('#legendtag').css('height','');
+
+            
+
                 }
             }, 1000);
 
-            myWindow.close();
+            // myWindow.close();
         }
     });
 
@@ -6305,7 +6431,7 @@ $('#health_table').css('width',masterRight);
         }
     }
     /*
-     Chrome and FF
+     Chrome
      */
     else if(/chrome/i.test( navigator.userAgent )){
 
@@ -6346,9 +6472,9 @@ $('#health_table').css('width',masterRight);
             var RIGHT_X = allXarray.pop();
             var LEFT_X = allXarray[0];
 
-            var wscale = parseInt(RIGHT_X) + 100;
+            var wscale = parseInt(RIGHT_X) + 150;
             var left = parseInt(LEFT_X) - 50;
-            var right = parseInt(RIGHT_X)*1.5;
+            var right = parseInt(RIGHT_X)*0.9;
             //wscale = parseInt(SVGW) + 100;
             hscale = parseInt(hei) + 0;
             svgw.setAttribute('viewBox', left + ' 0 ' + wscale + " " + right);
@@ -6595,9 +6721,13 @@ function LOAD_HEALTH_TABLE(){
                 temp1.push(RELATION);
                 temp1.push(NAMEREL);
                 var COD = "";
+                var EST="";
+
+                // if(typeof item.cause_of_death == 'undefined')
+                if(typeof item.estimated_death_age!= 'undefined' || item.estimated_death_age!= null) EST=item.estimated_death_age;
 
                 if (typeof item.cause_of_death!= 'undefined'){
-                    COD = 'No';
+                    COD = 'No, ' + item.cause_of_death + '(' + EST +')';
                 }
                 else if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
                      COD = 'Unknown';
@@ -6606,7 +6736,7 @@ function LOAD_HEALTH_TABLE(){
                     COD = 'Yes';
                 }
                 else{
-                    COD = 'No';
+                    COD = 'No, ' + item.cause_of_death  + '(' + EST +')';;
                 }
                 //var ag = item.age;
                 //var ea = item.estimated_age;
@@ -6730,6 +6860,7 @@ function LOAD_HEALTH_TABLE(){
         var ID = $(this).attr('data-column');
         var TXT = $(this).attr('id');
         var NAME = $(this).attr('name');
+        var ID = parseInt(ID) + 1;
         oTable.fnSetColumnVis( ID, false );
         /*
          Infor of the closed diseases
@@ -6768,6 +6899,7 @@ SetPersonalInfo();
 
 function openTab(TXT){
     var ID = TXT.substr(TXT.indexOf('_')+1 , TXT.length);
+    var ID=parseInt(ID)+1;
     oTable.fnSetColumnVis( ID, true );
     $('#'+TXT).remove();
 }
@@ -7451,15 +7583,28 @@ function fitSVGinDiv(mySVG){
 var SVGId
 function fitSVGinPrint(){
 
+
+
     var divWH=parseInt(masterRight)
 
     // svgDiv.style.width=divWH+"px"
     // svgDiv.style.height=divWH+"px"
+
+
     var mySVG=document.getElementById('svgframe')
+   
+
+
 
     var bb=mySVG.getBBox()
     var bbw=bb.width
     var bbh=bb.height
+
+    var bbx=bb.x
+    var bby=bb.y
+
+    var cx=bbx+.5*bbw
+    var cy=bby+.5*bbh
 
     //--use greater of bbw vs bbh--
     if(bbw>=bbh)
@@ -7471,6 +7616,10 @@ function fitSVGinPrint(){
 
     var vbX=(bbw-vbWH)/2
     var vbY=(bbh-vbWH)/2
+    
+    var angle=90;
+     // mySVG.setAttribute("transform","rotate("+angle+" "+cx+" "+cy+")")
+
     //---IE/CH---
     // if(isFF==0)
     // {
@@ -7496,6 +7645,110 @@ function fitSVGinPrint(){
     }
 }
 
+
+var Finished=true
+function ROTATE()
+{
+    // if(Finished==true) //--allows initial run---
+    // {
+        Finished=false
+
+var RotateElem=document.getElementById('svgframe')
+
+
+ var bb = RotateElem.getBBox();
+    var bbx = bb.x + bb.width/2;
+    var bby = bb.y + bb.height/2;
+
+        // var bb=RotateElem.getBBox()
+        // var bbx=bb.x
+        // var bby=bb.y
+        var bbw=bb.width
+        var bbh=bb.height
+        var cx=bbx+.5*bbw
+        var cy=bby+.5*bbh
+
+        var angle360=360
+        var FPS=100  //---frames per second---
+        var duration=2000 //---ms, 1 second---
+
+var angle=90;
+                RotateElem.setAttribute("transform","rotate("+angle+" "+cx+" "+cy+")")
+
+        //----core animation function---
+        // new AnimateJS(
+        // {
+        //     delay: 1000/FPS,
+        //     duration: duration,
+        //     delta: sineHalf,
+        //     output: function(delta)
+        //     {
+        //         var angle=angle360*delta
+        //         RotateElem.setAttribute("transform","rotate("+angle+" "+cx+" "+cy+")")
+
+        //         if(progress==1)
+        //         {
+        //             RotateElem.removeAttribute("transform")
+        //             Finished=true
+        //             svgSourceValue.value=topsv.innerHTML
+        //         }
+        //     }
+        // })
+    // }
+}
+
+function ROTATE_OLD()
+{
+    var rhombus=document.getElementById('svgframe')
+     var mySVG=document.getElementById('svgframe')
+
+    var deg=parseFloat(90)
+    var transformRequestObj=mySVG.createSVGTransform()
+
+    var animTransformList=mySVG.transform
+    var transformList=animTransformList.baseVal
+
+    var centerX=parseFloat(500)
+    var centerY=parseFloat(500)
+
+    transformRequestObj.setTranslate(-centerX,-centerY)
+    transformList.appendItem(transformRequestObj)
+    transformList.consolidate()
+
+    transformRequestObj.setRotate(deg,0,0)
+    transformList.appendItem(transformRequestObj)
+    transformList.consolidate()
+
+    // computePolyPoints(rhombus) //--remove transform---
+    // rhombus.setAttribute("transform","translate("+(centerX)+" "+(centerY)+")")
+
+    //---show polygon as string---
+    // rhombValue.value=new XMLSerializer().serializeToString(rhombus)
+
+    // var bb=rhombus.getBBox()
+    // rhombWidthValue.value=bb.width
+    // rhombHeightValue.value=bb.height
+}
+
+//---changes all transformed points to screen points---
+function computePolyPoints(Pgon)
+{
+    var sCTM = Pgon.getCTM()
+    var pointsList = Pgon.points;
+    var n = pointsList.numberOfItems;
+    for(var m=0;m<n;m++)
+    {
+        var mySVGPoint = mySVG.createSVGPoint();
+        mySVGPoint.x = pointsList.getItem(m).x
+        mySVGPoint.y = pointsList.getItem(m).y
+        mySVGPointTrans = mySVGPoint.matrixTransform(sCTM)
+        pointsList.getItem(m).x=mySVGPointTrans.x
+        pointsList.getItem(m).y=mySVGPointTrans.y
+    }
+    //---force removal of transform--
+    Pgon.setAttribute("transform","")
+    Pgon.removeAttribute("transform")
+}
 
 var SVGId
 function IESVGinPrint(){

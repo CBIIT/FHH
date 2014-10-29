@@ -707,6 +707,12 @@ svg#svgcloneframe {
         width: 100px;
         height: 60px;
     }
+
+
+    @keyframes rotation {
+    from {transform: rotate(0deg);}
+    to   {transform: rotate(359deg);}
+    }
     /*#health_table {*/
         /*page-break-before:always;*/
     /*}*/
