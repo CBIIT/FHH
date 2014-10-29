@@ -107,6 +107,12 @@ function bind_save_download() {
 }
 
 function bind_save_dropbox () {
+	if (is_IE_8_or_9() ) {
+		$("#save_to_dropbox").append("<I>This feature has been tested and is supported in the following browsers - Internet Explorer 10 and recent versions, Firefox, Chrome, Safari.</I>");
+		return;
+	}
+	
+	
 	if (typeof DROPBOX_APP_KEY == 'undefined') {
 		if (typeof DEBUG != 'undefined' && DEBUG) $("#save_to_dropbox").append("No Dropbox App Key Defined");				
 		else $("#save_to_dropbox").append("Coming Soon");	
@@ -128,6 +134,12 @@ function bind_save_dropbox () {
 }
 
 function bind_save_google_drive () {
+	if (is_IE_8_or_9() ) {
+		$("#save_to_google_drive").append("<I>This feature has been tested and is supported in the following browsers - Internet Explorer 10 and recent versions, Firefox, Chrome, Safari.</I>");
+		return;
+	}
+	
+	
 	if (typeof GOOGLE_CLIENT_ID == 'undefined') {
 		if (typeof DEBUG != 'undefined' && DEBUG) $("#save_to_google_drive").append("No Google Drive App Key Defined");				
 		else $("#save_to_google_drive").append("Coming Soon");	

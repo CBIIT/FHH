@@ -39,7 +39,10 @@
 </TD>
 <TD style='vertical-align:top;width:600px;'>
 	<P class='translate' data-i18n='fhh_load_save.load_health_vault_instructions'>Microsoft HealthVault lets you gather, store, and share health information online. If you choose to copy your family history information from your HealthVault account, this website will copy data from your HealthVault account and will need you to sign in.</P>
-	<P> Coming Soon </P>
+	<P> 
+		<a href="javascript://nop/" onclick="health_vault()">Copy from Health Vault</a>
+		
+	</P>
 </TD>
 </TR>	
 </TABLE>
@@ -50,7 +53,7 @@
 	<IMG src='../images/google_drive_icon.png' alt='Open from Google Drive'>
 </TD>
 <TD style='vertical-align:top;width:600px;'>
-	<P class='translate' data-i18n='fhh_load_save.load_google_drive_instructions'>You can load a pre-saved file from Google Drive, by signing into your google drive account.</P>
+	<P id='load_google_drive_instructions' class='translate' data-i18n='fhh_load_save.load_google_drive_instructions'>You can load a pre-saved file from Google Drive, by signing into your google drive account.</P>
 	<div id='load_from_google_drive'></div>
 
 </TD>
@@ -63,7 +66,7 @@
 	<IMG src='../images/dropbox_icon.png' alt='Open from Dropbox' width='48' height='48'>
 </TD>
 <TD style='vertical-align:top;width:600px;'>
-	<P  class='translate' data-i18n='fhh_load_save.load_dropbox_instructions'>You can load a pre-saved file from Dropbox, by signing into your dropbox account and picking a file to load.</P>
+	<P id='load_dropbox_instructions'  class='translate' data-i18n='fhh_load_save.load_dropbox_instructions'>You can load a pre-saved file from Dropbox, by signing into your dropbox account and picking a file to load.</P>
 	<div id='load_from_dropbox'></div>
 </TD>
 </TR>	
@@ -72,3 +75,11 @@
 <P class='translate instructions' data-i18n='fhh_load_save.disclaimer'>
 When you choose to copy your family health history information to any third party system, please note that your information will be retained in that system, and will be subject to the terms of use and privacy policy of that system.	
 </P>
+
+<script type='text/javascript' >
+	
+function health_vault() {
+	window.open("./static/health_vault_en.html", "", "width=800, height=600, scrollbars=yes");
+}
+
+</script>

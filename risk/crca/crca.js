@@ -373,17 +373,20 @@ function test_secondary_family_members_colon_cancer_before_60() {
 					for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had colon cancer before the age of 60 years or at the age of 60 years.<br />";
+							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " has had colon cancer at an unknown age.<br />";
+							else risk_reason += name + " has had colon cancer before the age of 60 years or at the age of 60 years.<br />";
 							risk=true;
 						}
 						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had colorectal cancer before the age of 60 years or at the age of 60 years.<br />";
+							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " has had colorectal cancer at an unknown age.<br />";
+							else risk_reason += name + " has had colorectal cancer before the age of 60 years or at the age of 60 years.<br />";
 							risk=true;
 						}
 						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had rectal cancer before the age of 60 years or at the age of 60 years.<br />";
+							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " has had rectal cancer at an unknown age.<br />";
+							else risk_reason += name + " has had rectal cancer before the age of 60 years or at the age of 60 years.<br />";
 							risk=true;
 						}
 					}
@@ -427,7 +430,8 @@ function test_secondary_family_members_uterine_cancer_before_50() {
 					for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Uterine Cancer' && is_age_before('Under50', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had uterine cancer before the age of 50 years or at the age of 50 years.<br />";
+							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " has had uterine cancer at an unknown age.<br />";
+							else risk_reason += name + " has had uterine cancer before the age of 50 years or at the age of 50 years.<br />";
 							risk=true;
 						}
 					}

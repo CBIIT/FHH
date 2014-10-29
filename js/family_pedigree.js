@@ -73,20 +73,14 @@ var STATICDISEASES = [
     'ovarian cancer'
 ];
 
-var ua = window.navigator.userAgent;
-    var msie = ua.indexOf("MSIE ");
 
 
 function xmlload() {
 
     //IE 8
-if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
-    var b = parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)));
-    if(b==8 || b==9) {
-        IEloadTable();
-        return;
-    }
-}
+// if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
+   // IEload();
+// }
 
     /**
     * CLEAN RESTART 
@@ -135,6 +129,7 @@ if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) 
         + thisMinute + " "
         + mid;
 
+//alert(new Date(0).toString())
 
 
     mdialog = $(
@@ -155,10 +150,10 @@ if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) 
         '<ul>' +
         '<li><a class="top" onclick="ToTop();return false;" href="#">Go To Diagram</a></li>' +
         '<li><a class="bottom" onclick="ToTable();return false;" href="#">Go To Table</a></li>' +
-        '<li><a id="printermain">Print</a></li>' +
-        '<li><a href="#top" onclick="createDialogMain()">Diagram & Table Options</a></li>' +
+        '<li><a id="printer">Print</a></li>' +
+        '<li><a href="#top" onclick="createDialog()">Diagram & Table Options</a></li>' +
         '<li>' +
-        '<select id="zoomer" class="selector" onchange="TheZoomMain(this);">'+
+        '<select id="zoomer" class="selector" onchange="TheZoom(this);">'+
         '<option id="the1" value="100">+100</option>' +
         '<option id="the2" value="200">+200</option>' +
         '</select>' +
@@ -181,8 +176,8 @@ if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) 
         '<div>' +
         '<table id="closed_table" ><tr><td></td></tr></table>' +
 
-        '<table id="health_table" class="display compact" style="margin-top:10px;">' +
-        '<caption style="font-size:12px;text-align: left">' + today + '</caption>' +
+        '<table id="health_table" class="display compact">' +
+        '<caption style="font-size:12px;text-align: center">' + today + '</caption>' +
         '<thead></thead>' +
         '<tfoot></tfoot>' +
         '<tbody></tbody>' +
@@ -211,7 +206,7 @@ if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) 
         open: function () {
 
 
-            var ex = document.getElementById('health_table');
+var ex = document.getElementById('health_table');
 
 // oTable.fnDestroy();
 
@@ -296,7 +291,7 @@ $('#health_table').css('width',masterRight);
 
             $("#health_table").empty();
             diseasearray=new Array();
-            $('#optionsPanelMain').dialog('destroy').remove();
+            $('#optionsPanel').dialog('destroy').remove();
 
             $(this).empty();
             //$(this).dialog('close', true);
@@ -363,6 +358,7 @@ $('#health_table').css('width',masterRight);
             }
         });
 
+//alert ("diseasearray ARRAY Information:" + JSON.stringify(diseasearray, null, 2) );
 
 
 
@@ -382,6 +378,7 @@ $('#health_table').css('width',masterRight);
             /*
              Get only values that are not static
              */
+            //if ($.inArray(NAME.toLowerCase(), STATICDISEASES) == -1){alert(NAME)}
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
@@ -389,11 +386,8 @@ $('#health_table').css('width',masterRight);
             });
         }
 
-
         for (var i = 0; i < diseasearray.length; i++) {
-            var NAME = diseasearray[i][1];
-
-
+            var NAME = diseasearray[i][0];
             var COL = i + 9;
             var DID = 'D_' + COL;
 
@@ -402,6 +396,7 @@ $('#health_table').css('width',masterRight);
             /*
              Get only values that are not static
              */
+            //if ($.inArray(NAME.toLowerCase(), STATICDISEASES) == -1){alert(NAME)}
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
@@ -485,7 +480,8 @@ $('#health_table').css('width',masterRight);
         function()
         {
             mdialog.dialog('open');
-        }, 500);
+            $("#view_diagram_and_table_button").css('cursor', 'pointer');
+        }, 500); 
 
     /*
      Start SVG
@@ -493,9 +489,12 @@ $('#health_table').css('width',masterRight);
     $('#svgframe').svg();
     svg = $('#svgframe').svg('get');
 
-    $('#svgframe').draggable();
-    //.resizable();
 
+
+
+    $('#svgframe')
+        .draggable();
+    //.resizable();
     var LINEGROUP = svg.group({stroke: 'black', strokeWidth: 2});
 
     //var TOPCLONE = svg.clone( null, rect1)[0];
@@ -511,7 +510,7 @@ $('#health_table').css('width',masterRight);
     svg.text(masterleft - 120, 30, "Paternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'pattext'});
     svg.text(masterleft + 120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'mattext'});
 
-    $('#optionsPanelMain').attr('width', '800px');
+    $('#optionsPanel').attr('width', '800px');
 
     svg.line(LINEGROUP, masterleft - 100, 220, masterleft + 120, 220, {id: 'mel', stroke: 'black', strokeWidth: 3});
     svg.line(LINEGROUP, masterleft + 25, 220, masterleft + 25, top, {id: 'mei', stroke: 'black', strokeWidth: 3});
@@ -550,7 +549,7 @@ $('#health_table').css('width',masterRight);
 
      weight, height,age,weight_unit,height_unit;
      BMI;
-    if(typeof personal_information.weight == 'undefined' || personal_information.weight == null || personal_information.weight == 'null') {
+    if(typeof personal_information.weight == 'undefined' || personal_information.weight == null) {
         weight="";
         weight_unit="";
     }
@@ -575,15 +574,13 @@ $('#health_table').css('width',masterRight);
         age = getAge(personal_information.date_of_birth);
     }
 
-
     if(weight_unit=='kilogram'){
         BMI = BMI_CALCULATE_METRIC(weight, height);
     }
     else {
         BMI = BMI_CALCULATE(weight, height);
     }
-
-    if(typeof BMI == 'undefined' || BMI == null || BMI == 'null') {
+    if(typeof BMI == 'undefined' || BMI == null) {
         BMI = "";
     }
 
@@ -630,7 +627,9 @@ $('#health_table').css('width',masterRight);
     HEALTHARRAY.push(ids);
     DISEASELISTARRAY.push(dis);
 
+    //alert ("HEALTHARRAY ARRAY Information:" + JSON.stringify(HEALTHARRAY, null, 2) );
 
+    //alert ("DISEASELISTARRAY ARRAY Information:" + JSON.stringify(DISEASELISTARRAY, null, 2) );
 
     //Set the master Y levels
     var Level5F = mastery + 299;
@@ -651,12 +650,16 @@ $('#health_table').css('width',masterRight);
 
     var NAMEARRAY = new Array();
 
+    //alert ("personal_information Information:" + JSON.stringify(personal_information, null, 2) );
 
 
 
     //Prepare all data to array formats for processing
     $.each(personal_information, function (key, item) {
 
+        //alert ("personal_information Information:" + JSON.stringify(personal_information, null, 2) );
+        //if(key=="name"){MYNAME=item};
+        //if(key=="gender"){MYGENDER=item};
 
 
 
@@ -794,6 +797,7 @@ $('#health_table').css('width',masterRight);
             MaternalCousinArray.push([ITEMGEN, id, key, item.parent_id]);
             var t = {"id": [item.id], "name": [item.name], "gender": [ITEMGEN], key: [key]};
             NAMEARRAY.push(t);
+            //alert ("MaternalCousinArray ARRAY Information:" + JSON.stringify(MaternalCousinArray, null, 2) );
 
         }
         else if (key.substring(0, 15) == "paternal_cousin") {
@@ -907,6 +911,7 @@ $('#health_table').css('width',masterRight);
     //Set self up
     var t = {"id": 'me', "name": [personal_information.name], "gender": [personal_information.gender], key: 'self'};
     NAMEARRAY.push(t);
+    //alert ("Original Personal Information:" + JSON.stringify(personal_information, null, 2) );
 
 
     //Set the children objects
@@ -1209,7 +1214,9 @@ $('#health_table').css('width',masterRight);
 
     ADOPTED_FAMILY();
 
-    $( "#printermain" ).click(function() {
+    $( "#printer" ).click(function() {
+
+       
 
         var container = $(mdialog);
         var tableelement = $( "table" );
@@ -1218,7 +1225,6 @@ $('#health_table').css('width',masterRight);
         var SVG = $( container ).find( svgelement );
         var w = $('#svgframe').attr('width');
         var h = $('#svgframe').attr('height');
-        var DISPLAY;
 
         //var printContent = document.getElementById('svgframe');
 
@@ -1229,10 +1235,12 @@ $('#health_table').css('width',masterRight);
         var uniqueName = new Date();
         var windowName = 'Print' + uniqueName.getTime();
 
+        
+
         if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
 
             //Set the pic inside of Div
-        // IESVGinPrinter();
+        IESVGinPrint();
 
         $('#topsvg').css('overflow', 'hidden');
         $('.sticky').hide();
@@ -1242,19 +1250,6 @@ $('#health_table').css('width',masterRight);
         $('#health_table_paginate').hide();
         $('#legendtag').css('width','300px');
         $('#legendtag').css('height','50px');
-
-        /**** ***/
-            // var mySVG=document.getElementById('svgframe')
-            // var bb=mySVG.getBBox()
-            // orgwidth=bb.width;
-            // orgheight=bb.height;
-
-            // var bbw=bb.width/5;
-            // var bbh=bb.height/2
-            // var angle  =90;
-            // mySVG.setAttribute("transform","rotate("+angle+" "+bbw+" "+bbh+")")
-
-/**** ***/ 
 
             $('#dialogtext').hide();
             var DocumentContainer = $(mdialog);
@@ -1299,10 +1294,9 @@ $('#health_table').css('width',masterRight);
         else if(navigator.userAgent.toLowerCase().indexOf('chrome') > -1){
             var myWindow=null;
             var prand = Math.floor((Math.random() * 10000) + 1);
-            var DISPLAY;
 
             //Set the pic inside of Div
-        fitSVGinPrinter();
+        fitSVGinPrint();
 
             $('#topsvg').css('overflow', 'hidden');
             $('.sticky').hide();
@@ -1316,52 +1310,26 @@ $('#health_table').css('width',masterRight);
 
             var myWindow=window.open(prand,'Print','width=900,height=900,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no');
 
-            $('#bmi_table').css('font-size','15px');
-
- // $('#svgframe').attr('class', 'gear');
-            var printsvg =$('#svgframe');
+            $('#bmi_table').css('font-size','10px');
 
             var topsvgc = $('#topsvg');
             var healthtable = $('#health_table_wrapper');
-
-
-/**** ***/
-            var mySVG=document.getElementById('svgframe')
-             DISPLAY = $(mySVG).css('display');
-
-            if( DISPLAY != 'none' ) {
-                fitSVGinPrinter();
-                
-                
-            }
-            
+            var printsvg =$('#svgframe');
 
             <!-- PRINT STARTS HERE -->
-            if(DISPLAY != 'none' ) {
-                myWindow.document.write('<!DOCTYPE html>'
-                + '<html><head><title>My Family Health Portrait-Diagram</title>'
-                + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
+            myWindow.document.write('<!DOCTYPE html>'
+            + '<html><head><title>My Family Health Portrait-Diagram</title>'
+            + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
-                    + '<p>My Family Health Portrait-Diagram</p>'
-                    + '<div style="margin-top:300px;margin-left:auto;margin-right:auto">'
-                + $(topsvgc).html()
-                    + '</div>'
-                        + '<DIV style="page-break-after:always"></DIV>'
-                + $(healthtable).html()
+                + '<p>My Family Health Portrait-Diagram</p>'
+                + '<div style="margin-top:300px;margin-left:auto;margin-right:auto">'
+            + $(topsvgc).html()
+                + '</div>'
+                    + '<DIV style="page-break-after:always"></DIV>'
+            + $(healthtable).html()
 
-                    + '</head><body>'
-                );
-            }
-            else if(DISPLAY == 'none' ) {
-                myWindow.document.write('<!DOCTYPE html>'
-                + '<html><head><title>My Family Health Portrait-Diagram</title>'
-                + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
-                        + '<DIV style="page-break-after:none"></DIV>'
-                + $(healthtable).html()
-                    + '</head><body>'
-                );
-             }
-
+                + '</head><body>'
+            );
 
             //myWindow.focus();
             myWindow.print();
@@ -1392,12 +1360,9 @@ $('#health_table').css('width',masterRight);
         else {
             var myWindow=null;
             var prand = Math.floor((Math.random() * 10000) + 1);
-            var orgwidth,orgheight;
-            var DISPLAY;
 
             //Set the pic inside of Div
-            // ROTATE();
-
+        fitSVGinPrint();
 
             $('#bmi_table').css('font-size','10px');
             $('.closeimg').css('visibility', 'hidden');
@@ -1414,55 +1379,20 @@ $('#health_table').css('width',masterRight);
             var myWindow=window.open(prand,'Print','width=900,height=900,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no');
             var topsvgc = $('#topsvg');
             var healthtable = $('#health_table_wrapper');
-            // $(healthtable).css('font-size','15px');
             var printsvg =$('#svgframe');
 
-/**** ***/
-            var mySVG=document.getElementById('svgframe')
-             DISPLAY = $(mySVG).css('display');
-
-            if( DISPLAY != 'none' ) {
-                fitSVGinPrinter();
-                
-                // var bb=mySVG.getBBox()
-                // orgwidth=bb.width;
-                // orgheight=bb.height;
-
-                // var bbw=bb.width/5;
-                // var bbh=bb.height/2
-                // var angle  =90;
-                // mySVG.setAttribute("transform","rotate("+angle+" "+bbw+" "+bbh+")")
-            }
-
-/**** ***/            
-            
-
             <!-- PRINT STARTS HERE -->
-             if(DISPLAY != 'none' ) {
-                myWindow.document.write('<!DOCTYPE html>'
-                + '<html><head><title>My Family Health Portrait-Diagram</title>'
-                + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
+            myWindow.document.write('<!DOCTYPE html>'
+            + '<html><head><title>My Family Health Portrait-Diagram</title>'
+            + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
-                + '<p>My Family Health Portrait-Diagram</p>'
-                + $(topsvgc).html()
-                        + '<DIV style="page-break-after:always"></DIV>'
-                + $(healthtable).html()
+            + '<p>My Family Health Portrait-Diagram</p>'
+            + $(topsvgc).html()
+                    + '<DIV style="page-break-after:always"></DIV>'
+            + $(healthtable).html()
 
-                    + '</head><body>'
-                );
-            }
-             else if(DISPLAY == 'none' ) {
-                myWindow.document.write('<!DOCTYPE html>'
-                + '<html><head><title>My Family Health Portrait-Diagram</title>'
-                + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
-
-                // + '<p>My Family Health Portrait-Diagram</p>'
-                // + $(topsvgc).html()
-                        + '<DIV style="page-break-after:always"></DIV>'
-                + $(healthtable).html()
-                    + '</head><body>'
-                );
-             }
+                + '</head><body>'
+            );
 
             myWindow.focus();
             myWindow.print();
@@ -1474,10 +1404,9 @@ $('#health_table').css('width',masterRight);
             var timer = setInterval(function() {
                 if( myWindow.closed) {
                     clearInterval(timer);
-                    $('.closeimg').show();
                     $('.sticky').show();
                     $('#dialogtext').show();
-                    
+                    $('.closeimg').show();
                     $('#health_table_filter').show();
                     $('#health_table_info').show();
                     $('#health_table_paginate').show();
@@ -1486,9 +1415,6 @@ $('#health_table').css('width',masterRight);
                     $('#topsvg').attr('class','');
                     $('#legendtag').css('width','');
                     $('#legendtag').css('height','');
-
-            
-
                 }
             }, 1000);
 
@@ -1554,6 +1480,9 @@ $('#health_table').css('width',masterRight);
     $.each(HEALTHARRAY, function (key, value) {
         var temp = "";
         var e, name;
+
+//alert ("HEALTHARRAY ARRAY Information:" + JSON.stringify(HEALTHARRAY, null, 2) );
+
 
         for (var item in value) {
             e = value[0];
@@ -1755,6 +1684,7 @@ $('#health_table').css('width',masterRight);
             var TITLE = this.key.toString();
             var p1, p2, name1, name2,rel;
 
+            //alert ("NAMEARRAY ARRAY Information:" + JSON.stringify(NAMEARRAY, null, 2) );
 
             if (NAME == "") {
                 if (GEN == "FEMALE") {
@@ -1766,6 +1696,7 @@ $('#health_table').css('width',masterRight);
                     p2 = parseInt($('#' + ID).attr('y')) + 60;
                 }
 
+                //svg.text(p1, p2, TITLE.toString(), {fontWeight: 'bold', fontSize: '16.5', fill: 'red'});
             }
             if (ID != "") {
                 var splits = new Array();
@@ -1774,6 +1705,7 @@ $('#health_table').css('width',masterRight);
                     p1 = parseInt($('#' + ID).attr('cx')) - 20;
                     p2 = parseInt($('#' + ID).attr('cy')) + 40;
 
+                    //alert(TITLE + " %% " +TITLE.toString().indexOf('_'))
                     if(TITLE.indexOf('_')>0){
                         splits = TITLE.split('_');
                         if (splits[0] == 'paternal' || splits[0] == 'maternal')rel = splits[1];
@@ -1899,7 +1831,16 @@ $('#health_table').css('width',masterRight);
         });
     }
 
-    
+    //function PARSEDISEASE(id){
+    //    var ret;
+    //    var cart = id.substring(0,id.indexOf(':'));
+    //    var dot = id.substring(id.indexOf(':')+1,id.length);
+    //    //alert(dot + "-- " +(dot=='null'))
+    //    if(dot=='null')ret = cart;
+    //    //else return;
+    //    return ret;
+    //
+    //}
 
 
 
@@ -2188,6 +2129,7 @@ $('#health_table').css('width',masterRight);
         var mnr = 0;
         var ptid = "";
         var mtid = "";
+        //alert ("MaternalHalfSiblingsArray ARRAY Information:" + JSON.stringify(MaternalHalfSiblingsArray, null, 2) );
         if(ChildrenArray.length==0)return;
         for (t = 0; t < ChildrenArray.length; t++) {
             var midgen = ChildrenArray[t][0];
@@ -2218,6 +2160,7 @@ $('#health_table').css('width',masterRight);
         var TOTALKIDS = COUNT_FAMILY_KIDS(GrandChildrenArray);
         var TOTALMYKIDS = COUNT_FAMILY_KIDS(ChildrenArray);
 
+        //alert ("CHILDER ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
         if (MIDGEN.toUpperCase() == "MALE")svg.line(LINEGROUP, masterx + 65, mastery + 25, masterx + 65, mastery + 130, {
             id: 'childs',
@@ -2226,6 +2169,7 @@ $('#health_table').css('width',masterRight);
         });
         else svg.line(LINEGROUP, masterx + 45, mastery + 20, masterx + 45, mastery + 130, {id: 'childs', stroke: 'black', strokeWidth: 3});
 
+        //alert ("CHILDER ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
         if (ARRAY.length > 0) {
             for (var p in ARRAY) {
@@ -2353,6 +2297,7 @@ $('#health_table').css('width',masterRight);
         var P1 = new Array();
         var DATAARRAY = new Array();
 
+//alert ("GrandChildrenArray ARRAY Information:" + JSON.stringify(GrandChildrenArray, null, 2) );
 
 
         GrandChildrenArray = GrandChildrenArray.sort(SortById);
@@ -2381,6 +2326,7 @@ $('#health_table').css('width',masterRight);
         var DATAKEY = null;
         var objectsarray = new Array();
 
+        //alert ("GRANDCHILDREN_LOAD ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
         for (var p in ARRAY) {
             var idarray = new Array();
@@ -2536,6 +2482,9 @@ $('#health_table').css('width',masterRight);
     function GRANDCHILDREN_LOADXX(d1, d2, pid) {
         var MIDGEN = $('#me').attr("genders")
         ////Load my spouce
+        //LOAD_SPOUCE_MATERNAL('me', $('#me').attr("class"))
+
+        //alert ("GrandChildrenArray ARRAY Information:" + JSON.stringify(GrandChildrenArray, null, 2) );
 
 
         if(GrandChildrenArray.length==0) return;
@@ -2725,6 +2674,7 @@ $('#health_table').css('width',masterRight);
         var mnr = 0;
         var ptid = "";
         var mtid = "";
+        //alert ("MaternalHalfSiblingsArray ARRAY Information:" + JSON.stringify(MaternalHalfSiblingsArray, null, 2) );
         if(PaternalRelatives.length==0)return;
         //Side character values
         var sidgen = FatherArray[0].gender;
@@ -2768,6 +2718,9 @@ $('#health_table').css('width',masterRight);
         var BROTHERS = COUNT_FAMILY_KIDS(BrothersArray);
         var NEPHEWS = COUNT_FAMILY_KIDS(NephewArray);
         var PATERNALHALFS = COUNT_FAMILY_KIDS(PaternalHalfSiblingsArray);
+        //if(BROTHERS==0)BROTHERS=1;
+        //if(NEPHEWS==0)NEPHEWS=1;
+        //if(PATERNALHALFS==0)PATERNALHALFS=1;
 
         /**\
          *
@@ -2779,6 +2732,8 @@ $('#health_table').css('width',masterRight);
         else if(BROTHERS>0){
             FARBROS = COORDINATES_OF_BELOW_LEFT(BrothersArray);
         }
+        //alert ("PATERNALS_LOAD ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
+        //alert ("PaternalHalfSiblingsArray ARRAY Information:" + JSON.stringify(PaternalHalfSiblingsArray, null, 2) );
 
         for (var p in ARRAY) {
             var idarray = new Array();
@@ -2901,6 +2856,7 @@ $('#health_table').css('width',masterRight);
         var mnr = 0;
         var ptid = "";
         var mtid = "";
+        //alert ("MaternalRelatives ARRAY Information:" + JSON.stringify(MaternalRelatives, null, 2) );
         if(MaternalRelatives.length==0)return;
         var sidgen = MotherArray[0].gender;
         var sid = MotherArray[0].id;
@@ -2943,6 +2899,7 @@ $('#health_table').css('width',masterRight);
         var FARRIGHT ="";
         var FARSIS="";
 
+        // alert ("MATERNALS_LOAD ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
         var SISTERS = COUNT_FAMILY_KIDS(SistersArray);
         var NEPHEWS = COUNT_FAMILY_KIDS(NephewArray);
@@ -2958,6 +2915,9 @@ $('#health_table').css('width',masterRight);
         else if(SISTERS>0){
             FARSIS = COORDINATES_OF_BELOW_RIGHT(SistersArray);
         }
+        //if(MATERNALHALFS>0){
+        //    FARRIGHT = COORDINATES_OF_BELOW_RIGHT(MaternalHalfSiblingsArray);
+        //}
 
         for (var p in ARRAY) {
             var idarray = new Array();
@@ -3350,6 +3310,7 @@ $('#health_table').css('width',masterRight);
     /** COUNT THE NUMBER OF GROUPS(PARENTS) IN ARRAY **/
     function COUNT_GROUPS(ARRAY){
 
+        //alert ("CHILDER ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
         var count = 0;
         var pid = "";
         for (var p in ARRAY) {
@@ -3368,7 +3329,27 @@ $('#health_table').css('width',masterRight);
         return count;
     }
 
-   
+    //function MOST_LEFT_GROUPS(ARRAY){
+    //    var ALLS = new Array();
+    //
+    //    //alert ("CHILDER ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
+    //    var count = 0;
+    //    var pid = "";
+    //    for (var p in ARRAY) {
+    //        var g = ARRAY[p][0];
+    //        var c = ARRAY[p][1];
+    //
+    //        if (SPGEN == 'MALE') {
+    //
+    //            if(pid != ARRAY[p][1]) {
+    //                count = count + 1;
+    //                pid = ARRAY[p][2];
+    //            }
+    //
+    //        }
+    //    }
+    //    return count;
+    //}
 
     /** COUNT THE NUMBER OF GROUPS(NON-PARENTS) IN ARRAY **/
     function COUNT_SINGLE_GROUPS(ARRAY){
@@ -3927,6 +3908,7 @@ $('#health_table').css('width',masterRight);
 
         if(BrothersArray.length==0)return;
 
+        //alert ("BrothersArray ARRAY Information:" + JSON.stringify(BrothersArray, null, 2) );
 
         if (BrothersArray.length > 0) {
             p2 = mastery;
@@ -3949,15 +3931,11 @@ $('#health_table').css('width',masterRight);
                         var PREVIOUSP1 = P1[P1.length - 1][2];
                         var KIDS = COUNT_KIDS(NephewArray, PREVIOUSID);
                         if(KIDS==0)KIDS=1;
-                        var p1;
+
+
 
                         //var check = IS_IN_ARRAY(NephewArray, BID);
-                        if(KIDS==1){
-                         p1 = PREVIOUSP1 - (parseInt(KIDS) * 145);
-                        }
-                        else{
-                            p1 = PREVIOUSP1 - (parseInt(KIDS) * 105);
-                        }
+                        var p1 = PREVIOUSP1 - (parseInt(KIDS) * 75);
 
                         p1temp.push(MIDGEN, MID, p1, PID);
                         P1.push(p1temp);
@@ -4070,6 +4048,7 @@ $('#health_table').css('width',masterRight);
         var mnr = 0;
         var ptid = "";
         var mtid = "";
+        //alert ("PaternalHalfSiblingsArray ARRAY Information:" + JSON.stringify(PaternalHalfSiblingsArray, null, 2) );
         if(PaternalHalfSiblingsArray.length==0)return;
         for (t = 0; t < PaternalHalfSiblingsArray.length; t++) {
             var midgen = PaternalHalfSiblingsArray[t][0];
@@ -4100,7 +4079,9 @@ $('#health_table').css('width',masterRight);
         var xl = new Array();
         var P1 = new Array();
 
+        //alert ("'PatHalfSib' *** PATERNAL ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
+        //var FARRIGHT = COORDINATES_OF_FAMILY_LEFT(BrothersArray,NephewArray);
         var FARRIGHT = COORDINATES_OF_BELOW_LEFT(BrothersArray);
 
 
@@ -4121,8 +4102,21 @@ $('#health_table').css('width',masterRight);
                 //Parse array and build diagram
                 if (p == 0) {
                     DATAKEY = ARRAY[p].id;
-                   
+                    // if (BrothersArray.length > 1) {
+                    //     var d = BrothersArray[BrothersArray.length - 1];
+                    //     lx = parseInt($('#' + d[1]).attr('x'));
+                    //     p1 = parseInt(lx) - 165;
+                    //     //SINGLE_LEFT_CORNER_CONNECTOR(PID,d[1],'MALE',PIDGEN,Level3M,p1);
+                    // }
+                    // else {
+                    //     //p1 = parseInt($('#' + PID).attr('x')) - lx;
+                    //     var ps = LEFT_START_HALF_SIBLINGS_GEN(PIDGEN,PID,MIDGEN);
+                    //     //var ps = GENLINE(PIDGEN, PID);
+                    //     p1 = ps[0];
+                    //     //SINGLE_LEFT_CORNER_CONNECTOR(PID,MID,MIDGEN,PIDGEN,Level3M, p1);
+                    // }
 
+                    //alert(FARRIGHT)
                     var ps = LEFT_START_HALF_SIBLINGS_GEN(PIDGEN,PID,MIDGEN);
 
                     if(typeof FARRIGHT!= 'undefined')p1 = parseInt(FARRIGHT) - 150;
@@ -4225,6 +4219,7 @@ $('#health_table').css('width',masterRight);
         var mnr = 0;
         var ptid = "";
         var mtid = "";
+        //alert ("MaternalHalfSiblingsArray ARRAY Information:" + JSON.stringify(MaternalHalfSiblingsArray, null, 2) );
         if(MaternalHalfSiblingsArray.length==0)return;
         for (t = 0; t < MaternalHalfSiblingsArray.length; t++) {
             var midgen = MaternalHalfSiblingsArray[t][0];
@@ -4252,6 +4247,7 @@ $('#health_table').css('width',masterRight);
         var xl = new Array();
         var P1 = new Array();
 
+        //alert ("'MatHalfSib' *** PATERNAL ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
         var FARRIGHT = COORDINATES_OF_FAMILY(SistersArray,NephewArray);
 
         if (ARRAY.length > 0) {
@@ -4370,10 +4366,12 @@ $('#health_table').css('width',masterRight);
         var xl = new Array();
         var P1 = new Array();
 
+        //alert ("SistersArray ARRAY Information:" + JSON.stringify(SistersArray, null, 2) );
         //Are any family children around
         var TOTALGRANDKIDS = COUNT_FAMILY_KIDS(GrandChildrenArray);
         var TOTALMYKIDS = COUNT_FAMILY_KIDS(ChildrenArray);
 
+        //alert ("ChildrenArray ARRAY Information:" + JSON.stringify(ChildrenArray, null, 2) );
 
         if(SistersArray.length==0)return;
 
@@ -4655,6 +4653,7 @@ $('#health_table').css('width',masterRight);
         var objectsarray = new Array();
         var GRANDGROUPS = "";
 
+        //alert ("MATERNAL ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
         for (var p in ARRAY) {
             var idarray = new Array();
@@ -4669,7 +4668,14 @@ $('#health_table').css('width',masterRight);
                 DATAKEY = ARRAY[p].id;
                 var ps = RIGHT_NEPHEWS_START_GEN(PIDGEN, PID, MIDGEN, GRANDGROUPS);
                 p1 = ps[0];
-               
+                //p2 = ps[1];
+
+                //if (ChildrenArray.length > 0) {
+                //    var d = ChildrenArray[ChildrenArray.length - 1];
+                //    if (d[0] == 'MALE')lx = parseInt($('#' + d[1]).attr('x'));
+                //    else lx = parseInt($('#' + d[1]).attr('cx'));
+                //    p1 = lx + 60;
+                //}
 
                 //Get previous object coordninates
                 p1temp.push(MIDGEN, MID, p1, PID);
@@ -4783,7 +4789,27 @@ $('#health_table').css('width',masterRight);
         }
 
         CONNECTOR(ARRAY,'TEST');
-        
+        //var id = "0";
+        //for (var p in ARRAY) {
+        //    var tmp = new Array();
+        //    if (id == "0") {
+        //        id = ARRAY[p].id;
+        //        tmp.push(ARRAY[p].value[0], ARRAY[p].value[1]);
+        //        objectsarray.push(tmp);
+        //    }
+        //    else if (id != ARRAY[p].id) {
+        //        OBJECTS_CONNECT(objectsarray, 'test');
+        //        objectsarray = new Array();
+        //        id = ARRAY[p].id
+        //        tmp.push(ARRAY[p].value[0], ARRAY[p].value[1]);
+        //        objectsarray.push(tmp);
+        //    }
+        //    else if (id == ARRAY[p].id) {
+        //        tmp.push(ARRAY[p].value[0], ARRAY[p].value[1]);
+        //        objectsarray.push(tmp);
+        //    }
+        //}
+        //OBJECTS_CONNECT(objectsarray, 'ltest');
     }
 
     function LOAD_PATERNAL_OBJECTS(ARRAY) {
@@ -4793,6 +4819,7 @@ $('#health_table').css('width',masterRight);
         var DATAKEY = null;
         var objectsarray = new Array();
 
+        //alert ("PATERNAL NEPHEW ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
         //$.each(ARRAY, function (datakey, data) {
         for (var p in ARRAY) {
@@ -5241,6 +5268,9 @@ $('#health_table').css('width',masterRight);
 
         array = array.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
 
+// alert ("array ARRAY Information:" + JSON.stringify(array, null, 2) );
+
+
         return array[0];
     }
 
@@ -5298,6 +5328,8 @@ $('#health_table').css('width',masterRight);
         var res = -1;
         var amt=0;
 
+        //alert ( ID + " *** ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
+
 
         $.each(ARRAY, function (k, data) {
 
@@ -5341,6 +5373,7 @@ $('#health_table').css('width',masterRight);
                     xl.push([[p1, p2 - 20], [p1, p2], [p1, p2 - 20]]);
                 }
             }
+            //alert ( ID + " *** STACK_CONNECTOR Information:" + JSON.stringify(xl, null, 2) );
 
             svg.polyline(xl, {id: 'Tn_' + ID, fill: 'none', stroke: 'black', strokeWidth: 3});
         }
@@ -5412,6 +5445,8 @@ $('#health_table').css('width',masterRight);
         var DATAARRAY = new Array();
         var nr = 0;
 
+        //MaternalCousinArray = MaternalCousinArray.sort(SortById);
+        //alert ("MaternalCousinArray ARRAY Information:" + JSON.stringify(MaternalCousinArray, null, 2) );
         for (t = 0; t < MaternalCousinArray.length; t++) {
             var key = MaternalCousinArray[t][2];
             var midgen = MaternalCousinArray[t][0];
@@ -5437,6 +5472,7 @@ $('#health_table').css('width',masterRight);
             }
         }
 
+        //alert ("MATERNAL DATAARRAY ARRAY Information:" + JSON.stringify(DATAARRAY, null, 2) );
 
         //mtemp.sort(SortById);
         DATAARRAY = DATAARRAY.sort(SortByNr);
@@ -5451,6 +5487,7 @@ $('#health_table').css('width',masterRight);
         var DATAKEY = null;
         var objectsarray = new Array();
 
+        //alert ("MATERNALS ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
         for (var p in ARRAY) {
             var idarray = new Array();
@@ -5652,6 +5689,7 @@ $('#health_table').css('width',masterRight);
         var id = "";
         var pid = "";
 
+        //alert ("ARRAY ARRAY Information:" + JSON.stringify(PaternalCousinArray, null, 2) );
 
         for (t = 0; t < PaternalCousinArray.length; t++) {
             var key = PaternalCousinArray[t][2];
@@ -5680,6 +5718,7 @@ $('#health_table').css('width',masterRight);
             }
         }
 
+        //alert ("PATERNAL DATAARRAY ARRAY Information:" + JSON.stringify(DATAARRAY, null, 2) );
 
         //ptemp.sort(SortById);
         DATAARRAY = DATAARRAY.sort(SortByNr);
@@ -5695,6 +5734,7 @@ $('#health_table').css('width',masterRight);
         var DATAKEY = null;
         var objectsarray = new Array();
 
+        //alert ("LOAD_PATERNAL_COUSINS_OBJECTS ARRAY Information:" + JSON.stringify(ARRAY, null, 2) );
 
         for (var p in ARRAY) {
             var idarray = new Array();
@@ -6182,8 +6222,6 @@ $('#health_table').css('width',masterRight);
      * Start the Scaling for large pics
      */
 
-
-
     if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
         if (DIAWIDTH > SVGW) {
             var svgdoc = document.getElementById("svgframe");
@@ -6214,7 +6252,6 @@ $('#health_table').css('width',masterRight);
 
         }
         else {
-
 
             var svgdoc = document.getElementById("svgframe");
             var FRAMEHEIGHT = svgdoc.getAttribute("height");
@@ -6269,7 +6306,7 @@ $('#health_table').css('width',masterRight);
         }
     }
     /*
-     Chrome
+     Chrome and FF
      */
     else if(/chrome/i.test( navigator.userAgent )){
 
@@ -6310,9 +6347,9 @@ $('#health_table').css('width',masterRight);
             var RIGHT_X = allXarray.pop();
             var LEFT_X = allXarray[0];
 
-            var wscale = parseInt(RIGHT_X) + 150;
+            var wscale = parseInt(RIGHT_X) + 100;
             var left = parseInt(LEFT_X) - 50;
-            var right = parseInt(RIGHT_X)*0.9;
+            var right = parseInt(RIGHT_X)*1.5;
             //wscale = parseInt(SVGW) + 100;
             hscale = parseInt(hei) + 0;
             svgw.setAttribute('viewBox', left + ' 0 ' + wscale + " " + right);
@@ -6334,7 +6371,7 @@ $('#health_table').css('width',masterRight);
     else {
 
         if (DIAWIDTH > SVGW) {
- 
+
             wscale = parseInt(DIAWIDTH) + 400;
             hscale = parseInt(SVGH);
             svgw.setAttribute('viewBox', +(parseInt(FARLEFT) - 50) + ' 0 ' + wscale + ' 1200');
@@ -6350,13 +6387,12 @@ $('#health_table').css('width',masterRight);
             topdivwidht = $('#topsvg').css('width');
             TOPCLONE = svg.clone( null, svgw)[0];
             TOPCLONE.setAttribute('visibility','hidden');
-            TOPCLONE.setAttribute('height','1000px');
+            TOPCLONE.setAttribute('height','500px');
 
         }
         else {
 
-
-
+            //alert ("allXarray ARRAY Information:" + JSON.stringify(allXarray, null, 2) );
             var RIGHT_X = allXarray.pop();
             var LEFT_X = allXarray[0];
 
@@ -6364,6 +6400,7 @@ $('#health_table').css('width',masterRight);
             var left = parseInt(LEFT_X) - 100;
             hscale = parseInt(hei) + 0;
             svgw.setAttribute('viewBox', left + ' 0 ' + wscale + ' 900');
+            //if(FARLEFT<0) svgw.setAttribute('transform', 'translate('+absleft+',10  )');
             $('#svgframe').css("margin-top", '10px');
             $('#svgframe').css("height", '1000px');
             $('#topsvg').css('overflow', 'hidden');
@@ -6414,7 +6451,9 @@ function LOAD_HEALTH_TABLE(){
     temp1.push(-1);
     temp1.push(personal_information.name + '( Self )');
     temp1.push(personal_information.name + '( Self )');
+    //alert(personal_information.cause_of_death)
     var cod = "";
+    //var cod = ((typeof personal_information.cause_of_death == 'undefined') ? 'Yes' : 'No / ' + personal_information.cause_of_death);
 
 
     if(typeof personal_information.age == 'undefined' && typeof personal_information.estimated_age == 'undefined' && typeof personal_information.cause_of_death == 'undefined'){
@@ -6501,21 +6540,33 @@ function LOAD_HEALTH_TABLE(){
         var SECONDARY_DISEASE = new Array();
         var TOTAL_DISEASE = new Array();
 
+
+        //alert ("diseasearray ARRAY Information:" + JSON.stringify(diseasearray, null, 2) );
+
         //var temp = new Array();
         if(item!=null && typeof item != 'undefined') {
             var FAMNAME = item.name;
+            //alert(FAMNAME)
+            //var RELATION = $.t("fhh_js." + item.relationship);
             var RELATION = item.relationship;
+
+            //if (typeof item == 'object') {
+            //    var fullid =  ($.inArray(key, defaultfamilyarray));
+            //}
 
             var fullid =  ($.inArray(key, defaultfamilyarray));
             var halfid =  ($.inArray(key.substr(0,key.lastIndexOf('_')), defaultfamilyarray));
 
             if(typeof FAMNAME == 'undefined') {
+                //alert("1-->"+FAMNAME)
                 if (fullid != -1) {
+                    //if (item.id == null || typeof item.id == 'undefined') {
                     FAMNAME = key;
                     RELATION = key.substr(key.indexOf('_') + 1, key.length);
                     //}
                 }
                 else if (halfid != -1) {
+                    //if (item.id == null || typeof item.id == 'undefined') {
                     FAMNAME = key;
                     RELATION = key.substr(0, key.lastIndexOf('_'));
                     //}
@@ -6525,6 +6576,11 @@ function LOAD_HEALTH_TABLE(){
                 FAMNAME = FAMNAME + ' (' + RELATION + ')';
             }
 
+            //if (FAMNAME == null && typeof FAMNAME == 'undefined') {
+            //    FAMNAME = '(' + RELATION + ')';
+            //}
+
+            //alert("2-->"+FAMNAME)
             if (typeof FAMNAME != 'undefined') {
                 var NAMEREL;
                 var NAME = FAMNAME;
@@ -6540,13 +6596,9 @@ function LOAD_HEALTH_TABLE(){
                 temp1.push(RELATION);
                 temp1.push(NAMEREL);
                 var COD = "";
-                var EST="";
-
-                // if(typeof item.cause_of_death == 'undefined')
-                if(typeof item.estimated_death_age!= 'undefined' || item.estimated_death_age!= null) EST=item.estimated_death_age;
 
                 if (typeof item.cause_of_death!= 'undefined'){
-                    COD = 'No, ' + item.cause_of_death + '(' + EST +')';
+                    COD = 'No';
                 }
                 else if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
                      COD = 'Unknown';
@@ -6555,9 +6607,18 @@ function LOAD_HEALTH_TABLE(){
                     COD = 'Yes';
                 }
                 else{
-                    COD = 'No, ' + item.cause_of_death  + '(' + EST +')';;
+                    COD = 'No';
                 }
+                //var ag = item.age;
+                //var ea = item.estimated_age;
+                //if(estimated_age)
 
+                //alert(item.age)
+
+
+
+
+                //var COD = ((typeof item.cause_of_death == 'undefined') ? 'Yes' :  'No / ' + item.cause_of_death);
                 var START_COD = new Array();
                 statics = new Array();
                 var diss;
@@ -6641,6 +6702,7 @@ function LOAD_HEALTH_TABLE(){
                     }
                     else {
                         var START_COD = new Array();
+                        //alert(diseasearray.length)
                         START_COD = LOAD_DATA(cod, diseasearray.length)
                         TABLE_DATA_ARRAY = $.merge( $.merge( [], temp1 ), START_COD );
                     }
@@ -6669,7 +6731,6 @@ function LOAD_HEALTH_TABLE(){
         var ID = $(this).attr('data-column');
         var TXT = $(this).attr('id');
         var NAME = $(this).attr('name');
-        var ID = parseInt(ID) + 1;
         oTable.fnSetColumnVis( ID, false );
         /*
          Infor of the closed diseases
@@ -6708,7 +6769,6 @@ SetPersonalInfo();
 
 function openTab(TXT){
     var ID = TXT.substr(TXT.indexOf('_')+1 , TXT.length);
-    var ID=parseInt(ID)+1;
     oTable.fnSetColumnVis( ID, true );
     $('#'+TXT).remove();
 }
@@ -6801,11 +6861,11 @@ function custRound(x,places) {
 }
 
 
-function createDialogMain() {
+function createDialog() {
     var allnames = new Array();
 
-    if($("#optionsPanelMain").dialog( "isOpen" ) == true) {
-        $("#optionsPanelMain").dialog( "open" );
+    if($("#optionsPanel").dialog( "isOpen" ) == true) {
+        $("#optionsPanel").dialog( "open" );
     }
     else {
         var array = new Array();
@@ -6859,9 +6919,10 @@ function createDialogMain() {
         });
 
 
+        //alert ("detdisname ARRAY Information:" + JSON.stringify(array, null, 2) );
 
 
-        var $optdialog = $("<div id='optionsPanelMain' width='800px' class='option_dialog' style='width:800px;'><p>"
+        var $optdialog = $("<div id='optionsPanel' width='800px' class='option_dialog' style='width:800px;'><p>"
         + "You can view, save or print your family health history to share with your health care worker. They can assess your risk for certain diseases, and develop disease prevention strategies that are right for you. You can also share the table with other family members to your your family's disease history. You can change what is shown in the table yourself by selecting from the options below. Please select from the options below what you would like to show on your table."
         + "<table>"
         + "<tr>"
@@ -6875,11 +6936,11 @@ function createDialogMain() {
         + "</tr>"
             + "<tr>"
             + "<td>"
-            + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfoMain()' checked />Show my personal information in the report (such as Date of Birth, Height, or Weight)<br />"
-            + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfoMain()' checked />Show names of family members in the report<br />"
-            + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfoMain()' checked/>Show drawing (the tree diagram of your family's health history)<br />"
-            + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfoMain()' checked/>Show table (your family's health history displayed as a listing table)<br />"
-            + "<input type='button' onclick='CloseInfoMain()' value='close'></button>"
+            + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfo()' checked />Show my personal information in the report (such as Date of Birth, Height, or Weight)<br />"
+            + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfo()' checked />Show names of family members in the report<br />"
+            + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfo()' checked/>Show drawing (the tree diagram of your family's health history)<br />"
+            + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfo()' checked/>Show table (your family's health history displayed as a listing table)<br />"
+            + "<input type='button' onclick='CloseInfo()' value='close'></button>"
             + "</td>"
         + "</tr></table>"
 
@@ -6973,7 +7034,7 @@ function DiseaseDna(){
 
 }
 
-function HideInfoMain(){
+function HideInfo(){
 
     if(document.getElementById("bmi").checked == true) $('#bmi_table').show();
     else if(document.getElementById("bmi").checked == false) $('#bmi_table').hide();
@@ -7041,8 +7102,8 @@ function ClearNames(comp){
 }
 
 
-function CloseInfoMain(){
-    $('#optionsPanelMain').dialog('close');
+function CloseInfo(){
+    $('#optionsPanel').dialog('close');
 }
 
 function ToTop(){
@@ -7066,7 +7127,7 @@ function closedialog(){
         }, 1000);
 }
 
-function TheZoomMain(sel) {
+function TheZoom(sel) {
 
     var allXarray = new Array();
     var allYarray = new Array();
@@ -7237,7 +7298,7 @@ function TheZoomMain(sel) {
             $('#theclone').css("height", '1000px');
             $('#theclone').css("left", '50px');
             $('#theclone').css("margin-top", '10px');
-            // $('#theclone').attr("transform", 'translate(2000 300)');
+            //$('#theclone').attr("transform", 'translate(2000 300)');
 
         }
         var ALLHEIGHT = 2 * parseInt(height);
@@ -7283,9 +7344,32 @@ var shrink=document.getElementById('svgframe')
     var transY=(-NativeCy)*scale + targetY
 
 
+    // if(stringRadio.checked==true)
+    // {
         //---string append method:---
         shrink.setAttribute("transform","translate("+transX+" "+transY+")scale("+scale+" "+scale+")")
-    
+    // }
+    // else //---vs transform matrix object:---
+    // {
+    //     //---start a transform 'request' object---
+    //     var transformRequestObj=mySVG.createSVGTransform()
+    //     //---bind element's current transform to animatable transform list
+    //     var animTransformList=USpath.transform
+    //     //---get baseVal to access/place object transforms
+    //     var transformList=animTransformList.baseVal
+
+    //     //---apply object transforms as matrix---
+    //     //---translate----
+    //     transformRequestObj.setTranslate(transX,transY)
+    //     transformList.appendItem(transformRequestObj)
+    //     transformList.consolidate()
+
+    //     //---scale----
+    //     transformRequestObj.setScale(scale,scale)
+    //     transformList.appendItem(transformRequestObj)
+    //     transformList.consolidate()
+    // }
+    // svgSourceValue.value=shrink.getAttribute("transform")
 }
 
 var SVGId
@@ -7295,6 +7379,9 @@ function fitSVGinDiv(mySVG){
 
      
 
+    // svgDiv.style.width=divWH+"px"
+    // svgDiv.style.height=divWH+"px"
+    // var mySVG=document.getElementById('svgframe')
     var FRAMEWIDTH = mySVG.getAttribute("width");
 
     var bb=mySVG.getBBox()
@@ -7305,6 +7392,7 @@ function fitSVGinDiv(mySVG){
     if(bbw>=bbh){
 
         var factor=bbw/divWH
+        // alert(masterRight + "pop =" + FRAMEWIDTH)
     }
     else{
         
@@ -7316,8 +7404,22 @@ function fitSVGinDiv(mySVG){
     var vbX=(bbw-vbWH)/2
     var vbY=(bbh-vbWH)/2
     //---IE/CH---
-    
+    // if(isFF==0)
+    // {
+    //     var ViewBox=mySVG.viewBox.baseVal
+    //     ViewBox.x=vbX
+    //     ViewBox.y=vbY
+    //     ViewBox.width=vbWH
+    //     ViewBox.height=vbWH
+    // }
+    // else
 
+    // var matrix='0.2 0 20 1 '+vbX+' '+vbY;
+    // mySVG.setAttribute("transform", "scale(" + 100.2 + " " + 1 +")");
+
+    // mySVG.setAttribute("viewBox", "-500 0 3600 800");//Small
+
+    // alert(mySVG.getAttribute('width'))
      mySVG.setAttribute('width','1000')
      mySVG.setAttribute('height','1500')
      mySVG.setAttribute("viewBox", "-100 0 3000 500");//Small
@@ -7325,7 +7427,14 @@ function fitSVGinDiv(mySVG){
     // mySVG.setAttribute("preserveAspectRatio","none");
      mySVG.setAttribute("preserveAspectRatio", "xMinYMin slice");
      
-     
+     // mySVG.setAttribute("transform", "translate(0,0) scale(-100.5,100)");
+  // .setAttribute("preserveAspectRatio", "xMinYMin meet")
+  // .append("g")
+     // .setAttribute("transform", "translate(" + 0 + "," + 0 +") scale(-10.5, -10)");
+                                               
+                        // mySVG.setAttribute('transform','matrix('+matrix+') ');
+
+        // mySVG.setAttribute("viewBox",vbX+" "+vbY+" "+vbWH+" "+vbWH)
 
     //--requred for FF/CH---
     if(isIE==0)
@@ -7341,177 +7450,7 @@ function fitSVGinDiv(mySVG){
 }
 
 var SVGId
-function fitSVGinPrinter(){
-var mySVG;
-
-    var divWH=parseInt(masterRight)
-
-    // svgDiv.style.width=divWH+"px"
-    // svgDiv.style.height=divWH+"px"
-
-
-     mySVG=document.getElementById('svgframe');
-     if(mySVG==null){  mySVG=document.getElementById('theclone')}
-   
-    if(mySVG!=null){
-        var bb=mySVG.getBBox()
-        var bbw=bb.width
-        var bbh=bb.height
-
-        var bbx=bb.x
-        var bby=bb.y
-
-        var cx=bbx+.5*bbw
-        var cy=bby+.5*bbh
-
-        //--use greater of bbw vs bbh--
-        if(bbw>=bbh)
-            var factor=bbw/divWH
-        else
-            var factor=bbh/divWH
-
-        var vbWH=divWH*factor
-
-        var vbX=(bbw-vbWH)/2
-        var vbY=(bbh-vbWH)/2
-        // mySVG.setAttribute("viewBox",vbX+" "+vbY+" "+vbWH+" "+vbWH)
-        }
-    
-    // var angle=90;
-     // mySVG.setAttribute("transform","rotate("+angle+" "+cx+" "+cy+")")
-
-    //---IE/CH---
-    // if(isFF==0)
-    // {
-    //     var ViewBox=mySVG.viewBox.baseVal
-    //     ViewBox.x=vbX
-    //     ViewBox.y=vbY
-    //     ViewBox.width=vbWH
-    //     ViewBox.height=vbWH
-    // }
-    // else
-    //     mySVG.setAttribute("viewBox",vbX+" "+vbY+" "+vbWH+" "+vbWH)
-
-    //--requred for FF/CH---
-    if(isIE==0)
-    {
-        mySVG.setAttribute("width","120%")
-        mySVG.setAttribute("height","120%")
-    }
-    else
-    {
-        mySVG.removeAttribute("width")
-        mySVG.removeAttribute("height")
-    }
-}
-
-
-var Finished=true
-function ROTATE()
-{
-    // if(Finished==true) //--allows initial run---
-    // {
-        Finished=false
-
-var RotateElem=document.getElementById('svgframe')
-
-
- var bb = RotateElem.getBBox();
-    var bbx = bb.x + bb.width/2;
-    var bby = bb.y + bb.height/2;
-
-        // var bb=RotateElem.getBBox()
-        // var bbx=bb.x
-        // var bby=bb.y
-        var bbw=bb.width
-        var bbh=bb.height
-        var cx=bbx+.5*bbw
-        var cy=bby+.5*bbh
-
-        var angle360=360
-        var FPS=100  //---frames per second---
-        var duration=2000 //---ms, 1 second---
-
-var angle=90;
-                RotateElem.setAttribute("transform","rotate("+angle+" "+cx+" "+cy+")")
-
-        //----core animation function---
-        // new AnimateJS(
-        // {
-        //     delay: 1000/FPS,
-        //     duration: duration,
-        //     delta: sineHalf,
-        //     output: function(delta)
-        //     {
-        //         var angle=angle360*delta
-        //         RotateElem.setAttribute("transform","rotate("+angle+" "+cx+" "+cy+")")
-
-        //         if(progress==1)
-        //         {
-        //             RotateElem.removeAttribute("transform")
-        //             Finished=true
-        //             svgSourceValue.value=topsv.innerHTML
-        //         }
-        //     }
-        // })
-    // }
-}
-
-function ROTATE_OLD()
-{
-    var rhombus=document.getElementById('svgframe')
-     var mySVG=document.getElementById('svgframe')
-
-    var deg=parseFloat(90)
-    var transformRequestObj=mySVG.createSVGTransform()
-
-    var animTransformList=mySVG.transform
-    var transformList=animTransformList.baseVal
-
-    var centerX=parseFloat(500)
-    var centerY=parseFloat(500)
-
-    transformRequestObj.setTranslate(-centerX,-centerY)
-    transformList.appendItem(transformRequestObj)
-    transformList.consolidate()
-
-    transformRequestObj.setRotate(deg,0,0)
-    transformList.appendItem(transformRequestObj)
-    transformList.consolidate()
-
-    // computePolyPoints(rhombus) //--remove transform---
-    // rhombus.setAttribute("transform","translate("+(centerX)+" "+(centerY)+")")
-
-    //---show polygon as string---
-    // rhombValue.value=new XMLSerializer().serializeToString(rhombus)
-
-    // var bb=rhombus.getBBox()
-    // rhombWidthValue.value=bb.width
-    // rhombHeightValue.value=bb.height
-}
-
-//---changes all transformed points to screen points---
-function computePolyPoints(Pgon)
-{
-    var sCTM = Pgon.getCTM()
-    var pointsList = Pgon.points;
-    var n = pointsList.numberOfItems;
-    for(var m=0;m<n;m++)
-    {
-        var mySVGPoint = mySVG.createSVGPoint();
-        mySVGPoint.x = pointsList.getItem(m).x
-        mySVGPoint.y = pointsList.getItem(m).y
-        mySVGPointTrans = mySVGPoint.matrixTransform(sCTM)
-        pointsList.getItem(m).x=mySVGPointTrans.x
-        pointsList.getItem(m).y=mySVGPointTrans.y
-    }
-    //---force removal of transform--
-    Pgon.setAttribute("transform","")
-    Pgon.removeAttribute("transform")
-}
-
-var SVGId
-function IESVGinPrinter(){
+function fitSVGinPrint(){
 
     var divWH=parseInt(masterRight)
 
@@ -7546,16 +7485,65 @@ function IESVGinPrinter(){
     //     mySVG.setAttribute("viewBox",vbX+" "+vbY+" "+vbWH+" "+vbWH)
 
     //--requred for FF/CH---
-    // if(isIE==0)
+    if(isIE==0)
+    {
+        mySVG.setAttribute("width","100%")
+        mySVG.setAttribute("height","100%")
+    }
+    else
+    {
+        mySVG.removeAttribute("width")
+        mySVG.removeAttribute("height")
+    }
+}
+
+
+var SVGId
+function IESVGinPrint(){
+
+    var divWH=parseInt(masterRight)
+
+    // svgDiv.style.width=divWH+"px"
+    // svgDiv.style.height=divWH+"px"
+    var mySVG=document.getElementById('svgframe')
+
+    var bb=mySVG.getBBox()
+    var bbw=bb.width
+    var bbh=bb.height
+
+    //--use greater of bbw vs bbh--
+    if(bbw>=bbh)
+        var factor=bbw/divWH
+    else
+        var factor=bbh/divWH
+
+    var vbWH=divWH*factor
+
+    var vbX=(bbw-vbWH)/2
+    var vbY=(bbh-vbWH)/2
+    //---IE/CH---
+    // if(isFF==0)
     // {
-        mySVG.setAttribute("width","120%")
-        mySVG.setAttribute("height","120%")
+    //     var ViewBox=mySVG.viewBox.baseVal
+    //     ViewBox.x=vbX
+    //     ViewBox.y=vbY
+    //     ViewBox.width=vbWH
+    //     ViewBox.height=vbWH
     // }
     // else
-    // {
-    //     mySVG.removeAttribute("width")
-    //     mySVG.removeAttribute("height")
-    // }
+    //     mySVG.setAttribute("viewBox",vbX+" "+vbY+" "+vbWH+" "+vbWH)
+
+    //--requred for FF/CH---
+    if(isIE==0)
+    {
+        mySVG.setAttribute("width","100%")
+        mySVG.setAttribute("height","100%")
+    }
+    else
+    {
+        mySVG.removeAttribute("width")
+        mySVG.removeAttribute("height")
+    }
 }
 
 

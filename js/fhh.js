@@ -13,6 +13,10 @@ $(document).ready(function() {
 	}
 	*/
 	
+	$("#view_diagram_and_table_button").on('click', function () {
+		$(this).css('cursor', 'wait');
+	});
+	
 	if (typeof i18n != "undefined") {
 		var option = { 
 			resGetPath: '../locales/__ns__-__lng__.json',
@@ -1341,7 +1345,7 @@ function add_personal_history_row(table) {
 	new_row.append("<td class='action add_history'>&nbsp;</td>");
 	
 	var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
-	var update_history = $("<A href='#' class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
+	var update_history = $("<A class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
 	update_history_td.append(update_history);
 
 	update_history.on("click", function() { 
@@ -1386,7 +1390,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 
 		var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
 
-		var update_history = $("<A href='#' class='action update_history'><img style='border:0px'  src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
+		var update_history = $("<A class='action update_history'><img style='border:0px'  src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
 		update_history_td.append(update_history);
 
 		update_history.attr("relationship_id", relationship_id);
@@ -2004,7 +2008,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$("#update_family_member_health_history_dialog").find("#family-title")
 		.text($.t("info_dialog.personal_information_for") + " " + person_name_or_relationship);
 	$("#update_family_member_health_history_dialog").find("#hi-title")
-		.text($.t("info_dialog.personal_information_for") + " " + person_name_or_relationship);
+		.text($.t("info_dialog.health_information_for") + " " + person_name_or_relationship);
 	$("#update_family_member_health_history_dialog").find("#bi-title")
 		.text($.t("info_dialog.race_ethnicity_information_for") + " " + person_name_or_relationship);
 		
@@ -2481,6 +2485,19 @@ function get_relationship_from_relationship_id (id) {
 	if (id.substring(0,6) == 'nephew') return 'nephew';
 	
 	return 'unknown'
+}
+
+
+// Check to see whether this browser has the FileAPI
+function is_IE_8_or_9 () {
+	var val = which_IE();
+	if (val == 8 || val == 9) return true;
+	return false;
+}
+
+function which_IE(){
+  var myNav = navigator.userAgent.toLowerCase();
+  return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
 }
 
 // To prevent losing info when leaving page

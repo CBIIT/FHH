@@ -178,8 +178,13 @@ a.button_link {
 }
 
 a.button_link:hover {
+  background-color:#DDD;
 	border:1px solid #444;
   cursor:pointer
+}
+a.button_link:active {
+  background-color:#BBB;
+  cursor:wait
 }
 
 .instructions {

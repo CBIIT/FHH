@@ -6,7 +6,7 @@
        	</td>
         <td class="colTwoSimple instructions" > 
         	<span class='translate' data-i18n='info_dialog.health_vault'></span>
-        	<a id="loadFromMshv" tabindex="90" href="fhh.html?action=load">
+					<a href="javascript://nop/" onclick="health_vault()">
         	<img src="../images/copy_from_hv_sm.gif" alt="Copy from Microsoft HealthVault" align="right"></a>
 				</td>
 		</tr></tbody>
@@ -92,3 +92,12 @@
 <br/>
 	<button id='addPersonInformationSubmitButton' class="translate" data-i18n='info_dialog.btn1_fam_hist'>Next </button>
 	<button id='addPersonInformationCancelButton' class="translate" data-i18n='info_dialog.btn2_fam_hist'>Cancel </button>
+	
+	
+<script type='text/javascript' >
+	
+function health_vault() {
+	window.open("./static/health_vault_en.html", "", "width=800, height=600, scrollbars=yes");
+}
+
+</script>

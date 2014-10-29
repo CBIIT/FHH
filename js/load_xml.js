@@ -135,6 +135,12 @@ function afterCompletion(xhr,status){
 
 
 function bind_load_dropbox() {
+	if (is_IE_8_or_9() ) {
+		$("#load_from_dropbox").append("<P><I>This feature has been tested and is supported in the following browsers - Internet Explorer 10 and recent versions, Firefox, Chrome, Safari.</I></P>");
+		$("#load_dropbox_instructions").hide();
+		return;
+	}
+	
 	if (typeof DROPBOX_APP_KEY == 'undefined') {
 		if (typeof DEBUG != 'undefined' && DEBUG) $("#load_from_dropbox").append("No Dropbox App Key Defined");	
 		else $("#load_from_dropbox").append("Coming Soon");	
@@ -168,6 +174,13 @@ function bind_load_dropbox() {
 
 
 function bind_load_google_drive() {
+	if (is_IE_8_or_9() ) {
+		$("#load_from_google_drive").append("<P><I>This feature has been tested and is supported in the following browsers - Internet Explorer 10 and recent versions, Firefox, Chrome, Safari.</I></P>");
+		$("#load_google_drive_instructions").hide();
+		return;
+	}
+	
+	
 	if (typeof GOOGLE_CLIENT_ID == 'undefined') {
 		if (typeof DEBUG != 'undefined' && DEBUG) $("#load_from_google_drive").append("No Google Drive App Key Defined");				
 		else $("#load_from_google_drive").append("Coming Soon");	
