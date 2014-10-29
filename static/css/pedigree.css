@@ -394,6 +394,8 @@ div.toolbar{
     /*width:  100%;*/
     padding-top: 1px;
     padding-left: 20px;
+    font-size: 15px;
+    font-weight: bold;
     /*margin-top: 250px;*/
 }
 
@@ -431,6 +433,7 @@ div.toolbar{
     background: white;
     padding: 6px 6px 6px 12px;
     color: #000000;
+    font-size: 15px;
 }
 
 
@@ -496,7 +499,7 @@ div.toolbar{
 }
 
 #bmi_table td{
-    font: bold 12px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
+    font: bold 15px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     text-align: left;
 }
 
@@ -709,10 +712,21 @@ svg#svgcloneframe {
     }
 
 
+.gear {
+   animation-name: ckw;
+    animation-duration: 15.5s;
+    /* Things added */
+    animation-iteration-count: infinite;
+    transform-origin: 50% 50%;
+    display: inline-block;
+}
+
     @keyframes rotation {
     from {transform: rotate(0deg);}
     to   {transform: rotate(359deg);}
     }
+
+    /*TD {font-size:10px}*/
     /*#health_table {*/
         /*page-break-before:always;*/
     /*}*/

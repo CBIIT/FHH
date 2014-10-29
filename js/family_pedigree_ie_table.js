@@ -1523,7 +1523,6 @@ function TheZoom(sel) {
 
         }
         else {
-
             if (arr[0] < 0)X = parseInt(arr[0]) - 100;
             else X = -100;
             var REALLONG = parseInt(masterRight) * 2.8;
