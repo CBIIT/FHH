@@ -82,7 +82,7 @@ function xmlload() {
     //IE 8
 if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
     var b = parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)));
-    if(b==8 || b==9) {
+    if(b==7 || b==8 || b==9) {
         IEloadTable();
         return;
     }
@@ -1242,7 +1242,6 @@ $('#health_table').css('width',masterRight);
         $('#health_table_paginate').hide();
         $('#legendtag').css('width','300px');
         $('#legendtag').css('height','50px');
-         $(healthtable).css('left','5px');
 
         /**** ***/
             // var mySVG=document.getElementById('svgframe')
@@ -1259,7 +1258,7 @@ $('#health_table').css('width',masterRight);
 
             $('#dialogtext').hide();
             var DocumentContainer = $(mdialog);
-            var WindowObject = window.open('', "Print", "width=800,height=1000,top=200,left=10,toolbars=no,scrollbars=yes,status=no,resizable=no");
+            var WindowObject = window.open('', "Print", "width=800,height=1000,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no");
             WindowObject.document.writeln('<!DOCTYPE html>'
             + '<html><head><title>My Family Health Portrait-Diagram</title>'
             +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
@@ -1315,16 +1314,15 @@ $('#health_table').css('width',masterRight);
             $('#legendtag').css('width','300px');
             $('#legendtag').css('height','50px');
 
-            var myWindow=window.open(prand,'Print','width=900,height=900,top=200,left=10,toolbars=no,scrollbars=yes,status=no,resizable=no');
+            var myWindow=window.open(prand,'Print','width=900,height=900,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no');
 
-            $('#bmi_table').css('font-size','12px');
+            $('#bmi_table').css('font-size','15px');
 
  // $('#svgframe').attr('class', 'gear');
             var printsvg =$('#svgframe');
 
             var topsvgc = $('#topsvg');
             var healthtable = $('#health_table_wrapper');
-             $(healthtable).css('left','5px');
 
 
 /**** ***/
@@ -1401,8 +1399,7 @@ $('#health_table').css('width',masterRight);
             // ROTATE();
 
 
-            $('#bmi_table').css('font-size','20px');
-            $('#family_pedigree_info').css('font-size','20px');
+            $('#bmi_table').css('font-size','10px');
             $('.closeimg').css('visibility', 'hidden');
             $('#health_table_filter').hide();
             $('#health_table_info').hide();
@@ -1414,11 +1411,10 @@ $('#health_table').css('width',masterRight);
 
 
             <!-- PRINT STARTS HERE -->
-            var myWindow=window.open(prand,'Print','width=900,height=900,top=200,left=10,toolbars=no,scrollbars=yes,status=no,resizable=no');
+            var myWindow=window.open(prand,'Print','width=900,height=900,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no');
             var topsvgc = $('#topsvg');
             var healthtable = $('#health_table_wrapper');
-            $(healthtable).css('font-size','18px');
-            $(healthtable).css('left','10px');
+            // $(healthtable).css('font-size','15px');
             var printsvg =$('#svgframe');
 
 /**** ***/
@@ -1462,7 +1458,7 @@ $('#health_table').css('width',masterRight);
 
                 // + '<p>My Family Health Portrait-Diagram</p>'
                 // + $(topsvgc).html()
-                        + '<DIV style="page-break-after:none"></DIV>'
+                        + '<DIV style="page-break-after:always"></DIV>'
                 + $(healthtable).html()
                     + '</head><body>'
                 );
