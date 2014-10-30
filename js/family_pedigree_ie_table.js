@@ -166,10 +166,10 @@ function IEloadTable() {
 
 
         '<div id="family_pedigree_info" class="brk">' +
-        '<div>' +
+        '<div style="width:100%">' +
         '<table id="closed_table" ><tr><td></td></tr></table>' +
 
-        '<table id="health_table" class="display compact">' +
+        '<table id="health_table" class="grid" style="width:100%">' +
         '<caption style="font-size:12px;text-align: left;left:25px;">' + today + '</caption>' +
         '<thead></thead>' +
         '<tfoot></tfoot>' +
@@ -197,13 +197,12 @@ function IEloadTable() {
 
             oTable = $('#health_table').dataTable({
                 "bPaginate": true,
-                "bAutoWidth": true,
+                "bAutoWidth": false,
                 "bScrollCollapse": false,
                 "bLengthChange": false,
                 "bFilter": true,
                 "displayLength": 100,
                 "dom": '<"toolbar">t<plf>',
-
                 tableTools: {
                     "aButtons": ["print"]
                 },
@@ -536,12 +535,13 @@ if (personal_information && personal_information.length > 0){
         $('#health_table_paginate').hide();
         // $('#legendtag').css('width','300px');
         // $('#legendtag').css('height','50px');
-
+        $(healthtable).css('width','100%');
+        $(healthtable).css('font-size','12px');
        
 
             $('#dialogtext').hide();
             var DocumentContainer = $(mdialog);
-            var WindowObject = window.open('', "Print", "width=800,height=1000,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no");
+            var WindowObject = window.open('', "Print", "width=1000,height=1000,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no");
             WindowObject.document.writeln('<!DOCTYPE html>'
             + '<html><head><title>My Family Health Table</title>'
             +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'

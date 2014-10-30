@@ -396,6 +396,7 @@ div.toolbar{
     padding-left: 20px;
     font-size: 15px;
     font-weight: bold;
+    table-layout:fixed;
     /*margin-top: 250px;*/
 }
 
