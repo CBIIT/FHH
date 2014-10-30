@@ -311,6 +311,7 @@ if (personal_information && personal_information.length > 0){
             if (item == 'undefined' || item == null) item = "";
             if (item.id) {
 
+                if (item['Health History'] && item['Health History'].length > 0){  
                 $.each(item['Health History'], function (k, data) {
                     var dn = data['Disease Name'];
                     var details =  data['Detailed Disease Name'];
@@ -324,6 +325,7 @@ if (personal_information && personal_information.length > 0){
                     }
                 });
             }
+            }
         });
 }
 
@@ -332,9 +334,6 @@ if (personal_information && personal_information.length > 0){
         HEADERS.push({"title":'Name & Relationship'});
         HEADERS.push({"title":'Name & Relationship'});
         HEADERS.push({"title":'Still Living'});
-
-
-
 
         for (var t = 0; t < STATICDISEASES.length; t++) {
             var NAME = STATICDISEASES[t];
@@ -346,7 +345,6 @@ if (personal_information && personal_information.length > 0){
             /*
              Get only values that are not static
              */
-            //if ($.inArray(NAME.toLowerCase(), STATICDISEASES) == -1){alert(NAME)}
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
@@ -364,7 +362,6 @@ if (personal_information && personal_information.length > 0){
             /*
              Get only values that are not static
              */
-            //if ($.inArray(NAME.toLowerCase(), STATICDISEASES) == -1){alert(NAME)}
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
@@ -455,6 +452,8 @@ if (personal_information && personal_information.length > 0){
 
      weight, height,age,weight_unit,height_unit;
      BMI;
+
+// if (personal_information && personal_information.length > 0){
     if(typeof personal_information.weight == 'undefined' || personal_information.weight == null || personal_information.weight == 'null') {
         weight="";
         weight_unit="";
@@ -464,6 +463,7 @@ if (personal_information && personal_information.length > 0){
         weight_unit =  personal_information.weight_unit;
 
     }
+
     if(typeof personal_information.height == 'undefined' || personal_information.height == null) {
         height="";
         height_unit="";
@@ -492,12 +492,16 @@ if (personal_information && personal_information.length > 0){
         BMI = "";
     }
 
-
-    $('#age').text = age;
+$('#age').text = age;
     $('#age').append($("<span><b></b></span>").text(age));
     if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + height_unit));
     if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + weight_unit));
     $('#abmi').append($("<span><b></b></span>").text( BMI));
+    
+// }
+
+
+    
 
    
 
@@ -751,6 +755,7 @@ function LOAD_HEALTH_TABLE(){
     mystatics = $.merge( $.merge( [], temp1 ), MYSTART_COD );
 
     if(myhealth.length>0) {
+         if (myhealth && myhealth.length > 0){  
         $.each(myhealth, function (key, item) {
             var tmp = item['Disease Name'];
             var details = item['Detailed Disease Name'];
@@ -779,6 +784,7 @@ function LOAD_HEALTH_TABLE(){
                 }
             }
         });
+        }
 
         TABLE_DATA_ARRAY = $.merge($.merge( $.merge( [], mystatics ), MYPRIMARY_DISEASE ), MYSECONDARY_DISEASE);
     }
@@ -796,8 +802,6 @@ function LOAD_HEALTH_TABLE(){
 
 
 if (personal_information && typeof personal_information != 'undefined'){
-
-
     $.each(personal_information, function(key, item) {
         var temp1 = new Array();
         var temp2 = new Array();
@@ -806,7 +810,7 @@ if (personal_information && typeof personal_information != 'undefined'){
         var SECONDARY_DISEASE = new Array();
         var TOTAL_DISEASE = new Array();
 
-var fullid =  ($.inArray(key, defaultfamilyarray));
+        var fullid =  ($.inArray(key, defaultfamilyarray));
             var halfid =  ($.inArray(key.substr(0,key.lastIndexOf('_')), defaultfamilyarray));
 
         if(fullid >= 0 || halfid >= 0) {
@@ -922,7 +926,7 @@ var fullid =  ($.inArray(key, defaultfamilyarray));
                 if (typeof item['Health History'] != 'undefined') {
                     var temp_stat = new Array();
 
-                    if (item['Health History'].length > 0) {
+                    if (item['Health History'] && item['Health History'].length > 0){  
                         $.each(item['Health History'], function (key, item) {
                             var tmp = item['Disease Name'];
                             var details =  item['Detailed Disease Name'] ;
@@ -1143,19 +1147,23 @@ if (personal_information && personal_information.length > 0){
                 if (typeof item.id != 'undefined') {
                     if (item['Health History']) {
                         var health = new Array();
-                        health = item['Health History'];
-                        $.each(health, function (k, data) {
-                            var thename, temp;
-                            var disname = data['Disease Name'];
-                            var detdisname = data['Detailed Disease Name'];
-                            if(detdisname=='diseases:null') detdisname = null;
-                            if (detdisname == null) thename = disname;
-                            else thename = detdisname;
-                            if ($.inArray(thename, allnames) == -1) {
-                                allnames.push(thename);
-                                array.push("<option id=" + disname + " value='" + detdisname + "'>" + thename + "</option>")
-                            }
-                        });
+
+                         if (item['Health History'] && item['Health History'].length > 0){  
+                            health = item['Health History'];
+
+                            $.each(health, function (k, data) {
+                                var thename, temp;
+                                var disname = data['Disease Name'];
+                                var detdisname = data['Detailed Disease Name'];
+                                if(detdisname=='diseases:null') detdisname = null;
+                                if (detdisname == null) thename = disname;
+                                else thename = detdisname;
+                                if ($.inArray(thename, allnames) == -1) {
+                                    allnames.push(thename);
+                                    array.push("<option id=" + disname + " value='" + detdisname + "'>" + thename + "</option>")
+                                }
+                            });
+                        }
                     }
                 }
             }
@@ -1172,7 +1180,7 @@ if (personal_information && personal_information.length > 0){
         + "<tr>"
         + "<td>"
         + "<label for='diseaseopts'>Select a disease or condition to highlight in the table  </label>"
-        + "<select id='diseaseopts' onchange='DiseaseDna()'>"
+        + "<select id='diseaseopts' onchange=''>"
         + array.toString()
         + "<option value='one'></option>"
         + "</select>"
@@ -1210,73 +1218,76 @@ if (personal_information && personal_information.length > 0){
 
 
 function ClearDna(){
-    $.each(personal_information, function (key, item) {
-        if (typeof item != 'undefined'){
-            var ID = item.id;
-            if (typeof ID != 'undefined') {
-                $('#' + ID).attr({fill: 'silver', stroke: 'red'});
-            }
-        }
-    });
-}
-
-function DiseaseDna(){
-
-    ClearDna();
-
-    var selectBox = document.getElementById("diseaseopts");
-    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-
-
-    /**
-     * Me values
-     */
-    $.each(personal_information['Health History'], function (k, data) {
-        if(typeof data !='undefined') {
-            var ID = 'me';
-            var health = new Array();
-            health = data;
-            $('#' + ID).attr({fill: 'slateblue', stroke: 'black'});
-            $.each(health, function (t, value) {
-                if (selectedValue == value) {
-                    $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
-                    found = value;
-                }
-                else if (selectedValue == value) {
-                    $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
-                    found = value;
-                }
-
-            });
-        }
-    });
-
-
-    $.each(personal_information, function (key, item) {
-        if(typeof item !='undefined') {
-            var ID = item.id;
-            if (typeof ID != 'undefined') {
-                if (item['Health History']) {
-                    var health = new Array();
-                    health = item['Health History'];
-                    $.each(health, function (k, data) {
-
-                        var detdisname = data['Detailed Disease Name'];
-                        var disname = data['Disease Name'];
-
-                        if (selectedValue == detdisname) {
-                            $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
-                        }
-                        else if (selectedValue == disname) {
-                            $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
-                        }
-                    });
+    if (personal_information && personal_information.length > 0){ 
+        $.each(personal_information, function (key, item) {
+            if (typeof item != 'undefined'){
+                var ID = item.id;
+                if (typeof ID != 'undefined') {
+                    $('#' + ID).attr({fill: 'silver', stroke: 'red'});
                 }
             }
-        }
-    });
-
+        });
+    }
 }
+
+// function DiseaseDna(){
+
+//     ClearDna();
+
+//     var selectBox = document.getElementById("diseaseopts");
+//     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+
+
+//     /**
+//      * Me values
+//      */
+
+//     $.each(personal_information['Health History'], function (k, data) {
+//         if(typeof data !='undefined') {
+//             var ID = 'me';
+//             var health = new Array();
+//             health = data;
+//             $('#' + ID).attr({fill: 'slateblue', stroke: 'black'});
+//             $.each(health, function (t, value) {
+//                 if (selectedValue == value) {
+//                     $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
+//                     found = value;
+//                 }
+//                 else if (selectedValue == value) {
+//                     $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
+//                     found = value;
+//                 }
+
+//             });
+//         }
+//     });
+
+
+//     $.each(personal_information, function (key, item) {
+//         if(typeof item !='undefined') {
+//             var ID = item.id;
+//             if (typeof ID != 'undefined') {
+//                 if (item['Health History']) {
+//                     var health = new Array();
+//                     health = item['Health History'];
+//                     $.each(health, function (k, data) {
+
+//                         var detdisname = data['Detailed Disease Name'];
+//                         var disname = data['Disease Name'];
+
+//                         if (selectedValue == detdisname) {
+//                             $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
+//                         }
+//                         else if (selectedValue == disname) {
+//                             $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
+//                         }
+//                     });
+//                 }
+//             }
+//         }
+//     });
+
+// }
 
 function HideInfo(){
 
@@ -1369,192 +1380,192 @@ function closedialog(){
         }, 1000);
 }
 
-function TheZoom(sel) {
+// function TheZoom(sel) {
 
-    var allXarray = new Array();
-    var allYarray = new Array();
+//     var allXarray = new Array();
+//     var allYarray = new Array();
 
-    $("#svgframe").each(function() {
-        $('circle').each(function (index) {
-            var cla = $(this).attr('genders')
-            var cx = $(this).attr('cx');
-            var cy = $(this).attr('cy');
-            if (typeof cla != 'undefined') {
-                cla = $(this).attr('genders').toLowerCase();
-                if ($.inArray(cx, allXarray) == -1 && cla == 'female') {
-                    allXarray.push(cx);
-                    allYarray.push(cy);
-                }
-            }
-        });
-    });
-    $("#svgframe").each(function() {
-        $('rect').each(function (index) {
-            var cla = $(this).attr('genders')
-            var x = $(this).attr('x');
-            var y = $(this).attr('y');
-            if (typeof cla != 'undefined') {
-                cla = $(this).attr('genders').toLowerCase();
-                if ($.inArray(x, allXarray) == -1 && cla == 'male') {
-                    allXarray.push(x);
-                    allYarray.push(y);
-                }
-            }
-        });
-    });
+//     $("#svgframe").each(function() {
+//         $('circle').each(function (index) {
+//             var cla = $(this).attr('genders')
+//             var cx = $(this).attr('cx');
+//             var cy = $(this).attr('cy');
+//             if (typeof cla != 'undefined') {
+//                 cla = $(this).attr('genders').toLowerCase();
+//                 if ($.inArray(cx, allXarray) == -1 && cla == 'female') {
+//                     allXarray.push(cx);
+//                     allYarray.push(cy);
+//                 }
+//             }
+//         });
+//     });
+//     $("#svgframe").each(function() {
+//         $('rect').each(function (index) {
+//             var cla = $(this).attr('genders')
+//             var x = $(this).attr('x');
+//             var y = $(this).attr('y');
+//             if (typeof cla != 'undefined') {
+//                 cla = $(this).attr('genders').toLowerCase();
+//                 if ($.inArray(x, allXarray) == -1 && cla == 'male') {
+//                     allXarray.push(x);
+//                     allYarray.push(y);
+//                 }
+//             }
+//         });
+//     });
 
-    allXarray = allXarray.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
-    allYarray = allYarray.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
+//     allXarray = allXarray.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
+//     allYarray = allYarray.sort(function(a,b){return a - b}) //Array now becomes [7, 8, 25, 41]
 
-    var selectedVal = sel.options[sel.selectedIndex].value;
+//     var selectedVal = sel.options[sel.selectedIndex].value;
 
-    var arr = new Array();
-    var X=0;
-    var Y=0;
-    var width=500;
-    var height=600;
-    var newX=100;
-    var newY=100;
+//     var arr = new Array();
+//     var X=0;
+//     var Y=0;
+//     var width=500;
+//     var height=600;
+//     var newX=100;
+//     var newY=100;
 
-    if (selectedVal == '200') {
-        if(nowselected=='200')return;
-        nowselected = selectedVal;
+//     if (selectedVal == '200') {
+//         if(nowselected=='200')return;
+//         nowselected = selectedVal;
 
-        var svgdoc = document.getElementById("svgframe");
-        var FRAMEHEIGHT = svgdoc.getAttribute("height");
-        var FRAMEWIDTH = svgdoc.getAttribute("width");
-        var BOX = svgdoc.getAttribute("viewBox");
-        arr = BOX.split(' ');
-        var Xarray = new Array()
+//         var svgdoc = document.getElementById("svgframe");
+//         var FRAMEHEIGHT = svgdoc.getAttribute("height");
+//         var FRAMEWIDTH = svgdoc.getAttribute("width");
+//         var BOX = svgdoc.getAttribute("viewBox");
+//         arr = BOX.split(' ');
+//         var Xarray = new Array()
 
-        $("#svgframe").each(function () {
-            $('rect').each(function (index) {
-                var cla = $(this).attr('genders')
-                var x = $(this).attr('x');
-                var y = $(this).attr('y');
-                if (typeof cla != 'undefined') {
-                    cla = $(this).attr('genders').toLowerCase();
-                    if ($.inArray(x, Xarray) == -1 && cla == 'male') {
-                        Xarray.push(x);
-                    }
-                }
-            });
-        });
+//         $("#svgframe").each(function () {
+//             $('rect').each(function (index) {
+//                 var cla = $(this).attr('genders')
+//                 var x = $(this).attr('x');
+//                 var y = $(this).attr('y');
+//                 if (typeof cla != 'undefined') {
+//                     cla = $(this).attr('genders').toLowerCase();
+//                     if ($.inArray(x, Xarray) == -1 && cla == 'male') {
+//                         Xarray.push(x);
+//                     }
+//                 }
+//             });
+//         });
 
-        Xarray = Xarray.sort(function (a, b) {
-            return a - b
-        }) //Array now becomes [7, 8, 25, 41]
+//         Xarray = Xarray.sort(function (a, b) {
+//             return a - b
+//         }) //Array now becomes [7, 8, 25, 41]
 
-        var FARLEFT = Xarray[0];
+//         var FARLEFT = Xarray[0];
 
-        width = parseInt(arr[2]) * 0.99;
-        height = parseInt(arr[3]) * 1.50;
+//         width = parseInt(arr[2]) * 0.99;
+//         height = parseInt(arr[3]) * 1.50;
 
-        X = -200;
-        Y = 30;
-        var REALLONG = parseInt(masterRight) * 1.3;
+//         X = -200;
+//         Y = 30;
+//         var REALLONG = parseInt(masterRight) * 1.3;
 
-        var TOTWIDTH = parseInt(width) + (2 * parseInt(X));
+//         var TOTWIDTH = parseInt(width) + (2 * parseInt(X));
 
-        if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ) {
-            var RIGHT_X = allXarray.pop();
-            var LEFT_X = allXarray[0];
+//         if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ) {
+//             var RIGHT_X = allXarray.pop();
+//             var LEFT_X = allXarray[0];
 
-            if (arr[0] < 0)X = parseInt(arr[0]) - 100;
-            else X = -100;
+//             if (arr[0] < 0)X = parseInt(arr[0]) - 100;
+//             else X = -100;
 
-            var wscale = parseInt(RIGHT_X)*0.5;
-            var left = -Math.abs(RIGHT_X);
-            var right = parseInt(RIGHT_X)*0.01;
-            var REALLONG = parseInt(masterRight) * 3.1;
-
-
-            height = parseInt(arr[3]) * 0.40;
-            width = parseInt(arr[2]) * 1.99;
-            X = -200;
-            Y = 80;
-
-            svgdoc.setAttribute("viewBox",  '-350 100 ' + -20 + ' -15');
-            svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
-            svgdoc.setAttribute("width",REALLONG + "px");
-            svgdoc.setAttribute("height","1000px");
-
-            $('#topsvg').css("height", "1000px");
-            $('#topsvg').css("overflow", "scroll");
-            $('#theclone').css("left", '50px');
-            $('#theclone').css("margin-top", '10px');
-            /*overflow: scroll;*/
-            //svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
-
-            svgdoc.setAttribute('id', 'theclone');
-            $('#theclone').css("width", '3000px');
-            $('#theclone').css("height", '600px');
-            $('#theclone').css("left", '50px');
-            $('#theclone').css("z-index", '99999');
-
-            $('#pattext').css("font-size", '20px');
-            $('#mattext').css("font-size", '20px');
-            $('#f1text').css("font-size", '20px');
-            $('#f2text').css("font-size", '20px');
-            $('#f3text').css("font-size", '20px');
-            $('#f4text').css("font-size", '20px');
+//             var wscale = parseInt(RIGHT_X)*0.5;
+//             var left = -Math.abs(RIGHT_X);
+//             var right = parseInt(RIGHT_X)*0.01;
+//             var REALLONG = parseInt(masterRight) * 3.1;
 
 
-            //$('#theclone').attr("transform", 'translate(2000 300)');
-        }
-        else if(/chrome/i.test( navigator.userAgent )){
-            var RIGHT_X = allXarray.pop();
-            var LEFT_X = allXarray[0];
+//             height = parseInt(arr[3]) * 0.40;
+//             width = parseInt(arr[2]) * 1.99;
+//             X = -200;
+//             Y = 80;
 
-            if (arr[0] < 0)X = parseInt(arr[0]) - 100;
-            else X = -100;
-            var REALLONG = parseInt(masterRight) * 3.1;
-            svgdoc.setAttribute("viewBox", [X + " -10 " + REALLONG + " 1200"]);
-            //svgdoc.setAttribute("preserveAspectRatio","none");
-            svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
-            svgdoc.setAttribute("width",REALLONG + "px");
-            svgdoc.setAttribute("height","1000px");
-            $('#topsvg').css("overflow-y", "scroll")
-            $('#topsvg').css('width', parseInt(masterRight)-100);
-            svgdoc.setAttribute('id', 'theclone');
-            $('#theclone').css("height", '1000px');
-            $('#theclone').css("left", '50px');
-            $('#theclone').css("margin-top", '10px');
+//             svgdoc.setAttribute("viewBox",  '-350 100 ' + -20 + ' -15');
+//             svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
+//             svgdoc.setAttribute("width",REALLONG + "px");
+//             svgdoc.setAttribute("height","1000px");
 
-        }
-        else {
-            if (arr[0] < 0)X = parseInt(arr[0]) - 100;
-            else X = -100;
-            var REALLONG = parseInt(masterRight) * 2.8;
-            TOTWIDTH = parseInt(TOTWIDTH);
-            svgdoc.setAttribute("viewBox", [X + " -10 " + REALLONG + " 1000"]);
-            svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
-            svgdoc.setAttribute("width",REALLONG + "px");
-            svgdoc.setAttribute("height","1000px");
-            //svgdoc.setAttribute("preserveAspectRatio","none");
+//             $('#topsvg').css("height", "1000px");
+//             $('#topsvg').css("overflow", "scroll");
+//             $('#theclone').css("left", '50px');
+//             $('#theclone').css("margin-top", '10px');
+//             /*overflow: scroll;*/
+//             //svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
 
-            $('#topsvg').css("overflow-y", "scroll")
-            $('#topsvg').css('width', parseInt(masterRight)-100);
-            svgdoc.setAttribute('id', 'theclone');
-            $('#theclone').css("height", '1000px');
-            $('#theclone').css("left", '50px');
-            $('#theclone').css("margin-top", '10px');
-            //$('#theclone').attr("transform", 'translate(2000 300)');
+//             svgdoc.setAttribute('id', 'theclone');
+//             $('#theclone').css("width", '3000px');
+//             $('#theclone').css("height", '600px');
+//             $('#theclone').css("left", '50px');
+//             $('#theclone').css("z-index", '99999');
 
-        }
-        var ALLHEIGHT = 2 * parseInt(height);
-        $('.namebox').css('font-size','15px');
-    }
-    else if(selectedVal == '100') {
-
-        nowselected = selectedVal;
-        $(mdialog).dialog("close");
-        //$(mdialog).find('form')[0].reset();
-        xmlload();
+//             $('#pattext').css("font-size", '20px');
+//             $('#mattext').css("font-size", '20px');
+//             $('#f1text').css("font-size", '20px');
+//             $('#f2text').css("font-size", '20px');
+//             $('#f3text').css("font-size", '20px');
+//             $('#f4text').css("font-size", '20px');
 
 
-    }
-}
+//             //$('#theclone').attr("transform", 'translate(2000 300)');
+//         }
+//         else if(/chrome/i.test( navigator.userAgent )){
+//             var RIGHT_X = allXarray.pop();
+//             var LEFT_X = allXarray[0];
+
+//             if (arr[0] < 0)X = parseInt(arr[0]) - 100;
+//             else X = -100;
+//             var REALLONG = parseInt(masterRight) * 3.1;
+//             svgdoc.setAttribute("viewBox", [X + " -10 " + REALLONG + " 1200"]);
+//             //svgdoc.setAttribute("preserveAspectRatio","none");
+//             svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
+//             svgdoc.setAttribute("width",REALLONG + "px");
+//             svgdoc.setAttribute("height","1000px");
+//             $('#topsvg').css("overflow-y", "scroll")
+//             $('#topsvg').css('width', parseInt(masterRight)-100);
+//             svgdoc.setAttribute('id', 'theclone');
+//             $('#theclone').css("height", '1000px');
+//             $('#theclone').css("left", '50px');
+//             $('#theclone').css("margin-top", '10px');
+
+//         }
+//         else {
+//             if (arr[0] < 0)X = parseInt(arr[0]) - 100;
+//             else X = -100;
+//             var REALLONG = parseInt(masterRight) * 2.8;
+//             TOTWIDTH = parseInt(TOTWIDTH);
+//             svgdoc.setAttribute("viewBox", [X + " -10 " + REALLONG + " 1000"]);
+//             svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
+//             svgdoc.setAttribute("width",REALLONG + "px");
+//             svgdoc.setAttribute("height","1000px");
+//             //svgdoc.setAttribute("preserveAspectRatio","none");
+
+//             $('#topsvg').css("overflow-y", "scroll")
+//             $('#topsvg').css('width', parseInt(masterRight)-100);
+//             svgdoc.setAttribute('id', 'theclone');
+//             $('#theclone').css("height", '1000px');
+//             $('#theclone').css("left", '50px');
+//             $('#theclone').css("margin-top", '10px');
+//             //$('#theclone').attr("transform", 'translate(2000 300)');
+
+//         }
+//         var ALLHEIGHT = 2 * parseInt(height);
+//         $('.namebox').css('font-size','15px');
+//     }
+//     else if(selectedVal == '100') {
+
+//         nowselected = selectedVal;
+//         $(mdialog).dialog("close");
+//         //$(mdialog).find('form')[0].reset();
+//         xmlload();
+
+
+//     }
+// }
 
    
 
