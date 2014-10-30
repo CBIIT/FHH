@@ -337,3 +337,6 @@ button.frontpage {
 .colOneSimple {
 	padding-right:40px;
 }
+
+a.clickable_link { cursor: pointer; color: blue; text-decoration: underline;}
+a.clickable_link:hover,a.clickable_link.hover { text-decoration: none; }
