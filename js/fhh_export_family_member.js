@@ -104,7 +104,7 @@ function export_brother_or_sister(relative_being_exported, my_gender) {
 	move_relatives(pi, 'paternal_halfsister', 'paternal_halfsister');
 	move_relatives(pi, 'maternal_halfbrother', 'maternal_halfbrother');
 	move_relatives(pi, 'maternal_halfsister', 'maternal_halfsister');
-	move_relatives(pi, 'nephew', 'nephew');
+//	move_relatives(pi, 'nephew', 'nephew');
 //	move_relatives(pi, 'niece', 'niece');
 	move_nieces_to_daughters_or_nieces(pi,  personal_information[relative_being_exported].id); 
 	move_nephews_to_sons_or_nephews(pi,  personal_information[relative_being_exported].id); 
