@@ -33,9 +33,9 @@
             <input type="radio" id='CH1' value='1' alt="40" disabled />
             <label for="CH1" class='not-selected'> 40-49 years (1 point)</label>
             <input type="radio" id='CH2' value='2' alt="50" disabled />
-            <label for="CH2" class='not-selected'> 50-59 years (2 point)</label>
+            <label for="CH2" class='not-selected'> 50-59 years (2 points)</label>
             <input type="radio" id='CH3' value='3' alt="60" disabled />
-            <label for="CH3" class='not-selected'> 60 years or older (3 point)</label>
+            <label for="CH3" class='not-selected'> 60 years or older (3 points)</label>
           </div>
         </td>
 	    </tr>
@@ -52,7 +52,7 @@
         <td>
           <div id="gender-list" class="aradio">
               <input type="radio" id='MALE' value="1" disabled />
-              <label for="MALE"> Man (1 points)</label>
+              <label for="MALE"> Man (1 point)</label>
               <input type="radio" id='FEMALE' value='0' disabled />
               <label for="FEMALE"> Woman (0 points)</label>
           </div>
@@ -71,7 +71,7 @@
 	      <td>
 	        <div id="gdiabetes-list" class="aradio">
 	            <input type="radio" id='gdpos' value="1" disabled />
-	            <label for="gdpos"> Yes (1 points)</label>
+	            <label for="gdpos"> Yes (1 point)</label>
 	            <input type="radio" id='gdneg' value='0' disabled />
 	            <label for="gdneg"> No (0 points)</label>
 	        </div>
@@ -90,7 +90,7 @@
         <td>
           <div id="inherited-list" class="aradio">
               <input type="radio" id='dpos' value="1" disabled />
-              <label for="dpos"> Yes (1 points)</label>
+              <label for="dpos"> Yes (1 point)</label>
               <input type="radio" id='dneg' value='0' disabled />
               <label for="dneg"> No (0 points)</label>
           </div>
@@ -109,7 +109,7 @@
         <td>
           <div id="bloodpressure-list" class="aradio">
               <input type="radio" id='prepos' value="1" disabled />
-              <label for="prepos" class='not-selected'> Yes (1 points)</label>
+              <label for="prepos" class='not-selected'> Yes (1 point)</label>
               <input type="radio" id='preneg' value='0' disabled />
               <label for="preneg" class='not-selected'> No (0 points)</label>
           </div>
@@ -128,7 +128,7 @@
         <td>
           <div id="physical-list" class="aradio">
               <input type="radio" id='active_true' value="0" disabled />
-              <label for="active_true"> Yes (0 points)</label>
+              <label for="active_true"> Yes (0 point)</label>
               <input type="radio" id='active_false' value='1' disabled />
               <label for="active_false"> No (1 points)</label>
           </div>
@@ -183,7 +183,7 @@
 	                              <tr><td>
 	                              <button id='elev_submit' onClick='submit_high()'>Get&nbsp;Personal <br />Elevated&nbsp;Risk&nbsp;Letter </button>
 	                              </td><TD>&nbsp;</TD><td>
-	                              <button id='elev_letter' onClick='submit_high_physician()'>Get&nbsp;Physician <br />Elevated&nbsp;Risk&nbsp;Letter </button>
+	                              <button id='elev_letter' onClick='submit_high_provider()'>Get&nbsp;Provider <br />Elevated&nbsp;Risk&nbsp;Letter </button>
 	                              </td></tr>
 	                          </table>
 	                      </div>
@@ -195,7 +195,7 @@
 	                          <tr><td>
 	                          <button id='drc_submit' onClick='submit_normal()'> Get&nbsp;Personal <br />Lower&nbsp;Risk&nbsp;Letter </button>
 	                          </td><TD>&nbsp;</TD><td>
-	                          <button id='drc_letter' onClick='submit_normal_physician()'> Get&nbsp;Physician <br />Lower&nbsp;Risk&nbsp;Letter </button>
+	                          <button id='drc_letter' onClick='submit_normal_provider()'> Get&nbsp;Provider <br />Lower&nbsp;Risk&nbsp;Letter </button>
 	                          </td></tr>
 	                      </table>
 	                    	</div>
@@ -222,16 +222,16 @@
     function submit_high() {
         window.open('../risk/drc/Diabetes_Increased_Risk_Patient_Letter.pdf', "_blank", "fullscreen=yes");
     }
-    function submit_high_physician() {
-        window.open('../risk/drc/Diabetes_Increased Risk_Physician_Letter.pdf', "_blank", "fullscreen=yes");
+    function submit_high_provider() {
+        window.open('../risk/drc/Diabetes_Increased_Risk_Provider_Letter.pdf', "_blank", "fullscreen=yes");
     }
 
     function submit_normal() {
         window.open('../risk/drc/Diabetes_Lower_Risk_Patient_Letter.pdf', "_blank", "fullscreen=yes");
     }
 
-    function submit_normal_physician() {
-        window.open('../risk/drc/Diabetes_Lower_Risk_Physician_Letter.pdf', "_blank", "fullscreen=yes");
+    function submit_normal_provider() {
+        window.open('../risk/drc/Diabetes_Lower_Risk_Provider_Letter.pdf', "_blank", "fullscreen=yes");
     }
 
 </script>

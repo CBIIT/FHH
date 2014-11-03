@@ -53,12 +53,8 @@ function test_past_cancer() {
 				risk_reason += "You have had kidney cancer in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Hereditary nonpolyposis colon cancer') {
-				risk_reason += "You have had hereditary nonpolyposis colon cancer in the past.<br />";
-				risk=true;
-		}
-		if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Hereditary non-polyposis colon cancer') {
-				risk_reason += "You have had lynch syndrome/hereditary non-polyposis colon cancer cancer in the past.<br />";
+		if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC)') {
+				risk_reason += "You have had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.<br />";
 				risk=true;
 		}
 	}
@@ -68,7 +64,7 @@ function test_past_cancer() {
 	} else {
 		set_icon($("#past_cancers"), 'negative');
 		set_reason($("#past_cancers"), "You have never had any of the following cancer types: " 
-		  + "colon, colorectal, rectal, lynch syndrome/hereditary non-polyposis colon cancer, uterine, pancreatic, ovarian, gastric, brain, liver, or kidney cancer.");
+		  + "colon, colorectal, rectal, Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC), uterine, pancreatic, ovarian, gastric, brain, liver, or kidney cancer.");
 	}
 
 	final_risk |= risk;
@@ -98,7 +94,7 @@ function test_polyps() {
 		set_reason($("#polyps"), risk_reason);
 	} else {
 		set_icon($("#polyps"), 'negative');
-		set_reason($("#polyps"), "You have never had any polyps.");
+		set_reason($("#polyps"), "You have never had any polyps or Familial adnenomatous polyposis (FAP).");
 	}
 
 	final_risk |= risk;
@@ -155,14 +151,9 @@ function test_any_family_members_fap_hnpcc() {
 			
 			if (h != null) {
 				for (i=0;i<h.length;i++) {
-					if (h[i]['Detailed Disease Name'] == 'Hereditary nonpolyposis colon cancer') {
+					if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC)') {
 						name = get_name_or_relationship(this.name, key);
-						risk_reason += name + " has had hereditary nonpolyposis colon cancer in the past.<br />";
-						risk=true;
-					}
-					if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Hereditary non-polyposis colon cancer') {
-						name = get_name_or_relationship(this.name, key);
-						risk_reason += name + " has had lynch syndrome/non-hereditary polyposis colon cancer in the past.<br />";
+						risk_reason += name + " has had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.<br />";
 						risk=true;
 					}
 					if (h[i]['Detailed Disease Name'] == 'Familial adnenomatous polyposis (FAP)') {
@@ -181,7 +172,7 @@ function test_any_family_members_fap_hnpcc() {
 	} else {
 		set_icon($("#any_family_members_fap_hnpcc"), 'negative');
 		set_reason($("#any_family_members_fap_hnpcc"), 
-			"None of your family members have had hereditary nonpolyposis colon cancer, lynch syndrome or familial adnenomatous polyposis (FAP)");
+			"None of your family members have had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) or Familial adnenomatous polyposis (FAP)");
 	}
 	
 	final_risk |= risk;
