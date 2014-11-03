@@ -998,8 +998,7 @@ function bind_family_member_submit_button_action () {
 					if (family_member_information['cause_of_death_code'] == current_health_history[i]['Disease Code']) new_disease=false;
 //					alert (JSON.stringify(current_health_history[i],null,2));
 				}
-				if (new_disease) {
-//					alert ("Adding Cause of Death as a Disease to health History");
+				if (new_disease && cause_of_death != null && cause_of_death_code != null && cause_of_death_code != 'not_picked') {
 					specific_health_issue = {"Disease Name": cause_of_death,
 					                          "Detailed Disease Name": family_member_information['detailed_cause_of_death'],
 					                          "Age At Diagnosis": 'Unknown',
