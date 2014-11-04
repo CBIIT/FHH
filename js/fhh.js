@@ -442,7 +442,7 @@ function new_family_member_relationship_selection_change_action() {
 	
 	// For some of the selects, we need to ask additional information
 	relationship = $(this).val();
-	new_family_member_dialog = $("#new_family_member_dialog");
+	var new_family_member_dialog = $("#new_family_member_dialog");
 
 	// Must remove current exact relationship if there is one.
 	$("#new_family_member_exact_relationship").remove();
