@@ -92,6 +92,7 @@ function bind_uploader() {
 //					alert(JSON.stringify(pi,null, 2));
 					personal_information=pi;
 					build_family_history_data_table();
+					$("#add_another_family_member_button").show();
 
 				}
 
