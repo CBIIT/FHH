@@ -371,6 +371,7 @@ function bind_create_new_personal_history_button_action () {
 	        return false;
 	    }
 	}
+	current_health_history = [];
 	clear_and_set_personal_health_history_dialog();
 	$( "#add_personal_information_dialog" ).dialog( "open" );	
 }
@@ -864,6 +865,8 @@ function bind_personal_cancel_button_action () {
 		$("#invalid_gender_warning").remove();
 
 //		alert (typeof personal_information);
+		current_health_history = [];
+
 		$("#add_personal_information_dialog").dialog("close");
 	});
 }
@@ -1073,6 +1076,9 @@ function cancel_update_family_member() {
 	) {
 		remove_family_member(current_relationship, false);
 	}
+	
+	current_health_history = [];
+
 	$("#update_family_member_health_history_dialog").dialog("close");
 }
 

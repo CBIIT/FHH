@@ -267,7 +267,7 @@
 		"race_ethnicity_information_for":"Race and Ethnicity Information for",
 		
 		"instructions" : "We start the family health history with you. Enter the required personal information and your health history information. At the bottom of the page (you may need to scroll), press the 'Next' button. You will then be asked to tell the system which family members you would like to add to the health history.",
-		"health_vault" : "If you have a Microsoft HealthVault account, you can choose to copy your HealthVault family history information into this website. Information that you add or modify here can then be copied back to HealthVault. Press 'Copy from HealthVault' to get started.",
+		"health_vault" : "If you have a Microsoft HealthVault account, you can choose to copy your HealthVault family history information into this website.  Press 'Copy from HealthVault' to get started.",
 		"family_instructions":"Enter required personal information and health history information for this family member. Background information may also be entered. At the bottom of the page (you may need to scroll), press the 'Save' button to save this person's information.",
 		"required":"Indicates required information.",
 		"relationship":"Relationship:",
@@ -289,7 +289,7 @@
 		"estimated_age":"Estimated Age",
 		"cause_of_death":"Cause of Death",
 		"age_at_death":"Age at Death",
-		"identical":"Yes - Indentical (Same)",
+		"identical":"Yes - Identical (Same)",
 		"fraternal":"Yes - Not Identical (Fraternal)",
 		"height": "Height",
 		"weight": "Weight",

@@ -88,7 +88,7 @@ function create_have_diabetes_dialog(diabetes_types) {
 	automatic_elevated_diabetes_dialog.append("<table class='pdf'><tr><td>"
 	  + "<button id='elev_submit' onClick='submit_high()'>Get Personal <br />Elevated Risk Letter </button>"
 	  + "</td><td>"
-	  + "<button id='elev_letter' onClick='submit_high_physician()'>Get Physician <br />Elevated Risk Letter </button>"
+	  + "<button id='elev_letter' onClick='submit_high_provider()'>Get Provider <br />Elevated Risk Letter </button>"
 	  + "</td></tr>"
 	  + "</table>");
 	
