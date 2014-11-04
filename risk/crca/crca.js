@@ -226,7 +226,7 @@ function test_immediate_family_members_cancer() {
 	} else {
 		set_icon($("#immediate_family_members_cancer"), 'negative');
 		set_reason($("#immediate_family_members_cancer"), 
-			"None of your immediate relatives (father, mother, brothers, sisters, children) have had colon cancer.");
+			"None of your immediate relatives (father, mother, brothers, sisters, children) have had colon, colorectal, rectal, or gastric cancer.");
 	}
 	
 	final_risk |= risk;
@@ -319,7 +319,7 @@ function test_secondary_family_members_cancer() {
 	if (count == 0) {
 		risk = false;
 		risk_reason = 
-			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) have had colon, rectal, or colorectal cancer. (There should be two or more to trigger this test.)"
+			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) have had colon, colorectal, or rectal cancer. (There should be two or more to trigger this test.)"
 		
 	} else if (count == 1) {
 		risk = false;
@@ -393,7 +393,7 @@ function test_secondary_family_members_colon_cancer_before_60() {
 		set_icon($("#secondary_family_members_colon_cancer_before_60"), 'negative');
 		set_reason($("#secondary_family_members_colon_cancer_before_60"), 			
 			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) " +
-			"have had colon, rectal, or colorectal cancer before the age of 60 years or at the age of 60 years.");
+			"have had colon, colorectal, or rectal cancer before the age of 60 years or at the age of 60 years.");
 	}
 
 	final_risk |= risk;
