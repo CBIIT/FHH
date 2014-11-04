@@ -447,7 +447,7 @@ function parse_xml(data) {
 			if (cause_of_death_code) {
 				relative.cause_of_death_code = relative.cause_of_death_system + "-" + cause_of_death_code;				
 			} else {
-				relative.cause_of_death_code = get_disease_code_from_detailed_disease(detailed_cause_of_death);
+				relative.cause_of_death_code = relative.cause_of_death_system + "-" + get_disease_code_from_detailed_disease(detailed_cause_of_death);
 			}
 			
 			if (relative.detailed_cause_of_death != detailed_cause_of_death) relative.detailed_cause_of_death = detailed_cause_of_death;
