@@ -2496,6 +2496,7 @@ function get_relationship_from_relationship_id (id) {
 // Check to see whether this browser has the FileAPI
 function is_IE_8_or_9 () {
 	var val = which_IE();
+	if (val == false) return false;  // Non IE Browsers
 	if (val < 10) return true;
 	return false;
 }
