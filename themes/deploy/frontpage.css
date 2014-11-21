@@ -1,48 +1,101 @@
-
 /* ALL PAGES: makes pages that don't scroll the same width as pages that do scroll */
-:root {
-	overflow-y:scroll;
+
+:root
+{  overflow-y: scroll
 }
 
-body {
-		background: url('page_background.jpg') repeat-x scroll center top #ECE0D3;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 75%;
-    padding: 10px;
-    text-align: center;
-    min-width:800px;
+body
+{  
+     /*background-color:#ddd;*/
+	background: url('page_background.jpg') repeat-x scroll center top #ECE0D3
 }
 
-div.main_container {
-		background-color: #FFF;
-		border:1px solid black;
-    margin: 5px auto 5px auto;
-    padding: 10px;
-    text-align: left;
-    vertical-align: top;
-    width: 720px;
+div.main_container
+{  background-color: #FFF;
+  border: 1px solid black;
+  margin: 0px auto 0px auto;
+  padding: 0px;
+  text-align: left;
+  vertical-align: top;
+  width: 858px;
 }
 
-div.nav {
-	text-align:right;
+    div.main_container table.homepage
+    {  font-size: 15px;
+      line-height: 16px;
+    }
+
+        div.main_container table.homepage td.maintext
+        {  padding: 20px 0px 0px 20px
+        }
+
+    div.main_container .logo
+    {  padding-left: 20px;
+      padding-top: 20px;
+    }
+
+#separatorBox
+{  height: 35px;
+  background-color: #f0ad4f;
 }
 
-a.help_item {
-	color:#FFF;
-	background-color:#610;
-	font-weight:bold;
-	padding:5px;
-}
-button.frontpage {
-	background-color: #FA9;
-	border:2px solid black;
-	padding:5px;
-	margin-left:10px;
-	margin-right:10px;
-	width:200px;
+div.nav
+{  margin: 0px auto 0px auto;
+  width: 858px;
+  padding: 0px;
 }
 
-button.frontpage:hover {
-	background-color: #D87;
-	cursor:pointer;
+    div.nav button
+    {  
+    	 border: 4px solid transparent;
+      border-radius:10px 10px 0px 0px;
+      background-color:#428bca;
+      width: 130px;
+      cursor: pointer;
+      color:#fff;
+    }
+
+div.nav button div{
+z-index:-100;
+}
+
+
+.buttons
+{  margin-top: 20px;
+  margin-left: 0px;
+}
+
+button.frontpage
+{  background-color: #428bca;
+  border-width: 0px 0px 0px 0px;
+  padding: 8px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 200px;
+  color: #fff;
+  font-size: 12px;
+}
+
+button.frontpage:hover
+{  background-color: #3071a9;
+  cursor: pointer;
+  color: #fff;
+}
+
+button.frontpage.create
+{  background-color: #f0ad4f;
+  color: #000;
+}
+
+button.frontpage.create:hover
+{  background-color: #ec961e;
+  color: #000;
+}
+
+.footerTable
+{  margin: 0px auto 0px auto;
+}
+
+.footerTable a
+{  color:#0000ff;
 }
