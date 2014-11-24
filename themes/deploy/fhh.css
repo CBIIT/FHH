@@ -27,11 +27,11 @@ body {
 }
 
 .help {
-	text-align:left;
+  text-align:left;
 }
 /* ALL PAGES: makes pages that don't scroll the same width as pages that do scroll */
 :root {
-	overflow-y:scroll;
+  overflow-y:scroll;
 }
 
 div.main_container {
@@ -81,7 +81,7 @@ table.nav {
 
 td.nav a {
     font-family: Comic Sans MS, Helvetica, sans-serif;
-	display: inline-block;
+  display: inline-block;
     background-color: #410;
     border-right: 1px solid rgba(128, 196, 128, 1);
     color: #DAEFFB;
@@ -95,7 +95,7 @@ td.nav a {
 
 #nav_help {
     border-left: 0px;
-	border-right: 0px;
+  border-right: 0px;
 }
 
 <!-- Main Styles -->
@@ -142,26 +142,26 @@ a:hover, a:active  {
 }
 
 .center_text {
-	text-align:center;
-	height:40px;
+  text-align:center;
+  height:40px;
 }
 
 td.action {
-	text-align:center;
-	padding:5px;
-	border: 1px solid #888;
+  text-align:center;
+  padding:5px;
+  border: 1px solid #888;
 }
 
 td.information {
-	font-weight:bold;
-	padding:5px;
-	border: 1px solid #888;
+  font-weight:bold;
+  padding:5px;
+  border: 1px solid #888;
 }
 
 th.label {
-	font-weight:bold;
-	text-align:left;
-	text-decoration:none;
+  font-weight:bold;
+  text-align:left;
+  text-decoration:none;
 }
 
 a.button_link {
@@ -169,17 +169,17 @@ a.button_link {
   color:black;
   white-space:nowrap
   /* DRC/CR Calculator: Added rounded corners <div> */
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-	border:1px solid black;
-	padding:4px;
-	text-decoration: none;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border:1px solid black;
+  padding:4px;
+  text-decoration: none;
 }
 
 a.button_link:hover {
   background-color:#DDD;
-	border:1px solid #444;
+  border:1px solid #444;
   cursor:pointer
 }
 a.button_link:active {
@@ -188,9 +188,9 @@ a.button_link:active {
 }
 
 .instructions {
-	font-size:small;
-	text-align:left;
-	margin-left:6px;
+  font-size:small;
+  text-align:left;
+  margin-left:6px;
 }
 
 table.summary_table {
@@ -198,9 +198,9 @@ table.summary_table {
   margin: 0px;
   width: 80%;
   border:1px solid black;
-	margin-left:auto;
-	margin-right:auto;
-	border-collapse:collapse;
+  margin-left:auto;
+  margin-right:auto;
+  border-collapse:collapse;
 }
 
 table.summary_table th {
@@ -213,7 +213,7 @@ table.summary_table th {
   padding: 2px 10px;
   text-align: center;
   vertical-align: middle;
-	text-decoration:none;
+  text-decoration:none;
 }
 
 tr.summary_category_header_row {
@@ -230,9 +230,9 @@ table.disease_table {
   margin: 0px;
   width: 80%;
   border:1px solid black;
-	margin-left:auto;
-	margin-right:auto;
-	border-collapse:collapse;
+  margin-left:auto;
+  margin-right:auto;
+  border-collapse:collapse;
 }
 
 table.disease_table th {
@@ -249,7 +249,7 @@ table.disease_table th {
 }
 
 table.disease_table td {
-	font-size:small;
+  font-size:small;
   background-color: #FFFFFF;
   border-bottom: 1px solid #666666;
   border-right:1px solid #666666;
@@ -280,12 +280,12 @@ table.footerTable {
 }
 
 .normal_text {
-	text-align:left;
+  text-align:left;
 }
 
 .title-bar {
-	text-align:left;
-	font-weight:bold;	
+  text-align:left;
+  font-weight:bold; 
   color: #000;
   background-color: #EAA; 
   border-top: 1px solid #003366;
@@ -294,32 +294,32 @@ table.footerTable {
 }
 
 .risk_calculator {
-	border:1px solid black;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
+  border:1px solid black;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
 }
 
 .risk_calculator:hover {
-	background-color:#DDF;
+  background-color:#DDF;
 }
 
 .ui-widget-header {
-	background-color: #621; 
-	background-image:none;
-	border:1px solid rgba(53, 6, 2, 1);
+  background-color: #621; 
+  background-image:none;
+  border:1px solid rgba(53, 6, 2, 1);
 }
 
 .ui-widget-content {
   border: 2px solid #444;
-	padding:1px;
-	margin:10px;    
+  padding:1px;
+  margin:10px;    
 }
 
 button.frontpage {
-	border:1px solid black;
-	padding:5px;
-	width:200px;
+  border:1px solid black;
+  padding:5px;
+  width:200px;
 }
 
 .link-button {
@@ -335,7 +335,7 @@ button.frontpage {
 }
 
 .colOneSimple {
-	padding-right:40px;
+  padding-right:40px;
 }
 
 a.clickable_link { cursor: pointer; color: blue; text-decoration: underline;}
