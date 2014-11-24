@@ -1,3 +1,23 @@
+// Key Codes
+/*
+	"SNOMED_CT-363406005": "Colon Cancer",
+	"SNOMED_CT-363349007": "Gastric Cancer",
+	"SNOMED_CT-1000001": "Colorectal Cancer",
+	"SNOMED_CT-254582000": "Rectal Cancer",
+	"SNOMED_CT-72900001": "Familial adnenomatous polyposis (FAP)",
+	"SNOMED_CT-68496003": "Colon Polyp",
+	"SNOMED_CT-371973000": "Uterine Cancer",
+	"SNOMED_CT-363418001": "Pancreatic Cancer",
+	"SNOMED_CT-363443007": "Ovarian Cancer",
+	"SNOMED_CT-363418001": "Pancreatic Cancer",
+	"SNOMED_CT-93870000": "Liver Cancer",
+	"SNOMED_CT-1000000": "Brain Cancer",
+	"SNOMED_CT-315058005": "Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC)",
+	"SNOMED_CT-34000006": "Crohn's Disease",
+	"SNOMED_CT-64766004": "Ulcerative Colitis",
+	"SNOMED_CT-363518003": "Kidney Cancer",
+*/
+
 var final_risk = false;
 
 if (personal_information == null) alert ("Need to enter personal and family histories");
@@ -13,47 +33,52 @@ function test_past_cancer() {
 	var risk = false;
 	risk_reason = "";
 	for (i=0;i<h.length;i++) {
-		if (h[i]['Detailed Disease Name'] == 'Colon Cancer') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-363406005') {
 				risk_reason += "You have had colon cancer in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-1000001') {
 				risk_reason += "You have had colorectal cancer in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-254582000') {
 				risk_reason += "You have had rectal cancer in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Uterine Cancer') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-371973000') {
 				risk_reason += "You have had uterine cancer in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Pancreatic Cancer') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-363418001') {
 				risk_reason += "You have had pancreatic cancer in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Ovarian Cancer') {
+		if (h[i]['SNOMED_CT-363443007'] == 'Ovarian Cancer') {
 				risk_reason += "You have had ovarian cancer in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Gastric Cancer') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-363349007') {
 				risk_reason += "You have had gastric cancer in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Brain Cancer') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-1000000') {
 				risk_reason += "You have had brain cancer in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Liver Cancer') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-126952004') { 
+			// This code comes from the old system
+				risk_reason += "You have had brain cancer in the past.<br />";
+				risk=true;
+		}
+		if (h[i]['Disease Code'] == 'SNOMED_CT-93870000') {
 				risk_reason += "You have had liver cancer in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Kidney Cancer') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-363518003') {
 				risk_reason += "You have had kidney cancer in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC)') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-315058005') {
 				risk_reason += "You have had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.<br />";
 				risk=true;
 		}
@@ -79,11 +104,11 @@ function test_polyps() {
 	var risk = false;
 	risk_reason = "";
 	for (i=0;i<h.length;i++) {
-		if (h[i]['Detailed Disease Name'] == 'Colon Polyp') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-68496003') {
 				risk_reason += "You have had colon polyps in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Familial adnenomatous polyposis (FAP)') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-72900001') {
 				risk_reason += "You have had familial adnenomatous polyposis (FAP) in the past.<br />";
 				risk=true;
 		}
@@ -109,11 +134,11 @@ function test_inflammatory_bowel_disease() {
 	var risk = false;
 	risk_reason = "";
 	for (i=0;i<h.length;i++) {
-		if (h[i]['Detailed Disease Name'] == "Crohn's Disease") {
+		if (h[i]['Disease Code'] == "SNOMED_CT-34000006") {
 				risk_reason += "You have had crohn's disease in the past.<br />";
 				risk=true;
 		}
-		if (h[i]['Detailed Disease Name'] == 'Ulcerative Colitis') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-64766004') {
 				risk_reason += "You have had ulcerative colitis in the past.<br />";
 				risk=true;
 		}
@@ -151,12 +176,12 @@ function test_any_family_members_fap_hnpcc() {
 			
 			if (h != null) {
 				for (i=0;i<h.length;i++) {
-					if (h[i]['Detailed Disease Name'] == 'Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC)') {
+					if (h[i]['Disease Code'] == 'SNOMED_CT-315058005') {
 						name = get_name_or_relationship(this.name, key);
 						risk_reason += name + " has had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.<br />";
 						risk=true;
 					}
-					if (h[i]['Detailed Disease Name'] == 'Familial adnenomatous polyposis (FAP)') {
+					if (h[i]['Disease Code'] == 'SNOMED_CT-72900001') {
 						name = get_name_or_relationship(this.name, key);
 						risk_reason += name + " has had familial adnenomatous polyposis (FAP) in the past.<br />";
 						risk=true;
@@ -194,22 +219,22 @@ function test_immediate_family_members_cancer() {
 				if(temp == 'fath' || temp == 'moth' || temp == 'brot' || temp == 'sist' || temp == 'daug' || temp == 'son_') {
 		  		if (check_blood_relative(key) == false) return true; // Skip adopted relatives
 					for (i=0;i<h.length;i++) {
-					if (h[i]['Detailed Disease Name'] == 'Colon Cancer') {
+					if (h[i]['Disease Code'] == 'SNOMED_CT-363406005') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colon cancer in the past.<br />";
 							risk=true;
 						}
-						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer') {
+						if (h[i]['Disease Code'] == 'SNOMED_CT-1000001') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colorectal cancer in the past.<br />";
 							risk=true;
 						}
-						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
+						if (h[i]['Disease Code'] == 'SNOMED_CT-254582000') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had rectal cancer in the past.<br />";
 							risk=true;
 						}
-						if (h[i]['Detailed Disease Name'] == 'Gastric Cancer') {
+						if (h[i]['Disease Code'] == 'SNOMED_CT-363349007') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had gastric cancer in the past.<br />";
 							risk=true;
@@ -293,19 +318,19 @@ function test_secondary_family_members_cancer() {
 					 temp8 == 'granddau' || temp8 == 'grandson') {
   				if (check_blood_relative(key) == false) return true; // Skip adopted relatives
 					for (i=0;i<h.length;i++) {
-						if (h[i]['Detailed Disease Name'] == 'Colon Cancer') {
+						if (h[i]['Disease Code'] == 'SNOMED_CT-363406005') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colon cancer in the past.<br />";
 							count++;
 							break;  // We do not need to check this person anyore
 						}
-						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer') {
+						if (h[i]['Disease Code'] == 'SNOMED_CT-1000001') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had colorectal cancer in the past.<br />";
 							count++;
 							break;  // We do not need to check this person anyore
 						}
-						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer') {
+						if (h[i]['Disease Code'] == 'SNOMED_CT-254582000') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had rectal cancer in the past.<br />";
 							count++;
@@ -362,19 +387,19 @@ function test_secondary_family_members_colon_cancer_before_60() {
 					 temp8 == 'granddau' || temp8 == 'grandson') {
 	  			if (check_blood_relative(key) == false) return true; // Skip adopted relatives
 					for (i=0;i<h.length;i++) {
-						if (h[i]['Detailed Disease Name'] == 'Colon Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
+						if (h[i]['Disease Code'] == 'SNOMED_CT-363406005' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
 							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " has had colon cancer at an unknown age.<br />";
 							else risk_reason += name + " has had colon cancer before the age of 60 years or at the age of 60 years.<br />";
 							risk=true;
 						}
-						if (h[i]['Detailed Disease Name'] == 'Colorectal Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
+						if (h[i]['Disease Code'] == 'SNOMED_CT-1000001' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
 							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " has had colorectal cancer at an unknown age.<br />";
 							else risk_reason += name + " has had colorectal cancer before the age of 60 years or at the age of 60 years.<br />";
 							risk=true;
 						}
-						if (h[i]['Detailed Disease Name'] == 'Rectal Cancer' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
+						if (h[i]['Disease Code'] == 'SNOMED_CT-254582000' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
 							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " has had rectal cancer at an unknown age.<br />";
 							else risk_reason += name + " has had rectal cancer before the age of 60 years or at the age of 60 years.<br />";
@@ -419,7 +444,7 @@ function test_secondary_family_members_uterine_cancer_before_50() {
 					|| temp8 == 'granddau' || temp8 == 'grandson') {
 			  	if (check_blood_relative(key) == false) return true; // Skip adopted relatives
 					for (i=0;i<h.length;i++) {
-						if (h[i]['Detailed Disease Name'] == 'Uterine Cancer' && is_age_before('Under50', h[i]['Age At Diagnosis']) ) {
+						if (h[i]['Disease Code'] == 'SNOMED_CT-371973000' && is_age_before('Under50', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
 							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " has had uterine cancer at an unknown age.<br />";
 							else risk_reason += name + " has had uterine cancer before the age of 50 years or at the age of 50 years.<br />";
@@ -468,7 +493,7 @@ function test_secondary_family_members_uterine_cancer() {
 					 temp8 == 'granddau' || temp8 == 'grandson') {
 			  	if (check_blood_relative(key) == false) return true; // Skip adopted relatives
 					for (i=0;i<h.length;i++) {
-						if (h[i]['Detailed Disease Name'] == 'Uterine Cancer') {
+						if (h[i]['Disease Code'] == 'SNOMED_CT-371973000') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " has had uterine cancer in the past.<br />";
 							count++;
