@@ -374,7 +374,48 @@
 		"help_para" : "Para ciertas condiciones, como el de ovario y el cancer de mama, es importante saber si una persona tiene herencia judía ashkenazi­ para fines de evaluación de riesgos.",
 
 		"done" : "done"	
-	}
+	},
+	"fhh_diabetes_calculator":  {
+		"title_bar" : "Su Información de riesgos sobre diabetes tipo 2",
+		"instructions_title" : "En esta pantalla puede:",
+		"instructions_risk" : "Obtenga su riesgo de diabetes tipo 2 en base a su información personal y los antecedentes familiares",
+		"instructions_learn" : "Aprenda cuáles son los factores de riesgo que pueda tener para la diabetes tipo 2",
+		"instructions_read" : "Leer e imprimir cartas compartibles para usted y su proveedor de atención médica que explica el tipo de riesgo de diabetes 2",
+		"question_how_old" : "1. Cuántos años tienes",
+		"answer_how_old_40" : "Menos de 40 años (0 puntos)",
+		"answer_how_old_40_49" : "40-49 años (1 punto)",
+		"answer_how_old_50_59" : "50-59 años (2 puntos)",
+		"answer_how_old_60" : "60 años o más (3 puntos)",
+		"question_gender" : "2. Es usted un hombre o una mujer",
+		"answer_gender_male" : "Hombre (1 punto)",
+		"answer_gender_female" : "Mujer (0 puntos)",
+		"question_gestational" : "3. Si usted es una mujer, alguna vez has sido diagnosticado con diabetes gestacional?",
+		"answer_gestational_yes" : "Si (1 punto)",
+		"answer_gestational_no" : "No (0 puntos)",
+		"question_family_diabetes" : "4. Tiene una madre, padre, hermana o hermano con diabetes?",
+		"answer_family_diabetes_yes" : "Si (1 punto)",
+		"answer_family_diabetes_no" : "No (0 puntos)",
+		"question_blood_pressure" : "5. Se le ha diagnosticado alguna vez con la presión arterial alta?",
+		"answer_blood_pressure_yes" : "Si (1 punto)",
+		"answer_blood_pressure_no" : "No (0 puntos)",
+		"question_physically_active" : "6. Está usted físicamente activo?",
+		"answer_physically_active_yes" : "Si (0 puntos)",
+		"answer_physically_active_no" : "No (1 punto)",
+		"question_bmi" : "7. Cuál es su Índice de masa corpora? (see chart at right)",
+		"answer_bmi_height" : "Altura:",
+		"answer_bmi_weight" : "Peso:",
+		"total_points" : "Puntos totales",
+		"risk_not_increased_number" : "0 - 4 puntos:",
+		"risk_not_increased_text" : "El riesgo no aumentado",
+		"risk_increased_number" : "5+ puntos:",
+		"risk_increased_text" : "Riesgo aumentado",
+		"tool_explanation" : "Ninguna herramienta de riesgo es perfecto y el riesgo real puede ser mayor o menor que este . Si usted tiene preguntas acerca de su riesgo de diabetes tipo 2 , por favor hable con un proveedor de atención de la salud.",
+		"tool_version" : "Esta herramienta de riesgo se basa en una versión del Examen de Riesgo de Diabetes como el desarrollado por la Asociación Americana de la Diabetes.  Información adicional acerca de la prueba se puede encontrar en: Heikes KE, et al. Diabetes Risk Calculator: a simple tool for detecting undiagnosed diabetes and pre-diabetes. Diabetes Care. 2008 May;31(5):1040-5.",
+		"tool_information" : "Más información sobre el riesgo de diabetes tipo 2 se puede encontrar en: ",
+		"and":"y",
+		"done" : "done"
+
+	}	
 }	
 
 

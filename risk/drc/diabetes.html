@@ -7,12 +7,12 @@
 <div id="diabetes_content" >
 
 <!-- Start site -->
-<h1 class='title_bar'> Your Type 2 Diabetes Risk Information </h1><br />
-<P class='instructions'>On this screen you can:</P>
+<h1 class='title_bar translate' data-i18n="fhh_diabetes_calculator.title_bar"> Your Type 2 Diabetes Risk Information </h1><br />
+<P class='instructions translate' data-i18n="fhh_diabetes_calculator.instructions_title">On this screen you can:</P>
 <UL>
-<LI class='instructions'>Get your risk for type 2 diabetes based on your personal and family history information</LI>
-<LI class='instructions'>Learn which risk factors you may have for type 2 diabetes</LI>
-<LI class='instructions'>Read and print sharable letters for you and your health care provider explaining your type 2 diabetes risk</LI>
+<LI class='instructions translate' data-i18n="fhh_diabetes_calculator.instructions_risk">Get your risk for type 2 diabetes based on your personal and family history information</LI>
+<LI class='instructions translate' data-i18n="fhh_diabetes_calculator.instructions_learn">Learn which risk factors you may have for type 2 diabetes</LI>
+<LI class='instructions translate' data-i18n="fhh_diabetes_calculator.instructions_read">Read and print sharable letters for you and your health care provider explaining your type 2 diabetes risk</LI>
 </UL>
 <hr />
 <table class="maintable">
@@ -21,7 +21,7 @@
 	  <table class="risktable">
 	  	<tr><td>
 				<table class='section-header'><tr>
-					<td class='section-header'><label for='age'>1. How old are you</label></td>
+					<td class='section-header translate' data-i18n="fhh_diabetes_calculator.question_how_old"><label for='age'>1. How old are you</label></td>
 					<td class='section-header'><input type="text" id="age" class="drisk" disabled /></td>
 				</tr></table>
 	    </td></tr>
@@ -29,13 +29,13 @@
         <td>
           <div id="age-list" class="aradio" >
             <input type="radio" id='CH0' value="0" alt="30" disabled />
-            <label for="CH0" class='not-selected' >Less than 40 years (0 points)</label>
+            <label for="CH0" class='not-selected translate' data-i18n="fhh_diabetes_calculator.answer_how_old_40">Less than 40 years (0 points)</label>
             <input type="radio" id='CH1' value='1' alt="40" disabled />
-            <label for="CH1" class='not-selected'> 40-49 years (1 point)</label>
+            <label for="CH1" class='not-selected translate' data-i18n="fhh_diabetes_calculator.answer_how_old_40_49"> 40-49 years (1 point)</label>
             <input type="radio" id='CH2' value='2' alt="50" disabled />
-            <label for="CH2" class='not-selected'> 50-59 years (2 points)</label>
+            <label for="CH2" class='not-selected translate' data-i18n="fhh_diabetes_calculator.answer_how_old_50_59"> 50-59 years (2 points)</label>
             <input type="radio" id='CH3' value='3' alt="60" disabled />
-            <label for="CH3" class='not-selected'> 60 years or older (3 points)</label>
+            <label for="CH3" class='not-selected translate' data-i18n="fhh_diabetes_calculator.answer_how_old_60"> 60 years or older (3 points)</label>
           </div>
         </td>
 	    </tr>
@@ -44,7 +44,7 @@
 	  <table class="risktable">
 			<tr><td>
 				<table class='section-header'><tr>
-					<td class='section-header'><label for='gender'>2. Are you a man or a woman</label></td>
+					<td class='section-header translate' data-i18n="fhh_diabetes_calculator.question_gender"><label for='gender'>2. Are you a man or a woman</label></td>
 					<td class='section-header'><input type="text" id="gender" class="drisk" disabled /></td>
 				</tr></table>
 			</td></tr>
@@ -52,9 +52,9 @@
         <td>
           <div id="gender-list" class="aradio">
               <input type="radio" id='MALE' value="1" disabled />
-              <label for="MALE"> Man (1 point)</label>
+              <label for="MALE" class="translate" data-i18n="fhh_diabetes_calculator.answer_gender_male"> Man (1 point)</label>
               <input type="radio" id='FEMALE' value='0' disabled />
-              <label for="FEMALE"> Woman (0 points)</label>
+              <label for="FEMALE" class="translate" data-i18n="fhh_diabetes_calculator.answer_gender_female"> Woman (0 points)</label>
           </div>
         </td>
       </tr>
@@ -63,7 +63,7 @@
 	  <table class="risktable">
 			<tr><td >
 				<table class='section-header'><tr>
-					<td class='section-header'><label for='gdiabetes'>3. If you are a woman, have you ever been diagnosed with gestational diabetes?</label></td>
+					<td class='section-header translate' data-i18n="fhh_diabetes_calculator.question_gestational"><label for='gdiabetes'>3. If you are a woman, have you ever been diagnosed with gestational diabetes?</label></td>
 					<td class='section-header'><input type="text" id="gdiabetes" class="drisk" disabled /></td>
 				</tr></table>
 			</td></tr>
@@ -71,9 +71,9 @@
 	      <td>
 	        <div id="gdiabetes-list" class="aradio">
 	            <input type="radio" id='gdpos' value="1" disabled />
-	            <label for="gdpos"> Yes (1 point)</label>
+	            <label for="gdpos" class="translate" data-i18n="fhh_diabetes_calculator.answer_gestational_yes"> Yes (1 point)</label>
 	            <input type="radio" id='gdneg' value='0' disabled />
-	            <label for="gdneg"> No (0 points)</label>
+	            <label for="gdneg" class="translate" data-i18n="fhh_diabetes_calculator.answer_gestational_no"> No (0 points)</label>
 	        </div>
 	      </td>
       </tr>
@@ -82,7 +82,7 @@
 	  <table class="risktable">
 			<tr><td>
 				<table class='section-header'><tr>
-					<td class='section-header'><label for='inherited'>4. Do you have a mother, father, sister or brother with diabetes?</label></td>
+					<td class='section-header'><label for='inherited' class="translate" data-i18n="fhh_diabetes_calculator.question_family_diabetes">4. Do you have a mother, father, sister or brother with diabetes?</label></td>
 					<td class='section-header'><input type="text" id="inherited" class="drisk" disabled /></td>
 				</tr></table>
 			</td></tr>
@@ -90,9 +90,9 @@
         <td>
           <div id="inherited-list" class="aradio">
               <input type="radio" id='dpos' value="1" disabled />
-              <label for="dpos"> Yes (1 point)</label>
+              <label for="dpos" class="translate" data-i18n="fhh_diabetes_calculator.answer_family_diabetes_yes"> Yes (1 point)</label>
               <input type="radio" id='dneg' value='0' disabled />
-              <label for="dneg"> No (0 points)</label>
+              <label for="dneg" class="translate" data-i18n="fhh_diabetes_calculator.answer_family_diabetes_no"> No (0 points)</label>
           </div>
         </td>
       </tr>
@@ -101,7 +101,7 @@
 	  <table class="risktable">
 	  	<tr><td>
 				<table class='section-header'><tr>
-					<td class='section-header'><label for='bloodpressure'>5. Have you ever been diagnosed with high blood pressure?</label></td>
+					<td class='section-header'><label for='bloodpressure' class="translate" data-i18n="fhh_diabetes_calculator.question_blood_pressure">5. Have you ever been diagnosed with high blood pressure?</label></td>
 					<td class='section-header'><input type="text" id="bloodpressure" class="drisk" disabled /></td>
 				</tr></table>
 	  	</td></tr>
@@ -109,9 +109,9 @@
         <td>
           <div id="bloodpressure-list" class="aradio">
               <input type="radio" id='prepos' value="1" disabled />
-              <label for="prepos" class='not-selected'> Yes (1 point)</label>
+              <label for="prepos" class='not-selected translate' data-i18n="fhh_diabetes_calculator.answer_blood_pressure_yes"> Yes (1 point)</label>
               <input type="radio" id='preneg' value='0' disabled />
-              <label for="preneg" class='not-selected'> No (0 points)</label>
+              <label for="preneg" class='not-selected' class='not-selected translate' data-i18n="fhh_diabetes_calculator.answer_blood_pressure_no"> No (0 points)</label>
           </div>
         </td>
       </tr>
@@ -120,7 +120,7 @@
 	  <table class="risktable">
 	  	<tr><td>
 				<table class='section-header'><tr>
-					<td class='section-header'><label for='physical'>6. Are you physically active?</label></td>
+					<td class='section-header'><label for='physical' class="translate" data-i18n="fhh_diabetes_calculator.question_physically_active">6. Are you physically active?</label></td>
 					<td class='section-header'><input type="text" id="physical" class="drisk" disabled /></td>
 				</tr></table>
 	  	</td></tr>
@@ -128,9 +128,9 @@
         <td>
           <div id="physical-list" class="aradio">
               <input type="radio" id='active_true' value="0" disabled />
-              <label for="active_true"> Yes (0 points)</label>
+              <label for="active_true" class="translate" data-i18n="fhh_diabetes_calculator.answer_physically_active_yes"> Yes (0 points)</label>
               <input type="radio" id='active_false' value='1' disabled />
-              <label for="active_false"> No (1 point)</label>
+              <label for="active_false" class="translate" data-i18n="fhh_diabetes_calculator.answer_physically_active_no"> No (1 point)</label>
           </div>
         </td>
       </tr>
@@ -139,28 +139,28 @@
 	  <table class="risktable">
 	    <tr><td>
 					<table class='section-header'><tr>
-						<td class='section-header'><label for='bmi_value'>7. What is your Body Mass Index? (see chart at right)</label></td>
+						<td class='section-header'><label for='bmi_value' class="translate" data-i18n="fhh_diabetes_calculator.question_bmi">7. What is your Body Mass Index? (see chart at right)</label></td>
 						<td class='section-header'><input type="text" id="bmi_value" class="drisk" disabled /></td>
 					</tr></table>
 			</td></tr>
       <tr>
         <td style="width:100%"> 
 	      	<table class='drc-info' style="width:100%">
-	        	<TR><TD>Height:<SPAN id='height_value' ></SPAN></TD>	
-	        	<TD style='float:right;'>Weight:<SPAN id='weight_value'></SPAN></TD></TR>	
+	        	<TR><TD class="translate" data-i18n="fhh_diabetes_calculator.answer_bmi_height">Height:<SPAN id='height_value' ></SPAN></TD>	
+	        	<TD style='float:right;' class="translate" data-i18n="fhh_diabetes_calculator.answer_bmi_weight">Weight:<SPAN id='weight_value'></SPAN></TD></TR>	
 	      	</table>             
 				</td>
       </tr>
 	  </table>
 	  <table class="riskcount" >
 	  	<tr>
-						<td class='section-header'><label for='total'>Total Points</label></td>
+						<td class='section-header'><label for='total' class="translate" data-i18n="fhh_diabetes_calculator.total_points">Total Points</label></td>
 			</tr>
 			<tr>
     	 	<td>
 	      	<table >
-	        	<TR><TD>0 - 4 points:</TD><TD>Risk not increased</TD></TR>	
-	        	<TR><TD>5+ points:</TD><TD>Risk Increased</TD></TR>	
+	        	<TR><TD class="translate" data-i18n="fhh_diabetes_calculator.risk_not_increased_number">0 - 4 points:</TD><TD class="translate" data-i18n="fhh_diabetes_calculator.risk_not_increased_text">Risk not increased</TD></TR>	
+	        	<TR><TD class="translate" data-i18n="fhh_diabetes_calculator.risk_increased_number">5+ points:</TD><TD class="translate" data-i18n="fhh_diabetes_calculator.risk_increased_text">Risk Increased</TD></TR>	
 	      	</table>                
       	</td>
         <td>
@@ -208,10 +208,10 @@
 	
 	</td>
 </tr></table>
-      <P class='instructions'>No risk tool is perfect and your actual risk may be higher or lower than this.  If you have questions about your type 2 diabetes risk, please speak with a health care provider.</P>
-      <P class='instructions'>This risk tool is based on a version of the Diabetes Risk Test as developed by the American Diabetes Association.  Additional information about the test can be found in: Heikes KE, et al. Diabetes Risk Calculator: a simple tool for detecting undiagnosed diabetes and pre-diabetes. Diabetes Care. 2008 May;31(5):1040-5.</P>
-      <P class='instructions'>More information about type 2 diabetes risk can be found at:  
-      <a href='http://diabetes.niddk.nih.gov/dm/pubs/riskfortype2/' target='_blank'>http://diabetes.niddk.nih.gov/dm/pubs/riskfortype2/ </a> and 
+      <P class='instructions translate' data-i18n="fhh_diabetes_calculator.tool_explanation">No risk tool is perfect and your actual risk may be higher or lower than this.  If you have questions about your type 2 diabetes risk, please speak with a health care provider.</P>
+      <P class='instructions translate' data-i18n="fhh_diabetes_calculator.tool_version">This risk tool is based on a version of the Diabetes Risk Test as developed by the American Diabetes Association.  Additional information about the test can be found in: Heikes KE, et al. Diabetes Risk Calculator: a simple tool for detecting undiagnosed diabetes and pre-diabetes. Diabetes Care. 2008 May;31(5):1040-5.</P>
+      <P class='instructions'><span class="translate" data-i18n="fhh_diabetes_calculator.tool_information">More information about type 2 diabetes risk can be found at:</span> 
+      <a href='http://diabetes.niddk.nih.gov/dm/pubs/riskfortype2/' target='_blank'>http://diabetes.niddk.nih.gov/dm/pubs/riskfortype2/</a> <span class="translate" data-i18n="fhh_diabetes_calculator.and"> and</span>
       <a href='http://ndep.nih.gov/am-i-at-risk/family-history/index.aspx#main' target='_blank'> http://ndep.nih.gov/am-i-at-risk/family-history/index.aspx#main </a> 
       </P>
 

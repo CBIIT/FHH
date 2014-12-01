@@ -55,6 +55,11 @@ div.nav
       color:#fff;
     }
 
+    div.nav button:hover
+    {  
+      background-color:#3071a9;
+    }    
+
 div.nav button div{
 z-index:-100;
 }
@@ -99,3 +104,10 @@ button.frontpage.create:hover
 .footerTable a
 {  color:#0000ff;
 }
+
+#languageSelect {
+float:right;
+padding-right:10px;
+}
+
+

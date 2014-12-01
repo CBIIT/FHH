@@ -35,7 +35,17 @@
 	<div>
 	    <table class="homepage" border="0" cellpadding="0" cellspacing="0">
 			<tr>
-	            <td colspan='2' class="logo"><img src="../themes/deploy/photos_frontpage_logo.png" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></td>
+	            <td colspan='2' class="logo" valign="top">
+	            	<img src="../themes/deploy/photos_frontpage_logo.png" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle">
+	            	<div id="languageSelect">Language&nbsp;
+	            		<select>
+	            			<option>English</option>
+	            			<option>Español</option>
+	            			<option>Português</option>
+	            			<option>Italiano</option>
+	            		</select>
+	            	</div>
+	            </td>
 	        </tr>
 			<tr>
 	            <td style='width:50%' class="maintext" valign="top">
@@ -55,11 +65,12 @@
 				<TR>
 				<TD valign="top">
 				<BUTTON class='frontpage create translate' data-i18n='fhh_index.create' onclick="goto_create()">Create a Family Health History</BUTTON>
-				<br /><br />
-				<BUTTON class='frontpage create translate' data-i18n='fhh_index.load' onclick="goto_load()">Use a Saved History</BUTTON>
-				
+			
 				</TD>
 				<TD valign="top">
+				<BUTTON class='frontpage create translate' data-i18n='fhh_index.load' onclick="goto_load()">Use a Saved History</BUTTON>					
+				</tD>
+<!-- 				<TD valign="top">
 				<BUTTON class='frontpage translate' onclick="location.href='?setLng=en'" >In English</BUTTON>
 				<br /><br />
 				<BUTTON class='frontpage translate' onclick="location.href='?setLng=es'" >En Espanol</BUTTON>
@@ -68,7 +79,7 @@
 				<br /><br />
 				<BUTTON class='frontpage translate' onclick="location.href='?setLng=it'" >In Italiano</BUTTON>
 				<br /><br />
-				</TD>
+				</TD> -->
 				</TR>
 				</TABLE>
 				 

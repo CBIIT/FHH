@@ -10,7 +10,24 @@ var score = {
 }
 
 $(document).ready(function() {
-	
+
+	if (typeof i18n != "undefined") {
+		var option = { 
+			resGetPath: '../locales/__ns__-__lng__.json',
+			ns: { 
+		    namespaces: ['translation', 'diseases'], 
+		    defaultNs: 'translation'
+		  } 
+		};
+
+		i18n.init(option, function () {
+			$(".translate").i18n();
+			$.getJSON("../data/diseases.json", function (data) {
+				diseases = data;
+				start();
+			});
+		});
+	};	
 	$('.aradio').buttonset();
 
 	build_required_information_for_personal_history();
@@ -22,7 +39,7 @@ $(document).ready(function() {
 	if (!valid.age || !valid.gender || !valid.gestational_diabetes || !valid.height || 
 			!valid.weight || !valid.physically_active || !valid.hypertension) {
 		get_required_info_dialog(valid); 
-	}
+	};
 	
 	load_all_data_and_calculate_score();
 	
