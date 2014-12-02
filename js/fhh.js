@@ -17,6 +17,8 @@ $(document).ready(function() {
 		$(this).css('cursor', 'wait');
 	});
 	
+
+
 	if (typeof i18n != "undefined") {
 		var option = { 
 			resGetPath: '../locales/__ns__-__lng__.json',
@@ -33,8 +35,25 @@ $(document).ready(function() {
 				start();
 			});
 		});
+	};
+
+	// get language //
+	var lng = window.i18n.lng();
+
+	// get value of dropdown and set setLng param in URL //
+	$( ".language" ).change(function() {
+	  location.href="?setLng=" + $(".language").val();
+	});	
+
+	// get current language and set dropdown value //
+	if (lng=='en-US') {
+		$(".language").val("en");	
+	}
+	else {
+		$(".language").val(lng);
 	}
 });
+
 
 function start() 
 {
@@ -2513,5 +2532,6 @@ function which_IE(){
 function closeEditorWarning(){
     if (personal_information) return "Leaving";
 }
-window.onbeforeunload = closeEditorWarning
+window.onbeforeunload = closeEditorWarning;
+
 
