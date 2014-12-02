@@ -94,6 +94,16 @@ td.nav a {
     white-space: nowrap;
 }
 
+button {
+    border: 1px solid;
+    border-radius: 4px;
+    color:#fff;
+    background-color:#337ab7;
+    padding:2px 10px 2px 10px;
+    font-size:85% !important;
+    cursor:pointer;
+}
+
 #languageSelect {
   padding-left:5px;
 }
