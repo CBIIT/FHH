@@ -375,6 +375,12 @@
 
 		"done" : "done"	
 	},
+	"fhh_calculators": {
+		"diabetes_calc_name":"Calcula tu riesgo de diabetes",
+		"diabetes_calc_description":"La calculadora de riesgo de diabetes",
+		"colorectal_calc_name":"Calcula tu riesgo de cáncer colorrectal",
+		"colorectal_calc_description":"La Calculadora de Riesgo colorrectal",		
+	},
 	"fhh_diabetes_calculator":  {
 		"initial_popup_no_value":"No",
 		"initial_popup_yes_value":"Si",

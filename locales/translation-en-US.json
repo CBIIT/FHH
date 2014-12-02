@@ -1,7 +1,7 @@
 {
 	"fhh_index": {
 		"usage": "Using My Family Health Portrait you can:",
-		"li1" : "Enters your family health history.",
+		"li1" : "Enter your family health history.",
 		"li2" : "Learn about your risk for conditions that can run in families.",
 		"li3" : "Print your family health history to share with family or your health care provider.",
 		"li4" : "Save your family health history so you can update it over time.",
@@ -368,7 +368,35 @@
 		"help_para" : "For certain conditions, such as ovarian and breast cancer, it is important to know if a person has Ashkenazi Jewish heritage for risk assessment purposes.",
 		"done" : "done"
 	},
+	"fhh_calculators": {
+		"diabetes_calc_name":"Calculate your Diabetes Risk",
+		"diabetes_calc_description":"The Diabetes Risk Calculator",
+		"colorectal_calc_name":"Calculate your Colorectal Cancer Risk",
+		"colorectal_calc_description":"The Colorectal Risk Calculator",		
+	},	
 	"fhh_diabetes_calculator":  {
+		"initial_popup_no_value":"No",
+		"initial_popup_yes_value":"Yes",
+		"initial_popup_continue_button":"Continue",
+		"initial_popup_desc_line1":"Please check that the information you have added about you and your relatives is complete and correct",
+		"initial_popup_desc_line2":"In order to calculate your diabetes risk, we need some additonal information",		
+		"initial_popup_date_of_birth_description":"Please enter your date of birth:",
+		"initial_popup_gender_description":"Please enter your gender:",
+		"initial_popup_gender_value1":"MALE",
+		"initial_popup_gender_value2":"FEMALE",
+		"initial_popup_had_gestational_diabetes_description":"Have you ever had Gestational Diabetes?",
+		"initial_popup_height_description":"Please enter your Height:",
+		"initial_popup_height_feet":"feet",
+		"initial_popup_height_inches":"inches",
+		"initial_popup_height_or":"-OR-",
+		"initial_popup_height_centimeters":"centimeters",
+		"initial_popup_weight_description":"Please enter your Weight:",
+		"initial_popup_weight_value1":"lbs",
+		"initial_popup_weight_value2":"kgs",
+		"initial_popup_active_description":"Are you physically active*:",
+		"initial_popup_high_blood_description":"Do you have High Blood Pression (Hypertension):",
+		"initial_popup_physical_description":"* Physical activity is defined as 150 minutes of moderate exercise per week",
+
 		"title_bar" : "Your Type 2 Diabetes Risk Information",
 		"instructions_title" : "On this screen you can:",
 		"instructions_risk" : "Get your risk for type 2 diabetes based on your personal and family history information",
@@ -488,6 +516,6 @@
 		"secondary_family_members_uterine_cancer_risk4":"It takes two or more of your secondary relatives to trigger this test: ",
 		"final_risk1":"You have at least one of the above risk factors.  Based on this your risk of colorectal cancer is increased.",
 		"final_risk2":"You have none of the above risks.  Therefore your risk of colorectal cancer is average"
-	}	
+	}				
 
 }	
