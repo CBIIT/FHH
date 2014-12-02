@@ -20,11 +20,29 @@
 
 var final_risk = false;
 
-if (personal_information == null) alert ("Need to enter personal and family histories");
+if (personal_information == null) alert ($.t("fhh_colorectal_calculator.personal_information"));
 
 set_icon($("#past_cancers"), 'calculating');
 setTimeout(test_past_cancer, 500);
 
+	if (typeof i18n != "undefined") {
+		var option = { 
+			resGetPath: '../locales/__ns__-__lng__.json',
+			ns: { 
+		    namespaces: ['translation', 'diseases'], 
+		    defaultNs: 'translation'
+		  } 
+		};
+
+		i18n.init(option, function () {
+			$(".translate").i18n();
+			$.getJSON("../data/diseases.json", function (data) {
+				diseases = data;
+				start();
+			});
+		});
+	};	
+	
 /// End of main script
 
 function test_past_cancer() {
@@ -34,52 +52,52 @@ function test_past_cancer() {
 	risk_reason = "";
 	for (i=0;i<h.length;i++) {
 		if (h[i]['Disease Code'] == 'SNOMED_CT-363406005') {
-				risk_reason += "You have had colon cancer in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk1") + "<br />";
 				risk=true;
 		}
 		if (h[i]['Disease Code'] == 'SNOMED_CT-1000001') {
-				risk_reason += "You have had colorectal cancer in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk2") + "<br />";
 				risk=true;
 		}
 		if (h[i]['Disease Code'] == 'SNOMED_CT-254582000') {
-				risk_reason += "You have had rectal cancer in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk3") + "<br />";
 				risk=true;
 		}
 		if (h[i]['Disease Code'] == 'SNOMED_CT-371973000') {
-				risk_reason += "You have had uterine cancer in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk4") + "<br />";
 				risk=true;
 		}
 		if (h[i]['Disease Code'] == 'SNOMED_CT-363418001') {
-				risk_reason += "You have had pancreatic cancer in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk5") + "<br />";
 				risk=true;
 		}
 		if (h[i]['SNOMED_CT-363443007'] == 'Ovarian Cancer') {
-				risk_reason += "You have had ovarian cancer in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk6") + "<br />";
 				risk=true;
 		}
 		if (h[i]['Disease Code'] == 'SNOMED_CT-363349007') {
-				risk_reason += "You have had gastric cancer in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk7") + "<br />";
 				risk=true;
 		}
 		if (h[i]['Disease Code'] == 'SNOMED_CT-1000000') {
-				risk_reason += "You have had brain cancer in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk8") + "<br />";
 				risk=true;
 		}
 		if (h[i]['Disease Code'] == 'SNOMED_CT-126952004') { 
 			// This code comes from the old system
-				risk_reason += "You have had brain cancer in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk9") + "<br />";
 				risk=true;
 		}
 		if (h[i]['Disease Code'] == 'SNOMED_CT-93870000') {
-				risk_reason += "You have had liver cancer in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk10") + "<br />";
 				risk=true;
 		}
 		if (h[i]['Disease Code'] == 'SNOMED_CT-363518003') {
-				risk_reason += "You have had kidney cancer in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk11") + "<br />";
 				risk=true;
 		}
 		if (h[i]['Disease Code'] == 'SNOMED_CT-315058005') {
-				risk_reason += "You have had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk12") + "<br />";
 				risk=true;
 		}
 	}
@@ -88,8 +106,7 @@ function test_past_cancer() {
 		set_reason($("#past_cancers"), risk_reason);
 	} else {
 		set_icon($("#past_cancers"), 'negative');
-		set_reason($("#past_cancers"), "You have never had any of the following cancer types: " 
-		  + "colon, colorectal, rectal, Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC), uterine, pancreatic, ovarian, gastric, brain, liver, or kidney cancer.");
+		set_reason($("#past_cancers"), $.t("fhh_colorectal_calculator.past_cancer_negative"));
 	}
 
 	final_risk |= risk;
@@ -105,11 +122,11 @@ function test_polyps() {
 	risk_reason = "";
 	for (i=0;i<h.length;i++) {
 		if (h[i]['Disease Code'] == 'SNOMED_CT-68496003') {
-				risk_reason += "You have had colon polyps in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.polyps_risk1") + "<br />";
 				risk=true;
 		}
 		if (h[i]['Disease Code'] == 'SNOMED_CT-72900001') {
-				risk_reason += "You have had familial adnenomatous polyposis (FAP) in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.polyps_risk2") + "<br />";
 				risk=true;
 		}
 	}
@@ -119,7 +136,8 @@ function test_polyps() {
 		set_reason($("#polyps"), risk_reason);
 	} else {
 		set_icon($("#polyps"), 'negative');
-		set_reason($("#polyps"), "You have never had any polyps or Familial adnenomatous polyposis (FAP).");
+		set_reason($("#polyps"),$.t("fhh_colorectal_calculator.polyps_negative"));
+		// set_reason($("#polyps"), "You have never had any polyps or Familial adnenomatous polyposis (FAP).");
 	}
 
 	final_risk |= risk;
@@ -135,11 +153,11 @@ function test_inflammatory_bowel_disease() {
 	risk_reason = "";
 	for (i=0;i<h.length;i++) {
 		if (h[i]['Disease Code'] == "SNOMED_CT-34000006") {
-				risk_reason += "You have had crohn's disease in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.ibd_risk1") + "<br />";
 				risk=true;
 		}
 		if (h[i]['Disease Code'] == 'SNOMED_CT-64766004') {
-				risk_reason += "You have had ulcerative colitis in the past.<br />";
+				risk_reason += $.t("fhh_colorectal_calculator.ibd_risk2") + "<br />";
 				risk=true;
 		}
 	}
@@ -149,7 +167,7 @@ function test_inflammatory_bowel_disease() {
 		set_reason($("#inflammatory_bowel_disease"), risk_reason);
 	} else {
 		set_icon($("#inflammatory_bowel_disease"), 'negative');
-		set_reason($("#inflammatory_bowel_disease"), "You have never had inflammatory bowel disease (either ulcerative colitis or crohn's disease).");
+		set_reason($("#inflammatory_bowel_disease"),$.t("fhh_colorectal_calculator.ibd_negative"));
 	}
 
 	final_risk |= risk;
@@ -178,12 +196,12 @@ function test_any_family_members_fap_hnpcc() {
 				for (i=0;i<h.length;i++) {
 					if (h[i]['Disease Code'] == 'SNOMED_CT-315058005') {
 						name = get_name_or_relationship(this.name, key);
-						risk_reason += name + " has had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.<br />";
+						risk_reason += name + " " + $.t("fhh_colorectal_calculator.fap_hnpcc_risk1") + "<br />";
 						risk=true;
 					}
 					if (h[i]['Disease Code'] == 'SNOMED_CT-72900001') {
 						name = get_name_or_relationship(this.name, key);
-						risk_reason += name + " has had familial adnenomatous polyposis (FAP) in the past.<br />";
+						risk_reason += name + " " + $.t("fhh_colorectal_calculator.fap_hnpcc_risk2") + "<br />";
 						risk=true;
 					}
 				}
@@ -196,8 +214,7 @@ function test_any_family_members_fap_hnpcc() {
 		set_reason($("#any_family_members_fap_hnpcc"), risk_reason);
 	} else {
 		set_icon($("#any_family_members_fap_hnpcc"), 'negative');
-		set_reason($("#any_family_members_fap_hnpcc"), 
-			"None of your family members have had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) or Familial adnenomatous polyposis (FAP)");
+		set_reason($("#any_family_members_fap_hnpcc"), $.t("fhh_colorectal_calculator.fap_hnpcc_negative"));
 	}
 	
 	final_risk |= risk;
@@ -221,22 +238,22 @@ function test_immediate_family_members_cancer() {
 					for (i=0;i<h.length;i++) {
 					if (h[i]['Disease Code'] == 'SNOMED_CT-363406005') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had colon cancer in the past.<br />";
+							risk_reason += name + " " + $.t("fhh_colorectal_calculator.family_members_cancer_risk1") + "<br />";
 							risk=true;
 						}
 						if (h[i]['Disease Code'] == 'SNOMED_CT-1000001') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had colorectal cancer in the past.<br />";
+							risk_reason += name + " " + $.t("fhh_colorectal_calculator.family_members_cancer_risk2") + "<br />";
 							risk=true;
 						}
 						if (h[i]['Disease Code'] == 'SNOMED_CT-254582000') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had rectal cancer in the past.<br />";
+							risk_reason += name + " " + $.t("fhh_colorectal_calculator.family_members_cancer_risk3") + "<br />";
 							risk=true;
 						}
 						if (h[i]['Disease Code'] == 'SNOMED_CT-363349007') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had gastric cancer in the past.<br />";
+							risk_reason += name + " " + $.t("fhh_colorectal_calculator.family_members_cancer_risk4") + "<br />";
 							risk=true;
 						}
 					}
@@ -250,8 +267,7 @@ function test_immediate_family_members_cancer() {
 		set_reason($("#immediate_family_members_cancer"), risk_reason);
 	} else {
 		set_icon($("#immediate_family_members_cancer"), 'negative');
-		set_reason($("#immediate_family_members_cancer"), 
-			"None of your immediate relatives (father, mother, brothers, sisters, children) have had colon, colorectal, rectal, or gastric cancer.");
+		set_reason($("#immediate_family_members_cancer"),$.t("fhh_colorectal_calculator.family_members_cancer_negative"));
 	}
 	
 	final_risk |= risk;
@@ -274,7 +290,7 @@ function test_immediate_family_members_polyps() {
 					for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Polyp') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had colon polyps in the past.<br />";
+							risk_reason += name + " " + $.t("fhh_colorectal_calculator.family_members_polyps_risk1") + "<br />";
 							risk=true;
 						}
 					}
@@ -288,8 +304,7 @@ function test_immediate_family_members_polyps() {
 		set_reason($("#immediate_family_members_polyps"), risk_reason);
 	} else {
 		set_icon($("#immediate_family_members_polyps"), 'negative');
-		set_reason($("#immediate_family_members_polyps"), 
-			"None of your immediate relatives (father, mother, brothers, sisters, children) have had polyps.");
+		set_reason($("#immediate_family_members_polyps"),$.t("fhh_colorectal_calculator.family_members_polyps_negative"));
 	}
 	
 
@@ -320,19 +335,19 @@ function test_secondary_family_members_cancer() {
 					for (i=0;i<h.length;i++) {
 						if (h[i]['Disease Code'] == 'SNOMED_CT-363406005') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had colon cancer in the past.<br />";
+							risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk1") + "<br />";
 							count++;
 							break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Disease Code'] == 'SNOMED_CT-1000001') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had colorectal cancer in the past.<br />";
+							risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk2") + "<br />";
 							count++;
 							break;  // We do not need to check this person anyore
 						}
 						if (h[i]['Disease Code'] == 'SNOMED_CT-254582000') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had rectal cancer in the past.<br />";
+							risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk3") + "<br />";
 							count++;
 							break;  // We do not need to check this person anyore
 						}
@@ -343,16 +358,15 @@ function test_secondary_family_members_cancer() {
 	});
 	if (count == 0) {
 		risk = false;
-		risk_reason = 
-			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) have had colon, colorectal, or rectal cancer. (There should be two or more to trigger this test.)"
+		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk4")
 		
 	} else if (count == 1) {
 		risk = false;
-		risk_reason = "It takes two or more of your secondary relatives to trigger this test: <br />" + risk_reason;
+		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk5") +  "<br />" + risk_reason;
 		
 	} else {
 		risk = true;
-		risk_reason = "It takes two or more of your secondary relatives to trigger this test: <br />" + risk_reason;
+		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk6") + " <br />" + risk_reason;
 	} 
 	
 	if (risk) {
@@ -389,20 +403,20 @@ function test_secondary_family_members_colon_cancer_before_60() {
 					for (i=0;i<h.length;i++) {
 						if (h[i]['Disease Code'] == 'SNOMED_CT-363406005' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
-							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " has had colon cancer at an unknown age.<br />";
-							else risk_reason += name + " has had colon cancer before the age of 60 years or at the age of 60 years.<br />";
+							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_colon_cancer_before_60_risk1") + "<br />";
+							else risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_colon_cancer_before_60_risk2") + "<br />";
 							risk=true;
 						}
 						if (h[i]['Disease Code'] == 'SNOMED_CT-1000001' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
-							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " has had colorectal cancer at an unknown age.<br />";
-							else risk_reason += name + " has had colorectal cancer before the age of 60 years or at the age of 60 years.<br />";
+							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_colon_cancer_before_60_risk3") + "<br />";
+							else risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_colon_cancer_before_60_risk4") + "<br />";
 							risk=true;
 						}
 						if (h[i]['Disease Code'] == 'SNOMED_CT-254582000' && is_age_before('Under60', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
-							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " has had rectal cancer at an unknown age.<br />";
-							else risk_reason += name + " has had rectal cancer before the age of 60 years or at the age of 60 years.<br />";
+							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_colon_cancer_before_60_risk5") + "<br />";
+							else risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_colon_cancer_before_60_risk6") + "<br />";
 							risk=true;
 						}
 					}
@@ -416,9 +430,7 @@ function test_secondary_family_members_colon_cancer_before_60() {
 		set_reason($("#secondary_family_members_colon_cancer_before_60"), risk_reason);
 	} else {
 		set_icon($("#secondary_family_members_colon_cancer_before_60"), 'negative');
-		set_reason($("#secondary_family_members_colon_cancer_before_60"), 			
-			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) " +
-			"have had colon, colorectal, or rectal cancer before the age of 60 years or at the age of 60 years.");
+		set_reason($("#secondary_family_members_colon_cancer_before_60"), $.t("fhh_colorectal_calculator.secondary_family_members_colon_cancer_before_60_negative"));
 	}
 
 	final_risk |= risk;
@@ -446,8 +458,8 @@ function test_secondary_family_members_uterine_cancer_before_50() {
 					for (i=0;i<h.length;i++) {
 						if (h[i]['Disease Code'] == 'SNOMED_CT-371973000' && is_age_before('Under50', h[i]['Age At Diagnosis']) ) {
 							name = get_name_or_relationship(this.name, key);
-							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " has had uterine cancer at an unknown age.<br />";
-							else risk_reason += name + " has had uterine cancer before the age of 50 years or at the age of 50 years.<br />";
+							if (h[i]['Age At Diagnosis'] == 'Unknown') risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_uterine_cancer_before_50_risk1") + "<br />";
+							else risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_uterine_cancer_before_50_risk2") + "<br />";
 							risk=true;
 						}
 					}
@@ -461,10 +473,7 @@ function test_secondary_family_members_uterine_cancer_before_50() {
 		set_reason($("#secondary_family_members_uterine_cancer_before_50"), risk_reason);
 	} else {
 		set_icon($("#secondary_family_members_uterine_cancer_before_50"), 'negative');
-		set_reason($("#secondary_family_members_uterine_cancer_before_50"), 			
-			"None of your primary or secondary relatives (mother, father, sisters, brothers, sons, daughters, "
-			+ "aunts, uncles, grandparents, grandchildren, halfsiblings) "
-			+ "have had uterine cancer before the age of 50.");
+		set_reason($("#secondary_family_members_uterine_cancer_before_50"),$.t("fhh_colorectal_calculator.secondary_family_members_uterine_cancer_before_50_negative"));
 	}
 
 	final_risk |= risk;
@@ -495,7 +504,7 @@ function test_secondary_family_members_uterine_cancer() {
 					for (i=0;i<h.length;i++) {
 						if (h[i]['Disease Code'] == 'SNOMED_CT-371973000') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " has had uterine cancer in the past.<br />";
+							risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_uterine_cancer_risk1") + "<br />";
 							count++;
 						}
 					}
@@ -505,16 +514,15 @@ function test_secondary_family_members_uterine_cancer() {
 	});
 	if (count == 0) {
 		risk = false;
-		risk_reason = 
-			"None of your secondary relatives (aunts, uncles, grandparents, grandchildren, halfsiblings) have had uterine cancer. (There should be two or more to trigger this test.)"
+		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_uterine_cancer_risk2")
 		
 	} else if (count == 1) {
 		risk = false;
-		risk_reason = "It takes two or more of your secondary relatives to trigger this test: <br />" + risk_reason;
+		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_uterine_cancer_risk3") + "<br />" + risk_reason;
 		
 	} else {
 		risk = true;
-		risk_reason = "It takes two or more of your secondary relatives to trigger this test: <br />" + risk_reason;
+		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_uterine_cancer_risk4") + "<br />" + risk_reason;
 	} 
 	
 	if (risk) {
@@ -535,13 +543,12 @@ function test_secondary_family_members_uterine_cancer() {
 function test_final() {
 	if (final_risk) {
 		set_icon($("#final"), 'positive');
-		set_reason($("#final"), 			
-			"You have at least one of the above risk factors.  Based on this your risk of colorectal cancer is increased.");
+		set_reason($("#final"), $.t("fhh_colorectal_calculator.final_risk1"));
 		$("#explanation_low_risk").hide();
 		$("#explanation_high_risk").show();
 	} else {
 		set_icon($("#final"), 'negative');
-		set_reason($("#final"), "You have none of the above risks.  Therefore your risk of colorectal cancer is average");
+		set_reason($("#final"), $.t("fhh_colorectal_calculator.final_risk2"));
 		$("#explanation_high_risk").hide();
 		$("#explanation_low_risk").show();
 	}

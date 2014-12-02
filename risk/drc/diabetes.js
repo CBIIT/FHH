@@ -235,65 +235,65 @@ function test_for_necessary_info() {
 
 function get_required_info_dialog(valid) {
 	$("#extra_info_dialog").show()
-			.append("<P class='instructions'><B>Please check that the information you have added about you and your relatives is complete and correct</B></P>");
+			.append("<P class='instructions'><B>" + $.t("fhh_diabetes_calculator.initial_popup_desc_line1") + "</B></P>");
 	if (!valid.age || !valid.gender || !valid.gestational_diabetes || !valid.height || 
 			!valid.weight || !valid.physically_active || !valid.hypertension) {
 		$("#extra_info_dialog").show()
-			.append("<P class='instructions'>In order to calculate your diabetes risk, we need some additonal information</P>");
+			.append("<P class='instructions'>" + $.t("fhh_diabetes_calculator.initial_popup_desc_line2") + "</P>");
 	}
 	var input_table = $("<TABLE>");
 	$("#extra_info_dialog").append(input_table);
 	
 	if (valid.age == false) {
 		input_table.append($("<TR>")
-			.append("<TD><label for='date_of_birth'> Please enter your date of birth:</label></TD>")
+			.append("<TD><label for='date_of_birth'>" + $.t("fhh_diabetes_calculator.initial_popup_date_of_birth_description") + "</label></TD>")
 			.append("<TD><INPUT size='10' value='' id='date_of_birth' type='text' /><div class='instructions'>mm/dd/yyyy</div></TD>"));
 	}
 
 	if (valid.gender== false) {
 		input_table.append($("<TR>")
-			.append("<TD><label for='gender_choice'> Please enter your gender:</label></TD>")
+			.append("<TD><label for='gender_choice'>" + $.t("fhh_diabetes_calculator.initial_popup_gender_description") + "</label></TD>")
 			.append($("<TD>")
 				.append($("<SELECT id='gender_choice'>")
-					.append("<OPTION value='MALE'>Male</OPTION>")
-					.append("<OPTION value='FEMALE'>Female</OPTION>"))));
+					.append("<OPTION value='MALE'>" + $.t("fhh_diabetes_calculator.initial_popup_gender_value1") + "</OPTION>")
+					.append("<OPTION value='FEMALE'>" + $.t("fhh_diabetes_calculator.initial_popup_gender_value2") + "</OPTION>"))));
 	}
 
 	if (valid.gestational_diabetes == false) {
 		input_table.append($("<TR>")
-			.append("<TD><label for='gestational_diabetes_choice'> Have you ever had Gestational Diabetes?</label></TD>")
+			.append("<TD><label for='gestational_diabetes_choice'>" +  $.t("fhh_diabetes_calculator.initial_popup_had_gestational_diabetes_description") +  "</label></TD>")
 			.append($("<TD>")
 				.append($("<SELECT id='gestational_diabetes_choice'>")
-					.append("<OPTION value='false'>No</OPTION>")
-					.append("<OPTION value='true'>Yes</OPTION>"))));
+					.append("<OPTION value='false'>" + $.t("fhh_diabetes_calculator.initial_popup_no_value") + "</OPTION>")
+					.append("<OPTION value='true'>" + $.t("fhh_diabetes_calculator.initial_popup_yes_value") + "</OPTION>"))));
 	}
 
 	if (valid.height== false) {
 		input_table.append($("<TR>")
-			.append("<TD><label for='height_feet'> Please enter your Height:</label><label for='height_inches'>&nbsp;</label><label for='height_centimeters'></label></TD>")
+			.append("<TD><label for='height_feet'>" + $.t("fhh_diabetes_calculator.initial_popup_height_description") + "</label><label for='height_inches'>&nbsp;</label><label for='height_centimeters'></label></TD>")
 			.append($("<TD>")
-				.append("<INPUT size='2' value='' id='height_feet' type='text' /> feet <INPUT size='2' value='' id='height_inches' type='text' /> inches")
-				.append("&nbsp;-OR-&nbsp; <INPUT size='4' value='' id='height_centimeters' type='text' /> centimeters")));
+				.append("<INPUT size='2' value='' id='height_feet' type='text' />" + $.t("fhh_diabetes_calculator.initial_popup_height_feet") + "<INPUT size='2' value='' id='height_inches' type='text' /> " + $.t("fhh_diabetes_calculator.initial_popup_height_inches"))
+				.append("&nbsp;" + $.t("fhh_diabetes_calculator.initial_popup_height_or") + "&nbsp; <INPUT size='4' value='' id='height_centimeters' type='text' /> " + $.t("fhh_diabetes_calculator.initial_popup_height_centimeters"))));
 	}
 
 	if (valid.weight== false) {
 		input_table.append($("<TR>")
-			.append("<TD><label for='weight'>Please enter your Weight:</label><label for='weight_unit'>&nbsp;</label></TD>")
+			.append("<TD><label for='weight'>" + $.t("fhh_diabetes_calculator.initial_popup_weight_description") + "</label><label for='weight_unit'>&nbsp;</label></TD>")
 			.append($("<TD>")
 				.append("<INPUT size='5' value='' id='weight' type='text' />")
 				.append($("<SELECT id='weight_unit'>")
-					.append("<OPTION value='pound'>lbs</OPTION>")
-					.append("<OPTION value='kilogram'>kgs</OPTION>"))));
+					.append("<OPTION value='pound'>" + $.t("fhh_diabetes_calculator.initial_popup_weight_value1") + "</OPTION>")
+					.append("<OPTION value='kilogram'>" + $.t("fhh_diabetes_calculator.initial_popup_weight_value2") + "</OPTION>"))));
 	}
 	
 	
 	if (valid.physically_active == false) {
 		input_table.append($("<TR>")
-			.append("<TD><label for='physically_active_choice'>Are you physically active*:</label></TD>")
+			.append("<TD><label for='physically_active_choice'>" + $.t("fhh_diabetes_calculator.initial_popup_active_description") + "</label></TD>")
 			.append($("<TD>")
 				.append($("<SELECT id='physically_active_choice'>")
-					.append("<OPTION value='false'>No</OPTION>")
-					.append("<OPTION value='true'>Yes</OPTION>"))));
+					.append("<OPTION value='false'>" + $.t("fhh_diabetes_calculator.initial_popup_no_value") + "</OPTION>")
+					.append("<OPTION value='true'>" + $.t("fhh_diabetes_calculator.initial_popup_yes_value") + "</OPTION>"))));
 
 //			.append("Physical activity is defined as 150 minutes of moderate exercise per week<br/>")
 
@@ -301,14 +301,14 @@ function get_required_info_dialog(valid) {
 	
 	if (valid.hypertension == false) {
 		input_table.append($("<TR>")
-			.append("<TD><label for='hypertension_choice'>Do you have High Blood Pression (Hypertension):</label></TD>")
+			.append("<TD><label for='hypertension_choice'>" + $.t("fhh_diabetes_calculator.initial_popup_high_blood_description") + "</label></TD>")
 			.append($("<TD>")
 				.append($("<SELECT id='hypertension_choice'>")
-					.append("<OPTION value='false'>No</OPTION>")
-					.append("<OPTION value='true'>Yes</OPTION>"))));
+					.append("<OPTION value='false'>" + $.t("fhh_diabetes_calculator.initial_popup_no_value") + "</OPTION>")
+					.append("<OPTION value='true'>" + $.t("fhh_diabetes_calculator.initial_popup_no_value") + "</OPTION>"))));
 	}
 	
-	var continue_button = $("<BUTTON> Continue </BUTTON>");
+	var continue_button = $("<BUTTON> " + $.t("fhh_diabetes_calculator.initial_popup_continue_button") + " </BUTTON>");
 	continue_button.click( apply_required_additional_data_entry_button );
 
 	$("#extra_info_dialog").append(continue_button);
@@ -316,7 +316,7 @@ function get_required_info_dialog(valid) {
 
 	// Some notes at the end of the page
 	if (valid.physically_active == false) {
-		$("#extra_info_dialog").append("<p class='instructions'>* Physical activity is defined as 150 minutes of moderate exercise per week</p>");
+		$("#extra_info_dialog").append("<p class='instructions'>" + $.t("fhh_diabetes_calculator.initial_popup_physical_description") + "</p>");
 	}
 }
 

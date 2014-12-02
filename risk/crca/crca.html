@@ -2,19 +2,19 @@
 <link rel="stylesheet" type="text/css" href="../risk/crca/crca.css">
 
 <div id="crca_content">
-	<h1 class='title_bar'> Your Colorectal Cancer Risk Information </h1><br />
+	<h1 class='title_bar translate' data-i18n="fhh_colorectal_calculator.title_bar"> Your Colorectal Cancer Risk Information </h1><br />
 	
-<P class='instructions'>On this screen you can:</P>
+<P class='instructions translate' data-i18n="fhh_colorectal_calculator.instruction1">On this screen you can:</P>
 <UL>
-<LI class='instructions'>Get your risk for colorectal cancer based on your personal and family history information</LI>
-<LI class='instructions'>Learn which risk factors you may have for colorectal cancer</LI>
-<LI class='instructions'>Read and print sharable letters for you and your health care provider explaining your colorectal cancer risk</LI>
+<LI class='instructions translate' data-i18n="fhh_colorectal_calculator.instruction2">Get your risk for colorectal cancer based on your personal and family history information</LI>
+<LI class='instructions translate' data-i18n="fhh_colorectal_calculator.instruction3">Learn which risk factors you may have for colorectal cancer</LI>
+<LI class='instructions translate' data-i18n="fhh_colorectal_calculator.instruction4">Read and print sharable letters for you and your health care provider explaining your colorectal cancer risk</LI>
 </UL>	
-<P  class='instructions'> This tool will run a series of tests, one at a time, to determine your risk for colorectal cancer.</P>
+<P  class='instructions translate' data-i18n="fhh_colorectal_calculator.instruction5"> This tool will run a series of tests, one at a time, to determine your risk for colorectal cancer.</P>
 <hr />
 	<TABLE id='crca_table'>
 		<TR>
-			<TH>Test</TH><TH>Reason</TH>
+			<TH class="translate" data-i18n="fhh_colorectal_calculator.test">Test</TH><TH class="translate" data-i18n="fhh_colorectal_calculator.reason">Reason</TH>
 		</TR>
 		<TR id='past_cancers'>
 			<TD id='test'><IMG src='../risk/crca/blue_waiting.png' alt='waiting' height='40'/></TD><TD id='reason'>&nbsp;</TD>	
@@ -54,34 +54,34 @@
 	<div id='bottom-area'>
 		<div id='explanation_side' style='float:left;width:700px;'>
 			<TABLE id='explanation_low_risk' style='display:none;'><TR>
-				<TD><button id='crca_personal_lower_risk' onClick='submit_low()' style='font-size:18px;font-weight:bold;'> Get <br />Risk&nbsp;Letter </button></TD>
-        <TD><button id='crca_provider_lower_risk' onClick='submit_low_physician()' style='font-size:18px;font-weight:bold;'> Get&nbsp;Risk<br />Provider&nbsp;Letter </button></TD>
+				<TD><button id='crca_personal_lower_risk' onClick='submit_low()' style='font-size:18px;font-weight:bold;'> <span class="translate" data-i18n="fhh_colorectal_calculator.button1_line1">Get</span> <br /><span class="translate" data-i18n="fhh_colorectal_calculator.button1_line2">Risk Letter</span> </button></TD>
+        <TD><button id='crca_provider_lower_risk' onClick='submit_low_physician()' style='font-size:18px;font-weight:bold;'> <span class="translate" data-i18n="fhh_colorectal_calculator.button2_line1">Get&nbsp;Risk</span><br /><span class="translate" data-i18n="fhh_colorectal_calculator.button2_line2">Provider&nbsp;Letter</span> </button></TD>
 			</TR></TABLE>			
 			<TABLE id='explanation_high_risk' style='display:none;'><TR>
-				<TD><button id='crca_personal_higher_risk' onClick='submit_high()' style='font-size:18px;font-weight:bold;'> Get&nbsp;Increased<br />Risk&nbsp;Letter </button></TD>
-        <TD><button id='crca_provider_higher_risk' onClick='submit_high_physician()' style='font-size:18px;font-weight:bold;'> Get&nbsp;Increased<br />Risk&nbsp;Provider&nbsp;Letter </button></TD>
+				<TD><button id='crca_personal_higher_risk' onClick='submit_high()' style='font-size:18px;font-weight:bold;'> <span class="translate" data-i18n="fhh_colorectal_calculator.button3_line1">Get&nbsp;Increased</span><br /><span class="translate" data-i18n="fhh_colorectal_calculator.button3_line2">Risk&nbsp;Letter</span> </button></TD>
+        <TD><button id='crca_provider_higher_risk' onClick='submit_high_physician()' style='font-size:18px;font-weight:bold;'> <span class="translate" data-i18n="fhh_colorectal_calculator.button4_line1">Get&nbsp;Increased</span><br /><span class="translate" data-i18n="fhh_colorectal_calculator.button4_line2">Risk&nbsp;Provider&nbsp;Letter</span> </button></TD>
 			</TR></TABLE>			
 		</div>
 		<div id='key_side' style='float:right;width:300px;'>
 			<TABLE id='crca_key'>
 				<TR>
-					<TD colspan='4'>Table Key:</TD>
+					<TD colspan='4' class="translate" data-i18n="fhh_colorectal_calculator.table_key">Table Key:</TD>
 				</TR>
 				<TR>
-					<TD><IMG src='../risk/crca/green_x.png' alt='No history found' height='40'> </TD><TD colspan='3'>No personal or family history with this test</TD>
-					<TD><IMG src='../risk/crca/red_check.png' alt='History found' height='40'> </TD><TD colspan='3'>There was personal or family history with this test</TD></TR>	
+					<TD><IMG src='../risk/crca/green_x.png' alt='No history found' height='40'> </TD><TD colspan='3' class="translate" data-i18n="fhh_colorectal_calculator.no_history_found">No personal or family history with this test</TD>
+					<TD><IMG src='../risk/crca/red_check.png' alt='History found' height='40'> </TD><TD colspan='3' class="translate" data-i18n="fhh_colorectal_calculator.history_found">There was personal or family history with this test</TD></TR>	
 				</TR>
 			</TABLE>			
 		</div>
 		<div id='bottom_info' style='float:left;width:100%;'>
-      <P class='instructions'>No risk tool is perfect and your actual risk may be higher or lower than this.  If you have questions about your colorectal cancer risk, please speak with a health care provider.</P>
-      <P class='instructions'>This risk tool is based on information from the United States Preventive Services Task Force and the National Comprehensive Cancer Network®.</P>
-      <P class='instructions'>More information about colorectal cancer risk can be found at: </P>
+      <P class='instructions translate' data-i18n="fhh_colorectal_calculator.bottom_info1">No risk tool is perfect and your actual risk may be higher or lower than this.  If you have questions about your colorectal cancer risk, please speak with a health care provider.</P>
+      <P class='instructions translate' data-i18n="fhh_colorectal_calculator.bottom_info2">This risk tool is based on information from the United States Preventive Services Task Force and the National Comprehensive Cancer Network®.</P>
+      <P class='instructions translate' data-i18n="fhh_colorectal_calculator.bottom_info3">More information about colorectal cancer risk can be found at: </P>
 			<UL>
-				<LI class='instructions'> National Cancer Institute Colorectal Cancer Information
+				<LI class='instructions translate' data-i18n="fhh_colorectal_calculator.bottom_info4"> National Cancer Institute Colorectal Cancer Information
 					<A href ='http://www.cancer.gov/cancertopics/types/colon-and-rectal' target='_blank'>http://www.cancer.gov/cancertopics/types/colon-and-rectal</A>
       	</LI>
-				<LI class='instructions'>National Cancer Institute Colorectal Cancer PDQ for Healthcare Professionals:<br />
+				<LI class='instructions translate' data-i18n="fhh_colorectal_calculator.bottom_info5">National Cancer Institute Colorectal Cancer PDQ for Healthcare Professionals:<br />
 					<A href ='http://www.cancer.gov/cancertopics/pdq/genetics/colorectal/HealthProfessional' target='_blank'>http://www.cancer.gov/cancertopics/pdq/genetics/colorectal/HealthProfessional</A>
       	</LI>
       </UL>
