@@ -18,7 +18,7 @@
 /* ************************************* */
 
 body {
-    background: rgba(240, 226, 212, 1);
+    background: url('page_background.jpg') repeat-x scroll center top #ECE0D3;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 75%;
     padding: 10px;
@@ -60,7 +60,7 @@ div.content_container {
 }
 
 table.banner {
-    background-color: #B42;
+    background-color: #E19C1B;
     border-bottom: 1px solid rgba(48, 0, 0, 1)
     height: 58px;
     margin: 0px;
@@ -73,7 +73,7 @@ table.banner {
 }
 
 table.nav {
-    background-color: #410;
+    background-color: #00477A;
     border-top: 1px solid rgba(48, 0, 0, 1)
     margin: 1px 0px 0px 0px;
     width: 100%;
@@ -82,7 +82,7 @@ table.nav {
 td.nav a {
     font-family: Comic Sans MS, Helvetica, sans-serif;
   display: inline-block;
-    background-color: #410;
+    background-color: #00477A;
     border-right: 1px solid rgba(128, 196, 128, 1);
     color: #DAEFFB;
     font-size: 1.0em;
@@ -106,7 +106,7 @@ p {
 }
 
 h1 {
-    color: #421;
+    color: #109DBB;
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 1.5em;
     font-style: normal;
@@ -115,7 +115,7 @@ h1 {
 }
 
 h2 {
-    color: #B42; 
+    color: #109DBB; 
     font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
     font-size: 1.25em;
     font-style: italic;
@@ -204,7 +204,7 @@ table.summary_table {
 }
 
 table.summary_table th {
-  background-color: #B42;
+  background-color: #FFE060;
   border-bottom: 1px solid #666666;
   border-right:1px solid #666666;
   color: #000000;
@@ -236,7 +236,7 @@ table.disease_table {
 }
 
 table.disease_table th {
-  background-color: #B42;
+  background-color: #FFE060;
   border-bottom: 1px solid #666666;
   border-right:1px solid #666666;
   color: #000000;
@@ -286,8 +286,8 @@ table.footerTable {
 .title-bar {
   text-align:left;
   font-weight:bold; 
-  color: #000;
-  background-color: #EAA; 
+  color: #fff;
+  background-color: #109DBA; 
   border-top: 1px solid #003366;
   border-bottom: 1px solid #003366;
   padding-left:10px;
@@ -305,7 +305,7 @@ table.footerTable {
 }
 
 .ui-widget-header {
-  background-color: #621; 
+  background-color: #FFE060; color:#000;
   background-image:none;
   border:1px solid rgba(53, 6, 2, 1);
 }
