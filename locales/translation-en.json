@@ -368,12 +368,6 @@
 		"help_para" : "For certain conditions, such as ovarian and breast cancer, it is important to know if a person has Ashkenazi Jewish heritage for risk assessment purposes.",
 		"done" : "done"
 	},
-	"fhh_calculators": {
-		"diabetes_calc_name":"Calculate your Diabetes Risk",
-		"diabetes_calc_description":"The Diabetes Risk Calculator",
-		"colorectal_calc_name":"Calculate your Colorectal Cancer Risk",
-		"colorectal_calc_description":"The Colorectal Risk Calculator",		
-	},	
 	"fhh_diabetes_calculator":  {
 		"initial_popup_no_value":"No",
 		"initial_popup_yes_value":"Yes",
