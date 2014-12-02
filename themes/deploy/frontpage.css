@@ -45,22 +45,22 @@ div.nav
   padding: 0px;
 }
 
-    div.nav button
+    div.nav button.help_item
     {  
-    	 border: 4px solid transparent;
-      border-radius:10px 10px 0px 0px;
+       border: 4px solid transparent;
+      border-radius:45px 0px 0px 0px;
       background-color:#428bca;
       width: 130px;
       cursor: pointer;
       color:#fff;
     }
 
-    div.nav button:hover
+    div.nav button.help_item:hover
     {  
       background-color:#3071a9;
     }    
 
-div.nav button div{
+div.nav button.help_item div{
 z-index:-100;
 }
 

@@ -53,7 +53,7 @@ div.header_container {
 }
 
 div.content_container {
-    border: 1px solid #000000;
+    border: 1px solid #000000;background-color:#fff;
     margin: 0px;
     padding: 0px;
     vertical-align: top;
@@ -76,26 +76,31 @@ table.nav {
     background-color: #00477A;
     border-top: 1px solid rgba(48, 0, 0, 1)
     margin: 1px 0px 0px 0px;
-    width: 100%;
+    width:1000px;
+}
+
+td.nav {
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    display: inline-block;
+    color: #fff;
+    font-size: .94em;
 }
 
 td.nav a {
-    font-family: Comic Sans MS, Helvetica, sans-serif;
-  display: inline-block;
-    background-color: #00477A;
-    border-right: 1px solid rgba(128, 196, 128, 1);
-    color: #DAEFFB;
-    font-size: 1.0em;
-    font-weight: normal;
-    margin: 0px;
-    padding: 4px 12px 3px 12px;
+    border-right: 1px solid #fff;
+    color: #fff;
+    padding: 4px 7px 3px 7px;
     text-decoration: none;
     white-space: nowrap;
 }
 
+#languageSelect {
+  padding-left:5px;
+}
+
 #nav_help {
     border-left: 0px;
-  border-right: 0px;
+    border-right: 1px;
 }
 
 <!-- Main Styles -->
@@ -262,11 +267,12 @@ table.disease_table td {
 }
 
 
-table.footerTable {
-  background-color: transparent;
-  font-size: 0.95em;
-  margin: 0 auto 10px auto;
-  width: 860px;
+.footerTable
+{  margin: 0px auto 0px auto;
+}
+
+.footerTable a
+{  color:#0000ff;
 }
 
 .required {

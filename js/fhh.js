@@ -45,12 +45,19 @@ $(document).ready(function() {
 	  location.href="?setLng=" + $(".language").val();
 	});	
 
+	// get value of dropdown and set setLng param in URL on fhh page //
+	$( ".language_fhh" ).change(function() {
+	  location.href="?action=create&setLng=" + $(".language_fhh").val();
+	});		
+
 	// get current language and set dropdown value //
 	if (lng=='en-US') {
 		$(".language").val("en");	
+		$(".language_fhh").val("en");	
 	}
 	else {
 		$(".language").val(lng);
+		$(".language_fhh").val(lng);
 	}
 });
 

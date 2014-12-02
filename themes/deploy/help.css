@@ -7,7 +7,7 @@ body {
 }
 
 .helpTopTitlebar {
-	text-align:right;
+    text-align:right;
 }
 
 table.footerTable {
@@ -15,14 +15,14 @@ table.footerTable {
 }
 
 div.p {
-	margin:10px;
+    margin:10px;
 }
 
 .banner {
-  background-color: #C42010;
-	border-top: 1px solid black;	
-	border-left: 1px solid black;	
-	border-right: 1px solid black;	
+  background-color: #E29C1B;
+    border-top: 1px solid black;    
+    border-left: 1px solid black;   
+    border-right: 1px solid black;  
 }
 
 * html #wrapper /* IE6 min-width dynamic expression (hack) */
@@ -39,6 +39,15 @@ h1 {
     font-style: normal;
     font-weight: bold;
     margin: 1em 0em 0em 0em;
+}
+
+h1.title {
+    color:#fff;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    font-size: 1.5em;
+    font-style: normal;
+    font-weight: bold;
+    margin: 0em 0em 0em 0em;
 }
 
 h2 {
@@ -90,12 +99,12 @@ img, a img {
 }
 
 div.main {
-	border: 1px solid black;
-	padding:10px;
+    border: 1px solid black;
+    padding:10px;
 }
 
 div.helpTopTitlebar {
-	padding: 5px;
+    padding: 5px;
 }
 hr {
     background-color: #7BBCCA;
