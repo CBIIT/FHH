@@ -362,7 +362,21 @@
 		"save_dropbox_instructions" : "Você pode salvar um arquivo do Dropbox por assinatura em sua conta Dropbox e escolher um local para salvar e nomear o arquivo.",
 		"save_dropbox_button": "Salvar para Dropbox",
 		"disclaimer" : "Quando você optar por copiar suas informações de história da saúde da família para qualquer sistema de terceiros, por favor note que suas informações serão mantidas nesse sistema, e estará sujeito aos termos de uso ea política de privacidade desse sistema.",
-		
+
+		"detailed_instructions":"Instruções de arquivo abrindo detalhadas",		
+		"detailed_instructions_line1":"Para abrir um arquivo do seu computador ou dispositivo de armazenamento portátil (por exemplo, uma unidade flash USB):",
+		"detailed_instructions_line2":"Nota: A não ser que ele tenha sido renomeado no seu computador, um arquivo XML histórico de saúde da família salvou geralmente será FamilyHistory.xml ou <nome>_FamilyHistory.xml (substitua <nome> com o nome da pessoa centro, geralmente você). Note-se também que somente os arquivos criados originalmente com a minha família Retrato de Saúde são suportados para a abertura.",
+		"detailed_instructions_line3":"Para copiar o seu histórico de saúde da família de sua conta Microsoft HealthVault:",
+		"detailed_instructions_line4":"Nota: A conta Microsoft HealthVault é necessário para esta operação. Se você não tem uma conta no HealthVault , você pode optar por criar um quando você salvar o seu histórico de saúde da família, ou visitando",
+		"detailed_instructions_link1":"My Family Portrait Saúde pode copiar as informações do histórico de saúde da família de HealthVault mesmo se ele não foi criado usando este website.",
+		"detailed_instructions_link2":"Na seção acima Copiar marcado de imprensa Microsoft® HealthVault™ o botão Copiar do HealthVault.",
+		"detailed_instructions_link3":"Você será guiado através de uma série de telas que permitem que você faça login em sua conta HealthVault e copiar as informações de histórico de saúde da família.",
+		"detailed_instructions_li1":"Se você está abrindo um arquivo de um dispositivo de armazenamento portátil , verifique se o dispositivo está conectado corretamente e montado antes de iniciar estas instruções",
+		"detailed_instructions_li2":"Na seção acima marcado 'Open a partir do computador' - pressione o botão Procurar",
+		"detailed_instructions_li3":"Uma caixa de seleção de arquivos será exibida - localize e selecione o arquivo XML salvo anteriormente família histórico de saúde que deseja abrir e pressione OK ou Abrir na caixa de seleção de arquivo (dependendo do tipo de computador ou web browser que você está usando)",
+		"detailed_instructions_li4":"Se você está abrindo um arquivo de um dispositivo de armazenamento portátil , você vai precisar para localizar o dispositivo na caixa de seleção de arquivo para visualizar seu conteúdo e , em seguida, selecione o arquivo a ser aberto",
+		"detailed_instructions_li5":"Pressione o botão marcado 'Open De Computador' na tela",		
+
 		"done": "done"
 	},
 

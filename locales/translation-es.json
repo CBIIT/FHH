@@ -209,12 +209,12 @@
 		"h2_update_fhh": "Atualize história da minha família",
 		"p_update_my_history" : "En esta pantalla puede:",
 		"quick_guide_li1" : "Cambia tu Historial de Salud Familiar al agregar, eliminar o cambiar sus parientes",
-		"quick_guide_li2" : "Use as ferramentas para visualizar o seu diagrama de árvore de família, descobrir os riscos de certas doenças, ou exportar a sua árvore para ajudar o seu familiar próximo começar.",
+		"quick_guide_li2" : "Utilice las herramientas para ver el diagrama de árbol de familia, averiguar sus riesgos para ciertas enfermedades , o exportar su árbol para ayudar a su familiar cercano empezar.",
 		
 		"update_more_help" : "Para saber más acerca de lo que puede hacer, haga clic en el 'Obtener Ayuda' vínculo en la barra de menú superior. ",
-		"p_update_my_history_b1_before" : "Agregar información a un familiar pulsando Agregar Historia ",
+		"p_update_my_history_b1_before" : "Añadir información a un familiar pulsando Añadir Historia",
 		"p_update_my_history_b1_after" : " junto al nombre en la lista.",
-		"p_update_my_history_b2_before" : "Cambiar su información o la información de un miembro de la familia presionando Actualización de la historia",
+		"p_update_my_history_b2_before" : "Cambiar su información o la información de un miembro de la familia pulsando Actualización de la historia",
 		"p_update_my_history_b2_after" : " junto al nombre en la lista.",
 		"p_update_my_history_b3_before" : "Retirar un miembro de la familia de su historial pulsando Retirar ",
 		"p_update_my_history_b3_after" : " junto al nombre en la lista. (No se puede quitar a ti mismo, a tus padres, o abuelos.)",
@@ -364,7 +364,21 @@
 		"save_dropbox_instructions" : "Puede guardar un archivo de Dropbox accediendo a su cuenta de Dropbox y elegir una ubicación para guardar y nombrar el archivo.",
 		"save_dropbox_button" : "Guardar en Dropbox",
 		"disclaimer" : "Quando você optar por copiar suas informações de história da saúde da família para qualquer sistema de terceiros, por favor note que suas informações serão mantidas nesse sistema, e estará sujeito aos termos de uso ea política de privacidade desse sistema.",
-		
+
+		"detailed_instructions":"Instrucciones de abrir archivos detallados",
+		"detailed_instructions_line1":"Para abrir un archivo desde su ordenador o dispositivo de almacenamiento portátil ( por ejemplo, una unidad flash USB):",
+		"detailed_instructions_line2":"Nota: A menos que se ha cambiado el nombre de su equipo, un archivo XML historial de salud familiar salvado por lo general será FamilyHistory.xml o <nombre>_FamilyHistory.xml (reemplace <name> con el nombre de la persona del centro, por lo general). Tenga en cuenta también que sólo los archivos originalmente creado con Mi Familia Retrato de Salud son compatibles para la apertura",
+		"detailed_instructions_line3":"Para copiar su historial de salud familiar de su cuenta de Microsoft HealthVault:",
+		"detailed_instructions_line4":"Para copiar su historial de salud familiar de su cuenta de Microsoft HealthVault:",
+		"detailed_instructions_link1":"Mi familia Retrato de Salud puede copiar la información del historial de salud familiar de HealthVault , incluso si no se ha creado usando este sitio web.",
+		"detailed_instructions_link2":"En la sección anterior marcada Copia de prensa Microsoft® HealthVault™ el botón Copiar desde HealthVault.",
+		"detailed_instructions_link3":"Se le guiará a través de una serie de pantallas que le permiten iniciar sesión en su cuenta HealthVault y copiar su información de la historia de salud familiar.",
+		"detailed_instructions_li1":"Si va a abrir un archivo de un dispositivo de almacenamiento portátil , asegúrese de que el dispositivo está correctamente conectado y montado antes de iniciar estas instrucciones",
+		"detailed_instructions_li2":"En la sección anterior marcado ' Abrir desde PC' ​​- pulse el botón Examinar",
+		"detailed_instructions_li3":"Un cuadro de selección de archivos se mostrará - busque y seleccione el historial de salud familiar archivo XML previamente guardada que desea abrir y pulse Aceptar o en Abrir en el cuadro de selección de archivos (dependiendo del tipo de ordenador o navegador web que esté utilizando)",
+		"detailed_instructions_li4":"Si va a abrir un archivo de un dispositivo de almacenamiento portátil , usted tendrá que localizar el dispositivo en el cuadro de selección de archivo para ver su contenido y luego seleccione el archivo que se abrirá",
+		"detailed_instructions_li5":"Pulse el botón marcado 'Abrir desde PC' ​​en esta pantalla",		
+
 		"done" : "done"
 	},
 	
