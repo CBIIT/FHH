@@ -229,7 +229,7 @@
 		"p_update_my_history2_b7" : "Get additional Help by clicking on the 'Get Help' menu item",
 		
 		"btn_create_my_history" : "Delete all Data and Restart",
-		"btn_save_my_history" : "Save My History",
+		"btn_save_my_history" : "Save Family History for Later Re-use",
 		"btn_add_a_family_mbr" : "Add Another Family Member",
 		"btn_save_fam_hist" : "Save Family History",
 		"btn_save_fam_hist" : "Save Family History",
@@ -524,6 +524,6 @@
 		"secondary_family_members_uterine_cancer_risk4":"It takes two or more of your secondary relatives to trigger this test: ",
 		"final_risk1":"You have at least one of the above risk factors.  Based on this your risk of colorectal cancer is increased.",
 		"final_risk2":"You have none of the above risks.  Therefore your risk of colorectal cancer is average"
-	}				
+	}			
 
 }	
