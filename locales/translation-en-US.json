@@ -327,6 +327,9 @@
 	},
 
 	"fhh_load_save": {
+		"browse":"Browse",		
+		"open_from_computer":"Open From Computer",
+		"copy_from_health_vault":"Copy from Health Vault",
 		"choose_a_file": "Please choose a file to upload",
 		"load_from_file" : "Load Your Personal Information from a File",
 		"load_file_instructions1" : "In this step, you can open your family health history from a previously-saved XML data file on your computer or portable storage device.",

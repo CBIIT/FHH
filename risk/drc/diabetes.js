@@ -7,27 +7,17 @@ var score = {
 	'activity':0,
 	'bmi':0,
 	'total':0
-}
+};
+
+// get lng and set to variable. used to open correct pdf //
+var lng = window.i18n.lng();
+if (lng=='en-US') {
+	lng = 'en';
+};
 
 $(document).ready(function() {
 
-	if (typeof i18n != "undefined") {
-		var option = { 
-			resGetPath: '../locales/__ns__-__lng__.json',
-			ns: { 
-		    namespaces: ['translation', 'diseases'], 
-		    defaultNs: 'translation'
-		  } 
-		};
-
-		i18n.init(option, function () {
-			$(".translate").i18n();
-			$.getJSON("../data/diseases.json", function (data) {
-				diseases = data;
-				start();
-			});
-		});
-	};	
+	
 	$('.aradio').buttonset();
 
 	build_required_information_for_personal_history();

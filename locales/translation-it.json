@@ -332,12 +332,14 @@
 	},
 
 	"fhh_load_save": {
+		"browse":"Sfogliare",	
+		"open_from_computer":"Aperto da Computer",			
+		"copy_from_health_vault":"Copiare da Health Vault",
 		"choose_a_file": "Scegli un file da caricare",
-		
 		"load_from_file": "Carica vostre informazioni personali da un file",
 		"load_file_button": "Carica da un file",
 		"load_file_instructions1" : "In questa fase, è possibile aprire la vostra storia di salute della famiglia da un file di dati XML precedentemente salvato sul vostro computer o dispositivo di archiviazione portatile.",
-		"load_file_instructions2" : "Premere 'Browse ...' per selezionare un file sul computer, quindi premere 'Open from Computer' per aprirlo",
+		"load_file_instructions2" : "Premere 'Sfogliare ...' per selezionare un file sul computer, quindi premere 'Open from Computer' per aprirlo",
 		"load_health_vault": "Carica vostre informazioni personali da Health Vault di Microsoft",
 		"load_health_vault_instructions" : "Microsoft HealthVault ti permette di mettere insieme, salvare, e lasciare altri usare dati sanitari online. Il Mio Quadro Sanitario di Famiglia ora copierá i dati dal tuo conto HealthVault. Per farlo devi collegarti online a HealthVault.",
 		"load_health_vault_button": "Carica da Health Vault di Microsoft",

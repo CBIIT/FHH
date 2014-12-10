@@ -332,11 +332,13 @@
 	},
 
 	"fhh_load_save": {
+		"browse":"Navegar",		
+		"open_from_computer":"Abierto Del Ordenador",		
+		"copy_from_health_vault":"Copia de Health Vault",
 		"choose_a_file": "Por favor elija un archivo para cargar",
-
 		"load_from_file" : "Cargue su información personal desde un archivo",
 		"load_file_instructions1" : "En este paso, puede abrir el historial de salud de la familia de un archivo de datos XML previamente guardado en su computadora o dispositivo de almacenamiento portátil.",
-		"load_file_instructions2" : "Pulse 'Browse ...' para seleccionar un archivo de su equipo, a continuación, pulse 'Open from Computer' para abrirla",
+		"load_file_instructions2" : "Pulse 'Navegar ...' para seleccionar un archivo de su equipo, a continuación, pulse 'Open from Computer' para abrirla",
 		"load_file_button" : "Cargar archivo",
 		"load_health_vault" : "Cargue su información personal de Health Vault de Microsoft",
 		"load_health_vault_instructions" : "Microsoft HealthVault le permite recolectar y archivar la información de su Historia de Salud Familiar. Mi Retrato de Salud Familiar copiará los datos en su cuenta de HealthVault. Va a necesitar inscribirse en HealthVault.",

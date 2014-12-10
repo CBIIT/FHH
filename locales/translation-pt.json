@@ -198,7 +198,7 @@
 	},
 
 	"fhh_fhh": {
-		"a_Home": "Home",
+		"a_Home": "Casa",
 		"a_myfhh": "Minha História Saúde da Família",
 		"a_copy_for_family_member": "Copiar para membro da família",
 		"a_disease_risk_calculator": "Risco Doença Calculator",
@@ -330,11 +330,13 @@
 	},
 
 	"fhh_load_save": {
+		"browse":"Procurar",		
+		"open_from_computer":"Abrir a partir do computador",
+		"copy_from_health_vault":"Copiar de Health Vault",
 		"choose_a_file": "Por favor, escolha um arquivo para upload",
-		
 		"load_from_file": "Baixar de suas informações pessoais a partir um arquivo",
 		"load_file_instructions1" : "Nesta etapa, você pode abrir o seu histórico de saúde da família a partir de um arquivo de dados XML previamente salvo em seu computador ou dispositivo de armazenamento portátil.",
-		"load_file_instructions2" : "Pressione 'Browse ...' para selecionar um arquivo em seu computador, em seguida, pressione 'Open from Computer' para abri-lo",
+		"load_file_instructions2" : "Pressione 'Procurar ...' para selecionar um arquivo em seu computador, em seguida, pressione 'Open from Computer' para abri-lo",
 		"load_file_button": "Baixar a partir um arquivo",
 		"load_health_vault": "Baixar de suas informações pessoais a partir Health Vault, da Microsoft",
 		"load_health_vault_instructions" : "Microsoft HealthVault ajuda você a organizar, armazenar e compartilhar informação de saúde na internet. Meu Retrato de Saúde Familiar copiará dados da sua conta em HealthVault e requer que você entre lá.",

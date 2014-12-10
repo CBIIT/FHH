@@ -1220,13 +1220,19 @@ function bind_add_all_family_members_cancel_button_action() {
 }
 
 function load_risk_links() {
+	// get lng and set to variable. used to open correct pdf //
+	var lng = window.i18n.lng();
+	if (lng=='en-US') {
+		lng = 'en';
+	};
+		
 	$.getJSON( "../risk/risks.json", function( data ) {
 		$("#risk_section").empty();
         $.each(data, function(index) {
         	if (data[index].status == 'active') {
             var risk_calculator = $("#risk_section").append($("<div class='assessmentContainer risk_calculator' href='" + data[index].link + "'>")
-            	.append($("<h3></h3>").append(data[index].name))
-            	.append($("<P>").append(data[index].description)));
+            	.append($("<h3></h3>").append(data[index]['name.'+lng]))
+            	.append($("<P>").append(data[index]['description.'+lng])));
             
             $("#risk_section").append(risk_calculator).append("<br>");
           }
