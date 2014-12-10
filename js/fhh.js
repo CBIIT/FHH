@@ -3,6 +3,7 @@ var current_health_history = [];
 var current_relationship = "Self";
 
 var diseases;
+var isiPad = navigator.userAgent.match(/iPad/i) != null;
 
 $(document).ready(function() {
 	// Check to see whether this browser has the FileAPI
@@ -13,6 +14,13 @@ $(document).ready(function() {
 	}
 	*/
 	
+	// test if iPad // 
+	// if iPad - remove copy for family member nav item and save history button //
+	if (isiPad) {
+		$("#navCopyFamily").remove();
+		$("#save_personal_history_button").remove();
+	};
+
 	$("#view_diagram_and_table_button").on('click', function () {
 		$(this).css('cursor', 'wait');
 	});
@@ -232,6 +240,12 @@ function start()
 		bind_load_personal_history_button();
 		bind_load_xml();
 
+		// remove load option from computer //
+		// removes instructions for opening from computer //
+		if (isiPad) {
+			$(".loadPersonalInfoFromFile").remove();
+		};
+
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
 		i18n.init(option, function () {
 			$(".translate").i18n();
@@ -344,6 +358,12 @@ function start()
 	// Below function is temporary to allow debuging of the pedigree
 	$("#nav_help").on("click", function(){ 
 		$("#help_dialog").dialog("open");
+
+		// test if iPad // 
+		// remove help items related to computer //
+		if (isiPad) {
+			$(".computerOnly").remove();
+		};
 		
 	});
 	

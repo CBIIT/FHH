@@ -1,34 +1,36 @@
 <!-- For File upload -->
 <script type="text/javascript" src="../js/plupload.full.min.js"></script>
-<div class="title-bar translate" data-i18n='fhh_load_save.load_from_file'> Load Your Personal Information from a File</div>
-<!--
-<hr>
-<h3>Old Way</h3>
-<form action="#" enctype="multipart/form-data" method="post"  >
-  <input name="pedigree_file" type="file" id='pedigree_file' accept='text/xml' />
-  <input type="submit" value="Load File" id='file_upload_button' />
-</form>
-<br />
-<hr>
-<!-- PL Uploader -->
-<TABLE>
-<TR>
-<TD style='width:200px;text-align:center;'>
-	<IMG src='../images/ico_open_local.gif' alt='Open from Computer Icon'>
-</TD>
-<TD style='vertical-align:top;width:600px;'>
-	<P class='translate' data-i18n='fhh_load_save.load_file_instructions1'>In this step, you can open your family health history from a previously-saved XML data file on your computer or portable storage device.</P>
-	<P class='translate' data-i18n='fhh_load_save.load_file_instructions2'>Press 'Browse...' to select a file on your computer, then press 'Open from Computer' to open it</P>
+<div class="loadPersonalInfoFromFile">
+	<div class="title-bar translate" data-i18n='fhh_load_save.load_from_file'> Load Your Personal Informationasds from a File</div>
+	<!--
+	<hr>
+	<h3>Old Way</h3>
+	<form action="#" enctype="multipart/form-data" method="post"  >
+	  <input name="pedigree_file" type="file" id='pedigree_file' accept='text/xml' />
+	  <input type="submit" value="Load File" id='file_upload_button' />
+	</form>
+	<br />
+	<hr>
+	<!-- PL Uploader -->
+	<TABLE>
+	<TR>
+	<TD style='width:200px;text-align:center;'>
+		<IMG src='../images/ico_open_local.gif' alt='Open from Computer Icon'>
+	</TD>
+	<TD style='vertical-align:top;width:600px;'>
+		<P class='translate' data-i18n='fhh_load_save.load_file_instructions1'>In this step, you can open your family health history from a previously-saved XML data file on your computer or portable storage device.</P>
+		<P class='translate' data-i18n='fhh_load_save.load_file_instructions2'>Press 'Browse...' to select a file on your computer, then press 'Open from Computer' to open it</P>
 
-	<div id="container">
-	    <button id="pickfiles" href="javascript:;">Browse</button> 
-	    <button id="uploadfiles" href="javascript:;">Open From Computer</button>
-		<div id="filelist">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
-	</div>
-</TD>
-</TR>	
-</TABLE>
-<!-- End PL Uploader -->
+		<div id="container">
+		    <button id="pickfiles" href="javascript:;">Browse</button> 
+		    <button id="uploadfiles" href="javascript:;">Open From Computer</button>
+			<div id="filelist">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
+		</div>
+	</TD>
+	</TR>	
+	</TABLE>
+	<!-- End PL Uploader -->
+</div>
 <pre id="console"></pre>
 
 <div class="title-bar translate" data-i18n='fhh_load_save.load_health_vault' > Load Your Personal Information from Microsoft's Health Vault</div>
@@ -75,7 +77,9 @@
 <P class='translate instructions' data-i18n='fhh_load_save.disclaimer'>
 When you choose to copy your family health history information to any third party system, please note that your information will be retained in that system, and will be subject to the terms of use and privacy policy of that system.	
 </P>
-<P style="text-align:left;font-weight:bold" class="translate" data-i18n="fhh_load_save.detailed_instructions">
+<div class="loadPersonalInfoFromFile">
+<P style="text-align:left;font-weight:bold" class="translate" data-i18n="fhh_load_save.detailed_instructions">Detailed file opening instructions
+</P>
 <P style="text-align:left;font-weight:bold" class="translate" data-i18n="fhh_load_save.detailed_instructions_line1">
 To open a file from your computer or portable storage device (for example, a USB flash drive):
 </P>
@@ -91,6 +95,8 @@ To open a file from your computer or portable storage device (for example, a USB
 <P style="text-align:left" class="translate" data-i18n="fhh_load_save.detailed_instructions_line2">
 	Note: Unless it has been renamed on your computer, a saved family health history XML file will usually be FamilyHistory.xml or <name>_FamilyHistory.xml (replace <name> with the name of the center person, usually you). Note also that only files originally created with My Family Health Portrait are supported for opening.
 </P>
+</div>
+
 <P style="text-align:left;font-weight:bold;">
 	<span class="translate" data-i18n="fhh_load_save.detailed_instructions_line3">
 	To copy your family health history from your Microsoft HealthVault account:
