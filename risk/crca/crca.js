@@ -19,29 +19,33 @@
 */
 
 var final_risk = false;
-
+// get lng and set to variable. used to open correct pdf //
+var lng = window.i18n.lng();
+if (lng=='en-US') {
+	lng = 'en';
+};
 if (personal_information == null) alert ($.t("fhh_colorectal_calculator.personal_information"));
 
 set_icon($("#past_cancers"), 'calculating');
 setTimeout(test_past_cancer, 500);
 
-	if (typeof i18n != "undefined") {
-		var option = { 
-			resGetPath: '../locales/__ns__-__lng__.json',
-			ns: { 
-		    namespaces: ['translation', 'diseases'], 
-		    defaultNs: 'translation'
-		  } 
-		};
+	// if (typeof i18n != "undefined") {
+	// 	var option = { 
+	// 		resGetPath: '../locales/__ns__-__lng__.json',
+	// 		ns: { 
+	// 	    namespaces: ['translation', 'diseases'], 
+	// 	    defaultNs: 'translation'
+	// 	  } 
+	// 	};
 
-		i18n.init(option, function () {
-			$(".translate").i18n();
-			$.getJSON("../data/diseases.json", function (data) {
-				diseases = data;
-				start();
-			});
-		});
-	};	
+	// 	i18n.init(option, function () {
+	// 		$(".translate").i18n();
+	// 		$.getJSON("../data/diseases.json", function (data) {
+	// 			diseases = data;
+	// 			start();
+	// 		});
+	// 	});
+	// };		
 	
 /// End of main script
 

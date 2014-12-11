@@ -332,11 +332,13 @@
 	},
 
 	"fhh_load_save": {
+		"browse":"Navegar",		
+		"open_from_computer":"Abierto Del Ordenador",		
+		"copy_from_health_vault":"Copia de Health Vault",
 		"choose_a_file": "Por favor elija un archivo para cargar",
-
 		"load_from_file" : "Cargue su información personal desde un archivo",
 		"load_file_instructions1" : "En este paso, puede abrir el historial de salud de la familia de un archivo de datos XML previamente guardado en su computadora o dispositivo de almacenamiento portátil.",
-		"load_file_instructions2" : "Pulse 'Browse ...' para seleccionar un archivo de su equipo, a continuación, pulse 'Open from Computer' para abrirla",
+		"load_file_instructions2" : "Pulse 'Navegar ...' para seleccionar un archivo de su equipo, a continuación, pulse 'Open from Computer' para abrirla",
 		"load_file_button" : "Cargar archivo",
 		"load_health_vault" : "Cargue su información personal de Health Vault de Microsoft",
 		"load_health_vault_instructions" : "Microsoft HealthVault le permite recolectar y archivar la información de su Historia de Salud Familiar. Mi Retrato de Salud Familiar copiará los datos en su cuenta de HealthVault. Va a necesitar inscribirse en HealthVault.",
@@ -528,6 +530,16 @@
 		"final_risk1":"Usted tiene al menos uno de los factores de riesgo mencionados anteriormente . Con base en esta su riesgo de cáncer colorrectal aumenta.",
 		"final_risk2":"Usted tiene ninguno de los citados riesgos . Por lo tanto el riesgo de cáncer colorrectal es la media"
 
+	},
+	"fhh_family_pedigree": {
+		"description_line1":"Puede imprimir su historial de salud familiar en forma de diagramas y tablas para compartir con su proveedor de atención médica . Hablar con su médico acerca de su historial de salud familiar puede ayudarle a mantenerse saludable!",
+		"description_line2":"Si desea cambiar la forma en que la información se muestra a continuación, haga clic en 'Diagrama y tabla de opciones.' Las barras de desplazamiento inferior y derecho son herramientas de navegación útiles cuando la visualización de tablas y diagramas más grandes.",
+		"confirm":"Por favor ingrese la información válida para un Diagrama!",
+		"paternal":"Paterno",
+		"maternal":"Materna",
+		"personal_information":"Mi información personal",
+		"current_age":"Age: ",
+		"height":"Altura: "
 	}
 }	
 
