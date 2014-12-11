@@ -137,8 +137,8 @@ function export_father(relative_being_exported, my_gender) {
 	move_relatives(pi, 'paternal_uncle', 'brother');
 	move_relatives(pi, 'paternal_aunt', 'sister');
 	move_relatives(pi, 'paternal_cousin', 'niece/nephew');
-	move_relatives(pi, 'son', 'grandson');
-	move_relatives(pi, 'daughter', 'granddaughter');
+	move_relatives(pi, 'son', 'grandson', 'add_parent_id', my_information_as_a_relative.id);
+	move_relatives(pi, 'daughter', 'granddaughter', 'add_parent_id', my_information_as_a_relative.id);
 	move_relatives(pi, 'paternal_halfbrother', 'son');
 	move_relatives(pi, 'paternal_halfsister', 'daughter');
 	move_relatives(pi, 'nephew', 'grandson');
@@ -159,6 +159,8 @@ function export_mother(relative_being_exported, my_gender) {
 	
 	var my_information_as_a_relative = get_personal_information_of_relative (personal_information) ;	
 
+//	alert("ME: " + JSON.stringify(my_information_as_a_relative, null, 2));
+	
 	if (my_gender == 'MALE') my_relationship = 'son';
 	else my_relationship = 'daughter';
 
@@ -175,8 +177,8 @@ function export_mother(relative_being_exported, my_gender) {
 	move_relatives(pi, 'maternal_uncle', 'brother');
 	move_relatives(pi, 'maternal_aunt', 'sister');
 	move_relatives(pi, 'maternal_cousin', 'niece/nephew');
-	move_relatives(pi, 'son', 'grandson');
-	move_relatives(pi, 'daughter', 'granddaughter');
+	move_relatives(pi, 'son', 'grandson','add_parent_id', my_information_as_a_relative.id);
+	move_relatives(pi, 'daughter', 'granddaughter', 'add_parent_id', my_information_as_a_relative.id);
 	move_relatives(pi, 'maternal_halfbrother', 'son');
 	move_relatives(pi, 'maternal_halfsister', 'daughter');
 	move_relatives(pi, 'nephew', 'grandson');
@@ -261,6 +263,7 @@ function move_relatives(pi, from, to, special_type, special_value) {
 			i++; continue;
 		}
 		
+			
 		if (to == 'niece/nephew') {
 			if (personal_information[from + "_" + i].gender == 'MALE') {
 				pi['nephew' + '_' + num_to_move] = JSON.parse(JSON.stringify(personal_information[from + '_' + i]));
@@ -269,11 +272,17 @@ function move_relatives(pi, from, to, special_type, special_value) {
 			}
 		} else {
 			pi[to + '_' + num_to_move] = JSON.parse(JSON.stringify(personal_information[from + '_' + i]));
-			if (special_type == 'add_parent_id') {
-				pi[to + '_' + num_to_move].parent_id = special_value;
-//				alert (JSON.stringify(pi[to + '_' + num_to_move], null, 2));
-			}
+//			if (special_type == 'add_parent_id') {
+//				pi[to + '_' + num_to_move].parent_id = special_value;
+//			}
 		}
+
+	// Adds Id of proband as parents of his children
+		if (special_type == 'add_parent_id') {
+			pi[to + "_" + num_to_move].parent_id = special_value;
+		}
+		
+		
 		num_to_move = find_first_available_relative_location(pi, to);
 		i++;
 	}
