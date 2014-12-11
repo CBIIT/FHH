@@ -530,6 +530,16 @@
 		"final_risk1":"Usted tiene al menos uno de los factores de riesgo mencionados anteriormente . Con base en esta su riesgo de cáncer colorrectal aumenta.",
 		"final_risk2":"Usted tiene ninguno de los citados riesgos . Por lo tanto el riesgo de cáncer colorrectal es la media"
 
+	},
+	"fhh_family_pedigree": {
+		"description_line1":"Puede imprimir su historial de salud familiar en forma de diagramas y tablas para compartir con su proveedor de atención médica . Hablar con su médico acerca de su historial de salud familiar puede ayudarle a mantenerse saludable!",
+		"description_line2":"Si desea cambiar la forma en que la información se muestra a continuación, haga clic en 'Diagrama y tabla de opciones.' Las barras de desplazamiento inferior y derecho son herramientas de navegación útiles cuando la visualización de tablas y diagramas más grandes.",
+		"confirm":"Por favor ingrese la información válida para un Diagrama!",
+		"paternal":"Paterno",
+		"maternal":"Materna",
+		"personal_information":"Mi información personal",
+		"current_age":"Age: ",
+		"height":"Altura: "
 	}
 }	
 
