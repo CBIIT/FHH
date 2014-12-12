@@ -319,7 +319,7 @@
 	},
 
 	"fhh_add_family": {
-		"instructions": "Agora vamos construir a sua família Conte-nos sobre sua família imediata, incluindo seus irmãos, irmãs, filhos, tias e tios Você pode adicionar mais membros da família, como primos, sobrinhas, sobrinhos, meio-irmãos e netos.. mais tarde. Nós adicionar automaticamente seus pais e avós para você. (Nós coletamos informações apenas para parentes de sangue, e não os membros da família, passo a parentes ou cônjuges não relacionados por sangue.) ",
+		"instructions": "Agora vamos construir a sua família. Conte-nos sobre sua família imediata, incluindo seus irmãos, irmãs, filhos, tias e tios. Você pode adicionar mais membros da família, como primos, sobrinhos, sobrinhos, meio-irmãos e netos posteriores. Nós adicionar automaticamente os seus pais e avós para você. (Nós coletamos informações apenas para parentes de sangue, e não membros do agregado familiar, passo a parentes ou cônjuges não relacionadas por sangue.)",
 		"brothers": "Quantos irmãos você tem?",
 		"sisters": "Quantas irmãs você tem?",
 		"sons": "Quantos filhos você tem?",
