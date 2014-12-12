@@ -49,6 +49,12 @@
 		"self": "Sé",
 		"mother": "Madre",
 		"father": "Padre",
+		"grandmother":"Nonna",
+		"grandfather":"Nonno",			
+		"name_relationship":"Nome e Relazione",	
+		"still_living":"Ancora in Vita",
+
+
 		"maternal_grandmother": "Nonna Materna",
 		"maternal_grandfather": "Nonno Materno",
 		"paternal_grandmother": "Nonna Paterna",

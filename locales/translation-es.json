@@ -49,6 +49,12 @@
 		"self" : "Yo",
 		"mother":"Madre",
 		"father":"Padre",
+		"grandmother":"Abuela",
+		"grandfather":"Abuelo",			
+		"name_relationship":"Nombre y Relación",	
+		"still_living":"Aún Viven",
+
+
 		"maternal_grandmother":"Abuela Materna",
 		"maternal_grandfather":"Abuelo Materno",
 		"paternal_grandmother":"Abuela Paterna",

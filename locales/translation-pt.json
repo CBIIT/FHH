@@ -49,6 +49,12 @@
 		"self": "Eu",
 		"mother": "Mãe",
 		"father": "Pai",
+		"grandmother":"Avó",
+		"grandfather":"Avô",
+		"name_relationship":"Nome e Relacionamento",	
+		"still_living":"Ainda Vivem",
+
+
 		"maternal_grandmother": "Avó materna",
 		"maternal_grandfather": "Avô materno",
 		"paternal_grandmother": "Avó paterna",
