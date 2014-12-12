@@ -158,8 +158,6 @@ function export_mother(relative_being_exported, my_gender) {
 	
 	
 	var my_information_as_a_relative = get_personal_information_of_relative (personal_information) ;	
-
-//	alert("ME: " + JSON.stringify(my_information_as_a_relative, null, 2));
 	
 	if (my_gender == 'MALE') my_relationship = 'son';
 	else my_relationship = 'daughter';
@@ -262,8 +260,18 @@ function move_relatives(pi, from, to, special_type, special_value) {
 		if ( special_type == 'only_descendants' && personal_information[from + "_" + i].parent_id != special_value) {
 			i++; continue;
 		}
+		if ( special_type == 'only_if_parent_moved' && !is_parent_in_new_pedigree(personal_information[from + "_" + i].parent_id) ) {
+			i++; continue;
+		}
 		
-			
+		// Because half-siblings have nieces and nephews that should not move if their parent 
+		// is not part of the move we need to exclude them
+		if (to == 'grandson' || to == 'granddaughter') {
+			var parent_id = personal_information[from + '_' + i].parent_id;
+			if (!is_in_new_pedigree_as_child(pi, parent_id)&& parent_id != null) {
+				i++; continue;
+			}
+		}		
 		if (to == 'niece/nephew') {
 			if (personal_information[from + "_" + i].gender == 'MALE') {
 				pi['nephew' + '_' + num_to_move] = JSON.parse(JSON.stringify(personal_information[from + '_' + i]));
@@ -272,10 +280,9 @@ function move_relatives(pi, from, to, special_type, special_value) {
 			}
 		} else {
 			pi[to + '_' + num_to_move] = JSON.parse(JSON.stringify(personal_information[from + '_' + i]));
-//			if (special_type == 'add_parent_id') {
-//				pi[to + '_' + num_to_move].parent_id = special_value;
-//			}
 		}
+
+
 
 	// Adds Id of proband as parents of his children
 		if (special_type == 'add_parent_id') {
@@ -287,6 +294,21 @@ function move_relatives(pi, from, to, special_type, special_value) {
 		i++;
 	}
 }
+// Special function that checks to see if an id is already in the new pedigree as son or daughter
+function is_in_new_pedigree_as_child(pi, id_to_check) {
+	var i = 0;
+	while (pi["son_" + i] != null ) {
+		if (pi["son_" + i].id == id_to_check) return true;
+		i++;
+	}
+	i=0;
+	while (pi["daughter_" + i] != null ) {
+		if (pi["daughter_" + i].id == id_to_check) return true;
+		i++;
+	}
+	return false;
+}
+
 
 // If nieces are of the exported parent, then we need to move them to daughters else leave them as nieces
 function move_nieces_to_daughters_or_nieces(pi, parent_id) {
