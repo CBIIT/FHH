@@ -55,7 +55,8 @@ function bind_relative_select_change() {
 
 	if (typeof a.download != "undefined") {
 		$("#export_to_relative").remove();
-		var export_button = $("<A id='export_to_relative' class='link-button'>" + $.t("fhh_js.export") + "</A>");
+		// var export_button = $("<A id='export_to_relative' class='link-button'>" + $.t("fhh_js.export") + "</A>");
+		var export_button = $("<button id='export_to_relative' >" + $.t("fhh_js.export") + "</button>");
 		export_button.on("click", function () {
 			$("#copy_for_family_member").empty().dialog("close");
 		});
