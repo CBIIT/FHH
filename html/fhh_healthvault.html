@@ -1,5 +1,32 @@
 <HTML>
-You have successfully connected to Health Vault
+<P>You have successfully connected to Health Vault</P>
 
-<BUTTON> Copy file to Health Vault </BUTTON>	
+Variables are:
+<UL>
+<LI>target: <span id='target'>loading...</span></LI>
+<LI>actionqs: <span id='actionqs'>loading...</span></LI>
+<LI>wctoken: <span id='wctoken' style='word-wrap:break-word;'>loading...</span></LI>
+</UL>
+
+<script>
+	
+set_span('target', getParameterByName('target'));
+set_span('actionqs', getParameterByName('actionqs'));
+set_span('wctoken', getParameterByName('wctoken'));
+
+function getParameterByName(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}	
+
+function set_span(field, value) {
+	var span = document.getElementById(field);
+	
+	while( span.firstChild ) {
+	    span.removeChild( span.firstChild );
+	}
+	span.appendChild( document.createTextNode(value) );
+	
+}
+</script>
 </HTML>
