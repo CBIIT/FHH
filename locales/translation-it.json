@@ -321,7 +321,11 @@
 	},
 
 	"fhh_add_family": {
-		"instructions": "Ora andremo a costruire la vostra famiglia Parlaci della tua famiglia, compresi i vostri fratelli, sorelle, figli, zie e zii È possibile aggiungere altri membri della famiglia come cugini, nipoti, nipoti, fratellastri, e nipoti.. più tardi. aggiungiamo automaticamente i tuoi genitori e nonni per voi. (raccogliamo informazioni solo per i parenti di sangue, non i membri della famiglia, step-parenti, o coniugi non legate da sangue.) ",
+		"instructions" : "Ora costruiremo la tua famiglia.",
+		"li1" : "Aggiungiamo automaticamente i vostri genitori e nonni per voi.",
+		"li2" : "Parlaci della tua famiglia, compresi i vostri fratelli, sorelle, figli, zie e zii.",
+		"li3" : "È possibile aggiungere altri membri della famiglia, come cugini, nipoti, nipoti, fratelli e mezzo, e nipoti tardi.",
+		"li4" : "Raccogliamo informazioni solo per i parenti di sangue, non i membri della famiglia, non step-parenti, né i coniugi (meno legati dal sangue).",
 		"brothers": "Quanti fratelli hai?",
 		"sisters": "Quante sorelle hai?",
 		"sons": "Quanti figli hai?",

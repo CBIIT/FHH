@@ -314,7 +314,11 @@
 	},
 	
 	"fhh_add_family": {
-		"instructions" : "Now we will build your family. Tell us about your immediate family, including your brothers, sisters, children, aunts, and uncles. You can add more family members like cousins, nieces, nephews, half siblings, and grandchildren later. We automatically add your parents and grandparents for you. (We collect information only for blood relatives, not household members, step-relatives, or spouses not related by blood.)",
+		"instructions" : "Now we will build your family.",
+		"li1" : "We automatically add your parents and grandparents for you.",
+		"li2" : "Tell us about your immediate family, including your brothers, sisters, children, aunts, and uncles.",
+		"li3" : "You can add more family members like cousins, nieces, nephews, half siblings, and grandchildren later.",
+		"li4" : "We collect information only for blood relatives, not household members, not step-relatives, nor spouses (unless related by blood).",
 		"brothers":"How many brothers do you have?",
 		"sisters":"How many sisters do you have?",
 		"sons":"How many sons do you have?",

@@ -321,7 +321,11 @@
 	},	
 		
 	"fhh_add_family": {
-		"instructions" : "Ahora vamos a construir su historial familiar. Háblenos de su familia inmediata, incluyendo a sus hermanos, hermanas, hijos, tías y tíos. Usted puede agregar más miembros de la familia como primos, sobrinas, sobrinos, hermanos, medio y nietos posteriores. Sus padres y abuelos son añadidos automáticamente. (Recopilamos información únicamente para los parientes de sangre, y no los miembros del hogar, padrastros parientes o cónyuges no relacionados por la sangre.)",
+		"instructions" : "Ahora vamos a construir su familia.",
+		"li1" : "Añadimos automáticamente sus padres y abuelos para usted.",
+		"li2" : "Háblenos de su familia inmediata, incluyendo a sus hermanos, hermanas, hijos, tías y tíos.",
+		"li3" : "Usted puede agregar más miembros de la familia como primos, sobrinas, sobrinos, hermanos, medio y nietos más tarde.",
+		"li4" : "Recopilamos información únicamente para los parientes de sangre, y no los miembros del hogar, no padrastros familiares, ni los cónyuges (a menos relacionado por sangre).",
 		"brothers":"¿Cuántos hermanos tiene usted?",
 		"sisters":"¿Cuántas hermanas tiene usted?",
 		"sons":"¿Cuántos hijos tiene usted?",
