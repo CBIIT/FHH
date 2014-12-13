@@ -116,7 +116,7 @@
 
 
 		"family_health_subtitle": "Informazioni salute della vostra famiglia",
-		"add_disease_instructions": "Nella lista qui sotto, selezionare una malattia o condizione (se presente) dalla casella a discesa quindi selezionare l'età al momento della diagnosi e premere il pulsante Aggiungi È possibile ripetere questo processo se necessario...",
+		"add_disease_instructions": "Nella lista qui sotto, selezionare una <B>malattia o condizione</B> (se presente) dal menu a discesa. Quindi selezionare l' <B>età alla diagnosi</B> e premere il pulsante <B>Aggiungi</B>. Si può ripetere questo processo, se necessario .",
 		"disease_or_condition": "malattia o condizione",
 		"age_at_diagnosis": "L'età alla diagnosi",
 		"action": "Azione",

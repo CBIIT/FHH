@@ -115,7 +115,7 @@
 
 
 		"family_health_subtitle": "Informações de saúde da sua família",
-		"add_disease_instructions": "Na lista abaixo, selecione uma doença ou condição (se houver) na caixa suspensa Em seguida, selecione a idade ao diagnóstico e pressione o botão Add Você pode repetir esse processo, se necessário...",
+		"add_disease_instructions": "Na lista abaixo, selecione uma <B>doença ou condição</B> (se houver) na caixa suspensa. Em seguida, selecione a <B>idade ao diagnóstico</B> e pressione o botão <B>Adicionar</B>. Você pode repetir esse processo, se necessário.",
 		"disease_or_condition": "doença ou condição",
 		"age_at_diagnosis": "A idade de diagnóstico",
 		"action": "Ação",

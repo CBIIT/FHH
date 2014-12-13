@@ -112,7 +112,7 @@
 
 
 		"family_health_subtitle" : "Your Family's Health Information",
-		"add_disease_instructions" : "In the list below, select a Disease or Condition (if any) from the dropdown box. Then select the Age at Diagnosis and press the Add button. You may repeat this process as necessary.",
+		"add_disease_instructions" : "In the list below, select a <B>Disease or Condition</B> (if any) from the dropdown box. Then select the <B>Age at Diagnosis</B> and press the <B>Add</B> button. You may repeat this process as necessary.",
 		"disease_or_condition" : "Disease or Condition",
 		"age_at_diagnosis" : "Age at Diagnosis",
 		"action" : "Action",

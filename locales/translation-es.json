@@ -114,7 +114,7 @@
 		"remove_q2" : "Esto también eliminará todos sus hijos",
 		
 		"family_health_information_subtitle" : "Información sobre la Salud de su Familia",
-		"add_disease_instructions" : "En la siguiente lista, seleccione una Enfermedad o Condición (si los hay) en el cuadro desplegable. A continuación, seleccione la edad de diagnóstico y pulse el botón Agregar. Puede repetir este proceso las veces que sea necesario.",
+		"add_disease_instructions" : "En la siguiente lista, seleccione una <B>Enfermedad o Condición</B> (si existe) en el cuadro desplegable. A continuación, seleccione la <B>edad al diagnóstico</B> y pulse el botón <B>Agregar</B>. Puede repetir este proceso según sea necesario.",
 		"disease_or_condition" : "Enfermedad o Condición",
 		"age_at_diagnosis" : "Edad al diagnóstico",
 		"action" : "Acción",
