@@ -356,3 +356,12 @@ button.frontpage {
 
 a.clickable_link { cursor: pointer; color: blue; text-decoration: underline;}
 a.clickable_link:hover,a.clickable_link.hover { text-decoration: none; }
+
+td.race_checkbox {
+border:2px ridge #109DBA;
+}
+
+td.race_checkbox input[type=checkbox] {
+margin:10px;
+padding-right:10px;
+}
