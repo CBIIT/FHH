@@ -432,6 +432,7 @@
 		"initial_popup_active_description":"Você está fisicamente ativo*:",
 		"initial_popup_high_blood_description":"Você tem alta de sangue Pression (hipertensão):",
 		"initial_popup_physical_description":"* A atividade física é definida como 150 minutos de exercício moderado por semana",
+		"alert":"Para utilizar esta ferramenta, você precisa de ter entrado numa altura e peso, \n e seu histórico de diabetes tipo de família II",
 
 		"title_bar" : "Diabetes tipo 2 Informações de Riscos",
 		"instructions_title" : "Nesta tela você pode:",

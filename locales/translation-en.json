@@ -424,6 +424,7 @@
 		"initial_popup_active_description":"Are you physically active*:",
 		"initial_popup_high_blood_description":"Do you have High Blood Pression (Hypertension):",
 		"initial_popup_physical_description":"* Physical activity is defined as 150 minutes of moderate exercise per week",
+		"alert":"In order to use this tool, you need to have entered a height and weight,\n and your family's Diabetes Type II history",
 
 		"title_bar" : "Your Type 2 Diabetes Risk Information",
 		"instructions_title" : "On this screen you can:",

@@ -718,7 +718,7 @@ function load_bmi() {
 		$("#bmi_score_3").css("font-weight", "bold");
 		score.bmi=3;
 	} else {
-		alert("In order to use this tool, you need to have entered a height and weight,\n and your family's Diabetes Type II history");
+		alert($.t("fhh_diabetes_calculator.alert"));
 	}
 	
 	$("#r_" + p_height).find("TD").removeClass("normal").removeClass("header").addClass("chosen");

@@ -436,6 +436,7 @@
 		"initial_popup_active_description":"¿Está usted físicamente activo *:",
 		"initial_popup_high_blood_description":"¿Tiene alta Presión arterial (hipertensión):",
 		"initial_popup_physical_description":"*La actividad física se define como 150 minutos de ejercicio moderado por semana",		
+		"alert":"Para utilizar esta herramienta , debe haber entrado en una altura y peso, \n y su historial de diabetes tipo II de la familia",
 		"title_bar" : "Su Información de riesgos sobre diabetes tipo 2",
 		"instructions_title" : "En esta pantalla puede:",
 		"instructions_risk" : "Obtenga su riesgo de diabetes tipo 2 en base a su información personal y los antecedentes familiares",
