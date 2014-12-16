@@ -400,6 +400,15 @@
 		"done": "fatto"
 	},
 	"fhh_diabetes_calculator":  {
+		"button_patient_line1":"Ottenere Personale",
+		"button_provider_line1":"Ottenere Fornitore",
+		"button_lower_risk":"Minor Rischio Lettera",
+		"button_elevated_risk":"Elevata Lettera Rischio",	
+		"elevated_popup_title":"Sei a un rischio elevato per il diabete",
+		"elevated_popup_instructions_line1":"Lei ha indicato nella vostra storia di salute personale",
+		"elevated_popup_instructions_line2":"A causa di questo indicatore, si è a un rischio elevato per il diabete",
+		"elevated_popup_instructions_line3":"Qui di seguito sono link a due lettere, una lettera personale che mostra i rischi e che cosa il vostro può fare su di loro, e una lettera del medico che si può dare al vostro medico circa i rischi",
+
 		"initial_popup_no_value":"No",
 		"initial_popup_yes_value":"Sì",
 		"initial_popup_continue_button":"Continuare",

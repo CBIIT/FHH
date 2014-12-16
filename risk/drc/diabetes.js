@@ -84,24 +84,24 @@ function load_all_data_and_calculate_score() {
 
 function create_have_diabetes_dialog(diabetes_types) {
 	var automatic_elevated_diabetes_dialog = $("<div id='automatic_elevated_diabetes_dialog'></div>");
-	automatic_elevated_diabetes_dialog.append("<P class='instructions'> You have indicated in your personal health history: </P>");
+	automatic_elevated_diabetes_dialog.append("<P class='instructions'>" + $.t("fhh_diabetes_calculator.elevated_popup_instructions_line1") + ": </P>");
 	var list = $("<UL>");
 	for (i=0;i<diabetes_types.length;i++) {
 		list.append("<LI class='instructions'>" + diabetes_types[i] + "</LI>");
 	}
 	automatic_elevated_diabetes_dialog.append(list);
-	automatic_elevated_diabetes_dialog.append("<P class='instructions'>Due to this indicator, you are at an elevated risk for Diabetes.</P>");
-	automatic_elevated_diabetes_dialog.append("<P class='instructions'>Below are links to two letters, a personal letter showing your risks and what your can do about them, and a Physician Letter that you can give to your physician about your risks.</P>");
+	automatic_elevated_diabetes_dialog.append("<P class='instructions'>" + $.t("fhh_diabetes_calculator.elevated_popup_instructions_line2") + ".</P>");
+	automatic_elevated_diabetes_dialog.append("<P class='instructions'>" + $.t("fhh_diabetes_calculator.elevated_popup_instructions_line3") + ".</P>");
 	automatic_elevated_diabetes_dialog.append("<table class='pdf'><tr><td>"
-	  + "<button id='elev_submit' onClick='submit_high()'>Get Personal <br />Elevated Risk Letter </button>"
+	  + "<button id='elev_submit' onClick='submit_high()'>" + $.t("fhh_diabetes_calculator.button_patient_line1") + "<br />" + $.t("fhh_diabetes_calculator.button_elevated_risk") + "</button>"
 	  + "</td><td>"
-	  + "<button id='elev_letter' onClick='submit_high_provider()'>Get Provider <br />Elevated Risk Letter </button>"
+	  + "<button id='elev_letter' onClick='submit_high_provider()'>" + $.t("fhh_diabetes_calculator.button_provider_line1") + "<br />" + $.t("fhh_diabetes_calculator.button_elevated_risk") + "</button>"
 	  + "</td></tr>"
 	  + "</table>");
 	
 	
 	automatic_elevated_diabetes_dialog.dialog({
-		title: "You are at an Elevated Risk for Diabetes",
+		title: $.t("fhh_diabetes_calculator.elevated_popup_title"),
 		position:['middle',0],
 		height:400,
 		width:600,

@@ -402,6 +402,15 @@
 		"done" : "done"	
 	},
 	"fhh_diabetes_calculator":  {
+		"button_patient_line1":"Obtén Personal",
+		"button_provider_line1":"Conseguir Proveedor",
+		"button_lower_risk":"Carta De Menor Riesgo",
+		"button_elevated_risk":"Carta Riesgo Elevado",
+		"elevated_popup_title":"Usted se encuentra en un alto riesgo para la diabetes",
+		"elevated_popup_instructions_line1":"Ha indicado en su historial de salud personal",
+		"elevated_popup_instructions_line2":"Debido a este indicador , usted está en un riesgo elevado de diabetes",
+		"elevated_popup_instructions_line3":"A continuación se presentan enlaces a dos cartas, una carta personal que muestran sus riesgos y lo que su puede hacer acerca de ellos , y una carta del médico que le puede ofrecer a su médico acerca de sus riesgos",
+
 		"initial_popup_no_value":"No",
 		"initial_popup_yes_value":"Si",
 		"initial_popup_continue_button":"Continuar",
