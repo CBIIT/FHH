@@ -337,6 +337,8 @@
 	"fhh_load_save": {
 		"browse":"Browse",
 		"open_from_computer":"Open From Computer",
+		"no_file_chosen_error1":"Please click ",
+		"no_file_chosen_error2":"and choose a file to upload.",
 		"copy_from_health_vault":"Copy from Health Vault",
 		"choose_a_file": "Please choose a file to upload",
 		"load_from_file" : "Load Your Personal Information from a File",

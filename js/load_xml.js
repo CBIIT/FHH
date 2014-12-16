@@ -65,6 +65,12 @@ function bind_uploader() {
 				document.getElementById('filelist').innerHTML = '';
 
 				document.getElementById('uploadfiles').onclick = function() {
+					if (uploader.files.length == 0) {
+						var message = $.t("fhh_load_save.no_file_chosen_error1") + " '" 
+							+ $.t("fhh_load_save.browse") + "' "
+							+ $.t("fhh_load_save.no_file_chosen_error2");
+						alert (message);
+					}
 					uploader.start();
 					return false;
 				};

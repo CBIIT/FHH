@@ -344,6 +344,8 @@
 	"fhh_load_save": {
 		"browse":"Sfogliare",	
 		"open_from_computer":"Aperto da Computer",			
+		"no_file_chosen_error1":"Cliccate",
+		"no_file_chosen_error2":"e scegliere un file da caricare.",
 		"copy_from_health_vault":"Copiare da Health Vault",
 		"choose_a_file": "Scegli un file da caricare",
 		"load_from_file": "Carica vostre informazioni personali da un file",

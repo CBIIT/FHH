@@ -55,6 +55,7 @@ function bind_relative_select_change() {
 
 	if (typeof a.download != "undefined") {
 		$("#export_to_relative").remove();
+		$("#export_downloadify").remove();
 		// var export_button = $("<A id='export_to_relative' class='link-button'>" + $.t("fhh_js.export") + "</A>");
 		var export_button = $("<button id='export_to_relative' >" + $.t("fhh_js.export") + "</button>");
 		export_button.on("click", function () {
@@ -360,7 +361,7 @@ function get_personal_information_of_relative (pi) {
 	pi_of_relative.race = pi.race;
 	pi_of_relative.twin_status = pi.twin_status;
 	pi_of_relative.adopted = pi.adopted;
-	pi_of_relative["Health History"] = JSON.parse(JSON.stringify(pi["Health History"]));
+	if (pi['Health History'] != null) pi_of_relative['Health History'] = JSON.parse(JSON.stringify(pi['Health History']));
 
 	return 	pi_of_relative;
 }
@@ -380,7 +381,7 @@ function set_personal_information_based_on_relative(pi, relative) {
 	delete(pi.weight_unit);
 	delete(pi.physically_active);
 	
-	pi["Health History"] = JSON.parse(JSON.stringify(relative["Health History"]));
+	if (relative['Health History'] != null) pi['Health History'] = JSON.parse(JSON.stringify(relative['Health History']));
 }
 
 function make_export_string(pi) {
