@@ -929,21 +929,23 @@ function bind_family_member_submit_button_action () {
 		var estimated_age = $('#estimated_age_select').val();
 		var cause_of_death = $('#cause_of_death_select').val();
 
-		
-		$("#family_invalid_gender_warning").remove();
-		$("#invalid_date_of_birth_warning").remove();
-		
+	$("#family_invalid_gender_warning").remove();
+	$("#invalid_date_of_birth_warning").remove();
+
+
 		var errors = false;
-		
-		if (alive_flag == 'alive' && age_determination_text && age_determination_text.length > 0) {
+//		 alert("AF:["+alive_flag+"]ADF:["+(age_determination_flag=='date_of_birth')+"]ADT:["+age_determination_text+"]");
+		if (alive_flag == 'alive') {
 			if (age_determination_flag == 'date_of_birth'  && !check_date_of_birth_in_correct_format(age_determination_text)) {
 				errors = true;
 				$('#age_determination_text').after(
 					$("<span id='invalid_date_of_birth_warning'> " + $.t("fhh_js.invalid_data_of_birth") + " </span>").css("color","red"));
-			} else if (age_determination_flag == 'age' && !(parseInt(age_determination_text) > 0 &&  parseInt(age_determination_text) < 150)) {
+			} else if (age_determination_flag == 'age' 
+					&& !(parseInt(age_determination_text) > 0 
+					&&  parseInt(age_determination_text) < 150)) {
 				errors = true;
 				$('#age_determination_text').after(
-					$("<span id='invalid_date_of_birth_warning'> " + $.t("fhh_js.invalid_data_of_birth") + " </span>").css("color","red"));			
+					$("<span id='invalid_date_of_birth_warning'> " + $.t("fhh_js.invalid_age") + " </span>").css("color","red"));			
 			}
 		}
 
@@ -1013,7 +1015,7 @@ function bind_family_member_submit_button_action () {
 				if (family_member_information['age'] != null) delete family_member_information['age'];
 				
 			} else if (age_determination_flag == 'age') {
-				family_member_information['age'] = age_determination_text;
+				family_member_information['age'] = parseInt(age_determination_text);
 				if (family_member_information['date_of_birth'] != null) delete family_member_information['date_of_birth'];
 				if (family_member_information['estimated_age'] != null) delete family_member_information['estimated_age'];
 
@@ -2057,6 +2059,10 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$("#family_member_relationship").empty().append($.t("fhh_js." + relationship_name));
 	if (family_member.name == null) family_member.name = "";
 	$("#family_member_info_form_name").val(family_member.name);
+	
+	$("#family_invalid_gender_warning").remove();
+	$("#invalid_date_of_birth_warning").remove();
+
 	
 	var person_name_or_relationship;
 	if (!(family_member.name == "")) person_name_or_relationship = family_member.name;
