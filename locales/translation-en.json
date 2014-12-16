@@ -49,7 +49,7 @@
 		"mother":"Mother",
 		"father":"Father",
 		"grandmother":"Grandmother",
-		"grandfather":"Grandfather",			
+		"grandfather":"Grandfather",	
 		"name_relationship":"Name & Relationship",	
 		"still_living":"Still Living",	
 		"maternal_grandmother":"Maternal Grandmother",
@@ -191,7 +191,7 @@
 		
 		"export_instructions":"You may make your father, mother, brothers, sisters, and children be the center person of the family health history. This person can then add relatives from their families to create a new family health history without having to start from the very beginning.",
 		"export_instructions2":"Your family health history is not saved on this website or any other system. You must save your family health history to your own local storage area (such as your computer's hard drive, a CD-ROM, or USB thumb drive), whether you are saving your own history or saving a copy for a family member.",
-		"export_instructions3":"To copy for another family member, select the person to copy and click 'Export.'",
+		"export_instructions3":"To <!--  -->opy for another family member, select the person to copy and click 'Export.'",
 		"choose_relative":"Choose a Relative",
 		"please_select_relative":"Please make a selection",
 		"export":"Copy and Save History",
@@ -336,10 +336,8 @@
 	},
 
 	"fhh_load_save": {
-		"browse":"Browse",
+		"browse":"Browse",		
 		"open_from_computer":"Open From Computer",
-		"no_file_chosen_error1":"Please click ",
-		"no_file_chosen_error2":"and choose a file to upload.",
 		"copy_from_health_vault":"Copy from Health Vault",
 		"choose_a_file": "Please choose a file to upload",
 		"load_from_file" : "Load Your Personal Information from a File",
@@ -369,7 +367,7 @@
 		"save_google_drive_instructions" : "You can save a single file to Google Drive by signing into your google drive account.",
 		"save_google_drive_button" : "Save to Google Drive",
 		"save_dropbox" : "Save Your Personal Information to Dropbox",
-		"save_dropbox_instructions" : "You can save a file from Dropbox by signing into your dropbox account and picking a location to save and naming the file.",
+		"save_dropbox_instructions" : "You can save a file to Dropbox by signing into your dropbox account and picking a location to save and naming the file.",
 		"save_dropbox_button" : "Save to Dropbox",
 		"disclaimer" : "When you choose to copy your family health history information to any third party system, please note that your information will be retained in that system, and will be subject to the terms of use and privacy policy of that system.",
 
@@ -387,7 +385,6 @@
 		"detailed_instructions_li4":"If you are opening a file from a portable storage device, you will need to locate the device in the file selection box to view its contents and then select the file to be opened",
 		"detailed_instructions_li5":"Press the button marked 'Open From Computer' on this screen",		
 
-
 		"done" : "done"
 	},
 	
@@ -397,6 +394,14 @@
 		"done" : "done"
 	},
 	"fhh_diabetes_calculator":  {
+		"button_patient_line1":"Get Personal",
+		"button_provider_line1":"Get Provider",
+		"button_lower_risk":"Lower Risk Letter",
+		"button_elevated_risk":"Elevated Risk Letter",	
+		"elevated_popup_title":"You are at an Elevated Risk for Diabetes",
+		"elevated_popup_instructions_line1":"You have indicated in your personal health history",
+		"elevated_popup_instructions_line2":"Due to this indicator, you are at an elevated risk for Diabetes",
+		"elevated_popup_instructions_line3":"Below are links to two letters, a personal letter showing your risks and what your can do about them, and a Physician Letter that you can give to your physician about your risks",
 		"initial_popup_no_value":"No",
 		"initial_popup_yes_value":"Yes",
 		"initial_popup_continue_button":"Continue",
@@ -545,7 +550,10 @@
 		"confirm":"Please enter valid information for a Diagram!",
 		"paternal":"Paternal",
 		"maternal":"Maternal",
-		"personal_information":"My Personal Information"		
-	}			
+		"personal_information":"My Personal Information",
+		"age":"Age:"		
+
+	}
+
 
 }	

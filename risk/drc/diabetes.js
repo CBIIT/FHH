@@ -295,7 +295,7 @@ function get_required_info_dialog(valid) {
 			.append($("<TD>")
 				.append($("<SELECT id='hypertension_choice'>")
 					.append("<OPTION value='false'>" + $.t("fhh_diabetes_calculator.initial_popup_no_value") + "</OPTION>")
-					.append("<OPTION value='true'>" + $.t("fhh_diabetes_calculator.initial_popup_no_value") + "</OPTION>"))));
+					.append("<OPTION value='true'>" + $.t("fhh_diabetes_calculator.initial_popup_yes_value") + "</OPTION>"))));
 	}
 	
 	var continue_button = $("<BUTTON> " + $.t("fhh_diabetes_calculator.initial_popup_continue_button") + " </BUTTON>");
