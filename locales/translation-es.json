@@ -97,6 +97,7 @@
 
 		"invalid_name" : "Nombre Inválido",
 		"invalid_data_of_birth" : "Fecha de Nacimiento Inválida",
+		"invalid_age" : "Idade Inválido ",
 		"invalid_gender" : "Género Inválido",
 		"invalid_data_alert" : "Algunos de los datos no son válidos, por favor corrija sus errores y vuelva a intentarlo.",
 		"halfway_through_adding_disease" : "Usted no ha guardado la nueva información de la enfermedad, por favor haga clic en 'Añadir' para añadir la enfermedad primero.",
@@ -218,11 +219,11 @@
 		"quick_guide_li2" : "Utilice las herramientas para ver el diagrama de árbol de familia, averiguar sus riesgos para ciertas enfermedades , o exportar su árbol para ayudar a su familiar cercano empezar.",
 		
 		"update_more_help" : "Para saber más acerca de lo que puede hacer, haga clic en el 'Obtener Ayuda' vínculo en la barra de menú superior. ",
-		"p_update_my_history_b1_before" : "Añadir información a un familiar pulsando Añadir Historia",
+		"p_update_my_history_b1_before" : "Añadir información a un familiar pulsando",
 		"p_update_my_history_b1_after" : " junto al nombre en la lista.",
-		"p_update_my_history_b2_before" : "Cambiar su información o la información de un miembro de la familia pulsando Actualización de la historia",
+		"p_update_my_history_b2_before" : "Cambiar su información o la información de un miembro de la familia pulsando",
 		"p_update_my_history_b2_after" : " junto al nombre en la lista.",
-		"p_update_my_history_b3_before" : "Retirar un miembro de la familia de su historial pulsando Retirar ",
+		"p_update_my_history_b3_before" : "Retirar un miembro de la familia de su historial pulsando",
 		"p_update_my_history_b3_after" : " junto al nombre en la lista. (No se puede quitar a ti mismo, a tus padres, o abuelos.)",
 		"p_update_my_history2" : "También puede:",
 		"p_update_my_history2_b1" : "Reinicie su historia familiar haciendo clic en el 'Eliminar todos los datos y reiniciar' Botón",
@@ -250,6 +251,7 @@
 		"th_relation": "Relación conmigo",
 		"th_add_hist": "Añadir Historia",
 		"th_upd_hist": "Actualización de la Historia",
+		"th_remove_hist":"Retirar",				
 		"th_rem_rel": "Eliminar parientes",
 		"h2_help_main_page": "Actualizar Mi Historial de Salud Familiar",
 		"p_help_main_page": "Después de la adición de información de la familia inmediata, se puede:",
@@ -563,6 +565,5 @@
 		"height":"Altura: "
 	}
 }	
-
 
 
