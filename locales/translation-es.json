@@ -97,6 +97,7 @@
 
 		"invalid_name" : "Nombre Inválido",
 		"invalid_data_of_birth" : "Fecha de Nacimiento Inválida",
+		"invalid_age" : "Idade Inválido ",
 		"invalid_gender" : "Género Inválido",
 		"invalid_data_alert" : "Algunos de los datos no son válidos, por favor corrija sus errores y vuelva a intentarlo.",
 		"halfway_through_adding_disease" : "Usted no ha guardado la nueva información de la enfermedad, por favor haga clic en 'Añadir' para añadir la enfermedad primero.",

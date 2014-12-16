@@ -96,7 +96,8 @@
 		"halfsister_parent_q": "Quem é o pai de sua meia-irmã:",
 
 		"invalid_name" : "Nome Inválido",
-		"invalid_data_of_birth": "Invalid Data de Nascimento",
+		"invalid_data_of_birth": "Inválido Data de Nascimento",
+		"invalid_age" : "Inválido Idade ",
 		"invalid_gender": "Seleção Sexo Inválido",
 		"invalid_data_alert": "Alguns dos dados digitados sua era inválido, por favor corrija seus erros e tente novamente.",
 		"halfway_through_adding_disease" : "Você não salvou as novas informações doença, por favor clique em 'Adicionar' para adicionar a doença em primeiro lugar.",

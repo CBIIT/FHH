@@ -96,7 +96,8 @@
 		"halfsister_parent_q": "Chi è il padre di tua sorellastra:",
 		
 		"invalid_name" : "Nome non valido",
-		"invalid_data_of_birth": "Invalid Data di nascita",
+		"invalid_data_of_birth": "Non valido Data di nascita",
+		"invalid_age" : "non valido Età ",
 		"invalid_gender": "Selezione di genere non valido",
 		"invalid_data_alert": "Alcuni dei dati tuo immessi non sono validi, si prega di correggere i vostri errori e riprovare.",
 		"halfway_through_adding_disease" : "Non hai salvato la nuova malattia informazioni, si prega di fare clic su 'Aggiungi' per aggiungere la malattia prima.",
