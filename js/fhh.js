@@ -20,7 +20,6 @@ $(document).ready(function() {
 	// if iPad - remove copy for family member nav item and save history button //
 	if (isiPad) {
 		$("#navCopyFamily").remove();
-		$("#save_personal_history_button").remove();
 	};
 
 	$("#view_diagram_and_table_button").on('click', function () {
@@ -268,6 +267,10 @@ function start()
 		bind_save_personal_history_button();
 		bind_save_xml();
 		
+		if (isiPad) {
+			$(".savePersonalInfoFromFile").remove();
+		};
+
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
 		i18n.init(option, function () {
 			$(".translate").i18n();
