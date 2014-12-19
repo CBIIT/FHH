@@ -191,23 +191,18 @@ th.label {
 }
 
 a.button_link {
-  background-color:#EEE;
-  color:black;
+  background-color:#337AB7;
+  color:#fff;
   white-space:nowrap
   /* DRC/CR Calculator: Added rounded corners <div> */
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
   border:1px solid black;
-  padding:4px;
+  padding:4px 7px 4px 7px;
   text-decoration: none;
 }
 
-a.button_link:hover {
-  background-color:#DDD;
-  border:1px solid #444;
-  cursor:pointer
-}
 a.button_link:active {
   background-color:#BBB;
   cursor:wait
