@@ -219,11 +219,11 @@
 		"quick_guide_li2" : "Utilice las herramientas para ver el diagrama de árbol de familia, averiguar sus riesgos para ciertas enfermedades , o exportar su árbol para ayudar a su familiar cercano empezar.",
 		
 		"update_more_help" : "Para saber más acerca de lo que puede hacer, haga clic en el 'Obtener Ayuda' vínculo en la barra de menú superior. ",
-		"p_update_my_history_b1_before" : "Añadir información a un familiar pulsando Añadir Historia",
+		"p_update_my_history_b1_before" : "Añadir información a un familiar pulsando",
 		"p_update_my_history_b1_after" : " junto al nombre en la lista.",
-		"p_update_my_history_b2_before" : "Cambiar su información o la información de un miembro de la familia pulsando Actualización de la historia",
+		"p_update_my_history_b2_before" : "Cambiar su información o la información de un miembro de la familia pulsando",
 		"p_update_my_history_b2_after" : " junto al nombre en la lista.",
-		"p_update_my_history_b3_before" : "Retirar un miembro de la familia de su historial pulsando Retirar ",
+		"p_update_my_history_b3_before" : "Retirar un miembro de la familia de su historial pulsando",
 		"p_update_my_history_b3_after" : " junto al nombre en la lista. (No se puede quitar a ti mismo, a tus padres, o abuelos.)",
 		"p_update_my_history2" : "También puede:",
 		"p_update_my_history2_b1" : "Reinicie su historia familiar haciendo clic en el 'Eliminar todos los datos y reiniciar' Botón",
@@ -251,6 +251,7 @@
 		"th_relation": "Relación conmigo",
 		"th_add_hist": "Añadir Historia",
 		"th_upd_hist": "Actualización de la Historia",
+		"th_remove_hist":"Retirar",				
 		"th_rem_rel": "Eliminar parientes",
 		"h2_help_main_page": "Actualizar Mi Historial de Salud Familiar",
 		"p_help_main_page": "Después de la adición de información de la familia inmediata, se puede:",
@@ -367,7 +368,7 @@
 		"save_instructions" : "Para respetar las preocupaciones de privacidad individual, este sitio web no guarda la información de su historial de salud familiar. Sin embargo, usted puede guardar su historial de salud familiar a su propia área de almacenamiento local (como el disco duro de su computadora, un CD-ROM, o memoria USB). Además, se puede guardar en un sistema de terceros como Microsoft® HealthVault, Google Drive y Dropbox (otros sistemas de terceros se añadirán en el futuro). Algunos hospitales y consultorios médicos podrán obtener esta información del historial de salud familiar almacenada con un sistema de terceros, si se les otorga el permiso, y directamente incorporar su historial de salud familiar en un registro médico electrónico.",
 		"save_to_file" : "Guarde su información personal a un archivo",
 		"save_file_instructions1" : "En este paso, usted puede guardar su historial de salud familiar a su ordenador o dispositivo de almacenamiento portátil como un archivo de datos XML. Este archivo de datos se puede cargar en este sitio web después de actualizar el historial de salud familiar.",
-		"save_file_instructions2" : "Pulse 'Guardar en equipo' y su navegador pondrá el archivo en su ubicación de descarga preferida",
+		"save_file_instructions2" : "Pulse 'Guardar en un archivo' y su navegador pondrá el archivo en su ubicación de descarga preferida",
 		"save_file_button" : "Guardar en un archivo",
 		"save_health_vault" : "Guarde su información personal a Health Vault de Microsoft",
 		"save_health_vault_instructions" : "Microsoft HealthVault permite recopilar, almacenar y compartir información de salud en línea. Si opta por copiar su familia información sobre el historial de salud de HealthVault, este sitio web le copiar datos a su cuenta HealthVault y necesitamos que firme en.",
@@ -435,6 +436,7 @@
 		"initial_popup_active_description":"¿Está usted físicamente activo *:",
 		"initial_popup_high_blood_description":"¿Tiene alta Presión arterial (hipertensión):",
 		"initial_popup_physical_description":"*La actividad física se define como 150 minutos de ejercicio moderado por semana",		
+		"alert":"Para utilizar esta herramienta , debe haber entrado en una altura y peso, \n y su historial de diabetes tipo II de la familia",
 		"title_bar" : "Su Información de riesgos sobre diabetes tipo 2",
 		"instructions_title" : "En esta pantalla puede:",
 		"instructions_risk" : "Obtenga su riesgo de diabetes tipo 2 en base a su información personal y los antecedentes familiares",
@@ -564,6 +566,5 @@
 		"height":"Altura: "
 	}
 }	
-
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
-	
+    
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -31,8 +31,8 @@
     <link rel="shortcut icon" href="../themes/deploy/favicon.ico" type="image/x-icon">
     <!-- Also includes images banner_left.png and banner_right.png -->
 
-		<!-- For language translation -->
-		<script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
+        <!-- For language translation -->
+        <script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
 
     <!-- Pedigree SVG scripts -->
     <script type="text/javascript" src="../js/family_pedigree.js"></script>
@@ -65,19 +65,19 @@
     <script type="text/javascript" src="../js/keys.js"></script>
 </head>
 <body>
-		<!-- Dropbox Integration -->		
-		<!-- Need to dynamically create the script tag as the data-app-key comes from the keys.js file -->
-		<script type="text/javascript">
-			if (typeof DROPBOX_APP_KEY != 'undefined')  {
-			  var s = document.createElement( 'script' );
-			  s.setAttribute( 'src', "../static/js/dropbox_dropins.js" );
-			  s.setAttribute( 'id', "dropboxjs" );
-			  s.setAttribute( 'data-app-key', DROPBOX_APP_KEY );
-			  document.body.appendChild( s );			
-			}
-		</script> 
+        <!-- Dropbox Integration -->        
+        <!-- Need to dynamically create the script tag as the data-app-key comes from the keys.js file -->
+        <script type="text/javascript">
+            if (typeof DROPBOX_APP_KEY != 'undefined')  {
+              var s = document.createElement( 'script' );
+              s.setAttribute( 'src', "../static/js/dropbox_dropins.js" );
+              s.setAttribute( 'id', "dropboxjs" );
+              s.setAttribute( 'data-app-key', DROPBOX_APP_KEY );
+              document.body.appendChild( s );           
+            }
+        </script> 
  
-		<!-- Google Drive Integration -->
+        <!-- Google Drive Integration -->
     <script type="text/javascript" src="https://apis.google.com/js/client.js"></script>
 
 
@@ -90,7 +90,7 @@
 
 <div class="header_container">
     <table class="banner">
-		<tr>
+        <tr>
             <td class="banner_left"><img src="../themes/deploy/banner_left.png" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></td>
             <td class="banner_right"><img height="60" width="326" src="../themes/deploy/banner_right.png" alt="Collection of family photos from diverse families." class="fhhBannerPhotos"></td>
         </tr>
@@ -102,9 +102,15 @@
                 <!-- Note: Any line breaks here will add spacers in the header -->
                 <a id="warnAndGoHome" href="index.html" class='translate' data-i18n='fhh_fhh.a_Home'>Home</a>
                 <a id="navCopyFamily" href="#" class='translate' data-i18n='fhh_fhh.a_copy_for_family_member' >Copy for Family Member</a>
-                <a id="navRiskCalculator" href="#" class='translate' data-i18n='fhh_fhh.a_disease_risk_calculator' >Disease Risk Calculator</a>
+            <td class="nav" style="padding-right:5px;border-right: 1px solid #fff;">
+                <span style="padding-left:5px;" class="translate" data-i18n="fhh_fhh.a_disease_risk_calculator">Disease Risk Calculators</span>
+                <select name="calculatorDropdown" id="calculatorDropdown">
+                </select>
+                <button style="background-color:#fff;color:#00477A;" id="calculateButton">Submit</button>
+            </td>
+            <td class="nav">
                 <a id="navViewDiagram" href="#" class='translate' data-i18n='fhh_fhh.a_view_diag_n_table' >View Diagram &amp; Table</a>
-                <a class='clickable_link translate' id="nav_help" data-i18n='fhh_fhh.a_get_help' >Get Help</a>
+                <a class='clickable_link translate' id="nav_help" data-i18n='fhh_fhh.a_get_help' >Get Help</a>                
             </td>
 
 <!--             <td class="nav">
@@ -134,19 +140,20 @@
 <li class='translate instructions' data-i18n='fhh_fhh.quick_guide_li1'> Change your Family Health History by adding, removing or changing your relatives</li>
 <ul>
 <li >
-	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b1_before'>Add information for a family member by pressing Add History</span>
-	 <IMG src='../images/icon_add.gif' alt= 'Add History' height='16'/>
-	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b1_after'> next to the name in the list.</span>
+    <span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b1_before'>Add information for a family member by pressing</span><span class="translate instructions" data-i18n="fhh_fhh.th_add_hist" style="font-weight:bold;"><B>Add History</B></span>
+
+     <IMG src='../images/icon_add.gif' alt= 'Add History' height='16'/>
+    <span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b1_after'> next to the name in the list.</span>
 </li>
 <li>
-	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_before'>Change your information or a family member's information by pressing Update History</span>
-	 <IMG src='../images/icon_edit.gif' alt= 'Update History' height='16'/>
-	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_after'> next to the name in the list.</span>
+    <span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_before'>Change your information or a family member's information by pressing</span><span class="translate instructions" data-i18n="fhh_fhh.th_upd_hist" style="font-weight:bold;"><B>Update History</B></span>
+     <IMG src='../images/icon_edit.gif' alt= 'Update History' height='16'/>
+    <span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_after'> next to the name in the list.</span>
 </li>
 <li>
-	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_before'>Remove a family member from your history by pressing Remove</span>
-	 <IMG src='../images/icon_trash.gif' alt= 'Remove History' height='16'/>
-	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_after'>  next to the name in the list. (You cannot remove yourself, your parents, or grandparents.)</span>
+    <span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_before'>Remove a family member from your history by pressing</span><span class='translate instructions' data-i18n='fhh_fhh.th_remove_hist' style="font-weight:bold;"><B>Remove</B></span>
+     <IMG src='../images/icon_trash.gif' alt= 'Remove History' height='16'/>
+    <span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_after'>  next to the name in the list. (You cannot remove yourself, your parents, or grandparents.)</span>
 </li>
 </ul>
 
@@ -157,19 +164,19 @@
 <p class='translate instructions' data-i18n='fhh_fhh.update_more_help'>To find out more about what you can do, click on the 'Get Help' link on the menu bar above.</p>
 <hr />
 <br />
-				<!-- if we don't have a person, show this button -->
+                <!-- if we don't have a person, show this button -->
 <div class='center_text'>
-	<a id="create_new_personal_history_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_create_my_history'>Delete all Data and Restart</a>
-	<a id="save_personal_history_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_save_my_history'>Save Family History for Later Re-use</a>
-	<a id="add_another_family_member_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_add_a_family_mbr'>Add Another Family Member</a>
-	<a id="save_family_history_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_save_fam_hist'>Save Family History</a>
-	<a id="view_diagram_and_table_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_view_dia_n_table' onclick="xmlload()">View Diagram and Table</a>
-	<a id="your_health_risk_assessment_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_risk_assess'>Your Health Risk Assessment</a>
+    <a id="create_new_personal_history_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_create_my_history'>Delete all Data and Restart</a>
+    <a id="save_personal_history_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_save_my_history'>Save Family History for Later Re-use</a>
+    <a id="add_another_family_member_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_add_a_family_mbr'>Add Another Family Member</a>
+    <a id="save_family_history_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_save_fam_hist'>Save Family History</a>
+    <a id="view_diagram_and_table_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_view_dia_n_table' onclick="xmlload()">View Diagram and Table</a>
+    <a id="your_health_risk_assessment_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_risk_assess'>Your Health Risk Assessment</a>
 </div>
 
 <table id="history_summary_table" class="summary_table" summary="This table lists the members of your family 
-		and groups them based on how they are related to you and which side of the family they are on. 
-		You may add, update or remove family members from the links within the table.">
+        and groups them based on how they are related to you and which side of the family they are on. 
+        You may add, update or remove family members from the links within the table.">
     <tr class=''>
         <th scope="col" class="nowrap translate" data-i18n='fhh_fhh.th_name'>Name</th>
         <th scope="col" abbr="Relationship" class="nowrap translate" data-i18n='fhh_fhh.th_relation'>Relationship to Me</th>
@@ -178,12 +185,12 @@
         <th scope="col" abbr="Remove" class="nowrap translate" data-i18n='fhh_fhh.th_rem_rel'>Remove Relative</th>
     </tr>
     <tr class="person_row">
-		<td class='information'>&nbsp;</td>
-		<td class='information'>Self</td>
+        <td class='information'>&nbsp;</td>
+        <td class='information'>Self</td>
         <td class="action">&nbsp;</td>
         <td class="action">&nbsp;</td>
-    	<td class="action">&nbsp;</td>
-	</tr>
+        <td class="action">&nbsp;</td>
+    </tr>
 </table>
         
 <div class="buttonContainer"> </div>
@@ -210,46 +217,46 @@
 <div id='debug' style='display:none;'></div>
 <div id='disease_risk_calculator' >
     <!-- div class='title-bar'>Your Health Risk Assessment</div -->
-	<!-- P class='instructions'>On this screen you can get your risk assessment by pressing the "Calculate Risk" button.</P -->
-	<div id='risk_section'> <i>Loading Risk Assessment Tools...</i> </div>
+    <!-- P class='instructions'>On this screen you can get your risk assessment by pressing the "Calculate Risk" button.</P -->
+    <div id='risk_section'> <i>Loading Risk Assessment Tools...</i> </div>
 </div>
 <div id='help_dialog' >
-	<div id='help_main_page' class='help'>
+    <div id='help_main_page' class='help'>
 <h2 class='translate' data-i18n='fhh_fhh.h2_update_fhh'>Update My Family History</h2>
 <p class='translate instructions' data-i18n='fhh_fhh.p_update_my_history'>On this screen you can:</p>
 <ul>
 
 <li >
-	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b1_before'>Add information for a family member by pressing Add History</span>
-	 <IMG src='../images/icon_add.gif' alt= 'Add History' height='16'/>
-	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b1_after'> next to the name in the list.</span>
+    <span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b1_before'>Add information for a family member by pressing</span><span class="translate instructions" data-i18n="fhh_fhh.th_add_hist" style="font-weight:bold;"><B>Add History</B></span>
+     <IMG src='../images/icon_add.gif' alt= 'Add History' height='16'/>
+    <span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b1_after'> next to the name in the list.</span>
 </li>
 <li>
-	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_before'>Change your information or a family member's information by pressing Update History</span>
-	 <IMG src='../images/icon_edit.gif' alt= 'Update History' height='16'/>
-	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_after'> next to the name in the list.</span>
+    <span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_before'>Change your information or a family member's information by pressing</span><span class="translate instructions" data-i18n="fhh_fhh.th_upd_hist" style="font-weight:bold;"><B>Update History</B></span>
+     <IMG src='../images/icon_edit.gif' alt= 'Update History' height='16'/>
+    <span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b2_after'> next to the name in the list.</span>
 </li>
 <li>
-	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_before'>Remove a family member from your history by pressing Remove</span>
-	 <IMG src='../images/icon_trash.gif' alt= 'Remove History' height='16'/>
-	<span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_after'>  next to the name in the list. (You cannot remove yourself, your parents, or grandparents.)</span>
+    <span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_before'>Remove a family member from your history by pressing</span><span class='translate instructions' data-i18n='fhh_fhh.th_remove_hist' style="font-weight:Bold;"><B>Remove</B></span>
+     <IMG src='../images/icon_trash.gif' alt= 'Remove History' height='16'/>
+    <span class='translate instructions' data-i18n='fhh_fhh.p_update_my_history_b3_after'>  next to the name in the list. (You cannot remove yourself, your parents, or grandparents.)</span>
 </li>
 </ul>
 <p class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2'>You can Also:</p>
 <ul>
-<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b1'>Restart your family history by clicking on the 'Delete All Data and Restart' Button </li>	
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b1'>Restart your family history by clicking on the 'Delete All Data and Restart' Button </li>    
 <span class="computerOnly">
-<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b2'>Save your history to a file on your computer or into the cloud by clicking on 'Save My History' button</li>	
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b2'>Save your history to a file on your computer or into the cloud by clicking on 'Save My History' button</li>  
 </span>
-<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b3'>Add another family member to your family history by clicking 'Add Another Family Member' button or menu item</li>	
-<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b4'>View a diagram and table of your family tree by clicking on 'View Diagram and Table' button</li>	
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b3'>Add another family member to your family history by clicking 'Add Another Family Member' button or menu item</li>    
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b4'>View a diagram and table of your family tree by clicking on 'View Diagram and Table' button</li> 
 <span class="computerOnly">
-<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b5'>Export your family infomation to give a close relative a headstart on his/her family tree by clicking on the 'Copy for Family Member' menu item </li>	
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b5'>Export your family infomation to give a close relative a headstart on his/her family tree by clicking on the 'Copy for Family Member' menu item </li>    
 </span>
-<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b6'>Use one of the Disease Risk Calculators to determine if you are at increased risk of a disease based on your family history by clicking on the 'Disease Risk Calculator' menu item</li>	
-<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b7'>Get additional Help by clicking on the 'Get Help' menu item</li>	
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b6'>Use one of the Disease Risk Calculators to determine if you are at increased risk of a disease based on your family history by clicking on the 'Disease Risk Calculator' menu item</li>  
+<li class='translate instructions' data-i18n='fhh_fhh.p_update_my_history2_b7'>Get additional Help by clicking on the 'Get Help' menu item</li> 
 </ul>
-	</div>	
+    </div>  
 </div>
 
 <!-- BEGIN FOOTER -->
@@ -258,17 +265,17 @@
     <tbody><tr>
         <td class="footerTdLinks">
             
-            <a href="javascript://nop/" onclick="glossary()" class='translate' data-i18n='fhh_index.glossary'>Glossary</a> | 
+            <a href="#" onclick="glossary()" class='translate' data-i18n='fhh_index.glossary'>Glossary</a> | 
             
-            <a href="javascript://nop/" onclick="faq()"  class='translate' data-i18n='fhh_index.faq'>FAQ</a> | 
+            <a href="#" onclick="faq()"  class='translate' data-i18n='fhh_index.faq'>FAQ</a> | 
             <a href="http://www.hhs.gov/Accessibility.html" target="_blank"  class='translate' data-i18n='fhh_index.accessability'>Accessibility</a> | 
             <a href="http://www.hhs.gov/Privacy.html" target="_blank"  class='translate' data-i18n='fhh_index.privacy'>Privacy &amp; Security Policy</a> | 
             
-            <a href="javascript://nop/" onclick="about()"  class='translate' data-i18n='fhh_index.about'>About This Site</a> | 
+            <a href="#" onclick="about()"  class='translate' data-i18n='fhh_index.about'>About This Site</a> | 
             
-            <a href="javascript://nop/" onclick="contact()"  class='translate' data-i18n='fhh_index.contact'>Contact Us</a> | 
+            <a href="#" onclick="contact()"  class='translate' data-i18n='fhh_index.contact'>Contact Us</a> | 
             
-            <a href="javascript://nop/" onclick="site_updates()"  class='translate' data-i18n='fhh_index.updates'>Site Updates</a>
+            <a href="#" onclick="site_updates()"  class='translate' data-i18n='fhh_index.updates'>Site Updates</a>
         </td>
         <td class="footerTdLogos">
             <img src="../images/logo_hhs.gif" alt="HHS Logo">&nbsp;&nbsp;<img src="../images/logo_phs.gif" alt="PHS Logo">
@@ -284,27 +291,27 @@
 // Static links need to know what language
 
 function get_help() {
-	window.open("./static/help_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+    window.open("./static/help_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
 }
 
 function learn_more() {
-	window.open("./static/learn_more_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+    window.open("./static/learn_more_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
 }
 
 function glossary() {
-	window.open("./static/glossary_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+    window.open("./static/glossary_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
 }
 function faq() {
-	window.open("./static/faq_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+    window.open("./static/faq_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
 }
 function about() {
-	window.open("./static/about_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+    window.open("./static/about_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
 }
 function contact() {
-	window.open("./static/contact_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+    window.open("./static/contact_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
 }
 function site_updates() {
-	window.open("./static/site_update_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
+    window.open("./static/site_update_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
 }
 </script>
 

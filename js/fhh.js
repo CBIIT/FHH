@@ -6,6 +6,8 @@ var diseases;
 var isiPad = navigator.userAgent.match(/iPad/i) != null;
 
 $(document).ready(function() {
+
+
 	// Check to see whether this browser has the FileAPI
 	/* Removing to test IE8
 	var FileApiSupported = window.File && window.FileReader && window.FileList && window.Blob;
@@ -18,7 +20,6 @@ $(document).ready(function() {
 	// if iPad - remove copy for family member nav item and save history button //
 	if (isiPad) {
 		$("#navCopyFamily").remove();
-		$("#save_personal_history_button").remove();
 	};
 
 	$("#view_diagram_and_table_button").on('click', function () {
@@ -266,6 +267,10 @@ function start()
 		bind_save_personal_history_button();
 		bind_save_xml();
 		
+		if (isiPad) {
+			$(".savePersonalInfoFromFile").remove();
+		};
+
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
 		i18n.init(option, function () {
 			$(".translate").i18n();
@@ -391,7 +396,32 @@ function start()
 			$("#add_personal_information_dialog").dialog("open");
 	} else if (getParameterByName("action") == 'save') {
 			$("#save_personal_history_dialog").dialog("open");
-	}	
+	}
+
+
+	// create disease calculator dropdown for nav //
+	var calculatorDropdown = "";	
+	var lng = window.i18n.lng();
+	if (lng=='en-US') {
+		lng = 'en';
+	};		
+
+	$.getJSON("../risk/risks.json", function (data) {
+		$.each(data, function(index) {
+			if (data[index].status == 'active') {
+				$("#calculatorDropdown").append('<option value="' + data[index].link + '">' + data[index]['name.'+lng] + '</option>')
+			};
+		});
+	});
+
+
+	// loads selected calculator from nav //
+	$( "#calculateButton" ).click(function() {
+		$("#disease_risk_calculator").dialog("open");
+		$( "#risk_section" ).load( "../risk/" + $("#calculatorDropdown").val(), function(data) {		
+		});
+		
+	});		
 }
 
 function bind_load_personal_history_button() {
@@ -2570,7 +2600,11 @@ function which_IE(){
 
 function closeEditorWarning(){
     if (personal_information) return "Leaving";
-}
+};
+
+
+
+
 window.onbeforeunload = closeEditorWarning;
 
 
