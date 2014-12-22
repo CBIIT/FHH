@@ -192,7 +192,7 @@ function test_for_hypertension() {
 	
 	var has_hypertension = false;
 	for (var i=0; i<h.length; i++) {
-		if (h[i]['Detailed Disease Name'] == 'Hypertension') has_hypertension = true;
+		if (h[i]['Disease Code'] == 'SNOMED_CT-38341003') has_hypertension = true;
 	}
 	
 	return has_hypertension;
@@ -207,7 +207,7 @@ function test_for_gestational_diabetes() {
 	
 	var has_gestational_diabetes = false;
 	for (var i=0; i<h.length; i++) {
-		if (h[i]['Detailed Disease Name'] == 'Gestational Diabetes') has_gestational_diabetes = true;
+		if (h[i]['Disease Code'] == 'SNOMED_CT-11687002') has_gestational_diabetes = true;
 	}
 	
 	return has_gestational_diabetes;
@@ -343,7 +343,7 @@ function apply_required_additional_data_entry_button () {
 
 		if ($("#hypertension_choice").val() == 'true') {
 			var specific_health_issue = {"Disease Name": "Hypertension",
-	                          "Detailed Disease Name": "Hypertension",
+	                          "Detailed Disease Name": $.t("diseases:SNOMED_CT-38341003"),
 	                          "Age At Diagnosis": "Unknown",
 	                          "Disease Code": "SNOMED_CT-38341003"};
 
@@ -352,7 +352,7 @@ function apply_required_additional_data_entry_button () {
 
 		if ($("#gestational_diabetes_choice").val() == 'true') {
 			var specific_health_issue = {"Disease Name": "Diabetes",
-	                          "Detailed Disease Name": "Gestational Diabetes",
+	                          "Detailed Disease Name": $.t("diseases:SNOMED_CT-11687002"),
 	                          "Age At Diagnosis": "Unknown",
 	                          "Disease Code": "SNOMED_CT-11687002"};
 
@@ -429,7 +429,7 @@ function set_gender(id) {
 function load_gestational_diabetes() {
 	var gestational_diabetes = false;
 	$.each(personal_information['Health History'], function (key, item) {
-	    if (item['Detailed Disease Name']=="Gestational Diabetes" && personal_information.gender == 'FEMALE') gestational_diabetes = true;
+	    if (item['Disease Code']=="SNOMED_CT-11687002" && personal_information.gender == 'FEMALE') gestational_diabetes = true;
 	});	
 	
 	if (gestational_diabetes) {
@@ -455,10 +455,10 @@ function load_family_diabetes(){
 	    if(temp == 'father' || temp == 'mother' || temp == 'brothe' || temp == 'sister') {
 	      if (!(item.adopted == true) &&  item['Health History']) {
 	      	for (i = 0;i < item['Health History'].length; i++) {
-	          if (item['Health History'][i]['Detailed Disease Name'] == "Diabetes") inherited = true;
-	          if (item['Health History'][i]['Detailed Disease Name'] == "Maturity Onset Diabetes mellitus in Young (MODY)") inherited = true;
-	          if (item['Health History'][i]['Detailed Disease Name'] == "Type 2 Diabetes") inherited = true;
-	          if (item['Health History'][i]['Detailed Disease Name'] == "Unknown Diabetes") inherited = true;
+	          if (item['Health History'][i]['Disease Code'] == "SNOMED_CT-73211009") inherited = true;
+	          if (item['Health History'][i]['Disease Code'] == "SNOMED_CT-472972006") inherited = true;
+	          if (item['Health History'][i]['Disease Code'] == "SNOMED_CT-44054006") inherited = true;
+	          if (item['Health History'][i]['Disease Code'] == "SNOMED_CT-UNDIABET") inherited = true;
 	      	}
 	      }
 	    }
