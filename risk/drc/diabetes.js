@@ -124,15 +124,15 @@ function check_for_diabetes_prediabetes() {
 	var diabetes_types = [];
 	for (var i=0; i<h.length; i++) {
 
-		if (h[i]['Detailed Disease Name'] == 'Diabetes') diabetes_types.push(h[i]['Detailed Disease Name']);
-		if (h[i]['Detailed Disease Name'] == 'Impaired Fasting Glucose')  diabetes_types.push(h[i]['Detailed Disease Name']);
-		if (h[i]['Detailed Disease Name'] == 'Impaired Glucose Tolerance')  diabetes_types.push(h[i]['Detailed Disease Name']);
-		if (h[i]['Detailed Disease Name'] == 'Insulin Resistance')  diabetes_types.push(h[i]['Detailed Disease Name']);
-		if (h[i]['Detailed Disease Name'] == 'Maturity Onset Diabetes mellitus in Young (MODY)')  diabetes_types.push(h[i]['Detailed Disease Name']);
-		if (h[i]['Detailed Disease Name'] == 'Pre-Diabetes') diabetes_types.push(h[i]['Detailed Disease Name']);
-		if (h[i]['Detailed Disease Name'] == 'Type 1 Diabetes') diabetes_types.push(h[i]['Detailed Disease Name']);
-		if (h[i]['Detailed Disease Name'] == 'Type 2 Diabetes') diabetes_types.push(h[i]['Detailed Disease Name']);
-		if (h[i]['Detailed Disease Name'] == 'Unknown Diabetes') diabetes_types.push(h[i]['Detailed Disease Name']);
+		if (h[i]['Disease Code'] == 'SNOMED_CT-73211009') diabetes_types.push($.t("diseases:" + h[i]['Disease Code']));
+		if (h[i]['Disease Code'] == 'SNOMED_CT-82141001')  diabetes_types.push($.t("diseases:" + h[i]['Disease Code']));
+		if (h[i]['Disease Code'] == 'SNOMED_CT-9414007')  diabetes_types.push($.t("diseases:" + h[i]['Disease Code']));
+		if (h[i]['Disease Code'] == 'SNOMED_CT-32284009')  diabetes_types.push($.t("diseases:" + h[i]['Disease Code']));
+		if (h[i]['Disease Code'] == 'SNOMED_CT-472972006')  diabetes_types.push($.t("diseases:" + h[i]['Disease Code']));
+		if (h[i]['Disease Code'] == 'SNOMED_CT-PREDIABE') diabetes_types.push($.t("diseases:" + h[i]['Disease Code']));
+		if (h[i]['Disease Code'] == 'SNOMED_CT-46635009') diabetes_types.push($.t("diseases:" + h[i]['Disease Code']));
+		if (h[i]['Disease Code'] == 'SNOMED_CT-44054006') diabetes_types.push($.t("diseases:" + h[i]['Disease Code']));
+		if (h[i]['Disease Code'] == 'SNOMED_CT-UNDIABET') diabetes_types.push($.t("diseases:" + h[i]['Disease Code']));
 	}
 	return diabetes_types;
 }
