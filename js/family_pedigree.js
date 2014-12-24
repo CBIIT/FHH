@@ -559,6 +559,7 @@ function xmlload() {
     else{
         weight =  personal_information.weight;
         weight_unit =  personal_information.weight_unit;
+        weight_unit = weight_unit + 's'; //added to show pounds or kilograms
 
     }
     if(typeof personal_information.height == 'undefined' || personal_information.height == null) {
