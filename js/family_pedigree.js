@@ -140,11 +140,17 @@ function xmlload() {
         '<div id="family_pedigree" style="background-color:white">' +
         '<div id="topsvg"> ' +
             //'<svg id="svgframe" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
-        '<svg id="svgframe">' +
+        //'<svg id="svgframe">' +
             //'<g id="glass" class="">' +
             //'</g>' +
+        //'</svg>' +
+
+        '<svg id="svgframe"' +
+        ' xmlns="http://www.w3.org/2000/svg" +' +
+        ' xmlns:svg="http://www.w3.org/2000/svg"' +
+        ' onload="top.receive(document)">' +
         '</svg>' +
-        '</div>' +
+    '</div>' +
 
         '<div id="main" class="">' +
 
@@ -155,7 +161,7 @@ function xmlload() {
         '<li><a class="top" onclick="ToTop();return false;" href="#">Go To Diagram</a></li>' +
         '<li><a class="bottom" onclick="ToTable();return false;" href="#">Go To Table</a></li>' +
         '<li><a id="printermain">Print</a></li>' +
-        '<li><a href="#top" onclick="createDialogMain()">Diagram & Table Options</a></li>' +
+        '<li><a href="#optionsPanelMan" onclick="createDialogMain()">Diagram & Table Options</a></li>' +
         '<li>' +
         '<select id="zoomer" class="selector" onchange="TheZoomMain(this);">'+
         '<option id="the1" value="100">+100</option>' +
@@ -164,7 +170,7 @@ function xmlload() {
         '</li>' +
         '<li>' +
         '<input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close"' +
-        'type="button"role="button" aria-disabled="false" title="close" value="close" onclick="closedialog()" style="right:50px;width:50px"></input>' +
+        'type="button"role="button" aria-disabled="false" title="close" value="close" onclick="closeOther()" style="right:50px;width:50px"></input>' +
         '</li>' +
         '</ul>' +
         '</div>' +
@@ -7061,15 +7067,6 @@ function ToTable(){
         'slow');
 }
 
-function closedialog(){
-    ToTop();
-    setTimeout(
-        function()
-        {
-            $(mdialog).dialog("close");
-        }, 1000);
-}
-
 function TheZoomMain(sel) {
 
     var allXarray = new Array();
@@ -7118,6 +7115,7 @@ function TheZoomMain(sel) {
     var newY=100;
 
     if (selectedVal == '200') {
+alert(selectedVal);
         if(nowselected=='200')return;
         nowselected = selectedVal;
 
@@ -7248,12 +7246,46 @@ function TheZoomMain(sel) {
         $('.namebox').css('font-size','15px');
     }
     else if(selectedVal == '100') {
-
+        if(nowselected=='100')return;
         nowselected = selectedVal;
-        $(mdialog).dialog("close");
-        //$(mdialog).find('form')[0].reset();
-        xmlload();
+        var svgdoc = document.getElementById("svgframe");
+        var FRAMEHEIGHT = svgdoc.getAttribute("height");
+        var FRAMEWIDTH = svgdoc.getAttribute("width");
+        var BOX = svgdoc.getAttribute("viewBox");
+        arr = BOX.split(' ');
+        var Xarray = new Array();
 
+        var REALLONG = parseInt(masterRight);
+        svgdoc.setAttribute("viewBox",  '-150 75 ' + -20 + ' -15');
+        svgdoc.setAttribute("preserveAspectRatio","xMidYMid meet");
+        svgdoc.setAttribute("width",REALLONG + "px");
+        svgdoc.setAttribute("height","100px");
+
+        $('#topsvg').css("height", "600px");
+        $('#topsvg').css("overflow", "scroll");
+        $('#theclone').css("left", '50px');
+        $('#theclone').css("margin-top", '10px');
+        /*overflow: scroll;*/
+        //svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
+
+        svgdoc.setAttribute('id', 'theclone');
+        $('#theclone').css("width", '3000px');
+        $('#theclone').css("height", '600px');
+        $('#theclone').css("left", '50px');
+        $('#theclone').css("z-index", '99999');
+
+        $('#pattext').css("font-size", '14.5px');
+        $('#mattext').css("font-size", '14.5px');
+        $('#f1text').css("font-size", '14.5px');
+        $('#f2text').css("font-size", '14.5px');
+        $('#f3text').css("font-size", '14.5px');
+        $('#f4text').css("font-size", '14.5px');
+
+        //svgdoc.window.res .svgWindow.refresh();
+        //document.body.offsetWidth ;
+        //$(mdialog).dialog("close");
+        //$(mdialog).find('form')[0].reset();
+        //xmlload();*/
 
     }
 }
@@ -7574,4 +7606,6 @@ function SetPersonalInfo(){
     $('#abmi').append($("<span><b></b></span>").text( BMI));
 }
 
-
+function closeOther() {
+  $(mdialog).dialog("close");
+}
