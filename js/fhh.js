@@ -375,7 +375,10 @@ function start()
 	$(".banner_right").on("click", function(){ 
 //		$("#help_dialog").append(JSON.stringify(personal_information, null, 2));
 //		$("#help_dialog").dialog("open");
-		if (DEBUG) alert ("Personal Information:" + JSON.stringify(personal_information, null, 2) );
+		if (DEBUG) {
+			alert ("Personal Information:" + JSON.stringify(personal_information, null, 2) );
+			console.log(personal_information);
+		}
 	});
 	
 	// Hide or show the right initial buttons
@@ -1730,7 +1733,7 @@ function build_personal_health_information_section() {
 
 function set_disease_choice_select (disease_select, detailed_disease_select) {
 	detailed_disease_select.hide();
-	disease_select.append("<option value='not_picked'>" + $.t("fhh_js.disease_select") + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>");
+	disease_select.append("<option value='not_picked'>" + $.t("fhh_js.disease_select") + "</option>");
 	for (disease_name in diseases) {
 		disease_select.append("<option value='" + disease_name + "'> " + $.t("diseases:" + disease_name) + " </option>");		
 	}
@@ -2135,7 +2138,8 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$('#estimated_death_age_select').val("");
 	if (family_member.is_alive == 'dead') {
 		$("#is_person_alive").val('dead');
-		$("#cause_of_death_select").val(family_member.cause_of_death);
+		var cause_of_death = get_disease_name_from_detailed_name(family_member.detailed_cause_of_death);
+		$("#cause_of_death_select").val(cause_of_death);
 		$("#cause_of_death_select").trigger("change");
 		if (family_member.detailed_cause_of_death) {
 			if (family_member.cause_of_death == 'other') $("#new_disease_name").val(family_member.detailed_cause_of_death);

@@ -1,18 +1,53 @@
 <HTML>
-<P>You have successfully connected to Health Vault</P>
+<link rel="stylesheet" type="text/css" href="../themes/deploy/fhh.css">
+<script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
 
-Variables are:
-<UL>
-<LI>target: <span id='target'>loading...</span></LI>
-<LI>actionqs: <span id='actionqs'>loading...</span></LI>
-<LI>wctoken: <span id='wctoken' style='word-wrap:break-word;'>loading...</span></LI>
-</UL>
-
+<h2 class ='translate' data-i18n='fhh_fhh.load_health_vault_waiting'>Retrieving Information from Health Vault</h2>
 <script>
+
+	if (typeof i18n != "undefined") {
+		var option = { 
+			resGetPath: '../locales/__ns__-__lng__.json',
+			ns: { 
+		    namespaces: ['translation', 'diseases'], 
+		    defaultNs: 'translation'
+		  } 
+		};
+
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
+	}
+
+	var info = window.location.search;
+	var wc_info = info.substr(info.indexOf("wctoken=", info)+8);
 	
-set_span('target', getParameterByName('target'));
-set_span('actionqs', getParameterByName('actionqs'));
-set_span('wctoken', getParameterByName('wctoken'));
+var jsonData = {"authToken" : wc_info};
+
+console.log("Starting");
+
+		$.ajax({
+		    url        : "http://localhost:8080/FHH-REST/rest/hv/getRecord",
+		    crossDomain: true,
+		    contentType: 'application/json', 
+		    data       : JSON.stringify(jsonData),
+		    dataType   : 'json',
+		    type       : 'POST',
+		    success: function (data) {
+          console.log(data);
+					opener.personal_information = data;
+					opener.build_family_history_data_table();
+					var ele = opener.document.getElementById("load_personal_history_dialog");
+					$(ele).parent().hide();
+					window.close();
+					
+//					$("#load_personal_history_dialog").dialog("close");
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+        	alert("Error: [" + XMLHttpRequest.status + "]: " + errorThrown);
+       	}
+		});
 
 function getParameterByName(name) {
     var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
