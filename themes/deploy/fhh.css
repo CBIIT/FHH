@@ -338,6 +338,18 @@ table.disease_table td {
   margin:10px;    
 }
 
+.ui-button {
+border:0px solid transparent !important;
+}
+.ui-button-text {
+background-color:#337AB7;
+color:#fff;
+border-radius:4px;
+}
+.ui-state-hover {
+border-color:#337AB7 !important;
+}
+
 button.frontpage {
   border:1px solid black;
   padding:5px;
