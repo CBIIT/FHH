@@ -94,6 +94,7 @@
 		"grandson_parent_q" : "¿Quiénes son los padres de su nieto?:",
 		"halfbrother_parent_q" : "¿Quiénes son los padres de su medio hermano?:",
 		"halfsister_parent_q" : "¿Quiénes son los padres de su media hermana?:",
+		"digits_only":"Sólo Dígitos",
 
 		"invalid_name" : "Nombre Inválido",
 		"invalid_data_of_birth" : "Fecha de Nacimiento Inválida",
@@ -311,7 +312,7 @@
 		"inches": "Pulgadas",
 		"or": "-O-",
 		"centimeters": "Centímetros",
-		"lbs": "lbs",
+		"lbs": "libras",
 		"kgs": "kgs",
 
 		"di3_fam_hist": "información de salud",
@@ -386,9 +387,9 @@
 		"detailed_instructions_line2":"Nota: A menos que se ha cambiado el nombre de su equipo, un archivo XML historial de salud familiar salvado por lo general será FamilyHistory.xml o <nombre>_FamilyHistory.xml (reemplace <name> con el nombre de la persona del centro, por lo general). Tenga en cuenta también que sólo los archivos originalmente creado con Mi Familia Retrato de Salud son compatibles para la apertura",
 		"detailed_instructions_line3":"Para copiar su historial de salud familiar de su cuenta de Microsoft HealthVault:",
 		"detailed_instructions_line4":"Para copiar su historial de salud familiar de su cuenta de Microsoft HealthVault:",
+		"detailed_instructions_line5":"En la sección anterior marcada Copia de prensa Microsoft® HealthVault™ el botón Copiar desde HealthVault.",
+		"detailed_instructions_line6":"Se le guiará a través de una serie de pantallas que le permiten iniciar sesión en su cuenta HealthVault y copiar su información de la historia de salud familiar.",
 		"detailed_instructions_link1":"Mi familia Retrato de Salud puede copiar la información del historial de salud familiar de HealthVault , incluso si no se ha creado usando este sitio web.",
-		"detailed_instructions_link2":"En la sección anterior marcada Copia de prensa Microsoft® HealthVault™ el botón Copiar desde HealthVault.",
-		"detailed_instructions_link3":"Se le guiará a través de una serie de pantallas que le permiten iniciar sesión en su cuenta HealthVault y copiar su información de la historia de salud familiar.",
 		"detailed_instructions_li1":"Si va a abrir un archivo de un dispositivo de almacenamiento portátil , asegúrese de que el dispositivo está correctamente conectado y montado antes de iniciar estas instrucciones",
 		"detailed_instructions_li2":"En la sección anterior marcado ' Abrir desde PC' ​​- pulse el botón Examinar",
 		"detailed_instructions_li3":"Un cuadro de selección de archivos se mostrará - busque y seleccione el historial de salud familiar archivo XML previamente guardada que desea abrir y pulse Aceptar o en Abrir en el cuadro de selección de archivos (dependiendo del tipo de ordenador o navegador web que esté utilizando)",
