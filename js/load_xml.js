@@ -243,7 +243,7 @@ function googlePostAuthLoad(authResult) {
 function 	bind_load_health_vault() {
 	var button = $("<BUTTON id='healthvault_load_button'>" + $.t("fhh_load_save.load_health_vault_button") + "</BUTTON>");
 	button.on("click", function () {
-		window.open("https://account.healthvault-ppe.com/redirect.aspx?target=AUTH&targetqs=?appid=4f0cc940-7bdb-436e-abc6-9f000f51cf1e%26actionqs=LOAD%26redirect=" + "http://localhost/FHH/html/fhh_healthvault.html", "", "width=800, height=600, scrollbars=yes");
+		window.open("https://account.healthvault-ppe.com/redirect.aspx?target=AUTH&targetqs=?appid=4f0cc940-7bdb-436e-abc6-9f000f51cf1e%26actionqs=LOAD%26redirect=" + "http://localhost/FHH/html/fhh_healthvault.html", "", "width=1000, height=600, scrollbars=yes");
 		
 	});
 	
