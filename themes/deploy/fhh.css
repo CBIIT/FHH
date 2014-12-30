@@ -346,6 +346,11 @@ background-color:#337AB7;
 color:#fff;
 border-radius:4px;
 }
+
+
+.ui-button-icon-only .ui-button-text{
+background-color:transparent !important;
+}
 .ui-state-hover {
 border-color:#337AB7 !important;
 }
