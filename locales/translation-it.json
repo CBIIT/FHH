@@ -125,10 +125,10 @@
 		"action": "Azione",
 
 		"age_at_diagnosis_select": "Select Età al Diagnosis",
-		"prebirth": "Pre-Birth",
-		"newborn": "Newborn",
+		"prebirth": "Pre-Nascita",
+		"newborn": "Neonato",
 		"infant": "nella prima infanzia",
-		"child": "In Childhood",
+		"child": "nell'infanzia",
 		"teen": "In adolescenza",
 		"twenties": "20-29 anni",
 		"thirties": "30-39 anni",
@@ -144,10 +144,10 @@
 		"more_ethnicity": "Più Etnia:",
 
 		"race_ethnicity_title": "La tua famiglia Informazioni generali",
-		"race_native_american": "American Indian o Alaska Native",
+		"race_native_american": "Indiano o Nativo americano dell’Alaska",
 		"race_asian": "Asiatico",
 		"race_black": "Nero o Afro-Americano",
-		"race_south_pacific": "Native Hawaiian o altre isole del Pacifico",
+		"race_south_pacific": "Isolano delle Hawaii o altre isole Pacifico",
 		"race_white": "Bianco",
 
 		"race_asian_indian": "Indiano Asiatico",
@@ -163,7 +163,7 @@
 		"race_guamanian": "Guamanian",
 		"race_hawaiian": "Native Hawaiian",
 		"race_samoan": "Somoan",
-		"race_unknown_south_pacific": "Sconosciuto South Pacific Islander",
+		"race_unknown_south_pacific": "Isolano hawaiano o altro pacifico natale non specificato",
 
 
 		"ethnicity_hispanic": "Ispanico o Latino",
