@@ -638,14 +638,14 @@ function load_bmi() {
 			$("#height_value").text(pi.height + " centimeters");
 			p_height = Math.floor(pi.height / 2.54);
 		} else {
-			$("#height_value").text(Math.floor(pi.height/12) + " feet " + pi.height%12 + " inches");
+			$("#height_value").text(Math.floor(pi.height/12) + " " + $.t("fhh_diabetes_calculator.feet")  + " " + pi.height%12 + " " + $.t("fhh_diabetes_calculator.inches"));
 			p_height = pi.height;
 		}
 		if (pi.weight_unit == 'kilogram') {
 			$("#weight_value").text(pi.weight + " kilograms");
 			p_weight = Math.floor(pi.weight * 2.20);
 		} else {
-			$("#weight_value").text(pi.weight + " pounds");
+			$("#weight_value").text(pi.weight + " " + $.t("fhh_diabetes_calculator.pounds"));
 			p_weight = pi.weight;
 		}
 	} else {
@@ -658,7 +658,7 @@ function load_bmi() {
 
 	
 	$("#bmi_table").empty()
-		.append("<TR><TD class='header'>Height</TD><TD colspan='4' class='header'>Weight</TD>");
+		.append("<TR><TD class='header'>" + $.t("fhh_diabetes_calculator.height") + "</TD><TD colspan='4' class='header'>" + $.t("fhh_diabetes_calculator.weight") + "</TD>");
 	$("#bmi_table").append($("<TR>")
 			.append("<TD class='header'>&nbsp;</TD>")
 			.append("<TD class='header' id='weight_value_0'> &nbsp </TD>")
@@ -668,16 +668,16 @@ function load_bmi() {
 			
 	$("#bmi_table").append($("<TR>")
 			.append("<TD class='normal'>&nbsp;</TH>")
-			.append("<TD class='0_points normal'>Normal</TD>")
-			.append("<TD class='1_point normal'> Overweight </TD>")
-			.append("<TD class='2_points normal'> Obese </TD>")
-			.append("<TD class='3_points normal'> Morbidly Obese </TD>"));
+			.append("<TD class='0_points normal'>" + $.t("fhh_diabetes_calculator.normal") + "</TD>")
+			.append("<TD class='1_point normal'> " + $.t("fhh_diabetes_calculator.overweight") + " </TD>")
+			.append("<TD class='2_points normal'> " + $.t("fhh_diabetes_calculator.obese") + " </TD>")
+			.append("<TD class='3_points normal'> " + $.t("fhh_diabetes_calculator.morbidly_obese") + " </TD>"));
 	$("#bmi_table").append($("<TR>")
-			.append("<TD class='normal underline'>BMI</TH>")
-			.append("<TD class='0_points normal underline'>25  or less</TD>")
+			.append("<TD class='normal underline'>" + $.t("fhh_diabetes_calculator.bmi") +"</TH>")
+			.append("<TD class='0_points normal underline'>25  " + $.t("fhh_diabetes_calculator.orless") + "</TD>")
 			.append("<TD class='1_point normal underline'> 25 - 30 </TD>")
 			.append("<TD class='2_points normal underline'>30 - 35</TD>")
-			.append("<TD class='3_points normal underline'>35 or more</TD>"));
+			.append("<TD class='3_points normal underline'>35 " + $.t("fhh_diabetes_calculator.ormore") + "</TD>"));
 	
 	for (h=58;h<=76;h++) {
 		var row = $("<TR id='r_"+h+"'>")
@@ -690,31 +690,31 @@ function load_bmi() {
 	}
 	var points_row = $("<TR id='points_row'>")
 	points_row.append($("<TD>").append("&nbsp;"));
-	points_row.append($("<TD class='0_points normal' id='bmi_score_0'>").append("0 points"));
-	points_row.append($("<TD class='1_point normal' id='bmi_score_1'>").append("1 point"));
-	points_row.append($("<TD class='2_points normal' id='bmi_score_2'>").append("2 points"));
-	points_row.append($("<TD class='3_points normal' id='bmi_score_3'>").append("3 points"));
+	points_row.append($("<TD class='0_points normal' id='bmi_score_0'>").append("0 " + $.t("fhh_diabetes_calculator.points")));
+	points_row.append($("<TD class='1_point normal' id='bmi_score_1'>").append("1 " + $.t("fhh_diabetes_calculator.points")));
+	points_row.append($("<TD class='2_points normal' id='bmi_score_2'>").append("2 " + $.t("fhh_diabetes_calculator.points")));
+	points_row.append($("<TD class='3_points normal' id='bmi_score_3'>").append("3 " + $.t("fhh_diabetes_calculator.points")));
 	$("#bmi_table").append(points_row);	
 	
 	var bmi = get_bmi_scale(p_height, p_weight);
 	if (bmi < 25) {
 		$(".0_points").removeClass("normal").addClass("chosen");
-		$("#weight_value_0").removeClass("header").addClass("chosen").append(p_weight+ "lbs");
+		$("#weight_value_0").removeClass("header").addClass("chosen").append(p_weight+ " " + $.t("fhh_diabetes_calculator.lbs"));
 		$("#bmi_score_0").css("font-weight", "bold");
 		score.bmi=0;
 	} else if (bmi < 30) {
 		$(".1_point").removeClass("normal").addClass("chosen");
-		$("#weight_value_1").removeClass("header").addClass("chosen").append(p_weight+ "lbs");
+		$("#weight_value_1").removeClass("header").addClass("chosen").append(p_weight+ " " + $.t("fhh_diabetes_calculator.lbs"));
 		$("#bmi_score_1").css("font-weight", "bold");
 		score.bmi=1;
 	}else if (bmi < 35) {
 		$(".2_points").removeClass("normal").addClass("chosen");		
-		$("#weight_value_2").removeClass("header").addClass("chosen").append(p_weight+ "lbs");
+		$("#weight_value_2").removeClass("header").addClass("chosen").append(p_weight+ " " + $.t("fhh_diabetes_calculator.lbs"));
 		$("#bmi_score_2").css("font-weight", "bold");
 		score.bmi=2;
 	} else if (bmi >= 35){
 		$(".3_points").removeClass("normal").addClass("chosen");		
-		$("#weight_value_3").removeClass("header").addClass("chosen").append(p_weight+ "lbs");
+		$("#weight_value_3").removeClass("header").addClass("chosen").append(p_weight+ " " + $.t("fhh_diabetes_calculator.lbs"));
 		$("#bmi_score_3").css("font-weight", "bold");
 		score.bmi=3;
 	} else {
@@ -736,6 +736,6 @@ function get_bmi_scale(h, w) {
 function display_height(h) {
 	var f = Math.floor(h/12);
 	var i = h % 12;
-	return (f + "ft " + i + "in");
+	return (f + "'" + i + '"');
 }
 
