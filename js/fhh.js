@@ -2536,7 +2536,7 @@ function bind_number_only_fields() {
      if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
         //display error message
         if ($("#digit_warning").length == 0) {
-	        var error_message = $("<span id='digit_warning'> Digits Only </span>").css("color","red");
+	        var error_message = $("<span id='digit_warning'> " + $.t("fhh_js.digits_only") + " </span>").css("color","red");
 	        $(this).parent().append(error_message);
        		 error_message.show().fadeOut("slow");
        		 window.setTimeout(function() { $("#digit_warning").remove(); }, 1000);

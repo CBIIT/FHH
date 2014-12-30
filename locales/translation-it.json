@@ -94,6 +94,7 @@
 		"grandson_parent_q": "Chi è il padre di tuo nipote:",
 		"halfbrother_parent_q": "Chi è il padre di tuo fratellastro:",
 		"halfsister_parent_q": "Chi è il padre di tua sorellastra:",
+		"digits_only":"Solo Cifre",
 		
 		"invalid_name" : "Nome non valido",
 		"invalid_data_of_birth": "Non valido Data di nascita",

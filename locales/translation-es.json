@@ -94,6 +94,7 @@
 		"grandson_parent_q" : "¿Quiénes son los padres de su nieto?:",
 		"halfbrother_parent_q" : "¿Quiénes son los padres de su medio hermano?:",
 		"halfsister_parent_q" : "¿Quiénes son los padres de su media hermana?:",
+		"digits_only":"Sólo Dígitos",
 
 		"invalid_name" : "Nombre Inválido",
 		"invalid_data_of_birth" : "Fecha de Nacimiento Inválida",

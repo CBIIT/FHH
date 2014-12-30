@@ -94,7 +94,7 @@
 		"grandson_parent_q": "Quem é o pai de seu neto:",
 		"halfbrother_parent_q": "Quem é o pai de seu meio-irmão:",
 		"halfsister_parent_q": "Quem é o pai de sua meia-irmã:",
-
+		"digits_only":"Apenas Dígitos",
 		"invalid_name" : "Nome Inválido",
 		"invalid_data_of_birth": "Inválido Data de Nascimento",
 		"invalid_age" : "Inválido Idade ",
