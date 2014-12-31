@@ -44,6 +44,7 @@ var isFF=0;
 var HEADERS = new Array;
 var weight, height,age,weight_unit,height_unit;
 var BMI;
+var svgM;
 
 var defaultfamilyarray=[
     'maternal_grandfather',
@@ -140,17 +141,11 @@ function xmlload() {
         '<div id="family_pedigree" style="background-color:white">' +
         '<div id="topsvg"> ' +
             //'<svg id="svgframe" version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">' +
-        //'<svg id="svgframe">' +
+        '<svg id="svgframe">' +
             //'<g id="glass" class="">' +
             //'</g>' +
-        //'</svg>' +
-
-        '<svg id="svgframe"' +
-        ' xmlns="http://www.w3.org/2000/svg" +' +
-        ' xmlns:svg="http://www.w3.org/2000/svg"' +
-        ' onload="top.receive(document)">' +
         '</svg>' +
-    '</div>' +
+        '</div>' +
 
         '<div id="main" class="">' +
 
@@ -321,7 +316,7 @@ function xmlload() {
         '<h1>View Diagram & Table</h1><br/>'+
         '<table class="infolayer">' +
         '<tr><td>' +
-        '<p style="margin-bottom: 1px">' + $.t("fhh_load_save.browse") + 'asdasdYou can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!</p><br style="line-height: 0px"/>' +
+        '<p style="margin-bottom: -10px">' + $.t("fhh_load_save.browse") + ' You can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!</p><br style="line-height: 0px"/>' +
         '<p>If you would like to change the way the information below is shown, click "Diagram & Table Options." The bottom and right scroll bars are useful navigation tools when viewing larger tables and diagrams.</p>' +
         '</td></tr></table>'
     );
@@ -509,6 +504,7 @@ function xmlload() {
     //var TOPCLONE = svg.clone( null, rect1)[0];
 
     var svgw = mdialog.find('#svgframe')[0];
+    svgM = svgw;
     svgw.setAttribute('height', '80%');
     svgw.setAttribute('valign', 'top');
     svgw.setAttribute('width', masterRight);
@@ -6285,8 +6281,8 @@ function xmlload() {
 
 // fitSVGinDiv(svgw);
 
-
-
+        //Draggable change made. The size of default zoom changes. So we added and commented next line
+        //$('#svgframe').draggable().enabled;
         if (DIAWIDTH > SVGW) {
             var RIGHT_X = allXarray.pop();
             var LEFT_X = allXarray[0];
@@ -6915,6 +6911,7 @@ function createDialogMain() {
 
 
 function ClearDna(){
+
     $.each(personal_information, function (key, item) {
         if (typeof item != 'undefined'){
             var ID = item.id;
@@ -6931,11 +6928,12 @@ function DiseaseDna(){
 
     var selectBox = document.getElementById("diseaseopts");
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-
+    var found = false;
 
     /**
      * Me values
      */
+    // Fixed below code to fix yellow and blue combinations
     $.each(personal_information['Health History'], function (k, data) {
         if(typeof data !='undefined') {
             var ID = 'me';
@@ -6945,15 +6943,19 @@ function DiseaseDna(){
             $.each(health, function (t, value) {
                 if (selectedValue == value) {
                     $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
-                    found = value;
+                    //found = value;
+                    found = true;
+                    return false;
                 }
+                /*
                 else if (selectedValue == value) {
                     $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
                     found = value;
-                }
-
+                } */
             });
         }
+        if (found == true)
+           return false;
     });
 
 
@@ -6961,6 +6963,7 @@ function DiseaseDna(){
         if(typeof item !='undefined') {
             var ID = item.id;
             if (typeof ID != 'undefined') {
+                $('#' + ID).attr({fill: 'silver'}); //added to reset to silver when onchange comes
                 if (item['Health History']) {
                     var health = new Array();
                     health = item['Health History'];
@@ -7113,17 +7116,35 @@ function TheZoomMain(sel) {
     var height=600;
     var newX=100;
     var newY=100;
+    //var svgdoc = document. getElementById("svgframe");
+    //var svgdoc1 = document.getElementById("svgframe").firstElementChild.parentElement(); //  firstChild;
+    var svgdoc = svgM; //sine we have original object use that
+   //var svgdoc = svgchild.parent_id("svgframe");
+    //var svgdoc = (document.getElementById("svgframe")).contentDocument;
 
-    if (selectedVal == '200') {
-alert(selectedVal);
+   /* var viewbox = svgdoc.getAttribute("viewBox");
+    arr = viewbox.split(' ');
+    alert("arr[0]" + arr[0]);
+    alert("arr[1]" + arr[1]);
+    alert("arr[2]" + arr[2]);
+    alert("arr[3]" + arr[3]);
+
+    var mastrght = parseInt(masterRight);
+    var myheight = svgdoc.getAttribute("height");
+    var mywidth = svgdoc.getAttribute("width");
+    alert("mastRight=" + mastrght);
+    alert("height=" + myheight);
+    alert("width=" + mywidth); */
+
+      if (selectedVal == '200') {
         if(nowselected=='200')return;
         nowselected = selectedVal;
 
-        var svgdoc = document.getElementById("svgframe");
         var FRAMEHEIGHT = svgdoc.getAttribute("height");
         var FRAMEWIDTH = svgdoc.getAttribute("width");
         var BOX = svgdoc.getAttribute("viewBox");
         arr = BOX.split(' ');
+
         var Xarray = new Array()
 
         $("#svgframe").each(function () {
@@ -7204,10 +7225,11 @@ alert(selectedVal);
         else if(/chrome/i.test( navigator.userAgent )){
             var RIGHT_X = allXarray.pop();
             var LEFT_X = allXarray[0];
-
+alert("chrome");
             if (arr[0] < 0)X = parseInt(arr[0]) - 100;
             else X = -100;
             var REALLONG = parseInt(masterRight) * 3.1;
+
             svgdoc.setAttribute("viewBox", [X + " -10 " + REALLONG + " 1200"]);
             //svgdoc.setAttribute("preserveAspectRatio","none");
             svgdoc.setAttribute("preserveAspectRatio","xMinYMin slice");
@@ -7220,6 +7242,20 @@ alert(selectedVal);
             $('#theclone').css("left", '50px');
             $('#theclone').css("margin-top", '10px');
 
+            //var svgdoc = document.getElementById("svgframe");
+            /*
+            var FRMH = svgdoc.getAttribute("height");
+            var FRMW = svgdoc.getAttribute("width");
+            var BOXX = svgdoc.getAttribute("viewBox");
+            var arr1;
+            arr1 = BOXX.split(' ');
+
+            alert("arr1[0]="+arr1[0]);
+            alert("arr1[1]="+arr1[1]);
+            alert("arr1[2]="+arr1[2]);
+            alert("arr1[3]="+arr1[3]);
+            alert("FRMHeight="+FRMH);
+            alert("FRMWidth="+FRMW);  */
         }
         else {
 
@@ -7235,6 +7271,8 @@ alert(selectedVal);
 
             $('#topsvg').css("overflow-y", "scroll")
             $('#topsvg').css('width', parseInt(masterRight)-100);
+            $('#topsvg').css('overflow', 'visible');
+            $('#svgframe').css("margin-top", '10px');
             svgdoc.setAttribute('id', 'theclone');
             $('#theclone').css("height", '1000px');
             $('#theclone').css("left", '50px');
@@ -7248,38 +7286,57 @@ alert(selectedVal);
     else if(selectedVal == '100') {
         if(nowselected=='100')return;
         nowselected = selectedVal;
-        var svgdoc = document.getElementById("svgframe");
-        var FRAMEHEIGHT = svgdoc.getAttribute("height");
-        var FRAMEWIDTH = svgdoc.getAttribute("width");
-        var BOX = svgdoc.getAttribute("viewBox");
-        arr = BOX.split(' ');
+
+        //var svgdoc = document.getElementById("svgframe");
+        //var FRAMEHEIGHT = svgdoc.getAttribute("height");
+        //var FRAMEWIDTH = svgdoc.getAttribute("width");
+        //var BOX = svgdoc.getAttribute("viewBox");
+        //arr = BOX.split(' ');
         var Xarray = new Array();
+        var REALLONG = parseInt(masterRight) / 3.1;
+ // [left 0 wscale right]
 
-        var REALLONG = parseInt(masterRight);
-        svgdoc.setAttribute("viewBox",  '-150 75 ' + -20 + ' -15');
-        svgdoc.setAttribute("preserveAspectRatio","xMidYMid meet");
-        svgdoc.setAttribute("width",REALLONG + "px");
-        svgdoc.setAttribute("height","100px");
+        svgdoc.setAttribute("viewBox",  '-158' + ' 0 ' + '1533' + ' 817.6');
+        //svgdoc.setAttribute("viewBox", [X + " -10 " + REALLONG + " 1000"]);
+        svgdoc.setAttribute("preserveAspectRatio","xMinYMin meet");
+        svgdoc.setAttribute("width",1533 + "px");
+        svgdoc.setAttribute("height","1000px");
 
-        $('#topsvg').css("height", "600px");
-        $('#topsvg').css("overflow", "scroll");
-        $('#theclone').css("left", '50px');
-        $('#theclone').css("margin-top", '10px');
+       // $('#topsvg').css("height", "600px");
+        //$('#topsvg').css("width", "800px");
+        $('#topsvg').css("width", parseInt(masterRight)-10);
+        $('#topsvg').css("overflow-y", "scroll");
+        $('#topsvg').css('overflow', 'visible');
+        $('#svgframe').css("margin-top", '10px');
+
+        svgdoc.setAttribute('id', 'theclone');
+        $('#theclone').css("height", '500px');
+        $('#theclone').css("left", '100px');
+        $('#theclone').css("margin-top", '15x');
+
+
+        //$('#theclone').css("left", '50px');
+       //$('#theclone').css("margin-top", '10px');
         /*overflow: scroll;*/
         //svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
 
-        svgdoc.setAttribute('id', 'theclone');
-        $('#theclone').css("width", '3000px');
-        $('#theclone').css("height", '600px');
-        $('#theclone').css("left", '50px');
+        //svgdoc.setAttribute('id', 'theclone');
+       // $('#theclone').css("width", '3000px');
+       // $('#theclone').css("height", '600px');
+       // $('#theclone').css("left", '50px');
         $('#theclone').css("z-index", '99999');
 
         $('#pattext').css("font-size", '14.5px');
         $('#mattext').css("font-size", '14.5px');
-        $('#f1text').css("font-size", '14.5px');
-        $('#f2text').css("font-size", '14.5px');
-        $('#f3text').css("font-size", '14.5px');
-        $('#f4text').css("font-size", '14.5px');
+       // $('#f1text').css("font-size", '14.5px');
+      ///  $('#f2text').css("font-size", '14.5px');
+      //  $('#f3text').css("font-size", '14.5px');
+       // $('#f4text').css("font-size", '14.5px');
+
+       // var nC = svgdoc.createElement("circle");
+       // nC.setAttributeNS("cx" , 0.000001 );
+       /// nC.setAttributeNS("cy" , 0.000001 );
+      //svgdoc.documentElement.appendChild(nC);
 
         //svgdoc.window.res .svgWindow.refresh();
         //document.body.offsetWidth ;
