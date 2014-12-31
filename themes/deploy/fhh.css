@@ -388,3 +388,11 @@ td.race_checkbox input[type=checkbox] {
 margin:10px;
 padding-right:10px;
 }
+
+a.link-button {
+background-color:#337AB7;
+color:#fff !important;
+border-radius:4px;
+padding:4px;
+text-decoration:none;
+}
