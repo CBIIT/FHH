@@ -519,6 +519,9 @@
 		"past_cancer_risk10":"You have had liver cancer in the past.",
 		"past_cancer_risk11":"You have had kidney cancer in the past.",
 		"past_cancer_risk12":"You have had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.",
+
+
+
 		"past_cancer_negative":"You have never had any of the following cancer types: colon, colorectal, rectal, Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC), uterine, pancreatic, ovarian, gastric, brain, liver, or kidney cancer.",
 		"polyps_negative":"You have never had any polyps or Familial adnenomatous polyposis (FAP).",
 		"polyps_risk1":"You have had colon polyps in the past.",		
@@ -526,16 +529,20 @@
 		"ibd_negative":"You have never had inflammatory bowel disease (either ulcerative colitis or crohn's disease).",
 		"ibd_risk1":"You have had crohn's disease in the past.",		
 		"ibd_risk2":"You have had ulcerative colitis in the past.",
-		"fap_hnpcc_negative":"You have never had inflammatory bowel disease (either ulcerative colitis or crohn's disease).",
+		"fap_hnpcc_negative":"None of your family members have had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) or Familial adnenomatous polyposis (FAP)",
 		"fap_hnpcc_risk1":"has had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.",		
 		"fap_hnpcc_risk2":"has had familial adnenomatous polyposis (FAP) in the past.",
 		"family_members_cancer_risk1":"has had colon cancer in the past.",		
 		"family_members_cancer_risk2":"has had colorectal cancer in the past.",
-		"family_members_cancer_risk3":"has had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.",		
+		"family_members_cancer_risk3":"has had rectal cancer in the past",		
 		"family_members_cancer_risk4":"has had gastric cancer in the past.",
-		"family_members_cancer_negative":"has had familial adnenomatous polyposis (FAP) in the past.",
+		"family_members_cancer_negative":"None of your immediate relatives (father, mother, brothers, sisters, children) have had colon, colorectal, rectal, or gastric cancer.",
 		"family_members_polyps_risk1":"has had colon polyps in the past.",
-		"family_members_polyps_negative":"has had colon polyps in the past.",
+		"family_members_polyps_negative":"None of your immediate relatives (father, mother, brothers, sisters, children) have had polyps.",
+
+
+
+
 		"secondary_family_members_cancer_risk1":"has had colon cancer in the past.",
 		"secondary_family_members_cancer_risk2":"has had colorectal cancer in the past.",
 		"secondary_family_members_cancer_risk3":"has had rectal cancer in the past.",

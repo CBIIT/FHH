@@ -532,23 +532,29 @@
 		"past_cancer_risk10":"Hai avuto il cancro al fegato in passato.",
 		"past_cancer_risk11":"Hai avuto il cancro del rene in passato.",
 		"past_cancer_risk12":"Avete avuto la sindrome di Lynch ereditario non-poliposi cancro/retto (HNPCC) in passato.",
+
+
+
 		"past_cancer_negative":"Non avete mai avuto uno dei seguenti tipi di cancro: colon, del colon-retto, del retto, sindrome di Lynch/ereditario non-poliposi cancro colorettale (HNPCC), uterina, del pancreas, delle ovaie, gastrica, il cervello, il fegato, o il cancro del rene.",
 		"polyps_negative":"Non hai mai avuto polipi o poliposi familiare adnenomatous (FAP).",
 		"polyps_risk1":"Avete avuto polipi del colon in passato.",		
 		"polyps_risk2":"Avete avuto poliposi familiare adnenomatous (FAP) in passato.",
-		"ibd_negative":"Avete mai avuto la malattia infiammatoria intestinale (o colite ulcerosa o morbo di Crohn).",
+		"ibd_negative":"Non hai mai avuto malattie infiammatorie intestinali ( o colite ulcerosa o morbo di Crohn ) .",
 		"ibd_risk1":"Avete avuto la malattia di Crohn in passato.",		
 		"ibd_risk2":"Avete avuto la colite ulcerosa in passato.",
-		"fap_hnpcc_negative":"Avete mai avuto la malattia infiammatoria intestinale (o colite ulcerosa o morbo di Crohn).",
+		"fap_hnpcc_negative":"Nessuno dei vostri familiari hanno avuto la sindrome di Lynch ereditario non - poliposi cancro / retto ( HNPCC ) o poliposi familiare adnenomatous ( FAP )",
 		"fap_hnpcc_risk1":"ha avuto la sindrome di Lynch ereditario non-poliposi cancro/retto (HNPCC) in passato.",		
 		"fap_hnpcc_risk2":"ha avuto poliposi familiare adnenomatous (FAP) in passato.",
 		"family_members_cancer_risk1":"ha avuto il cancro al colon in passato.",		
 		"family_members_cancer_risk2":"ha avuto il cancro del colon-retto in passato.",
-		"family_members_cancer_risk3":"ha avuto la sindrome di Lynch/ereditario non-poliposi cancro colorettale (HNPCC) in passato.",		
+		"family_members_cancer_risk3":"ha avuto cancro rettale in passato.",		
 		"family_members_cancer_risk4":"ha avuto il cancro gastrico in passato.",
-		"family_members_cancer_negative":"ha avuto poliposi familiare adnenomatous (FAP) in passato.",
+		"family_members_cancer_negative":"Nessuno dei tuoi parenti più prossimi ( padre , madre , fratelli , sorelle , figli) hanno avuto colon , del colon-retto , del retto , o il cancro gastrico.",
 		"family_members_polyps_risk1":"ha avuto polipi del colon in passato.",
-		"family_members_polyps_negative":"ha avuto polipi del colon in passato.",
+		"family_members_polyps_negative":"Nessuno dei tuoi parenti più prossimi ( padre, madre, fratelli, sorelle, figli) hanno avuto polipi .",
+
+
+
 		"secondary_family_members_cancer_risk1":"ha avuto il cancro al colon in passato.",
 		"secondary_family_members_cancer_risk2":"ha avuto il cancro del colon-retto in passato.",
 		"secondary_family_members_cancer_risk3":"ha avuto cancro rettale in passato.",

@@ -92,10 +92,9 @@
 		"grandson_parent_q" : "Who is the parent of your grandson:",
 		"halfbrother_parent_q" : "Who is the parent of your half brother:",
 		"halfsister_parent_q" : "Who is the parent of your half sister:",
-		"digits_only":"Digits Only",
+		"digits_only":"Digits Only",		
 		"invalid_name" : "Invalid Name",
 		"invalid_data_of_birth" : "Invalid Date of Birth",
-		"invalid_age" : "Invalid Age",
 		"invalid_gender" : "Invalid Gender Selection",
 		"invalid_data_alert" : "Some of the data your entered was invalid, please fix your errors and try again.",
 		"halfway_through_adding_disease" : "You have not saved the new disease information, please click 'Add' to add the disease first.",
@@ -192,7 +191,7 @@
 		
 		"export_instructions":"You may make your father, mother, brothers, sisters, and children be the center person of the family health history. This person can then add relatives from their families to create a new family health history without having to start from the very beginning.",
 		"export_instructions2":"Your family health history is not saved on this website or any other system. You must save your family health history to your own local storage area (such as your computer's hard drive, a CD-ROM, or USB thumb drive), whether you are saving your own history or saving a copy for a family member.",
-		"export_instructions3":"To copy for another family member, select the person to copy and click 'Copy and Save File.'",
+		"export_instructions3":"To copy for another family member, select the person to copy and click 'Copy and Save History.'",
 		"choose_relative":"Choose a Relative",
 		"please_select_relative":"Please make a selection",
 		"export":"Copy and Save History",
@@ -245,7 +244,7 @@
 		"th_relation" : "Relationship to Me",
 		"th_add_hist" : "Add History",
 		"th_upd_hist" : "Update History",
-		"th_remove_hist":"Remove",		
+		"th_remove_hist":"Remove",
 		"th_rem_rel" : "Remove Relative",
 		"h2_help_main_page" : "Update My Family Health History",
 		"p_help_main_page" : "After adding immediate family information, you can:",
@@ -396,7 +395,7 @@
 		"done" : "done"
 	},
 	"fhh_diabetes_calculator":  {
-		"points":"points",		
+		"points":"points",
 		"pounds":"pounds",	
 		"feet":"feet",
 		"inches":"inches",		
@@ -440,7 +439,6 @@
 		"initial_popup_high_blood_description":"Do you have High Blood Pression (Hypertension):",
 		"initial_popup_physical_description":"* Physical activity is defined as 150 minutes of moderate exercise per week",
 		"alert":"In order to use this tool, you need to have entered a height and weight,\n and your family's Diabetes Type II history",
-
 		"title_bar" : "Your Type 2 Diabetes Risk Information",
 		"instructions_title" : "On this screen you can:",
 		"instructions_risk" : "Get your risk for type 2 diabetes based on your personal and family history information",
@@ -508,6 +506,10 @@
 		"bottom_info3":"More information about colorectal cancer risk can be found at:",
 		"bottom_info4":"National Cancer Institute Colorectal Cancer Information",
 		"bottom_info5":"National Cancer Institute Colorectal Cancer PDQ for Healthcare Professionals:",
+
+
+
+
 		"personal_information":"Need to enter personal and family histories",
 		"past_cancer_risk1":"You have had colon cancer in the past.",
 		"past_cancer_risk2":"You have had colorectal cancer in the past.",
@@ -528,16 +530,20 @@
 		"ibd_negative":"You have never had inflammatory bowel disease (either ulcerative colitis or crohn's disease).",
 		"ibd_risk1":"You have had crohn's disease in the past.",		
 		"ibd_risk2":"You have had ulcerative colitis in the past.",
-		"fap_hnpcc_negative":"You have never had inflammatory bowel disease (either ulcerative colitis or crohn's disease).",
+		"fap_hnpcc_negative":"None of your family members have had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) or Familial adnenomatous polyposis (FAP)",
 		"fap_hnpcc_risk1":"has had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.",		
 		"fap_hnpcc_risk2":"has had familial adnenomatous polyposis (FAP) in the past.",
 		"family_members_cancer_risk1":"has had colon cancer in the past.",		
 		"family_members_cancer_risk2":"has had colorectal cancer in the past.",
-		"family_members_cancer_risk3":"has had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.",		
+		"family_members_cancer_risk3":"has had rectal cancer in the past",		
 		"family_members_cancer_risk4":"has had gastric cancer in the past.",
-		"family_members_cancer_negative":"has had familial adnenomatous polyposis (FAP) in the past.",
+		"family_members_cancer_negative":"None of your immediate relatives (father, mother, brothers, sisters, children) have had colon, colorectal, rectal, or gastric cancer.",
 		"family_members_polyps_risk1":"has had colon polyps in the past.",
-		"family_members_polyps_negative":"has had colon polyps in the past.",
+		"family_members_polyps_negative":"None of your immediate relatives (father, mother, brothers, sisters, children) have had polyps.",
+
+
+
+
 		"secondary_family_members_cancer_risk1":"has had colon cancer in the past.",
 		"secondary_family_members_cancer_risk2":"has had colorectal cancer in the past.",
 		"secondary_family_members_cancer_risk3":"has had rectal cancer in the past.",

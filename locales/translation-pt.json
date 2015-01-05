@@ -529,23 +529,30 @@
 		"past_cancer_risk10":"Você teve câncer de fígado no passado.",
 		"past_cancer_risk11":"Você já teve câncer de rim no passado.",
 		"past_cancer_risk12":"Você teve Síndrome de Lynch/hereditário sem polipose câncer colorretal (HNPCC) no passado.",
+
+
+
 		"past_cancer_negative":"Você nunca ter tido qualquer um dos seguintes tipos de câncer : cólon, retal, rectal, Síndrome de Lynch/hereditário sem polipose câncer colorretal (HNPCC), útero, pâncreas, ovário, gástrico, cérebro, fígado, ou câncer de rim.",
 		"polyps_negative":"Você nunca tive quaisquer pólipos ou polipose adnenomatous Familial (FAP).",
+
+
+
+
 		"polyps_risk1":"Você teve pólipos do cólon no passado.",		
 		"polyps_risk2":"Você teve polipose adnenomatous (FAP) no passado.",
 		"ibd_negative":"Você nunca teve a doença inflamatória intestinal (ou colite ulcerosa ou doença de Crohn).",
 		"ibd_risk1":"Vocês já tiveram a doença de crohn, no passado.",		
 		"ibd_risk2":"Você teve colite ulcerativa no passado.",
-		"fap_hnpcc_negative":"Você nunca teve a doença inflamatória intestinal (ou colite ulcerosa ou doença de Crohn).",
+		"fap_hnpcc_negative":"Você nunca teve doença inflamatória intestinal ( ou colite ulcerosa ou doença de Crohn) .",
 		"fap_hnpcc_risk1":"teve Síndrome de Lynch / não- polipose câncer colorretal hereditário (HNPCC) no passado.",		
 		"fap_hnpcc_risk2":"teve polipose adnenomatous (FAP) no passado.",
 		"family_members_cancer_risk1":"teve câncer de cólon no passado.",		
 		"family_members_cancer_risk2":"teve câncer colorretal no passado.",
-		"family_members_cancer_risk3":"teve Síndrome de Lynch / não- polipose câncer colorretal hereditário (HNPCC) no passado.",		
+		"family_members_cancer_risk3":"teve cancro rectal no passado.",		
 		"family_members_cancer_risk4":"teve câncer gástrico no passado.",
-		"family_members_cancer_negative":"teve polipose adnenomatous (FAP) no passado.",
+		"family_members_cancer_negative":"Nenhum de seus parentes mais próximos ( pai, mãe, irmãos , irmãs , filhos) tiveram dois pontos, colorectal, rectal ou cancro gástrico .",
 		"family_members_polyps_risk1":"teve pólipos do cólon no passado.",
-		"family_members_polyps_negative":"teve pólipos do cólon no passado.",
+		"family_members_polyps_negative":"Nenhum de seus parentes imediatos (pai, mãe , irmãos, irmãs , filhos) tiveram pólipos.",
 		"secondary_family_members_cancer_risk1":"teve câncer de cólon no passado.",
 		"secondary_family_members_cancer_risk2":"teve câncer colorretal no passado.",
 		"secondary_family_members_cancer_risk3":"teve cancro rectal no passado.",

@@ -19,34 +19,18 @@
 */
 
 var final_risk = false;
+
 // get lng and set to variable. used to open correct pdf //
 var lng = window.i18n.lng();
 if (lng=='en-US') {
 	lng = 'en';
 };
+
 if (personal_information == null) alert ($.t("fhh_colorectal_calculator.personal_information"));
 
 set_icon($("#past_cancers"), 'calculating');
 setTimeout(test_past_cancer, 500);
 
-	// if (typeof i18n != "undefined") {
-	// 	var option = { 
-	// 		resGetPath: '../locales/__ns__-__lng__.json',
-	// 		ns: { 
-	// 	    namespaces: ['translation', 'diseases'], 
-	// 	    defaultNs: 'translation'
-	// 	  } 
-	// 	};
-
-	// 	i18n.init(option, function () {
-	// 		$(".translate").i18n();
-	// 		$.getJSON("../data/diseases.json", function (data) {
-	// 			diseases = data;
-	// 			start();
-	// 		});
-	// 	});
-	// };		
-	
 /// End of main script
 
 function test_past_cancer() {
@@ -141,7 +125,6 @@ function test_polyps() {
 	} else {
 		set_icon($("#polyps"), 'negative');
 		set_reason($("#polyps"),$.t("fhh_colorectal_calculator.polyps_negative"));
-		// set_reason($("#polyps"), "You have never had any polyps or Familial adnenomatous polyposis (FAP).");
 	}
 
 	final_risk |= risk;
@@ -200,12 +183,12 @@ function test_any_family_members_fap_hnpcc() {
 				for (i=0;i<h.length;i++) {
 					if (h[i]['Disease Code'] == 'SNOMED_CT-315058005') {
 						name = get_name_or_relationship(this.name, key);
-						risk_reason += name + " " + $.t("fhh_colorectal_calculator.fap_hnpcc_risk1") + "<br />";
+						risk_reason += name + $.t("fhh_colorectal_calculator.fap_hnpcc_risk1") + "<br />";
 						risk=true;
 					}
 					if (h[i]['Disease Code'] == 'SNOMED_CT-72900001') {
 						name = get_name_or_relationship(this.name, key);
-						risk_reason += name + " " + $.t("fhh_colorectal_calculator.fap_hnpcc_risk2") + "<br />";
+						risk_reason += name + $.t("fhh_colorectal_calculator.fap_hnpcc_risk2") + "<br />";
 						risk=true;
 					}
 				}
@@ -271,8 +254,8 @@ function test_immediate_family_members_cancer() {
 		set_reason($("#immediate_family_members_cancer"), risk_reason);
 	} else {
 		set_icon($("#immediate_family_members_cancer"), 'negative');
-		set_reason($("#immediate_family_members_cancer"),$.t("fhh_colorectal_calculator.family_members_cancer_negative"));
-	}
+		set_reason($("#immediate_family_members_cancer"),$.t("fhh_colorectal_calculator.family_members_cancer_negative"));		
+		}
 	
 	final_risk |= risk;
 	// Goto Next test
@@ -294,7 +277,7 @@ function test_immediate_family_members_polyps() {
 					for (i=0;i<h.length;i++) {
 						if (h[i]['Detailed Disease Name'] == 'Colon Polyp') {
 							name = get_name_or_relationship(this.name, key);
-							risk_reason += name + " " + $.t("fhh_colorectal_calculator.family_members_polyps_risk1") + "<br />";
+							risk_reason += name + " " + $.t("fhh_colorectal_calculator.family_members_polyps_risk1");
 							risk=true;
 						}
 					}
@@ -362,15 +345,14 @@ function test_secondary_family_members_cancer() {
 	});
 	if (count == 0) {
 		risk = false;
-		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk4")
-		
+		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk4");		
 	} else if (count == 1) {
 		risk = false;
 		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk5") +  "<br />" + risk_reason;
 		
 	} else {
 		risk = true;
-		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk6") + " <br />" + risk_reason;
+		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk6") +  "<br />" + risk_reason;
 	} 
 	
 	if (risk) {
@@ -434,7 +416,7 @@ function test_secondary_family_members_colon_cancer_before_60() {
 		set_reason($("#secondary_family_members_colon_cancer_before_60"), risk_reason);
 	} else {
 		set_icon($("#secondary_family_members_colon_cancer_before_60"), 'negative');
-		set_reason($("#secondary_family_members_colon_cancer_before_60"), $.t("fhh_colorectal_calculator.secondary_family_members_colon_cancer_before_60_negative"));
+		set_reason($("#secondary_family_members_colon_cancer_before_60"),$.t("fhh_colorectal_calculator.secondary_family_members_colon_cancer_before_60_negative"));
 	}
 
 	final_risk |= risk;
@@ -518,7 +500,7 @@ function test_secondary_family_members_uterine_cancer() {
 	});
 	if (count == 0) {
 		risk = false;
-		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_uterine_cancer_risk2")
+		risk_reason = $.t("fhh_colorectal_calculator.secondary_family_members_uterine_cancer_risk2");
 		
 	} else if (count == 1) {
 		risk = false;
@@ -547,12 +529,12 @@ function test_secondary_family_members_uterine_cancer() {
 function test_final() {
 	if (final_risk) {
 		set_icon($("#final"), 'positive');
-		set_reason($("#final"), $.t("fhh_colorectal_calculator.final_risk1"));
+		set_reason($("#final"),$.t("fhh_colorectal_calculator.final_risk1"));
 		$("#explanation_low_risk").hide();
 		$("#explanation_high_risk").show();
 	} else {
 		set_icon($("#final"), 'negative');
-		set_reason($("#final"), $.t("fhh_colorectal_calculator.final_risk2"));
+		set_reason($("#final"),$.t("fhh_colorectal_calculator.final_risk2"));
 		$("#explanation_high_risk").hide();
 		$("#explanation_low_risk").show();
 	}
