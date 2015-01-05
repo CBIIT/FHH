@@ -389,6 +389,19 @@ margin:10px;
 padding-right:10px;
 }
 
+.disease_detail td {
+text-align:left !important;
+
+}
+
+#health_data_entry_row td{
+text-align:left !important;
+padding:8px 0px 0px 4px !important;
+}
+
+#add_new_disease_button {
+margin-left:8px;
+}
 a.link-button {
 background-color:#337AB7;
 color:#fff !important;
