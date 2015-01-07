@@ -5,6 +5,7 @@
 
 
 var mdialog=null;
+
 var original;
 var clone;
 var masterRight = $(window).width();
@@ -1348,9 +1349,10 @@ function xmlload() {
                     + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
                     + '<p>My Family Health Portrait-Diagram</p>'
-                    + '<div style="margin-top:300px;margin-left:auto;margin-right:auto">'
+                    + '<div style="margin-top:100px;margin-left:auto;margin-right:auto">'
                     + $(topsvgc).html()
                     + '</div>'
+                    + '<img id="legendtag" height="100px" align="right" src="../static/images/Legend.png"></img>'
                     + '<DIV style="page-break-after:always"></DIV>'
                     + $(healthtable).html()
 
@@ -1462,7 +1464,7 @@ function xmlload() {
                     + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
                         // + '<p>My Family Health Portrait-Diagram</p>'
-                        // + $(topsvgc).html()
+                    //+ $(topsvgc).html()
                     + '<DIV style="page-break-after:always"></DIV>'
                     + $(healthtable).html()
                     + '</head><body>'
