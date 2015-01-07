@@ -60,19 +60,20 @@ var doc;
 					dialog.dialog("close");
 					window.close();
 				} catch (exception) {
-					$("#info").append("<P>Error: " + exception.message + "</P>");
-					$("#info").append("<P>Closing this window in 5 seconds</P>");
-					setTimeout(window.close, 5000);
+					var ele = opener.document.getElementById("save_personal_history_dialog");
+					var dialog = window.opener.jQuery("#save_personal_history_dialog");
+					dialog.dialog("close");
+					window.close();
+					alert("Failed to save to Health Vault Exception: " + exception.message);
 				}
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
 					var ele = opener.document.getElementById("save_personal_history_dialog");
 					var dialog = window.opener.jQuery("#save_personal_history_dialog");
 					dialog.dialog("close");
-					$("#info").append("<P>Error: " + XMLHttpRequest.status + "</P>");
-					$("#info").append("<P>Closing this window in 5 seconds</P>");
-					setTimeout(window.close, 5000);
-     	}
+					window.close();
+ 					alert("Failed to save to Health Vault Error: " + XMLHttpRequest.status);
+    	}
 	});
 
 
