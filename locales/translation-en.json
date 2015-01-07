@@ -35,11 +35,32 @@
 		"add_family_members_dialog_title": "Add Family Members",
 		"risk_calculator_dialog_title": "Disease Risk Calculators",
 		"family_member_copy_dialog_title" : "Copy for a Family Member",
+		"help":"Help",
+		"update_help_dialog_title":"Enter Personal Information Help",
+		"update_help_dialog_h1":"Enter Personal Information",
+		"update_help_dialog_p":"When creating your personal information you will be asked to:",
+		"update_help_dialog_l1":"Enter your personal information such as name, gender, date of birth, twin status, adopted status, height and weight.",
+		"update_help_dialog_l2":"Enter your health information. This includes:",
+		"update_help_dialog_l2_l1":"Selecting the disease or condition you may have by clicking on the drop-down selection box next to the 'Disease or Condition' label",
+		"update_help_dialog_l2_l2":"If you select a disease or condition that has the words 'more options' next to it, you will be asked to give more information by clicking on the drop-down box next to the 'Please Specify' label",
+		"update_help_dialog_l2_l3":"Select the age of onset from the ranges that are offered after clicking on the drop-down selection box next to 'Age at Diagnosis'",
+		"update_help_dialog_l2_l4":"You can add more diseases or conditions after adding one to the list. You can also press on the 'Remove' link if the information doesn't appear correct",
+		"update_help_dialog_l3":"Enter your family background. This includes:",
+		"update_help_dialog_l3_l1":"Selecting whether your parents are related to each other in any way other than being married",
+		"update_help_dialog_l3_l2":"Selecting the race and ethnic background for a family member. Please note that you can select more than one option within this list. You will also be able to provide more specific race information.",
+		"load_help_dialog_title":"Load Your Family Health History Help",
+		"load_help_dialog_h1":"Help for Use a Saved Family Health History File",
+		"load_help_dialog_p1":"If you have already created a family health history file or if someone has sent you a family health history file, you will be able to upload it.  Once uploaded, you can open it to see or edit the file. You can also create a copy for yourself or another family member.",
+		"load_help_dialog_p2":"You will need to know where the file is saved on your local computer or removable drive. To upload a file:",
+		"load_help_dialog_p3":"Please note that this site only accepts files of an '.xml' extension that were saved from this tool, and also accepts files of an '.htm' extension that were saved from this tool prior to January, 2009. Any other file types will not be accepted.",
+		"load_help_dialog_l1":"Press on the 'Browse' button. This will open a new window.",
+		"load_help_dialog_l2":"In the new window, you will have to go the directory that contains the file. The file will be of an '.xml' type.",
+		"load_help_dialog_l3":"Select the file and press on the 'Open' button. This will close the new window.",
+		"load_help_dialog_l4":"In the Use a Saved Family History window, press on the 'Next' button.",
 		"help_dialog_title" : "Your Family Health History Help",
 		"define_family_relationship_dialog_title" : "Define Family Member Relationship",
 		"confirm_delete" : "This will delete all data and restart,  Are you sure you want to do this?",
 		"file_save":"Saving File",
-		
 		"add_relative_title":"Who would you like to add to your history?",
 		"add_relative_para":"Relatives in your immediate family who aren't listed here are probably on the previous page and can be reached by closing this window and selecting the plus sign image ('Add History') next to the relative's name. Spouses and second cousins are not listed because they don't impact your family health history.",
 						
@@ -506,10 +527,6 @@
 		"bottom_info3":"More information about colorectal cancer risk can be found at:",
 		"bottom_info4":"National Cancer Institute Colorectal Cancer Information",
 		"bottom_info5":"National Cancer Institute Colorectal Cancer PDQ for Healthcare Professionals:",
-
-
-
-
 		"personal_information":"Need to enter personal and family histories",
 		"past_cancer_risk1":"You have had colon cancer in the past.",
 		"past_cancer_risk2":"You have had colorectal cancer in the past.",
@@ -523,6 +540,9 @@
 		"past_cancer_risk10":"You have had liver cancer in the past.",
 		"past_cancer_risk11":"You have had kidney cancer in the past.",
 		"past_cancer_risk12":"You have had Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC) in the past.",
+
+
+
 		"past_cancer_negative":"You have never had any of the following cancer types: colon, colorectal, rectal, Lynch Syndrome/Hereditary non-polyposis colorectal cancer (HNPCC), uterine, pancreatic, ovarian, gastric, brain, liver, or kidney cancer.",
 		"polyps_negative":"You have never had any polyps or Familial adnenomatous polyposis (FAP).",
 		"polyps_risk1":"You have had colon polyps in the past.",		

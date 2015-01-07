@@ -100,7 +100,10 @@ function start()
 		build_race_ethnicity_section($("#personal_race_ethnicity"), true);
 		bind_personal_submit_button_action();
 		bind_personal_cancel_button_action();
+		bind_personal_help_button_action();
 		clear_and_set_personal_health_history_dialog();
+		// $("#help_dialog").load ("update-help.html");
+	
 		
 		$("#personal_race_ethnicity").find("#selectedRaces-2").on("change", function () {
 			if ($(this).prop("checked") == true) $("#add_personal_information_dialog").find("#asian_checkboxes").show();
@@ -145,7 +148,7 @@ function start()
 		build_race_ethnicity_section($("#family_race_ethnicity"), false);
 		bind_family_member_submit_button_action();
 		bind_family_member_cancel_button_action();
-		
+		bind_family_member_help_button_action();
 		$("#family_race_ethnicity").find("#selectedRaces-2").on("change", function () {
 			if ($(this).prop("checked") == true) $("#update_family_member_health_history_dialog").find("#asian_checkboxes").show();
 			else {
@@ -240,6 +243,7 @@ function start()
 	$("#load_personal_history_dialog").load ("load_personal_history_dialog.html", function () {
 		bind_load_personal_history_button();
 		bind_load_xml();
+		bind_load_help_button_action();
 
 		// remove load option from computer //
 		// removes instructions for opening from computer //
@@ -349,6 +353,24 @@ function start()
 		height:'auto',
 		width:600
 	});
+
+	$("#update_help_dialog").load ("update-help.html", function () {});
+	$("#update_help_dialog").dialog({
+		title:$.t("fhh_js.update_help_dialog_title"), 
+		position:['middle',0],
+		autoOpen: false,
+		height:'auto',
+		width:600
+	});	
+
+	$("#load_help_dialog").load ("load-help.html", function () {});
+	$("#load_help_dialog").dialog({
+		title:$.t("fhh_js.load_help_dialog_title"), 
+		position:['middle',0],
+		autoOpen: false,
+		height:'auto',
+		width:600
+	});		
 
 // Dead Code?	
 //	if (personal_information != null) {
@@ -949,6 +971,25 @@ function bind_personal_cancel_button_action () {
 		$("#add_personal_information_dialog").dialog("close");
 	});
 }
+
+function bind_personal_help_button_action () {
+	$("#add-help").on("click", function(){ 
+		$("#update_help_dialog").dialog("open");
+	});
+}
+
+function bind_family_member_help_button_action () {
+	$("#update-help").on("click", function(){ 
+		$("#update_help_dialog").dialog("open");
+	});
+}
+
+function bind_load_help_button_action() {
+	$("#load-help").on("click", function(){ 
+		$("#load_help_dialog").dialog("open");
+	});	
+}
+
 
 function bind_family_member_submit_button_action () {
 	// Validation age determination
