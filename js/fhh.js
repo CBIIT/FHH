@@ -293,6 +293,7 @@ function start()
 	$("#add_all_family_members_dialog").load ("add_all_family_members_dialog.html", function () {
 		bind_add_all_family_members_submit_button_action();
 		bind_add_all_family_members_cancel_button_action();
+		bind_immediate_help_button_action();
 		bind_number_only_fields();
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
 		i18n.init(option, function () {
@@ -370,7 +371,16 @@ function start()
 		autoOpen: false,
 		height:'auto',
 		width:600
-	});		
+	});	
+
+	$("#immediate_help_dialog").load ("immediate-help.html", function () {});
+	$("#immediate_help_dialog").dialog({
+		title:$.t("fhh_js.immediate_help_dialog_title"), 
+		position:['middle',0],
+		autoOpen: false,
+		height:'auto',
+		width:600
+	});			
 
 // Dead Code?	
 //	if (personal_information != null) {
@@ -987,6 +997,12 @@ function bind_family_member_help_button_action () {
 function bind_load_help_button_action() {
 	$("#load-help").on("click", function(){ 
 		$("#load_help_dialog").dialog("open");
+	});	
+}
+
+function bind_immediate_help_button_action() {
+	$("#immediate-help").on("click", function(){ 
+		$("#immediate_help_dialog").dialog("open");
 	});	
 }
 

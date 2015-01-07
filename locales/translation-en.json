@@ -57,6 +57,15 @@
 		"load_help_dialog_l2":"In the new window, you will have to go the directory that contains the file. The file will be of an '.xml' type.",
 		"load_help_dialog_l3":"Select the file and press on the 'Open' button. This will close the new window.",
 		"load_help_dialog_l4":"In the Use a Saved Family History window, press on the 'Next' button.",
+		"immediate_help_dialog_title":"Add Family Members Help",
+		"immediate_help_dialog_h1":"Help for Add Immediate Family Information",
+
+		"immediate_help_dialog_p":"Create a Family Tree. This includes:",
+		"immediate_help_dialog_l1":"Typing in the number of brothers, sisters, daughters, and sons you have",
+		"immediate_help_dialog_l2":"Typing in the number of brothers and sisters that your mother has",
+		"immediate_help_dialog_l3":"Typing in the number of brothers and sisters that your father has",
+		"immediate_help_dialog_l4":"Showing whether or not you would like to add grandparents to your family tree",
+
 		"help_dialog_title" : "Your Family Health History Help",
 		"define_family_relationship_dialog_title" : "Define Family Member Relationship",
 		"confirm_delete" : "This will delete all data and restart,  Are you sure you want to do this?",

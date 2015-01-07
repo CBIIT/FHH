@@ -58,14 +58,19 @@
 		"load_help_dialog_l2":"Nella nuova finestra, si dovrà andare nella elenco che contiene il file. Il file sarà di tipo '.xml' .",
 		"load_help_dialog_l3":"Selezionare il file e premere il pulsante 'Apri'. Si chiude la nuova finestra.",
 		"load_help_dialog_l4":"Nella utilizzare una finestra Saved storia familiare, premere sul pulsante 'Avanti'.",
+		"immediate_help_dialog_title":"Aggiungi membri della famiglia Aiuto",
+		"immediate_help_dialog_h1":"Aiuto per Aggiungere Immediate Informazioni sulla Famiglia",
+		"immediate_help_dialog_p":"Creare un albero genealogico. Questo comprende:",
+		"immediate_help_dialog_l1":"Digitando il numero di fratelli, sorelle, figlie e figli, che avete",
+		"immediate_help_dialog_l2":"Digitando il numero di fratelli e sorelle che tua madre ha",
+		"immediate_help_dialog_l3":"Digitando il numero di fratelli e sorelle che tuo padre ha",
+		"immediate_help_dialog_l4":"Mostrando se si desidera aggiungere i nonni al tuo albero genealogico",
 		"help_dialog_title": "Il tuo Family Health History Aiuto",
 		"define_family_relationship_dialog_title": "Definire Familiare Relationship",
 		"confirm_delete": "Questo eliminerà tutti i dati e riavviare, Sei sicuro di voler fare questo?",
 		"file_save": "Salvataggio file",
-
 		"add_relative_title": "Chi vorresti aggiungere alla vostra storia?",
 		"add_relative_para": "Parenti nella vostra famiglia immediata che non sono elencati qui sono probabilmente nella pagina precedente e può essere raggiunta chiudendo questa finestra e selezionando l'immagine segno più ('Aggiungi History') accanto al nome del coniuge relativi e cugini di secondo grado non sono elencati perché non influenzano la vostra storia di salute della famiglia.",
-		
 		"select_relationship": "Selezionare Rapporto",
 		"please_specify": "Si Prega di Specificare",
 

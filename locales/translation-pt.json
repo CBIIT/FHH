@@ -61,11 +61,13 @@
 		"load_help_dialog_l2":"Na nova janela, você terá que ir para o diretório que contém o arquivo. O arquivo será de um tipo de '.xml'.",
 		"load_help_dialog_l3":"Selecione o arquivo e pressione no botão 'Abrir'. Isto irá fechar a nova janela .",
 		"load_help_dialog_l4":"No Use uma janela Saved História da Família, pressione no botão 'Próximo'.",
-
-
-
-
-
+		"immediate_help_dialog_title":"Adicionar membros da família Ajuda",
+		"immediate_help_dialog_h1":"Ajuda para Adicionar Immediate Informações da Família",
+		"immediate_help_dialog_p":"Criar uma árvore genealógica. Isto inclui:",
+		"immediate_help_dialog_l1":"Digitando o número de irmãos , irmãs, filhas e filhos que você tem",
+		"immediate_help_dialog_l2":"Digitando o número de irmãos e irmãs que a sua mãe tem",
+		"immediate_help_dialog_l3":"Digitando o número de irmãos e irmãs que o seu pai tem",
+		"immediate_help_dialog_l4":"Mostrando ou não você gostaria de adicionar avós para sua árvore genealógica",
 		"help_dialog_title": "O Saúde da Família História Help",
 		"define_family_relationship_dialog_title": "Definir membro da família de Relacionamento",
 		"confirm_delete": "Isto irá apagar todos os dados e reiniciar, Tem certeza de que quer fazer isso?",
