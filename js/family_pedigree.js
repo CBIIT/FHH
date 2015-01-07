@@ -261,7 +261,7 @@ function xmlload() {
                 '</tr></table>' +
                 '</td>' +
                 '<td style="width:70%;left:auto;right:auto">' +
-                '<img id="legendtag" src="../static/images/Legend.png"></img>' +
+                '<img id="legendtag" src="../static/images/Legend.png" />' +
                 '</td>' +
                 '</tr></table>' +
 
@@ -1234,7 +1234,7 @@ function xmlload() {
         var windowUrl = 'about:blank';
         var uniqueName = new Date();
         var windowName = 'Print' + uniqueName.getTime();
-
+        $('#legendtag').css('visibility', 'hidden'); //Added to not show the Legend belowin Report
         if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
 
             //Set the pic inside of Div
@@ -1336,12 +1336,12 @@ function xmlload() {
             DISPLAY = $(mySVG).css('display');
 
             if( DISPLAY != 'none' ) {
-                fitSVGinPrinter();
+               fitSVGinPrinter();
 
 
             }
 
-
+            //legendtag in the down area of print should not show for PRINT. jagdeep
             <!-- PRINT STARTS HERE -->
             if(DISPLAY != 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
@@ -1349,11 +1349,11 @@ function xmlload() {
                     + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
                     + '<p>My Family Health Portrait-Diagram</p>'
-                    + '<div style="margin-top:100px;margin-left:auto;margin-right:auto">'
+                    + '<div style="margin-top:15px;margin-left:auto;margin-right:auto">'
                     + $(topsvgc).html()
                     + '</div>'
-                    + '<img id="legendtag" height="100px" align="right" src="../static/images/Legend.png"></img>'
-                    + '<DIV style="page-break-after:always"></DIV>'
+                    + '<img id="legendtag1" height="100px" align="right" src="../static/images/Legend.png" />'
+                    + '<DIV style="page-break-after:always;height:300px;left:10px"></DIV>'
                     + $(healthtable).html()
 
                     + '</head><body>'
@@ -1501,6 +1501,7 @@ function xmlload() {
 
             myWindow.close();
         }
+        $('#legendtag').css('visibility', 'visible'); //Added to show the Legend below in screen
     });
 
 
@@ -7240,7 +7241,7 @@ alert("chrome");
             $('#topsvg').css("overflow-y", "scroll")
             $('#topsvg').css('width', parseInt(masterRight)-100);
             svgdoc.setAttribute('id', 'theclone');
-            $('#theclone').css("height", '1000px');
+            $('#theclone').css("height", '700px'); // jagdeep from 1000px
             $('#theclone').css("left", '50px');
             $('#theclone').css("margin-top", '10px');
 
@@ -7276,7 +7277,7 @@ alert("chrome");
             $('#topsvg').css('overflow', 'visible');
             $('#svgframe').css("margin-top", '10px');
             svgdoc.setAttribute('id', 'theclone');
-            $('#theclone').css("height", '1000px');
+            $('#theclone').css("height", '500px');
             $('#theclone').css("left", '50px');
             $('#theclone').css("margin-top", '10px');
             // $('#theclone').attr("transform", 'translate(2000 300)');
