@@ -218,7 +218,21 @@ function googlePostAuthSave(authResult) {
 
 
 function bind_save_heath_vault() {
-	
+	var button = $("<BUTTON id='health_vault_save_button'>" + $.t("fhh_load_save.save_health_vault_button") + "</BUTTON>");
+
+	button.on("click", function () {
+		var protocol = window.location.protocol;
+		var hostname = window.location.hostname;
+		
+		output_string = get_xml_string();
+
+		window.open(HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
+			+ HEATH_VAULT_APP_KEY + "%26actionqs=LOAD%26redirect=" 
+			+ protocol + "//" + hostname + "/FHH/html/fhh_save_healthvault.html",
+			 "", "width=1000, height=600, scrollbars=yes");
+	});
+	$("#save_to_healthvault").append(button);
+
 }
 
 function add_root_information(root) {

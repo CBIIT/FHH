@@ -1,9 +1,13 @@
+<!DOCTYPE html>
 <HTML>
+	<meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="../themes/deploy/fhh.css">
 <script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
+<script type="text/javascript" src="../js/keys.js"></script>
 
 <h2 class ='translate' data-i18n='fhh_fhh.load_health_vault_waiting'>Retrieving Information from Health Vault</h2>
+<div class='instructions' id='info'></div>
 <script>
 
 	if (typeof i18n != "undefined") {
@@ -23,31 +27,47 @@
 	var info = window.location.search;
 	var wc_info = info.substr(info.indexOf("wctoken=", info)+8);
 	
-var jsonData = {"authToken" : wc_info};
+	var jsonData = {"authToken" : wc_info};
 
-console.log("Starting");
-
-		$.ajax({
-		    url        : "http://localhost:8080/FHH-REST/rest/hv/getRecord",
-		    crossDomain: true,
-		    contentType: 'application/json', 
-		    data       : JSON.stringify(jsonData),
-		    dataType   : 'json',
-		    type       : 'POST',
-		    success: function (data) {
-          console.log(data);
+	var urlString;
+	if (FHH_LOCAL_PORT > 0) {
+		urlString = location.protocol + "//" + location.host + ":" + FHH_LOCAL_PORT + "/FHH-REST/rest/hv/getRecord";
+	} else {
+		urlString = location.protocol + "//" + location.host + "/FHH-REST/rest/hv/getRecord";
+	}
+	
+//	var urlString = location.protocol + "//" + location.host + ":" + restInterfacePort + "/FHH-REST/rest/hv/getRecord";
+//	alert (urlString);
+	
+	$.ajax({          
+	    url        : urlString,
+	    crossDomain: true,
+	    contentType: 'application/json', 
+	    data       : JSON.stringify(jsonData),
+	    dataType   : 'json',
+	    type       : 'POST',
+	    success: function (data) {
+//        console.log(data);
+        console.dir(data);
+        try {
 					opener.personal_information = data;
 					opener.build_family_history_data_table();
 					var ele = opener.document.getElementById("load_personal_history_dialog");
 					$(ele).parent().hide();
 					window.close();
-					
-//					$("#load_personal_history_dialog").dialog("close");
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-        	alert("Error: [" + XMLHttpRequest.status + "]: " + errorThrown);
-       	}
-		});
+				} catch (exception) {
+					$("#info").append("<P>Error: " + exception.message + "</P>");
+					$("#info").append("<P>Closing this window in 5 seconds</P>");
+					setTimeout(window.close, 5000);
+				}
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+      	alert("Error: [" + XMLHttpRequest.status + "]: " + errorThrown);
+     	}
+	});
+
+
+/// Functions below
 
 function getParameterByName(name) {
     var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);

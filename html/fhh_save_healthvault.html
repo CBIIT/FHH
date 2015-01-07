@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<HTML>
+	<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../themes/deploy/fhh.css">
+<script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
+<script type="text/javascript" src="../js/keys.js"></script>
+
+<h2 class ='translate' data-i18n='fhh_fhh.save_health_vault_waiting'>Saving Information to Health Vault</h2>
+<h3 class ='translate' data-i18n='fhh_fhh.save_health_vault_waiting2'>This may take several minutes</h3>
+<div class='instructions' id='info'></div>
+<script>
+
+
+var doc;
+
+	if (typeof i18n != "undefined") {
+		var option = { 
+			resGetPath: '../locales/__ns__-__lng__.json',
+			ns: { 
+		    namespaces: ['translation', 'diseases'], 
+		    defaultNs: 'translation'
+		  } 
+		};
+
+		i18n.init(option, function () {
+			$(".translate").i18n();
+		});
+	}
+
+	var info = window.location.search;
+	var wc_info = info.substr(info.indexOf("wctoken=", info)+8);
+	
+	doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
+	personal_information = opener.personal_information;
+
+	var xmlData = opener.output_string;
+
+	var jsonData = {"authToken" : wc_info, "xmlData" : xmlData};
+	var restInterfacePort = 8080;
+
+	var urlString;
+	if (FHH_LOCAL_PORT > 0) {
+		urlString = location.protocol + "//" + location.host + ":" + FHH_LOCAL_PORT + "/FHH-REST/rest/hv/putFHHDocumentAjax";
+	} else {
+		urlString = location.protocol + "//" + location.host + "/FHH-REST/rest/hv/putFHHDocumentAjax";
+	}
+	
+
+	$.ajax({          
+	    url        : urlString,
+	    crossDomain: true,
+	    contentType: 'application/json', 
+	    data       : JSON.stringify(jsonData),
+//	    dataType   : 'json',
+	    type       : 'POST',
+	    success: function () {
+        try {
+					var ele = opener.document.getElementById("save_personal_history_dialog");
+					$(ele).parent().hide();
+					window.close();
+				} catch (exception) {
+					$("#info").append("<P>Error: " + exception.message + "</P>");
+					$("#info").append("<P>Closing this window in 5 seconds</P>");
+					setTimeout(window.close, 5000);
+				}
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+					var ele = opener.document.getElementById("save_personal_history_dialog");
+					$(ele).parent().hide();
+//					$("#info").append("<P>Error: " + XMLHttpRequest.status + "</P>");
+//					$("#info").append("<P>Closing this window in 5 seconds</P>");
+	      	alert("Error: [" + XMLHttpRequest.status + "]: " + errorThrown);
+					setTimeout(window.close, 5000);
+     	}
+	});
+
+
+/// Functions below
+
+function getParameterByName(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}	
+
+function set_span(field, value) {
+	var span = document.getElementById(field);
+	
+	while( span.firstChild ) {
+	    span.removeChild( span.firstChild );
+	}
+	span.appendChild( document.createTextNode(value) );
+	
+}
+</script>
+</HTML>
