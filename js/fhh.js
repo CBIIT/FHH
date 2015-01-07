@@ -1628,12 +1628,14 @@ function check_for_children(id) {
 }
 
 function remove_family_member_by_id(id) {
-	$.each(personal_information, function (key, item) {
-		if (item["id"] && item["id"] == id) {
-			delete personal_information[key];
-			$("#" + key).remove();			
-		}	
-	});
+		$.each(personal_information, function (key, item) {
+			if (item) {
+				if (item["id"] && item["id"] == id) {
+					delete personal_information[key];
+					$("#" + key).remove();			
+				}	
+			}
+		});
 }
 
 
