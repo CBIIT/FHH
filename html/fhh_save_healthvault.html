@@ -52,12 +52,12 @@ var doc;
 	    crossDomain: true,
 	    contentType: 'application/json', 
 	    data       : JSON.stringify(jsonData),
-//	    dataType   : 'json',
 	    type       : 'POST',
 	    success: function () {
         try {
 					var ele = opener.document.getElementById("save_personal_history_dialog");
-					$(ele).parent().hide();
+					var dialog = window.opener.jQuery("#save_personal_history_dialog");
+					dialog.dialog("close");
 					window.close();
 				} catch (exception) {
 					$("#info").append("<P>Error: " + exception.message + "</P>");
@@ -67,10 +67,10 @@ var doc;
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
 					var ele = opener.document.getElementById("save_personal_history_dialog");
-					$(ele).parent().hide();
-//					$("#info").append("<P>Error: " + XMLHttpRequest.status + "</P>");
-//					$("#info").append("<P>Closing this window in 5 seconds</P>");
-	      	alert("Error: [" + XMLHttpRequest.status + "]: " + errorThrown);
+					var dialog = window.opener.jQuery("#save_personal_history_dialog");
+					dialog.dialog("close");
+					$("#info").append("<P>Error: " + XMLHttpRequest.status + "</P>");
+					$("#info").append("<P>Closing this window in 5 seconds</P>");
 					setTimeout(window.close, 5000);
      	}
 	});
