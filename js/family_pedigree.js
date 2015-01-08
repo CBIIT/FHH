@@ -1235,6 +1235,7 @@ function xmlload() {
         var uniqueName = new Date();
         var windowName = 'Print' + uniqueName.getTime();
         $('#legendtag').css('visibility', 'hidden'); //Added to not show the Legend belowin Report
+
         if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
 
             //Set the pic inside of Div
@@ -1271,7 +1272,12 @@ function xmlload() {
 
             + '<p>My Family Health Portrait-Diagram</p>'
             + $(topsvg).html()
-            + '<DIV style="page-break-after:always;height:200px;left:10px"></DIV>'
+            + '<table> <tr> <td> &nbsp;&nbsp;<br clear="all"></td></tr>'
+            + '<tr> <td>&nbsp;&nbsp;<br clear="all"></td></tr><tr />'
+            + '<tr> <td>&nbsp;&nbsp;<br clear="all"></td></tr>'
+            + '</table>'
+            + '<img id="legendtag1" height="100px" align="right" src="../static/images/Legend.png" />'
+            + '<DIV style="page-break-after:always;height:300px;left:10px"></DIV>'
             + $(healthtable).html()
 
             + '</head><body>');
@@ -1353,11 +1359,11 @@ function xmlload() {
                     + $(topsvgc).html()
                     + '</div>'
                     + '<img id="legendtag1" height="100px" align="right" src="../static/images/Legend.png" />'
-                    + '<DIV style="page-break-after:always;height:300px;left:10px"></DIV>'
+                    + '<DIV style="page-break-after:always;left:10px"></DIV>'
                     + $(healthtable).html()
 
                     + '</head><body>'
-                );
+                ); //  height=200px removed
             }
             else if(DISPLAY == 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
@@ -7191,7 +7197,6 @@ function TheZoomMain(sel) {
             var right = parseInt(RIGHT_X)*0.01;
             var REALLONG = parseInt(masterRight) * 3.1;
 
-
             height = parseInt(arr[3]) * 0.40;
             width = parseInt(arr[2]) * 1.99;
             X = -200;
@@ -7206,6 +7211,7 @@ function TheZoomMain(sel) {
             $('#topsvg').css("overflow", "scroll");
             $('#theclone').css("left", '50px');
             $('#theclone').css("margin-top", '10px');
+            $('#theclone').css("margin-bottom", '200px'); // added margin bottom to separate legend jagdeep
             /*overflow: scroll;*/
             //svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
 
@@ -7228,7 +7234,7 @@ function TheZoomMain(sel) {
         else if(/chrome/i.test( navigator.userAgent )){
             var RIGHT_X = allXarray.pop();
             var LEFT_X = allXarray[0];
-alert("chrome");
+
             if (arr[0] < 0)X = parseInt(arr[0]) - 100;
             else X = -100;
             var REALLONG = parseInt(masterRight) * 3.1;
