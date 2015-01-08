@@ -23,7 +23,7 @@ $(document).ready(function() {
 	};
 
 	$("#view_diagram_and_table_button").on('click', function () {
-		$(this).css('cursor', 'wait');
+		$(this).css('cursor', 'pointer');
 	});
 	
 
