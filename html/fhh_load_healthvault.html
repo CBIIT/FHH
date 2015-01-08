@@ -52,6 +52,8 @@
         try {
 					opener.personal_information = data;
 					opener.build_family_history_data_table();
+					window.opener.jQuery("#add_another_family_member_button").show();
+
 					var ele = opener.document.getElementById("load_personal_history_dialog");
 					$(ele).parent().hide();
 					window.close();
