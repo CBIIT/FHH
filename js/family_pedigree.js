@@ -1347,7 +1347,7 @@ function xmlload() {
 
             }
 
-            //legendtag in the down area of print should not show for PRINT. jagdeep
+            //legendtag in the down area of print should not show for PRINT.
             <!-- PRINT STARTS HERE -->
             if(DISPLAY != 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
@@ -1411,7 +1411,6 @@ function xmlload() {
             //Set the pic inside of Div
             // ROTATE();
 
-
             $('#bmi_table').css('font-size','10px');
             $('.closeimg').css('visibility', 'hidden');
             $('#health_table_filter').hide();
@@ -1458,6 +1457,15 @@ function xmlload() {
 
                     + '<p>My Family Health Portrait-Diagram</p>'
                     + $(topsvgc).html()
+                    + '<table> <tr> <td> &nbsp;&nbsp;<br clear="all"></td></tr>'
+                    + '<tr> <td>&nbsp;&nbsp;<br clear="all"></td></tr><tr />'
+                    + '<tr> <td>&nbsp;&nbsp;<br clear="all"></td></tr>'
+                    + '</table>'
+                    + '<table> <tr> <td> &nbsp;&nbsp;<br clear="all"></td></tr>'
+                    + '<tr> <td>&nbsp;&nbsp;<br clear="all"></td></tr><tr />'
+                    + '<tr> <td>&nbsp;&nbsp;<br clear="all"></td></tr>'
+                    + '</table>'
+                    + '<img id="legendtag2" height="200px" width="750px" align="right"  src="../static/images/Legend.png" alt="No image is displayed" />'
                     + '<DIV style="page-break-after:always"></DIV>'
                     + $(healthtable).html()
 
@@ -1470,7 +1478,7 @@ function xmlload() {
                     + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
                         // + '<p>My Family Health Portrait-Diagram</p>'
-                    //+ $(topsvgc).html()
+                        //+ $(topsvgc).html()
                     + '<DIV style="page-break-after:always"></DIV>'
                     + $(healthtable).html()
                     + '</head><body>'
@@ -1504,7 +1512,6 @@ function xmlload() {
 
                 }
             }, 1000);
-
             myWindow.close();
         }
         $('#legendtag').css('visibility', 'visible'); //Added to show the Legend below in screen
@@ -7211,7 +7218,7 @@ function TheZoomMain(sel) {
             $('#topsvg').css("overflow", "scroll");
             $('#theclone').css("left", '50px');
             $('#theclone').css("margin-top", '10px');
-            $('#theclone').css("margin-bottom", '200px'); // added margin bottom to separate legend jagdeep
+            $('#theclone').css("margin-bottom", '200px'); // added margin bottom to separate legend
             /*overflow: scroll;*/
             //svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
 
@@ -7247,7 +7254,7 @@ function TheZoomMain(sel) {
             $('#topsvg').css("overflow-y", "scroll")
             $('#topsvg').css('width', parseInt(masterRight)-100);
             svgdoc.setAttribute('id', 'theclone');
-            $('#theclone').css("height", '700px'); // jagdeep from 1000px
+            $('#theclone').css("height", '700px'); //  from 1000px to 700px
             $('#theclone').css("left", '50px');
             $('#theclone').css("margin-top", '10px');
 
