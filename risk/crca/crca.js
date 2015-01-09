@@ -183,12 +183,12 @@ function test_any_family_members_fap_hnpcc() {
 				for (i=0;i<h.length;i++) {
 					if (h[i]['Disease Code'] == 'SNOMED_CT-315058005') {
 						name = get_name_or_relationship(this.name, key);
-						risk_reason += name + $.t("fhh_colorectal_calculator.fap_hnpcc_risk1") + "<br />";
+						risk_reason += name + " " + $.t("fhh_colorectal_calculator.fap_hnpcc_risk1") + "<br />";
 						risk=true;
 					}
 					if (h[i]['Disease Code'] == 'SNOMED_CT-72900001') {
 						name = get_name_or_relationship(this.name, key);
-						risk_reason += name + $.t("fhh_colorectal_calculator.fap_hnpcc_risk2") + "<br />";
+						risk_reason += name + " " + $.t("fhh_colorectal_calculator.fap_hnpcc_risk2") + "<br />";
 						risk=true;
 					}
 				}
