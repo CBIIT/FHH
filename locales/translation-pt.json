@@ -246,6 +246,9 @@
 		"a_get_help": "Obter Ajuda",
 		"h1_my_fhh": "Minha História Saúde da Família",
 		"h2_new_fhh": "Criar uma nova História da Família",
+		"save_health_vault_waiting":"Salvando Informações para a Saúde Abóbada",
+		"save_health_vault_waiting2":"Isso pode levar vários minutos",
+
 		"p_create_my_history": "Selecione 'Criar a minha história' para criar o seu perfil pessoal, digite suas informações de saúde, e diga-nos quantas pessoas estão em sua família imediata Você pode adicionar outros membros da família e entre os seus históricos de saúde mais tarde ",
 
 		"h2_update_fhh": "Actualizar Mi Historia Familiar",
