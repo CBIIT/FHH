@@ -603,9 +603,12 @@ function get_name_or_relationship (name, relationship) {
 // Used for determining if relative is adopted
 function get_relative_by_id(id) {
 	for (var relative in personal_information) {
-		if (typeof personal_information[relative].id != 'undefined') {
-			if (personal_information[relative].id == id) return relative;
-		}
+		if (personal_information[relative]) { // line added to prevent undefined error on id property
+			if (typeof personal_information[relative].id != 'undefined') {
+				if (personal_information[relative].id == id) return relative;
+			}
+		} //
+
 	}
 	return null;
 }
