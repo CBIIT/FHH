@@ -663,12 +663,12 @@ function xmlload() {
     //Prepare all data to array formats for processing
 
 
-    FatherArray.push({"key": 'father',  "id": personal_information['father'].id, "gender":'male'});
+    FatherArray.push({"key": 'father',  "id": personal_information['father'].id, "gender":'MALE'});
     var t = {"id": [personal_information['father'].id], "name": [personal_information['father'].name], "gender": ["MALE"],
     	key: ['father']};
     NAMEARRAY.push(t);
     
-    MotherArray.push({"key": 'mother',  "id": personal_information['mother'].id, "gender":'female'});
+    MotherArray.push({"key": 'mother',  "id": personal_information['mother'].id, "gender":'FEMALE'});
     var t = {"id": [personal_information['mother'].id], "name": [personal_information['mother'].name], "gender": ["FEMALE"],
     	key: ['mother']};
     NAMEARRAY.push(t);
