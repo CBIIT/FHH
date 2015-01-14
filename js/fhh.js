@@ -1885,6 +1885,7 @@ function add_disease() {
 	
 	if (disease_name == 'other') {
 		if (new_disease_name == null || new_disease_name != "") {
+			disease_code = "SNOMED_CT-OTHER";
 			disease_name = new_disease_name;
 			disease_detail = new_disease_name;
 		} else {
