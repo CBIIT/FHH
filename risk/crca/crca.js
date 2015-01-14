@@ -183,12 +183,12 @@ function test_any_family_members_fap_hnpcc() {
 				for (i=0;i<h.length;i++) {
 					if (h[i]['Disease Code'] == 'SNOMED_CT-315058005') {
 						name = get_name_or_relationship(this.name, key);
-						risk_reason += name + $.t("fhh_colorectal_calculator.fap_hnpcc_risk1") + "<br />";
+						risk_reason += name + " " + $.t("fhh_colorectal_calculator.fap_hnpcc_risk1") + "<br />";
 						risk=true;
 					}
 					if (h[i]['Disease Code'] == 'SNOMED_CT-72900001') {
 						name = get_name_or_relationship(this.name, key);
-						risk_reason += name + $.t("fhh_colorectal_calculator.fap_hnpcc_risk2") + "<br />";
+						risk_reason += name + " " + $.t("fhh_colorectal_calculator.fap_hnpcc_risk2") + "<br />";
 						risk=true;
 					}
 				}
@@ -603,9 +603,12 @@ function get_name_or_relationship (name, relationship) {
 // Used for determining if relative is adopted
 function get_relative_by_id(id) {
 	for (var relative in personal_information) {
-		if (typeof personal_information[relative].id != 'undefined') {
-			if (personal_information[relative].id == id) return relative;
-		}
+		if (personal_information[relative]) { // line added to prevent undefined error on id property
+			if (typeof personal_information[relative].id != 'undefined') {
+				if (personal_information[relative].id == id) return relative;
+			}
+		} //
+
 	}
 	return null;
 }

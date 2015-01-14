@@ -243,6 +243,9 @@
 		"a_get_help": "Ottenere Aiuto",
 		"h1_my_fhh": "La mia storia familiare Salute",
 		"h2_new_fhh": "Crea una nuova storia familiare",
+		"save_health_vault_waiting":"Salvataggio Informazione Salute Volta",
+		"save_health_vault_waiting2":"Questa operazione potrebbe richiedere alcuni minuti",
+
 		"p_create_my_history": ".. Selezionare 'Create mia storia' per creare il tuo profilo personale, inserire le informazioni di salute, e ci dicono quante persone sono nella vostra famiglia immediata È possibile aggiungere altri membri della famiglia e immettere le loro storie di salute più tardi",
 
 		"h2_update_fhh": "Aggiornare storia della mia famiglia",

@@ -59,13 +59,11 @@
 		"load_help_dialog_l4":"In the Use a Saved Family History window, press on the 'Next' button.",
 		"immediate_help_dialog_title":"Add Family Members Help",
 		"immediate_help_dialog_h1":"Help for Add Immediate Family Information",
-
 		"immediate_help_dialog_p":"Create a Family Tree. This includes:",
 		"immediate_help_dialog_l1":"Typing in the number of brothers, sisters, daughters, and sons you have",
 		"immediate_help_dialog_l2":"Typing in the number of brothers and sisters that your mother has",
 		"immediate_help_dialog_l3":"Typing in the number of brothers and sisters that your father has",
 		"immediate_help_dialog_l4":"Showing whether or not you would like to add grandparents to your family tree",
-
 		"help_dialog_title" : "Your Family Health History Help",
 		"define_family_relationship_dialog_title" : "Define Family Member Relationship",
 		"confirm_delete" : "This will delete all data and restart,  Are you sure you want to do this?",
@@ -241,7 +239,8 @@
 		"h1_my_fhh" : "My Family Health History",
 		"h2_new_fhh" : "Create A New Family History",
 		"p_create_my_history" : "Select 'Create My History' to create your personal profile, enter your health information, and tell us how many people are in your immediate family. You can add other family members and enter their health histories later.",
-
+		"save_health_vault_waiting":"Saving Information to Health Vault",
+		"save_health_vault_waiting2":"This may take several minutes",
 		"h2_update_fhh": "Update My Family History",
 		"p_update_my_history" : "On this screen you can:",
 		"quick_guide_li1" : "Change your Family Health History by adding, removing or changing your relatives",

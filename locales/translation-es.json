@@ -243,6 +243,8 @@
 		"a_get_help": "Obtener Ayuda",
 		"h1_my_fhh": "Mi Historial de Salud Familiar",
 		"h2_new_fhh": "Crear una nueva historia de la familia",
+		"save_health_vault_waiting":"Almacenamiento de la información a la Salud Bóveda",
+		"save_health_vault_waiting2":"Esto puede tardar varios minutos",
 		
 		"h2_update_fhh": "Atualize história da minha família",
 		"p_update_my_history" : "En esta pantalla puede:",

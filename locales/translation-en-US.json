@@ -239,7 +239,8 @@
 		"h1_my_fhh" : "My Family Health History",
 		"h2_new_fhh" : "Create A New Family History",
 		"p_create_my_history" : "Select 'Create My History' to create your personal profile, enter your health information, and tell us how many people are in your immediate family. You can add other family members and enter their health histories later.",
-
+		"save_health_vault_waiting":"Saving Information to Health Vault",
+		"save_health_vault_waiting2":"This may take several minutes",
 		"h2_update_fhh": "Update My Family History",
 		"p_update_my_history" : "On this screen you can:",
 		"quick_guide_li1" : "Change your Family Health History by adding, removing or changing your relatives",
