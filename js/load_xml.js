@@ -812,12 +812,12 @@ function get_age_at_diagnosis (xml_snippet) {
 	}
 	if (estimated_age && estimated_age.indexOf('unit="year"') > -1) {
 		if (estimated_age.indexOf('value="2"') > -1) return "child";
-		if (estimated_age.indexOf('value="11"') > -1) return "teen";
-		if (estimated_age.indexOf('value="20"') > -1) return "twenties";
-		if (estimated_age.indexOf('value="30"') > -1) return "thirties";
-		if (estimated_age.indexOf('value="40"') > -1) return "fourties";
-		if (estimated_age.indexOf('value="50"') > -1) return "fifties";
-		if (estimated_age.indexOf('value="60"') > -1) return "senior";
+		if (estimated_age.indexOf('value="11"') > -1) return "10-19 years";
+		if (estimated_age.indexOf('value="20"') > -1) return "20-29 years"; //changed twenties to 20-29 years
+		if (estimated_age.indexOf('value="30"') > -1) return "30-39 years";
+		if (estimated_age.indexOf('value="40"') > -1) return "40-49 years";
+		if (estimated_age.indexOf('value="50"') > -1) return "50-59 years";
+		if (estimated_age.indexOf('value="60"') > -1) return "60+ years";
 	}
 	if (xml_snippet.html() && xml_snippet.html().indexOf("unknown") > -1) return 'unknown';
 

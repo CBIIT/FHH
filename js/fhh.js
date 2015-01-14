@@ -1142,10 +1142,10 @@ function bind_family_member_submit_button_action () {
 				if (new_disease && cause_of_death != null && cause_of_death_code != null && cause_of_death_code != 'not_picked') {
 					specific_health_issue = {"Disease Name": cause_of_death,
 					                          "Detailed Disease Name": family_member_information['detailed_cause_of_death'],
-					                          "Age At Diagnosis": 'Unknown',
+					                          "Age At Diagnosis": estimated_death_age,
 					                          "Disease Code": cause_of_death_code};
 					current_health_history.push(specific_health_issue);
-				}
+				} //changed Unknown to estimated_death_age Bug 103
 		} else if (alive_flag == 'unknown') {
 			family_member_information['is_alive'] = 'unknown';
 		}

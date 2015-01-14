@@ -267,13 +267,9 @@ function xmlload() {
 
                 '</div>'
             );
-
             // }
 
-
             $('#health_table').css('width',masterRight);
-
-
 
             var target = $(this);
             $(this).dialog("open");
@@ -1252,6 +1248,7 @@ Already put mother in earlier
         var windowUrl = 'about:blank';
         var uniqueName = new Date();
         var windowName = 'Print' + uniqueName.getTime();
+        $('#legendtag').css('visibility', 'hidden'); //Added to not show the Legend belowin Report
 
         if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
 
@@ -1289,7 +1286,12 @@ Already put mother in earlier
 
             + '<p>My Family Health Portrait-Diagram</p>'
             + $(topsvg).html()
-            + '<DIV style="page-break-after:always;height:200px;left:10px"></DIV>'
+            + '<table> <tr> <td> &nbsp;&nbsp;<br clear="all"></td></tr>'
+            + '<tr> <td>&nbsp;&nbsp;<br clear="all"></td></tr><tr />'
+            + '<tr> <td>&nbsp;&nbsp;<br clear="all"></td></tr>'
+            + '</table>'
+            + '<img id="legendtag1" height="100px" align="right" src="../static/images/Legend.png" />'
+            + '<DIV style="page-break-after:always;height:300px;left:10px"></DIV>'
             + $(healthtable).html()
 
             + '</head><body>');
@@ -1355,11 +1357,10 @@ Already put mother in earlier
 
             if( DISPLAY != 'none' ) {
                 fitSVGinPrinter();
-
-
             }
 
 
+            //legendtag in the down area of print should not show for PRINT.
             <!-- PRINT STARTS HERE -->
             if(DISPLAY != 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
@@ -1375,7 +1376,7 @@ Already put mother in earlier
                     + $(healthtable).html()
 
                     + '</head><body>'
-                );
+                ); //  height=200px removed
             }
             else if(DISPLAY == 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
@@ -1422,7 +1423,6 @@ Already put mother in earlier
 
             //Set the pic inside of Div
             // ROTATE();
-
 
             $('#bmi_table').css('font-size','10px');
             $('.closeimg').css('visibility', 'hidden');
@@ -1516,9 +1516,9 @@ Already put mother in earlier
 
                 }
             }, 1000);
-
             myWindow.close();
         }
+        $('#legendtag').css('visibility', 'visible'); //Added to show the Legend below in screen
     });
 
 
@@ -7208,7 +7208,6 @@ function TheZoomMain(sel) {
             var right = parseInt(RIGHT_X)*0.01;
             var REALLONG = parseInt(masterRight) * 3.1;
 
-
             height = parseInt(arr[3]) * 0.40;
             width = parseInt(arr[2]) * 1.99;
             X = -200;
@@ -7223,6 +7222,7 @@ function TheZoomMain(sel) {
             $('#topsvg').css("overflow", "scroll");
             $('#theclone').css("left", '50px');
             $('#theclone').css("margin-top", '10px');
+            $('#theclone').css("margin-bottom", '200px'); // added margin bottom to separate legend
             /*overflow: scroll;*/
             //svgdoc.setAttribute("viewBox", [X + " " + Y + " " + width + " " + height]);
 
@@ -7258,7 +7258,7 @@ alert("chrome");
             $('#topsvg').css("overflow-y", "scroll")
             $('#topsvg').css('width', parseInt(masterRight)-100);
             svgdoc.setAttribute('id', 'theclone');
-            $('#theclone').css("height", '1000px');
+            $('#theclone').css("height", '700px'); //  from 1000px to 700px
             $('#theclone').css("left", '50px');
             $('#theclone').css("margin-top", '10px');
 
@@ -7294,7 +7294,7 @@ alert("chrome");
             $('#topsvg').css('overflow', 'visible');
             $('#svgframe').css("margin-top", '10px');
             svgdoc.setAttribute('id', 'theclone');
-            $('#theclone').css("height", '1000px');
+            $('#theclone').css("height", '500px');
             $('#theclone').css("left", '50px');
             $('#theclone').css("margin-top", '10px');
             // $('#theclone').attr("transform", 'translate(2000 300)');
@@ -7540,11 +7540,9 @@ function ROTATE()
     var bbh=bb.height
     var cx=bbx+.5*bbw
     var cy=bby+.5*bbh
-
     var angle360=360
     var FPS=100  //---frames per second---
     var duration=2000 //---ms, 1 second---
-
     var angle=90;
     RotateElem.setAttribute("transform","rotate("+angle+" "+cx+" "+cy+")")
 
