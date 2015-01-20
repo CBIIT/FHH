@@ -17,7 +17,6 @@ var LOINC_CODE = {
 };
 
 var XMLNS_SCHEMA= "http://www.w3.org/2001/XMLSchema-instance";
-
 // Important for generating the xml
 var doc;
 var filename;
@@ -25,6 +24,7 @@ var output_string;
 
 //  For downliadify to support Safari and IE downloading
 			function load_downloadify(){
+				var lng = window.i18n.lng();
 				Downloadify.create('downloadify',{
 					filename: function(){
 						filename = get_filename(personal_information)
@@ -37,8 +37,8 @@ var output_string;
 					onCancel: function(){ alert('You have cancelled the saving of this file.'); },
 					onError: function(){ alert('You must put something in the File Contents or there will be nothing to save!'); },
 					swf: '../downloadify/media/downloadify.swf',
-					downloadImage: '../downloadify/images/download2.png',
-					width: 105,
+					downloadImage: '../downloadify/images/download_savetofile_'+lng+'.png',
+					width: 132,
 					height: 32,
 					transparent: true,
 					append: false

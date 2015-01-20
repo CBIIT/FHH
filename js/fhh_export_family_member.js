@@ -5,6 +5,8 @@ var relative_being_exported;
 
 //  For downliadify to support Safari and IE downloading
 function load_export_downloadify(){
+	var lng = window.i18n.lng();
+
 	Downloadify.create('export_downloadify',{
 		filename: function(){
 			if (exported_pi.name != null || exported_pi.name != "") exported_filename = exported_pi.name + "_Health_History.xml";
@@ -18,8 +20,8 @@ function load_export_downloadify(){
 		onCancel: function(){ alert('You have cancelled the saving of this file.'); },
 		onError: function(){ alert('You must put something in the File Contents or there will be nothing to save!'); },
 		swf: '../downloadify/media/downloadify.swf',
-		downloadImage: '../downloadify/images/download2.png',
-		width: 105,
+		downloadImage: '../downloadify/images/download_copyfamily_'+lng+'.png',
+		width: 145,
 		height: 32,
 		transparent: true,
 		append: false
