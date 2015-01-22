@@ -66,7 +66,7 @@ function bind_relative_select_change() {
 		$("#copy_for_family_member").append("&nbsp;&nbsp;").append(export_button);
 		save_document($("#export_to_relative"), xml_document, filename);	
 	} else {
-		$("#export_to_relative").remove();
+		$("#export_downloadify").remove();
 		var export_downloadify = $("<P id='export_downloadify'>" + $.t("fhh_js.export") + "</P>");
 		$("#copy_for_family_member").append("&nbsp;&nbsp;").append(export_downloadify);
 		load_export_downloadify();
