@@ -248,10 +248,18 @@ function 	bind_load_health_vault() {
 	var hostname = window.location.hostname;
 	
 	button.on("click", function () {
-		window.open(HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
-			+ HEATH_VAULT_APP_KEY + "%26actionqs=LOAD%26redirect=" 
-			+ protocol + "//" + hostname + "/FHH/html/fhh_load_healthvault.html",
-			 "", "width=1000, height=600, scrollbars=yes");
+	
+		var url_w_params
+		if (FHH_SITE_PORT > 0) {
+			url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
+				+ HEATH_VAULT_APP_KEY + "%26actionqs=LOAD%26redirect=" 
+				+ protocol + "//" + hostname + ":" + FHH_SITE_PORT + "/FHH/html/fhh_load_healthvault.html"
+		} else {
+			url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
+				+ HEATH_VAULT_APP_KEY + "%26actionqs=LOAD%26redirect=" 
+				+ protocol + "//" + hostname + "/FHH/html/fhh_load_healthvault.html"			
+		}
+		window.open(url_w_params, "", "width=1000, height=600, scrollbars=yes");
 		
 	});
 	

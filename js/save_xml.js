@@ -226,10 +226,18 @@ function bind_save_heath_vault() {
 		
 		output_string = get_xml_string();
 
-		window.open(HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
-			+ HEATH_VAULT_APP_KEY + "%26actionqs=LOAD%26redirect=" 
-			+ protocol + "//" + hostname + "/FHH/html/fhh_save_healthvault.html",
-			 "", "width=1000, height=600, scrollbars=yes");
+
+		var url_w_params;
+		if (FHH_SITE_PORT > 0) {
+			url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
+				+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE%26redirect=" 
+				+ protocol + "//" + hostname + ":" + FHH_SITE_PORT + "/FHH/html/fhh_load_healthvault.html"
+		} else {
+			url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
+				+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE%26redirect=" 
+				+ protocol + "//" + hostname + "/FHH/html/fhh_load_healthvault.html"			
+		}
+		window.open(url_w_params, "", "width=1000, height=600, scrollbars=yes");
 	});
 	$("#save_to_healthvault").append(button);
 
