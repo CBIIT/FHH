@@ -25,7 +25,7 @@
 	},
 
 	"fhh_js": {
-		"Ashkenazi": "Perché chiedere di Ashkenazi?",
+		"ashkenazi": "Perché chiedere di Ashkenazi?",
 		"pi": "inserire informazioni personali",
 		"select_age": "Selezionare Età stimata",
 		"family_subtitle":"Informazioni di salute del vostro membro della famiglia",		
@@ -245,6 +245,7 @@
 		"h2_new_fhh": "Crea una nuova storia familiare",
 		"save_health_vault_waiting":"Salvataggio Informazione Salute Volta",
 		"save_health_vault_waiting2":"Questa operazione potrebbe richiedere alcuni minuti",
+		"load_health_vault_waiting":"Recupero di informazioni da HealthVault",
 
 		"p_create_my_history": ".. Selezionare 'Create mia storia' per creare il tuo profilo personale, inserire le informazioni di salute, e ci dicono quante persone sono nella vostra famiglia immediata È possibile aggiungere altri membri della famiglia e immettere le loro storie di salute più tardi",
 
@@ -332,7 +333,7 @@
 		"unknown": "Sconosciuto",
 		"age": "Age",
 		"estimated_age": "Age stimato",
-		"cause_of_death": "Cause of Death",
+		"cause_of_death": "Causa della morte",
 		"age_at_death": "Età al decesso",
 		"identical": "Sì - coincidono (stesso)",
 		"fraternal": "Sì - non identico (Fraterno)",
@@ -432,7 +433,7 @@
 
 	"fhh_why_ask_ashkenazi": {
 		"help_title": "Guida per Ashkenazi Ebreo",
-		"help_para": ". Per alcune condizioni, come ovarico e tumore al seno, è importante sapere se una persona ha eredità ebraica Ashkenazi ai fini della valutazione del rischio",
+		"help_para": "Per alcune condizioni, come ovarico e tumore al seno, è importante sapere se una persona ha eredità ebraica Ashkenazi ai fini della valutazione del rischio",
 		"done": "fatto"
 	},
 	"fhh_diabetes_calculator":  {
