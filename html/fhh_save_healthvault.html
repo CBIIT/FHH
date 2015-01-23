@@ -41,9 +41,9 @@ var doc;
 
 	var urlString;
 	if (FHH_PROXY_PORT > 0) {
-		urlString = location.protocol + "//" + location.host + ":" + FHH_PROXY_PORT + "/FHH-REST/rest/hv/putFHHDocumentAjax";
+		urlString = location.protocol + "//" + location.hostname + ":" + FHH_PROXY_PORT + "/FHH-REST/rest/hv/putFHHDocumentAjax";
 	} else {
-		urlString = location.protocol + "//" + location.host + "/FHH-REST/rest/hv/putFHHDocumentAjax";
+		urlString = location.protocol + "//" + location.hostname + "/FHH-REST/rest/hv/putFHHDocumentAjax";
 	}
 	
 
