@@ -232,6 +232,7 @@
 		"leave_page_warning": "Si te vas antes de guardar los cambios se perderán.",
 
 		"done" : "done"
+
 	},
 
 	"fhh_fhh": {		
@@ -603,14 +604,25 @@
 
 	},
 	"fhh_family_pedigree": {
-		"description_line1":"Puede imprimir su historial de salud familiar en forma de diagramas y tablas para compartir con su proveedor de atención médica . Hablar con su médico acerca de su historial de salud familiar puede ayudarle a mantenerse saludable!",
-		"description_line2":"Si desea cambiar la forma en que la información se muestra a continuación, haga clic en 'Diagrama y tabla de opciones.' Las barras de desplazamiento inferior y derecho son herramientas de navegación útiles cuando la visualización de tablas y diagramas más grandes.",
-		"confirm":"Por favor ingrese la información válida para un Diagrama!",
-		"paternal":"Paterno",
-		"maternal":"Materna",
-		"personal_information":"Mi información personal",
-		"current_age":"Age: ",
-		"height":"Altura: "
+		"title":"Ver el Diagrama de mesa",
+		"desc_line1":"Puede imprimir su historial de salud familiar en forma de diagramas y tablas para compartir con su proveedor de atención médica. Hablar con su médico acerca de su historial de salud familiar puede ayudarle a mantenerse saludable!",
+		"desc_line2":"Si desea cambiar la forma en que la información se muestra a continuación, haga clic en 'Diagrama y tabla de opciones.' Las barras de desplazamiento inferior y derecho son herramientas de navegación útiles cuando la visualización de tablas y diagramas más grandes.",
+		"go_to_diagram":"Ir a diagrama",
+		"go_to_table":"Ir a la Mesa",
+		"print":"Impresión",
+		"close":"cerca",
+		"diagram_options":"Diagrama y tabla de opciones",
+		"diagram_options_desc":"Usted puede ver, guardar o imprimir su historial de salud familiar para compartir con su proveedor de atención médica. Ellos pueden evaluar el riesgo de ciertas enfermedades y desarrollar estrategias de prevención de enfermedades que son perfectos para ti. También puede compartir la mesa con otros miembros de la familia a la historia de la enfermedad de su familia. Usted puede cambiar lo que se muestra en la tabla a ti mismo mediante la selección de las opciones siguientes. Por favor seleccione una de las siguientes opciones lo que le gustaría mostrar en su mesa.",
+		"diagram_options_disease":"Seleccionar una enfermedad o condición para resaltar en la tabla",
+		"diagram_options_checkbox1":"Mostrar mi información personal en el informe (como fecha de nacimiento, altura o peso)",
+		"diagram_options_checkbox2":"Mostrar nombres de los miembros de la familia en el informe",
+		"diagram_options_checkbox3":"Mostrar dibujo (el diagrama de árbol de la historia clínica de su familia)",
+		"diagram_options_checkbox4":"Mostrar tabla (historial médico de su familia aparece como una tabla)",
+		"personal_info":"Mi información personal",
+		"age":"Edad:",
+		"height":"Altura:",
+		"weight":"Peso:",
+		"bmi":"IMC:"
 	}
 }	
 

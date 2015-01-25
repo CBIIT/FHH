@@ -77,8 +77,11 @@ var STATICDISEASES = [
 
 var ua = window.navigator.userAgent;
 var msie = ua.indexOf("MSIE ");
-
 function xmlload() {
+    var lng = window.i18n.lng();
+    if (lng=='en-US') {
+        lng = 'en';
+    };  
 
     //IE 8
     if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
@@ -154,10 +157,10 @@ function xmlload() {
 
         '<div id="nav" class="sticky">' +
         '<ul>' +
-        '<li><a class="top" onclick="ToTop();return false;" href="#">Go To Diagram</a></li>' +
-        '<li><a class="bottom" onclick="ToTable();return false;" href="#">Go To Table</a></li>' +
-        '<li><a id="printermain">Print</a></li>' +
-        '<li><a href="#optionsPanelMan" onclick="createDialogMain()">Diagram & Table Options</a></li>' +
+        '<li><a class="top" onclick="ToTop();return false;" href="#">' + $.t("fhh_family_pedigree.go_to_diagram") + '</a></li>' +
+        '<li><a class="bottom" onclick="ToTable();return false;" href="#">' + $.t("fhh_family_pedigree.go_to_table") + '</a></li>' +
+        '<li><a id="printermain">' + $.t("fhh_family_pedigree.print") + '</a></li>' +
+        '<li><a href="#optionsPanelMan" onclick="createDialogMain()">' + $.t("fhh_family_pedigree.diagram_options") + '</a></li>' +
         '<li>' +
         '<select id="zoomer" class="selector" onchange="TheZoomMain(this);">'+
         '<option id="the1" value="100">+100</option>' +
@@ -166,7 +169,7 @@ function xmlload() {
         '</li>' +
         '<li>' +
         '<input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close"' +
-        'type="button"role="button" aria-disabled="false" title="close" value="close" onclick="closeOther()" style="right:50px;width:50px"></input>' +
+        'type="button"role="button" aria-disabled="false" title="close" value="' + $.t("fhh_family_pedigree.close") +'" onclick="closeOther()" style="right:50px;width:50px"></input>' +
         '</li>' +
         '</ul>' +
         '</div>' +
@@ -253,15 +256,15 @@ function xmlload() {
                 '<div id="lightbox">' +
                 '<table width="100%"><tr><td style="width:30%">' +
                 '<table id="bmi_table" class="htable">' +
-                '<caption>My Personal Information</caption>' +
-                '<tr><td id="age">Age:</td></tr>' +
-                '<tr><td id="height">Height:</td></tr>' +
-                '<tr><td id="weight">Weight:</td></tr>' +
-                '<tr><td id="abmi">BMI:</td></tr>' +
+                '<caption>' + $.t("fhh_family_pedigree.personal_info") + '</caption>' +
+                '<tr><td id="age">' + $.t("fhh_family_pedigree.age") + '</td></tr>' +
+                '<tr><td id="height">' + $.t("fhh_family_pedigree.height") + ' </td></tr>' +
+                '<tr><td id="weight">' + $.t("fhh_family_pedigree.weight") + ' </td></tr>' +
+                '<tr><td id="abmi">' + $.t("fhh_family_pedigree.bmi") + ' </td></tr>' +
                 '</tr></table>' +
                 '</td>' +
                 '<td style="width:70%;left:auto;right:auto">' +
-                '<img id="legendtag" src="../static/images/Legend.png"></img>' +
+                '<img id="legendtag" src="../static/images/Legend_' + lng + '.jpg"></img>' +
                 '</td>' +
                 '</tr></table>' +
 
@@ -310,11 +313,11 @@ function xmlload() {
     });
 
     $("#dialogtext").html(
-        '<h1>View Diagram & Table</h1><br/>'+
+        '<h1>' + $.t("fhh_family_pedigree.title") + '</h1><br/>'+
         '<table class="infolayer">' +
         '<tr><td>' +
-        '<p style="margin-bottom: -10px">' + $.t("fhh_load_save.browse") + ' You can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!</p><br style="line-height: 0px"/>' +
-        '<p>If you would like to change the way the information below is shown, click "Diagram & Table Options." The bottom and right scroll bars are useful navigation tools when viewing larger tables and diagrams.</p>' +
+        '<p style="margin-bottom: -10px">' + $.t("fhh_load_save.browse") + ' ' + $.t("fhh_family_pedigree.desc_line1") + '</p><br style="line-height: 0px"/>' +
+        '<p>' + $.t("fhh_family_pedigree.desc_line2") + '</p>' +
         '</td></tr></table>'
     );
 
@@ -1290,7 +1293,7 @@ Already put mother in earlier
             + '<tr> <td>&nbsp;&nbsp;<br clear="all"></td></tr><tr />'
             + '<tr> <td>&nbsp;&nbsp;<br clear="all"></td></tr>'
             + '</table>'
-            + '<img id="legendtag1" height="100px" align="right" src="../static/images/Legend.png" />'
+            + '<img id="legendtag1" height="100px" align="right" src="../static/images/Legend_' + lng + '.jpg" />'
             + '<DIV style="page-break-after:always;height:300px;left:10px"></DIV>'
             + $(healthtable).html()
 
@@ -1371,7 +1374,7 @@ Already put mother in earlier
                     + '<div style="margin-top:100px;margin-left:auto;margin-right:auto">'
                     + $(topsvgc).html()
                     + '</div>'
-                    + '<img id="legendtag" height="100px" align="right" src="../static/images/Legend.png"></img>'
+                    + '<img id="legendtag" height="100px" align="right" src="../static/images/Legend_' + lng + '.jpg"></img>'
                     + '<DIV style="page-break-after:always"></DIV>'
                     + $(healthtable).html()
 
@@ -6888,11 +6891,11 @@ function createDialogMain() {
 
 
         var $optdialog = $("<div id='optionsPanelMain' width='800px' class='instructions option_dialog' style='width:800px;'><p>"
-        + "You can view, save or print your family health history to share with your health care provider. They can assess your risk for certain diseases, and develop disease prevention strategies that are right for you. You can also share the table with other family members to your your family's disease history. You can change what is shown in the table yourself by selecting from the options below. Please select from the options below what you would like to show on your table."
+        + $.t("fhh_family_pedigree.diagram_options_desc")
         + "<table>"
         + "<tr>"
         + "<td>"
-        + "<label for='diseaseopts'>Select a disease or condition to highlight in the table  </label>"
+        + "<label for='diseaseopts'>" + $.t("fhh_family_pedigree.diagram_options_disease") + "  </label>"
         + "<select id='diseaseopts' onchange='DiseaseDna()'>"
         + array.toString()
         + "<option value='one'></option>"
@@ -6901,11 +6904,11 @@ function createDialogMain() {
         + "</tr>"
         + "<tr>"
         + "<td>"
-        + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfoMain()' checked />Show my personal information in the report (such as Date of Birth, Height, or Weight)<br />"
-        + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfoMain()' checked />Show names of family members in the report<br />"
-        + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfoMain()' checked/>Show drawing (the tree diagram of your family's health history)<br />"
-        + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfoMain()' checked/>Show table (your family's health history displayed as a listing table)<br />"
-        + "<input type='button' onclick='CloseInfoMain()' value='close'></button>"
+        + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfoMain()' checked />" + $.t("fhh_family_pedigree.diagram_options_checkbox1") + "<br />"
+        + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfoMain()' checked />" + $.t("fhh_family_pedigree.diagram_options_checkbox2") + "<br />"
+        + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfoMain()' checked/>" + $.t("fhh_family_pedigree.diagram_options_checkbox3") + "<br />"
+        + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfoMain()' checked/>" + $.t("fhh_family_pedigree.diagram_options_checkbox4") + "<br />"
+        + "<input type='button' onclick='CloseInfoMain()' value='" + $.t("fhh_family_pedigree.close") + "'></button>"
         + "</td>"
         + "</tr></table>"
 
@@ -6913,7 +6916,7 @@ function createDialogMain() {
         + "</p></div>").dialog({
             width: 900,
             position: ['top',100],
-            title: 'Diagram & Table Options',
+            title: $.t("fhh_family_pedigree.diagram_options"),
             close: function (ev, ui) {
                 $(this).empty();
                 $(this).dialog('destroy').remove();
