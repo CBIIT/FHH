@@ -616,7 +616,7 @@
 	"fhh_family_pedigree": {
 		"title":"Exibir Diagrama e Tabela",
 		"desc_line1":"Você pode imprimir o seu histórico de saúde da família em uma forma de diagrama e mesa para compartilhar com o seu prestador de cuidados de saúde. Conversando com o seu provedor de cuidados de saúde sobre seu histórico de saúde da família pode ajudá-lo a manter-se saudável!",
-		"desc_line2":"Se você gostaria de mudar a forma como a informação é apresentada abaixo, clique em 'Diagrama & Table Options.' As barras de rolagem inferior e direita são ferramentas de navegação úteis ao visualizar maiores tabelas e diagramas.",
+		"desc_line2":"Se você gostaria de mudar a forma como a informação é apresentada abaixo, clique em 'Diagrama e Tabela Opções.' As barras de rolagem inferior e direita são ferramentas de navegação úteis ao visualizar maiores tabelas e diagramas.",
 		"go_to_diagram":"Vá com o diagrama",
 		"go_to_table":"Ir para o Índice",
 		"print":"Impressão",
