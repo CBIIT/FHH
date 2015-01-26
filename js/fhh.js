@@ -532,7 +532,10 @@ function bind_add_another_family_member_button_action() {
 		new_family_member_select.append("<OPTION value='cousin'> " + $.t("fhh_js.cousin") + " </OPTION>");
 	}
 
-	if (personal_information.brother_0 != null || personal_information.sister_0 != null) { 
+	if (personal_information.brother_0 != null || personal_information.sister_0 != null ||
+		personal_information.maternal_halfbrother_0 != null || personal_information.maternal_halfsister_0 != null ||
+		personal_information.paternal_halfbrother_0 != null || personal_information.paternal_halfsister_0 != null 		
+	) { 
 		new_family_member_select
 			.append("<OPTION value='niece'> " + $.t("fhh_js.niece") + " </OPTION>")
 			.append("<OPTION value='nephew'> " + $.t("fhh_js.nephew") + " </OPTION>");
