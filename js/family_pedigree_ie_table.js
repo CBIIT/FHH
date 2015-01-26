@@ -1845,7 +1845,7 @@ function IESVGinPrint(){
 function SetPersonalInfo(){
 
     if(age != ""){
-        $('#age').text('Age: ' + age);
+        $('#age').text($.t("fhh_family_pedigree.age") + ' ' + age);
         // $('#age').append($("<span><b></b></span>").text(age));
     }
     if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + height_unit));

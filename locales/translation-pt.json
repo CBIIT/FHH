@@ -614,13 +614,25 @@
 		"final_risk2":"Você tem nenhum dos riscos acima. Portanto, o seu risco de câncer colorretal é média"
 	},
 	"fhh_family_pedigree": {
-		"description_line1":"You can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!",
-		"description_line2":"If you would like to change the way the information below is shown, click 'Diagram & Table Options.' The bottom and right scroll bars are useful navigation tools when viewing larger tables and diagrams.",
-		"confirm":"Digite informações válidas para um Diagrama!",
-		"paternal":"Paternal",
-		"maternal":"Maternal",
-		"personal_information":"Minhas informações pessoais",
-		"age":"Age:"		
+		"title":"Exibir Diagrama e Tabela",
+		"desc_line1":"Você pode imprimir o seu histórico de saúde da família em uma forma de diagrama e mesa para compartilhar com o seu prestador de cuidados de saúde. Conversando com o seu provedor de cuidados de saúde sobre seu histórico de saúde da família pode ajudá-lo a manter-se saudável!",
+		"desc_line2":"Se você gostaria de mudar a forma como a informação é apresentada abaixo, clique em 'Diagrama e Tabela Opções.' As barras de rolagem inferior e direita são ferramentas de navegação úteis ao visualizar maiores tabelas e diagramas.",
+		"go_to_diagram":"Vá com o diagrama",
+		"go_to_table":"Ir para o Índice",
+		"print":"Impressão",
+		"close":"perto",
+		"diagram_options":"Diagrama e Tabela Opções",
+		"diagram_options_desc":"Você pode visualizar, salvar ou imprimir o seu histórico de saúde da família para compartilhar com seu prestador de cuidados de saúde. Eles podem avaliar o risco de certas doenças, e desenvolver estratégias de prevenção de doenças que são certo para você. Você também pode compartilhar a mesa com outros membros da família para a história a sua doença de sua família. Você pode mudar o que é mostrado na tabela a si mesmo, selecionando uma das opções abaixo. Por favor, selecione uma das opções abaixo o que você gostaria de mostrar na sua mesa.",
+		"diagram_options_disease":"Escolha de uma doença ou condição para destacar na tabela",
+		"diagram_options_checkbox1":"Mostrar a minha informação pessoal no relatório (como data de nascimento, altura, peso)",
+		"diagram_options_checkbox2":"Mostrar nomes de familiares no relatório",
+		"diagram_options_checkbox3":"Mostrar desenho (o diagrama de árvore da história da saúde da sua família)",
+		"diagram_options_checkbox4":"Mostrar tabela (história da saúde da sua família exibido como um quadro de anúncio)",
+		"personal_info":"Minhas informações pessoais",
+		"age":"Idade:",
+		"height":"Altura:",
+		"weight":"Peso:",
+		"bmi":"IMC:"
 
 	}
 }

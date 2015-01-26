@@ -226,7 +226,8 @@
 		
 		"leave_page_warning": "If you leave before saving your changes will be lost.",
 
-		"done" : "done"		
+		"done" : "done"
+
 	},
 	
 	"fhh_fhh": {
@@ -598,14 +599,25 @@
 		"final_risk2":"You have none of the above risks.  Therefore your risk of colorectal cancer is average"
 	},
 	"fhh_family_pedigree": {
-		"description_line1":"You can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!",
-		"description_line2":"If you would like to change the way the information below is shown, click 'Diagram & Table Options.' The bottom and right scroll bars are useful navigation tools when viewing larger tables and diagrams.",
-		"confirm":"Please enter valid information for a Diagram!",
-		"paternal":"Paternal",
-		"maternal":"Maternal",
-		"personal_information":"My Personal Information",
-		"age":"Age:"		
-
+		"title":"View Diagram & Table",
+		"desc_line1":"You can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!",
+		"desc_line2":"If you would like to change the way the information below is shown, click 'Diagram & Table Options.' The bottom and right scroll bars are useful navigation tools when viewing larger tables and diagrams.",
+		"go_to_diagram":"Go To Diagram",
+		"go_to_table":"Go To Table",
+		"print":"Print",
+		"close":"close",
+		"diagram_options":"Diagram & Table Options",
+		"diagram_options_desc":"You can view, save or print your family health history to share with your health care provider. They can assess your risk for certain diseases, and develop disease prevention strategies that are right for you. You can also share the table with other family members to your your family's disease history. You can change what is shown in the table yourself by selecting from the options below. Please select from the options below what you would like to show on your table.",
+		"diagram_options_disease":"Select a disease or condition to highlight in the table",
+		"diagram_options_checkbox1":"Show my personal information in the report (such as Date of Birth, Height, or Weight)",
+		"diagram_options_checkbox2":"Show names of family members in the report",
+		"diagram_options_checkbox3":"Show drawing (the tree diagram of your family's health history)",
+		"diagram_options_checkbox4":"Show table (your family's health history displayed as a listing table)",
+		"personal_info":"My Personal Information",
+		"age":"Age:",
+		"height":"Height:",
+		"weight":"Weight:",
+		"bmi":"BMI:"
 	}
 
 
