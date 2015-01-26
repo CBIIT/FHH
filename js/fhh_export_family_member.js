@@ -37,6 +37,22 @@ function build_copy_for_family_member_dialog() {
 function bind_relative_select_change() {
 	relative_being_exported = $(this).val();
 
+// Need to check if exported member has gender, name, and date of birth
+	if (personal_information[relative_being_exported].name == null 
+	 || personal_information[relative_being_exported].name == "") {
+		alert("This relative does not have a name.  In order to export, the relative needs to have a name.  Please add a name and try again");
+		return;
+	}
+	if (personal_information[relative_being_exported].gender == null 
+	 || personal_information[relative_being_exported].gender == "") {
+		alert("This relative does not have a gender.  In order to export, the relative needs to have a gender.  Please add a gender and try again");
+		return;
+	}
+	if (personal_information[relative_being_exported].date_of_birth == null 
+	 || personal_information[relative_being_exported].date_of_birth == "") {
+		alert("This relative does not have a Date of Birth.  In order to export, the relative needs to be listed as alive and have a valid Date of Birth.  Please add a Date of Birth and try again");
+		return;
+	}
 
 	// Deep Copy of the information
 	
