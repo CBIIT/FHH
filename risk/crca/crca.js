@@ -59,7 +59,7 @@ function test_past_cancer() {
 				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk5") + "<br />";
 				risk=true;
 		}
-		if (h[i]['SNOMED_CT-363443007'] == 'Ovarian Cancer') {
+		if (h[i]['Disease Code'] == 'SNOMED_CT-363443007') {
 				risk_reason += $.t("fhh_colorectal_calculator.past_cancer_risk6") + "<br />";
 				risk=true;
 		}
