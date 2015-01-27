@@ -1355,7 +1355,10 @@ function load_risk_links() {
         });
 	});
 }
-
+//  Need to do a deep copy of the PI data to support IE10 dropping data when window closes
+function set_pi_information(data) {
+	personal_information = JSON.parse(JSON.stringify(data));
+}
 
 function build_family_history_data_table () {
 	var table = $("#history_summary_table");
