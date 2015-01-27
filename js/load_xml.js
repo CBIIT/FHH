@@ -820,7 +820,7 @@ function get_age_at_diagnosis (xml_snippet) {
 	}
 	if (estimated_age && estimated_age.indexOf('unit="year"') > -1) {
 		if (estimated_age.indexOf('value="2"') > -1) return "child";
-		if (estimated_age.indexOf('value="11"') > -1) return "teen";
+		if (estimated_age.indexOf('value="10"') > -1) return "teen";
 		if (estimated_age.indexOf('value="20"') > -1) return "twenties"; 
 		if (estimated_age.indexOf('value="30"') > -1) return "thirties";
 		if (estimated_age.indexOf('value="40"') > -1) return "fourties";
