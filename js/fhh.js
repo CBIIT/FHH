@@ -1674,7 +1674,7 @@ function update_family_history_row(relationship_id, family_member_information) {
 		remove_history = $("#" + relationship_id).find(".remove_history");
 		remove_history.html("<img src='../images/icon_trash.gif' alt='Remove History' title='Remove History'>");
 		remove_history.attr("relationship_id", relationship_id);
-		remove_history.on("click", function(){ 
+		remove_history.unbind().on("click", function(){ 
 			remove_family_member( $(this).attr('relationship_id'), true);
 		});
 	}
