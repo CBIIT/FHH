@@ -335,7 +335,8 @@ table.disease_table td {
 .ui-widget-content {
   border: 2px solid #444;
   padding:1px;
-  margin:10px;    
+  margin:10px;   
+  color:#000; 
 }
 
 .ui-button {
@@ -353,6 +354,12 @@ background-color:transparent !important;
 }
 .ui-state-hover {
 border-color:#337AB7 !important;
+}
+
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui-dialog-titlebar-close{
+background-color:#fff !important;
+font-size:90% !important;
+color:#00477A !important;
 }
 
 button.frontpage {
@@ -408,4 +415,20 @@ color:#fff !important;
 border-radius:4px;
 padding:4px;
 text-decoration:none;
+}
+
+#dialogtext {
+  position: absolute;top: 0px !important;
+}
+
+#dialogtext h1 {
+    color:#00477A;
+    font-size:140%;
+}
+.infolayer p{
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-weight:500 !important;
+    font-size:95% !important; 
+    padding-left:7px;
 }

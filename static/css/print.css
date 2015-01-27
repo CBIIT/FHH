@@ -25,12 +25,12 @@
     /*padding:5px;*/
 /*}*/
 .htable th{
-    border-left: 1px solid #C1DAD7;
+    border-left: 1px solid #195A88;
     border-top: 0;
-    background:darkslategray;
+    background:#195A88;
     font: bold 15px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     color: white;
-    border:2px solid darkslategray;
+    border:2px solid #195A88;
     /*border-right:1px solid slategray;*/
     /*border-left:1px solid slategray;*/
 
@@ -41,7 +41,7 @@
     font-family:"Arial MS";
     font-size:15px;
     padding:5px;
-    border-bottom:1px solid darkslategray;
+    border-bottom:1px solid #195A88;
     border-right:1px solid slategray;
     border-left:1px solid slategray;
 }
@@ -85,7 +85,7 @@
 }
 
 .diseaseid{
-    background-color: darkslategray;
+    background-color: #195A88;
     color: white;
     font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
@@ -94,11 +94,11 @@
     font: bold 20px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     text-align: left;
     background-color: lightgrey;
-    border-bottom:1px solid darkslategray;
+    border-bottom:1px solid #195A88;
 }
 #health_table{
     font: bold 15px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     text-align: left;
     background-color: lightgrey;
-    border-bottom:1px solid darkslategray;
+    border-bottom:1px solid #195A88;
 }
