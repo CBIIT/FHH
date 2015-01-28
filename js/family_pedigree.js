@@ -271,9 +271,7 @@ function xmlload() {
                 '</div>'
             );
             // }
-
             $('#health_table').css('width',masterRight);
-
             var target = $(this);
             $(this).dialog("open");
             $(this).load(LOAD_HEALTH_TABLE());
@@ -285,6 +283,7 @@ function xmlload() {
             //var myDialogY = $(this).position().top - ( $(document).scrollTop() + $('.ui-dialog').outerHeight() );
             $(this).dialog( 'option', 'position', [myDialogX, 40] );
             diseasearray=new Array();
+            $("#health_table tr:eq( 1 )").children().css("background-color","#ffffcc");
 
         },
         beforeClose: function(){
@@ -510,10 +509,11 @@ function xmlload() {
     svgw.setAttribute('width', masterRight);
     svgw.setAttribute('margin-top', '5px');
 
+
     //Outer Frame
     //svg.rect(25, 5, ['95%'], 700, 1, 1, {id: 'diagramframe', fill: 'none', stroke: 'navy', strokeWidth: 1});
-    svg.text(masterleft - 120, 30, "Paternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'pattext'});
-    svg.text(masterleft + 120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'mattext'});
+    svg.text(masterleft - 120, 30, $.t("fhh_family_pedigree.paternal"), {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'pattext'});
+    svg.text(masterleft + 120, 30, $.t("fhh_family_pedigree.maternal"), {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'mattext'});
 
     $('#optionsPanelMain').attr('width', '800px');
 
@@ -672,11 +672,10 @@ function xmlload() {
     	key: ['mother']};
     NAMEARRAY.push(t);
     
-    
+        
+
     
     $.each(personal_information, function (key, item) {
-
-
 
 
         //Identification when no names added
@@ -1797,19 +1796,19 @@ Already put mother in earlier
             }
             if (ID != "") {
                 var splits = new Array();
-
                 if (GEN == "FEMALE") {
                     p1 = parseInt($('#' + ID).attr('cx')) - 20;
                     p2 = parseInt($('#' + ID).attr('cy')) + 40;
 
                     if(TITLE.indexOf('_')>0){
+
                         splits = TITLE.split('_');
-                        if (splits[0] == 'paternal' || splits[0] == 'maternal')rel = splits[1];
+                        if (splits[0] == 'paternal' || splits[0] == 'maternal')rel = splits[0] + '_' + splits[1];
                         else rel = splits[0];
                     }
                     else rel = TITLE;
 
-                    var REL = '[' + rel + ']';
+                    var REL = '[' + $.t("fhh_family_pedigree." + rel) + ']';
                     temp = NAME.toString().split(' ');
 
                     if (temp.length >= 2) {
@@ -1831,12 +1830,13 @@ Already put mother in earlier
                     p2 = parseInt($('#' + ID).attr('y')) + 60;
                     if(TITLE.indexOf('_')>0) {
                         splits = TITLE.split('_');
-                        if (splits[0] == 'paternal' || splits[0] == 'maternal')rel = splits[1];
+                        if (splits[0] == 'paternal' || splits[0] == 'maternal')rel = splits[0] + '_' + splits[1];
                         else rel = splits[0];
                     }
                     else rel = TITLE;
 
-                    var REL = '[' + rel + ']';
+                    // var REL = '[' + $.t("fhh_family_pedigree." + rel) + ']';
+                    var REL = '[' + $.t("fhh_family_pedigree." + rel) + ']';
 
                     temp = NAME.toString().split(' ');
                     if (temp.length >= 2) {

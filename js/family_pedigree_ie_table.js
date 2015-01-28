@@ -242,8 +242,8 @@ function IEloadTable() {
             var target = $(this);
             $(this).dialog("open");
             $(this).load(LOAD_HEALTH_TABLE());
-
             diseasearray=new Array();
+
 
         },
         beforeClose: function(){
