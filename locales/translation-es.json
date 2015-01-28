@@ -608,6 +608,7 @@
 	},
 	"fhh_family_pedigree": {
 		"title":"Ver el Diagrama de mesa",
+		"date_of_report":"Fecha del informe",		
 		"desc_line1":"Puede imprimir su historial de salud familiar en forma de diagramas y tablas para compartir con su proveedor de atención médica. Hablar con su médico acerca de su historial de salud familiar puede ayudarle a mantenerse saludable!",
 		"desc_line2":"Si desea cambiar la forma en que la información se muestra a continuación, haga clic en 'Diagrama y tabla de opciones.' Las barras de desplazamiento inferior y derecho son herramientas de navegación útiles cuando la visualización de tablas y diagramas más grandes.",
 		"go_to_diagram":"Ir a diagrama",
@@ -655,8 +656,13 @@
 		"maternal_aunt":"Tía",
 		"maternal_cousin":"Primo",
 		"maternal_halfbrother":"Medio Hermano",
-		"maternal_halfsister":"Media Hermana"
-
+		"maternal_halfsister":"Media Hermana",
+		"heart_disease":"enfermedad del corazón",
+		"stroke":"carrera",
+		"diabetes":"diabetes",
+		"colon_cancer":"cáncer de colon",
+		"breast_cancer":"cáncer de mama",
+		"ovarian_cancer":"cáncer de ovario"
 
 	},
 	"fhh_export": {

@@ -73,8 +73,6 @@ var STATICDISEASES = [
     'ovarian cancer'
 ];
 
-
-
 function IEloadTable() {
 
 
@@ -120,7 +118,7 @@ function IEloadTable() {
     var thisMinute = currentdate.getMinutes();
     thisMinute = thisMinute < 10 ? "0"+thisMinute : thisMinute;
 
-    var today =  "Date of Report: " +
+    var today =  $.t("fhh_family_pedigree.date_of_report") + ": " +
         day + ", " + month + " "
         + currentdate.getDate() + ", "
         + currentdate.getFullYear() + " "
@@ -278,7 +276,7 @@ function IEloadTable() {
     }
 
     $(document).ready(function() {
- 
+
  if (personal_information['Health History'] && personal_information['Health History'].length > 0){
 
         $.each(personal_information['Health History'], function (key, item) {
@@ -351,7 +349,7 @@ if (personal_information && personal_information.length > 0){
             '<img src="../static/images/close.png" class="closeimg" style="border:none"/></a>' + NAME
             });
         }
-
+        window.dA = diseasearray;
         for (var i = 0; i < diseasearray.length; i++) {
             var NAME = diseasearray[i][0];
             var COL = i + 9;

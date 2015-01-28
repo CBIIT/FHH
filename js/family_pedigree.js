@@ -66,15 +66,6 @@ var defaultfamilyarray=[
 
 ];
 
-var STATICDISEASES = [
-    'heart disease',
-    'stroke',
-    'diabetes',
-    'colon cancer',
-    'breast cancer',
-    'ovarian cancer'
-];
-
 var ua = window.navigator.userAgent;
 var msie = ua.indexOf("MSIE ");
 function xmlload() {
@@ -131,7 +122,7 @@ function xmlload() {
     var thisMinute = currentdate.getMinutes();
     thisMinute = thisMinute < 10 ? "0"+thisMinute : thisMinute;
 
-    var today =  "Date of Report: " +
+    var today =  $.t("fhh_family_pedigree.date_of_report") + ": " +
         day + ", " + month + " "
         + currentdate.getDate() + ", "
         + currentdate.getFullYear() + " "
@@ -329,12 +320,22 @@ function xmlload() {
 
     $(document).ready(function() {
 
+        var STATICDISEASES = [
+            $.t("fhh_family_pedigree.heart_disease"),
+            $.t("fhh_family_pedigree.stroke"),
+            $.t("fhh_family_pedigree.diabetes"),
+            $.t("fhh_family_pedigree.colon_cancer"),
+            $.t("fhh_family_pedigree.breast_cancer"),
+            $.t("fhh_family_pedigree.ovarian_cancer")
+            ]
 
 
         $.each(personal_information['Health History'], function (key, item) {
             if (item == 'undefined' || item == null) item = "";
             var dn = item['Disease Name'];
             var details =  item['Detailed Disease Name'] ;
+            var dc =  $.t("diseases:" + item['Disease Code']);
+            window.dc = dc;
             if(dn)dn = dn.toLowerCase();
             if(details)details = details.toLowerCase();
             if(details=='diseases:null') details = "";
@@ -353,6 +354,8 @@ function xmlload() {
                 $.each(item['Health History'], function (k, data) {
                     var dn = data['Disease Name'];
                     var details =  data['Detailed Disease Name'];
+                    var dc =  $.t("diseases:" + item['Disease Code']);
+                    window.dc = dc;
                     if(dn)dn = dn.toLowerCase();
                     if(details)details = details.toLowerCase();
                     if(details=='diseases:null') details = "";
@@ -367,13 +370,12 @@ function xmlload() {
 
 
 
-
         HEADERS = new Array;
         HEADERS.push({"title":'Id'});
         HEADERS.push({"title":$.t("fhh_js.name_relationship")});
         HEADERS.push({"title":$.t("fhh_js.name_relationship")});
         HEADERS.push({"title":$.t("fhh_js.still_living")});
-
+        window.da = diseasearray;
         for (var t = 0; t < STATICDISEASES.length; t++) {
             var NAME = STATICDISEASES[t];
             var COL = t + 3;
@@ -391,10 +393,9 @@ function xmlload() {
             });
         }
 
-
+        
         for (var i = 0; i < diseasearray.length; i++) {
             var NAME = diseasearray[i][1];
-
 
             var COL = i + 9;
             var DID = 'D_' + COL;
@@ -7249,7 +7250,6 @@ function TheZoomMain(sel) {
         else if(/chrome/i.test( navigator.userAgent )){
             var RIGHT_X = allXarray.pop();
             var LEFT_X = allXarray[0];
-alert("chrome");
             if (arr[0] < 0)X = parseInt(arr[0]) - 100;
             else X = -100;
             var REALLONG = parseInt(masterRight) * 3.1;
