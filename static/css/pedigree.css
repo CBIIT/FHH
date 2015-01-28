@@ -46,7 +46,7 @@ select.addcondition{
     visibility: hidden;
 }
 
-table.pop, th {text-decoration: underline }
+table.pop, th {text-decoration: none }
 th { padding : 1px; }
 td { padding : 1px; text-align:left; }
 
@@ -282,7 +282,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
 }
 
 .tablebutton{
-    background-color:darkslategray;
+    background-color:#195A88;
     color:white;
     visibility:visible;
     padding: 5 5 5 5;
@@ -417,20 +417,20 @@ div.toolbar{
     text-transform: uppercase;
     text-align: left;
     padding: 6px 6px 6px 12px;
-    background:darkslategray;
+    background:#195A88;
 }
 
 #health_table th.nobg {
     border-top: 0;
-    border-right: 1px solid #C1DAD7;
-    background: darkslategray;
+    border-right: 1px solid #195A88;
+    background: #195A88;
     color: white;
     font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
 
 #health_table td {
-    border-right: 1px solid #C1DAD7;
-    border-bottom: 1px solid #C1DAD7;
+    border-right: 1px solid #337AB7;
+    border-bottom: 1px solid #337AB7;
     background: white;
     padding: 6px 6px 6px 12px;
     color: #000000;
@@ -444,27 +444,27 @@ div.toolbar{
 }
 
 #health_table th.spec {
-    border-left: 1px solid #C1DAD7;
+    border-left: 1px solid #195A88;
     border-top: 0;
-    background:darkslategray;
+    background:#195A88;
     font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
 
 #health_table th.specalt {
-    border-left: 1px solid #C1DAD7;
+    border-left: 1px solid #195A88;
     border-top: 0;
-    background: darkslategray;
+    background: #195A88;
     font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     color: #797268;
 }
 #health_table td.diseaseid{
-    background-color: darkslategray;
+    background-color: #195A88;
     color: white;
     font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
 .infobox{
-    border-right: 1px solid #C1DAD7;
-    border-bottom: 1px solid #C1DAD7;
+    border-right: 1px solid #195A88;
+    border-bottom: 1px solid #195A88;
     background: #F5FAFA;
     stroke-width: '0.1';
     font-size: 16.5;
@@ -472,8 +472,8 @@ div.toolbar{
 
 }
 .namebox{
-    border-right: 1px solid #C1DAD7;
-    border-bottom: 1px solid #C1DAD7;
+    border-right: 1px solid #195A88;
+    border-bottom: 1px solid #195A88;
     background: #F5FAFA;
     stroke-width: '0.1';
     font-size: 12.5;
@@ -547,7 +547,7 @@ div.toolbar{
     font-family:"Arial MS";
     font-size:8px;
     padding:5px;
-    border-bottom:1px solid darkslategray;
+    border-bottom:1px solid #195A88;
     border-right:1px dashed slategray;
     border-left:1px dashed slategray;
 }
@@ -651,8 +651,8 @@ a.back{
 svg#svgframe {
     height: 500px;
     width: 100%;
-    /*border-bottom:1px dotted darkslategray;*/
-    /*border-top:1px dotted darkslategray;*/
+    /*border-bottom:1px dotted #195A88;*/
+    /*border-top:1px dotted #195A88;*/
     /*background-color: white;*/
 }
 

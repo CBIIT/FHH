@@ -231,7 +231,10 @@
 	
 		"leave_page_warning": "Se si lascia prima di salvare le modifiche andranno perse.",
 	
-		"done": "fatto"
+		"done": "fatto",
+		"yes":"Sì",
+		"no":"No",	
+		"unknown":"Sconosciuto"	
 	},
 
 	"fhh_fhh": {
@@ -628,7 +631,44 @@
 		"age":"Età:",
 		"height":"Altezza:",
 		"weight":"Peso:",
-		"bmi":"IMC:"
-	}
+		"bmi":"IMC:",
+		"self":"Stesso",
+		"paternal":"Paterno",
+		"maternal":"Materno",
+		"father":"Padre",
+		"mother":"Madre",
+		"maternal_grandmother":"Nonna",
+		"maternal_grandfather":"Nonno",
+		"paternal_grandmother":"Nonna",
+		"paternal_grandfather":"Nonno",
+		"daughter":"Figlia",
+		"son":"Figlio",
+		"brother":"Fratello",
+		"sister":"Sorella",
+		"half_sister":"Sorellastra",
+		"half_brother":"Fratellastro",
+		"cousin":"(Primo) Cugino",
+		"niece":"Nipote",
+		"nephew":"Nipote",
+		"granddaughter":"Nipote",
+		"grandson":"Nipote",
+		"paternal_uncle":"Zio",
+		"paternal_aunt":"Zia",
+		"paternal_cousin":"Cugino",
+		"paternal_halfbrother":"Fratellastro",
+		"paternal_halfsister":"Sorellastra",
+		"maternal_uncle":"Zio",
+		"maternal_aunt":"Aunt",
+		"maternal_cousin":"Cugino",
+		"maternal_halfbrother":"Fratellastro",
+		"maternal_halfsister":"Sorellastra"
+
+
+	},
+	"fhh_export": {
+		"relative_no_name":"Questa relativa non ha un nome. Per l'esportazione, le relative esigenze di avere un nome. Si prega di inserire un nome e riprovare",
+		"relative_no_gender":"Questa relativa non ha un genere. Per l'esportazione, le relative esigenze di avere un sesso. Si prega di inserire un genere e riprovare",
+		"relative_no_dob":"Questa relativa non ha una data di nascita. Per l'esportazione, i relativi bisogni per essere elencati come viva e hanno un valido Data di nascita. Si prega di aggiungere una data di nascita e riprovare"
+	}	
 
 }

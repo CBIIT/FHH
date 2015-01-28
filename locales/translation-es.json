@@ -231,7 +231,10 @@
 
 		"leave_page_warning": "Si te vas antes de guardar los cambios se perderán.",
 
-		"done" : "done"
+		"done" : "done",
+		"yes":"Sí",
+		"no":"No",		
+		"unknown":"Desconocido"
 
 	},
 
@@ -622,8 +625,45 @@
 		"age":"Edad:",
 		"height":"Altura:",
 		"weight":"Peso:",
-		"bmi":"IMC:"
-	}
+		"bmi":"IMC:",
+		"self":"Yo",
+		"paternal":"Paternal",
+		"maternal":"Maternal",
+		"father":"Padre",
+		"mother":"Madre",
+		"maternal_grandmother":"Abuela",
+		"maternal_grandfather":"Abuelo",
+		"paternal_grandmother":"Abuela",
+		"paternal_grandfather":"Abuelo",
+		"daughter":"Hija",
+		"son":"Hijo",
+		"brother":"Hermano",
+		"sister":"Hermana",
+		"half_sister":"Media Hermana",
+		"half_brother":"Medio Hermano",
+		"cousin":"(Primera ) Primo",
+		"niece":"Sobrina",
+		"nephew":"Sobrino",
+		"granddaughter":"Nieta",
+		"grandson":"Nieto",
+		"paternal_uncle":"Tío",
+		"paternal_aunt":"Tía",
+		"paternal_cousin":"Primo",
+		"paternal_halfbrother":"Medio Hermano",
+		"paternal_halfsister":"Media Hermana",
+		"maternal_uncle":"Tío",
+		"maternal_aunt":"Tía",
+		"maternal_cousin":"Primo",
+		"maternal_halfbrother":"Medio Hermano",
+		"maternal_halfsister":"Media Hermana"
+
+
+	},
+	"fhh_export": {
+		"relative_no_name":"Esta relación no tiene un nombre. Con el fin de exportar, las necesidades relativas a tener un nombre. Por favor, añadir un nombre y vuelva a intentarlo",
+		"relative_no_gender":"Esta relación no tiene un género. Con el fin de exportar, las necesidades relativas a tienen género . Por favor, añadir un género y vuelva a intentarlo",
+		"relative_no_dob":"Esta relación no tiene una fecha de nacimiento. Con el fin de exportar, las necesidades relativas para figurar como vivo y tener un válido Fecha de Nacimiento. Por favor, añada una fecha de nacimiento y vuelva a intentarlo"
+	}	
 }	
 
 

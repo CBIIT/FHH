@@ -234,7 +234,10 @@
 
 		"leave_page_warning": "Se você sair antes de salvar as alterações serão perdidas.",
 		
-		"done": "done"
+		"done": "done",
+		"yes":"Sim",
+		"no":"Não",
+		"unknown":"Desconhecido"			
 	},
 
 	"fhh_fhh": {
@@ -632,7 +635,42 @@
 		"age":"Idade:",
 		"height":"Altura:",
 		"weight":"Peso:",
-		"bmi":"IMC:"
+		"bmi":"IMC:",
+		"self":"Ego",
+		"paternal":"Paterno",
+		"maternal":"Maternal",
+		"father":"Pai",
+		"mother":"Mãe",
+		"maternal_grandmother":"Avó",
+		"maternal_grandfather":"Avô",
+		"paternal_grandmother":"Avó",
+		"paternal_grandfather":"Avô",
+		"daughter":"Filha",
+		"son":"Filho",
+		"brother":"Irmão",
+		"sister":"Irmã",
+		"half_sister":"Meia-irmã",
+		"half_brother":"Meio-irmão",
+		"cousin":"(Primeiro) Primo",
+		"niece":"Sobrinha",
+		"nephew":"Sobrinho",
+		"granddaughter":"Neta",
+		"grandson":"Neto",
+		"paternal_uncle":"Tio",
+		"paternal_aunt":"Tia",
+		"paternal_cousin":"Primo",
+		"paternal_halfbrother":"Meio-irmão",
+		"paternal_halfsister":"Meia-irmã",
+		"maternal_uncle":"Tio",
+		"maternal_aunt":"Tia",
+		"maternal_cousin":"Primo",
+		"maternal_halfbrother":"Meio-irmão",
+		"maternal_halfsister":"Meia-irmã"
 
-	}
+	},
+	"fhh_export": {
+		"relative_no_name":"Esta relação não tem um nome. Para exportar, as necessidades relativas a ter um nome. Por favor, adicione um nome e tente novamente",
+		"relative_no_gender":"Esta relação não tem um gênero. Para exportar, as necessidades relativas a ter um gênero. Por favor, adicione um gênero e tente novamente",
+		"relative_no_dob":"Esta relação não tem uma data de nascimento. Para exportar, as necessidades relativas a ser listado como vivo e ter um válido Data de Nascimento. Por favor, adicione um Data de Nascimento e tente novamente"
+	}	
 }

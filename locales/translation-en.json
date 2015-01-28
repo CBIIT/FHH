@@ -226,7 +226,10 @@
 		
 		"leave_page_warning": "If you leave before saving your changes will be lost.",
 
-		"done" : "done"
+		"done" : "done",
+		"yes":"Yes",
+		"no":"No",
+		"unknown":"Unknown"
 
 	},
 	
@@ -617,8 +620,43 @@
 		"age":"Age:",
 		"height":"Height:",
 		"weight":"Weight:",
-		"bmi":"BMI:"
-	}
+		"bmi":"BMI:",
+		"self":"Self",
+		"paternal":"Paternal",
+		"maternal":"Maternal",
+		"father":"Father",
+		"mother":"Mother",
+		"maternal_grandmother":"Grandmother",
+		"maternal_grandfather":"Grandfather",
+		"paternal_grandmother":"Grandmother",
+		"paternal_grandfather":"Grandfather",
+		"daughter":"Daughter",
+		"son":"Son",
+		"brother":"Brother",
+		"sister":"Sister",
+		"half_sister":"Half Sister",
+		"half_brother":"Half Brother",
+		"cousin":"(First) Cousin",
+		"niece":"Niece",
+		"nephew":"Nephew",
+		"granddaughter":"Granddaughter",
+		"grandson":"Grandson",
+		"paternal_uncle":"Uncle",
+		"paternal_aunt":"Aunt",
+		"paternal_cousin":"Cousin",
+		"paternal_halfbrother":"Half Brother",
+		"paternal_halfsister":"Half Sister",
+		"maternal_uncle":"Uncle",
+		"maternal_aunt":"Aunt",
+		"maternal_cousin":"Cousin",
+		"maternal_halfbrother":"Half Brother",
+		"maternal_halfsister":"Half Sister"
+	},
+	"fhh_export": {
+		"relative_no_name":"This relative does not have a name.  In order to export, the relative needs to have a name.  Please add a name and try again",
+		"relative_no_gender":"This relative does not have a gender.  In order to export, the relative needs to have a gender.  Please add a gender and try again",
+		"relative_no_dob":"This relative does not have a Date of Birth.  In order to export, the relative needs to be listed as alive and have a valid Date of Birth.  Please add a Date of Birth and try again"
+	}	
 
 
 }	
