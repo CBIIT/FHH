@@ -637,5 +637,10 @@
 		"weight":"Peso:",
 		"bmi":"IMC:"
 
-	}
+	},
+	"fhh_export": {
+		"relative_no_name":"Esta relação não tem um nome. Para exportar, as necessidades relativas a ter um nome. Por favor, adicione um nome e tente novamente",
+		"relative_no_gender":"Esta relação não tem um gênero. Para exportar, as necessidades relativas a ter um gênero. Por favor, adicione um gênero e tente novamente",
+		"relative_no_dob":"Esta relação não tem uma data de nascimento. Para exportar, as necessidades relativas a ser listado como vivo e ter um válido Data de Nascimento. Por favor, adicione um Data de Nascimento e tente novamente"
+	}	
 }

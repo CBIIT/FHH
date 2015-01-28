@@ -420,8 +420,7 @@
 		"detailed_instructions_li4":"If you are opening a file from a portable storage device, you will need to locate the device in the file selection box to view its contents and then select the file to be opened",
 		"detailed_instructions_li5":"Press the button marked 'Open From Computer' on this screen",		
 
-		"done" : "done"
-	},
+		"done" : "done"	},
 	
 	"fhh_why_ask_ashkenazi": {
 		"help_title" : "Help for Ashkenazi Jew",
@@ -620,6 +619,11 @@
 		"height":"Height:",
 		"weight":"Weight:",
 		"bmi":"BMI:"
+	},
+	"fhh_export": {
+		"relative_no_name":"This relative does not have a name.  In order to export, the relative needs to have a name.  Please add a name and try again",
+		"relative_no_gender":"This relative does not have a gender.  In order to export, the relative needs to have a gender.  Please add a gender and try again",
+		"relative_no_dob":"This relative does not have a Date of Birth.  In order to export, the relative needs to be listed as alive and have a valid Date of Birth.  Please add a Date of Birth and try again"
 	}
 
 

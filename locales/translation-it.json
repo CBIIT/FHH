@@ -632,6 +632,11 @@
 		"height":"Altezza:",
 		"weight":"Peso:",
 		"bmi":"IMC:"
-	}
+	},
+	"fhh_export": {
+		"relative_no_name":"Questa relativa non ha un nome. Per l'esportazione, le relative esigenze di avere un nome. Si prega di inserire un nome e riprovare",
+		"relative_no_gender":"Questa relativa non ha un genere. Per l'esportazione, le relative esigenze di avere un sesso. Si prega di inserire un genere e riprovare",
+		"relative_no_dob":"Questa relativa non ha una data di nascita. Per l'esportazione, i relativi bisogni per essere elencati come viva e hanno un valido Data di nascita. Si prega di aggiungere una data di nascita e riprovare"
+	}	
 
 }
