@@ -231,7 +231,10 @@
 
 		"leave_page_warning": "Si te vas antes de guardar los cambios se perderán.",
 
-		"done" : "done"
+		"done" : "done",
+		"yes":"Sí",
+		"no":"No",		
+		"unknown":"Desconocido"
 
 	},
 

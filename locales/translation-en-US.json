@@ -226,7 +226,10 @@
 		
 		"leave_page_warning": "If you leave before saving your changes will be lost.",
 
-		"done" : "done"
+		"done" : "done",
+		"yes":"Yes",
+		"no":"No",
+		"unknown":"Unknown",
 	},
 	
 	"fhh_fhh": {

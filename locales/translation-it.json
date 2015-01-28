@@ -231,7 +231,10 @@
 	
 		"leave_page_warning": "Se si lascia prima di salvare le modifiche andranno perse.",
 	
-		"done": "fatto"
+		"done": "fatto",
+		"yes":"Sì",
+		"no":"No",	
+		"unknown":"Sconosciuto"	
 	},
 
 	"fhh_fhh": {

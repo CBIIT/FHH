@@ -234,7 +234,10 @@
 
 		"leave_page_warning": "Se você sair antes de salvar as alterações serão perdidas.",
 		
-		"done": "done"
+		"done": "done",
+		"yes":"Sim",
+		"no":"Não",
+		"unknown":"Desconhecido"			
 	},
 
 	"fhh_fhh": {

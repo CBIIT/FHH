@@ -371,9 +371,9 @@ function xmlload() {
 
         HEADERS = new Array;
         HEADERS.push({"title":'Id'});
-        HEADERS.push({"title":'Name & Relationship'});
-        HEADERS.push({"title":'Name & Relationship'});
-        HEADERS.push({"title":'Still Living'});
+        HEADERS.push({"title":$.t("fhh_js.name_relationship")});
+        HEADERS.push({"title":$.t("fhh_js.name_relationship")});
+        HEADERS.push({"title":$.t("fhh_js.still_living")});
 
         for (var t = 0; t < STATICDISEASES.length; t++) {
             var NAME = STATICDISEASES[t];
@@ -6447,13 +6447,13 @@ function LOAD_HEALTH_TABLE(){
 
 
     if(typeof personal_information.age == 'undefined' && typeof personal_information.estimated_age == 'undefined' && typeof personal_information.cause_of_death == 'undefined'){
-        cod = 'Yes';
+        cod = $.t("fhh_js.yes");
     }
     else if(typeof personal_information.age != 'undefined' || typeof personal_information.estimated_age != 'undefined' || typeof personal_information.date_of_birth != 'undefined'){
-        cod = 'Yes';
+        cod = $.t("fhh_js.yes");
     }
     else{
-        cod = 'No';
+        cod = $.t("fhh_js.no");
     }
 
     /*
@@ -6575,16 +6575,16 @@ function LOAD_HEALTH_TABLE(){
                 if(typeof item.estimated_death_age!= 'undefined' || item.estimated_death_age!= null) EST=item.estimated_death_age;
 
                 if (typeof item.cause_of_death!= 'undefined'){
-                    COD = 'No, ' + item.cause_of_death + '(' + EST +')';
+                    COD = $.t("fhh_js.no") + ', ' + item.cause_of_death + '(' + EST +')';
                 }
                 else if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
-                    COD = 'Unknown';
+                    COD = $.t("fhh_js.unknown");
                 }
                 else if(typeof item.age != 'undefined' || typeof item.estimated_age != 'undefined' || typeof item.date_of_birth != 'undefined'){
-                    COD = 'Yes';
+                    COD = $.t("fhh_js.yes");
                 }
                 else{
-                    COD = 'No, ' + item.cause_of_death  + '(' + EST +')';;
+                    COD = $.t("fhh_js.no") + ', ' + item.cause_of_death  + '(' + EST +')';;
                 }
 
                 var START_COD = new Array();
