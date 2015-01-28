@@ -2098,7 +2098,7 @@ function clear_family_member_health_history_dialog() {
 	}
 
 	
-	$("#family_member_relationship").empty().append(relationship);
+	$("#family_member_relationship").empty().append($.t("fhh_js." + relationship));
 	$("#family_member_info_form_name").val("");
 	$('#family_member_info_form_gender_male').prop('checked',false);
 	$('#family_member_info_form_gender_female').prop('checked',false);
