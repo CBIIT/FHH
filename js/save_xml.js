@@ -634,7 +634,7 @@ function add_estimated_age_tag(tag, code_tag, estimated_age) {
 	var av = get_age_values_from_estimated_age(estimated_age);
 	if (estimated_age == "Pre-Birth" || estimated_age == "prebirth") {
 		code_tag.setAttribute("originalText", "pre-birth");
-	} else if (estimated_age == "Unknown") {
+	} else if (estimated_age == "Unknown" || estimated_age == "unknown") {
 		code_tag.setAttribute("originalText", "unknown");
 	} else {
 		
@@ -696,7 +696,11 @@ function add_cause_of_death(tag, cause_of_death) {
 	var code_tag = doc.createElement("code");
 	code_tag.setAttribute("displayName", cause_of_death);
 	code_tag.setAttribute("originalText", cause_of_death);
-	code_tag.setAttribute("codeSystemName", "SNOMED COMPLETE");
+	code_tag.setAttribute("codeSystemName", "SNOMED_CT");
+	var cause_of_death_code = get_disease_code_from_detailed_disease(cause_of_death);
+	if (cause_of_death_code == null) cause_of_death_code = "OTHER";
+	
+	code_tag.setAttribute("code", cause_of_death_code);
 	observation_tag.appendChild(code_tag);
 	
 	var sourceOf_tag = doc.createElement("sourceOf");
