@@ -343,8 +343,7 @@ function xmlload() {
             if (item == 'undefined' || item == null) item = "";
             var dn = item['Disease Name'];
             var details =  item['Detailed Disease Name'] ;
-            var dc =  $.t("diseases:" + item['Disease Code']);
-            window.dc = dc;
+            var diseaseCode = item['Disease Code'];
             if(dn)dn = dn.toLowerCase();
             if(details)details = details.toLowerCase();
             if(details=='diseases:null') details = "";
@@ -363,8 +362,7 @@ function xmlload() {
                 $.each(item['Health History'], function (k, data) {
                     var dn = data['Disease Name'];
                     var details =  data['Detailed Disease Name'];
-                    var dc =  $.t("diseases:" + item['Disease Code']);
-                    window.dc = dc;
+                    var diseaseCode = data['Disease Code'];
                     if(dn)dn = dn.toLowerCase();
                     if(details)details = details.toLowerCase();
                     if(details=='diseases:null') details = "";
