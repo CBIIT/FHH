@@ -85,7 +85,7 @@ function IEloadTable() {
     if( mdialog != null) {
         oTable.fnDraw(true);
         // $(mdialog).dialog('destroy').remove();
-         mdialog = null;
+         mdialog = null;         
     }
 
 
@@ -767,7 +767,7 @@ function LOAD_HEALTH_TABLE(){
                 for (var k=0; k<STATICDISEASES.length;k++){
                     if (k==nr){
                         if(details==null || typeof details=='undefined')details = tmp;
-                        MYPRIMARY_DISEASE[k] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + $.t("fhh_js."+diagage) + ')' + '</div>'
+                        MYPRIMARY_DISEASE[k] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + $.t("diseases:"+details) + ' (' + $.t("fhh_js."+diagage) + ')' + '</div>'
                         break;
                     }
                 }
@@ -777,7 +777,7 @@ function LOAD_HEALTH_TABLE(){
                 var b = diseasearray[i][1];
                 if(b==details){
                     if (details == null || typeof details == 'undefined')details = tmp;
-                    MYSECONDARY_DISEASE[i] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + $.t("fhh_js."+diagage) + ')' + '</div>'
+                    MYSECONDARY_DISEASE[i] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + $.t("diseases:"+details) + ' (' + $.t("fhh_js."+diagage) + ')' + '</div>'
                     break;
                 }
             }
@@ -913,7 +913,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                         for (var k=0; k<STATICDISEASES.length;k++){
                             if (k==nr){
                                 if(details==null || typeof details=='undefined') details = cd;
-                                PRIMARY_DISEASE[k] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                                PRIMARY_DISEASE[k] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + $.t("diseases:"+details) + '</div>'
                                 break;
                             }
                         }
@@ -923,7 +923,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                         var b = diseasearray[i][1];
                         if(b==details){
                             if (details == null || typeof details == 'undefined')details = cd;
-                            SECONDARY_DISEASE[i] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                            SECONDARY_DISEASE[i] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + $.t("diseases:"+details) + '</div>'
                             break;
                         }
                     }
@@ -950,7 +950,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                                 for (var k=0; k<STATICDISEASES.length;k++){
                                     if (k==nr){
                                         if(details==null || typeof details=='undefined')details = tmp;
-                                        PRIMARY_DISEASE[k] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + $.t("fhh_js."+diagage) + ')' + '</div>'
+                                        PRIMARY_DISEASE[k] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + $.t("diseases:"+details) + ' (' + $.t("fhh_js."+diagage) + ')' + '</div>'
                                         break;
                                     }
                                 }
@@ -960,7 +960,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                                 var b = diseasearray[i][1];
                                 if(b==details){
                                     if (details == null || typeof details == 'undefined')details = tmp;
-                                    SECONDARY_DISEASE[i] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + $.t("fhh_js."+diagage) + ')' + '</div>'
+                                    SECONDARY_DISEASE[i] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + $.t("diseases:"+details) + ' (' + $.t("fhh_js."+diagage) + ')' + '</div>'
                                     break;
                                 }
                             }

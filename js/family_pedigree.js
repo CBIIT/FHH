@@ -319,7 +319,6 @@ function xmlload() {
     }
 
     $(document).ready(function() {
-
         // var STATICDISEASES = [
         //     $.t("fhh_family_pedigree.heart_disease"),
         //     $.t("fhh_family_pedigree.stroke"),
