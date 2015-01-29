@@ -234,7 +234,7 @@
 		"done": "fatto",
 		"yes":"Sì",
 		"no":"No",	
-		"unknown":"Sconosciuto"	
+		"unknown":"Sconosciuto"
 	},
 
 	"fhh_fhh": {
@@ -668,8 +668,10 @@
 		"diabetes":"diabete",
 		"colon_cancer":"cancro al colon",
 		"breast_cancer":"il cancro al seno",
-		"ovarian_cancer":"cancro ovarico"
-
+		"ovarian_cancer":"cancro ovarico",
+		"search":"Ricerca",
+		"previous":"Precedente",
+		"next":"Il Prossimo"
 	},
 	"fhh_export": {
 		"relative_no_name":"Questa relativa non ha un nome. Per l'esportazione, le relative esigenze di avere un nome. Si prega di inserire un nome e riprovare",

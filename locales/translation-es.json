@@ -235,7 +235,6 @@
 		"yes":"Sí",
 		"no":"No",		
 		"unknown":"Desconocido"
-
 	},
 
 	"fhh_fhh": {		
@@ -662,8 +661,10 @@
 		"diabetes":"diabetes",
 		"colon_cancer":"cáncer de colon",
 		"breast_cancer":"cáncer de mama",
-		"ovarian_cancer":"cáncer de ovario"
-
+		"ovarian_cancer":"cáncer de ovario",
+		"search":"Búsqueda",
+		"previous":"Anterior",
+		"next":"Siguiente"
 	},
 	"fhh_export": {
 		"relative_no_name":"Esta relación no tiene un nombre. Con el fin de exportar, las necesidades relativas a tener un nombre. Por favor, añadir un nombre y vuelva a intentarlo",

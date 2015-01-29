@@ -239,7 +239,14 @@ function xmlload() {
                         "searchable": false
                     }
                 ],
-                "aaSortingFixed": [[0, 'desc']]
+                "aaSortingFixed": [[0, 'desc']],
+                "oLanguage": {
+                  "sSearch": $.t("fhh_family_pedigree.search")+':',
+                  "oPaginate": {
+                    "sPrevious": $.t("fhh_family_pedigree.previous"),
+                    "sNext": $.t("fhh_family_pedigree.next")
+                  }                  
+                }
 
             });
 

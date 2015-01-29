@@ -229,7 +229,7 @@
 		"done" : "done",
 		"yes":"Yes",
 		"no":"No",
-		"unknown":"Unknown",
+		"unknown":"Unknown"
 	},
 	
 	"fhh_fhh": {
@@ -655,8 +655,10 @@
 		"diabetes":"diabetes",
 		"colon_cancer":"colon cancer",
 		"breast_cancer":"breast cancer",
-		"ovarian_cancer":"ovarian cancer"
-
+		"ovarian_cancer":"ovarian cancer",
+		"search":"Search",
+		"previous":"Previous",
+		"next":"Next"
 	},
 	"fhh_export": {
 		"relative_no_name":"This relative does not have a name.  In order to export, the relative needs to have a name.  Please add a name and try again",
