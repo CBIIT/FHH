@@ -870,7 +870,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                 if(typeof item.estimated_death_age!= 'undefined' || item.estimated_death_age!= null) EST=item.estimated_death_age;
 
                 if (typeof item.cause_of_death!= 'undefined'){
-                    COD = $.t("fhh_js.no") + ', ' + item.cause_of_death + '(' + EST +')';
+                    COD = $.t("fhh_js.no") + ', ' + item.cause_of_death + '(' + $.t("fhh_js."+EST) +')';
                 }
                 else if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
                      COD = $.t("fhh_js.unknown");
@@ -879,7 +879,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                     COD = $.t("fhh_js.yes");
                 }
                 else{
-                    COD = $.t("fhh_js.no") + ', ' + item.cause_of_death  + '(' + EST +')';;
+                    COD = $.t("fhh_js.no") + ', ' + item.cause_of_death  + '(' + $.t("fhh_js."+EST) +')';;
                 }
 
                 //var COD = ((typeof item.cause_of_death == 'undefined') ? 'Yes' :  'No / ' + item.cause_of_death);
