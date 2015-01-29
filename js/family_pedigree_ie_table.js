@@ -65,13 +65,13 @@ var defaultfamilyarray=[
 ];
 
 var STATICDISEASES = [
-    'heart disease',
-    'stroke',
-    'diabetes',
-    'colon cancer',
-    'breast cancer',
-    'ovarian cancer'
-];
+    'SNOMED_CT-56265001',
+    'SNOMED_CT-116288000',
+    'SNOMED_CT-73211009',
+    'SNOMED_CT-363406005',
+    'SNOMED_CT-254837009',
+    'SNOMED_CT-363443007'
+]; 
 
 function IEloadTable() {
 
@@ -287,12 +287,12 @@ function IEloadTable() {
 
 
             var dn = item['Disease Name'];
-            var details =  item['Detailed Disease Name'] ;
+            var details =  item['Disease Code'] ;
             if(dn)dn = dn.toLowerCase();
-            if(details)details = details.toLowerCase();
+            if(details)details = details;
             if(details=='diseases:null') details = "";
 
-            if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
+            if($.inArray(details, STATICDISEASES) == -1) {
                 if (diseasearray.length == 0) diseasearray.push([dn,details])
                 else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
 
@@ -312,12 +312,12 @@ if (personal_information && personal_information.length > 0){
                 if (item['Health History'] && item['Health History'].length > 0){  
                 $.each(item['Health History'], function (k, data) {
                     var dn = data['Disease Name'];
-                    var details =  data['Detailed Disease Name'];
+                    var details =  data['Disease Code'];
                     if(dn)dn = dn.toLowerCase();
-                    if(details)details = details.toLowerCase();
+                    if(details)details = details;
                     if(details=='diseases:null') details = "";
 
-                    if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
+                    if($.inArray(details, STATICDISEASES) == -1) {
                         if (diseasearray.length == 0) diseasearray.push([dn,details])
                         else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
                     }
@@ -338,7 +338,7 @@ if (personal_information && personal_information.length > 0){
             var COL = t + 3;
             var DID = 'D_' + COL;
 
-            if(NAME)NAME=NAME.toLowerCase();
+            if(NAME)NAME=NAME;
 
             /*
              Get only values that are not static
@@ -355,7 +355,7 @@ if (personal_information && personal_information.length > 0){
             var COL = i + 9;
             var DID = 'D_' + COL;
 
-            if(NAME)NAME=NAME.toLowerCase();
+            if(NAME)NAME=NAME;
 
             /*
              Get only values that are not static
@@ -756,14 +756,14 @@ function LOAD_HEALTH_TABLE(){
          if (myhealth && myhealth.length > 0){  
         $.each(myhealth, function (key, item) {
             var tmp = item['Disease Name'];
-            var details = item['Detailed Disease Name'];
+            var details = item['Disease Code'];
             var diagage =  item['Age At Diagnosis'] ;
             if(tmp)tmp = tmp.toLowerCase();
-            if(details)details=details.toLowerCase();
+            if(details)details=details;
             if(details=='diseases:null') details = "";
 
             if(($.inArray(tmp, STATICDISEASES) != -1) || ($.inArray(details, STATICDISEASES) != -1)) {
-                var nr = STATICDISEASES.indexOf(details.toLowerCase());
+                var nr = STATICDISEASES.indexOf(details);
                 for (var k=0; k<STATICDISEASES.length;k++){
                     if (k==nr){
                         if(details==null || typeof details=='undefined')details = tmp;
@@ -936,17 +936,17 @@ if (personal_information && typeof personal_information != 'undefined'){
                     if (item['Health History'] && item['Health History'].length > 0){  
                         $.each(item['Health History'], function (key, item) {
                             var tmp = item['Disease Name'];
-                            var details =  item['Detailed Disease Name'] ;
+                            var details =  item['Disease Code'] ;
                             var diagage =  item['Age At Diagnosis'] ;
 
 
                             if(tmp)tmp=tmp.toLowerCase();
-                            if(details)details=details.toLowerCase();
+                            if(details)details=details;
                             if(details=='diseases:null') details = "Other";
 
 
                             if(($.inArray(tmp, STATICDISEASES) != -1) || ($.inArray(details, STATICDISEASES) != -1)) {
-                                var nr = STATICDISEASES.indexOf(details.toLowerCase());
+                                var nr = STATICDISEASES.indexOf(details);
                                 for (var k=0; k<STATICDISEASES.length;k++){
                                     if (k==nr){
                                         if(details==null || typeof details=='undefined')details = tmp;
@@ -1133,7 +1133,7 @@ if (personal_information['Health History'] && personal_information['Health Histo
 
             var thename, temp;
             var disname = data['Disease Name'];
-            var detdisname = data['Detailed Disease Name'];
+            var detdisname = data['Disease Code'];
             if(detdisname=='diseases:null') detdisname = null;
             if (detdisname == null) thename = disname;
             else thename = detdisname;
@@ -1161,7 +1161,7 @@ if (personal_information && personal_information.length > 0){
                             $.each(health, function (k, data) {
                                 var thename, temp;
                                 var disname = data['Disease Name'];
-                                var detdisname = data['Detailed Disease Name'];
+                                var detdisname = data['Disease Code'];
                                 if(detdisname=='diseases:null') detdisname = null;
                                 if (detdisname == null) thename = disname;
                                 else thename = detdisname;
@@ -1279,7 +1279,7 @@ function ClearDna(){
 //                     health = item['Health History'];
 //                     $.each(health, function (k, data) {
 
-//                         var detdisname = data['Detailed Disease Name'];
+//                         var detdisname = data['Disease Code'];
 //                         var disname = data['Disease Name'];
 
 //                         if (selectedValue == detdisname) {
@@ -1859,4 +1859,3 @@ function SetPersonalInfo(){
     if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + weight_unit));
     $('#abmi').append($("<span><b></b></span>").text( BMI));
 }
-

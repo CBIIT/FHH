@@ -330,25 +330,25 @@ function xmlload() {
         //     ]
 
             var STATICDISEASES = [
-                'heart disease',
-                'stroke/brain attack',
-                'diabetes',
-                'colon cancer',
-                'breast cancer',
-                'ovarian cancer'
-            ];  
+                'SNOMED_CT-56265001',
+                'SNOMED_CT-116288000',
+                'SNOMED_CT-73211009',
+                'SNOMED_CT-363406005',
+                'SNOMED_CT-254837009',
+                'SNOMED_CT-363443007'
+            ]; 
 
 
         $.each(personal_information['Health History'], function (key, item) {
             if (item == 'undefined' || item == null) item = "";
             var dn = item['Disease Name'];
-            var details =  item['Detailed Disease Name'] ;
+            var details =  item['Disease Code'] ;
             var diseaseCode = item['Disease Code'];
             if(dn)dn = dn.toLowerCase();
-            if(details)details = details.toLowerCase();
+            if(details)details = details;
             if(details=='diseases:null') details = "";
 
-            if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
+            if($.inArray(details, STATICDISEASES) == -1) {
                 if (diseasearray.length == 0) diseasearray.push([dn,details])
                 else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
 
@@ -361,13 +361,13 @@ function xmlload() {
 
                 $.each(item['Health History'], function (k, data) {
                     var dn = data['Disease Name'];
-                    var details =  data['Detailed Disease Name'];
+                    var details =  data['Disease Code'];
                     var diseaseCode = data['Disease Code'];
                     if(dn)dn = dn.toLowerCase();
-                    if(details)details = details.toLowerCase();
+                    if(details)details = details;
                     if(details=='diseases:null') details = "";
 
-                    if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
+                    if($.inArray(details, STATICDISEASES) == -1) {
                         if (diseasearray.length == 0) diseasearray.push([dn,details])
                         else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
                     }
@@ -388,7 +388,7 @@ function xmlload() {
             var COL = t + 3;
             var DID = 'D_' + COL;
 
-            if(NAME)NAME=NAME.toLowerCase();
+            if(NAME)NAME=NAME;
 
             /*
              Get only values that are not static
@@ -396,7 +396,7 @@ function xmlload() {
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" class="closeimg"/></a>' + NAME
+            '<img src="../static/images/close.png" class="closeimg"/></a>' + $.t("diseases:"+NAME)
             });
         }
 
@@ -407,7 +407,7 @@ function xmlload() {
             var COL = i + 9;
             var DID = 'D_' + COL;
 
-            if(NAME)NAME=NAME.toLowerCase();
+            if(NAME)NAME=NAME;
 
             /*
              Get only values that are not static
@@ -415,7 +415,7 @@ function xmlload() {
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" class="closeimg"/></a>' + NAME
+            '<img src="../static/images/close.png" class="closeimg"/></a>' + $.t("diseases:"+NAME)
             });
         }
 
@@ -618,7 +618,7 @@ function xmlload() {
             ids.push(item.name)
             $.each(item['Health History'], function (k, data) {
                 var disname = data['Disease Name'];
-                var disdet = data['Detailed Disease Name'];
+                var disdet = data['Disease Code'];
                 ids.push([disname,disdet]);
                 dis.push([disname,disdet]);
             });
@@ -635,7 +635,7 @@ function xmlload() {
 
     $.each(personal_information['Health History'], function (k, data) {
         var disname = data['Disease Name'];
-        var disdet = data['Detailed Disease Name'];
+        var disdet = data['Disease Code'];
         ids.push([disname,disdet]);
         dis.push([disname,disdet]);
     });
@@ -1893,7 +1893,7 @@ Already put mother in earlier
 
                 $.each(item['Health History'], function (k, data) {
                     var disname = data['Disease Name'];
-                    var detdisname = data['Detailed Disease Name'];
+                    var detdisname = data['Disease Code'];
                     if(detdisname!=null) {
                         var ln = detdisname.length;
                         var F3 = disname.substr(0, 3);
@@ -1923,7 +1923,7 @@ Already put mother in earlier
         $.each(personal_information['Health History'], function (k, data) {
 
             var disname = data['Disease Name'];
-            var detdisname = data['Detailed Disease Name'];
+            var detdisname = data['Disease Code'];
             if(detdisname!=null) {
                 var ln = detdisname.length;
                 var F3 = disname.substr(0, 3);
@@ -1947,7 +1947,7 @@ Already put mother in earlier
 
         $.each(personal_information['Health History'], function (k, data) {
             var disname = data['Disease Name'];
-            var detdisname = data['Detailed Disease Name'];
+            var detdisname = data['Disease Code'];
             var ln = detdisname.length;
 
             var F3 = disname.substr(0,3);
@@ -2001,7 +2001,7 @@ Already put mother in earlier
                 health = item['Health History'];
                 $.each(health, function (k, data) {
                     var disname = data['Disease Name'];
-                    var detdisname = data['Detailed Disease Name'];
+                    var detdisname = data['Disease Code'];
                     var ln = detdisname.length;
 
                     var F3 = disname.substr(0,3);
@@ -6490,13 +6490,13 @@ function LOAD_HEALTH_TABLE(){
     if(myhealth.length>0) {
         $.each(myhealth, function (key, item) {
             var tmp = item['Disease Name'];
-            var details = item['Detailed Disease Name'];
+            var details = item['Disease Code'];
             if(tmp)tmp = tmp.toLowerCase();
-            if(details)details=details.toLowerCase();
+            if(details)details=details;
             if(details=='diseases:null') details = "";
 
             if(($.inArray(tmp, STATICDISEASES) != -1) || ($.inArray(details, STATICDISEASES) != -1)) {
-                var nr = STATICDISEASES.indexOf(details.toLowerCase());
+                var nr = STATICDISEASES.indexOf(details);
                 for (var k=0; k<STATICDISEASES.length;k++){
                     if (k==nr){
                         if(details==null || typeof details=='undefined')details = tmp;
@@ -6648,15 +6648,15 @@ function LOAD_HEALTH_TABLE(){
                     if (item['Health History'].length > 0) {
                         $.each(item['Health History'], function (key, item) {
                             var tmp = item['Disease Name'];
-                            var details =  item['Detailed Disease Name'] ;
+                            var details =  item['Disease Code'] ;
 
                             if(tmp)tmp=tmp.toLowerCase();
-                            if(details)details=details.toLowerCase();
+                            if(details)details=details;
                             if(details=='diseases:null') details = "Other";
 
 
                             if(($.inArray(tmp, STATICDISEASES) != -1) || ($.inArray(details, STATICDISEASES) != -1)) {
-                                var nr = STATICDISEASES.indexOf(details.toLowerCase());
+                                var nr = STATICDISEASES.indexOf(details);
                                 for (var k=0; k<STATICDISEASES.length;k++){
                                     if (k==nr){
                                         if(details==null || typeof details=='undefined')details = tmp;
@@ -6858,7 +6858,7 @@ function createDialogMain() {
 
             var thename, temp;
             var disname = data['Disease Name'];
-            var detdisname = data['Detailed Disease Name'];
+            var detdisname = data['Disease Code'];
             if(detdisname=='diseases:null') detdisname = null;
             if (detdisname == null) thename = disname;
             else thename = detdisname;
@@ -6881,7 +6881,7 @@ function createDialogMain() {
                         $.each(health, function (k, data) {
                             var thename, temp;
                             var disname = data['Disease Name'];
-                            var detdisname = data['Detailed Disease Name'];
+                            var detdisname = data['Disease Code'];
                             if(detdisname=='diseases:null') detdisname = null;
                             if (detdisname == null) thename = disname;
                             else thename = detdisname;
@@ -7001,7 +7001,7 @@ function DiseaseDna(){
                     health = item['Health History'];
                     $.each(health, function (k, data) {
 
-                        var detdisname = data['Detailed Disease Name'];
+                        var detdisname = data['Disease Code'];
                         var disname = data['Disease Name'];
 
                         if (selectedValue == detdisname) {
