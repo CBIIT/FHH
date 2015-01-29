@@ -97,36 +97,8 @@ function IEloadTable() {
     /*
      Get Date
      */
-    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-
-    var currentdate = new Date();
-
-    var day = days[ currentdate.getDay() ];
-    var month = months[ currentdate.getMonth() ];
-    //Date
-    var hours = currentdate.getHours();
-    var hours = (hours+24-2)%24;
-    var mid='AM';
-    if(hours==0){ //At 00 hours we need to show 12 am
-        hours=12;
-    }
-    else if(hours>12){
-        hours=hours%12 + 2;
-        mid='PM';
-    }
-    var thisMinute = currentdate.getMinutes();
-    thisMinute = thisMinute < 10 ? "0"+thisMinute : thisMinute;
-
-    var today =  $.t("fhh_family_pedigree.date_of_report") + ": " +
-        day + ", " + month + " "
-        + currentdate.getDate() + ", "
-        + currentdate.getFullYear() + " "
-        + hours + ":"
-        + thisMinute + " "
-        + mid;
-
-
+    var options = {weekday: "long", year: "numeric", month: "long", day: "numeric", hour:"numeric",minute:"numeric",hour12:"true"};             
+    var today = $.t("fhh_family_pedigree.date_of_report") + ": " + new Date().toLocaleString(lng, options);
     mdialog = $(
         '<div id="family_pedigree" style="background-color:white;">' +
 
