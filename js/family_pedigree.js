@@ -320,14 +320,23 @@ function xmlload() {
 
     $(document).ready(function() {
 
-        var STATICDISEASES = [
-            $.t("fhh_family_pedigree.heart_disease"),
-            $.t("fhh_family_pedigree.stroke"),
-            $.t("fhh_family_pedigree.diabetes"),
-            $.t("fhh_family_pedigree.colon_cancer"),
-            $.t("fhh_family_pedigree.breast_cancer"),
-            $.t("fhh_family_pedigree.ovarian_cancer")
-            ]
+        // var STATICDISEASES = [
+        //     $.t("fhh_family_pedigree.heart_disease"),
+        //     $.t("fhh_family_pedigree.stroke"),
+        //     $.t("fhh_family_pedigree.diabetes"),
+        //     $.t("fhh_family_pedigree.colon_cancer"),
+        //     $.t("fhh_family_pedigree.breast_cancer"),
+        //     $.t("fhh_family_pedigree.ovarian_cancer")
+        //     ]
+
+            var STATICDISEASES = [
+                'heart disease',
+                'stroke/brain attack',
+                'diabetes',
+                'colon cancer',
+                'breast cancer',
+                'ovarian cancer'
+            ];  
 
 
         $.each(personal_information['Health History'], function (key, item) {
@@ -665,12 +674,12 @@ function xmlload() {
 
     FatherArray.push({"key": 'father',  "id": personal_information['father'].id, "gender":'MALE'});
     var t = {"id": [personal_information['father'].id], "name": [personal_information['father'].name], "gender": ["MALE"],
-    	key: ['father']};
+        key: ['father']};
     NAMEARRAY.push(t);
     
     MotherArray.push({"key": 'mother',  "id": personal_information['mother'].id, "gender":'FEMALE'});
     var t = {"id": [personal_information['mother'].id], "name": [personal_information['mother'].name], "gender": ["FEMALE"],
-    	key: ['mother']};
+        key: ['mother']};
     NAMEARRAY.push(t);
     
         

@@ -950,7 +950,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                                 for (var k=0; k<STATICDISEASES.length;k++){
                                     if (k==nr){
                                         if(details==null || typeof details=='undefined')details = tmp;
-                                        PRIMARY_DISEASE[k] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
+                                        PRIMARY_DISEASE[k] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + $.t("fhh_js."+diagage) + ')' + '</div>'
                                         break;
                                     }
                                 }
@@ -960,7 +960,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                                 var b = diseasearray[i][1];
                                 if(b==details){
                                     if (details == null || typeof details == 'undefined')details = tmp;
-                                    SECONDARY_DISEASE[i] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
+                                    SECONDARY_DISEASE[i] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + $.t("fhh_js."+diagage) + ')' + '</div>'
                                     break;
                                 }
                             }
