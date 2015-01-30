@@ -1572,7 +1572,7 @@ Already put mother in earlier
         for (var item in value) {
             e = value[0];
             name = value[1];
-            if (value.length > 1 && item != 0 && item != 1) temp = temp + '<li>' + value[item][0] + ',' + $.t("diseases:"+value[item][1]) + '</li>';
+            if (value.length > 1 && item != 0 && item != 1) temp = temp + '<li>' + $.t("diseases:"+value[item][1]) + '</li>';
             else  temp + '<li> No Disease Report </li>';
         };
 
