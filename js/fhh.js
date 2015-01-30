@@ -473,18 +473,20 @@ function bind_save_personal_history_button() {
 }
 
 function bind_create_new_personal_history_button_action () {
-	if (personal_information != null) {
-	    if (confirm($.t("fhh_js.confirm_delete")) == true) {
-	    	personal_information = new Object();
-//	    	current_health_history = [];
-	    	build_family_history_data_table();
-	    } else {
-	        return false;
-	    }
+	if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
+			$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
+		if (personal_information != null) {
+		    if (confirm($.t("fhh_js.confirm_delete")) == true) {
+		    	personal_information = new Object();
+		    	build_family_history_data_table();
+		    } else {
+		        return false;
+		    }
+		}
+		current_health_history = [];
+		clear_and_set_personal_health_history_dialog();
+		$( "#add_personal_information_dialog" ).dialog( "open" );	
 	}
-	current_health_history = [];
-	clear_and_set_personal_health_history_dialog();
-	$( "#add_personal_information_dialog" ).dialog( "open" );	
 }
 
 function bind_view_diagram_and_table_button_action () {
@@ -498,58 +500,61 @@ function bind_save_personal_history_button_action () {
 }
 
 function bind_add_another_family_member_button_action() {
-	var new_family_member_dialog;
-	if ($("#new_family_member_dialog").length == 0) {
-		new_family_member_dialog = $("<div id='new_family_member_dialog'>");
-		new_family_member_dialog.dialog({
-			position:['middle',0],
-			title:$.t("fhh_js.define_family_relationship_dialog_title"),
-			height:'auto',
-			width:500
-		});
-	} else {
-		new_family_member_dialog = $("#new_family_member_dialog");
-		new_family_member_dialog.empty().dialog("open");
-	}
+	if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
+			$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
 	
-	new_family_member_dialog.append("<h3> " + $.t("fhh_js.add_relative_title") + " </h3>");
-	new_family_member_dialog.append("<P class='instructions'>" + $.t("fhh_js.add_relative_para") + "</P>");
-	new_family_member_dialog.append("<label for='new_family_member_relationship'> " + $.t("fhh_js.relationship_to_me") + " </label>");
-	new_family_member_select = 
-	$("<SELECT id='new_family_member_relationship' name='new_family_member_relationship'>")
-		.append("<OPTION value=''> " + $.t("fhh_js.select_relationship") + " </OPTION>")
-		.append("<OPTION value='aunt'> " + $.t("fhh_js.aunt") + " </OPTION>")
-		.append("<OPTION value='uncle'> " + $.t("fhh_js.uncle") + " </OPTION>")
-		.append("<OPTION value='daughter'> " + $.t("fhh_js.daughter") + " </OPTION>")
-		.append("<OPTION value='son'> " + $.t("fhh_js.son") + " </OPTION>")
-		.append("<OPTION value='brother'> " + $.t("fhh_js.brother") + " </OPTION>")
-		.append("<OPTION value='sister'> " + $.t("fhh_js.sister") + " </OPTION>")
-		.append("<OPTION value='halfsister'> " + $.t("fhh_js.half_sister") + " </OPTION>")
-		.append("<OPTION value='halfbrother'> " + $.t("fhh_js.half_brother") + " </OPTION>");
+		var new_family_member_dialog;
+		if ($("#new_family_member_dialog").length == 0) {
+			new_family_member_dialog = $("<div id='new_family_member_dialog'>");
+			new_family_member_dialog.dialog({
+				position:['middle',0],
+				title:$.t("fhh_js.define_family_relationship_dialog_title"),
+				height:'auto',
+				width:500
+			});
+		} else {
+			new_family_member_dialog = $("#new_family_member_dialog");
+			new_family_member_dialog.empty().dialog("open");
+		}
 		
-	if (any_relatives(personal_information, 'maternal_aunt') || any_relatives(personal_information, 'maternal_uncle')
-			|| any_relatives(personal_information, 'paternal_aunt') || any_relatives(personal_information,'paternal_uncle')) { 
-		new_family_member_select.append("<OPTION value='cousin'> " + $.t("fhh_js.cousin") + " </OPTION>");
-	}
-
-	if (personal_information.brother_0 != null || personal_information.sister_0 != null ||
-		personal_information.maternal_halfbrother_0 != null || personal_information.maternal_halfsister_0 != null ||
-		personal_information.paternal_halfbrother_0 != null || personal_information.paternal_halfsister_0 != null 		
-	) { 
-		new_family_member_select
-			.append("<OPTION value='niece'> " + $.t("fhh_js.niece") + " </OPTION>")
-			.append("<OPTION value='nephew'> " + $.t("fhh_js.nephew") + " </OPTION>");
-	}
-		
-	if (personal_information.son_0 != null || personal_information.daughter_0 != null) { 
-		new_family_member_select
-			.append("<OPTION value='granddaughter'> " + $.t("fhh_js.granddaughter") + " </OPTION>")
-			.append("<OPTION value='grandson'> " + $.t("fhh_js.grandson") + " </OPTION>")
-	}
+		new_family_member_dialog.append("<h3> " + $.t("fhh_js.add_relative_title") + " </h3>");
+		new_family_member_dialog.append("<P class='instructions'>" + $.t("fhh_js.add_relative_para") + "</P>");
+		new_family_member_dialog.append("<label for='new_family_member_relationship'> " + $.t("fhh_js.relationship_to_me") + " </label>");
+		new_family_member_select = 
+		$("<SELECT id='new_family_member_relationship' name='new_family_member_relationship'>")
+			.append("<OPTION value=''> " + $.t("fhh_js.select_relationship") + " </OPTION>")
+			.append("<OPTION value='aunt'> " + $.t("fhh_js.aunt") + " </OPTION>")
+			.append("<OPTION value='uncle'> " + $.t("fhh_js.uncle") + " </OPTION>")
+			.append("<OPTION value='daughter'> " + $.t("fhh_js.daughter") + " </OPTION>")
+			.append("<OPTION value='son'> " + $.t("fhh_js.son") + " </OPTION>")
+			.append("<OPTION value='brother'> " + $.t("fhh_js.brother") + " </OPTION>")
+			.append("<OPTION value='sister'> " + $.t("fhh_js.sister") + " </OPTION>")
+			.append("<OPTION value='halfsister'> " + $.t("fhh_js.half_sister") + " </OPTION>")
+			.append("<OPTION value='halfbrother'> " + $.t("fhh_js.half_brother") + " </OPTION>");
+			
+		if (any_relatives(personal_information, 'maternal_aunt') || any_relatives(personal_information, 'maternal_uncle')
+				|| any_relatives(personal_information, 'paternal_aunt') || any_relatives(personal_information,'paternal_uncle')) { 
+			new_family_member_select.append("<OPTION value='cousin'> " + $.t("fhh_js.cousin") + " </OPTION>");
+		}
 	
-	new_family_member_select.on("change", new_family_member_relationship_selection_change_action);
-	new_family_member_dialog.append(new_family_member_select);
+		if (personal_information.brother_0 != null || personal_information.sister_0 != null ||
+			personal_information.maternal_halfbrother_0 != null || personal_information.maternal_halfsister_0 != null ||
+			personal_information.paternal_halfbrother_0 != null || personal_information.paternal_halfsister_0 != null 		
+		) { 
+			new_family_member_select
+				.append("<OPTION value='niece'> " + $.t("fhh_js.niece") + " </OPTION>")
+				.append("<OPTION value='nephew'> " + $.t("fhh_js.nephew") + " </OPTION>");
+		}
+			
+		if (personal_information.son_0 != null || personal_information.daughter_0 != null) { 
+			new_family_member_select
+				.append("<OPTION value='granddaughter'> " + $.t("fhh_js.granddaughter") + " </OPTION>")
+				.append("<OPTION value='grandson'> " + $.t("fhh_js.grandson") + " </OPTION>")
+		}
 		
+		new_family_member_select.on("change", new_family_member_relationship_selection_change_action);
+		new_family_member_dialog.append(new_family_member_select);
+	}		
 }
 
 function new_family_member_relationship_selection_change_action() {
@@ -719,31 +724,34 @@ function add_granddaughter_select(select_dropdown) {
 }
 
 function exact_family_member_relationship_selection_change_action() {
-	relationship = $("#new_family_member_exact_relationship").val();
-	// Overloaded the value with relationship:parent_id
-	parent_id = relationship.split(":")[1];
-	relationship = relationship.split(":")[0];
+	if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
+			$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
+		relationship = $("#new_family_member_exact_relationship").val();
+		// Overloaded the value with relationship:parent_id
+		parent_id = relationship.split(":")[1];
+		relationship = relationship.split(":")[0];
+		
+	//	alert (relationship);
+		// for dynamic relationships, they all have _#, we need to find the first empty one to use
+		
+		if (personal_information == null) {
+			alert("No Personal Information Set yet");
+			return
+		}
+		
+		var i=0;
+		while (personal_information[relationship + "_" + i] != null) i++;
+		
+		current_relationship = relationship + "_" + i;
+	//	alert ("Exact Relationship ID: " + current_relationship);
+		create_new_family_member(current_relationship, relationship, parent_id);
+		family_member_information.relationship = relationship;
 	
-//	alert (relationship);
-	// for dynamic relationships, they all have _#, we need to find the first empty one to use
+		clear_and_set_current_family_member_health_history_dialog(family_member_information);
 	
-	if (personal_information == null) {
-		alert("No Personal Information Set yet");
-		return
-	}
-	
-	var i=0;
-	while (personal_information[relationship + "_" + i] != null) i++;
-	
-	current_relationship = relationship + "_" + i;
-//	alert ("Exact Relationship ID: " + current_relationship);
-	create_new_family_member(current_relationship, relationship, parent_id);
-	family_member_information.relationship = relationship;
-
-	clear_and_set_current_family_member_health_history_dialog(family_member_information);
-	$("#new_family_member_dialog").dialog("close");
-	$( "#update_family_member_health_history_dialog" ).dialog( "open" );
-	
+		$("#new_family_member_dialog").dialog("close");
+		$( "#update_family_member_health_history_dialog").dialog( "open" );
+	}	
 }
 
 function create_new_family_member(current_relationship, relationship, parent_id) {
@@ -1504,9 +1512,12 @@ function add_personal_history_row(table) {
 	update_history_td.append(update_history);
 
 	update_history.on("click", function() { 
-		current_relationship = 'self';
-		clear_and_set_personal_health_history_dialog();
-		$( "#add_personal_information_dialog" ).dialog( "open" );
+		if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
+				$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
+			current_relationship = 'self';
+			clear_and_set_personal_health_history_dialog();
+			$( "#add_personal_information_dialog" ).dialog( "open" );
+		}
 	});		
 
 	new_row.append(update_history_td);
@@ -1551,12 +1562,16 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		update_history.attr("relationship_id", relationship_id);
 
 		update_history.on("click", function(){ 
-			family_member = personal_information[$(this).attr('relationship_id')];
-			current_relationship = $(this).attr('relationship_id');
-			family_member.relationship = relationship_id;
-			
-			clear_and_set_current_family_member_health_history_dialog(family_member);
-			$( "#update_family_member_health_history_dialog" ).dialog( "open" );
+			if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
+					$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
+				family_member = personal_information[$(this).attr('relationship_id')];
+				current_relationship = $(this).attr('relationship_id');
+				family_member.relationship = relationship_id;
+				
+				clear_and_set_current_family_member_health_history_dialog(family_member);
+	
+				$( "#update_family_member_health_history_dialog" ).dialog( "open" );
+			}
 		});
 		
 		new_row.append(update_history_td);
