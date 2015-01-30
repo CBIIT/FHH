@@ -101,34 +101,6 @@ function xmlload() {
     /*
      Get Date
      */
-    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-
-    var currentdate = new Date();
-
-    var day = days[ currentdate.getDay() ];
-    var month = months[ currentdate.getMonth() ];
-    //Date
-    var hours = currentdate.getHours();
-    var hours = (hours+24-2)%24;
-    var mid='AM';
-    if(hours==0){ //At 00 hours we need to show 12 am
-        hours=12;
-    }
-    else if(hours>12){
-        hours=hours%12 + 2;
-        mid='PM';
-    }
-    var thisMinute = currentdate.getMinutes();
-    thisMinute = thisMinute < 10 ? "0"+thisMinute : thisMinute;
-
-    var today =  $.t("fhh_family_pedigree.date_of_report") + ": " +
-        day + ", " + month + " "
-        + currentdate.getDate() + ", "
-        + currentdate.getFullYear() + " "
-        + hours + ":"
-        + thisMinute + " "
-        + mid;
     var options = {weekday: "long", year: "numeric", month: "long", day: "numeric", hour:"numeric",minute:"numeric",hour12:"true"};             
     var today = $.t("fhh_family_pedigree.date_of_report") + ": " + new Date().toLocaleString(lng, options);
 
@@ -1600,8 +1572,7 @@ Already put mother in earlier
         for (var item in value) {
             e = value[0];
             name = value[1];
-
-            if (value.length > 1 && item != 0 && item != 1) temp = temp + '<li>' + value[item] + '</li>';
+            if (value.length > 1 && item != 0 && item != 1) temp = temp + '<li>' + value[item][0] + ',' + $.t("diseases:"+value[item][1]) + '</li>';
             else  temp + '<li> No Disease Report </li>';
         };
 
