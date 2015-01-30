@@ -237,7 +237,7 @@
 		"done": "done",
 		"yes":"Sim",
 		"no":"Não",
-		"unknown":"Desconhecido"			
+		"unknown":"Desconhecido"	
 	},
 
 	"fhh_fhh": {
@@ -618,6 +618,7 @@
 	},
 	"fhh_family_pedigree": {
 		"title":"Exibir Diagrama e Tabela",
+		"date_of_report":"Data do Relatório",		
 		"desc_line1":"Você pode imprimir o seu histórico de saúde da família em uma forma de diagrama e mesa para compartilhar com o seu prestador de cuidados de saúde. Conversando com o seu provedor de cuidados de saúde sobre seu histórico de saúde da família pode ajudá-lo a manter-se saudável!",
 		"desc_line2":"Se você gostaria de mudar a forma como a informação é apresentada abaixo, clique em 'Diagrama e Tabela Opções.' As barras de rolagem inferior e direita são ferramentas de navegação úteis ao visualizar maiores tabelas e diagramas.",
 		"go_to_diagram":"Vá com o diagrama",
@@ -665,8 +666,16 @@
 		"maternal_aunt":"Tia",
 		"maternal_cousin":"Primo",
 		"maternal_halfbrother":"Meio-irmão",
-		"maternal_halfsister":"Meia-irmã"
-
+		"maternal_halfsister":"Meia-irmã",
+		"heart_disease":"doença cardíaca",
+		"stroke":"golpe",
+		"diabetes":"diabetes",
+		"colon_cancer":"câncer de cólon",
+		"breast_cancer":"câncer de mama",
+		"ovarian_cancer":"cancro do ovário",
+		"search":"Pesquisa",
+		"previous":"Anterior",
+		"next":"Next"			
 	},
 	"fhh_export": {
 		"relative_no_name":"Esta relação não tem um nome. Para exportar, as necessidades relativas a ter um nome. Por favor, adicione um nome e tente novamente",
