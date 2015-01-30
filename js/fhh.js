@@ -1926,7 +1926,7 @@ function create_disease_row(row_number, disease_name, disease_detail, age_at_dia
 	if (code != null) {
 		var translated_disease = $.t("diseases:" + code);
 		if (translated_disease.substr(0,9) == "diseases:") translated_disease = disease_detail;
-		new_row.append("<td class='disease_name'>" + translated_disease + "</td>");
+		new_row.append("<td class='disease_name' code='"+code+"'>" + translated_disease + "</td>");
 	} else if (disease_detail != null && disease_detail != 'none') {
 		new_row.append("<td class='disease_name'>" + disease_detail + "</td>");
 	} else {
@@ -1944,14 +1944,15 @@ function create_disease_row(row_number, disease_name, disease_detail, age_at_dia
 }
 
 function remove_disease() {
-	
+
 	var row_number = $(this).attr("row_number");
 	var disease_name = $(this).parent().parent().find(".disease_name").text();
+	var disease_code = $(this).parent().parent().find(".disease_name").attr("code");
 
 	h = current_health_history;
 	
 	for (i=0;i<h.length;i++) {
-		if (disease_name == h[i]["Disease Name"] || disease_name == h[i]["Detailed Disease Name"]) {
+		if (disease_code ==  h[i]["Disease Code"] ||  disease_name == h[i]["Disease Name"] || disease_name == h[i]["Detailed Disease Name"]) {
 			disease_row_number = i; 
 			break;
 		}
