@@ -2220,7 +2220,9 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$('#estimated_death_age_select').val("");
 	if (family_member.is_alive == 'dead') {
 		$("#is_person_alive").val('dead');
-		var cause_of_death = get_disease_name_from_detailed_name(family_member.detailed_cause_of_death);
+
+		var cause_of_death = get_high_level_disease_name_from_disease_code(family_member.cause_of_death_code.split('-')[1]);
+		if (cause_of_death == 'other') cause_of_death = get_disease_name_from_detailed_name(family_member.detailed_cause_of_death);
 		$("#cause_of_death_select").val(cause_of_death);
 		$("#cause_of_death_select").trigger("change");
 		if (family_member.detailed_cause_of_death) {
@@ -2254,6 +2256,10 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 			$('#estimated_age_select').show().val(family_member.estimated_age);
 			$('#age_determination_text').hide();
 			$("#person_is_alive").show();
+			$("#person_is_not_alive").hide();
+		} else {
+			$("#is_person_alive").val('unknown');
+			$("#person_is_alive").hide();
 			$("#person_is_not_alive").hide();
 		}
 	} else {
