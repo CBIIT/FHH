@@ -98,6 +98,7 @@ function IEloadTable() {
      Get Date
      */
     var options = {weekday: "long", year: "numeric", month: "long", day: "numeric", hour:"numeric",minute:"numeric",hour12:"true"};             
+		if (typeof lng == 'undefined') lng = 'en';
     var today = $.t("fhh_family_pedigree.date_of_report") + ": " + new Date().toLocaleString(lng, options);
     mdialog = $(
         '<div id="family_pedigree" style="background-color:white;">' +

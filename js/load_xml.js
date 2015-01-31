@@ -471,8 +471,11 @@ function parse_xml(data) {
 			else relative.cause_of_death_system = cause_of_death_system;
 
 
-
-			relative.cause_of_death = get_disease_name_from_detailed_name(detailed_cause_of_death);
+			relative.cause_of_death = get_high_level_disease_name_from_disease_code(cause_of_death_code);
+			
+			if (relative.cause_of_death == 'other' && typeof detailedDiseaseName != "undefined") 
+				relative.cause_of_death = get_disease_name_from_detailed_name(detailedDiseaseName);
+//			alert (relative.name + "[" + cause_of_death_code + "]:" + relative.cause_of_death);
 			if (cause_of_death_code) {
 				relative.cause_of_death_code = relative.cause_of_death_system + "-" + cause_of_death_code;				
 			} else {
@@ -707,7 +710,7 @@ function parse_xml(data) {
 
 function get_specific_health_issue (relative_name, data) {
 	
-//	alert(relative_name + " " + $(data).attr('displayName'));
+//	alert(relative_name + " " + $(data).attr('displayName'));get_disease_name_from_detailed_name
 	var detailedDiseaseName = $(data).attr('displayName');
 	var diseaseCode = $(data).attr('code');
 	if (typeof diseaseCode == 'string') diseaseCode = diseaseCode.trim();
@@ -715,8 +718,9 @@ function get_specific_health_issue (relative_name, data) {
 	if (diseaseCodeSystem == 'undefined') diseaseCodeSystem = 'SNOMED_CT'; // Default if not found is SNOMED_CT
 	if (diseaseCodeSystem == 'SNOMED COMPLETE') diseaseCodeSystem = 'SNOMED_CT'; // For backwards compatibility
 
-	
-	highLevelDiseaseName = get_disease_name_from_detailed_name(detailedDiseaseName);
+	highLevelDiseaseName = 'other';
+//	highLevelDiseaseName = get_high_level_disease_name_from_disease_code(diseaseCode)
+	if (highLevelDiseaseName == 'other') highLevelDiseaseName = (detailedDiseaseName);
 	if (highLevelDiseaseName == null) highLevelDiseaseName = detailedDiseaseName;
 
 	// Now have to get age at diagnosis
@@ -750,6 +754,18 @@ function get_disease_name_from_detailed_name(detailedDiseaseName) {
 	}
 	return 'other';
 }
+
+function get_high_level_disease_name_from_disease_code(diseaseCode) {
+	var high_level_disease_list = Object.keys(diseases);
+	for (var i=0; i<high_level_disease_list.length;i++) {
+		var detailed_disease_list = diseases[high_level_disease_list[i]];
+		for (var j=0;j<detailed_disease_list.length;j++) {
+			if (detailed_disease_list[j].code == diseaseCode) return high_level_disease_list[i];
+		}
+	}
+	return 'other';
+}
+
 /*
 	if ($.inArray(detailedDiseaseName, disease_list) != -1) {
 		// We have the detailed disease name, now we need the high-level disease name
