@@ -792,11 +792,12 @@ if (personal_information && typeof personal_information != 'undefined'){
 
             if(typeof FAMNAME == 'undefined') {
                 if (fullid != -1) {
-                    FAMNAME = key;
+                    FAMNAME = $.t("fhh_js."+key);
                     RELATION = key.substr(key.indexOf('_') + 1, key.length);
                 }
                 else if (halfid != -1) {
-                    FAMNAME = key;
+                    index = parseInt(key.substring(key.lastIndexOf('_')+1))+1
+                    FAMNAME = $.t("fhh_js." + key.substring(0,key.lastIndexOf('_'))) + ' ' + index
                     RELATION = key.substr(0, key.lastIndexOf('_'));
                 }
             }
@@ -830,8 +831,8 @@ if (personal_information && typeof personal_information != 'undefined'){
                     NAMEREL = RELATION;
                 }
 
-                RELATION = key.substr(0,key.indexOf('_')) + " " + key.substr(key.indexOf('_')+1,key.length);
 
+                RELATION = key.substr(0,key.indexOf('_')) + " " + key.substr(key.indexOf('_')+1,key.length);
 
                 temp1.push(RELATION);
                 temp1.push(NAMEREL);
