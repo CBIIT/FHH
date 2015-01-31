@@ -102,7 +102,6 @@ function IEloadTable() {
     if (lng=='en-US') {
         lng = 'en';
     };      
-    alert(lng);
     var options = {weekday: "long", year: "numeric", month: "long", day: "numeric", hour:"numeric",minute:"numeric",hour12:"true"};             
     var today = $.t("fhh_family_pedigree.date_of_report") + ": " + new Date().toLocaleString(lng, options);
     mdialog = $(
