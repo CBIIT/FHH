@@ -29,9 +29,17 @@ function load_export_downloadify(){
 }
 
 function build_copy_for_family_member_dialog() {
-	give_instructions();
-	relative_select = create_family_member_select();	
-	relative_select.on("change", bind_relative_select_change);
+	give_instructions(); 
+	 
+	var ua = navigator.userAgent.toLowerCase();
+	var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+	if(!isAndroid) {
+		relative_select = create_family_member_select();	
+		relative_select.on("change", bind_relative_select_change);
+	} else {
+		$("#copy_for_family_member").append($("<DIV style='font-size:larger;font-weight:bold;font-style:italic'>")
+			.append("This Feature is not supported on the Android Browser"));
+	}
 }
 
 function bind_relative_select_change() {

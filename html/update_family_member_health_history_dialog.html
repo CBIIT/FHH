@@ -33,7 +33,7 @@
         </tr>
         <tr>
 					<th class="label translate" data-i18n='info_dialog.alive' style='vertical-align:top;'> Is this person still alive </th>
-					<td><label for='is_person_alive'> &nbsp; </label></label><select id='is_person_alive'>
+					<td><label for='is_person_alive'> &nbsp; </label></label><select id='is_person_alive' tabindex="5" >
 						<option></option>
 						<option value='alive' class='translate' data-i18n='info_dialog.yes'>Yes</option>
 						<option value='dead' class='translate' data-i18n='info_dialog.no'>No</option>
@@ -41,23 +41,23 @@
 						</select>
 						<div id='person_is_alive'>
 							<label for='age_determination'> &nbsp; </label>
-							<select id='age_determination'>
+							<select id='age_determination' tabindex="6" >
 								<option value='date_of_birth' class='translate' data-i18n='info_dialog.dob'>Date of Birth</option>
 								<option value='age' class='translate' data-i18n='info_dialog.age'>Age</option>
 								<option value='estimated_age' class='translate' data-i18n='info_dialog.estimated_age'>Estimated Age</option>
 							</select>
 							<label for='age_determination_text'> &nbsp; </label>
-							<INPUT id='age_determination_text' type='text' />
+							<INPUT id='age_determination_text' type='text' tabindex="7" />
 							<label for='estimated_age_select'> &nbsp; </label>
 							<select id='estimated_age_select' ></select>
 						</div>
 						<div id='person_is_not_alive'>
 									<label for='cause_of_death_select'><span class='translate' data-i18n='info_dialog.cause_of_death'>Cause of Death</span></label>
-									<select id='cause_of_death_select' ></select>
+									<select id='cause_of_death_select' tabindex="8" ></select>
 									<label for='detailed_cause_of_death_select'> &nbsp; </label>
-									<select id='detailed_cause_of_death_select' ></select><br/>
+									<select id='detailed_cause_of_death_select' tabindex="9" ></select><br/>
 									<label for='estimated_death_age_select'><span class='translate' data-i18n='info_dialog.age_at_death'>Age at Death</span> </label>
-									<select id='estimated_death_age_select' ></select>
+									<select id='estimated_death_age_select' tabindex="10" ></select>
 						</div>
 					</td>
         </tr>
