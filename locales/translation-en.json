@@ -433,7 +433,8 @@
 		"points":"points",
 		"pounds":"pounds",	
 		"feet":"feet",
-		"inches":"inches",		
+		"inches":"inches",	
+		"centimeters":"centimeters",	
 		"height":"Height",
 		"weight":"Weight",
 		"lbs":"lbs",
@@ -610,6 +611,7 @@
 		"go_to_table":"Go To Table",
 		"print":"Print",
 		"close":"close",
+		"ie_disclaimer":"This feature has been tested and is supported in the following browsers - Internet Explorer 10 and recent versions, Firefox, Chrome, Safari.",		
 		"diagram_options":"Diagram & Table Options",
 		"diagram_options_desc":"You can view, save or print your family health history to share with your health care provider. They can assess your risk for certain diseases, and develop disease prevention strategies that are right for you. You can also share the table with other family members to your your family's disease history. You can change what is shown in the table yourself by selecting from the options below. Please select from the options below what you would like to show on your table.",
 		"diagram_options_disease":"Select a disease or condition to highlight in the table",
@@ -660,7 +662,7 @@
 		"ovarian_cancer":"ovarian cancer",
 		"search":"Search",
 		"previous":"Previous",
-		"next":"Next"			
+		"next":"Next"				
 	},
 	"fhh_export": {
 		"relative_no_name":"This relative does not have a name.  In order to export, the relative needs to have a name.  Please add a name and try again",

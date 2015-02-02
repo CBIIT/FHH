@@ -97,8 +97,12 @@ function IEloadTable() {
     /*
      Get Date
      */
+
+    var lng = window.i18n.lng();
+    if (lng=='en-US') {
+        lng = 'en';
+    };      
     var options = {weekday: "long", year: "numeric", month: "long", day: "numeric", hour:"numeric",minute:"numeric",hour12:"true"};             
-		if (typeof lng == 'undefined') lng = 'en';
     var today = $.t("fhh_family_pedigree.date_of_report") + ": " + new Date().toLocaleString(lng, options);
     mdialog = $(
         '<div id="family_pedigree" style="background-color:white;">' +
@@ -106,29 +110,29 @@ function IEloadTable() {
         '<div id="main" class="">' +
 
 
-        '<h1>View Diagram & Table</h1><br/>'+
+        '<h1>' + $.t("fhh_family_pedigree.title") + '</h1><br/>'+
         '<table class="infolayer">' +
         '<tr><td>' +
-        '<p style="margin-bottom: 1px">' + $.t("fhh_diagram.instructions") + 'You can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!</p><br style="line-height: 0px"/>' +
-        '<p>If you would like to change the way the information below is shown, click "Diagram & Table Options." The bottom and right scroll bars are useful navigation tools when viewing larger tables and diagrams.</p>' +
+        '<p style="margin-bottom: 1px">' + $.t("fhh_family_pedigree.desc_line1") + 'You can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!</p><br style="line-height: 0px"/>' +
+        '<p>' + $.t("fhh_family_pedigree.desc_line2") + '</p>' +
         '</td></tr></table>' +
 
 
-        '<h2> This feature has been tested and is supported in the following browsers - Internet Explorer 10 and recent versions, Firefox, Chrome, Safari. </h2>' +
+        '<h2> ' + $.t("fhh_family_pedigree.ie_disclaimer")+ '</h2>' +
 
         '<div id="dialogtext" style="position: absolute;top: 20px"></div>' +
 
         '<div id="nav" class="sticky">' +
         '<ul>' +
-        '<li><a class="top" onclick="ToTop();return false;" href="#">Go To Diagram</a></li>' +
-        '<li><a class="bottom" onclick="ToTable();return false;" href="#">Go To Table</a></li>' +
-        '<li><a id="printer">Print</a></li>' +
-        '<li><a href="#top" onclick="createDialog()">Diagram & Table Options</a></li>' +
+        '<li><a class="top" onclick="ToTop();return false;" href="#">' + $.t("fhh_family_pedigree.go_to_diagram") + '</a></li>' +
+        '<li><a class="bottom" onclick="ToTable();return false;" href="#">' + $.t("fhh_family_pedigree.go_to_table") + '</a></li>' +
+        '<li><a id="printermain">' + $.t("fhh_family_pedigree.print") + '</a></li>' +
+        '<li><a href="#optionsPanelMan" onclick="createDialogMain()">' + $.t("fhh_family_pedigree.diagram_options") + '</a></li>' +
         '<li>' +
         '</li>' +
         '<li>' +
         '<input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close"' +
-        'type="button"role="button" aria-disabled="false" title="close" value="close" onclick="closedialog()" style="right:50px;width:50px"></input>' +
+        'type="button"role="button" aria-disabled="false" title="close" value="' + $.t("fhh_family_pedigree.close") +'" onclick="closeOther()" style="right:50px;width:50px"></input>' +
         '</li>' +
         '</ul>' +
         '</div>' +
@@ -186,28 +190,35 @@ function IEloadTable() {
                         "searchable": false
                     }
                 ],
-                "aaSortingFixed": [[0, 'desc']]
+                "aaSortingFixed": [[0, 'desc']],
+                "oLanguage": {
+                  "sSearch": $.t("fhh_family_pedigree.search")+':',
+                  "oPaginate": {
+                    "sPrevious": $.t("fhh_family_pedigree.previous"),
+                    "sNext": $.t("fhh_family_pedigree.next")
+                  }                  
+                }                
 
             });
 
             $("div.toolbar").html(
                 '<div id="lightbox">' +
                 '<table width="100%"><tr><td style="width:30%">' +
-                        '<table id="bmi_table" class="htable">' +
-                        '<caption>My Personal Information</caption>' +
-                        '<tr><td id="age">Age:</td></tr>' +
-                        '<tr><td id="height">Height:</td></tr>' +
-                        '<tr><td id="weight">Weight:</td></tr>' +
-                        '<tr><td id="abmi">BMI:</td></tr>' +
-                        '</tr></table>' +
-                    '</td>' +
-                    '<td style="width:70%;left:auto;right:auto">' +
-                        // '<img id="legendtag" src="../static/images/Legend.png"></img>' + 
-                    '</td>' + 
+                '<table id="bmi_table" class="htable">' +
+                '<caption>' + $.t("fhh_family_pedigree.personal_info") + '</caption>' +
+                '<tr><td id="age">' + $.t("fhh_family_pedigree.age") + '</td></tr>' +
+                '<tr><td id="height">' + $.t("fhh_family_pedigree.height") + ' </td></tr>' +
+                '<tr><td id="weight">' + $.t("fhh_family_pedigree.weight") + ' </td></tr>' +
+                '<tr><td id="abmi">' + $.t("fhh_family_pedigree.bmi") + ' </td></tr>' +
+                '</tr></table>' +
+                '</td>' +
+                '<td style="width:70%;left:auto;right:auto">' +
+                '<img id="legendtag" src="../static/images/Legend_' + lng + '.jpg"></img>' +
+                '</td>' +
                 '</tr></table>' +
 
                 '</div>'
-            ); 
+            );
             $('#health_table').css('width',masterRight);
             
             var target = $(this);
@@ -249,18 +260,11 @@ function IEloadTable() {
     }
 
     $(document).ready(function() {
-
- if (personal_information['Health History'] && personal_information['Health History'].length > 0){
-
         $.each(personal_information['Health History'], function (key, item) {
-
-
-            if (key == 'undefined' || key == null) key = "";
             if (item == 'undefined' || item == null) item = "";
-
-
             var dn = item['Disease Name'];
             var details =  item['Disease Code'] ;
+            var diseaseCode = item['Disease Code'];
             if(dn)dn = dn.toLowerCase();
             if(details)details = details;
             if(details=='diseases:null') details = "";
@@ -272,20 +276,14 @@ function IEloadTable() {
             }
         });
 
-    }
-
-if (personal_information && personal_information.length > 0){
-
-
         $.each(personal_information, function (key, item) {
-            if (key == 'undefined' || key == null) key = "";
             if (item == 'undefined' || item == null) item = "";
             if (item.id) {
 
-                if (item['Health History'] && item['Health History'].length > 0){  
                 $.each(item['Health History'], function (k, data) {
                     var dn = data['Disease Name'];
                     var details =  data['Disease Code'];
+                    var diseaseCode = data['Disease Code'];
                     if(dn)dn = dn.toLowerCase();
                     if(details)details = details;
                     if(details=='diseases:null') details = "";
@@ -296,9 +294,11 @@ if (personal_information && personal_information.length > 0){
                     }
                 });
             }
-            }
         });
-}
+
+
+
+
 
         HEADERS = new Array;
         HEADERS.push({"title":'Id'});
@@ -319,12 +319,12 @@ if (personal_information && personal_information.length > 0){
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" class="closeimg" style="border:none"/></a>' + NAME
+            '<img src="../static/images/close.png" class="closeimg"/></a>' + $.t("diseases:"+NAME)
             });
         }
-        window.dA = diseasearray;
         for (var i = 0; i < diseasearray.length; i++) {
-            var NAME = diseasearray[i][0];
+            var NAME = diseasearray[i][1];
+
             var COL = i + 9;
             var DID = 'D_' + COL;
 
@@ -336,7 +336,7 @@ if (personal_information && personal_information.length > 0){
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" class="closeimg" style="border:none"/></a>' + NAME
+            '<img src="../static/images/close.png" class="closeimg"/></a>' + $.t("diseases:"+NAME)
             });
         }
 
@@ -465,8 +465,8 @@ if (personal_information && personal_information.length > 0){
 
 $('#age').text = age;
     $('#age').append($("<span><b></b></span>").text(age));
-    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + height_unit));
-    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + weight_unit));
+    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + $.t("fhh_diabetes_calculator."+height_unit)));
+    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + $.t("fhh_diabetes_calculator."+weight_unit)));
     $('#abmi').append($("<span><b></b></span>").text( BMI));
     
 // }
@@ -793,11 +793,12 @@ if (personal_information && typeof personal_information != 'undefined'){
 
             if(typeof FAMNAME == 'undefined') {
                 if (fullid != -1) {
-                    FAMNAME = key;
+                    FAMNAME = $.t("fhh_js."+key);
                     RELATION = key.substr(key.indexOf('_') + 1, key.length);
                 }
                 else if (halfid != -1) {
-                    FAMNAME = key;
+                    index = parseInt(key.substring(key.lastIndexOf('_')+1))+1
+                    FAMNAME = $.t("fhh_js." + key.substring(0,key.lastIndexOf('_'))) + ' ' + index
                     RELATION = key.substr(0, key.lastIndexOf('_'));
                 }
             }
@@ -831,8 +832,8 @@ if (personal_information && typeof personal_information != 'undefined'){
                     NAMEREL = RELATION;
                 }
 
-                RELATION = key.substr(0,key.indexOf('_')) + " " + key.substr(key.indexOf('_')+1,key.length);
 
+                RELATION = key.substr(0,key.indexOf('_')) + " " + key.substr(key.indexOf('_')+1,key.length);
 
                 temp1.push(RELATION);
                 temp1.push(NAMEREL);
@@ -1828,7 +1829,7 @@ function SetPersonalInfo(){
         $('#age').text($.t("fhh_family_pedigree.age") + ' ' + age);
         // $('#age').append($("<span><b></b></span>").text(age));
     }
-    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + height_unit));
-    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + weight_unit));
+    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + $.t("fhh_diabetes_calculator."+height_unit)));
+    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + $.t("fhh_diabetes_calculator."+weight_unit)));
     $('#abmi').append($("<span><b></b></span>").text( BMI));
 }

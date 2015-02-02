@@ -361,7 +361,6 @@ function xmlload() {
         HEADERS.push({"title":$.t("fhh_js.name_relationship")});
         HEADERS.push({"title":$.t("fhh_js.name_relationship")});
         HEADERS.push({"title":$.t("fhh_js.still_living")});
-        window.da = diseasearray;
         for (var t = 0; t < STATICDISEASES.length; t++) {
             var NAME = STATICDISEASES[t];
             var COL = t + 3;
@@ -582,8 +581,8 @@ function xmlload() {
 
     $('#age').text = age;
     $('#age').append($("<span><b></b></span>").text(age));
-    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + height_unit));
-    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + weight_unit));
+    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + $.t("fhh_diabetes_calculator."+height_unit)));
+    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + $.t("fhh_diabetes_calculator."+weight_unit)));
     $('#abmi').append($("<span><b></b></span>").text( BMI));
 
     //Build health array
@@ -7665,8 +7664,8 @@ function SetPersonalInfo(){
         $('#age').text('Age: ' + age);
         // $('#age').append($("<span><b></b></span>").text(age));
     }
-    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + height_unit));
-    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + weight_unit));
+    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + $.t("fhh_diabetes_calculator."+height_unit)));
+    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + $.t("fhh_diabetes_calculator."+weight_unit)));
     $('#abmi').append($("<span><b></b></span>").text( BMI));
 }
 

@@ -446,7 +446,8 @@
 		"points":"pontos",
 		"pounds":"libras",	
 		"feet":"pés",
-		"inches":"polegadas",		
+		"inches":"polegadas",	
+		"centimeters":"centimetri",	
 		"height":"Altura",
 		"weight":"Peso",
 		"lbs":"libras",
@@ -625,6 +626,7 @@
 		"go_to_table":"Ir para o Índice",
 		"print":"Impressão",
 		"close":"perto",
+		"ie_disclaimer":"Este recurso foi testado e é compatível com os seguintes navegadores - Internet Explorer 10 e versões recentes, Firefox, Chrome, Safari.",
 		"diagram_options":"Diagrama e Tabela Opções",
 		"diagram_options_desc":"Você pode visualizar, salvar ou imprimir o seu histórico de saúde da família para compartilhar com seu prestador de cuidados de saúde. Eles podem avaliar o risco de certas doenças, e desenvolver estratégias de prevenção de doenças que são certo para você. Você também pode compartilhar a mesa com outros membros da família para a história a sua doença de sua família. Você pode mudar o que é mostrado na tabela a si mesmo, selecionando uma das opções abaixo. Por favor, selecione uma das opções abaixo o que você gostaria de mostrar na sua mesa.",
 		"diagram_options_disease":"Escolha de uma doença ou condição para destacar na tabela",
@@ -675,7 +677,7 @@
 		"ovarian_cancer":"cancro do ovário",
 		"search":"Pesquisa",
 		"previous":"Anterior",
-		"next":"Next"			
+		"next":"Next"
 	},
 	"fhh_export": {
 		"relative_no_name":"Esta relação não tem um nome. Para exportar, as necessidades relativas a ter um nome. Por favor, adicione um nome e tente novamente",
