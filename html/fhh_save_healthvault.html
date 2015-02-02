@@ -64,7 +64,8 @@ var doc;
 					var dialog = window.opener.jQuery("#save_personal_history_dialog");
 					dialog.dialog("close");
 					window.close();
-					alert("Failed to save to Health Vault Exception: " + exception.message);
+					console.log("Failed to save to Health Vault Exception: " + exception.message)
+					window.opener.alert("Failed to save to Health Vault.  Please save locally and try again.");
 				}
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -72,7 +73,8 @@ var doc;
 					var dialog = window.opener.jQuery("#save_personal_history_dialog");
 					dialog.dialog("close");
 					window.close();
- 					alert("Failed to save to Health Vault Error: " + XMLHttpRequest.status);
+				  console.log("Failed to save to Health Vault Exception: " + error.message)                                        				
+ 					window.opener.alert("Failed to save to Health Vault.  Please save locally and try again.");
     	}
 	});
 
