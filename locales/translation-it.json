@@ -399,7 +399,7 @@
 		"load_dropbox": "Carica vostre informazioni personali da Dropbox",
 		"load_dropbox_instructions" : "È possibile caricare un file salvato precedentemente da Dropbox, accedendo al proprio account Dropbox e scegliere un file da caricare.",
 		"load_dropbox_button": "Carica da Dropbox",
-		
+		"fail_to_save":"Impossibile salvare Salute Vault. Si prega di salvare in locale e provare di nuovo.",		
 		"save_instructions_title" : "Perché salvare il file storia di salute della famiglia?",
 		"save_instructions" : "Per rispettare i singoli problemi di privacy, questo sito non salva le informazioni di storia di salute della famiglia. Tuttavia, è possibile salvare la vostra storia di salute della famiglia alla propria area di stoccaggio locale (come il disco rigido del computer, un CD-ROM o chiavetta USB). Inoltre, è possibile salvare un sistema di terze parti come Microsoft HealthVault, Google Drive e Dropbox (altri sistemi di terze parti saranno aggiunti in futuro). Alcuni ospedali e studi medici saranno in grado di ottenere queste informazioni storia di salute della famiglia memorizzato con un sistema di terze parti, se si concede loro il permesso, e direttamente integrare la vostra storia di salute della famiglia in una cartella clinica elettronica.",
 		"save_to_file": "salvare le informazioni personali in un file",

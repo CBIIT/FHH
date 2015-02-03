@@ -405,6 +405,7 @@
 		"save_dropbox" : "Save Your Personal Information to Dropbox",
 		"save_dropbox_instructions" : "You can save a file to Dropbox by signing into your dropbox account and picking a location to save and naming the file.",
 		"save_dropbox_button" : "Save to Dropbox",
+		"fail_to_save":"Failed to save to Health Vault. Please save locally and try again.",		
 		"disclaimer" : "When you choose to copy your family health history information to any third party system, please note that your information will be retained in that system, and will be subject to the terms of use and privacy policy of that system.",
 
 		"detailed_instructions":"Detailed file opening instructions",

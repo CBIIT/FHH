@@ -415,6 +415,7 @@
 		"save_dropbox" : "Guarde su información personal a Dropbox",
 		"save_dropbox_instructions" : "Puede guardar un archivo en Dropbox accediendo a su cuenta de Dropbox y recogiendo una ubicación para guardar y nombrar el archivo.",
 		"save_dropbox_button" : "Guardar en Dropbox",
+		"fail_to_save":"No pude salvar a la Salud Vault. Por favor, guarde localmente y vuelva a intentarlo.",		
 		"disclaimer" : "Quando você optar por copiar suas informações de história da saúde da família para qualquer sistema de terceiros, por favor note que suas informações serão mantidas nesse sistema, e estará sujeito aos termos de uso ea política de privacidade desse sistema.",
 
 		"detailed_instructions":"Instrucciones de abrir archivos detallados",

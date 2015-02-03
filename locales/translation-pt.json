@@ -402,7 +402,7 @@
 		"load_dropbox": "Baixar de suas informações pessoais a partir Dropbox",
 		"load_dropbox_instructions" : "Você pode carregar um arquivo de pré-salvos do Dropbox, por meio da assinatura em sua conta Dropbox e escolher um arquivo para carregar.",
 		"load_dropbox_button": "Baixar de Dropbox",
-		
+		"fail_to_save":"Falha ao salvar a Health Vault . Por favor, salve localmente e tente novamente.",		
 		"save_instructions_title" : "Por que salvar o seu arquivo de histórico de saúde da família?",
 		"save_instructions" : "Para respeitar interesses individuais de privacidade, este website não salva suas informações de história da saúde da família. No entanto, você pode salvar o seu histórico de saúde da família para a sua própria área de armazenamento local (como o disco rígido do seu computador, um CD-ROM ou pen drive USB). Além disso, você pode salvar em um sistema de terceiros como o Microsoft HealthVault, Google Drive, Dropbox e (outros sistemas de terceiros serão adicionados no futuro). Alguns hospitais e consultórios médicos serão capazes de obter essa informação histórico de saúde da família armazenadas com um sistema de terceiros, se você conceder-lhes permissão, e directamente incorporar seu histórico de saúde da família em um prontuário eletrônico.",
 		"save_to_file": "Salvar suas informações pessoais a um arquivo",
