@@ -601,10 +601,10 @@ $('#age').text = age;
             <!-- PRINT STARTS HERE -->
              if(DISPLAY != 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
                 + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
-                + '<p>My Family Health Portrait-Diagram</p>'
+                + '<p>' + $.t("fhh_family_pedigree.page_title") + '</p>'
                 + $(topsvgc).html()
                         + '<DIV style="page-break-after:always"></DIV>'
                 + $(healthtable).html()
@@ -614,7 +614,7 @@ $('#age').text = age;
             }
              else if(DISPLAY == 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
                 + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
                 // + '<p>My Family Health Portrait-Diagram</p>'
