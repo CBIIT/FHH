@@ -234,7 +234,8 @@
 		"done": "fatto",
 		"yes":"Sì",
 		"no":"No",	
-		"unknown":"Sconosciuto"
+		"unknown":"Sconosciuto",
+		"android":"Questa funzione non è supportata sul Browser Android"		
 	},
 
 	"fhh_fhh": {

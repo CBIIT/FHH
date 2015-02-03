@@ -229,7 +229,8 @@
 		"done" : "done",
 		"yes":"Yes",
 		"no":"No",
-		"unknown":"Unknown"
+		"unknown":"Unknown",
+		"android":"This Feature is not supported on the Android Browser"
 
 	},
 	

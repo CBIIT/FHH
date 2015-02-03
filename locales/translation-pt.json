@@ -237,7 +237,8 @@
 		"done": "done",
 		"yes":"Sim",
 		"no":"Não",
-		"unknown":"Desconhecido"	
+		"unknown":"Desconhecido",
+		"android":"Esse recurso não é suportado no navegador Android"		
 	},
 
 	"fhh_fhh": {
