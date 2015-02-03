@@ -6861,7 +6861,7 @@ function createDialogMain() {
                             var detdisname = data['Disease Code'];
                             if(detdisname=='diseases:null') detdisname = null;
                             if (detdisname == null) thename = disname;
-                            else thename = detdisname;
+                            else thename = disname;
                             if ($.inArray(thename, allnames) == -1) {
                                 allnames.push(thename);
                                 array.push("<option id=" + disname + " value='" + detdisname + "'>" + thename + "</option>")
