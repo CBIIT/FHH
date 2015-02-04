@@ -364,6 +364,15 @@ function start()
 		width:600
 	});	
 
+	$("#personal_help_dialog").load ("personal-help.html", function () {});
+	$("#personal_help_dialog").dialog({
+		title:$.t("fhh_js.add_help_dialog_title"), 
+		position:['middle',0],
+		autoOpen: false,
+		height:'auto',
+		width:600
+	});		
+
 	$("#load_help_dialog").load ("load-help.html", function () {});
 	$("#load_help_dialog").dialog({
 		title:$.t("fhh_js.load_help_dialog_title"), 
@@ -995,7 +1004,7 @@ function bind_personal_cancel_button_action () {
 
 function bind_personal_help_button_action () {
 	$("#add-help").on("click", function(){ 
-		$("#update_help_dialog").dialog("open");
+		$("#personal_help_dialog").dialog("open");
 	});
 }
 
