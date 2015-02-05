@@ -921,7 +921,7 @@ function get_age_values_from_estimated_age(age_at_diagnosis) {
 		case "newborn": return {unit:"day", low:"0", high:"28"};
 		case "infant": return {unit:"day", low:"29", high:"729"};
 		case "child": return {unit:"year", low:"2", high:"10"};
-		case "teen": return {unit:"year", low:"11", high:"19"};
+		case "teen": return {unit:"year", low:"10", high:"19"};
 		case "twenties": return {unit:"year", low:"20", high:"29"};
 		case "thirties": return {unit:"year", low:"30", high:"39"};
 		case "fourties": return {unit:"year", low:"40", high:"49"};

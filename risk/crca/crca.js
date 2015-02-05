@@ -303,6 +303,11 @@ function test_immediate_family_members_polyps() {
 
 function test_secondary_family_members_cancer() {
 
+  // Because this test requires 2 or more people, we need to keep track of the person with the positive condition to make
+  // sure we do not double count them
+
+	var relative_with_condition = "";
+	
 	var risk = false;
 	var count = 0;
 	risk_reason = "";
@@ -323,20 +328,26 @@ function test_secondary_family_members_cancer() {
 						if (h[i]['Disease Code'] == 'SNOMED_CT-363406005') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk1") + "<br />";
-							count++;
-							break;  // We do not need to check this person anyore
+							if (relative_with_condition != key) {
+								count++;
+								relative_with_condition = key;
+							}
 						}
 						if (h[i]['Disease Code'] == 'SNOMED_CT-1000001') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk2") + "<br />";
-							count++;
-							break;  // We do not need to check this person anyore
+							if (relative_with_condition != key) {
+								count++;
+								relative_with_condition = key;
+							}
 						}
 						if (h[i]['Disease Code'] == 'SNOMED_CT-254582000') {
 							name = get_name_or_relationship(this.name, key);
 							risk_reason += name + " " + $.t("fhh_colorectal_calculator.secondary_family_members_cancer_risk3") + "<br />";
-							count++;
-							break;  // We do not need to check this person anyore
+							if (relative_with_condition != key) {
+								count++;
+								relative_with_condition = key;
+							}
 						}
 					}
 				}
