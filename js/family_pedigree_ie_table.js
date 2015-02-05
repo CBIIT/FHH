@@ -601,10 +601,10 @@ $('#age').text = age;
             <!-- PRINT STARTS HERE -->
              if(DISPLAY != 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
                 + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
-                + '<p>My Family Health Portrait-Diagram</p>'
+                + '<p>' + $.t("fhh_family_pedigree.page_title") + '</p>'
                 + $(topsvgc).html()
                         + '<DIV style="page-break-after:always"></DIV>'
                 + $(healthtable).html()
@@ -614,7 +614,7 @@ $('#age').text = age;
             }
              else if(DISPLAY == 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
                 + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
                 // + '<p>My Family Health Portrait-Diagram</p>'
@@ -986,13 +986,13 @@ if (personal_information && typeof personal_information != 'undefined'){
             $('#closed_table tr').append('<td>' +
             '<span id="closedtitle" style="font-weight:bold;background-color: white; color: black; padding-right:25px;">Hidden Diseases:  </span>' +
             '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: darkslategrey;color: white;border: none;padding-right: 25px;cursor:pointer">' +
-            '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + NAME + '</button>' +
+            '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + $.t("diseases:"+NAME) + '</button>' +
             '</td>');
         }
         else{
             $('#closed_table tr').append('<td>' +
             '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: darkslategrey;color: white;border: none;padding-right: 25px;cursor:pointer">' +
-            '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + NAME + '</button>' +
+            '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + $.t("diseases:"+NAME) + '</button>' +
             '</button>' +
             '</td>');
 
@@ -1138,7 +1138,7 @@ if (personal_information && personal_information.length > 0){
                                 var detdisname = data['Disease Code'];
                                 if(detdisname=='diseases:null') detdisname = null;
                                 if (detdisname == null) thename = disname;
-                                else thename = detdisname;
+                                else thename = disname;
                                 if ($.inArray(thename, allnames) == -1) {
                                     allnames.push(thename);
                                     array.push("<option id=" + disname + " value='" + detdisname + "'>" + thename + "</option>")
