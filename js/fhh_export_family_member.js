@@ -38,7 +38,7 @@ function build_copy_for_family_member_dialog() {
 		relative_select.on("change", bind_relative_select_change);
 	} else {
 		$("#copy_for_family_member").append($("<DIV style='font-size:larger;font-weight:bold;font-style:italic'>")
-			.append($.t("fhh_js.android"));
+			.append($.t("fhh_js.android")));
 	}
 }
 
