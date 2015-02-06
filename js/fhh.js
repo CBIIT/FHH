@@ -425,7 +425,7 @@ function start()
 	// Hide or show the right initial buttons
 	$("#create_new_personal_history_button").show().on("click", bind_create_new_personal_history_button_action);
 	$("#save_personal_history_button").show().on("click", bind_save_personal_history_button_action);
-	$("#add_another_family_member_button").hide().on("click", bind_add_another_family_member_button_action);
+	$("#add_another_family_member_button").show().on("click", bind_add_another_family_member_button_action);
 	$("#save_family_history_button").hide();
 //	$("#view_diagram_and_table_button").show().on("click", bind_view_diagram_and_table_button_action);
 //    $("#view_diagram_and_table_button").show().on("click",  readtable());

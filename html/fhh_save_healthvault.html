@@ -32,7 +32,7 @@ var doc;
 	var wc_info = info.substr(info.indexOf("wctoken=", info)+8);
 	
 	doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
-	personal_information = opener.personal_information;
+	personal_information = JSON.parse(window.localStorage.getItem("pi"));
 
 	var xmlData = opener.output_string;
 

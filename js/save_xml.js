@@ -237,6 +237,7 @@ function bind_save_heath_vault() {
 				+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE%26redirect=" 
 				+ protocol + "//" + hostname + "/FHH/html/fhh_save_healthvault.html"			
 		}
+		window.localStorage.setItem("pi", JSON.stringify(personal_information));
 		window.open(url_w_params, "", "width=1000, height=600, scrollbars=yes");
 	});
 	$("#save_to_healthvault").append(button);
