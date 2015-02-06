@@ -248,7 +248,7 @@ function 	bind_load_health_vault() {
 	var hostname = window.location.hostname;
 	
 	button.on("click", function () {
-		window.localStorage.setItem("pi", "");
+		window.localStorage.removeItem("pi");
 		var url_w_params
 		if (FHH_SITE_PORT > 0) {
 			url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
@@ -261,7 +261,7 @@ function 	bind_load_health_vault() {
 		}
 		var child = window.open(url_w_params, "", "width=1200, height=800, scrollbars=yes");
 		timer = setInterval(function(){
-			var ls = window.localStorage.getItem("pi");
+			var ls = window.localStorage.getItem("pi"); 
 			var d = JSON.parse(ls);
 			if (ls != null && ls != "" && d != null) {
 				personal_information = d;

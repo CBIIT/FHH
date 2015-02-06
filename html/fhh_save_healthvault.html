@@ -34,7 +34,6 @@ var doc;
 	doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
 	personal_information = JSON.parse(window.localStorage.getItem("pi"));
 
-//	var xmlData = opener.output_string;
 	var xmlData = window.localStorage.getItem("outputString")
 
 	var jsonData = {"authToken" : wc_info, "xmlData" : xmlData};
@@ -56,26 +55,18 @@ var doc;
 	    type       : 'POST',
 	    success: function () {
         try {
-					var ele = opener.document.getElementById("save_personal_history_dialog");
-					var dialog = window.opener.jQuery("#save_personal_history_dialog");
-					dialog.dialog("close");
+        	window.localStorage.setItem("HV Status", "Success");
 					window.close();
 				} catch (exception) {
-					var ele = opener.document.getElementById("save_personal_history_dialog");
-					var dialog = window.opener.jQuery("#save_personal_history_dialog");
-					dialog.dialog("close");
-					window.close();
+       		window.localStorage.setItem("HV Status", "Failed");
 					console.log("Failed to save to Health Vault Exception: " + exception.message)
-					window.opener.alert($.t("fhh_load_save.fail_to_save"));
+					window.close();
 				}
       },
       error: function (XMLHttpRequest, textStatus, errorThrown) {
-					var ele = opener.document.getElementById("save_personal_history_dialog");
-					var dialog = window.opener.jQuery("#save_personal_history_dialog");
-					dialog.dialog("close");
+       		window.localStorage.setItem("HV Status", "Failed");
+				  console.log("Failed to save to Health Vault Exception: " + errorThrown.message)                                        				
 					window.close();
-				  console.log("Failed to save to Health Vault Exception: " + error.message)                                        				
- 					window.opener.alert($.t("fhh_load_save.fail_to_save"));
     	}
 	});
 

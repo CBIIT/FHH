@@ -225,7 +225,9 @@ function bind_save_heath_vault() {
 		var hostname = window.location.hostname;
 		
 		output_string = get_xml_string();
-
+		window.localStorage.setItem("outputString", output_string);
+		window.localStorage.setItem("HV Status", "");
+		
 
 		var url_w_params;
 		if (FHH_SITE_PORT > 0) {
@@ -237,8 +239,21 @@ function bind_save_heath_vault() {
 				+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE%26redirect=" 
 				+ protocol + "//" + hostname + "/FHH/html/fhh_save_healthvault.html"			
 		}
-		window.localStorage.setItem("outputString", output_string);
 		window.open(url_w_params, "", "width=1000, height=600, scrollbars=yes");
+		timer = setInterval(function(){
+			var st = window.localStorage.getItem("HV Status");
+			console.log("Checking status of save: " + st);
+			if (st != null && st != "") {
+				$("#save_personal_history_dialog").dialog("close");
+				if (st == "Failed") {
+					alert($.t("fhh_load_save.fail_to_save"));
+				} 
+				clearInterval(timer);
+			} 
+		},2000);
+
+
+
 	});
 	$("#save_to_healthvault").append(button);
 
