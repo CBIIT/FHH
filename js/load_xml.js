@@ -259,18 +259,17 @@ function 	bind_load_health_vault() {
 				+ HEATH_VAULT_APP_KEY + "%26actionqs=LOAD%26redirect=" 
 				+ protocol + "//" + hostname + "/FHH/html/fhh_load_healthvault.html"			
 		}
-		var child = window.open(url_w_params, "", "width=1000, height=600, scrollbars=yes");
-		
+		var child = window.open(url_w_params, "", "width=1200, height=800, scrollbars=yes");
 		timer = setInterval(function(){
-			if (child.d != null) {
-				personal_information = child.d;
+			var d = JSON.parse(window.localStorage.getItem("pi"));
+			if (d != null) {
+				personal_information = d;
 				build_family_history_data_table();
 				$("#add_another_family_member_button").show();
 				$("#load_personal_history_dialog").parent().hide();
-				child.close();
 				clearInterval(timer);
 			}
-		},2000);		
+		},2000);
 	});
 	
 	$("#load_from_healthvault").append(button);			

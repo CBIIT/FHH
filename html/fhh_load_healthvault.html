@@ -54,7 +54,7 @@ var d;
 // The below function does a deep copy of the data object.  This is needed to support IE10 and health Vault.  
 // When window closes is IE, it deletes all its data, by doing a deep copy the data stays on the opener window.
 
-					d = data;
+					 window.localStorage.setItem("pi",JSON.stringify(data));
 //					window.opener.set_pi_information(data);
 //					window.opener.personal_information = data;
 //					opener.build_family_history_data_table();
@@ -62,7 +62,7 @@ var d;
 
 //					var ele = opener.document.getElementById("load_personal_history_dialog");
 //					$(ele).parent().hide();
-//					window.close();
+					window.close();
 				} catch (exception) {
 					$("#info").append("<P>Error: " + exception.message + "</P>");
 					$("#info").append("<P>Closing this window in 5 seconds</P>");
