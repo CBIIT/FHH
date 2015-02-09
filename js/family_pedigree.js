@@ -6835,14 +6835,14 @@ function createDialogMain() {
 
             var thename, temp;
             var disname = data['Disease Name'];
-            var detdisname = data['Disease Code'];
+            var detdisname = $.t("diseases:" + data['Disease Code']);
             if(detdisname=='diseases:null') detdisname = null;
             if (detdisname == null) thename = disname;
-            else thename = disname;
-
+            else thename = detdisname;
+//						console.log("P->DN:[" + disname +  "]DDN[" + detdisname + "]DC[" + data['Disease Code'] + "]--> [" + thename + "]");
             if ($.inArray(thename, allnames) == -1) {
                 allnames.push(thename);
-                array.push("<option id=" + disname + " value='" + detdisname + "'>" + thename + "</option>")
+                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "'>" + thename + "</option>")
             }
         });
 
@@ -6858,13 +6858,14 @@ function createDialogMain() {
                         $.each(health, function (k, data) {
                             var thename, temp;
                             var disname = data['Disease Name'];
-                            var detdisname = data['Disease Code'];
+                            var detdisname = $.t("diseases:" + data['Disease Code']);
                             if(detdisname=='diseases:null') detdisname = null;
                             if (detdisname == null) thename = disname;
-                            else thename = disname;
+                            else thename = detdisname;
+//														console.log("R->DN:[" + disname +  "]DDN[" + detdisname + "]DC[" + data['Disease Code'] + "]--> [" + thename + "]");
                             if ($.inArray(thename, allnames) == -1) {
                                 allnames.push(thename);
-                                array.push("<option id=" + disname + " value='" + detdisname + "'>" + thename + "</option>")
+                                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "'>" + thename + "</option>")
                             }
                         });
                     }
@@ -6938,59 +6939,48 @@ function DiseaseDna(){
     var selectBox = document.getElementById("diseaseopts");
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
     var found = false;
-
+		console.log( "<<<" + selectedValue + ">>>");
     /**
      * Me values
      */
     // Fixed below code to fix yellow and blue combinations
+    var ID = 'me';
     $.each(personal_information['Health History'], function (k, data) {
         if(typeof data !='undefined') {
-            var ID = 'me';
-            var health = new Array();
-            health = data;
-            $('#' + ID).attr({fill: 'slateblue', stroke: 'black'});
-            $.each(health, function (t, value) {
-                if (selectedValue == value) {
-                    $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
-                    //found = value;
-                    found = true;
-                    return false;
-                }
-                /*
-                else if (selectedValue == value) {
-                    $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
-                    found = value;
-                } */
-            });
-        }
-        if (found == true)
-           return false;
-    });
-
-
-    $.each(personal_information, function (key, item) {
-        if(typeof item !='undefined') {
-            var ID = item.id;
-            if (typeof ID != 'undefined') {
-                $('#' + ID).attr({fill: 'silver'}); //added to reset to silver when onchange comes
-                if (item['Health History']) {
-                    var health = new Array();
-                    health = item['Health History'];
-                    $.each(health, function (k, data) {
-
-                        var detdisname = data['Disease Code'];
-                        var disname = data['Disease Name'];
-
-                        if (selectedValue == detdisname) {
-                            $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
-                        }
-                        else if (selectedValue == disname) {
-                            $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
-                        }
-                    });
-                }
+						console.log("Testing: " + data["Disease Code"] + "==" + selectedValue);
+						if (selectedValue == data["Disease Code"]) {
+              $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
+              found = true;
             }
         }
+    });
+
+    if (found != true) {
+			$('#' + ID).attr({fill: 'slateblue', stroke: 'black'});
+    }
+
+		found = false;
+    $.each(personal_information, function (key, item) {
+        if(item != null && typeof item != 'undefined' && typeof item.id !='undefined') {
+            var ID = item.id;
+            if (typeof ID != 'undefined') {
+								var hh = item['Health History'];
+								$.each(hh, function (health_key, disease) {
+//									console.log("Testing["+item.name+"]: " + disease["Disease Code"] + "==" + selectedValue);
+									
+									if (selectedValue == disease["Disease Code"]) {
+// 										console.log("HIT: " + ID);
+										found = true;
+ 										$('#' + ID).attr({fill: 'yellow', stroke: 'black'});			
+									}
+								});
+								if (found != true) {
+									$('#' + ID).attr({fill: 'silver', stroke: 'black'});
+								}
+            }
+        }
+
+
     });
 
 }
