@@ -6560,7 +6560,7 @@ function LOAD_HEALTH_TABLE(){
                 if(typeof item.estimated_death_age!= 'undefined' || item.estimated_death_age!= null) EST=item.estimated_death_age;
 
                 if (typeof item.cause_of_death!= 'undefined'){
-                    COD = $.t("fhh_js.no") + ', ' + item.cause_of_death + '(' + EST +')';
+                    COD = $.t("fhh_js.no") + ', ' + $.t("diseases:"+item.cause_of_death_code) + '(' + EST +')';
                 }
                 else if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
                     COD = $.t("fhh_js.unknown");
@@ -6569,7 +6569,7 @@ function LOAD_HEALTH_TABLE(){
                     COD = $.t("fhh_js.yes");
                 }
                 else{
-                    COD = $.t("fhh_js.no") + ', ' + item.cause_of_death  + '(' + EST +')';;
+                    COD = $.t("fhh_js.no") + ', ' + $.t("diseases:"+item.cause_of_death_code)  + '(' + EST +')';;
                 }
 
                 var START_COD = new Array();
