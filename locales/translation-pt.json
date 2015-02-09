@@ -628,7 +628,9 @@
 		"secondary_family_members_uterine_cancer_risk3":"São precisos dois ou mais de seus parentes secundárias para acionar este teste: ",
 		"secondary_family_members_uterine_cancer_risk4":"São precisos dois ou mais de seus parentes secundárias para acionar este teste: ",
 		"final_risk1":"Tem, pelo menos, um dos factores de risco acima. Com base neste seu risco de câncer colorretal é aumentada.",
-		"final_risk2":"Você tem nenhum dos riscos acima. Portanto, o seu risco de câncer colorretal é média"
+		"final_risk2":"Você tem nenhum dos riscos acima. Portanto, o seu risco de câncer colorretal é média",
+		"additional_info":"Información adicional acerca de la prueba se puede encontrar en: Feero WG et al. Validação preliminar de uma ferramenta de avaliação de risco de câncer colorretal orientada para o consumidor compatível com o retrato de os o cirurgião-geral dos EUA meu retrato de saúde da família [Preliminary validation of a consumer-oriented colorectal cancer risk assessment tool compatible with the US Surgeon General's My Family Health Portrait]. Genet Med. 2014 Dec 18. doi: 10.1038/gim.2014.179. http://www.ncbi.nlm.nih.gov/pubmed/25521335"
+		
 	},
 	"fhh_family_pedigree": {
 		"title":"Exibir Diagrama e Tabela",

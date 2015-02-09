@@ -624,7 +624,9 @@
 		"secondary_family_members_uterine_cancer_risk3":"Ci vogliono due o più dei vostri parenti secondarie per attivare questo test: ",
 		"secondary_family_members_uterine_cancer_risk4":"Ci vogliono due o più dei vostri parenti secondarie per attivare questo test: ",
 		"final_risk1":"Avete almeno uno dei fattori di rischio di cui sopra . Sulla base di questo il rischio di cancro del colon-retto aumenta.",
-		"final_risk2":"Avete nessuno dei rischi di cui sopra. Pertanto il rischio di cancro del colon-retto è nella media"
+		"final_risk2":"Avete nessuno dei rischi di cui sopra. Pertanto il rischio di cancro del colon-retto è nella media",
+		"additional_info":"Ulteriori informazioni sul test può essere trovato in: Feero WG et al. Validazione preliminare di uno strumento di valutazione del rischio di cancro del colon-retto consumer-oriented compatibile con la mia famiglia ritratto salute chirurgo generale degli Stati Uniti [Preliminary validation of a consumer-oriented colorectal cancer risk assessment tool compatible with the US Surgeon General's My Family Health Portrait]. Genet Med. 2014 Dec 18. doi: 10.1038/gim.2014.179. http://www.ncbi.nlm.nih.gov/pubmed/25521335"
+
 	},
 	"fhh_family_pedigree": {
 		"title":"Vista Diagramma & Tavola",

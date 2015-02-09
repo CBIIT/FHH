@@ -614,7 +614,10 @@
 		"secondary_family_members_uterine_cancer_risk3":"It takes two or more of your secondary relatives to trigger this test: ",
 		"secondary_family_members_uterine_cancer_risk4":"It takes two or more of your secondary relatives to trigger this test: ",
 		"final_risk1":"You have at least one of the above risk factors.  Based on this your risk of colorectal cancer is increased.",
-		"final_risk2":"You have none of the above risks.  Therefore your risk of colorectal cancer is average"
+		"final_risk2":"You have none of the above risks.  Therefore your risk of colorectal cancer is average",
+		"additional_info":"Additional information about the test can be found in: Feero WG et al. Preliminary validation of a consumer-oriented colorectal cancer risk assessment tool compatible with the US Surgeon General's My Family Health Portrait. Genet Med. 2014 Dec 18. doi: 10.1038/gim.2014.179. http://www.ncbi.nlm.nih.gov/pubmed/25521335"
+		
+
 	},
 	"fhh_family_pedigree": {
 		"title":"View Diagram & Table",
