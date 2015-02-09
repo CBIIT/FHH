@@ -4,6 +4,7 @@
 		{"name":"Brain Cancer","abbr":"BrC","code":"1000000","system":"SNOMED_CT"},
 		{"name":"Breast Cancer","abbr":"BrC","code":"254837009","system":"SNOMED_CT"},
 		{"name":"Colon Cancer","abbr":"ColC","code":"363406005","system":"SNOMED_CT"},
+		{"name":"Colon Polyp","abbr":"GI","code":"68496003","system":"SNOMED_CT"},
 		{"name":"Colorectal Cancer","abbr":"CrC","code":"1000001","system":"SNOMED_CT"},
 		{"name":"Esophageal Cancer","abbr":"EsC","code":"363402007","system":"SNOMED_CT"},
 		{"name":"Familial adnenomatous polyposis (FAP)","abbr":"FAP","code":"72900001","system":"SNOMED_CT"},
