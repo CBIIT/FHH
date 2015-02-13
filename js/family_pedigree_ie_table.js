@@ -726,6 +726,8 @@ function LOAD_HEALTH_TABLE(){
             var tmp = item['Disease Name'];
             var details = item['Disease Code'];
             var diagage =  item['Age At Diagnosis'] ;
+            if (diagage == null) diagage = 'unknown';
+            
             if(tmp)tmp = tmp.toLowerCase();
             if(details)details=details;
             if(details=='diseases:null') details = "";

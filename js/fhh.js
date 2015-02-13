@@ -1140,17 +1140,19 @@ function bind_family_member_submit_button_action () {
 				if (cause_of_death_code != null && cause_of_death_code != "") {
 					detailed_cause_of_death = $.t($('#detailed_cause_of_death_select').val());
 				} else {
+					cause_of_death_code = "SNOMED_CT-OTHER";
 					if ($("#new_disease_name").val() != "") detailed_cause_of_death = $("#new_disease_name").val();
 		 			else detailed_cause_of_death = cause_of_death;
 				}
 				var estimated_death_age = $('#estimated_death_age_select').val();
-				if (estimated_death_age == 'not_picked') estimated_death_age = 'unknown';
+				if (estimated_death_age == null || estimated_death_age == 'not_picked' || estimated_death_age == '') 
+					estimated_death_age = 'unknown';
 				
 				family_member_information['cause_of_death'] = cause_of_death;
 				if (cause_of_death == 'other') family_member_information['detailed_cause_of_death'] = $("#new_disease_name").val();
 				else family_member_information['detailed_cause_of_death'] = $.t("diseases:" + cause_of_death_code);
 				family_member_information['estimated_death_age'] = estimated_death_age;			
-				family_member_information['cause_of_death_code'] = detailed_cause_of_death;	
+				family_member_information['cause_of_death_code'] = cause_of_death_code;	
 				
 				// Check to see if the cause of death code is already in history.
 				
