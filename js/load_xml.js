@@ -482,17 +482,18 @@ function parse_xml(data) {
 			else relative.cause_of_death_system = cause_of_death_system;
 
 
-			relative.cause_of_death = get_high_level_disease_name_from_disease_code(cause_of_death_code);
-			
-			if (relative.cause_of_death == 'other' && typeof detailedDiseaseName != "undefined") 
-				relative.cause_of_death = get_disease_name_from_detailed_name(detailedDiseaseName);
+
 //			alert (relative.name + "[" + cause_of_death_code + "]:" + relative.cause_of_death);
 			if (cause_of_death_code) {
 				relative.cause_of_death_code = relative.cause_of_death_system + "-" + cause_of_death_code;				
 			} else {
 				relative.cause_of_death_code = relative.cause_of_death_system + "-" + get_disease_code_from_detailed_disease(detailed_cause_of_death);
 			}
-			
+	
+			relative.cause_of_death = get_high_level_disease_name_from_disease_code(cause_of_death_code);			
+			if (relative.cause_of_death == 'other' && typeof detailedDiseaseName != "undefined") 
+				relative.cause_of_death = get_disease_name_from_detailed_name(detailedDiseaseName);
+				
 			if (relative.detailed_cause_of_death != detailed_cause_of_death) relative.detailed_cause_of_death = detailed_cause_of_death;
 			relative.estimated_death_age = death_age;
 		}

@@ -306,7 +306,7 @@ function add_personal_information(patient_tag, pi) {
 			pi.weight_unit,
 			pi.consanguinity,
 			pi["Health History"],
-			null,
+			null, null,
 			pi.twin_status,
 			pi.adopted,
 			pi.physically_active
@@ -496,7 +496,7 @@ function add_clinical_observations(tag,
 		weight, weight_unit, 
 		consanguinity, 
 		diseases, 
-		cause_of_death,
+		cause_of_death_code, cause_of_death,
 		twin_status,
 		adopted_flag, 
 		active_flag) 
@@ -512,7 +512,7 @@ function add_clinical_observations(tag,
 	add_weight(subjectOfTwo_tag, weight, weight_unit);
 	add_consanguinity(subjectOfTwo_tag, consanguinity);
 	add_diseases(subjectOfTwo_tag, diseases);
-	add_cause_of_death(subjectOfTwo_tag, cause_of_death);
+	add_cause_of_death(subjectOfTwo_tag, cause_of_death_code, cause_of_death);
 }
 
 function add_twin_tag(tag, twin_status) {
@@ -703,7 +703,7 @@ function add_death_age(tag, estimated_death_age) {
 	
 }
 
-function add_cause_of_death(tag, cause_of_death) {
+function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 	if (cause_of_death == null) return;
 
 	var observation_tag = doc.createElement("clinicalObservation");
@@ -713,7 +713,12 @@ function add_cause_of_death(tag, cause_of_death) {
 	code_tag.setAttribute("displayName", cause_of_death);
 	code_tag.setAttribute("originalText", cause_of_death);
 	code_tag.setAttribute("codeSystemName", "SNOMED_CT");
-	var cause_of_death_code = get_disease_code_from_detailed_disease(cause_of_death);
+//	var cause_of_death_code = get_disease_code_from_detailed_disease(cause_of_death);
+	var ind = cause_of_death_code.lastIndexOf("-");
+	if (ind > 0) cause_of_death_code = cause_of_death_code.substr(ind+1);
+//	alert (cause_of_death_code);
+	
+	if (cause_of_death_code.substring(0, 10) == "SNOMED_CT-") cause_of_death_code = cause_of_death_code.substring(0, 10)
 	if (cause_of_death_code == null) cause_of_death_code = "OTHER";
 	
 	code_tag.setAttribute("code", cause_of_death_code);
@@ -868,7 +873,7 @@ function add_individual_relative(tag, relative_type, code, relative) {
 			null, null,
 			null,
 			relative["Health History"],
-			relative.detailed_cause_of_death,
+			relative.cause_of_death_code, relative.detailed_cause_of_death,
 			relative.twin_status,
 			relative.adopted,
 			null

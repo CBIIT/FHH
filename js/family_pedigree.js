@@ -69,6 +69,7 @@ var defaultfamilyarray=[
 var ua = window.navigator.userAgent;
 var msie = ua.indexOf("MSIE ");
 function xmlload() {
+
     var lng = window.i18n.lng();
     if (lng=='en-US') {
         lng = 'en';
@@ -6562,11 +6563,11 @@ function LOAD_HEALTH_TABLE(){
                 if (typeof item.cause_of_death!= 'undefined'){
                     COD = $.t("fhh_js.no") + ', ' + $.t("diseases:"+item.cause_of_death_code) + '(' + EST +')';
                 }
-                else if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
-                    COD = $.t("fhh_js.unknown");
-                }
                 else if(typeof item.age != 'undefined' || typeof item.estimated_age != 'undefined' || typeof item.date_of_birth != 'undefined'){
                     COD = $.t("fhh_js.yes");
+                }
+                else if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
+                    COD = $.t("fhh_js.unknown");
                 }
                 else{
                     COD = $.t("fhh_js.no") + ', ' + $.t("diseases:"+item.cause_of_death_code)  + '(' + EST +')';;
