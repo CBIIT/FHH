@@ -22,9 +22,14 @@
     <link rel="stylesheet" type="text/css" href="../jquery/jquery-ui-1.10.4.css">
     <script type="text/javascript" src="../js/config.js"></script>
     <script type="text/javascript" src="../js/fhh.js"></script>
+    <script type="text/javascript" src="../js/fhh_add_relative.js"></script>
     <script type="text/javascript" src="../js/fhh_export_family_member.js"></script>
     <script type="text/javascript" src="../js/load_xml.js"></script>
     <script type="text/javascript" src="../js/save_xml.js"></script>
+
+    <script type="text/javascript" src="../js/go-debug.js"></script>
+    <script type="text/javascript" src="../js/genogram.js"></script>
+    <script type="text/javascript" src="../js/new_diagram.js"></script>
 
     <!-- Themes go here -->
     <link rel="stylesheet" type="text/css" href="../themes/deploy/fhh.css">
@@ -166,6 +171,7 @@
     <a id="save_family_history_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_save_fam_hist'>Save Family History</a>
     <a id="view_diagram_and_table_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_view_dia_n_table' onclick="xmlload()">View Diagram and Table</a>
     <a id="your_health_risk_assessment_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_risk_assess'>Your Health Risk Assessment</a>
+    <a id="new_diagram_button" href="#" class='button_link'>New Diagram</a>
 </div>
 
 <table id="history_summary_table" class="summary_table" summary="This table lists the members of your family 
@@ -199,6 +205,7 @@
 
     
 <!--  All Dialog Boxes will load at the start of the page, but will be kept in seperate html files for easy understanding -->
+<div id='new_diagram_dialog' > </div>
 <div id='copy_for_family_member' > </div>
 <div id='add_personal_information_dialog'> </div>
 <div id='update_family_member_health_history_dialog'> </div> 
