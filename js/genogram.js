@@ -13,12 +13,27 @@ function init(diagram_data) {
 	      });
 	}
   // determine the color for each attribute shape
-  function attrFill(a) {
-    switch (a) {
-      case "A": return "lightgray";
-      default: return "lightgray";
-    }
-  }
+      function attrFill(a) {
+        for (key in a.a) {
+          console.log(key);
+        }
+        switch (a) {
+          case "A": return "lightyellow";
+          case "B": return "orange";
+          case "C": return "red";
+          case "D": return "cyan";
+          case "E": return "gold";
+          case "F": return "pink";
+          case "G": return "blue";
+          case "H": return "brown";
+          case "I": return "purple";
+          case "J": return "chartreuse";
+          case "K": return "lightgray";
+          case "L": return "magenta";
+          case "S": return "blue";
+          default: return "lightgray";
+        }
+      }
 
   // determine the geometry for each attribute shape in a male;
   // except for the slash these are all squares at each of the four corners of the overall square
@@ -27,7 +42,7 @@ function init(diagram_data) {
   function maleGeometry(a) {
     switch (a) {
       case "A": return fillsq;
-      case "S": return slash;
+      case "D": return slash;
       default: return tlsq;
     }
   }
@@ -38,7 +53,7 @@ function init(diagram_data) {
   function femaleGeometry(a) {
     switch (a) {
       case "A": return fillarc;
-      case "S": return slash;
+      case "D": return slash;
       default: return tlarc;
     }
   }
@@ -49,21 +64,31 @@ function init(diagram_data) {
 
   // two different node templates, one for each sex,
   // named by the category value in the node data object
-  myDiagram.nodeTemplateMap.add("M",  // male
+  myDiagram.nodeTemplateMap.add("M",  // female
     $(go.Node, "Vertical",
       { locationSpot: go.Spot.Center, locationObjectName: "ICON" },
       $(go.Panel,
         { name: "ICON" },
         $(go.Shape, "Square",
-          { width: 40, height: 40, strokeWidth: 2, portId: "", fill:"lightgrey" },
-          new go.Binding("fill", "color")
-         )
+          { width: 40, height: 40, strokeWidth: 2, fill: "white", portId: "" }),
+        $(go.Panel,
+          { // for each attribute show a Shape at a particular place in the overall circle
+            itemTemplate:
+              $(go.Panel,
+                $(go.Shape,
+                  { stroke: null, strokeWidth: 0 },
+                  new go.Binding("fill", "", attrFill),
+                  new go.Binding("geometry", "", maleGeometry))
+              ),
+            margin: 1
+          },
+          new go.Binding("itemArray", "a")
+        )
       ),
       $(go.TextBlock,
         { textAlign: "center", maxSize: new go.Size(80, NaN) },
         new go.Binding("text", "n"))
-     ) 
-    );
+    ));
 
   myDiagram.nodeTemplateMap.add("F",  // female
     $(go.Node, "Vertical",

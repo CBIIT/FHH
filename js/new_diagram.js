@@ -37,6 +37,7 @@ function load_data() {
 		diagram_data.push(spouse);	
 	}
 	diagram_data.push(proband);
+	console.log(proband);
 
 	// Maternal Aunts/Uncles HAVE to be added BEFORE the mother or they will be placed in the wrong place
 	push_all_relatives_of_type(diagram_data, "maternal_aunt");
@@ -88,13 +89,25 @@ function load_data() {
 	push_all_relatives_of_type(diagram_data, "maternal_halfbrother");
 	push_all_relatives_of_type(diagram_data, "maternal_halfsister");
 	
+
 	return diagram_data;
+}
+
+function add_characteristics(relative, person) {
+	if (relative.adopted==true) person.a.push("A");
+	if (relative.is_alive=="dead") person.a.push("D");
 }
 
 function add_relative(relationship_type, relative) {
 	var person = {};
+	person.a = [];
 	person.key = relative.id.hashCode();
 	person.n = relative.name;
+
+	// add characteristics like adopted, deceased, related, etc //
+	add_characteristics(relative,person);
+	// end characteristics //
+
 	var p = get_parents(relationship_type, relative);
 	if (p && p.m != null) person.m = p.m;
 	if (p && p.f != null) person.f = p.f;
@@ -110,7 +123,8 @@ function add_relative(relationship_type, relative) {
 	var is_blood_parent = have_any_children(relationship_type, relative);
 	
 	if (is_blood_parent == true) person.children = true;
-//	console.log(JSON.stringify(person));
+	console.log(JSON.stringify(relative));
+	// person['characteristics']='sadasd';
 	return person;
 }
 
