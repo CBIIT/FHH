@@ -19,18 +19,8 @@ function init(diagram_data) {
         }
         switch (a) {
           case "A": return "lightyellow";
-          case "B": return "orange";
-          case "C": return "red";
-          case "D": return "cyan";
-          case "E": return "gold";
-          case "F": return "pink";
-          case "G": return "blue";
-          case "H": return "brown";
-          case "I": return "purple";
-          case "J": return "chartreuse";
-          case "K": return "lightgray";
-          case "L": return "magenta";
-          case "S": return "blue";
+          case "D": return "red";
+          case "SELF": return "darkblue";
           default: return "lightgray";
         }
       }
@@ -38,12 +28,12 @@ function init(diagram_data) {
   // determine the geometry for each attribute shape in a male;
   // except for the slash these are all squares at each of the four corners of the overall square
   var fillsq = go.Geometry.parse("F M0  -19  L-19 -19 -19 21 21 21 21 -19 Z");
-  var slash  = go.Geometry.parse("F M38 0 L40 0 40 2 2 40 0 40 0 38z");
+  var slash = go.Geometry.parse("F M38 0 L40 0 40 2 2 40 0 40 0 38z");
   function maleGeometry(a) {
     switch (a) {
       case "A": return fillsq;
       case "D": return slash;
-      default: return tlsq;
+      default: return fillsq;
     }
   }
 
@@ -54,7 +44,7 @@ function init(diagram_data) {
     switch (a) {
       case "A": return fillarc;
       case "D": return slash;
-      default: return tlarc;
+      default: return fillarc;
     }
   }
 
@@ -70,7 +60,7 @@ function init(diagram_data) {
       $(go.Panel,
         { name: "ICON" },
         $(go.Shape, "Square",
-          { width: 40, height: 40, strokeWidth: 2, fill: "white", portId: "" }),
+          { width: 40, height: 40, strokeWidth: 2, fill: "lightgray", portId: "" }),
         $(go.Panel,
           { // for each attribute show a Shape at a particular place in the overall circle
             itemTemplate:
@@ -96,7 +86,7 @@ function init(diagram_data) {
       $(go.Panel,
         { name: "ICON" },
         $(go.Shape, "Circle",
-          { width: 40, height: 40, strokeWidth: 2, fill: "white", portId: "" }),
+          { width: 40, height: 40, strokeWidth: 2, fill: "lightgray", portId: "" }),
         $(go.Panel,
           { // for each attribute show a Shape at a particular place in the overall circle
             itemTemplate:
