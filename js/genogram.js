@@ -63,7 +63,7 @@ function init(diagram_data) {
         { name: "ICON" },
         $(go.Shape, "Square",
           { width: 40, height: 40, strokeWidth: 2, fill: "lightgray", portId: "" }),
-          { // this tooltip shows the name and picture of the kitten
+          { // this tooltip shows the diseases of the individual if they exist //
             toolTip:
               $(go.Adornment, "Auto",
                 $(go.Shape, { fill: "lightyellow" }),
@@ -99,6 +99,16 @@ function init(diagram_data) {
         { name: "ICON" },
         $(go.Shape, "Circle",
           { width: 40, height: 40, strokeWidth: 2, fill: "lightgray", portId: "" }),
+          { // this tooltip shows the diseases of the individual if they exist //
+            toolTip:
+              $(go.Adornment, "Auto",
+                $(go.Shape, { fill: "lightyellow" }),
+                $(go.Panel, "Vertical",
+                  $(go.TextBlock, { margin: 3 },
+                    new go.Binding("text", "diseases", function(v) { return "Example Diseases: " + v; }))
+                )
+              )
+          },         
         $(go.Panel,
           { // for each attribute show a Shape at a particular place in the overall circle
             itemTemplate:
