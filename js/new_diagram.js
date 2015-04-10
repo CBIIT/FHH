@@ -92,6 +92,7 @@ function load_data() {
 	return diagram_data;
 }
 
+// add characteristics to the attributes array. Determines geometry and colors //
 function add_characteristics(relationship_type, relative, person) {
 	if (relative.adopted==true) person.a.push("A");
 	if (relative.is_alive=="dead") person.a.push("D");
@@ -103,6 +104,7 @@ function add_relative(relationship_type, relative) {
 	person.a = [];
 	person.key = relative.id.hashCode();
 	person.n = relative.name;
+	person.diseases = ["DA","DB"];
 
 	// add characteristics like adopted, deceased, related, etc //
 	add_characteristics(relationship_type, relative, person);

@@ -8,6 +8,8 @@ function init(diagram_data) {
 	    $(go.Diagram, "myDiagramDiv", {
 	        initialAutoScale: go.Diagram.Uniform,
 	        initialContentAlignment: go.Spot.Center,
+          "toolManager.hoverDelay": 100,  // how quickly tooltips are shown
+
 	        layout:  // use a custom layout, defined below
 	          $(GenogramLayout, { direction: 90, layerSpacing: 30, columnSpacing: 10 })
 	      });
@@ -61,6 +63,16 @@ function init(diagram_data) {
         { name: "ICON" },
         $(go.Shape, "Square",
           { width: 40, height: 40, strokeWidth: 2, fill: "lightgray", portId: "" }),
+          { // this tooltip shows the name and picture of the kitten
+            toolTip:
+              $(go.Adornment, "Auto",
+                $(go.Shape, { fill: "lightyellow" }),
+                $(go.Panel, "Vertical",
+                  $(go.TextBlock, { margin: 3 },
+                    new go.Binding("text", "diseases", function(v) { return "Example Diseases: " + v; }))
+                )
+              )
+          },    
         $(go.Panel,
           { // for each attribute show a Shape at a particular place in the overall circle
             itemTemplate:
