@@ -1,19 +1,19 @@
 var myDiagram;
 
-function init(diagram_data) {	
+function init(diagram_data) { 
   if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
   var $ = go.GraphObject.make;
   if (typeof myDiagram == 'undefined') {
-	  myDiagram =
-	    $(go.Diagram, "myDiagramDiv", {
-	        initialAutoScale: go.Diagram.Uniform,
-	        initialContentAlignment: go.Spot.Center,
+    myDiagram =
+      $(go.Diagram, "myDiagramDiv", {
+          initialAutoScale: go.Diagram.Uniform,
+          initialContentAlignment: go.Spot.Center,
           "toolManager.hoverDelay": 100,  // how quickly tooltips are shown
 
-	        layout:  // use a custom layout, defined below
-	          $(GenogramLayout, { direction: 90, layerSpacing: 30, columnSpacing: 10 })
-	      });
-	}
+          layout:  // use a custom layout, defined below
+            $(GenogramLayout, { direction: 90, layerSpacing: 30, columnSpacing: 10 })
+        });
+  }
   // determine the color for each attribute shape
       function attrFill(a) {
         for (key in a.a) {
@@ -22,6 +22,7 @@ function init(diagram_data) {
         switch (a) {
           case "A": return "lightyellow";
           case "D": return "red";
+          case "SD": return "red";
           case "SELF": return "darkblue";
           default: return "lightgray";
         }
@@ -39,6 +40,18 @@ function init(diagram_data) {
     }
   }
 
+  // gets diseases and displays them //
+  function displayDiseases(diseases) {
+    var tempString = "";
+    if (diseases!="") {
+      for (key in diseases) {
+        tempString += diseases[key]['Disease Code'];
+        if (key+1<diseases.length) tempString+='\n';
+      }
+    }
+    return tempString;
+  }
+
   // determine the geometry for each attribute shape in a female;
   // except for the slash these are all pie shapes at each of the four quadrants of the overall circle
   var fillarc = go.Geometry.parse("F M20 20 B 0 360 20 20 19 19 z");
@@ -50,9 +63,9 @@ function init(diagram_data) {
     }
   }
 
-	var fillColor = "lightgray";	
-//	if (a[0] = "A") fillColor = "lightgray";
-//	else fillColor = "white";
+  var fillColor = "lightgray";  
+//  if (a[0] = "A") fillColor = "lightgray";
+//  else fillColor = "white";
 
   // two different node templates, one for each sex,
   // named by the category value in the node data object
@@ -63,16 +76,15 @@ function init(diagram_data) {
         { name: "ICON" },
         $(go.Shape, "Square",
           { width: 40, height: 40, strokeWidth: 2, fill: "lightgray", portId: "" }),
-          { // this tooltip shows the diseases of the individual if they exist //
-            toolTip:
-              $(go.Adornment, "Auto",
-                $(go.Shape, { fill: "lightyellow" }),
-                $(go.Panel, "Vertical",
-                  $(go.TextBlock, { margin: 3 },
-                    new go.Binding("text", "diseases", function(v) { return "Example Diseases: " + v; }))
-                )
-              )
-          },    
+      {
+        toolTip:
+          $(go.Adornment, "Auto",
+            $(go.Shape, { fill: "#FFFFCC" },
+              new go.Binding("visible", "diseases", function(d) { return d ? true : false; })),
+            $(go.TextBlock, { margin: 4 },
+              new go.Binding("text", "diseases", function(d) { return displayDiseases(d);}))
+          )
+      },    
         $(go.Panel,
           { // for each attribute show a Shape at a particular place in the overall circle
             itemTemplate:
@@ -99,16 +111,15 @@ function init(diagram_data) {
         { name: "ICON" },
         $(go.Shape, "Circle",
           { width: 40, height: 40, strokeWidth: 2, fill: "lightgray", portId: "" }),
-          { // this tooltip shows the diseases of the individual if they exist //
-            toolTip:
-              $(go.Adornment, "Auto",
-                $(go.Shape, { fill: "lightyellow" }),
-                $(go.Panel, "Vertical",
-                  $(go.TextBlock, { margin: 3 },
-                    new go.Binding("text", "diseases", function(v) { return "Example Diseases: " + v; }))
-                )
-              )
-          },         
+      {
+        toolTip:
+          $(go.Adornment, "Auto",
+            $(go.Shape, { fill: "#FFFFCC" },
+              new go.Binding("visible", "diseases", function(d) { return d ? true : false; })),
+            $(go.TextBlock, { margin: 4 },
+              new go.Binding("text", "diseases", function(d) { return displayDiseases(d);}))
+          )
+      },       
         $(go.Panel,
           { // for each attribute show a Shape at a particular place in the overall circle
             itemTemplate:
@@ -151,14 +162,14 @@ function init(diagram_data) {
 // KEY LINE BELOW
   // n: name, s: sex, m: mother, f: father, ux: wife, vir: husband, a: attributes/markers
 //  console.dir(diagram_data);
-	console_ids(diagram_data);
+  console_ids(diagram_data);
   setupDiagram(myDiagram, diagram_data, -1 );
 }
 
 function console_ids(diagram_data) {
-	for (var i=0; i<diagram_data.length;i++) {
-		if (diagram_data[i]) console.log(diagram_data[i].n + ":" + diagram_data[i].key);	
-	}
+  for (var i=0; i<diagram_data.length;i++) {
+    if (diagram_data[i]) console.log(diagram_data[i].n + ":" + diagram_data[i].key);  
+  }
 }
 
 function setupDiagram(diagram, array, focusId) {

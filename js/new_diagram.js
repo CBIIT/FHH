@@ -94,9 +94,15 @@ function load_data() {
 
 // add characteristics to the attributes array. Determines geometry and colors //
 function add_characteristics(relationship_type, relative, person) {
+	// check health history. if diseases exist set disease key to health history //
+	// if diseases do not exist set dieases key to "" to ensure tooltip is not shown //
+	person.diseases = "";
+	if (relative['Health History'].length>0) person.diseases = relative['Health History'];
+	
 	if (relative.adopted==true) person.a.push("A");
 	if (relative.is_alive=="dead") person.a.push("D");
 	if (relationship_type=="self") person.a.push("SELF");
+	if (person.diseases!="") person.a.push("SD");
 }
 
 function add_relative(relationship_type, relative) {
@@ -104,7 +110,6 @@ function add_relative(relationship_type, relative) {
 	person.a = [];
 	person.key = relative.id.hashCode();
 	person.n = relative.name;
-	person.diseases = ["DA","DB"];
 
 	// add characteristics like adopted, deceased, related, etc //
 	add_characteristics(relationship_type, relative, person);
