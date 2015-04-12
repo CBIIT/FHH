@@ -1004,13 +1004,13 @@ if (personal_information && typeof personal_information != 'undefined'){
         if($("#closed_table tr td" ).length == 1) {
             $('#closed_table tr').append('<td>' +
             '<span id="closedtitle" style="font-weight:bold;background-color: white; color: black; padding-right:25px;">Hidden Diseases:  </span>' +
-            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: darkslategrey;color: white;border: none;padding-right: 25px;cursor:pointer">' +
+            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: #00477A;color: white;border: none;padding-right: 25px;cursor:pointer">' +
             '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + NAME + '</button>' +
             '</td>');
         }
         else{
             $('#closed_table tr').append('<td>' +
-            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: darkslategrey;color: white;border: none;padding-right: 25px;cursor:pointer">' +
+            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: #00477A;color: white;border: none;padding-right: 25px;cursor:pointer">' +
             '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + NAME + '</button>' +
             '</button>' +
             '</td>');

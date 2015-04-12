@@ -68,13 +68,13 @@ input.searchbutton:hover{
 .selector select{
     font-size:25px;
     font-weight:bold;
-    background-color: darkslategrey;
+    background-color: #00477A;
     color:white;
 }
 
 .selector option{
     font-size:25px;
     font-weight:bold;
-    background-color: darkslategrey;
+    background-color: #00477A;
     color:white;
 }
