@@ -94,15 +94,25 @@ function load_data() {
 
 // add characteristics to the attributes array. Determines geometry and colors //
 function add_characteristics(relationship_type, relative, person) {
-	// check health history. if diseases exist set disease key to health history //
+	// check health history. if diseases exist set call translate_diseases to get translated list //
 	// if diseases do not exist set dieases key to "" to ensure tooltip is not shown //
 	person.diseases = "";
-	if (relative['Health History'].length>0) person.diseases = relative['Health History'];
-	
+	if (relative['Health History'].length>0) {
+		person.diseases = translate_diseases(relative['Health History']);
+	}
 	if (relative.adopted==true) person.a.push("A");
 	if (relative.is_alive=="dead") person.a.push("D");
 	if (relationship_type=="self") person.a.push("SELF");
 	if (person.diseases!="") person.a.push("SD");
+}
+
+// translate all diseases in the person's health history and return array of translated diseases //
+function translate_diseases(diseases) {
+	var diseaseList = [];
+	for (key in diseases) {
+        diseaseList.push($.t("diseases:"+diseases[key]['Disease Code']));
+   	}
+   	return diseaseList;
 }
 
 function add_relative(relationship_type, relative) {

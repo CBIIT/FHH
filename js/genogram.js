@@ -42,14 +42,14 @@ function init(diagram_data) {
 
   // gets diseases and displays them //
   function displayDiseases(diseases) {
-    var tempString = "";
+    var diseaseString = "";
     if (diseases!="") {
       for (key in diseases) {
-        tempString += diseases[key]['Disease Code'];
-        if (key+1<diseases.length) tempString+='\n';
+        diseaseString += diseases[key];
+        if (key+1<diseases.length) diseaseString+='\n';
       }
     }
-    return tempString;
+    return diseaseString;
   }
 
   // determine the geometry for each attribute shape in a female;
