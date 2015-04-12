@@ -283,7 +283,7 @@ i#options .ui-button.ui-state-active .ui-button-text {
 }
 
 .tablebutton{
-    background-color:darkslategray;
+    background-color:#00477A;
     color:white;
     visibility:visible;
     padding: 5 5 5 5;
@@ -423,7 +423,7 @@ font-size:10px;
 #health_table th.nobg {
     border-top: 0;
     border-right: 1px solid #C1DAD7;
-    background: darkslategray;
+    background: #00477A;
     color: white;
     font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
@@ -446,19 +446,19 @@ font-size:10px;
 #health_table th.spec {
     border-left: 1px solid #C1DAD7;
     border-top: 0;
-    background:darkslategray;
+    background:#00477A;
     font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
 
 #health_table th.specalt {
     border-left: 1px solid #C1DAD7;
     border-top: 0;
-    background: darkslategray;
+    background: #00477A;
     font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
     color: #797268;
 }
 #health_table td.diseaseid{
-    background-color: darkslategray;
+    background-color: #00477A;
     color: white;
     font: bold 8px "Arial MS", Verdana, Arial, Helvetica, sans-serif;
 }
@@ -547,7 +547,7 @@ font-size:10px;
     font-family:"Arial MS";
     font-size:8px;
     padding:5px;
-    border-bottom:1px solid darkslategray;
+    border-bottom:1px solid #00477A;
     border-right:1px dashed slategray;
     border-left:1px dashed slategray;
 }
@@ -651,8 +651,8 @@ a.back{
 svg#svgframe {
     height: 500px;
     width: 100%;
-    /*border-bottom:1px dotted darkslategray;*/
-    /*border-top:1px dotted darkslategray;*/
+    /*border-bottom:1px dotted #00477A;*/
+    /*border-top:1px dotted #00477A;*/
     /*background-color: white;*/
 }
 

@@ -769,7 +769,7 @@ function LOAD_HEALTH_TABLE(){
                 for (var k=0; k<STATICDISEASES.length;k++){
                     if (k==nr){
                         if(details==null || typeof details=='undefined')details = tmp;
-                        MYPRIMARY_DISEASE[k] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
+                        MYPRIMARY_DISEASE[k] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
                         break;
                     }
                 }
@@ -779,7 +779,7 @@ function LOAD_HEALTH_TABLE(){
                 var b = diseasearray[i][1];
                 if(b==details){
                     if (details == null || typeof details == 'undefined')details = tmp;
-                    MYSECONDARY_DISEASE[i] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
+                    MYSECONDARY_DISEASE[i] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
                     break;
                 }
             }
@@ -906,7 +906,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                         for (var k=0; k<STATICDISEASES.length;k++){
                             if (k==nr){
                                 if(details==null || typeof details=='undefined') details = cd;
-                                PRIMARY_DISEASE[k] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                                PRIMARY_DISEASE[k] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
                                 break;
                             }
                         }
@@ -916,7 +916,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                         var b = diseasearray[i][1];
                         if(b==details){
                             if (details == null || typeof details == 'undefined')details = cd;
-                            SECONDARY_DISEASE[i] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                            SECONDARY_DISEASE[i] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
                             break;
                         }
                     }
@@ -943,7 +943,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                                 for (var k=0; k<STATICDISEASES.length;k++){
                                     if (k==nr){
                                         if(details==null || typeof details=='undefined')details = tmp;
-                                        PRIMARY_DISEASE[k] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
+                                        PRIMARY_DISEASE[k] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
                                         break;
                                     }
                                 }
@@ -953,7 +953,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                                 var b = diseasearray[i][1];
                                 if(b==details){
                                     if (details == null || typeof details == 'undefined')details = tmp;
-                                    SECONDARY_DISEASE[i] = '<div style="background-color: darkslategray;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
+                                    SECONDARY_DISEASE[i] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
                                     break;
                                 }
                             }
