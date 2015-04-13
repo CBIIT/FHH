@@ -45,7 +45,7 @@ function init(diagram_data) {
     var diseaseString = "";
     if (diseases!="") {
       for (key in diseases) {
-        diseaseString += diseases[key];
+        diseaseString += "\u2022 " + diseases[key];
         if (key+1<diseases.length) diseaseString+='\n';
       }
     }
@@ -122,7 +122,7 @@ function init(diagram_data) {
             $(go.TextBlock, { margin: 4 },
               new go.Binding("text", "diseases", function(d) { return displayDiseases(d);}))
           )
-      },       
+      },    
         $(go.Panel,
           { // for each attribute show a Shape at a particular place in the overall circle
             itemTemplate:
