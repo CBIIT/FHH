@@ -17,6 +17,13 @@
 /* ----- BASIC HTML ELEMENT STYLES ----- */
 /* ************************************* */
 
+.gshHeader {
+  border-color: #e79baa;
+  font-size: 10;
+  margin-bottom: 4;
+}
+
+
 body {
     background: url('page_background.jpg') repeat-x scroll center top #ECE0D3;
     font-family: Arial, Helvetica, sans-serif;

@@ -119,8 +119,13 @@ function add_relative(relationship_type, relative) {
 	var person = {};
 	person.a = [];
 	person.key = relative.id.hashCode();
-	person.n = relative.name;
-
+	if (relative.name!="") {
+		person.n = relative.name;
+		person.t_n = "["+$.t("fhh_js." + relationship_type)+"]";
+	}
+	else {
+		person.n = $.t("fhh_js." + relationship_type);
+	}
 	// add characteristics like adopted, deceased, related, etc //
 	add_characteristics(relationship_type, relative, person);
 	// end characteristics //

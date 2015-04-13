@@ -101,7 +101,10 @@ function init(diagram_data) {
       ),
       $(go.TextBlock,
         { textAlign: "center", maxSize: new go.Size(80, NaN) },
-        new go.Binding("text", "n"))
+        new go.Binding("text", "n")),
+      $(go.TextBlock,
+        { textAlign: "center", maxSize: new go.Size(80, NaN) },
+        new go.Binding("text", "t_n"))      
     ));
 
   myDiagram.nodeTemplateMap.add("F",  // female
@@ -136,7 +139,10 @@ function init(diagram_data) {
       ),
       $(go.TextBlock,
         { textAlign: "center", maxSize: new go.Size(80, NaN) },
-        new go.Binding("text", "n"))
+        new go.Binding("text", "n")),
+      $(go.TextBlock,
+        { textAlign: "center", maxSize: new go.Size(80, NaN) },
+        new go.Binding("text", "t_n"))  
     ));
 
   // the representation of each label node -- nothing shows on a Marriage Link
