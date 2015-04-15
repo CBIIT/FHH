@@ -6018,7 +6018,7 @@ function LOAD_HEALTH_TABLE_IE(){
                 for (var k=0; k<STATICDISEASES.length;k++){
                     if (k==nr){
                         if(details==null || typeof details=='undefined')details = tmp;
-                        MYPRIMARY_DISEASE[k] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                        MYPRIMARY_DISEASE[k] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
                         break;
                     }
                 }
@@ -6028,7 +6028,7 @@ function LOAD_HEALTH_TABLE_IE(){
                 var b = diseasearray[i][1];
                 if(b==details){
                     if (details == null || typeof details == 'undefined')details = tmp;
-                    MYSECONDARY_DISEASE[i] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                    MYSECONDARY_DISEASE[i] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
                     break;
                 }
             }
@@ -6119,7 +6119,7 @@ function LOAD_HEALTH_TABLE_IE(){
                                 for (var k=0; k<STATICDISEASES.length;k++){
                                     if (k==nr){
                                         if(details==null || typeof details=='undefined')details = tmp;
-                                        PRIMARY_DISEASE[k] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                                        PRIMARY_DISEASE[k] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
                                         break;
                                     }
                                 }
@@ -6129,7 +6129,7 @@ function LOAD_HEALTH_TABLE_IE(){
                                 var b = diseasearray[i][1];
                                 if(b==details){
                                     if (details == null || typeof details == 'undefined')details = tmp;
-                                    SECONDARY_DISEASE[i] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                                    SECONDARY_DISEASE[i] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
                                     break;
                                 }
                             }
@@ -6173,13 +6173,13 @@ function LOAD_HEALTH_TABLE_IE(){
         if($("#closed_table tr td" ).length == 1) {
             $('#closed_table tr').append('<td>' +
             '<span style="font-weight:bold;background-color: white; color: black; padding-right:25px;">Closed Diseases:  </span>' +
-            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab_Ie(this.id)" style="background-color: #00477A;color: white;border: none;padding-right: 25px;cursor:pointer">' +
+            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab_Ie(this.id)" style="background-color: darkslategrey;color: white;border: none;padding-right: 25px;cursor:pointer">' +
             '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + NAME + '</button>' +
             '</td>');
         }
         else{
             $('#closed_table tr').append('<td>' +
-            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab_Ie(this.id)" style="background-color: #00477A;color: white;border: none;padding-right: 25px;cursor:pointer">' +
+            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab_Ie(this.id)" style="background-color: darkslategrey;color: white;border: none;padding-right: 25px;cursor:pointer">' +
             '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + NAME + '</button>' +
             '</button>' +
             '</td>');
@@ -6717,7 +6717,6 @@ function TheZoom_Ie(sel) {
 
     }
 }
-
 
 
 

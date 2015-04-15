@@ -66,19 +66,14 @@ var defaultfamilyarray=[
 
 ];
 
-var STATICDISEASES = [
-    'heart disease',
-    'stroke',
-    'diabetes',
-    'colon cancer',
-    'breast cancer',
-    'ovarian cancer'
-];
-
 var ua = window.navigator.userAgent;
 var msie = ua.indexOf("MSIE ");
-
 function xmlload() {
+
+    var lng = window.i18n.lng();
+    if (lng=='en-US') {
+        lng = 'en';
+    };  
 
     //IE 8
     if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
@@ -107,35 +102,8 @@ function xmlload() {
     /*
      Get Date
      */
-    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-
-    var currentdate = new Date();
-
-    var day = days[ currentdate.getDay() ];
-    var month = months[ currentdate.getMonth() ];
-    //Date
-    var hours = currentdate.getHours();
-    var hours = (hours+24-2)%24;
-    var mid='AM';
-    if(hours==0){ //At 00 hours we need to show 12 am
-        hours=12;
-    }
-    else if(hours>12){
-        hours=hours%12 + 2;
-        mid='PM';
-    }
-    var thisMinute = currentdate.getMinutes();
-    thisMinute = thisMinute < 10 ? "0"+thisMinute : thisMinute;
-
-    var today =  "Date of Report: " +
-        day + ", " + month + " "
-        + currentdate.getDate() + ", "
-        + currentdate.getFullYear() + " "
-        + hours + ":"
-        + thisMinute + " "
-        + mid;
-
+    var options = {weekday: "long", year: "numeric", month: "long", day: "numeric", hour:"numeric",minute:"numeric",hour12:"true"};             
+    var today = $.t("fhh_family_pedigree.date_of_report") + ": " + new Date().toLocaleString(lng, options);
 
 
     mdialog = $(
@@ -154,10 +122,10 @@ function xmlload() {
 
         '<div id="nav" class="sticky">' +
         '<ul>' +
-        '<li><a class="top" onclick="ToTop();return false;" href="#">Go To Diagram</a></li>' +
-        '<li><a class="bottom" onclick="ToTable();return false;" href="#">Go To Table</a></li>' +
-        '<li><a id="printermain">Print</a></li>' +
-        '<li><a href="#optionsPanelMan" onclick="createDialogMain()">Diagram & Table Options</a></li>' +
+        '<li><a class="top" onclick="ToTop();return false;" href="#">' + $.t("fhh_family_pedigree.go_to_diagram") + '</a></li>' +
+        '<li><a class="bottom" onclick="ToTable();return false;" href="#">' + $.t("fhh_family_pedigree.go_to_table") + '</a></li>' +
+        '<li><a id="printermain">' + $.t("fhh_family_pedigree.print") + '</a></li>' +
+        '<li><a href="#optionsPanelMan" onclick="createDialogMain()">' + $.t("fhh_family_pedigree.diagram_options") + '</a></li>' +
         '<li>' +
         '<select id="zoomer" class="selector" onchange="TheZoomMain(this);">'+
         '<option id="the1" value="100">+100</option>' +
@@ -166,7 +134,7 @@ function xmlload() {
         '</li>' +
         '<li>' +
         '<input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close"' +
-        'type="button"role="button" aria-disabled="false" title="close" value="close" onclick="closeOther()" style="right:50px;width:50px"></input>' +
+        'type="button"role="button" aria-disabled="false" title="close" value="' + $.t("fhh_family_pedigree.close") +'" onclick="closeOther()" style="right:50px;width:50px"></input>' +
         '</li>' +
         '</ul>' +
         '</div>' +
@@ -176,7 +144,7 @@ function xmlload() {
             //'<div class="scroll"></div>' +
         '<div class="info"></div>' +
         '</div>' +
-
+        '<div id="myDiagramDiv" style="width:auto; height:600px; background-color: #fff;"></div>' + 
 
         '<div id="family_pedigree_info" class="brk">' +
         '<div>' +
@@ -245,7 +213,14 @@ function xmlload() {
                         "searchable": false
                     }
                 ],
-                "aaSortingFixed": [[0, 'desc']]
+                "aaSortingFixed": [[0, 'desc']],
+                "oLanguage": {
+                  "sSearch": $.t("fhh_family_pedigree.search")+':',
+                  "oPaginate": {
+                    "sPrevious": $.t("fhh_family_pedigree.previous"),
+                    "sNext": $.t("fhh_family_pedigree.next")
+                  }                  
+                }
 
             });
 
@@ -253,24 +228,22 @@ function xmlload() {
                 '<div id="lightbox">' +
                 '<table width="100%"><tr><td style="width:30%">' +
                 '<table id="bmi_table" class="htable">' +
-                '<caption>My Personal Information</caption>' +
-                '<tr><td id="age">Age:</td></tr>' +
-                '<tr><td id="height">Height:</td></tr>' +
-                '<tr><td id="weight">Weight:</td></tr>' +
-                '<tr><td id="abmi">BMI:</td></tr>' +
+                '<caption>' + $.t("fhh_family_pedigree.personal_info") + '</caption>' +
+                '<tr><td id="age">' + $.t("fhh_family_pedigree.age") + '</td></tr>' +
+                '<tr><td id="height">' + $.t("fhh_family_pedigree.height") + ' </td></tr>' +
+                '<tr><td id="weight">' + $.t("fhh_family_pedigree.weight") + ' </td></tr>' +
+                '<tr><td id="abmi">' + $.t("fhh_family_pedigree.bmi") + ' </td></tr>' +
                 '</tr></table>' +
                 '</td>' +
                 '<td style="width:70%;left:auto;right:auto">' +
-                '<img id="legendtag" src="../static/images/Legend.png"></img>' +
+                '<img id="legendtag" src="../static/images/Legend_' + lng + '.jpg"></img>' +
                 '</td>' +
                 '</tr></table>' +
 
                 '</div>'
             );
             // }
-
             $('#health_table').css('width',masterRight);
-
             var target = $(this);
             $(this).dialog("open");
             $(this).load(LOAD_HEALTH_TABLE());
@@ -282,6 +255,7 @@ function xmlload() {
             //var myDialogY = $(this).position().top - ( $(document).scrollTop() + $('.ui-dialog').outerHeight() );
             $(this).dialog( 'option', 'position', [myDialogX, 40] );
             diseasearray=new Array();
+            $("#health_table tr:eq( 1 )").children().css("background-color","#ffffcc");
 
         },
         beforeClose: function(){
@@ -310,11 +284,11 @@ function xmlload() {
     });
 
     $("#dialogtext").html(
-        '<h1>View Diagram & Table</h1><br/>'+
+        '<h1>' + $.t("fhh_family_pedigree.title") + '</h1>'+
         '<table class="infolayer">' +
         '<tr><td>' +
-        '<p style="margin-bottom: -10px">' + $.t("fhh_load_save.browse") + ' You can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!</p><br style="line-height: 0px"/>' +
-        '<p>If you would like to change the way the information below is shown, click "Diagram & Table Options." The bottom and right scroll bars are useful navigation tools when viewing larger tables and diagrams.</p>' +
+        '<p style="margin-bottom: 0px">' + $.t("fhh_load_save.browse") + ' ' + $.t("fhh_family_pedigree.desc_line1") + '</p><br style="line-height: 0px"/>' +
+        '<p>' + $.t("fhh_family_pedigree.desc_line2") + '</p>' +
         '</td></tr></table>'
     );
 
@@ -326,18 +300,35 @@ function xmlload() {
     }
 
     $(document).ready(function() {
+        // var STATICDISEASES = [
+        //     $.t("fhh_family_pedigree.heart_disease"),
+        //     $.t("fhh_family_pedigree.stroke"),
+        //     $.t("fhh_family_pedigree.diabetes"),
+        //     $.t("fhh_family_pedigree.colon_cancer"),
+        //     $.t("fhh_family_pedigree.breast_cancer"),
+        //     $.t("fhh_family_pedigree.ovarian_cancer")
+        //     ]
 
+            var STATICDISEASES = [
+                'SNOMED_CT-56265001',
+                'SNOMED_CT-116288000',
+                'SNOMED_CT-73211009',
+                'SNOMED_CT-363406005',
+                'SNOMED_CT-254837009',
+                'SNOMED_CT-363443007'
+            ]; 
 
 
         $.each(personal_information['Health History'], function (key, item) {
             if (item == 'undefined' || item == null) item = "";
             var dn = item['Disease Name'];
-            var details =  item['Detailed Disease Name'] ;
+            var details =  item['Disease Code'] ;
+            var diseaseCode = item['Disease Code'];
             if(dn)dn = dn.toLowerCase();
-            if(details)details = details.toLowerCase();
+            if(details)details = details;
             if(details=='diseases:null') details = "";
 
-            if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
+            if($.inArray(details, STATICDISEASES) == -1) {
                 if (diseasearray.length == 0) diseasearray.push([dn,details])
                 else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
 
@@ -350,12 +341,13 @@ function xmlload() {
 
                 $.each(item['Health History'], function (k, data) {
                     var dn = data['Disease Name'];
-                    var details =  data['Detailed Disease Name'];
+                    var details =  data['Disease Code'];
+                    var diseaseCode = data['Disease Code'];
                     if(dn)dn = dn.toLowerCase();
-                    if(details)details = details.toLowerCase();
+                    if(details)details = details;
                     if(details=='diseases:null') details = "";
 
-                    if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
+                    if($.inArray(details, STATICDISEASES) == -1) {
                         if (diseasearray.length == 0) diseasearray.push([dn,details])
                         else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
                     }
@@ -365,19 +357,17 @@ function xmlload() {
 
 
 
-
         HEADERS = new Array;
         HEADERS.push({"title":'Id'});
-        HEADERS.push({"title":'Name & Relationship'});
-        HEADERS.push({"title":'Name & Relationship'});
-        HEADERS.push({"title":'Still Living'});
-
+        HEADERS.push({"title":$.t("fhh_js.name_relationship")});
+        HEADERS.push({"title":$.t("fhh_js.name_relationship")});
+        HEADERS.push({"title":$.t("fhh_js.still_living")});
         for (var t = 0; t < STATICDISEASES.length; t++) {
             var NAME = STATICDISEASES[t];
             var COL = t + 3;
             var DID = 'D_' + COL;
 
-            if(NAME)NAME=NAME.toLowerCase();
+            if(NAME)NAME=NAME;
 
             /*
              Get only values that are not static
@@ -385,19 +375,18 @@ function xmlload() {
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" class="closeimg"/></a>' + NAME
+            '<img src="../static/images/close.png" class="closeimg"/></a>' + $.t("diseases:"+NAME)
             });
         }
 
-
+        
         for (var i = 0; i < diseasearray.length; i++) {
             var NAME = diseasearray[i][1];
-
 
             var COL = i + 9;
             var DID = 'D_' + COL;
 
-            if(NAME)NAME=NAME.toLowerCase();
+            if(NAME)NAME=NAME;
 
             /*
              Get only values that are not static
@@ -405,7 +394,7 @@ function xmlload() {
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" class="closeimg"/></a>' + NAME
+            '<img src="../static/images/close.png" class="closeimg"/></a>' + $.t("diseases:"+NAME)
             });
         }
 
@@ -507,10 +496,11 @@ function xmlload() {
     svgw.setAttribute('width', masterRight);
     svgw.setAttribute('margin-top', '5px');
 
+
     //Outer Frame
     //svg.rect(25, 5, ['95%'], 700, 1, 1, {id: 'diagramframe', fill: 'none', stroke: 'navy', strokeWidth: 1});
-    svg.text(masterleft - 120, 30, "Paternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'pattext'});
-    svg.text(masterleft + 120, 30, "Maternal", {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'mattext'});
+    svg.text(masterleft - 120, 30, $.t("fhh_family_pedigree.paternal"), {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'pattext'});
+    svg.text(masterleft + 120, 30, $.t("fhh_family_pedigree.maternal"), {fontWeight: 'bold', fontSize: '14.5', fill: 'gray', id: 'mattext'});
 
     $('#optionsPanelMain').attr('width', '800px');
 
@@ -592,8 +582,8 @@ function xmlload() {
 
     $('#age').text = age;
     $('#age').append($("<span><b></b></span>").text(age));
-    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + height_unit));
-    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + weight_unit));
+    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + $.t("fhh_diabetes_calculator."+height_unit)));
+    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + $.t("fhh_diabetes_calculator."+weight_unit)));
     $('#abmi').append($("<span><b></b></span>").text( BMI));
 
     //Build health array
@@ -607,7 +597,7 @@ function xmlload() {
             ids.push(item.name)
             $.each(item['Health History'], function (k, data) {
                 var disname = data['Disease Name'];
-                var disdet = data['Detailed Disease Name'];
+                var disdet = data['Disease Code'];
                 ids.push([disname,disdet]);
                 dis.push([disname,disdet]);
             });
@@ -624,7 +614,7 @@ function xmlload() {
 
     $.each(personal_information['Health History'], function (k, data) {
         var disname = data['Disease Name'];
-        var disdet = data['Detailed Disease Name'];
+        var disdet = data['Disease Code'];
         ids.push([disname,disdet]);
         dis.push([disname,disdet]);
     });
@@ -661,19 +651,18 @@ function xmlload() {
 
     FatherArray.push({"key": 'father',  "id": personal_information['father'].id, "gender":'MALE'});
     var t = {"id": [personal_information['father'].id], "name": [personal_information['father'].name], "gender": ["MALE"],
-    	key: ['father']};
+        key: ['father']};
     NAMEARRAY.push(t);
     
     MotherArray.push({"key": 'mother',  "id": personal_information['mother'].id, "gender":'FEMALE'});
     var t = {"id": [personal_information['mother'].id], "name": [personal_information['mother'].name], "gender": ["FEMALE"],
-    	key: ['mother']};
+        key: ['mother']};
     NAMEARRAY.push(t);
     
-    
+        
+
     
     $.each(personal_information, function (key, item) {
-
-
 
 
         //Identification when no names added
@@ -1281,16 +1270,16 @@ Already put mother in earlier
             var DocumentContainer = $(mdialog);
             var WindowObject = window.open('', "Print", "width=800,height=1000,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no");
             WindowObject.document.writeln('<!DOCTYPE html>'
-            + '<html><head><title>My Family Health Portrait-Diagram</title>'
+            + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
             +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
 
-            + '<p>My Family Health Portrait-Diagram</p>'
+            + '<p>' + $.t("fhh_family_pedigree.page_title") + '</p>'
             + $(topsvg).html()
             + '<table> <tr> <td> &nbsp;&nbsp;<br clear="all"></td></tr>'
             + '<tr> <td>&nbsp;&nbsp;<br clear="all"></td></tr><tr />'
             + '<tr> <td>&nbsp;&nbsp;<br clear="all"></td></tr>'
             + '</table>'
-            + '<img id="legendtag1" height="100px" align="right" src="../static/images/Legend.png" />'
+            + '<img id="legendtag1" height="100px" align="right" src="../static/images/Legend_' + lng + '.jpg" />'
             + '<DIV style="page-break-after:always;height:300px;left:10px"></DIV>'
             + $(healthtable).html()
 
@@ -1364,14 +1353,14 @@ Already put mother in earlier
             <!-- PRINT STARTS HERE -->
             if(DISPLAY != 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                    + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                    + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
                     + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
-                    + '<p>My Family Health Portrait-Diagram</p>'
+                    + '<p>' + $.t("fhh_family_pedigree.page_title") + '</p>'
                     + '<div style="margin-top:100px;margin-left:auto;margin-right:auto">'
                     + $(topsvgc).html()
                     + '</div>'
-                    + '<img id="legendtag" height="100px" align="right" src="../static/images/Legend.png"></img>'
+                    + '<img id="legendtag" height="100px" align="right" src="../static/images/Legend_' + lng + '.jpg"></img>'
                     + '<DIV style="page-break-after:always"></DIV>'
                     + $(healthtable).html()
 
@@ -1380,7 +1369,7 @@ Already put mother in earlier
             }
             else if(DISPLAY == 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                    + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                    + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
                     + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
                     + '<DIV style="page-break-after:none"></DIV>'
                     + $(healthtable).html()
@@ -1465,10 +1454,10 @@ Already put mother in earlier
             <!-- PRINT STARTS HERE -->
             if(DISPLAY != 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                    + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                    + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
                     + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
-                    + '<p>My Family Health Portrait-Diagram</p>'
+                    + '<p>' + $.t("fhh_family_pedigree.page_title") + '</p>'
                     + $(topsvgc).html()
                     + '<DIV style="page-break-after:always"></DIV>'
                     + $(healthtable).html()
@@ -1478,10 +1467,10 @@ Already put mother in earlier
             }
             else if(DISPLAY == 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                    + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                    + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
                     + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
-                        // + '<p>My Family Health Portrait-Diagram</p>'
+                        // + '<p>' + $.t("fhh_famil_pedigree.page_title") + '</p>'
                     //+ $(topsvgc).html()
                     + '<DIV style="page-break-after:always"></DIV>'
                     + $(healthtable).html()
@@ -1583,8 +1572,7 @@ Already put mother in earlier
         for (var item in value) {
             e = value[0];
             name = value[1];
-
-            if (value.length > 1 && item != 0 && item != 1) temp = temp + '<li>' + value[item] + '</li>';
+            if (value.length > 1 && item != 0 && item != 1) temp = temp + '<li>' + $.t("diseases:"+value[item][1]) + '</li>';
             else  temp + '<li> No Disease Report </li>';
         };
 
@@ -1794,19 +1782,19 @@ Already put mother in earlier
             }
             if (ID != "") {
                 var splits = new Array();
-
                 if (GEN == "FEMALE") {
                     p1 = parseInt($('#' + ID).attr('cx')) - 20;
                     p2 = parseInt($('#' + ID).attr('cy')) + 40;
 
                     if(TITLE.indexOf('_')>0){
+
                         splits = TITLE.split('_');
-                        if (splits[0] == 'paternal' || splits[0] == 'maternal')rel = splits[1];
+                        if (splits[0] == 'paternal' || splits[0] == 'maternal')rel = splits[0] + '_' + splits[1];
                         else rel = splits[0];
                     }
                     else rel = TITLE;
 
-                    var REL = '[' + rel + ']';
+                    var REL = '[' + $.t("fhh_family_pedigree." + rel) + ']';
                     temp = NAME.toString().split(' ');
 
                     if (temp.length >= 2) {
@@ -1828,12 +1816,13 @@ Already put mother in earlier
                     p2 = parseInt($('#' + ID).attr('y')) + 60;
                     if(TITLE.indexOf('_')>0) {
                         splits = TITLE.split('_');
-                        if (splits[0] == 'paternal' || splits[0] == 'maternal')rel = splits[1];
+                        if (splits[0] == 'paternal' || splits[0] == 'maternal')rel = splits[0] + '_' + splits[1];
                         else rel = splits[0];
                     }
                     else rel = TITLE;
 
-                    var REL = '[' + rel + ']';
+                    // var REL = '[' + $.t("fhh_family_pedigree." + rel) + ']';
+                    var REL = '[' + $.t("fhh_family_pedigree." + rel) + ']';
 
                     temp = NAME.toString().split(' ');
                     if (temp.length >= 2) {
@@ -1882,7 +1871,7 @@ Already put mother in earlier
 
                 $.each(item['Health History'], function (k, data) {
                     var disname = data['Disease Name'];
-                    var detdisname = data['Detailed Disease Name'];
+                    var detdisname = data['Disease Code'];
                     if(detdisname!=null) {
                         var ln = detdisname.length;
                         var F3 = disname.substr(0, 3);
@@ -1912,7 +1901,7 @@ Already put mother in earlier
         $.each(personal_information['Health History'], function (k, data) {
 
             var disname = data['Disease Name'];
-            var detdisname = data['Detailed Disease Name'];
+            var detdisname = data['Disease Code'];
             if(detdisname!=null) {
                 var ln = detdisname.length;
                 var F3 = disname.substr(0, 3);
@@ -1936,7 +1925,7 @@ Already put mother in earlier
 
         $.each(personal_information['Health History'], function (k, data) {
             var disname = data['Disease Name'];
-            var detdisname = data['Detailed Disease Name'];
+            var detdisname = data['Disease Code'];
             var ln = detdisname.length;
 
             var F3 = disname.substr(0,3);
@@ -1990,7 +1979,7 @@ Already put mother in earlier
                 health = item['Health History'];
                 $.each(health, function (k, data) {
                     var disname = data['Disease Name'];
-                    var detdisname = data['Detailed Disease Name'];
+                    var detdisname = data['Disease Code'];
                     var ln = detdisname.length;
 
                     var F3 = disname.substr(0,3);
@@ -6444,13 +6433,13 @@ function LOAD_HEALTH_TABLE(){
 
 
     if(typeof personal_information.age == 'undefined' && typeof personal_information.estimated_age == 'undefined' && typeof personal_information.cause_of_death == 'undefined'){
-        cod = 'Yes';
+        cod = $.t("fhh_js.yes");
     }
     else if(typeof personal_information.age != 'undefined' || typeof personal_information.estimated_age != 'undefined' || typeof personal_information.date_of_birth != 'undefined'){
-        cod = 'Yes';
+        cod = $.t("fhh_js.yes");
     }
     else{
-        cod = 'No';
+        cod = $.t("fhh_js.no");
     }
 
     /*
@@ -6479,17 +6468,17 @@ function LOAD_HEALTH_TABLE(){
     if(myhealth.length>0) {
         $.each(myhealth, function (key, item) {
             var tmp = item['Disease Name'];
-            var details = item['Detailed Disease Name'];
+            var details = item['Disease Code'];
             if(tmp)tmp = tmp.toLowerCase();
-            if(details)details=details.toLowerCase();
+            if(details)details=details;
             if(details=='diseases:null') details = "";
 
             if(($.inArray(tmp, STATICDISEASES) != -1) || ($.inArray(details, STATICDISEASES) != -1)) {
-                var nr = STATICDISEASES.indexOf(details.toLowerCase());
+                var nr = STATICDISEASES.indexOf(details);
                 for (var k=0; k<STATICDISEASES.length;k++){
                     if (k==nr){
                         if(details==null || typeof details=='undefined')details = tmp;
-                        MYPRIMARY_DISEASE[k] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                        MYPRIMARY_DISEASE[k] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
                         break;
                     }
                 }
@@ -6499,7 +6488,7 @@ function LOAD_HEALTH_TABLE(){
                 var b = diseasearray[i][1];
                 if(b==details){
                     if (details == null || typeof details == 'undefined')details = tmp;
-                    MYSECONDARY_DISEASE[i] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                    MYSECONDARY_DISEASE[i] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
                     break;
                 }
             }
@@ -6572,16 +6561,16 @@ function LOAD_HEALTH_TABLE(){
                 if(typeof item.estimated_death_age!= 'undefined' || item.estimated_death_age!= null) EST=item.estimated_death_age;
 
                 if (typeof item.cause_of_death!= 'undefined'){
-                    COD = 'No, ' + item.cause_of_death + '(' + EST +')';
-                }
-                else if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
-                    COD = 'Unknown';
+                    COD = $.t("fhh_js.no") + ', ' + $.t("diseases:"+item.cause_of_death_code) + '(' + EST +')';
                 }
                 else if(typeof item.age != 'undefined' || typeof item.estimated_age != 'undefined' || typeof item.date_of_birth != 'undefined'){
-                    COD = 'Yes';
+                    COD = $.t("fhh_js.yes");
+                }
+                else if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
+                    COD = $.t("fhh_js.unknown");
                 }
                 else{
-                    COD = 'No, ' + item.cause_of_death  + '(' + EST +')';;
+                    COD = $.t("fhh_js.no") + ', ' + $.t("diseases:"+item.cause_of_death_code)  + '(' + EST +')';;
                 }
 
                 var START_COD = new Array();
@@ -6614,7 +6603,7 @@ function LOAD_HEALTH_TABLE(){
                         for (var k=0; k<STATICDISEASES.length;k++){
                             if (k==nr){
                                 if(details==null || typeof details=='undefined')details = cd;
-                                PRIMARY_DISEASE[k] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                                PRIMARY_DISEASE[k] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
                                 break;
                             }
                         }
@@ -6624,7 +6613,7 @@ function LOAD_HEALTH_TABLE(){
                         var b = diseasearray[i][1];
                         if(b==details){
                             if (details == null || typeof details == 'undefined')details = cd;
-                            SECONDARY_DISEASE[i] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                            SECONDARY_DISEASE[i] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
                             break;
                         }
                     }
@@ -6637,19 +6626,19 @@ function LOAD_HEALTH_TABLE(){
                     if (item['Health History'].length > 0) {
                         $.each(item['Health History'], function (key, item) {
                             var tmp = item['Disease Name'];
-                            var details =  item['Detailed Disease Name'] ;
+                            var details =  item['Disease Code'] ;
 
                             if(tmp)tmp=tmp.toLowerCase();
-                            if(details)details=details.toLowerCase();
+                            if(details)details=details;
                             if(details=='diseases:null') details = "Other";
 
 
                             if(($.inArray(tmp, STATICDISEASES) != -1) || ($.inArray(details, STATICDISEASES) != -1)) {
-                                var nr = STATICDISEASES.indexOf(details.toLowerCase());
+                                var nr = STATICDISEASES.indexOf(details);
                                 for (var k=0; k<STATICDISEASES.length;k++){
                                     if (k==nr){
                                         if(details==null || typeof details=='undefined')details = tmp;
-                                        PRIMARY_DISEASE[k] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                                        PRIMARY_DISEASE[k] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
                                         break;
                                     }
                                 }
@@ -6659,7 +6648,7 @@ function LOAD_HEALTH_TABLE(){
                                 var b = diseasearray[i][1];
                                 if(b==details){
                                     if (details == null || typeof details == 'undefined')details = tmp;
-                                    SECONDARY_DISEASE[i] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                                    SECONDARY_DISEASE[i] = '<div style="background-color: #195A88;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
                                     break;
                                 }
                             }
@@ -6705,14 +6694,14 @@ function LOAD_HEALTH_TABLE(){
         if($("#closed_table tr td" ).length == 1) {
             $('#closed_table tr').append('<td>' +
                 //'<span id="closedtitle" style="font-weight:bold;background-color: white; color: black; padding-right:25px;">Closed Diseases:  </span>' +
-            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: #00477A;color: white;border: none;padding-right: 25px;cursor:pointer">' +
-            '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + NAME + '</button>' +
+            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: darkslategrey;color: white;border: none;padding-right: 25px;cursor:pointer">' +
+            '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + $.t("diseases:"+NAME) + '</button>' +
             '</td>');
         }
         else{
             $('#closed_table tr').append('<td>' +
-            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: #00477A;color: white;border: none;padding-right: 25px;cursor:pointer">' +
-            '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + NAME + '</button>' +
+            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: darkslategrey;color: white;border: none;padding-right: 25px;cursor:pointer">' +
+            '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + $.t("diseases:"+NAME) + '</button>' +
             '</button>' +
             '</td>');
 
@@ -6847,14 +6836,14 @@ function createDialogMain() {
 
             var thename, temp;
             var disname = data['Disease Name'];
-            var detdisname = data['Detailed Disease Name'];
+            var detdisname = $.t("diseases:" + data['Disease Code']);
             if(detdisname=='diseases:null') detdisname = null;
             if (detdisname == null) thename = disname;
             else thename = detdisname;
-
+//                      console.log("P->DN:[" + disname +  "]DDN[" + detdisname + "]DC[" + data['Disease Code'] + "]--> [" + thename + "]");
             if ($.inArray(thename, allnames) == -1) {
                 allnames.push(thename);
-                array.push("<option id=" + disname + " value='" + detdisname + "'>" + thename + "</option>")
+                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "'>" + thename + "</option>")
             }
         });
 
@@ -6870,13 +6859,14 @@ function createDialogMain() {
                         $.each(health, function (k, data) {
                             var thename, temp;
                             var disname = data['Disease Name'];
-                            var detdisname = data['Detailed Disease Name'];
+                            var detdisname = $.t("diseases:" + data['Disease Code']);
                             if(detdisname=='diseases:null') detdisname = null;
                             if (detdisname == null) thename = disname;
                             else thename = detdisname;
+//                                                      console.log("R->DN:[" + disname +  "]DDN[" + detdisname + "]DC[" + data['Disease Code'] + "]--> [" + thename + "]");
                             if ($.inArray(thename, allnames) == -1) {
                                 allnames.push(thename);
-                                array.push("<option id=" + disname + " value='" + detdisname + "'>" + thename + "</option>")
+                                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "'>" + thename + "</option>")
                             }
                         });
                     }
@@ -6888,11 +6878,11 @@ function createDialogMain() {
 
 
         var $optdialog = $("<div id='optionsPanelMain' width='800px' class='instructions option_dialog' style='width:800px;'><p>"
-        + "You can view, save or print your family health history to share with your health care provider. They can assess your risk for certain diseases, and develop disease prevention strategies that are right for you. You can also share the table with other family members to your your family's disease history. You can change what is shown in the table yourself by selecting from the options below. Please select from the options below what you would like to show on your table."
+        + $.t("fhh_family_pedigree.diagram_options_desc")
         + "<table>"
         + "<tr>"
         + "<td>"
-        + "<label for='diseaseopts'>Select a disease or condition to highlight in the table  </label>"
+        + "<label for='diseaseopts'>" + $.t("fhh_family_pedigree.diagram_options_disease") + "  </label>"
         + "<select id='diseaseopts' onchange='DiseaseDna()'>"
         + array.toString()
         + "<option value='one'></option>"
@@ -6901,11 +6891,12 @@ function createDialogMain() {
         + "</tr>"
         + "<tr>"
         + "<td>"
-        + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfoMain()' checked />Show my personal information in the report (such as Date of Birth, Height, or Weight)<br />"
-        + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfoMain()' checked />Show names of family members in the report<br />"
-        + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfoMain()' checked/>Show drawing (the tree diagram of your family's health history)<br />"
-        + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfoMain()' checked/>Show table (your family's health history displayed as a listing table)<br />"
-        + "<input type='button' onclick='CloseInfoMain()' value='close'></button>"
+        + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfoMain()' checked />" + $.t("fhh_family_pedigree.diagram_options_checkbox1") + "<br />"
+        + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfoMain()' checked />" + $.t("fhh_family_pedigree.diagram_options_checkbox2") + "<br />"
+        + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfoMain()' checked/>" + $.t("fhh_family_pedigree.diagram_options_checkbox3") + "<br />"
+        + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfoMain()' checked/>" + $.t("fhh_family_pedigree.diagram_options_checkbox4") + "<br />"
+        // + "<input type='button' onclick='CloseInfoMain()' value='" + $.t("fhh_family_pedigree.close") + "'></button>"
+        + "<br /><button onclick='CloseInfoMain()'>" + $.t("fhh_family_pedigree.close") + "</button>"
         + "</td>"
         + "</tr></table>"
 
@@ -6913,7 +6904,7 @@ function createDialogMain() {
         + "</p></div>").dialog({
             width: 900,
             position: ['top',100],
-            title: 'Diagram & Table Options',
+            title: $.t("fhh_family_pedigree.diagram_options"),
             close: function (ev, ui) {
                 $(this).empty();
                 $(this).dialog('destroy').remove();
@@ -6949,59 +6940,48 @@ function DiseaseDna(){
     var selectBox = document.getElementById("diseaseopts");
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
     var found = false;
-
+        console.log( "<<<" + selectedValue + ">>>");
     /**
      * Me values
      */
     // Fixed below code to fix yellow and blue combinations
+    var ID = 'me';
     $.each(personal_information['Health History'], function (k, data) {
         if(typeof data !='undefined') {
-            var ID = 'me';
-            var health = new Array();
-            health = data;
-            $('#' + ID).attr({fill: 'slateblue', stroke: 'black'});
-            $.each(health, function (t, value) {
-                if (selectedValue == value) {
-                    $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
-                    //found = value;
-                    found = true;
-                    return false;
-                }
-                /*
-                else if (selectedValue == value) {
-                    $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
-                    found = value;
-                } */
-            });
-        }
-        if (found == true)
-           return false;
-    });
-
-
-    $.each(personal_information, function (key, item) {
-        if(typeof item !='undefined') {
-            var ID = item.id;
-            if (typeof ID != 'undefined') {
-                $('#' + ID).attr({fill: 'silver'}); //added to reset to silver when onchange comes
-                if (item['Health History']) {
-                    var health = new Array();
-                    health = item['Health History'];
-                    $.each(health, function (k, data) {
-
-                        var detdisname = data['Detailed Disease Name'];
-                        var disname = data['Disease Name'];
-
-                        if (selectedValue == detdisname) {
-                            $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
-                        }
-                        else if (selectedValue == disname) {
-                            $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
-                        }
-                    });
-                }
+                        console.log("Testing: " + data["Disease Code"] + "==" + selectedValue);
+                        if (selectedValue == data["Disease Code"]) {
+              $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
+              found = true;
             }
         }
+    });
+
+    if (found != true) {
+            $('#' + ID).attr({fill: 'slateblue', stroke: 'black'});
+    }
+
+        found = false;
+    $.each(personal_information, function (key, item) {
+        if(item != null && typeof item != 'undefined' && typeof item.id !='undefined') {
+            var ID = item.id;
+            if (typeof ID != 'undefined') {
+                                var hh = item['Health History'];
+                                $.each(hh, function (health_key, disease) {
+//                                  console.log("Testing["+item.name+"]: " + disease["Disease Code"] + "==" + selectedValue);
+                                    
+                                    if (selectedValue == disease["Disease Code"]) {
+//                                      console.log("HIT: " + ID);
+                                        found = true;
+                                        $('#' + ID).attr({fill: 'yellow', stroke: 'black'});            
+                                    }
+                                });
+                                if (found != true) {
+                                    $('#' + ID).attr({fill: 'silver', stroke: 'black'});
+                                }
+            }
+        }
+
+
     });
 
 }
@@ -7245,7 +7225,6 @@ function TheZoomMain(sel) {
         else if(/chrome/i.test( navigator.userAgent )){
             var RIGHT_X = allXarray.pop();
             var LEFT_X = allXarray[0];
-alert("chrome");
             if (arr[0] < 0)X = parseInt(arr[0]) - 100;
             else X = -100;
             var REALLONG = parseInt(masterRight) * 3.1;
@@ -7676,8 +7655,8 @@ function SetPersonalInfo(){
         $('#age').text('Age: ' + age);
         // $('#age').append($("<span><b></b></span>").text(age));
     }
-    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + height_unit));
-    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + weight_unit));
+    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + $.t("fhh_diabetes_calculator."+height_unit)));
+    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + $.t("fhh_diabetes_calculator."+weight_unit)));
     $('#abmi').append($("<span><b></b></span>").text( BMI));
 }
 

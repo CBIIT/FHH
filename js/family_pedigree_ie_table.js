@@ -65,15 +65,13 @@ var defaultfamilyarray=[
 ];
 
 var STATICDISEASES = [
-    'heart disease',
-    'stroke',
-    'diabetes',
-    'colon cancer',
-    'breast cancer',
-    'ovarian cancer'
-];
-
-
+    'SNOMED_CT-56265001',
+    'SNOMED_CT-116288000',
+    'SNOMED_CT-73211009',
+    'SNOMED_CT-363406005',
+    'SNOMED_CT-254837009',
+    'SNOMED_CT-363443007'
+]; 
 
 function IEloadTable() {
 
@@ -87,7 +85,7 @@ function IEloadTable() {
     if( mdialog != null) {
         oTable.fnDraw(true);
         // $(mdialog).dialog('destroy').remove();
-         mdialog = null;
+         mdialog = null;         
     }
 
 
@@ -99,65 +97,42 @@ function IEloadTable() {
     /*
      Get Date
      */
-    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-    var currentdate = new Date();
-
-    var day = days[ currentdate.getDay() ];
-    var month = months[ currentdate.getMonth() ];
-    //Date
-    var hours = currentdate.getHours();
-    var hours = (hours+24-2)%24;
-    var mid='AM';
-    if(hours==0){ //At 00 hours we need to show 12 am
-        hours=12;
-    }
-    else if(hours>12){
-        hours=hours%12 + 2;
-        mid='PM';
-    }
-    var thisMinute = currentdate.getMinutes();
-    thisMinute = thisMinute < 10 ? "0"+thisMinute : thisMinute;
-
-    var today =  "Date of Report: " +
-        day + ", " + month + " "
-        + currentdate.getDate() + ", "
-        + currentdate.getFullYear() + " "
-        + hours + ":"
-        + thisMinute + " "
-        + mid;
-
-
+    var lng = window.i18n.lng();
+    if (lng=='en-US') {
+        lng = 'en';
+    };      
+    var options = {weekday: "long", year: "numeric", month: "long", day: "numeric", hour:"numeric",minute:"numeric",hour12:"true"};             
+    var today = $.t("fhh_family_pedigree.date_of_report") + ": " + new Date().toLocaleString(lng, options);
     mdialog = $(
         '<div id="family_pedigree" style="background-color:white;">' +
 
         '<div id="main" class="">' +
 
 
-        '<h1>View Diagram & Table</h1><br/>'+
+        '<h1>' + $.t("fhh_family_pedigree.title") + '</h1><br/>'+
         '<table class="infolayer">' +
         '<tr><td>' +
-        '<p style="margin-bottom: 1px">' + $.t("fhh_diagram.instructions") + 'You can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!</p><br style="line-height: 0px"/>' +
-        '<p>If you would like to change the way the information below is shown, click "Diagram & Table Options." The bottom and right scroll bars are useful navigation tools when viewing larger tables and diagrams.</p>' +
+        '<p style="margin-bottom: 1px">' + $.t("fhh_family_pedigree.desc_line1") + 'You can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!</p><br style="line-height: 0px"/>' +
+        '<p>' + $.t("fhh_family_pedigree.desc_line2") + '</p>' +
         '</td></tr></table>' +
 
 
-        '<h2> This feature has been tested and is supported in the following browsers - Internet Explorer 10 and recent versions, Firefox, Chrome, Safari. </h2>' +
+        '<h2> ' + $.t("fhh_family_pedigree.ie_disclaimer")+ '</h2>' +
 
         '<div id="dialogtext" style="position: absolute;top: 20px"></div>' +
 
         '<div id="nav" class="sticky">' +
         '<ul>' +
-        '<li><a class="top" onclick="ToTop();return false;" href="#">Go To Diagram</a></li>' +
-        '<li><a class="bottom" onclick="ToTable();return false;" href="#">Go To Table</a></li>' +
-        '<li><a id="printer">Print</a></li>' +
-        '<li><a href="#top" onclick="createDialog()">Diagram & Table Options</a></li>' +
+        '<li><a class="top" onclick="ToTop();return false;" href="#">' + $.t("fhh_family_pedigree.go_to_diagram") + '</a></li>' +
+        '<li><a class="bottom" onclick="ToTable();return false;" href="#">' + $.t("fhh_family_pedigree.go_to_table") + '</a></li>' +
+        '<li><a id="printermain">' + $.t("fhh_family_pedigree.print") + '</a></li>' +
+        '<li><a href="#optionsPanelMan" onclick="createDialogMain()">' + $.t("fhh_family_pedigree.diagram_options") + '</a></li>' +
         '<li>' +
         '</li>' +
         '<li>' +
         '<input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close"' +
-        'type="button"role="button" aria-disabled="false" title="close" value="close" onclick="closedialog()" style="right:50px;width:50px"></input>' +
+        'type="button"role="button" aria-disabled="false" title="close" value="' + $.t("fhh_family_pedigree.close") +'" onclick="closeOther()" style="right:50px;width:50px"></input>' +
         '</li>' +
         '</ul>' +
         '</div>' +
@@ -208,42 +183,44 @@ function IEloadTable() {
                 },
                 "columns": HEADERS,
                 "columnDefs": [
-                    {
-                        //"targets": [0],
-                        "targets": [0, 1],
-                        "visible": false,
-                        "searchable": false
-                    }
+                    {"targets": [0,1], "visible": false,"searchable": false},
                 ],
-                "aaSortingFixed": [[0, 'desc']]
+                "aaSortingFixed": [[0, 'desc']],
+                "oLanguage": {
+                  "sSearch": $.t("fhh_family_pedigree.search")+':',
+                  "oPaginate": {
+                    "sPrevious": $.t("fhh_family_pedigree.previous"),
+                    "sNext": $.t("fhh_family_pedigree.next")
+                  }                  
+                }                
 
             });
 
             $("div.toolbar").html(
                 '<div id="lightbox">' +
                 '<table width="100%"><tr><td style="width:30%">' +
-                        '<table id="bmi_table" class="htable">' +
-                        '<caption>My Personal Information</caption>' +
-                        '<tr><td id="age">Age:</td></tr>' +
-                        '<tr><td id="height">Height:</td></tr>' +
-                        '<tr><td id="weight">Weight:</td></tr>' +
-                        '<tr><td id="abmi">BMI:</td></tr>' +
-                        '</tr></table>' +
-                    '</td>' +
-                    '<td style="width:70%;left:auto;right:auto">' +
-                        // '<img id="legendtag" src="../static/images/Legend.png"></img>' + 
-                    '</td>' + 
+                '<table id="bmi_table" class="htable">' +
+                '<caption>' + $.t("fhh_family_pedigree.personal_info") + '</caption>' +
+                '<tr><td id="age">' + $.t("fhh_family_pedigree.age") + '</td></tr>' +
+                '<tr><td id="height">' + $.t("fhh_family_pedigree.height") + ' </td></tr>' +
+                '<tr><td id="weight">' + $.t("fhh_family_pedigree.weight") + ' </td></tr>' +
+                '<tr><td id="abmi">' + $.t("fhh_family_pedigree.bmi") + ' </td></tr>' +
+                '</tr></table>' +
+                '</td>' +
+                '<td style="width:70%;left:auto;right:auto">' +
+                '<img id="legendtag" src="../static/images/Legend_' + lng + '.jpg"></img>' +
+                '</td>' +
                 '</tr></table>' +
 
                 '</div>'
-            ); 
+            );
             $('#health_table').css('width',masterRight);
             
             var target = $(this);
             $(this).dialog("open");
             $(this).load(LOAD_HEALTH_TABLE());
-
             diseasearray=new Array();
+
 
         },
         beforeClose: function(){
@@ -278,69 +255,58 @@ function IEloadTable() {
     }
 
     $(document).ready(function() {
- 
- if (personal_information['Health History'] && personal_information['Health History'].length > 0){
-
         $.each(personal_information['Health History'], function (key, item) {
-
-
-            if (key == 'undefined' || key == null) key = "";
             if (item == 'undefined' || item == null) item = "";
-
-
             var dn = item['Disease Name'];
-            var details =  item['Detailed Disease Name'] ;
+            var details =  item['Disease Code'] ;
+            var diseaseCode = item['Disease Code'];
             if(dn)dn = dn.toLowerCase();
-            if(details)details = details.toLowerCase();
+            if(details)details = details;
             if(details=='diseases:null') details = "";
 
-            if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
+            if($.inArray(details, STATICDISEASES) == -1) {
                 if (diseasearray.length == 0) diseasearray.push([dn,details])
                 else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
 
             }
         });
 
-    }
-
-if (personal_information && personal_information.length > 0){
-
-
         $.each(personal_information, function (key, item) {
-            if (key == 'undefined' || key == null) key = "";
             if (item == 'undefined' || item == null) item = "";
             if (item.id) {
 
-                if (item['Health History'] && item['Health History'].length > 0){  
                 $.each(item['Health History'], function (k, data) {
                     var dn = data['Disease Name'];
-                    var details =  data['Detailed Disease Name'];
+                    var details =  data['Disease Code'];
+                    var diseaseCode = data['Disease Code'];
                     if(dn)dn = dn.toLowerCase();
-                    if(details)details = details.toLowerCase();
+                    if(details)details = details;
                     if(details=='diseases:null') details = "";
 
-                    if($.inArray(details.toLowerCase(), STATICDISEASES) == -1) {
+                    if($.inArray(details, STATICDISEASES) == -1) {
                         if (diseasearray.length == 0) diseasearray.push([dn,details])
                         else if ($.inArray(details, diseasearray[1]) == -1) diseasearray.push([dn,details])
                     }
                 });
             }
-            }
         });
-}
+
+
+
+
 
         HEADERS = new Array;
         HEADERS.push({"title":'Id'});
-        HEADERS.push({"title":'Name & Relationship'});
-        HEADERS.push({"title":'Name & Relationship'});
-        HEADERS.push({"title":'Still Living'});
+        HEADERS.push({"title":$.t("fhh_js.name_relationship")});
+        HEADERS.push({"title":$.t("fhh_js.name_relationship")});
+        HEADERS.push({"title":$.t("fhh_js.still_living")});
 
         for (var t = 0; t < STATICDISEASES.length; t++) {
             var NAME = STATICDISEASES[t];
             var COL = t + 3;
             var DID = 'D_' + COL;
 
-            if(NAME)NAME=NAME.toLowerCase();
+            if(NAME)NAME=NAME;
 
             /*
              Get only values that are not static
@@ -348,16 +314,16 @@ if (personal_information && personal_information.length > 0){
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" class="closeimg" style="border:none"/></a>' + NAME
+            '<img src="../static/images/close.png" class="closeimg"/></a>' + $.t("diseases:"+NAME)
             });
         }
-
         for (var i = 0; i < diseasearray.length; i++) {
-            var NAME = diseasearray[i][0];
+            var NAME = diseasearray[i][1];
+
             var COL = i + 9;
             var DID = 'D_' + COL;
 
-            if(NAME)NAME=NAME.toLowerCase();
+            if(NAME)NAME=NAME;
 
             /*
              Get only values that are not static
@@ -365,7 +331,7 @@ if (personal_information && personal_information.length > 0){
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" class="closeimg" style="border:none"/></a>' + NAME
+            '<img src="../static/images/close.png" class="closeimg"/></a>' + $.t("diseases:"+NAME)
             });
         }
 
@@ -494,8 +460,8 @@ if (personal_information && personal_information.length > 0){
 
 $('#age').text = age;
     $('#age').append($("<span><b></b></span>").text(age));
-    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + height_unit));
-    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + weight_unit));
+    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + $.t("fhh_diabetes_calculator."+height_unit)));
+    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + $.t("fhh_diabetes_calculator."+weight_unit)));
     $('#abmi').append($("<span><b></b></span>").text( BMI));
     
 // }
@@ -630,10 +596,10 @@ $('#age').text = age;
             <!-- PRINT STARTS HERE -->
              if(DISPLAY != 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
                 + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
-                + '<p>My Family Health Portrait-Diagram</p>'
+                + '<p>' + $.t("fhh_family_pedigree.page_title") + '</p>'
                 + $(topsvgc).html()
                         + '<DIV style="page-break-after:always"></DIV>'
                 + $(healthtable).html()
@@ -643,7 +609,7 @@ $('#age').text = age;
             }
              else if(DISPLAY == 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                + '<html><head><title>My Family Health Portrait-Diagram</title>'
+                + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
                 + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
                 // + '<p>My Family Health Portrait-Diagram</p>'
@@ -721,19 +687,19 @@ function LOAD_HEALTH_TABLE(){
     var diss;
 
     temp1.push(-1);
-    temp1.push(personal_information.name + '( Self )');
-    temp1.push(personal_information.name + '( Self )');
+    temp1.push(personal_information.name + ' (' + $.t("fhh_js.self") + ')');
+    temp1.push(personal_information.name + ' (' + $.t("fhh_js.self") + ')');
     var cod = "";
 
 
     if(typeof personal_information.age == 'undefined' && typeof personal_information.estimated_age == 'undefined' && typeof personal_information.cause_of_death == 'undefined'){
-        cod = 'Yes';
+        cod = $.t("fhh_js.yes");
     }
     else if(typeof personal_information.age != 'undefined' || typeof personal_information.estimated_age != 'undefined' || typeof personal_information.date_of_birth != 'undefined'){
-        cod = 'Yes';
+        cod = $.t("fhh_js.yes");
     }
     else{
-        cod = 'No';
+        cod = $.t("fhh_js.no");
     }
 
     /*
@@ -758,18 +724,20 @@ function LOAD_HEALTH_TABLE(){
          if (myhealth && myhealth.length > 0){  
         $.each(myhealth, function (key, item) {
             var tmp = item['Disease Name'];
-            var details = item['Detailed Disease Name'];
+            var details = item['Disease Code'];
             var diagage =  item['Age At Diagnosis'] ;
+            if (diagage == null) diagage = 'unknown';
+            
             if(tmp)tmp = tmp.toLowerCase();
-            if(details)details=details.toLowerCase();
+            if(details)details=details;
             if(details=='diseases:null') details = "";
 
             if(($.inArray(tmp, STATICDISEASES) != -1) || ($.inArray(details, STATICDISEASES) != -1)) {
-                var nr = STATICDISEASES.indexOf(details.toLowerCase());
+                var nr = STATICDISEASES.indexOf(details);
                 for (var k=0; k<STATICDISEASES.length;k++){
                     if (k==nr){
                         if(details==null || typeof details=='undefined')details = tmp;
-                        MYPRIMARY_DISEASE[k] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
+                        MYPRIMARY_DISEASE[k] = $.t("fhh_js."+diagage);
                         break;
                     }
                 }
@@ -779,7 +747,7 @@ function LOAD_HEALTH_TABLE(){
                 var b = diseasearray[i][1];
                 if(b==details){
                     if (details == null || typeof details == 'undefined')details = tmp;
-                    MYSECONDARY_DISEASE[i] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
+                    MYSECONDARY_DISEASE[i] = $.t("fhh_js."+diagage);
                     break;
                 }
             }
@@ -822,16 +790,26 @@ if (personal_information && typeof personal_information != 'undefined'){
 
             if(typeof FAMNAME == 'undefined') {
                 if (fullid != -1) {
-                    FAMNAME = key;
+                    FAMNAME = $.t("fhh_js."+key);
                     RELATION = key.substr(key.indexOf('_') + 1, key.length);
                 }
                 else if (halfid != -1) {
-                    FAMNAME = key;
+                    index = parseInt(key.substring(key.lastIndexOf('_')+1))+1
+                    FAMNAME = $.t("fhh_js." + key.substring(0,key.lastIndexOf('_'))) + ' ' + index
                     RELATION = key.substr(0, key.lastIndexOf('_'));
                 }
             }
             else if (typeof FAMNAME != 'undefined') {
-                RELATION = key.substr(0,key.indexOf('_')) + " " + key.substr(key.indexOf('_')+1,key.length);
+                // get relationship and index if exists and //
+                // translate relationship //
+                if (halfid != -1) {
+                    index = parseInt(key.substring(key.lastIndexOf('_')+1))+1
+                    RELATION = $.t("fhh_js." + key.substring(0,key.lastIndexOf('_'))) + ' ' + index
+                }
+                else {
+                    RELATION = $.t("fhh_js." + key);
+                }
+                // RELATION = key.substr(0,key.indexOf('_')) + " " + key.substr(key.indexOf('_')+1,key.length);
                 // RELATION = key.substr(0,key.lastIndexOf('_')) + " " + key.substr(key.lastIndexOf('_')+1,key.length);
                 FAMNAME = FAMNAME + ' (' + RELATION + ')';
             }
@@ -851,8 +829,8 @@ if (personal_information && typeof personal_information != 'undefined'){
                     NAMEREL = RELATION;
                 }
 
-                RELATION = key.substr(0,key.indexOf('_')) + " " + key.substr(key.indexOf('_')+1,key.length);
 
+                RELATION = key.substr(0,key.indexOf('_')) + " " + key.substr(key.indexOf('_')+1,key.length);
 
                 temp1.push(RELATION);
                 temp1.push(NAMEREL);
@@ -863,16 +841,16 @@ if (personal_information && typeof personal_information != 'undefined'){
                 if(typeof item.estimated_death_age!= 'undefined' || item.estimated_death_age!= null) EST=item.estimated_death_age;
 
                 if (typeof item.cause_of_death!= 'undefined'){
-                    COD = 'No, ' + item.cause_of_death + '(' + EST +')';
-                }
-                else if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
-                     COD = 'Unknown';
+                    COD = $.t("fhh_js.no") + ', ' + $.t("diseases:"+item.cause_of_death_code) + '(' + $.t("fhh_js."+EST) +')';
                 }
                 else if(typeof item.age != 'undefined' || typeof item.estimated_age != 'undefined' || typeof item.date_of_birth != 'undefined'){
-                    COD = 'Yes';
+                    COD = $.t("fhh_js.yes");
+                }
+                else if(typeof item.age == 'undefined' && typeof item.estimated_age == 'undefined' && typeof item.cause_of_death == 'undefined'){
+                     COD = $.t("fhh_js.unknown");
                 }
                 else{
-                    COD = 'No, ' + item.cause_of_death  + '(' + EST +')';;
+                    COD = $.t("fhh_js.no") + ', ' + $.t("diseases:"+item.cause_of_death_code)  + '(' + $.t("fhh_js."+EST) +')';;
                 }
 
                 //var COD = ((typeof item.cause_of_death == 'undefined') ? 'Yes' :  'No / ' + item.cause_of_death);
@@ -906,7 +884,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                         for (var k=0; k<STATICDISEASES.length;k++){
                             if (k==nr){
                                 if(details==null || typeof details=='undefined') details = cd;
-                                PRIMARY_DISEASE[k] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                                PRIMARY_DISEASE[k] = $.t("diseases:"+details);
                                 break;
                             }
                         }
@@ -916,7 +894,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                         var b = diseasearray[i][1];
                         if(b==details){
                             if (details == null || typeof details == 'undefined')details = cd;
-                            SECONDARY_DISEASE[i] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + '</div>'
+                            SECONDARY_DISEASE[i] = $.t("diseases:"+details);
                             break;
                         }
                     }
@@ -929,21 +907,21 @@ if (personal_information && typeof personal_information != 'undefined'){
                     if (item['Health History'] && item['Health History'].length > 0){  
                         $.each(item['Health History'], function (key, item) {
                             var tmp = item['Disease Name'];
-                            var details =  item['Detailed Disease Name'] ;
+                            var details =  item['Disease Code'] ;
                             var diagage =  item['Age At Diagnosis'] ;
 
 
                             if(tmp)tmp=tmp.toLowerCase();
-                            if(details)details=details.toLowerCase();
+                            if(details)details=details;
                             if(details=='diseases:null') details = "Other";
 
 
                             if(($.inArray(tmp, STATICDISEASES) != -1) || ($.inArray(details, STATICDISEASES) != -1)) {
-                                var nr = STATICDISEASES.indexOf(details.toLowerCase());
+                                var nr = STATICDISEASES.indexOf(details);
                                 for (var k=0; k<STATICDISEASES.length;k++){
                                     if (k==nr){
                                         if(details==null || typeof details=='undefined')details = tmp;
-                                        PRIMARY_DISEASE[k] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
+                                        PRIMARY_DISEASE[k] = $.t("fhh_js."+diagage);
                                         break;
                                     }
                                 }
@@ -953,7 +931,7 @@ if (personal_information && typeof personal_information != 'undefined'){
                                 var b = diseasearray[i][1];
                                 if(b==details){
                                     if (details == null || typeof details == 'undefined')details = tmp;
-                                    SECONDARY_DISEASE[i] = '<div style="background-color: #00477A;color: white;padding: 4px 8px 4px 8px">' + details + ' (' + diagage + ')' + '</div>'
+                                    SECONDARY_DISEASE[i] = $.t("fhh_js."+diagage);
                                     break;
                                 }
                             }
@@ -1004,14 +982,14 @@ if (personal_information && typeof personal_information != 'undefined'){
         if($("#closed_table tr td" ).length == 1) {
             $('#closed_table tr').append('<td>' +
             '<span id="closedtitle" style="font-weight:bold;background-color: white; color: black; padding-right:25px;">Hidden Diseases:  </span>' +
-            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: #00477A;color: white;border: none;padding-right: 25px;cursor:pointer">' +
-            '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + NAME + '</button>' +
+            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: darkslategrey;color: white;border: none;padding-right: 25px;cursor:pointer">' +
+            '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + $.t("diseases:"+NAME) + '</button>' +
             '</td>');
         }
         else{
             $('#closed_table tr').append('<td>' +
-            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: #00477A;color: white;border: none;padding-right: 25px;cursor:pointer">' +
-            '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + NAME + '</button>' +
+            '<button id="' + TXT + '" class="closer"  data-column="' + ID + '" onClick="openTab(this.id)" style="background-color: darkslategrey;color: white;border: none;padding-right: 25px;cursor:pointer">' +
+            '<img src="../static/images/open.gif" title="Add to the table" style="padding-right: 15px;padding-top: 4px;"/>' + $.t("diseases:"+NAME) + '</button>' +
             '</button>' +
             '</td>');
 
@@ -1126,7 +1104,7 @@ if (personal_information['Health History'] && personal_information['Health Histo
 
             var thename, temp;
             var disname = data['Disease Name'];
-            var detdisname = data['Detailed Disease Name'];
+            var detdisname = data['Disease Code'];
             if(detdisname=='diseases:null') detdisname = null;
             if (detdisname == null) thename = disname;
             else thename = detdisname;
@@ -1154,10 +1132,10 @@ if (personal_information && personal_information.length > 0){
                             $.each(health, function (k, data) {
                                 var thename, temp;
                                 var disname = data['Disease Name'];
-                                var detdisname = data['Detailed Disease Name'];
+                                var detdisname = data['Disease Code'];
                                 if(detdisname=='diseases:null') detdisname = null;
                                 if (detdisname == null) thename = disname;
-                                else thename = detdisname;
+                                else thename = disname;
                                 if ($.inArray(thename, allnames) == -1) {
                                     allnames.push(thename);
                                     array.push("<option id=" + disname + " value='" + detdisname + "'>" + thename + "</option>")
@@ -1272,7 +1250,7 @@ function ClearDna(){
 //                     health = item['Health History'];
 //                     $.each(health, function (k, data) {
 
-//                         var detdisname = data['Detailed Disease Name'];
+//                         var detdisname = data['Disease Code'];
 //                         var disname = data['Disease Name'];
 
 //                         if (selectedValue == detdisname) {
@@ -1845,11 +1823,10 @@ function IESVGinPrint(){
 function SetPersonalInfo(){
 
     if(age != ""){
-        $('#age').text('Age: ' + age);
+        $('#age').text($.t("fhh_family_pedigree.age") + ' ' + age);
         // $('#age').append($("<span><b></b></span>").text(age));
     }
-    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + height_unit));
-    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + weight_unit));
+    if(height != "") $('#height').append($("<span><b></b></span>").text( height + " " + $.t("fhh_diabetes_calculator."+height_unit)));
+    if(weight != "") $('#weight').append($("<span><b></b></span>").text( weight + " " + $.t("fhh_diabetes_calculator."+weight_unit)));
     $('#abmi').append($("<span><b></b></span>").text( BMI));
 }
-
