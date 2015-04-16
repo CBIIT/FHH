@@ -168,7 +168,7 @@ function push_all_relatives_of_type(diagram_data, relationship_type) {
 }
 
 
-function add_non_blood_spouse(relative, new_diagram_relative, num = 1) {
+function add_non_blood_spouse(relative, new_diagram_relative, num) {
 	var spouse = {};
 	var num = typeof num !== 'undefined' ? num : 1;	
 	spouse.key = relative.id.hashCode() + num;
