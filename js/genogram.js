@@ -1,6 +1,8 @@
 var myDiagram;
+var diagram_data;
 
 function init(diagram_data) { 
+  this.diagram_data = diagram_data;
   if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
   var $ = go.GraphObject.make;
   if (typeof myDiagram == 'undefined') {
@@ -22,7 +24,7 @@ function init(diagram_data) {
         switch (a) {
           case "A": return "lightyellow";
           case "D": return "red";
-          case "SD": return "red";
+          case "SD": return "pink";
           case "SELF": return "darkblue";
           default: return "lightgray";
         }
@@ -43,9 +45,10 @@ function init(diagram_data) {
   // gets diseases and displays them //
   function displayDiseases(diseases) {
     var diseaseString = "";
+    window.diseases = diseases;
     if (diseases!="") {
       for (key in diseases) {
-        diseaseString += "\u2022 " + diseases[key];
+        diseaseString += "\u2022 " + diseases[key]['translatedDiseaseName'];
         if (key+1<diseases.length) diseaseString+='\n';
       }
     }
@@ -455,3 +458,43 @@ GenogramLayout.prototype.findParentsMarriageLabelNode = function(node) {
   return null;
 };
 
+// highlight specific disease on diagram //
+function capture_specific_disease(disease_code) {
+    for (key in diagram_data) {
+      //  set data to specific node in diagram //
+      var data = myDiagram.model.findNodeDataForKey(diagram_data[key]['key']);
+      // check node diseases //
+      // if they exist remove any reference to "SD" and check if they match dropdown selected disease //
+      if (data.diseases) {
+          var colors = [];
+          var deceased = 0;
+          // loop through attributes //
+          for (color in data.a) {
+            var a = data.a[color];
+            // check if string // 
+            // if not SD(specific disease) //
+            // if not D (dead), add to colors array //
+            // else set deceased to one, to add it at the end //
+            if (typeof a == "string") {
+              if (a!="SD") {
+                if (a!="D") {
+                  colors.push(a);
+                }
+                else {
+                  deceased = 1;
+                }
+              }
+            }
+          }
+
+          for (disease in data.diseases) {
+            if (data.diseases[disease]['Disease Code']==disease_code) {
+              colors.push("SD");
+            }
+          }
+          // add deceased to end of array if it exists //
+          if (deceased) colors.push("D");
+          myDiagram.model.setDataProperty(data, "a", colors);
+      }
+    }
+}

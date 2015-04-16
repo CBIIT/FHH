@@ -144,7 +144,8 @@ function xmlload() {
             //'<div class="scroll"></div>' +
         '<div class="info"></div>' +
         '</div>' +
-        '<div id="myDiagramDiv" style="width:auto; height:600px; background-color: #fff;"></div>' + 
+
+        '<div id="myDiagramDiv" style="width:auto; height:600px; background-color: #fff;">test</div>' + 
 
         '<div id="family_pedigree_info" class="brk">' +
         '<div>' +
@@ -178,8 +179,7 @@ function xmlload() {
 
         // },
         open: function () {
-
-
+            open_new_diagram_dialog();
             var ex = document.getElementById('health_table');
 
 // oTable.fnDestroy();
@@ -6941,6 +6941,7 @@ function DiseaseDna(){
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
     var found = false;
         console.log( "<<<" + selectedValue + ">>>");
+        capture_specific_disease(selectedValue);
     /**
      * Me values
      */

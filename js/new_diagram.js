@@ -1,20 +1,20 @@
 
-function setup_new_diagram_dialog() {
-	$("#new_diagram_dialog").load ("new_diagram_dialog.html", function () {
-	});
+// function setup_new_diagram_dialog() {
+// 	$("#new_diagram_dialog").load ("new_diagram_dialog.html", function () {
+// 	});
 
-	$("#new_diagram_dialog").dialog({
-		title:"New Diagram Dialog",
-		position:['middle',0],
-		autoOpen: false,
-		height:'auto',
-		width:['95%']
-	});		
+// 	$("#new_diagram_dialog").dialog({
+// 		title:"New Diagram Dialog",
+// 		position:['middle',0],
+// 		autoOpen: false,
+// 		height:'auto',
+// 		width:['95%']
+// 	});		
 	
-}
+// }
+
 
 function open_new_diagram_dialog() {
-	$("#new_diagram_dialog").dialog("open");
 	load_diagram();	
 }
 
@@ -92,27 +92,26 @@ function load_data() {
 	return diagram_data;
 }
 
+
 // add characteristics to the attributes array. Determines geometry and colors //
 function add_characteristics(relationship_type, relative, person) {
-	// check health history. if diseases exist set call translate_diseases to get translated list //
+	// check health history. if diseases exist set diseases to health history //
 	// if diseases do not exist set dieases key to "" to ensure tooltip is not shown //
 	person.diseases = "";
 	if (relative['Health History'].length>0) {
-		person.diseases = translate_diseases(relative['Health History']);
+		person.diseases = addTranslatedDiseaseName(relative['Health History']);
 	}
 	if (relative.adopted==true) person.a.push("A");
 	if (relative.is_alive=="dead") person.a.push("D");
 	if (relationship_type=="self") person.a.push("SELF");
-	if (person.diseases!="") person.a.push("SD");
 }
 
-// translate all diseases in the person's health history and return array of translated diseases //
-function translate_diseases(diseases) {
-	var diseaseList = [];
+// translate all diseases in the person's health history and add to existing disease object //
+function addTranslatedDiseaseName(diseases) {
 	for (key in diseases) {
-        diseaseList.push($.t("diseases:"+diseases[key]['Disease Code']));
+		diseases[key]['translatedDiseaseName']=$.t("diseases:"+diseases[key]['Disease Code']);
    	}
-   	return diseaseList;
+   	return diseases;
 }
 
 function add_relative(relationship_type, relative) {
@@ -154,6 +153,7 @@ function push_all_relatives_of_type(diagram_data, relationship_type) {
 	var i = 0;
 	var relative = pi[relationship_type + "_" + i];
 	while (relative != null) {
+		// If this is a maternal halfsibling the spouse may need to be added before the mother
 		var new_diagram_relative = add_relative(relationship_type, relative);
 		if (new_diagram_relative.children == true) {
 			var spouse = add_non_blood_spouse(relative, new_diagram_relative);
