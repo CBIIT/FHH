@@ -1,4 +1,5 @@
 var myDiagram;
+var diagram_instance;
 var diagram_data;
 
 function init(diagram_data) { 
@@ -15,6 +16,7 @@ function init(diagram_data) {
           layout:  // use a custom layout, defined below
             $(GenogramLayout, { direction: 90, layerSpacing: 30, columnSpacing: 10 })
         });
+      this.myDiagram = myDiagram;
   }
   // determine the color for each attribute shape
       function attrFill(a) {

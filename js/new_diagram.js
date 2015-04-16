@@ -15,12 +15,15 @@
 
 
 function open_new_diagram_dialog() {
+	if (diagram_data) {
+		diagram_data = undefined;
+	}
 	load_diagram();	
 }
 
 function load_diagram() {	
 	var diagram_data = load_data() ;
-	// console.log(JSON.stringify(diagram_data));
+	console.log(JSON.stringify(diagram_data));
 	init(diagram_data);	
 }
 

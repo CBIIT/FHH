@@ -145,7 +145,7 @@ function xmlload() {
         '<div class="info"></div>' +
         '</div>' +
 
-        '<div id="myDiagramDiv" style="width:auto; height:600px; background-color: #fff;">test</div>' + 
+        '<div id="p_dialog"></div>' + 
 
         '<div id="family_pedigree_info" class="brk">' +
         '<div>' +
@@ -179,7 +179,12 @@ function xmlload() {
 
         // },
         open: function () {
-            open_new_diagram_dialog();
+            console.log("open");
+            $("#p_dialog").load ("new_diagram_dialog.html", function () {
+                open_new_diagram_dialog();
+            });                     
+
+            
             var ex = document.getElementById('health_table');
 
 // oTable.fnDestroy();
@@ -264,7 +269,7 @@ function xmlload() {
         },
         close: function() {
             oTable.fnDestroy();
-
+            $("#p_dialog").empty();
             $("#health_table").empty();
             diseasearray=new Array();
             $('#optionsPanelMain').dialog('destroy').remove();
