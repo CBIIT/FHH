@@ -127,12 +127,6 @@ function xmlload() {
         '<li><a id="printermain">' + $.t("fhh_family_pedigree.print") + '</a></li>' +
         '<li><a href="#optionsPanelMan" onclick="createDialogMain()">' + $.t("fhh_family_pedigree.diagram_options") + '</a></li>' +
         '<li>' +
-        '<select id="zoomer" class="selector" onchange="TheZoomMain(this);">'+
-        '<option id="the1" value="100">+100</option>' +
-        '<option id="the2" value="200">+200</option>' +
-        '</select>' +
-        '</li>' +
-        '<li>' +
         '<input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close"' +
         'type="button"role="button" aria-disabled="false" title="close" value="' + $.t("fhh_family_pedigree.close") +'" onclick="closeOther()" style="right:50px;width:50px"></input>' +
         '</li>' +
@@ -179,7 +173,7 @@ function xmlload() {
 
         // },
         open: function () {
-            console.log("open");
+            $("#topsvg").hide();
             $("#p_dialog").load ("new_diagram_dialog.html", function () {
                 open_new_diagram_dialog();
             });                     
