@@ -73,7 +73,7 @@ $(document).ready(function() {
 
 function start() 
 {
-	// setup_new_diagram_dialog();
+	setup_new_diagram_dialog();
 
 	$("#why_ask_ashkenazi_dialog").load ("why_ask_ashkenazi.html", function () {
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
@@ -496,7 +496,6 @@ function bind_view_diagram_and_table_button_action () {
 	$("#view_diagram_and_table_dialog").dialog("open");
 	
 	$("#view_diagram_and_table_dialog").append("");
-	
 }
 
 function bind_save_personal_history_button_action () {
@@ -2413,5 +2412,4 @@ function closeEditorWarning(){
 
 
 //window.onbeforeunload = closeEditorWarning;
-
 

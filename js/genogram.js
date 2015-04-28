@@ -6,17 +6,18 @@ function init(diagram_data) {
   this.diagram_data = diagram_data;
   if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
   var $ = go.GraphObject.make;
-  console.log("EREERE");
+  if (typeof myDiagram == 'undefined') {
   myDiagram =
     $(go.Diagram, "myDiagramDiv", {
         initialAutoScale: go.Diagram.Uniform,
-        initialContentAlignment: go.Spot.Center,
+        initialContentAlignment: go.Spot.TopCenter,
         "toolManager.hoverDelay": 100,  // how quickly tooltips are shown
 
         layout:  // use a custom layout, defined below
           $(GenogramLayout, { direction: 90, layerSpacing: 30, columnSpacing: 10 })
       });
     this.myDiagram = myDiagram;
+  }
     
   // determine the color for each attribute shape
       function attrFill(a) {

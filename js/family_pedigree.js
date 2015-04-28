@@ -139,7 +139,7 @@ function xmlload() {
         '<div class="info"></div>' +
         '</div>' +
 
-        '<div id="p_dialog"></div>' + 
+        // '<div id="p_dialog"></div>' + 
 
         '<div id="family_pedigree_info" class="brk">' +
         '<div>' +
@@ -174,9 +174,9 @@ function xmlload() {
         // },
         open: function () {
             $("#topsvg").hide();
-            $("#p_dialog").load ("new_diagram_dialog.html", function () {
-                open_new_diagram_dialog();
-            });                     
+            // $("#p_dialog").load ("new_diagram_dialog.html", function () {
+            //     open_new_diagram_dialog();
+            // });                     
 
             
             var ex = document.getElementById('health_table');
@@ -263,7 +263,7 @@ function xmlload() {
         },
         close: function() {
             oTable.fnDestroy();
-            $("#p_dialog").empty();
+            // $("#p_dialog").empty();
             $("#health_table").empty();
             diseasearray=new Array();
             $('#optionsPanelMain').dialog('destroy').remove();
@@ -6905,6 +6905,7 @@ function createDialogMain() {
             position: ['top',100],
             title: $.t("fhh_family_pedigree.diagram_options"),
             close: function (ev, ui) {
+                console.log("CLOSE");
                 $(this).empty();
                 $(this).dialog('destroy').remove();
             }
