@@ -22,6 +22,8 @@
 // 	load_diagram();	
 // }
 
+// set initial zoom scale
+var zoom_scale = 1;
 
 function setup_new_diagram_dialog() {
 	$("#new_diagram_dialog").load ("new_diagram_dialog.html", function () {
@@ -47,6 +49,8 @@ function load_diagram() {
 	console.log(JSON.stringify(diagram_data));
 	init(diagram_data);	
 }
+
+
 
 function load_data() {
 	var diagram_data = [];
@@ -474,10 +478,36 @@ function DiseaseDna(){
 
 }
 
+
 function closeDialog() {
   $('#new_diagram_dialog').dialog("close");
 }
 
+function CloseInfoMain(){
+    $('#optionsPanelMain').dialog('close');
+}
+
+function createImage() {
+	var image = 
+	myDiagram.makeImageData({
+		scale: zoom_scale,
+		maxSize: new go.Size(Infinity, Infinity)
+	});
+    var WindowObject = window.open("", "Diagram",
+    "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+    WindowObject.document.writeln('<html><head></head><body><img src="' + image + '"></body></html>');
+  WindowObject.document.close();
+    WindowObject.focus();
+    WindowObject.print();
+    WindowObject.close();
+}
+
+function zoom(direction) {
+	zoom_scale+=direction;
+	myDiagram.scale = zoom_scale;
+	myDiagram.contentAlignment = go.Spot.TopCenter;
+
+}
 ////////////////////////////////////////////////////////
 //  Helper function to define a hash for all Strings
 

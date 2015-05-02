@@ -17,6 +17,7 @@ function init(diagram_data) {
           $(GenogramLayout, { direction: 90, layerSpacing: 30, columnSpacing: 10 })
       });
     this.myDiagram = myDiagram;
+    window.myDiagram = myDiagram;
   }
     
   // determine the color for each attribute shape

@@ -632,6 +632,8 @@
 		"go_to_diagram":"Ir a diagrama",
 		"go_to_table":"Ir a la Mesa",
 		"print":"Impresión",
+		"zoom_in":"Acercar",
+		"zoom_out":"Alejar",		
 		"page_title":"Mi Salud Familiar Retrato - Diagrama",		
 		"close":"cerca",
 		"ie_disclaimer":"Esta característica ha sido probado y está soportada en los siguientes navegadores - Internet Explorer 10 y las versiones recientes, Firefox, Chrome, Safari.",

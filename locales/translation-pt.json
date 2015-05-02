@@ -641,6 +641,8 @@
 		"go_to_diagram":"Vá com o diagrama",
 		"go_to_table":"Ir para o Índice",
 		"print":"Impressão",
+		"zoom_in":"Ampliar",
+		"zoom_out":"Zoom out",			
 		"page_title":"Meu Saúde da Família Portrait- Diagram",		
 		"close":"perto",
 		"ie_disclaimer":"Este recurso foi testado e é compatível com os seguintes navegadores - Internet Explorer 10 e versões recentes, Firefox, Chrome, Safari.",
