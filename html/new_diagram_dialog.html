@@ -1,3 +1,4 @@
+
 <div id="nav" class="sticky">
 	<ul>
 		<li><a class="translate" data-i18n="fhh_family_pedigree.diagram_options" href="#optionsPanelMan" onclick="createDiagramDialog()">Diagram &amp; Table Options</a></li>
@@ -13,14 +14,23 @@
 		<p style="margin-bottom: 1px" class="translate" data-i18n="fhh_family_pedigree.desc_line2"></p><br />
      </td></tr>
 </table>
+
 <button class="translate" style="font-size:120% !important;" data-i18n="fhh_family_pedigree.zoom_in" onclick="zoom(.2)">Zoom In</button>
 <button class="translate" style="font-size:120% !important;" data-i18n="fhh_family_pedigree.zoom_out" onclick="zoom(-.2)">Zoom Out</button>
 <button class="translate" style="font-size:120% !important;" data-i18n="fhh_family_pedigree.print" onclick="createImage()">Print</button>
 
-<div id="myDiagramDiv" style="width:auto; height:600px; background-color: #fff;"></div>
+<div id="myDiagramDiv" style="width:auto; height:600px; background-color: #fff;">ABCDEF</div>
 
-<div id="table">
+<!-- 
+<script>angular.element(document).ready(function() {
+    });
+  </script>
+  <div ng-app="myApp">
+  <div ng-controller="tableController">
+  	<div id="thistest">test</div>
+  	<script>console.log("loaded");</script>
+  	<input type="text" ng-model="temp">
+    </div>
+  </div>
 </div>
-
-<div id="printImage">
-</div>
+ -->

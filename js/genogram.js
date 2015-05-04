@@ -6,7 +6,7 @@ function init(diagram_data) {
   this.diagram_data = diagram_data;
   if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
   var $ = go.GraphObject.make;
-  if (typeof myDiagram == 'undefined') {
+  // if (typeof myDiagram == 'undefined') {
   myDiagram =
     $(go.Diagram, "myDiagramDiv", {
         initialAutoScale: go.Diagram.Uniform,
@@ -18,7 +18,7 @@ function init(diagram_data) {
       });
     this.myDiagram = myDiagram;
     window.myDiagram = myDiagram;
-  }
+  // }
     
   // determine the color for each attribute shape
       function attrFill(a) {

@@ -420,3 +420,53 @@ text-decoration:none;
 #p_dialog {
 padding-top:210px;
 }
+.modal-content #close{
+  margin:2px;
+background-color:#FFE060;
+font-size:120% !important;
+font-weight:bold;
+border:1px solid #000 !important;
+height:35px;
+}
+
+
+.modal-content #close button{
+position:absolute;
+right:
+
+10px;
+}
+
+
+.modal-content #close button{
+position:absolute;
+right:10px;
+top:7px;
+}
+
+#navBar {
+border:1px solid red;
+background-color: #036;
+height:33px;
+text-align:left;
+}
+
+#navBar li {
+list-style:none;
+display:inline;
+}
+
+#navBar li a
+{
+
+text-decoration: none;
+
+margin:10px;
+position:relative;
+padding: .3em 1em;
+
+top:6px;
+left:33px;
+color: #fff;
+background-color: #036;
+}

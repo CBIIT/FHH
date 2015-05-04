@@ -26,25 +26,19 @@
 var zoom_scale = 1;
 
 function setup_new_diagram_dialog() {
-	$("#new_diagram_dialog").load ("new_diagram_dialog.html", function () {
-	});
-
-	$("#new_diagram_dialog").dialog({
-		title:"New Diagram Dialog",
-		position:['middle',0],
-		autoOpen: false,
-		height:'auto',
-		width:['95%']		
-	});		
+	// $("#nd").load ("new_diagram_dialog.html", function () {
+	// });
+	
 	
 }
 
 function open_new_diagram_dialog() {
-	$("#new_diagram_dialog").dialog("open");
+
 	load_diagram();	
 }
 
 function load_diagram() {	
+	zoom_scale=1;
 	var diagram_data = load_data() ;
 	console.log(JSON.stringify(diagram_data));
 	init(diagram_data);	
@@ -396,6 +390,9 @@ function createDiagramDialog() {
             width: 900,
             position: ['top',100],
             title: $.t("fhh_family_pedigree.diagram_options"),
+            open: function(ev,ui) {
+			$(".ui-front").zIndex(5000)
+            },
             close: function (ev, ui) {
             	console.log("closed");
                 $(this).empty();

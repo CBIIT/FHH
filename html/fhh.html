@@ -17,6 +17,11 @@
     <!--[if (gt IE 9)|!(IE)]><!--> <!--<html class=""> --> <!--<![endif]-->
 
 <title>My Family Health Portrait</title>
+
+<script src="../js/angular.min.js"></script>
+<script src="../js/fhhController.js"></script>
+<script src="../js/ngDialog/js/ngDialog.min.js"></script>
+    <script type="text/javascript" src="../plugins/bootstrap/ui-bootstrap-tpls-0.13.0.min.js"></script>
     <script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="../jquery/jquery-ui-1.10.4.js"></script>
     <link rel="stylesheet" type="text/css" href="../jquery/jquery-ui-1.10.4.css">
@@ -31,6 +36,10 @@
     <script type="text/javascript" src="../js/save_xml.js"></script>
 
 
+    <link rel="stylesheet" href="../js/ngDialog/css/ngDialog.css">
+    <link rel="stylesheet" href="../js/ngDialog/css/ngDialog-theme-default.css">
+    <link rel="stylesheet" href="../js/ngDialog/css/ngDialog-theme-plain.css">
+    <link rel="stylesheet" href="../js/ngDialog/css/ngDialog-custom-width.css">
 
     <!-- Themes go here -->
     <link rel="stylesheet" type="text/css" href="../themes/deploy/fhh.css">
@@ -41,8 +50,7 @@
         <script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
 
     <!-- Pedigree SVG scripts -->
-    <script type="text/javascript" src="../js/family_pedigree.js"></script>
-    <script type="text/javascript" src="../js/family_pedigree_ie_table.js"></script>
+
     <script type="text/javascript" src="../js/family_pivot.js"></script>
 
     <!--<script type="text/javascript" src="../js/family_pedigree_default.js"></script>-->
@@ -68,10 +76,11 @@
     <link rel="stylesheet" type="text/css" href="../static/css/dataTables.tableTools.css">
     <link rel="stylesheet" type="text/css" href="../static/css/dataTables.fixedColumns.css">
     <link rel="stylesheet" type="text/css" href="../static/css/stickymenu.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
 
     <script type="text/javascript" src="../js/keys.js"></script> 
 </head>
-<body>
+<body ng-app="myApp">
         <!-- Dropbox Integration -->        
         <!-- Need to dynamically create the script tag as the data-app-key comes from the keys.js file -->
         <script type="text/javascript">
@@ -166,14 +175,17 @@
 <hr />
 <br />
                 <!-- if we don't have a person, show this button -->
-<div class='center_text'>
+<div class='center_text' ng-controller="fhhController">
     <a id="create_new_personal_history_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_create_my_history'>Delete all Data and Restart</a>
     <a id="save_personal_history_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_save_my_history'>Save Family History for Later Re-use</a>
     <a id="add_another_family_member_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_add_a_family_mbr'>Add Another Family Member</a>
     <a id="save_family_history_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_save_fam_hist'>Save Family History</a>
-    <a id="view_diagram_and_table_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_view_dia_n_table' onclick="xmlload()">View Diagram and Table</a>
+<!--     <a id="view_diagram_and_table_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_view_dia_n_table' onclick="xmlload()">View Diagram and Table</a> -->
     <a id="your_health_risk_assessment_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_risk_assess'>Your Health Risk Assessment</a>
-    <a id="new_diagram_button" href="#" class='button_link'>New Diagram</a>
+<!--     <a id="new_diagram_button" href="#" class='button_link' ng-click="diagramClick()">New Diagram</a>
+    <a href="#" class='button_link' ng-click="diagramClick()" ng-dialog-show-close="false">Test Dialog</a> -->
+    <a href="#" class='button_link translate' data-i18n='fhh_fhh.btn_view_dia_n_table' ng-click="clickMe()" ng-dialog-show-close="false">View Diagram and Table</a>
+
 </div>
 
 <table id="history_summary_table" class="summary_table" summary="This table lists the members of your family 
@@ -289,9 +301,9 @@
         </td>
     </tr>
 </tbody></table>
-
 <!-- END FOOTER -->
-
+    
+    
 </body>
 
 <script type='text/javascript' >
