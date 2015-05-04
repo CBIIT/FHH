@@ -115,20 +115,10 @@
                 <a id="warnAndGoHome" href="index.html" class='translate' data-i18n='fhh_fhh.a_Home'>Home</a>
                 <a id="navCopyFamily" href="#" class='translate' data-i18n='fhh_fhh.a_copy_for_family_member' >Copy for Family Member</a>
                 <a id="navRiskCalculator" href="#" class='translate' data-i18n='fhh_fhh.a_disease_risk_calculator' >Disease Risk Calculator</a>
-                <a id="navViewDiagram" href="#" class='translate' data-i18n='fhh_fhh.a_view_diag_n_table' >View Diagram &amp; Table</a>
+                <a id="navViewDiagram" href="#" ng-click="openDiagramTable()" class='translate' data-i18n='fhh_fhh.a_view_diag_n_table' ng-controller="fhhController">View Diagram &amp; Table</a>
                 <a class='clickable_link translate' id="nav_help" data-i18n='fhh_fhh.a_get_help' >Get Help</a>
             </td>
-
-<!--             <td class="nav">
-                    <div id="languageSelect">Language&nbsp;
-                        <select class="language_fhh">
-                            <option value="en">English</option>
-                            <option value="es">Español</option>
-                            <option value="pt">Português</option>
-                            <option value="it">Italiano</option>
-                        </select>
-                    </div>
-            </td>  -->           
+          
         </tr>
     </table>
 </div>
@@ -180,7 +170,7 @@
     <a id="your_health_risk_assessment_button" href="#" class='button_link translate' data-i18n='fhh_fhh.btn_risk_assess'>Your Health Risk Assessment</a>
 <!--     <a id="new_diagram_button" href="#" class='button_link' ng-click="diagramClick()">New Diagram</a>
     <a href="#" class='button_link' ng-click="diagramClick()" ng-dialog-show-close="false">Test Dialog</a> -->
-    <a href="#" class='button_link translate' data-i18n='fhh_fhh.btn_view_dia_n_table' ng-click="clickMe()" ng-dialog-show-close="false">View Diagram and Table</a>
+    <a href="#" class='button_link translate' data-i18n='fhh_fhh.btn_view_dia_n_table' ng-click="openDiagramTable()" ng-dialog-show-close="false">View Diagram and Table</a>
 
 </div>
 

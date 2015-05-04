@@ -1,6 +1,6 @@
 var app = angular.module('myApp', ['ui.bootstrap']);
 app.controller('fhhController', ['$rootScope','$scope','$window','$timeout','$modal', function ($rootScope,$scope,$window,$timeout,$modal) {
-	$scope.clickMe = function() {
+	$scope.openDiagramTable = function() {
 		var modalInstance = $modal.open({
 			animation: $scope.animationsEnabled,
 			templateUrl: 'diagram_template.html',
