@@ -49,11 +49,11 @@ function init(diagram_data) {
   // gets diseases and displays them //
   function displayDiseases(diseases) {
     var diseaseString = "";
-    window.diseases = diseases;
-    if (diseases!="") {
-      for (key in diseases) {
-        diseaseString += "\u2022 " + diseases[key]['translatedDiseaseName'];
-        if (key+1<diseases.length) diseaseString+='\n';
+    diseaseList = diseases;
+    if (diseaseList!="") {
+      for (key in diseaseList) {
+        diseaseString += "\u2022 " + diseaseList[key]['translatedDiseaseName'];
+        if (key+1<diseaseList.length) diseaseString+='\n';
       }
     }
     return diseaseString;
@@ -88,8 +88,9 @@ function init(diagram_data) {
           $(go.Adornment, "Auto",
             $(go.Shape, { fill: "#FFFFCC" },
               new go.Binding("visible", "diseases", function(d) { return d ? true : false; })),
+            $(go.Panel, "Vertical",
             $(go.TextBlock, { margin: 4 },
-              new go.Binding("text", "diseases", function(d) { return displayDiseases(d);}))
+              new go.Binding("text", "diseases", function(d) { return displayDiseases(d);})))
           )
       },    
         $(go.Panel,
