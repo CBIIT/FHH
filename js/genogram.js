@@ -4,6 +4,7 @@ var diagram_data;
 
 function init(diagram_data) { 
   this.diagram_data = diagram_data;
+  console.log(diagram_data)
   if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
   var $ = go.GraphObject.make;
   // if (typeof myDiagram == 'undefined') {
@@ -53,7 +54,7 @@ function init(diagram_data) {
     if (diseaseList!="") {
       for (key in diseaseList) {
         diseaseString += "\u2022 " + diseaseList[key]['translatedDiseaseName'];
-        if (key+1<diseaseList.length) diseaseString+='\n';
+        if (parseInt(key)+1<diseaseList.length) diseaseString+='\n';
       }
     }
     return diseaseString;
