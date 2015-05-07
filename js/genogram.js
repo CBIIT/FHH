@@ -27,11 +27,12 @@ function init(diagram_data) {
           console.log(key);
         }
         switch (a) {
-          case "A": return "lightyellow";
-          case "D": return "red";
-          case "SD": return "pink";
-          case "SELF": return "darkblue";
-          default: return "lightgray";
+          case "A": return "lightyellow"; // background color for adopted
+          case "S": return "white"; // background color for spouse
+          case "D": return "red"; // background color for deceased
+          case "SD": return "pink"; // background color for has specific disease
+          case "SELF": return "darkblue"; // background color for self
+          default: return "lightgray"; // default background color
         }
       }
 

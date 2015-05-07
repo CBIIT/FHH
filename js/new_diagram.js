@@ -76,9 +76,13 @@ function load_data() {
 	var mother = add_relative("mother", pi.mother);
 	if (pi['maternal_halfbrother_0'] != null || pi['maternal_halfsister_0'] != null) {
 		var spouse = add_non_blood_spouse(pi.mother, mother, 2);
+		diagram_data.push(mother);
 		diagram_data.push(spouse);	
 	}	 
-	diagram_data.push(mother);
+	else {
+		diagram_data.push(mother);
+
+	}
 
 	// Paternal Aunts/Uncles HAVE to be added AFTER the Father or they will be placed in the wrong place
 	push_all_relatives_of_type(diagram_data, "paternal_aunt");
@@ -192,9 +196,16 @@ function push_all_relatives_of_type(diagram_data, relationship_type) {
 
 function add_non_blood_spouse(relative, new_diagram_relative, num) {
 	var spouse = {};
+	spouse.a = [];
 	var num = typeof num !== 'undefined' ? num : 1;	
 	spouse.key = relative.id.hashCode() + num;
-	spouse.n = relative.name + "'s Spouse";
+	spouse.n = $.t("fhh_js." + relative.relationship) + "'s Spouse"
+	if (relative.name!="") {
+		spouse.n = relative.name + "'s Spouse";
+	} 
+	spouse.a.push("S");
+	spouse.diseases = "";
+	console.log(relative);
 	if (relative.gender == "MALE") {
 		if (new_diagram_relative.ux && new_diagram_relative.ux != "") {
 			new_diagram_relative.ux = [spouse.key, new_diagram_relative.ux]; 
