@@ -38,8 +38,8 @@ body {
 }
 /* ALL PAGES: makes pages that don't scroll the same width as pages that do scroll */
 :root {
-  overflow-y:scroll;
-}
+/*  overflow-y:scroll;
+*/}
 
 div.main_container {
     margin: 0 auto 10px auto;
