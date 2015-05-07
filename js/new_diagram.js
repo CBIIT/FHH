@@ -66,8 +66,10 @@ function load_data() {
 
 	
 	var father = add_relative("father", pi.father); 
+	var father_has_spouse = false;
 	if (pi['paternal_halfbrother_0'] != null || pi['paternal_halfsister_0'] != null) {
 		var spouse = add_non_blood_spouse(pi.father, father, 2);
+		father_has_spouse = true;
 		diagram_data.push(spouse);	
 	}
 	diagram_data.push(father);
@@ -76,8 +78,14 @@ function load_data() {
 	var mother = add_relative("mother", pi.mother);
 	if (pi['maternal_halfbrother_0'] != null || pi['maternal_halfsister_0'] != null) {
 		var spouse = add_non_blood_spouse(pi.mother, mother, 2);
-		diagram_data.push(mother);
-		diagram_data.push(spouse);	
+		if (father_has_spouse) {
+			diagram_data.push(spouse);	
+			diagram_data.push(mother);			
+		}
+		else {
+			diagram_data.push(mother);			
+			diagram_data.push(spouse);	
+		}
 	}	 
 	else {
 		diagram_data.push(mother);
@@ -205,7 +213,6 @@ function add_non_blood_spouse(relative, new_diagram_relative, num) {
 	} 
 	spouse.a.push("S");
 	spouse.diseases = "";
-	console.log(relative);
 	if (relative.gender == "MALE") {
 		if (new_diagram_relative.ux && new_diagram_relative.ux != "") {
 			new_diagram_relative.ux = [spouse.key, new_diagram_relative.ux]; 
