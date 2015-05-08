@@ -18,14 +18,15 @@
      </td></tr>
 </table>
 
-<button class="translate" style="font-size:120% !important;" data-i18n="fhh_family_pedigree.zoom_in" onclick="zoom(.2)">{{translatedVariables.zoom_in}}</button>
-<button class="translate" style="font-size:120% !important;" data-i18n="fhh_family_pedigree.zoom_out" onclick="zoom(-.2)">{{translatedVariables.zoom_out}}</button>
-<button class="translate" style="font-size:120% !important;" data-i18n="fhh_family_pedigree.print" onclick="createImage()">{{translatedVariables.print}}</button>
+<button class="translate" style="font-size:120% !important;" onclick="zoom(.2)">{{translatedVariables.zoom_in}}</button>
+<button class="translate" style="font-size:120% !important;" onclick="zoom(-.2)">{{translatedVariables.zoom_out}}</button>
+<button class="translate" style="font-size:120% !important;" onclick="createImage(print=true)">{{translatedVariables.print}}</button>
+<button class="translate" style="font-size:120% !important;" onclick="createImage()">{{translatedVariables.save_image}}</button>
 <div id="myDiagramDiv" style="width:auto; height:600px; background-color: #fff;">No data to create diagram</div>
 
         <div class="modal-body"> 
 
-        
+
         </div>
         <div class="modal-footer">
 

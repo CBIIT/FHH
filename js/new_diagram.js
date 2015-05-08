@@ -502,7 +502,7 @@ function CloseInfoMain(){
     $('#optionsPanelMain').dialog('close');
 }
 
-function createImage() {
+function createImage(print) {
 	var image = 
 	myDiagram.makeImageData({
 		scale: zoom_scale,
@@ -511,10 +511,13 @@ function createImage() {
     var WindowObject = window.open("", "Diagram",
     "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
     WindowObject.document.writeln('<html><head></head><body><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title") + '</h2><img src="' + image + '"></div></body></html>');
-  WindowObject.document.close();
-    WindowObject.focus();
-    WindowObject.print();
-    WindowObject.close();
+  	if (print) {
+	  	WindowObject.document.close();
+	    WindowObject.focus();
+	    WindowObject.print();
+	    WindowObject.close();  		
+  	}
+
 }
 
 function zoom(direction) {

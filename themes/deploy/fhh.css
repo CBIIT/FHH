@@ -458,14 +458,44 @@ display:inline;
 #navBar li a
 {
 
-text-decoration: none;
+  text-decoration: none;
 
-margin:10px;
-position:relative;
-padding: .3em 1em;
+  margin:10px;
+  position:relative;
+  padding: .3em 1em;
 
-top:6px;
-left:33px;
-color: #fff;
-background-color: #036;
+  top:6px;
+  left:33px;
+  color: #fff;
+  background-color: #036;
+}
+.health_table {
+border:0px solid #000 !important;
+}
+
+.health_table tr{
+border:1px solid #000;
+}
+.health_table th{
+  background-color:darkblue;
+  color:#fff;
+  padding:8px;
+  vertical-align:top;
+border-width: 0px 1px 0px 0px;
+border-style:solid;
+border-color:#ffff;
+}
+.health_table td{
+border-width: 0px 1px 0px 0px;
+border-style:solid;
+border-color:#000;
+padding:6px;
+vertical-align:top;
+}
+
+
+#personal_info {
+text-align:left;
+font-weight:bold;
+padding-bottom:10px;
 }
