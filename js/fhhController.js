@@ -31,15 +31,9 @@ app.controller('fhhController', ['$rootScope','$scope','$window','$timeout','$mo
 }]);
 
 app.controller('tableController', ['$scope','$modalInstance', function ($scope,$modalInstance) {
-	var STATICDISEASES = [
-	    'SNOMED_CT-56265001',
-	    'SNOMED_CT-116288000',
-	    'SNOMED_CT-73211009',
-	    'SNOMED_CT-363406005',
-	    'SNOMED_CT-254837009',
-	    'SNOMED_CT-363443007'
-	]; 	
+	var STATICDISEASES = ['SNOMED_CT-56265001','SNOMED_CT-116288000','SNOMED_CT-73211009','SNOMED_CT-363406005','SNOMED_CT-254837009','SNOMED_CT-363443007']; 	
 
+	// funtion to translate items //
 	$scope.translate = function(prefix,t_string) {
 		if (prefix=="diseases") {
 			return $.t(prefix+":"+t_string);
@@ -49,20 +43,49 @@ app.controller('tableController', ['$scope','$modalInstance', function ($scope,$
 		}
 	}	
 
+	// calculates age based on date of birth //
+	$scope.calculateAge = function calculateAge(birthday) { // birthday is a date
+		var birthday = new Date(birthday);
+		var ageDifMs = Date.now() - birthday.getTime();
+		var ageDate = new Date(ageDifMs); // miliseconds from epoch
+		return Math.abs(ageDate.getUTCFullYear() - 1970);
+	};	
+
+	$scope.calculate_bmi = function(w,h) {
+	    var finalBmi=0;
+	    var weight = w;
+	    var height = h;
+	    if(weight > 0 && height > 0) {
+	        var height2 = height / 100
+	        var BMI = weight / (height2 * height2)
+	        finalBmi = (Math.round(BMI*Math.pow(10,2)))/Math.pow(10,2)
+	    }
+	    return finalBmi.toFixed(2);
+	}
+
+	$scope.calculcate_report_date = function() {
+
+		var lng = window.i18n.lng();
+		if (lng=='en-US') {
+		   lng = 'en';
+		};  		
+		var options = {weekday: "long", year: "numeric", month: "long", day: "numeric", hour:"numeric",minute:"numeric",hour12:"true"};             
+		var today = $.t("fhh_family_pedigree.date_of_report") + ": " + new Date().toLocaleString(lng, options);		
+		return today
+	};
+
+	// creates javascript object of static diseases, including their translated names // 
 	var getDiseases = function() {
 		var dl = []
 		for (key in STATICDISEASES) {
 			d = STATICDISEASES[key];
 			dl.push({'code':d,'translatedDiseaseName':$scope.translate("diseases",d)})
 		}
-
-		// for (key in disease_list) {
-		// 	d = disease_list[key];
-		// 	dl.push({'code':d.code,'translatedDiseaseName':$.t("diseases:"+d.system+"-"+d.code)})
-		// }
 		return dl;
 	};
 
+	// loop through personal information //
+	// create list containing personal information records and retrieving other diseases not in static list //
 	$scope.personal_information = function() {
 		var new_personal_information = [];
 		for (x in personal_information) {
@@ -80,14 +103,13 @@ app.controller('tableController', ['$scope','$modalInstance', function ($scope,$
 				}
 			}
 		}
-
 		return new_personal_information;
-	}
+	};
 
-	$scope.pi = $scope.personal_information();
+	$scope.pi = $scope.personal_information(); // set pi to personal information function //
+	$scope.self_history = personal_information;
 	$scope.disease_list = getDiseases();
-	$scope.translatedVariables = {'title':$scope.translate("fhh_family_pedigree","title"),'zoom_in': $scope.translate("fhh_family_pedigree","zoom_in"),'zoom_out':$scope.translate("fhh_family_pedigree","zoom_out"),'close':$scope.translate("fhh_family_pedigree","close"),'print':$scope.translate("fhh_family_pedigree","print"),'desc_1':$scope.translate("fhh_family_pedigree","desc_line1"),'desc_2':$scope.translate("fhh_family_pedigree","desc_line2"),'diagram_table_options':$scope.translate("fhh_family_pedigree","diagram_options"),'save_image':$scope.translate("fhh_family_pedigree","save_image")}
-	$scope.table = $scope.personal_information;
+	// $scope.translatedVariables = {'title':$scope.translate("fhh_family_pedigree","title"),'zoom_in': $scope.translate("fhh_family_pedigree","zoom_in"),'zoom_out':$scope.translate("fhh_family_pedigree","zoom_out"),'close':$scope.translate("fhh_family_pedigree","close"),'print':$scope.translate("fhh_family_pedigree","print"),'desc_1':$scope.translate("fhh_family_pedigree","desc_line1"),'desc_2':$scope.translate("fhh_family_pedigree","desc_line2"),'diagram_table_options':$scope.translate("fhh_family_pedigree","diagram_options"),'save_image':$scope.translate("fhh_family_pedigree","save_image"),'my_personal_information':}
 	$scope.ok = function () {
 		$modalInstance.close();
 		console.log($scope.personal_information);

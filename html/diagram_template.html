@@ -1,33 +1,37 @@
 <div id="close">
-    <div id="left">{{translatedVariables.title}}</div>
-    <div id="right"><button ng-click="ok()">{{translatedVariables.close}}</button></div>
+    <div id="left">{{translate("fhh_family_pedigree","title")}}</div>
+    <div id="right"><button ng-click="ok()">{{translate("fhh_family_pedigree","close")}}</button></div>
 </div> 
 <div id="navBar">
     <li>
-        <a  href="#optionsPanelMan" onclick="createDiagramDialog()">{{translatedVariables.diagram_table_options}}
+        <a  href="#optionsPanelMan" onclick="createDiagramDialog()">{{translate("fhh_family_pedigree","diagram_options")}}
         </a>         
     </li>           
 </div>
 <table class="infolayer">
     <tr><td style="padding-left:5px;">
-        <h1>{{translatedVariables.title}}</h3>
-
-        <p style="margin-bottom: 1px">{{translatedVariables.desc_1}}</p>
+        <h1>{{translate("fhh_family_pedigree","title")}}</h3>
+        <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line1")}}</p>
         <br />
-        <p style="margin-bottom: 1px">{{translatedVariables.desc_2}}</p><br />
+        <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line1")}}</p><br />
      </td></tr>
 </table>
 
-<button class="translate" style="font-size:120% !important;" onclick="zoom(.2)">{{translatedVariables.zoom_in}}</button>
-<button class="translate" style="font-size:120% !important;" onclick="zoom(-.2)">{{translatedVariables.zoom_out}}</button>
-<button class="translate" style="font-size:120% !important;" onclick="createImage(print=true)">{{translatedVariables.print}}</button>
-<button class="translate" style="font-size:120% !important;" onclick="createImage()">{{translatedVariables.save_image}}</button>
+<button class="translate" style="font-size:120% !important;" onclick="zoom(.2)">{{translate("fhh_family_pedigree","zoom_in")}}</button>
+<button class="translate" style="font-size:120% !important;" onclick="zoom(-.2)">{{translate("fhh_family_pedigree","zoom_out")}}</button>
+<button class="translate" style="font-size:120% !important;" onclick="createImage(print=true)">{{translate("fhh_family_pedigree","print")}}</button>
+<button class="translate" style="font-size:120% !important;" onclick="createImage()">{{translate("fhh_family_pedigree","save_image")}}</button>
 <div id="myDiagramDiv" style="width:auto; height:600px; background-color: #fff;">No data to create diagram</div>
+<div class="modal-body"> 
+    <div id="personal_info">
+        <div>{{translate("fhh_family_pedigree","personal_info")}}</div>
+        <div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
+        <div>{{translate("fhh_family_pedigree","height")}} {{self_history.height}} {{self_history.height_unit}}</div>
+        <div>{{translate("fhh_family_pedigree","weight")}} {{self_history.weight}} <span ng-if="self_history.weight_unit">{{self_history.weight_unit}}s</span></div>
+        <div>{{translate("fhh_family_pedigree","bmi")}} Calculation needs to be fixed</div>
+        <div>{{translate("fhh_family_pedigree","date_of_report")}} {{calculcate_report_date()}}</div>
+    </div>
 
-        <div class="modal-body"> 
-
-
-        </div>
-        <div class="modal-footer">
-
-        </div>
+</div>
+<div class="modal-footer">
+</div>
