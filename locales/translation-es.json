@@ -689,7 +689,10 @@
 		"ovarian_cancer":"cáncer de ovario",
 		"search":"Búsqueda",
 		"previous":"Anterior",
-		"next":"Siguiente"
+		"next":"Siguiente",
+		"dead":"No",
+		"alive":"Sí",
+		"unknown":"Desconocido"		
 	},
 	"fhh_export": {
 		"relative_no_name":"Esta relación no tiene un nombre. Con el fin de exportar, las necesidades relativas a tener un nombre. Por favor, añadir un nombre y vuelva a intentarlo",

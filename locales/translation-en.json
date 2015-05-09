@@ -685,7 +685,10 @@
 		"ovarian_cancer":"ovarian cancer",
 		"search":"Search",
 		"previous":"Previous",
-		"next":"Next"				
+		"next":"Next",
+		"dead":"No",
+		"alive":"Yes",
+		"unknown":"Unknown"
 	},
 	"fhh_export": {
 		"relative_no_name":"This relative does not have a name.  In order to export, the relative needs to have a name.  Please add a name and try again",
