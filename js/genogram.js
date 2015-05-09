@@ -29,7 +29,7 @@ function init(diagram_data) {
           case "D": return "red"; // background color for deceased
           case "SD": return "#9ffe92"; // background color for has specific disease
           case "SELF": return "darkblue"; // background color for self
-          default: return "lightgray"; // default background color
+          default: return "#999797"; // default background color
         }
       }
 
@@ -81,7 +81,7 @@ function init(diagram_data) {
       $(go.Panel,
         { name: "ICON" },
         $(go.Shape, "Square",
-          { width: 40, height: 40, strokeWidth: 2, fill: "lightgray", portId: "" }),
+          { width: 40, height: 40, strokeWidth: 2, fill: "#999797", portId: "" }),
       {
         toolTip:
           $(go.Adornment, "Auto",
@@ -120,7 +120,7 @@ function init(diagram_data) {
       $(go.Panel,
         { name: "ICON" },
         $(go.Shape, "Circle",
-          { width: 40, height: 40, strokeWidth: 2, fill: "lightgray", portId: "" }),
+          { width: 40, height: 40, strokeWidth: 2, fill: "#999797", portId: "" }),
       {
         toolTip:
           $(go.Adornment, "Auto",
