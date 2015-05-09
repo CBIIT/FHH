@@ -94,6 +94,7 @@
 	"SNOMED_CT-472972006": "Maturità diabete mellito in Young (MODY)", 
 	"SNOMED_CT-74732009": "Disordine Mentale", 
   "SNOMED_CT-315645005": "Malattia Sconosciuta",
+  "SNOMED_CT-null":"Malattia Sconosciuta",
 	"SNOMED_CT-PREDIABE": "pre-diabete", 
 	"SNOMED_CT-OTCANCER": "Altro Cancro", 
 	"SNOMED_CT-OTKIDDIS": "Altro Malattie Renali", 

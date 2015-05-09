@@ -94,6 +94,7 @@
 	"SNOMED_CT-472972006": "Diabetes mellitus en el inicio de la madurez (MODY)", 
 	"SNOMED_CT-74732009": "Trastorno Mental", 
   "SNOMED_CT-315645005": "Enfermedad desconocida",
+  "SNOMED_CT-null":"Enfermedad desconocida",
 	"SNOMED_CT-PREDIABE": "Pre-diabetes", 
 	"SNOMED_CT-OTCANCER": "Otro cáncer", 
 	"SNOMED_CT-OTKIDDIS": "Otras enfermedades renales", 

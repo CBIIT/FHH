@@ -95,6 +95,7 @@
   "SNOMED_CT-74732009": "Mental Disorder",
   "SNOMED_CT-PREDIABE": "Pre-Diabetes",
   "SNOMED_CT-315645005": "Unknown Disease",
+  "SNOMED_CT-null":"Unkown Disease",
   "SNOMED_CT-OTCANCER": "Other Cancer",
   "SNOMED_CT-OTKIDDIS": "Other Kidney Disease",
   "SNOMED_CT-UNCANCER": "Unknown Cancer",
