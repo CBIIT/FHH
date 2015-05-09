@@ -499,3 +499,30 @@ text-align:left;
 font-weight:bold;
 padding-bottom:10px;
 }
+
+.self_row {
+background-color:#FFFFCC;
+}
+
+
+hr#health_table {
+border:1px solid #00008B;
+}
+
+.health_table div.other_disease {
+background-color:#00008B;
+border-radius:12px;
+border:1px solid #00008B;
+color:#fff;
+padding:4px 0px 4px 10px;
+margin-bottom:5px;
+}
+
+
+ul#disease_list {
+list-style:none;
+}
+
+ul#disease_list li {
+display:inline;
+}

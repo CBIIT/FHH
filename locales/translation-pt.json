@@ -701,7 +701,8 @@
 		"next":"Next",
 		"dead":"Não",
 		"alive":"Sim",
-		"unknown":"Desconhecido"		
+		"unknown":"Desconhecido",
+		"other_disease":"Outras Doenças"
 	},
 	"fhh_export": {
 		"relative_no_name":"Esta relação não tem um nome. Para exportar, as necessidades relativas a ter um nome. Por favor, adicione um nome e tente novamente",

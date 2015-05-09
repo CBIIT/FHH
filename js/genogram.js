@@ -4,7 +4,6 @@ var diagram_data;
 
 function init(diagram_data) { 
   this.diagram_data = diagram_data;
-  console.log(diagram_data)
   if (window.goSamples) goSamples();  // init for these samples -- you don't need to call this
   var $ = go.GraphObject.make;
   // if (typeof myDiagram == 'undefined') {
@@ -23,14 +22,12 @@ function init(diagram_data) {
     
   // determine the color for each attribute shape
       function attrFill(a) {
-        for (key in a.a) {
-          console.log(key);
-        }
+
         switch (a) {
           case "A": return "lightyellow"; // background color for adopted
           case "S": return "white"; // background color for spouse
           case "D": return "red"; // background color for deceased
-          case "SD": return "pink"; // background color for has specific disease
+          case "SD": return "#9ffe92"; // background color for has specific disease
           case "SELF": return "darkblue"; // background color for self
           default: return "lightgray"; // default background color
         }

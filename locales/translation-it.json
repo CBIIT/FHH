@@ -697,7 +697,8 @@
 		"next":"Il Prossimo",
 		"dead":"No",
 		"alive":"Sì",
-		"unknown":"Sconosciuto"		
+		"unknown":"Sconosciuto",
+		"other_disease":"Altre Malattie"			
 	},
 	"fhh_export": {
 		"relative_no_name":"Questa relativa non ha un nome. Per l'esportazione, le relative esigenze di avere un nome. Si prega di inserire un nome e riprovare",

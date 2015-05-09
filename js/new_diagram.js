@@ -23,7 +23,7 @@
 // }
 
 // set initial zoom scale
-var zoom_scale = 1;
+var zoom_scale = 2;
 
 function setup_new_diagram_dialog() {
 	// $("#nd").load ("new_diagram_dialog.html", function () {
