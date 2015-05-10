@@ -1,37 +1,84 @@
+<script src="http://gojs.net/latest/intro/goIntro.js"></script>
 <div id="close">
-    <div id="left">{{translate("fhh_family_pedigree","title")}}</div>
-    <div id="right"><button ng-click="ok()">{{translate("fhh_family_pedigree","close")}}</button></div>
-</div> 
+   <div id="left">{{translate("fhh_family_pedigree","title")}}</div>
+   <div id="right"><button ng-click="close()">{{translate("fhh_family_pedigree","close")}}</button></div>
+</div>
 <div id="navBar">
-    <li>
-        <a  href="#optionsPanelMan" onclick="createDiagramDialog()">{{translate("fhh_family_pedigree","diagram_options")}}
-        </a>         
-    </li>           
+   <li>
+      <a  href="#optionsPanelMan" onclick="createDiagramDialog()">{{translate("fhh_family_pedigree","diagram_options")}}
+      </a>         
+   </li>
 </div>
 <table class="infolayer">
-    <tr><td style="padding-left:5px;">
-        <h1>{{translate("fhh_family_pedigree","title")}}</h3>
-        <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line1")}}</p>
-        <br />
-        <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line1")}}</p><br />
-     </td></tr>
+   <tr>
+      <td style="padding-left:5px;">
+         <h1>
+         {{translate("fhh_family_pedigree","title")}}</h3>
+         <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line1")}}</p>
+         <br />
+         <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line1")}}</p>
+         <br />
+      </td>
+   </tr>
 </table>
-
 <button class="translate" style="font-size:120% !important;" onclick="zoom(.2)">{{translate("fhh_family_pedigree","zoom_in")}}</button>
 <button class="translate" style="font-size:120% !important;" onclick="zoom(-.2)">{{translate("fhh_family_pedigree","zoom_out")}}</button>
 <button class="translate" style="font-size:120% !important;" onclick="createImage(print=true)">{{translate("fhh_family_pedigree","print")}}</button>
 <button class="translate" style="font-size:120% !important;" onclick="createImage()">{{translate("fhh_family_pedigree","save_image")}}</button>
 <div id="myDiagramDiv" style="width:auto; height:600px; background-color: #fff;">No data to create diagram</div>
-<div class="modal-body"> 
-    <div id="personal_info">
-        <div>{{translate("fhh_family_pedigree","personal_info")}}</div>
-        <div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
-        <div>{{translate("fhh_family_pedigree","height")}} {{self_history.height}} {{self_history.height_unit}}</div>
-        <div>{{translate("fhh_family_pedigree","weight")}} {{self_history.weight}} <span ng-if="self_history.weight_unit">{{self_history.weight_unit}}s</span></div>
-        <div>{{translate("fhh_family_pedigree","bmi")}} Calculation needs to be fixed</div>
-        <div>{{translate("fhh_family_pedigree","date_of_report")}} {{calculcate_report_date()}}</div>
-    </div>
-
+<hr id="health_table">
+<div class="modal-body">
+   <table width="100%" id="personal_info_table">
+      <tr>
+         <td>
+            <div id="personal_info">
+               <div>{{translate("fhh_family_pedigree","personal_info")}}</div>
+               <div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
+               <div>{{translate("fhh_family_pedigree","height")}} {{self_history.height}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.height_unit)}}</span></div>
+               <div>{{translate("fhh_family_pedigree","weight")}} {{self_history.weight}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.weight_unit+"s")}}</span></div>
+               <div>{{translate("fhh_family_pedigree","bmi")}} Calculation needs to be fixed</div>
+               <div>{{translate("fhh_family_pedigree","date_of_report")}} {{calculcate_report_date()}}</div>
+            </div>
+         </td>
+         <td id="health_table_legend"><img src="../static/images/Legend_{{lng}}.png"></td>
+      </tr>
+   </table>
+   <button class="translate" style="font-size:120% !important;" ng-click="print(true)">{{translate("fhh_family_pedigree","print")}}</button><button class="translate" style="font-size:120% !important;" ng-click="print()">{{translate("fhh_family_pedigree","save_image")}}</button><br />
+   <a href="" ng-click="collapseTable()">{{collapse_status.collapse_text}}</a><br />
+   <ul id="disease_list">
+      <li ng-repeat="d in disease_list" ng-if="!d.show">
+         <a href="" ng-click="showDisease(d)"><img src="../static/images/open.gif"></a>{{d.translatedDiseaseName}}
+      </li>
+   </ul>
+   <table class="health_table" width="100%">
+      <tr>
+         <th>
+            {{translate("fhh_js","name_relationship")}}
+         </th>
+         <th>
+            {{translate("fhh_js","still_living")}}
+         </th>
+         <th ng-repeat="d in disease_list track by $index" ng-show="d.show">
+            <a href="" ng-click="removeDisease(d)"><img src="../static/images/close.png"></a>{{d.translatedDiseaseName}}
+         </th>
+      </tr>
+      <tr ng-repeat="person in pi | filter:filterText" ng-class="{'self_row':person.relationship=='Self'}">
+         <td><span ng-if="person.name">{{person.name}}<br /></span>({{person.relationship}})</td>
+         <td>{{person.is_alive}}<span ng-if="person.cause_of_death">,<br /> {{person.cause_of_death}}<br />({{person.estimated_death_age}})</span></td>
+         <td ng-repeat="d in disease_list" ng-show="d.show">
+            <span ng-if="d.code=='1'">
+               <div class="other_disease" ng-repeat="od in person['Health History'] track by $index" ng-if="od.isOther">
+                  {{od.translatedDiseaseName}}<br />({{od['Age At Diagnosis']}})
+               </div>
+            </span>
+            <span ng-if="d.code!='1'">
+            {{lookupDisease(person,d['code'])['Age At Diagnosis']}}
+            </span>
+         </td>
+      </tr>
+   </table>
+   <div id="health_table_filter">Filter:<input type="text" ng-model="filterText"></div>
 </div>
-<div class="modal-footer">
-</div>
+<canvas id="canvas" style="border:2px solid black;" width="1490" height="800"></canvas>
+<div class="modal-footer"></div>
+<div ng-show="diagram_show" id="print_diagram" style="width:auto; height:600px; background-color: #fff;">No data to create diagram</div>

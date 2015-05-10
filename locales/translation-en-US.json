@@ -686,7 +686,9 @@
 		"dead":"No",
 		"alive":"Yes",
 		"unknown":"Unknown",
-		"other_disease":"Other Diseases"
+		"other_disease":"Other Diseases",
+		"collapse_table":"Collapse Table",
+		"expand_table":"Expand Table"
 			},
 	"fhh_export": {
 		"relative_no_name":"This relative does not have a name.  In order to export, the relative needs to have a name.  Please add a name and try again",

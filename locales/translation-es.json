@@ -693,7 +693,9 @@
 		"dead":"No",
 		"alive":"Sí",
 		"unknown":"Desconocido",
-		"other_disease":"Otras Enfermedades"			
+		"other_disease":"Otras Enfermedades",
+		"collapse_table":"Mesa de Colapso",
+		"expand_table":"Ampliar Mesa"					
 	},
 	"fhh_export": {
 		"relative_no_name":"Esta relación no tiene un nombre. Con el fin de exportar, las necesidades relativas a tener un nombre. Por favor, añadir un nombre y vuelva a intentarlo",

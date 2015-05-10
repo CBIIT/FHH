@@ -505,9 +505,14 @@ background-color:#FFFFCC;
 }
 
 
-hr#health_table {
-border:1px solid #00008B;
+hr#health_table{
+height:2px;
+border-width:0;
+color:#2A53A5;
+background-color:#2A53A5;
+margin:20px;
 }
+
 
 .health_table div.other_disease {
 background-color:#00008B;
@@ -525,4 +530,19 @@ list-style:none;
 
 ul#disease_list li {
 display:inline;
+}
+
+#health_table_filter {
+text-align:right;
+padding-top:15px;
+font-weight:bold;
+}
+
+#health_table_filter input {
+margin-left:5px;
+}
+
+#health_table_legend {
+vertical-align:bottom;
+text-align:right;
 }
