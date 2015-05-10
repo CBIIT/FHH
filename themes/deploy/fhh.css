@@ -546,3 +546,13 @@ margin-left:5px;
 vertical-align:bottom;
 text-align:right;
 }
+
+#health_table_action_buttons ul {
+list-style:none;
+padding:8px 0px 0px 0px;
+}
+
+#health_table_action_buttons li{
+display:inline;
+padding-right:5px;
+}

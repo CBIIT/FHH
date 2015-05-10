@@ -704,7 +704,15 @@
 		"unknown":"Desconhecido",
 		"other_disease":"Outras Doenças",
 		"collapse_table":"Mesa de Colapso",
-		"expand_table":"Expanda a Tabela"		
+		"expand_table":"Expanda a Tabela",
+		"csv_export":"Salve para o CSV",
+		"csv_line1":"Copie o texto abaixo e cole-o em um arquivo de texto",
+		"csv_line2":"Salve o arquivo de texto como 'somefilename.csv'",
+		"csv_line3":"Abra o Excel",
+		"csv_line4":"No menu arquivo, escolha importação",
+		"csv_line5":"Selecione o arquivo CSV",
+		"csv_line6":"Clique em Importar",
+		"csv_line7":"Escolha o nome do arquivo salvo a partir do passo 1"				
 	},
 	"fhh_export": {
 		"relative_no_name":"Esta relação não tem um nome. Para exportar, as necessidades relativas a ter um nome. Por favor, adicione um nome e tente novamente",

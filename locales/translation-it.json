@@ -700,7 +700,15 @@
 		"unknown":"Sconosciuto",
 		"other_disease":"Altre Malattie",
 		"collapse_table":"Tavolo Crollo",
-		"expand_table":"Ampliare Tavolo"					
+		"expand_table":"Ampliare Tavolo",
+		"csv_export":"Salva in CSV",
+		"csv_line1":"Copia il testo qui sotto e incollarlo in un file di testo",
+		"csv_line2":"Salvare file di testo come 'somefilename.csv'",
+		"csv_line3":"Aprire Excel",
+		"csv_line4":"Dal menu File, scegliere Importa",
+		"csv_line5":"Selezionare il file CSV",
+		"csv_line6":"Fare clic su Importa",
+		"csv_line7":"Scegliere il nome del file salvato dal punto 1"								
 	},
 	"fhh_export": {
 		"relative_no_name":"Questa relativa non ha un nome. Per l'esportazione, le relative esigenze di avere un nome. Si prega di inserire un nome e riprovare",

@@ -43,7 +43,19 @@
          <td id="health_table_legend"><img src="../static/images/Legend_{{lng}}.png"></td>
       </tr>
    </table>
-   <button class="translate" style="font-size:120% !important;" ng-click="print(true)">{{translate("fhh_family_pedigree","print")}}</button><button class="translate" style="font-size:120% !important;" ng-click="print()">{{translate("fhh_family_pedigree","save_image")}}</button><br />
+   <div id="health_table_action_buttons">
+    <ul>
+        <li>
+            <button class="translate" style="font-size:120% !important;" ng-click="print(true)">{{translate("fhh_family_pedigree","print")}}</button>
+        </li>
+        <li>
+            <button class="translate" style="font-size:120% !important;" ng-click="print()">{{translate("fhh_family_pedigree","save_image")}}</button>
+        </li>
+        <li>
+            <button class="translate" style="font-size:120% !important;" ng-click="exportToExcel('health_table.csv','health_table')">{{translate("fhh_family_pedigree","csv_export")}}</button>
+        </li>
+    </ul>
+</div>
    <a href="" ng-click="collapseTable()">{{collapse_status.collapse_text}}</a><br />
    <ul id="disease_list">
       <li ng-repeat="d in disease_list" ng-if="!d.show">
@@ -63,7 +75,10 @@
          </th>
       </tr>
       <tr ng-repeat="person in pi | filter:filterText" ng-class="{'self_row':person.relationship=='Self'}">
-         <td><span ng-if="person.name">{{person.name}}<br /></span>({{person.relationship}})</td>
+         <td>
+            <span ng-if="person.name">{{person.name}}<br />({{person.relationship}})</span>
+            <span ng-if="!person.name">{{person.relationship}}</span>
+        </td>
          <td>{{person.is_alive}}<span ng-if="person.cause_of_death">,<br /> {{person.cause_of_death}}<br />({{person.estimated_death_age}})</span></td>
          <td ng-repeat="d in disease_list" ng-show="d.show">
             <span ng-if="d.code=='1'">
@@ -79,6 +94,5 @@
    </table>
    <div id="health_table_filter">Filter:<input type="text" ng-model="filterText"></div>
 </div>
-<canvas id="canvas" style="border:2px solid black;" width="1490" height="800"></canvas>
 <div class="modal-footer"></div>
 <div ng-show="diagram_show" id="print_diagram" style="width:auto; height:600px; background-color: #fff;">No data to create diagram</div>

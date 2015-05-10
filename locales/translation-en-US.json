@@ -688,7 +688,15 @@
 		"unknown":"Unknown",
 		"other_disease":"Other Diseases",
 		"collapse_table":"Collapse Table",
-		"expand_table":"Expand Table"
+		"expand_table":"Expand Table",
+		"csv_export":"Save to CSV",
+		"csv_line1":"Copy the text below and paste it into a text file",
+		"csv_line2":"Save text file as 'somefilename.csv'",
+		"csv_line3":"Open Excel",
+		"csv_line4":"From the File menu, choose Import",
+		"csv_line5":"Select CSV file",
+		"csv_line6":"Click Import",
+		"csv_line7":"Choose the filename saved from step 1"
 			},
 	"fhh_export": {
 		"relative_no_name":"This relative does not have a name.  In order to export, the relative needs to have a name.  Please add a name and try again",
