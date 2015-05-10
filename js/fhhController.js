@@ -41,13 +41,13 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
         }
     };
     $scope.exportToExcel = function() {
-        var dl = $scope.disease_list.length;
+        var dl = $scope.disease_list2.length;
         var pl = $scope.pi.length;
 
         var excelString = '"' + $scope.translate("fhh_js","name_relationship") + '","' + $scope.translate("fhh_js","still_living") + '",';
-        for (key in $scope.disease_list) {
+        for (key in $scope.disease_list2) {
             var k = parseInt(key) + 1;
-            excelString += '"' + $scope.disease_list[key]['translatedDiseaseName'] + '"'
+            excelString += '"' + $scope.disease_list2[key]['translatedDiseaseName'] + '"'
             if (k < dl) excelString += ",";
             if (k == dl) excelString += "\n";
         }
@@ -62,9 +62,9 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             	excelString += '"' + r['relationship'] + '",'
             }
             excelString += '"' + r['is_alive'] + '",'
-            for (col in $scope.disease_list) {
+            for (col in $scope.disease_list2) {
                 var k = parseInt(col) + 1;
-                excelString += '"' + $scope.lookupDisease(r, $scope.disease_list[col]['code'], true) + '"'
+                excelString += '"' + $scope.lookupDisease(r, $scope.disease_list2[col]['code'], true) + '"'
                 col = "";
 
                 if (k < dl) excelString += ',';
@@ -259,6 +259,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
     $scope.pi = $scope.personal_information(); // set pi to personal information function //
     $scope.self_history = personal_information;
     $scope.disease_list = getDiseases();
+    $scope.disease_list2 = getDiseases();
 
     // hide disease in table when clicking the X icon //
     $scope.removeDisease = function(d) {
@@ -327,8 +328,8 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                 margin: 6,
                 textAlign: "left"
             }));
-            for (key in $scope.disease_list) {
-                row.add($(go.TextBlock, $scope.disease_list[key].translatedDiseaseName, {
+            for (key in $scope.disease_list2) {
+                row.add($(go.TextBlock, $scope.disease_list2[key].translatedDiseaseName, {
                     stroke: "white",
                     width: 90,
                     column: parseInt(key) + 2,
@@ -364,8 +365,8 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                     textAlign: "left"
                 }));
 
-                for (col in $scope.disease_list) {
-                    row.add($(go.TextBlock, $scope.lookupDisease($scope.pi[key], $scope.disease_list[col].code, true), {
+                for (col in $scope.disease_list2) {
+                    row.add($(go.TextBlock, $scope.lookupDisease($scope.pi[key], $scope.disease_list2[col].code, true), {
                         width: 90,
                         column: parseInt(col) + 2,
                         font: "bold 10pt sans-serif",
