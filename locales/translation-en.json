@@ -691,7 +691,7 @@
 		"unknown":"Unknown",
 		"other_disease":"Other Diseases",
 		"collapse_table":"Collapse Table",
-		"expand_table":"Expand Table",				,
+		"expand_table":"Expand Table",
 		"csv_export":"Save to CSV",
 		"csv_line1":"Copy the text below and paste it into a text file",
 		"csv_line2":"Save text file as 'somefilename.csv'",
