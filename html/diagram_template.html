@@ -95,4 +95,4 @@
    <div id="health_table_filter">Filter:<input type="text" ng-model="filterText"></div>
 </div>
 <div class="modal-footer"></div>
-<div ng-show="diagram_show" id="print_diagram" style="width:auto; height:600px; background-color: #fff;">No data to create diagram</div>
+<div ng-show="diagram_show" id="print_diagram" style="width:auto; height:{{getTableHeight()}}px; background-color: #fff;">No data to create diagram</div>

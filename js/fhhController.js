@@ -1,6 +1,8 @@
 var app = angular.module('myApp', ['ui.bootstrap']);
 app.controller('fhhController', ['$rootScope', '$scope', '$window', '$timeout', '$modal', function($rootScope, $scope, $window, $timeout, $modal) {
     $scope.personal_information = personal_information;
+    
+    // opens popup when user clicks view diagram and table //
     $scope.openDiagramTable = function() {
         var modalInstance = $modal.open({
             animation: $scope.animationsEnabled,
@@ -14,6 +16,8 @@ app.controller('fhhController', ['$rootScope', '$scope', '$window', '$timeout', 
                 }
             }
         });
+
+        // when popup is opened, wait, then open the diagram //
         modalInstance.opened.then(function() {
             $scope.$watch($(".modal-body"), function() {
                 $timeout(function() {
@@ -21,6 +25,8 @@ app.controller('fhhController', ['$rootScope', '$scope', '$window', '$timeout', 
                 });
             })
         });
+
+        // when popup is closed, destroy the existing diagram and table options popup if open //
         modalInstance.result.then(function() {},
             function() {
                 $("#optionsPanelMain").dialog('destroy').remove()
@@ -30,8 +36,10 @@ app.controller('fhhController', ['$rootScope', '$scope', '$window', '$timeout', 
 }]);
 
 app.controller('tableController', ['$scope', '$modalInstance', '$timeout', function($scope, $modalInstance, $timeout) {
+    // set disease lists to create disease lists with translated names //
     var initialDiseases = ['SNOMED_CT-56265001', 'SNOMED_CT-116288000', 'SNOMED_CT-73211009', 'SNOMED_CT-363406005', 'SNOMED_CT-254837009', 'SNOMED_CT-363443007'];
     var STATICDISEASES = ['SNOMED_CT-56265001', 'SNOMED_CT-116288000', 'SNOMED_CT-73211009', 'SNOMED_CT-363406005', 'SNOMED_CT-254837009', 'SNOMED_CT-363443007'];
+    
     // funtion to translate items //
     $scope.translate = function(prefix, t_string) {
         if (prefix == "diseases") {
@@ -40,6 +48,8 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             return $.t(prefix + "." + t_string);
         }
     };
+
+    // function to export data to csv //
     $scope.exportToExcel = function() {
         var dl = $scope.disease_list2.length;
         var pl = $scope.pi.length;
@@ -87,6 +97,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
 
     }
 
+    // determines if table is expanded or collapsed and sets the correct text for display //
     $scope.collapse_status = {
         'isCollapsed': false,
         'collapse_text': $scope.translate("fhh_family_pedigree", "collapse_table")
@@ -390,6 +401,13 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
         )
         $scope.diagram.add(g);
     };
+
+    $scope.getTableHeight = function() {
+    	height = 0;
+    	height+=parseInt($("table.health_table").height());
+    	height+=parseInt($("#personal_info").height());
+    	return height;
+    }
 
     // closes the modal window //
     $scope.close = function() {
