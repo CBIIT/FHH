@@ -79,7 +79,7 @@
       </tr>
       <tr ng-repeat="person in pi | filter:filterText" ng-class="{'self_row':person.relationship=='Self'}">
          <td>
-            <span ng-if="person.name">{{person.name}}<br />({{person.relationship}})</span>
+            <span ng-if="person.name"><span class="health_table_name">{{person.name}}<br /></span><span class="health_table_relationship">({{person.relationship}})</span></span>
             <span ng-if="!person.name">{{person.relationship}}</span>
         </td>
          <td>{{person.is_alive}}<span ng-if="person.cause_of_death">,<br /> {{person.cause_of_death}}<br />({{person.estimated_death_age}})</span></td>
