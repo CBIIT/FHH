@@ -285,18 +285,36 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
     // print table using gojs and converting to an image //
     $scope.print = function(print) {
         $scope.diagram_show = true;
-        if (!$scope.diagram) {
+        // if (!$scope.diagram) {
             $timeout(function() {
                 $scope.displayHiddenDiagram();
             });
-        };
+        // };
         $timeout(function() {
-            var i = $scope.diagram.makeImageData();
+            var i = $scope.diagram.makeImageData({
+  scale: 1,
+  background: "white",
+  type: "image/jpeg"
+});
+            $("#diagram_container").empty();
+            $("#diagram_container").html('<div ng-show="diagram_show" id="print_diagram" style="width:auto; height:{{getTableHeight()}}px; background-color: #fff;">No data to create diagram</div>');
             $scope.diagram_show = false;
 
+            // if (!!window.chrome) {
+	           //  var WindowObject = window.open(i, "Table",
+	           //      "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+
+            // }
+            // else {
+            // var WindowObject = window.open("", "Table",
+            //     "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+            // WindowObject.document.writeln('<html><head></head><body><div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div><img src="' + i + '"></body></html>');
+
+            // }
             var WindowObject = window.open("", "Table",
                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
             WindowObject.document.writeln('<html><head></head><body><div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div><img src="' + i + '"></body></html>');
+
             if (print) {
                 WindowObject.document.close();
                 WindowObject.focus();
@@ -313,6 +331,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
     $scope.displayHiddenDiagram = function() {
         var $ = go.GraphObject.make;
         $scope.diagram = $(go.Diagram, "print_diagram");
+        window.scope = $scope;
         var createTableHeaders = function() {
             // create initial table
             var table = $(go.Panel, "Table", {
@@ -339,8 +358,8 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                 margin: 6,
                 textAlign: "left"
             }));
-            for (key in $scope.disease_list2) {
-                row.add($(go.TextBlock, $scope.disease_list2[key].translatedDiseaseName, {
+            for (key in $scope.disease_list) {
+                row.add($(go.TextBlock, $scope.disease_list[key].translatedDiseaseName, {
                     stroke: "white",
                     width: 90,
                     column: parseInt(key) + 2,
@@ -376,15 +395,34 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                     textAlign: "left"
                 }));
 
-                for (col in $scope.disease_list2) {
-                    row.add($(go.TextBlock, $scope.lookupDisease($scope.pi[key], $scope.disease_list2[col].code, true), {
-                        width: 90,
+                for (col in $scope.disease_list) {
+                    if ($scope.disease_list[col].code=='1') {
+                        var dl_string = "";
+                        for (d in $scope.pi[key]['Health History']) {
+                            if ($scope.pi[key]['Health History'][d].isOther) {
+                                dl_string+='\n'+$scope.translate("diseases",$scope.pi[key]['Health History'][d]['Disease Code']);
+                                dl_string+='\n'+$scope.pi[key]['Health History'][d]['Age At Diagnosis']+'\n';
+                            }
+                        }
+                    row.add($(go.TextBlock, dl_string, {
+                        width: 180,
                         column: parseInt(col) + 2,
                         font: "bold 10pt sans-serif",
-                        margin: 6,
+                        margin: 4,
+                        textAlign: "left"
+                    }));                        
+                    }
+                    else {
+                    row.add($(go.TextBlock, $scope.lookupDisease($scope.pi[key], $scope.disease_list[col].code, true), {
+                        width: 100,
+                        column: parseInt(col) + 2,
+                        font: "bold 10pt sans-serif",
+                        margin: 4,
                         textAlign: "left"
                     }));
+                    }
                 }
+
                 table.add(row)
             }
 

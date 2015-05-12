@@ -455,19 +455,14 @@ list-style:none;
 display:inline;
 }
 
-#navBar li a
-{
-
-  text-decoration: none;
-
-  margin:10px;
-  position:relative;
-  padding: .3em 1em;
-
-  top:6px;
-  left:33px;
-  color: #fff;
-  background-color: #036;
+#navBar li a {
+background-color:#337AB7;
+padding:8px;
+top:6px;
+position:relative;
+margin-top:5px;
+color:#fff;
+text-decoration:none;
 }
 .health_table {
 border:0px solid #000 !important;
