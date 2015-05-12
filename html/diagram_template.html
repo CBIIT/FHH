@@ -19,7 +19,7 @@
          {{translate("fhh_family_pedigree","title")}}</h3>
          <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line1")}}</p>
          <br />
-         <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line1")}}</p>
+         <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line2")}}</p>
          <br />
       </td>
    </tr>
@@ -89,7 +89,6 @@
                   {{od.translatedDiseaseName}}<br />({{od['Age At Diagnosis']}})
                </div>
             </span>
-            <span ng-if="d.code!='1'">
             {{lookupDisease(person,d['code'])['Age At Diagnosis']}}
             </span>
          </td>

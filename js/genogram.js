@@ -175,7 +175,7 @@ function init(diagram_data) {
 // KEY LINE BELOW
   // n: name, s: sex, m: mother, f: father, ux: wife, vir: husband, a: attributes/markers
 //  console.dir(diagram_data);
-  console_ids(diagram_data);
+  // console_ids(diagram_data);
   setupDiagram(myDiagram, diagram_data, -1 );
 }
 

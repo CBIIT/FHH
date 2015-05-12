@@ -40,7 +40,6 @@ function open_new_diagram_dialog() {
 function load_diagram() {	
 	zoom_scale=1;
 	var diagram_data = load_data() ;
-	console.log(JSON.stringify(diagram_data));
 	init(diagram_data);	
 }
 
@@ -143,7 +142,13 @@ function add_characteristics(relationship_type, relative, person) {
 // translate all diseases in the person's health history and add to existing disease object //
 function addTranslatedDiseaseName(diseases) {
 	for (key in diseases) {
-		diseases[key]['translatedDiseaseName']=$.t("diseases:"+diseases[key]['Disease Code']);
+		if (diseases[key]['Disease Code']=='SNOMED_CT-OTHER') {
+			diseases[key]['translatedDiseaseName']=diseases[key]['Detailed Disease Name'];			
+		}
+		
+		else{
+			diseases[key]['translatedDiseaseName']=$.t("diseases:"+diseases[key]['Disease Code']);
+		}
    	}
    	return diseases;
 }
@@ -508,9 +513,16 @@ function createImage(print) {
 		scale: zoom_scale,
 		maxSize: new go.Size(Infinity, Infinity)
 	});
+  if (!!window.chrome) {
+    var WindowObject = window.open(image, "Diagram",
+    "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+  }
+  else {
     var WindowObject = window.open("", "Diagram",
     "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
     WindowObject.document.writeln('<html><head></head><body><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title") + '</h2><img src="' + image + '"></div></body></html>');
+
+  }
   	if (print) {
 	  	WindowObject.document.close();
 	    WindowObject.focus();
