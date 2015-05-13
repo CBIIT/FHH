@@ -320,8 +320,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             var i = $scope.diagram.makeImageData({
   scale: 1,
   background: "white",
-  type: "image/jpeg"
-});
+  type: "image/png"});
             $("#diagram_container").empty();
             $("#diagram_container").html('<div ng-show="diagram_show" id="print_diagram" style="width:auto; height:{{getTableHeight()}}px; background-color: #fff;">No data to create diagram</div>');
             $scope.diagram_show = false;
@@ -337,9 +336,19 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             // WindowObject.document.writeln('<html><head></head><body><div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div><img src="' + i + '"></body></html>');
 
             // }
+            var header = '<head>'
+            header+='<meta http-equiv="X-UA-Compatible" content="IE=edge">'
+            header+='<noscript>&lt;meta http-equiv="refresh" content="0; URL=./unsupported_browser.html"&gt; &lt;/meta&gt; </noscript>'
+            header+='<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'
+            header+='<meta http-equiv="cache-control" content="max-age=0">'
+            header+='<meta http-equiv="cache-control" content="no-cache">'
+            header+='<meta http-equiv="expires" content="0">'
+            header+='<meta http-equiv="pragma" content="no-cache">'
+            header+='<title>My Family Health Portrait</title>'
+            header+='</head>'
             var WindowObject = window.open("", "Table",
                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
-            WindowObject.document.writeln('<html><head></head><body><div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div><img src="' + i + '"></body></html>');
+            WindowObject.document.writeln('<html>' + header + '<body><div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div><img src="' + i + '"></body></html>');
 
             if (print) {
                 WindowObject.document.close();

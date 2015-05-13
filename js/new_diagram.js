@@ -403,8 +403,7 @@ function createDiagramDialog() {
         + "<td>"
         // + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfoMain()' checked />" + $.t("fhh_family_pedigree.diagram_options_checkbox1") + "<br />"
         // + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfoMain()' checked />" + $.t("fhh_family_pedigree.diagram_options_checkbox2") + "<br />"
-        // + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfoMain()' checked/>" + $.t("fhh_family_pedigree.diagram_options_checkbox3") + "<br />"
-        // + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfoMain()' checked/>" + $.t("fhh_family_pedigree.diagram_options_checkbox4") + "<br />"
+        // + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='[/.]        // + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfoMain()' checked/>" + $.t("fhh_family_pedigree.diagram_options_checkbox4") + "<br />"
         // + "<input type='button' onclick='CloseInfoMain()' value='" + $.t("fhh_family_pedigree.close") + "'></button>"
         + "<br /><button onclick='CloseInfoMain()'>" + $.t("fhh_family_pedigree.close") + "</button>"
         + "</td>"
@@ -513,17 +512,12 @@ function createImage(print) {
 		scale: zoom_scale,
 		maxSize: new go.Size(Infinity, Infinity)
 	});
-  if (!!window.chrome) {
-    var WindowObject = window.open(image, "Diagram",
-    "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
-  }
-  else {
+
     var WindowObject = window.open("", "Diagram",
     "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
     WindowObject.document.writeln('<html><head></head><body><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title") + '</h2><img src="' + image + '"></div></body></html>');
 
-  }
-  	if (print) {
+    	if (print) {
 	  	WindowObject.document.close();
 	    WindowObject.focus();
 	    WindowObject.print();
