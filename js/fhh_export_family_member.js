@@ -417,7 +417,6 @@ function make_export_string(pi) {
 	root.appendChild(add_personal_history(pi));
 	
 	var str = serializeXmlNode(root)
-	console.log(str)
 	return(str);
 }
 

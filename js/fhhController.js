@@ -350,12 +350,14 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
             WindowObject.document.writeln('<html>' + header + '<body><div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div><img src="' + i + '"></body></html>');
 
-            if (print) {
-                WindowObject.document.close();
-                WindowObject.focus();
-                WindowObject.print();
-                WindowObject.close();
-            }
+    if (print) {
+        $timeout(function() {
+            WindowObject.focus();
+            WindowObject.print();
+            // WindowObject.close(); 
+        });               
+    }
+
 
         });
 
