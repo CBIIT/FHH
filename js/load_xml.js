@@ -395,7 +395,12 @@ function parse_xml(data) {
 		var relationship_code = $(this).find("code").attr("code");
 		relative.id = $(this).find("> relationshipHolder > id").attr("extension");
 		// Handle the misspelling from the previous version of the software
-		if (relative.id == null) relative.id = $(this).find("> relationshipHolder > id").attr("extention");
+		if (relative.id == null) {
+			relative.id = $(this).find("> relationshipHolder > id").attr("extention");
+			if (relative.id == null) {
+				relative.id = guid()
+			}
+		} 
 		relative.name = $(this).find("relationshipHolder > name").attr("formatted");
 				
 		if (relative.name == null || relative.name.length == 0) relative.name = "";

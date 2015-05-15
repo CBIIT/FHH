@@ -48,7 +48,6 @@ function load_diagram() {
 function load_data() {
 	var diagram_data = [];
 	var pi = personal_information;
-	
 	var mom_key = pi.mother.id.hashCode();
 	var dad_key = pi.father.id.hashCode();
 	

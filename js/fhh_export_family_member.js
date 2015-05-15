@@ -29,14 +29,38 @@ function load_export_downloadify(){
 }
 
 function build_copy_for_family_member_dialog() {
-	give_instructions();
-	relative_select = create_family_member_select();	
-	relative_select.on("change", bind_relative_select_change);
+	give_instructions(); 
+	 
+	var ua = navigator.userAgent.toLowerCase();
+	var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+	if(!isAndroid) {
+		relative_select = create_family_member_select();	
+		relative_select.on("change", bind_relative_select_change);
+	} else {
+		$("#copy_for_family_member").append($("<DIV style='font-size:larger;font-weight:bold;font-style:italic'>")
+			.append($.t("fhh_js.android")));
+	}
 }
 
 function bind_relative_select_change() {
 	relative_being_exported = $(this).val();
 
+// Need to check if exported member has gender, name, and date of birth
+	if (personal_information[relative_being_exported].name == null 
+	 || personal_information[relative_being_exported].name == "") {
+		alert($.t("fhh_export.relative_no_name"));
+		return;
+	}
+	if (personal_information[relative_being_exported].gender == null 
+	 || personal_information[relative_being_exported].gender == "") {
+		alert($.t("fhh_export.relative_no_gender"));	 	
+		return;
+	}
+	if (personal_information[relative_being_exported].date_of_birth == null 
+	 || personal_information[relative_being_exported].date_of_birth == "") {
+		alert($.t("fhh_export.relative_no_dob"));	 	
+		return;
+	}
 
 	// Deep Copy of the information
 	
@@ -66,7 +90,7 @@ function bind_relative_select_change() {
 		$("#copy_for_family_member").append("&nbsp;&nbsp;").append(export_button);
 		save_document($("#export_to_relative"), xml_document, filename);	
 	} else {
-		$("#export_to_relative").remove();
+		$("#export_downloadify").remove();
 		var export_downloadify = $("<P id='export_downloadify'>" + $.t("fhh_js.export") + "</P>");
 		$("#copy_for_family_member").append("&nbsp;&nbsp;").append(export_downloadify);
 		load_export_downloadify();
@@ -393,6 +417,7 @@ function make_export_string(pi) {
 	root.appendChild(add_personal_history(pi));
 	
 	var str = serializeXmlNode(root)
+	console.log(str)
 	return(str);
 }
 

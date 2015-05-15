@@ -73,7 +73,6 @@ $(document).ready(function() {
 
 function start() 
 {
-	setup_new_diagram_dialog();
 
 	$("#why_ask_ashkenazi_dialog").load ("why_ask_ashkenazi.html", function () {
 		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
@@ -90,10 +89,6 @@ function start()
 		width:350
 	});
 	
-	$("#new_diagram_button").click(function() {
-		open_new_diagram_dialog();
-	});
-
 	
 	$("#dropbox_save").click(function() {
 		$("#dropbox_save").attr("href", "data:application/xml," + JSON.stringify(personal_information, null, 2));
@@ -369,6 +364,15 @@ function start()
 		width:600
 	});	
 
+	$("#personal_help_dialog").load ("personal-help.html", function () {});
+	$("#personal_help_dialog").dialog({
+		title:$.t("fhh_js.add_help_dialog_title"), 
+		position:['middle',0],
+		autoOpen: false,
+		height:'auto',
+		width:600
+	});		
+
 	$("#load_help_dialog").load ("load-help.html", function () {});
 	$("#load_help_dialog").dialog({
 		title:$.t("fhh_js.load_help_dialog_title"), 
@@ -421,7 +425,7 @@ function start()
 	// Hide or show the right initial buttons
 	$("#create_new_personal_history_button").show().on("click", bind_create_new_personal_history_button_action);
 	$("#save_personal_history_button").show().on("click", bind_save_personal_history_button_action);
-	$("#add_another_family_member_button").hide().on("click", bind_add_another_family_member_button_action);
+	$("#add_another_family_member_button").show().on("click", bind_add_another_family_member_button_action);
 	$("#save_family_history_button").hide();
 //	$("#view_diagram_and_table_button").show().on("click", bind_view_diagram_and_table_button_action);
 //    $("#view_diagram_and_table_button").show().on("click",  readtable());
@@ -478,18 +482,20 @@ function bind_save_personal_history_button() {
 }
 
 function bind_create_new_personal_history_button_action () {
-	if (personal_information != null) {
-	    if (confirm($.t("fhh_js.confirm_delete")) == true) {
-	    	personal_information = new Object();
-//	    	current_health_history = [];
-	    	build_family_history_data_table();
-	    } else {
-	        return false;
-	    }
+	if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
+			$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
+		if (personal_information != null) {
+		    if (confirm($.t("fhh_js.confirm_delete")) == true) {
+		    	personal_information = new Object();
+		    	build_family_history_data_table();
+		    } else {
+		        return false;
+		    }
+		}
+		current_health_history = [];
+		clear_and_set_personal_health_history_dialog();
+		$( "#add_personal_information_dialog" ).dialog( "open" );	
 	}
-	current_health_history = [];
-	clear_and_set_personal_health_history_dialog();
-	$( "#add_personal_information_dialog" ).dialog( "open" );	
 }
 
 function bind_view_diagram_and_table_button_action () {
@@ -500,6 +506,278 @@ function bind_view_diagram_and_table_button_action () {
 
 function bind_save_personal_history_button_action () {
 	$( "#save_personal_history_dialog" ).dialog( "open" );	
+}
+
+function bind_add_another_family_member_button_action() {
+	if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
+			$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
+	
+		var new_family_member_dialog;
+		if ($("#new_family_member_dialog").length == 0) {
+			new_family_member_dialog = $("<div id='new_family_member_dialog'>");
+			new_family_member_dialog.dialog({
+				position:['middle',0],
+				title:$.t("fhh_js.define_family_relationship_dialog_title"),
+				height:'auto',
+				width:500
+			});
+		} else {
+			new_family_member_dialog = $("#new_family_member_dialog");
+			new_family_member_dialog.empty().dialog("open");
+		}
+		
+		new_family_member_dialog.append("<h3> " + $.t("fhh_js.add_relative_title") + " </h3>");
+		new_family_member_dialog.append("<P class='instructions'>" + $.t("fhh_js.add_relative_para") + "</P>");
+		new_family_member_dialog.append("<label for='new_family_member_relationship'> " + $.t("fhh_js.relationship_to_me") + " </label>");
+		new_family_member_select = 
+		$("<SELECT id='new_family_member_relationship' name='new_family_member_relationship'>")
+			.append("<OPTION value=''> " + $.t("fhh_js.select_relationship") + " </OPTION>")
+			.append("<OPTION value='aunt'> " + $.t("fhh_js.aunt") + " </OPTION>")
+			.append("<OPTION value='uncle'> " + $.t("fhh_js.uncle") + " </OPTION>")
+			.append("<OPTION value='daughter'> " + $.t("fhh_js.daughter") + " </OPTION>")
+			.append("<OPTION value='son'> " + $.t("fhh_js.son") + " </OPTION>")
+			.append("<OPTION value='brother'> " + $.t("fhh_js.brother") + " </OPTION>")
+			.append("<OPTION value='sister'> " + $.t("fhh_js.sister") + " </OPTION>")
+			.append("<OPTION value='halfsister'> " + $.t("fhh_js.half_sister") + " </OPTION>")
+			.append("<OPTION value='halfbrother'> " + $.t("fhh_js.half_brother") + " </OPTION>");
+			
+		if (any_relatives(personal_information, 'maternal_aunt') || any_relatives(personal_information, 'maternal_uncle')
+				|| any_relatives(personal_information, 'paternal_aunt') || any_relatives(personal_information,'paternal_uncle')) { 
+			new_family_member_select.append("<OPTION value='cousin'> " + $.t("fhh_js.cousin") + " </OPTION>");
+		}
+	
+		if (personal_information.brother_0 != null || personal_information.sister_0 != null ||
+			personal_information.maternal_halfbrother_0 != null || personal_information.maternal_halfsister_0 != null ||
+			personal_information.paternal_halfbrother_0 != null || personal_information.paternal_halfsister_0 != null 		
+		) { 
+			new_family_member_select
+				.append("<OPTION value='niece'> " + $.t("fhh_js.niece") + " </OPTION>")
+				.append("<OPTION value='nephew'> " + $.t("fhh_js.nephew") + " </OPTION>");
+		}
+			
+		if (personal_information.son_0 != null || personal_information.daughter_0 != null) { 
+			new_family_member_select
+				.append("<OPTION value='granddaughter'> " + $.t("fhh_js.granddaughter") + " </OPTION>")
+				.append("<OPTION value='grandson'> " + $.t("fhh_js.grandson") + " </OPTION>")
+		}
+		
+		new_family_member_select.on("change", new_family_member_relationship_selection_change_action);
+		new_family_member_dialog.append(new_family_member_select);
+	}		
+}
+
+function new_family_member_relationship_selection_change_action() {
+	
+	// For some of the selects, we need to ask additional information
+	relationship = $(this).val();
+	var new_family_member_dialog = $("#new_family_member_dialog");
+
+	// Must remove current exact relationship if there is one.
+	$("#new_family_member_exact_relationship").remove();
+	$("#exact_relationship_label").remove();
+	
+	switch (relationship) {
+		case 'aunt':
+
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " 
+				+ $.t("fhh_js.aunt_relationship_q") + " </B> </span>");
+			new_family_member_dialog.append($("<SELECT id='new_family_member_exact_relationship'>")
+				.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>")
+				.append("<OPTION value='maternal_aunt'> " + $.t("fhh_js.mother") + " </OPTION>")
+				.append("<OPTION value='paternal_aunt'> " + $.t("fhh_js.father") + " </OPTION>")
+				.on("change", exact_family_member_relationship_selection_change_action)
+			);
+			break;
+		case 'uncle':
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " 
+				+ $.t("fhh_js.uncle_relationship_q") + " </B> </span>");
+			new_family_member_dialog.append($("<SELECT id='new_family_member_exact_relationship'>")
+				.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>")
+				.append("<OPTION value='maternal_uncle'> " + $.t("fhh_js.mother") + " </OPTION>")
+				.append("<OPTION value='paternal_uncle'> " + $.t("fhh_js.father") + " </OPTION>")
+				.on("change", exact_family_member_relationship_selection_change_action)
+			);
+			break;
+		case 'daughter':
+			new_family_member_dialog.append("<INPUT id='new_family_member_exact_relationship' type='hidden' value='daughter'>");
+			exact_family_member_relationship_selection_change_action();
+			break;
+		case 'son':
+			new_family_member_dialog.append("<INPUT id='new_family_member_exact_relationship' type='hidden' value='son'>");
+			exact_family_member_relationship_selection_change_action();
+			break;
+		case 'brother':
+			new_family_member_dialog.append("<INPUT id='new_family_member_exact_relationship' type='hidden' value='brother'>");
+			exact_family_member_relationship_selection_change_action();
+			break;
+		case 'sister':
+			new_family_member_dialog.append("<INPUT id='new_family_member_exact_relationship' type='hidden' value='sister'>");
+			exact_family_member_relationship_selection_change_action();
+			break;
+		case 'cousin':
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/><B>" + $.t("fhh_js.cousin_parent_q") + " </B> </span>");
+			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
+			new_family_member_dialog.append(new_family_member_select);
+			add_cousin_select(new_family_member_select);
+			break;
+		case 'niece':
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.niece_parent_q") + " </B> </span>");
+			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
+			new_family_member_dialog.append(new_family_member_select);
+			add_niece_select(new_family_member_select);
+			break;
+		case 'nephew':
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.nephew_parent_q") + " </B> </span>");
+			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
+			new_family_member_dialog.append(new_family_member_select);
+			add_nephew_select(new_family_member_select);
+			break;
+		case 'granddaughter':
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.granddaughter_parent_q") + " </B> </span>");
+			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
+			new_family_member_dialog.append(new_family_member_select);
+			add_granddaughter_select(new_family_member_select);
+			break;
+		case 'grandson':
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.grandson_parent_q") + " </B> </span>");
+			new_family_member_select = $("<SELECT id='new_family_member_exact_relationship'>");
+			new_family_member_dialog.append(new_family_member_select);
+			add_grandson_select(new_family_member_select);
+			break;
+		case 'halfbrother':
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.halfbrother_parent_q") + " </B> </span>");
+			new_family_member_dialog.append($("<SELECT id='new_family_member_exact_relationship'>")
+				.append("<OPTION value=''>" + $.t("fhh_js.please_specify") + "</OPTION>")
+				.append("<OPTION value='maternal_halfbrother'> " + $.t("fhh_js.mother") + " </OPTION>")
+				.append("<OPTION value='paternal_halfbrother'> " + $.t("fhh_js.father") + " </OPTION>")
+				.on("change", exact_family_member_relationship_selection_change_action)
+			);
+			break;
+		case 'halfsister':
+			new_family_member_dialog.append("<span id='exact_relationship_label'> <br/> <B> " + $.t("fhh_js.halfsister_parent_q") + " </B> </span>");
+			new_family_member_dialog.append($("<SELECT id='new_family_member_exact_relationship'>")
+				.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>")
+				.append("<OPTION value='maternal_halfsister'> " + $.t("fhh_js.mother") + " </OPTION>")
+				.append("<OPTION value='paternal_halfsister'> " + $.t("fhh_js.father") + " </OPTION>")
+				.on("change", exact_family_member_relationship_selection_change_action)
+			);
+			break;
+	}
+}
+
+function add_dynamic_relative_to_dropdown(select_dropdown, current_relationship, parent_relationship) {
+	var i = 0;
+	for (var i=0;i<30;i++) {
+		if (personal_information[parent_relationship + '_' + i] == null) continue;
+		var parent = personal_information[parent_relationship + '_' + i];
+		var parent_name = parent.name;
+		if (parent_name == null || parent_name.length == 0) {
+			parent_name = $.t("fhh_js." + parent_relationship) + " #" + (i+1);
+		}
+		select_dropdown.append("<OPTION value='" + current_relationship + ":" + parent.id + "'> " + parent_name + " </OPTION>");
+		
+	}
+//	while (personal_information[parent_relationship + '_' + i] != null) {
+//		i++;
+//	}
+	
+}
+
+function add_cousin_select(select_dropdown) {
+	select_dropdown.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>");
+	add_dynamic_relative_to_dropdown(select_dropdown, "maternal_cousin", "maternal_aunt");
+	add_dynamic_relative_to_dropdown(select_dropdown, "paternal_cousin", "paternal_aunt");
+	add_dynamic_relative_to_dropdown(select_dropdown, "maternal_cousin", "maternal_uncle");
+	add_dynamic_relative_to_dropdown(select_dropdown, "paternal_cousin", "paternal_uncle");
+	
+	select_dropdown.on("change", exact_family_member_relationship_selection_change_action);
+}
+function add_niece_select(select_dropdown) {
+	select_dropdown.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>");
+	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "sister");
+	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "brother");
+	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "maternal_halfsister");
+	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "maternal_halfbrother");
+	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "paternal_halfsister");
+	add_dynamic_relative_to_dropdown(select_dropdown, "niece", "paternal_halfbrother");
+	
+	select_dropdown.on("change", exact_family_member_relationship_selection_change_action);
+}
+
+function add_nephew_select(select_dropdown) {
+	select_dropdown.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>");
+	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "sister");
+	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "brother");
+	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "maternal_halfsister");
+	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "maternal_halfbrother");
+	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "paternal_halfsister");
+	add_dynamic_relative_to_dropdown(select_dropdown, "nephew", "paternal_halfbrother");
+	
+	select_dropdown.on("change", exact_family_member_relationship_selection_change_action);
+}
+
+function add_grandson_select(select_dropdown) {
+	select_dropdown.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>");
+	add_dynamic_relative_to_dropdown(select_dropdown, "grandson", "daughter");
+	add_dynamic_relative_to_dropdown(select_dropdown, "grandson", "son");
+	
+	select_dropdown.on("change", exact_family_member_relationship_selection_change_action);
+}
+
+function add_granddaughter_select(select_dropdown) {
+	select_dropdown.append("<OPTION value=''> " + $.t("fhh_js.please_specify") + " </OPTION>");
+	add_dynamic_relative_to_dropdown(select_dropdown, "granddaughter", "daughter");
+	add_dynamic_relative_to_dropdown(select_dropdown, "granddaughter", "son");
+	
+	select_dropdown.on("change", exact_family_member_relationship_selection_change_action);
+}
+
+function exact_family_member_relationship_selection_change_action() {
+	if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
+			$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
+		relationship = $("#new_family_member_exact_relationship").val();
+		// Overloaded the value with relationship:parent_id
+		parent_id = relationship.split(":")[1];
+		relationship = relationship.split(":")[0];
+		
+	//	alert (relationship);
+		// for dynamic relationships, they all have _#, we need to find the first empty one to use
+		
+		if (personal_information == null) {
+			alert("No Personal Information Set yet");
+			return
+		}
+		
+		var i=0;
+		while (personal_information[relationship + "_" + i] != null) i++;
+		
+		current_relationship = relationship + "_" + i;
+	//	alert ("Exact Relationship ID: " + current_relationship);
+		create_new_family_member(current_relationship, relationship, parent_id);
+		family_member_information.relationship = relationship;
+	
+		clear_and_set_current_family_member_health_history_dialog(family_member_information);
+	
+		$("#new_family_member_dialog").dialog("close");
+		$( "#update_family_member_health_history_dialog").dialog( "open" );
+	}	
+}
+
+function create_new_family_member(current_relationship, relationship, parent_id) {
+	family_member_information = new Object();
+	current_health_history = [];
+
+	if (parent_id != null && parent_id.length > 0) {
+//		alert ("Adding Parent: " + parent_id);
+		family_member_information.relationship = relationship;
+		family_member_information.parent_id = parent_id;
+	}
+	family_member_information.gender = get_gender(relationship);
+	personal_information[current_relationship] = family_member_information;
+	
+	var table = $("#history_summary_table");
+	add_new_family_history_row(table, "", $.t("fhh_js." + relationship), current_relationship, false, true);
+	
 }
 
 function get_gender(relationship) {
@@ -726,7 +1004,7 @@ function bind_personal_cancel_button_action () {
 
 function bind_personal_help_button_action () {
 	$("#add-help").on("click", function(){ 
-		$("#update_help_dialog").dialog("open");
+		$("#personal_help_dialog").dialog("open");
 	});
 }
 
@@ -862,17 +1140,19 @@ function bind_family_member_submit_button_action () {
 				if (cause_of_death_code != null && cause_of_death_code != "") {
 					detailed_cause_of_death = $.t($('#detailed_cause_of_death_select').val());
 				} else {
+					cause_of_death_code = "SNOMED_CT-OTHER";
 					if ($("#new_disease_name").val() != "") detailed_cause_of_death = $("#new_disease_name").val();
 		 			else detailed_cause_of_death = cause_of_death;
 				}
 				var estimated_death_age = $('#estimated_death_age_select').val();
-				if (estimated_death_age == 'not_picked') estimated_death_age = 'unknown';
+				if (estimated_death_age == null || estimated_death_age == 'not_picked' || estimated_death_age == '') 
+					estimated_death_age = 'unknown';
 				
 				family_member_information['cause_of_death'] = cause_of_death;
 				if (cause_of_death == 'other') family_member_information['detailed_cause_of_death'] = $("#new_disease_name").val();
 				else family_member_information['detailed_cause_of_death'] = $.t("diseases:" + cause_of_death_code);
 				family_member_information['estimated_death_age'] = estimated_death_age;			
-				family_member_information['cause_of_death_code'] = detailed_cause_of_death;	
+				family_member_information['cause_of_death_code'] = cause_of_death_code;	
 				
 				// Check to see if the cause of death code is already in history.
 				
@@ -1094,7 +1374,10 @@ function load_risk_links() {
         });
 	});
 }
-
+//  Need to do a deep copy of the PI data to support IE10 dropping data when window closes
+function set_pi_information(data) {
+	personal_information = JSON.parse(JSON.stringify(data));
+}
 
 function build_family_history_data_table () {
 	var table = $("#history_summary_table");
@@ -1240,9 +1523,12 @@ function add_personal_history_row(table) {
 	update_history_td.append(update_history);
 
 	update_history.on("click", function() { 
-		current_relationship = 'self';
-		clear_and_set_personal_health_history_dialog();
-		$( "#add_personal_information_dialog" ).dialog( "open" );
+		if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
+				$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
+			current_relationship = 'self';
+			clear_and_set_personal_health_history_dialog();
+			$( "#add_personal_information_dialog" ).dialog( "open" );
+		}
 	});		
 
 	new_row.append(update_history_td);
@@ -1287,12 +1573,16 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		update_history.attr("relationship_id", relationship_id);
 
 		update_history.on("click", function(){ 
-			family_member = personal_information[$(this).attr('relationship_id')];
-			current_relationship = $(this).attr('relationship_id');
-			family_member.relationship = relationship_id;
-			
-			clear_and_set_current_family_member_health_history_dialog(family_member);
-			$( "#update_family_member_health_history_dialog" ).dialog( "open" );
+			if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
+					$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
+				family_member = personal_information[$(this).attr('relationship_id')];
+				current_relationship = $(this).attr('relationship_id');
+				family_member.relationship = relationship_id;
+				
+				clear_and_set_current_family_member_health_history_dialog(family_member);
+	
+				$( "#update_family_member_health_history_dialog" ).dialog( "open" );
+			}
 		});
 		
 		new_row.append(update_history_td);
@@ -1410,7 +1700,7 @@ function update_family_history_row(relationship_id, family_member_information) {
 		remove_history = $("#" + relationship_id).find(".remove_history");
 		remove_history.html("<img src='../images/icon_trash.gif' alt='Remove History' title='Remove History'>");
 		remove_history.attr("relationship_id", relationship_id);
-		remove_history.on("click", function(){ 
+		remove_history.unbind().on("click", function(){ 
 			remove_family_member( $(this).attr('relationship_id'), true);
 		});
 	}
@@ -1445,9 +1735,9 @@ function build_family_health_information_section() {
 
 	var hi_data_entry_row = $("<tr id='health_data_entry_row'>");
 	var disease_select_label = $("<label for='disease_choice_select'> &nbsp; </label>");
-	var disease_select = $("<select id='disease_choice_select' name='disease_choice_select'></select>");
+	var disease_select = $("<select tabindex='17' id='disease_choice_select' name='disease_choice_select'></select>");
 	var detailed_disease_select_label = $("<label for='detailed_disease_choice_select'> &nbsp; </label>");
-	var	detailed_disease_select = $("<select id='detailed_disease_choice_select' name='detailed_disease_choice_select'></select>");
+	var	detailed_disease_select = $("<select tabindex='18' id='detailed_disease_choice_select' name='detailed_disease_choice_select'></select>");
 	
 	set_disease_choice_select(disease_select, detailed_disease_select);
 	hi_data_entry_row.append($("<td>").append(disease_select_label).append(disease_select)
@@ -1459,7 +1749,7 @@ function build_family_health_information_section() {
 //	hi_data_entry_row.append($("<td>").append(disease_choices).append("<br />&nbsp;&nbsp;"));
 	
 	var age_at_diagnosis_select_label = $("<label for='age_at_diagnosis_select'> &nbsp; </label>");
-	var age_at_diagnosis_select = $("<select name='age_at_diagnosis_select' id='age_at_diagnosis_select'></select>");
+	var age_at_diagnosis_select = $("<select tabindex='19' name='age_at_diagnosis_select' id='age_at_diagnosis_select'></select>");
 	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);
 	hi_data_entry_row.append($("<td>").append(age_at_diagnosis_select_label).append(age_at_diagnosis_select));
 	
@@ -1510,13 +1800,13 @@ function build_personal_health_information_section() {
 
 	var hi_data_entry_row = $("<tr id='health_data_entry_row'>");
 
-	var disease_select = $("<select id='disease_choice_select' name='disease_choice_select'></select>");
-	var	detailed_disease_select = $("<select id='detailed_disease_choice_select' name='detailed_disease_choice_select'></select>");
+	var disease_select = $("<select tabindex='17' id='disease_choice_select' name='disease_choice_select'></select>");
+	var	detailed_disease_select = $("<select tabindex='18' id='detailed_disease_choice_select' name='detailed_disease_choice_select'></select>");
 	
 	set_disease_choice_select(disease_select, detailed_disease_select);
 	hi_data_entry_row.append($("<td>").append(disease_select).append("<br />&nbsp;&nbsp;").append(detailed_disease_select));
 	
-	var age_at_diagnosis_select = $("<select name='age_at_diagnosis_select' id='age_at_diagnosis_select'></select>");
+	var age_at_diagnosis_select = $("<select tabindex='19' name='age_at_diagnosis_select' id='age_at_diagnosis_select'></select>");
 	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);	
 	hi_data_entry_row.append($("<td>").append(age_at_diagnosis_select));
 	
@@ -1662,7 +1952,7 @@ function create_disease_row(row_number, disease_name, disease_detail, age_at_dia
 	if (code != null) {
 		var translated_disease = $.t("diseases:" + code);
 		if (translated_disease.substr(0,9) == "diseases:") translated_disease = disease_detail;
-		new_row.append("<td class='disease_name'>" + translated_disease + "</td>");
+		new_row.append("<td class='disease_name' code='"+code+"'>" + translated_disease + "</td>");
 	} else if (disease_detail != null && disease_detail != 'none') {
 		new_row.append("<td class='disease_name'>" + disease_detail + "</td>");
 	} else {
@@ -1680,14 +1970,15 @@ function create_disease_row(row_number, disease_name, disease_detail, age_at_dia
 }
 
 function remove_disease() {
-	
+
 	var row_number = $(this).attr("row_number");
 	var disease_name = $(this).parent().parent().find(".disease_name").text();
+	var disease_code = $(this).parent().parent().find(".disease_name").attr("code");
 
 	h = current_health_history;
 	
 	for (i=0;i<h.length;i++) {
-		if (disease_name == h[i]["Disease Name"] || disease_name == h[i]["Detailed Disease Name"]) {
+		if (disease_code ==  h[i]["Disease Code"] ||  disease_name == h[i]["Disease Name"] || disease_name == h[i]["Detailed Disease Name"]) {
 			disease_row_number = i; 
 			break;
 		}
@@ -1834,7 +2125,7 @@ function clear_family_member_health_history_dialog() {
 	}
 
 	
-	$("#family_member_relationship").empty().append(relationship);
+	$("#family_member_relationship").empty().append($.t("fhh_js." + relationship));
 	$("#family_member_info_form_name").val("");
 	$('#family_member_info_form_gender_male').prop('checked',false);
 	$('#family_member_info_form_gender_female').prop('checked',false);
@@ -1940,7 +2231,9 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	$('#estimated_death_age_select').val("");
 	if (family_member.is_alive == 'dead') {
 		$("#is_person_alive").val('dead');
-		var cause_of_death = get_disease_name_from_detailed_name(family_member.detailed_cause_of_death);
+
+		var cause_of_death = get_high_level_disease_name_from_disease_code(family_member.cause_of_death_code.split('-')[1]);
+		if (cause_of_death == 'other') cause_of_death = get_disease_name_from_detailed_name(family_member.detailed_cause_of_death);
 		$("#cause_of_death_select").val(cause_of_death);
 		$("#cause_of_death_select").trigger("change");
 		if (family_member.detailed_cause_of_death) {
@@ -1974,6 +2267,10 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 			$('#estimated_age_select').show().val(family_member.estimated_age);
 			$('#age_determination_text').hide();
 			$("#person_is_alive").show();
+			$("#person_is_not_alive").hide();
+		} else {
+			$("#is_person_alive").val('unknown');
+			$("#person_is_alive").hide();
 			$("#person_is_not_alive").hide();
 		}
 	} else {
@@ -2411,5 +2708,6 @@ function closeEditorWarning(){
 
 
 
-//window.onbeforeunload = closeEditorWarning;
+window.onbeforeunload = closeEditorWarning;
+
 
