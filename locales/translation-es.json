@@ -693,6 +693,7 @@
 		"dead":"No",
 		"alive":"Sí",
 		"unknown":"Desconocido",
+		"undefined":"Desconocido",
 		"other_disease":"Otras Enfermedades",
 		"collapse_table":"Mesa de Colapso",
 		"expand_table":"Ampliar Mesa",

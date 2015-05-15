@@ -65,7 +65,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
         for (record in $scope.pi) {
             var r = $scope.pi[record];
             var pr = parseInt(record) + 1;
-            if (r['name']!='') {
+            if (r['name']!=''&&r['name']!=undefined) {
 	            excelString += '"' + r['name'] + '\n' + '('+r['relationship']+')' + '",'
             }
             else {
@@ -223,6 +223,9 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             'Health History': self_health_history.health_history,
             'health_code_lookup': self_health_history.health_code_lookup
         })
+        for (var k=0; k<personal_information.length;k++) {
+            console.log("A");
+        }
         for (x in personal_information) {
             var o = personal_information[x];
             if (o != undefined) {
@@ -232,7 +235,8 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                     var health_code_lookup = [];
                     person_dict["is_alive"] = $scope.translate("fhh_family_pedigree", o.is_alive);
                     person_dict["name"] = o.name;
-                    person_dict["relationship"] = $scope.translate("fhh_family_pedigree", o.relationship);
+                    window.cur = o;
+                    person_dict["relationship"] = $scope.translate("fhh_js", o.relationship);
                     if (o.cause_of_death_code) {
                         person_dict['cause_of_death'] = $scope.translate("diseases", o.cause_of_death_code)
                         person_dict['estimated_death_age'] = $scope.translate("fhh_js", o.estimated_death_age)
@@ -406,12 +410,11 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                 }));
             }
             table.add(row);
-
             for (key in $scope.pi) {
                 row = $(go.Panel, "TableRow", {
                     row: parseInt(key) + 3
                 });
-                if ($scope.pi[key].name!='') {
+                if ($scope.pi[key].name!=''&&$scope.pi[key].name!=undefined) {
                 	var name = $scope.pi[key].name + "\n(" + $scope.pi[key].relationship + ")"
                 }
                 else {

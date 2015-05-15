@@ -1547,9 +1547,10 @@ function add_new_family_history_row_title(table, name) {
 }
 
 function add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable) {
-	
-	// Html requires that all blank fields have at least 1 char or it will not show border
 
+	// console.log(relationship_id.substr(0, relationship_id.indexOf('_')))
+	// Html requires that all blank fields have at least 1 char or it will not show border
+	// console.log(relationship_id)
 	var name;
 	if (family_member == null || family_member.name == null || 
 		  family_member.name == "" || $.isEmptyObject(family_member) ) name = "&nbsp;";
@@ -1571,6 +1572,20 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		update_history_td.append(update_history);
 
 		update_history.attr("relationship_id", relationship_id);
+
+		// match _number to get relationships that are ex: brother_1 //
+		console.log(relationship_id)
+		var reg = /([a-z]*)(_[0-9])/;
+		var reg2 = /(_)([0-9])/;
+		var match = reg.exec(relationship_id);
+		if (match) {
+			family_member.relationship = match[1];
+			console.log(reg2.exec(relationship_id));
+
+		}
+		else {
+			family_member.relationship = relationship_id;
+		}		
 
 		update_history.on("click", function(){ 
 			if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&

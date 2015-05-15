@@ -698,6 +698,7 @@
 		"dead":"No",
 		"alive":"Sì",
 		"unknown":"Sconosciuto",
+		"undefined":"Sconosciuto",
 		"other_disease":"Altre Malattie",
 		"collapse_table":"Tavolo Crollo",
 		"expand_table":"Ampliare Tavolo",

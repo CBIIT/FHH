@@ -702,6 +702,7 @@
 		"dead":"Não",
 		"alive":"Sim",
 		"unknown":"Desconhecido",
+		"undefined":"Desconhecido",
 		"other_disease":"Outras Doenças",
 		"collapse_table":"Mesa de Colapso",
 		"expand_table":"Expanda a Tabela",
