@@ -71,7 +71,11 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             else {
             	excelString += '"' + r['relationship'] + '",'
             }
-            excelString += '"' + r['is_alive'] + '",'
+            var is_alive = r['is_alive'];
+            if (is_alive=='No') {
+                is_alive+=',\n' + r['cause_of_death'] + '\n(' + r['estimated_death_age'] + ')'
+            }
+            excelString += '"' + is_alive + '",'
             for (col in $scope.disease_list2) {
                 var k = parseInt(col) + 1;
                 excelString += '"' + $scope.lookupDisease(r, $scope.disease_list2[col]['code'], true) + '"'
@@ -427,7 +431,12 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                     margin: 6,
                     textAlign: "left"
                 }));
-                row.add($(go.TextBlock, $scope.pi[key].is_alive, {
+                var is_alive = $scope.pi[key].is_alive;
+                console.log($scope.pi[key])
+                if ($scope.pi[key].is_alive=='No') {
+                    is_alive += ',\n'+$scope.pi[key]['cause_of_death']+'\n('+$scope.pi[key]['estimated_death_age']+')';
+                }
+                row.add($(go.TextBlock, is_alive, {
                     width: 100,
                     column: 1,
                     font: "bold 10pt sans-serif",

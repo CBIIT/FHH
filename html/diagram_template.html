@@ -55,7 +55,7 @@
             <button class="translate" style="font-size:120% !important;" ng-click="print()">{{translate("fhh_family_pedigree","save_image")}}</button>
         </li>
         <li>
-            <button class="translate" style="font-size:120% !important;" ng-click="exportToExcel('health_table.csv','health_table')">{{translate("fhh_family_pedigree","csv_export")}}</button>
+            <button ng-disabled="true" class="translate" style="font-size:120% !important;" ng-click="exportToExcel('health_table.csv','health_table')">{{translate("fhh_family_pedigree","csv_export")}}</button>
         </li>
     </ul>
 </div>
