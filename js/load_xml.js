@@ -248,16 +248,33 @@ function 	bind_load_health_vault() {
 	var hostname = window.location.hostname;
 	
 	button.on("click", function () {
-		window.open(HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
-			+ HEATH_VAULT_APP_KEY + "%26actionqs=LOAD%26redirect=" 
-			+ protocol + "//" + hostname + "/FHH/html/fhh_load_healthvault.html",
-			 "", "width=1000, height=600, scrollbars=yes");
-		
+		window.localStorage.removeItem("pi");
+		var url_w_params
+		if (FHH_SITE_PORT > 0) {
+			url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
+				+ HEATH_VAULT_APP_KEY + "%26actionqs=LOAD";
+		} else {
+			url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=appid=" 
+				+ HEATH_VAULT_APP_KEY + "%26actionqs=LOAD";
+		}
+		var child = window.open(url_w_params, "", "width=1200, height=800, scrollbars=yes");
+		timer = setInterval(function(){
+			var ls = window.localStorage.getItem("pi"); 
+			var d = JSON.parse(ls);
+			if (ls != null && ls != "" && d != null) {
+				personal_information = d;
+				build_family_history_data_table();
+				$("#add_another_family_member_button").show();
+				$("#load_personal_history_dialog").parent().hide();
+				clearInterval(timer);
+			}
+		},2000);
 	});
 	
 	$("#load_from_healthvault").append(button);			
 	
 }
+
 
 
 function load_family_history(loaded_file) {
@@ -469,13 +486,17 @@ function parse_xml(data) {
 
 
 
-			relative.cause_of_death = get_disease_name_from_detailed_name(detailed_cause_of_death);
+//			alert (relative.name + "[" + cause_of_death_code + "]:" + relative.cause_of_death);
 			if (cause_of_death_code) {
 				relative.cause_of_death_code = relative.cause_of_death_system + "-" + cause_of_death_code;				
 			} else {
 				relative.cause_of_death_code = relative.cause_of_death_system + "-" + get_disease_code_from_detailed_disease(detailed_cause_of_death);
 			}
-			
+	
+			relative.cause_of_death = get_high_level_disease_name_from_disease_code(cause_of_death_code);			
+			if (relative.cause_of_death == 'other' && typeof detailedDiseaseName != "undefined") 
+				relative.cause_of_death = get_disease_name_from_detailed_name(detailedDiseaseName);
+				
 			if (relative.detailed_cause_of_death != detailed_cause_of_death) relative.detailed_cause_of_death = detailed_cause_of_death;
 			relative.estimated_death_age = death_age;
 		}
@@ -704,7 +725,7 @@ function parse_xml(data) {
 
 function get_specific_health_issue (relative_name, data) {
 	
-//	alert(relative_name + " " + $(data).attr('displayName'));
+//	alert(relative_name + " " + $(data).attr('displayName'));get_disease_name_from_detailed_name
 	var detailedDiseaseName = $(data).attr('displayName');
 	var diseaseCode = $(data).attr('code');
 	if (typeof diseaseCode == 'string') diseaseCode = diseaseCode.trim();
@@ -712,8 +733,9 @@ function get_specific_health_issue (relative_name, data) {
 	if (diseaseCodeSystem == 'undefined') diseaseCodeSystem = 'SNOMED_CT'; // Default if not found is SNOMED_CT
 	if (diseaseCodeSystem == 'SNOMED COMPLETE') diseaseCodeSystem = 'SNOMED_CT'; // For backwards compatibility
 
-	
-	highLevelDiseaseName = get_disease_name_from_detailed_name(detailedDiseaseName);
+	highLevelDiseaseName = 'other';
+//	highLevelDiseaseName = get_high_level_disease_name_from_disease_code(diseaseCode)
+	if (highLevelDiseaseName == 'other') highLevelDiseaseName = (detailedDiseaseName);
 	if (highLevelDiseaseName == null) highLevelDiseaseName = detailedDiseaseName;
 
 	// Now have to get age at diagnosis
@@ -747,6 +769,18 @@ function get_disease_name_from_detailed_name(detailedDiseaseName) {
 	}
 	return 'other';
 }
+
+function get_high_level_disease_name_from_disease_code(diseaseCode) {
+	var high_level_disease_list = Object.keys(diseases);
+	for (var i=0; i<high_level_disease_list.length;i++) {
+		var detailed_disease_list = diseases[high_level_disease_list[i]];
+		for (var j=0;j<detailed_disease_list.length;j++) {
+			if (detailed_disease_list[j].code == diseaseCode) return high_level_disease_list[i];
+		}
+	}
+	return 'other';
+}
+
 /*
 	if ($.inArray(detailedDiseaseName, disease_list) != -1) {
 		// We have the detailed disease name, now we need the high-level disease name
@@ -817,6 +851,7 @@ function get_age_at_diagnosis (xml_snippet) {
 	}
 	if (estimated_age && estimated_age.indexOf('unit="year"') > -1) {
 		if (estimated_age.indexOf('value="2"') > -1) return "child";
+		if (estimated_age.indexOf('value="10"') > -1) return "teen";
 		if (estimated_age.indexOf('value="11"') > -1) return "teen";
 		if (estimated_age.indexOf('value="20"') > -1) return "twenties"; 
 		if (estimated_age.indexOf('value="30"') > -1) return "thirties";
