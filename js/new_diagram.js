@@ -536,16 +536,34 @@ function createImage(print) {
 	var image = 
 	myDiagram.makeImageData({
 		scale: zoom_scale,
+		background: "white",	
 		maxSize: new go.Size(Infinity, Infinity)
 	});
 
+
+
+    if (print) {
     var WindowObject = window.open("", "Diagram",
     "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
     WindowObject.document.writeln('<html><head></head><body><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title") + '</h2><img src="' + image + '"></div></body></html>');
     window.wo = WindowObject;
-	    WindowObject.focus();
-    if (print) {
+	    WindowObject.focus();		
+    	
 	    WindowObject.print();
+    }
+    else {
+		if (window.chrome) {
+	    var WindowObject = window.open(image, "Diagram",
+	    "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+
+		}
+		else{
+	    var WindowObject = window.open("", "Diagram",
+	    "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+	    WindowObject.document.writeln('<html><head></head><body><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title") + '</h2><img src="' + image + '"></div></body></html>');
+	    window.wo = WindowObject;
+		    WindowObject.focus();		
+		}    	
     }
 }
 

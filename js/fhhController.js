@@ -327,8 +327,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
         $timeout(function() {
             var i = $scope.diagram.makeImageData({
   scale: 1,
-  background: "white",
-  type: "image/png"});
+  background: "white"});
             $("#diagram_container").empty();
             $("#diagram_container").html('<div ng-show="diagram_show" id="print_diagram" style="width:auto; height:{{getTableHeight()}}px; background-color: #fff;">No data to create diagram</div>');
             $scope.diagram_show = false;
@@ -354,16 +353,32 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             header+='<meta http-equiv="pragma" content="no-cache">'
             header+='<title>My Family Health Portrait</title>'
             header+='</head>'
+
+
+    if (print) {
             var WindowObject = window.open("", "Table",
                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
             WindowObject.document.writeln('<html>' + header + '<body><div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div><img src="' + i + '"></body></html>');
 
-    if (print) {
         $timeout(function() {
             WindowObject.focus();
             WindowObject.print();
             // WindowObject.close(); 
         });               
+    }
+    else {
+            if (window.chrome) {
+            var WindowObject = window.open(i, "Table",
+                "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+
+            }
+            else {
+            var WindowObject = window.open("", "Table",
+                "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+            WindowObject.document.writeln('<html>' + header + '<body><div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div><img src="' + i + '"></body></html>');
+
+            }
+
     }
 
 
