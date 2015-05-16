@@ -107,10 +107,10 @@ function init(diagram_data) {
         )
       ),
       $(go.TextBlock,
-        { textAlign: "center", maxSize: new go.Size(80, NaN) },
+        { textAlign: "center", maxSize: new go.Size(100, NaN) },
         new go.Binding("text", "n")),
       $(go.TextBlock,
-        { textAlign: "center", maxSize: new go.Size(80, NaN) },
+        { textAlign: "center", maxSize: new go.Size(100, NaN) },
         new go.Binding("text", "t_n"))      
     ));
 
@@ -145,10 +145,10 @@ function init(diagram_data) {
         )
       ),
       $(go.TextBlock,
-        { textAlign: "center", maxSize: new go.Size(80, NaN) },
+        { textAlign: "center", maxSize: new go.Size(100, NaN) },
         new go.Binding("text", "n")),
       $(go.TextBlock,
-        { textAlign: "center", maxSize: new go.Size(80, NaN) },
+        { textAlign: "center", maxSize: new go.Size(100, NaN) },
         new go.Binding("text", "t_n"))  
     ));
 
