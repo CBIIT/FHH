@@ -1574,13 +1574,11 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		update_history.attr("relationship_id", relationship_id);
 
 		// match _number to get relationships that are ex: brother_1 //
-		console.log(relationship_id)
 		var reg = /([a-z]*)(_[0-9])/;
 		var reg2 = /(_)([0-9])/;
 		var match = reg.exec(relationship_id);
 		if (match) {
 			family_member.relationship = match[1];
-			console.log(reg2.exec(relationship_id));
 
 		}
 		else {

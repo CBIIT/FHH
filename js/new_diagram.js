@@ -50,7 +50,6 @@ function load_data() {
 	var pi = personal_information;
 	var mom_key = pi.mother.id.hashCode();
 	var dad_key = pi.father.id.hashCode();
-	
 	var proband = add_relative("self", pi);
 	if (pi['son_0'] != null || pi['daughter_0'] != null) {
 		var spouse = add_non_blood_spouse(pi, proband);
@@ -81,14 +80,41 @@ function load_data() {
 			diagram_data.push(mother);			
 		}
 		else {
-			diagram_data.push(mother);			
-			diagram_data.push(spouse);	
+			console.log(diagram_data[1].r)
+			if (diagram_data[1].r=='self') {
+				diagram_data.push(spouse);					
+				diagram_data.push(mother);
+			}
+			else {
+				diagram_data.push(mother);
+				diagram_data.push(spouse);
+			}
+	
+
 		}
 	}	 
 	else {
 		diagram_data.push(mother);
 
 	}
+
+// gets the side of diagram the current spouse is on to determine if it should be added before or after spouse's partner //
+function getSideOfDiagram(spouse,mother) {
+  for (key in diagram_data) {
+    if (diagram_data[key].key==mother.m) {
+      re = /paternal/;
+      match = re.exec(diagram_data[parseInt(key)-1]['r']);
+      if (match) {
+        console.log("I am on left")
+      }
+
+      else {
+       console.log("I am on right") 
+      }
+      console.log(re.exec(diagram_data[parseInt(key)-1]['r']))
+    }
+  }	
+}
 
 	// Paternal Aunts/Uncles HAVE to be added AFTER the Father or they will be placed in the wrong place
 	push_all_relatives_of_type(diagram_data, "paternal_aunt");
@@ -156,6 +182,7 @@ function add_relative(relationship_type, relative) {
 	var person = {};
 	person.a = [];
 	person.key = relative.id.hashCode();
+	person['r'] = relationship_type;
 	if (relative.name!="") {
 		person.n = relative.name;
 		person.t_n = "["+$.t("fhh_js." + relationship_type)+"]";
@@ -212,7 +239,7 @@ function add_non_blood_spouse(relative, new_diagram_relative, num) {
 	var num = typeof num !== 'undefined' ? num : 1;	
 	spouse.key = relative.id.hashCode() + num;
 	spouse.n = $.t("fhh_js." + relative.relationship) + "'s Spouse"
-	if (relative.name!="") {
+	if (relative.name!=""&&relative.name!=undefined) {
 		spouse.n = relative.name + "'s Spouse";
 	} 
 	spouse.a.push("S");
