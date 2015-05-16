@@ -104,6 +104,8 @@
 		"brother":"Brother",
 		"sister":"Sister",
 		"half_sister":"Half Sister",
+		"halfsister":"Half Sister",
+		"halfbrother":"Half Brother",
 		"half_brother":"Half Brother",
 		"cousin":"(First) Cousin",
 		"niece":"Niece",

@@ -107,6 +107,8 @@
 		"sister": "Sorella",
 		"half_sister": "Sorellastra",
 		"half_brother": "Fratellastro",
+		"halfsister": "Sorellastra",
+		"halfbrother": "Fratellastro",
 		"cousin": "(Primo) Cugino",
 		"niece":"La Nipote",
 		"nephew":"Il Nipote",

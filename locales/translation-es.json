@@ -110,6 +110,8 @@
 		"brother":"Hermano",
 		"sister":"Hermana",
 		"half_sister":"Media Hermana",
+		"halfsister":"Media Hermana",
+		"halfbrother":"Medio Hermano",
 		"half_brother":"Medio Hermano",
 		"cousin":"Primo (primero)",
 		"niece":"Sobrina",
