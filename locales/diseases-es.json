@@ -105,6 +105,7 @@
 	"SNOMED_CT-UNHEADIS": "Cardiopatía Desconocida", 
 	"SNOMED_CT-UNKIDDIS": "Enfermedades renales Desconocidas", 
 	"SNOMED_CT-UNLUNDIS": "Enfermedades Respiratorias Desconocidas", 
-	"SNOMED_CT-UNPSYDIS": "Trastorno psicológico Desconocido"
+	"SNOMED_CT-UNPSYDIS": "Trastorno psicológico Desconocido",
+  "SNOMED_CT-OTHER": "Otras enfermedades",
 
 }
