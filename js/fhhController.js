@@ -345,7 +345,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
   scale: 1,
   background: "white"});
             $("#diagram_container").empty();
-            $("#diagram_container").html('<div ng-show="diagram_show" id="print_diagram" style="width:auto; height:{{getTableHeight()}}px; background-color: #fff;">No data to create diagram</div>');
+            $("#diagram_container").html('<div ng-show="diagram_show" id="print_diagram" style="width:auto; height:{{getTableHeight()}}px; background-color: #fff;"></div>');
             $scope.diagram_show = false;
 
             // if (!!window.chrome) {
