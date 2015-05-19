@@ -26,13 +26,16 @@
       </td>
    </tr>
 </table>
+<div id="pedigree">
 <button class="translate" style="font-size:120% !important;" onclick="zoom(.2)">{{translate("fhh_family_pedigree","zoom_in")}}</button>
 <button class="translate" style="font-size:120% !important;" onclick="zoom(-.2)">{{translate("fhh_family_pedigree","zoom_out")}}</button>
 <button class="translate" style="font-size:120% !important;" onclick="createImage(print=true)">{{translate("fhh_family_pedigree","print")}}</button>
 <button class="translate" style="font-size:120% !important;" onclick="createImage()">{{translate("fhh_family_pedigree","save_image")}}</button>
 <div id="myDiagramDiv" style="width:auto; height:600px; background-color: #fff;">No data to create diagram</div>
+</div>
 <hr id="health_table">
 <div class="modal-body"><a name="#personal_info_table"></a>
+  <div id="bottom_table">
    <table width="100%" id="personal_info_table">
       <tr>
          <td>
@@ -56,9 +59,9 @@
         <li>
             <button class="translate" style="font-size:120% !important;" ng-click="print()">{{translate("fhh_family_pedigree","save_image")}}</button>
         </li>
-        <li>
+        <!--<li>
             <button ng-disabled="true" class="translate" style="font-size:120% !important;" ng-click="exportToExcel('health_table.csv','health_table')">{{translate("fhh_family_pedigree","csv_export")}}</button>
-        </li>
+        </li>-->
     </ul>
 </div>
    <a href="" ng-click="collapseTable()">{{collapse_status.collapse_text}}</a><br />
@@ -81,7 +84,14 @@
       </tr>
       <tr ng-repeat="person in pi | filter:filterText" ng-class="{'self_row':person.relationship=='Self'}">
          <td>
-            <span ng-if="person.name"><span class="health_table_name">{{person.name}}<br /></span><span class="health_table_relationship">({{person.relationship}})</span></span>
+            <span ng-if="person.name">
+                <span class="health_table_name">{{person.name}}<br /></span>
+                <span class="health_table_relationship">
+                    <span class="health_table_name">(</span>
+                      {{person.relationship}}
+                    <span class="health_table_name">)</span>
+                </span>
+            </span>
             <span ng-if="!person.name">{{person.relationship}}</span>
         </td>
          <td>{{person.is_alive}}<span ng-if="person.cause_of_death">,<br /> {{person.cause_of_death}}<br />({{person.estimated_death_age}})</span></td>
@@ -97,6 +107,7 @@
       </tr>
    </table>
    <div id="health_table_filter">Filter:<input type="text" ng-model="filterText"></div>
+</div>
 </div>
 <div id="#diagram_image"></div>
 <div class="modal-footer"></div>

@@ -75,6 +75,7 @@ function init(diagram_data) {
 
   // two different node templates, one for each sex,
   // named by the category value in the node data object
+
   myDiagram.nodeTemplateMap.add("M",  // female
     $(go.Node, "Vertical",
       { locationSpot: go.Spot.Center, locationObjectName: "ICON" },

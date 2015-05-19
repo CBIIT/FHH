@@ -29,7 +29,7 @@ app.controller('fhhController', ['$rootScope', '$scope', '$window', '$timeout', 
         // when popup is closed, destroy the existing diagram and table options popup if open //
         modalInstance.result.then(function() {},
             function() {
-                $("#optionsPanelMain").dialog('destroy').remove()
+                $("#optionsPanelMain").dialog('destroy').remove();
             });
     };
 
@@ -37,6 +37,22 @@ app.controller('fhhController', ['$rootScope', '$scope', '$window', '$timeout', 
 
 app.controller('tableController', ['$scope', '$modalInstance', '$timeout', function($scope, $modalInstance, $timeout) {
     // set disease lists to create disease lists with translated names //
+    $timeout(function() {
+        if (tableOptions.personal_info=='') {
+            $("#personal_info_table").hide();
+        }
+        if (tableOptions.showNames=='') {
+            $(".health_table_name").hide();
+        }
+        // if (tableOptions.personal_info=='') {
+        //     $("#personal_info_table").hide();
+        // }
+        // if (tableOptions.personal_info=='') {
+        //     $("#personal_info_table").hide();
+        // }                        
+    });
+
+
     var initialDiseases = ['SNOMED_CT-56265001', 'SNOMED_CT-116288000', 'SNOMED_CT-73211009', 'SNOMED_CT-363406005', 'SNOMED_CT-254837009', 'SNOMED_CT-363443007'];
     var STATICDISEASES = ['SNOMED_CT-56265001', 'SNOMED_CT-116288000', 'SNOMED_CT-73211009', 'SNOMED_CT-363406005', 'SNOMED_CT-254837009', 'SNOMED_CT-363443007'];
     var additionalDiseaseCounter = 10;
@@ -354,11 +370,16 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             header+='<title>My Family Health Portrait</title>'
             header+='</head>'
 
-
+            if (tableOptions.personal_info) {
+                var personal_info = '<div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div>'                
+            }
+            else {
+                var personal_info = ''                
+            }            
     if (print) {
             var WindowObject = window.open("", "Table",
                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
-            WindowObject.document.writeln('<html>' + header + '<body><div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div><img src="' + i + '"></body></html>');
+            WindowObject.document.writeln('<html>' + header + '<body>' + personal_info + '<img src="' + i + '"></body></html>');
 
         $timeout(function() {
             WindowObject.focus();
@@ -375,7 +396,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             else {
             var WindowObject = window.open("", "Table",
                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
-            WindowObject.document.writeln('<html>' + header + '<body><div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div><img src="' + i + '"></body></html>');
+            WindowObject.document.writeln('<html>' + header + '<body>' + personal_info + '<img src="' + i + '"></body></html>');
 
             }
 
@@ -434,7 +455,12 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                     row: parseInt(key) + 3
                 });
                 if ($scope.pi[key].name!=''&&$scope.pi[key].name!=undefined) {
-                	var name = $scope.pi[key].name + "\n(" + $scope.pi[key].relationship + ")"
+                    if (tableOptions.showNames=='checked') {
+                        var name = $scope.pi[key].name + "\n(" + $scope.pi[key].relationship + ")"
+                    }
+                    else {
+                        var name = $scope.pi[key].relationship                
+                    }
                 }
                 else {
 				var name = $scope.pi[key].relationship
@@ -514,6 +540,6 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
     // closes the modal window //
     $scope.close = function() {
         $modalInstance.close();
-        $("#optionsPanelMain").dialog('destroy').remove()
+        $("#optionsPanelMain").dialog('destroy').remove();
     };
 }]);

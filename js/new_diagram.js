@@ -24,7 +24,7 @@
 
 // set initial zoom scale
 var zoom_scale = 2;
-
+var tableOptions = {'selectedDisease':'','personal_info':'checked','showNames':'checked','showDiagram':'checked','showTable':'checked'};
 function setup_new_diagram_dialog() {
 	// $("#nd").load ("new_diagram_dialog.html", function () {
 	// });
@@ -41,6 +41,15 @@ function load_diagram() {
 	zoom_scale=1;
 	var diagram_data = load_data() ;
 	init(diagram_data);	
+	if (tableOptions.showNames=='') {
+		hideNamesForDiagram('hide');
+	}
+	if (tableOptions.showTable=='') {
+		$("#bottom_table").hide();
+	}
+	if (tableOptions.showDiagram=='') {
+		$("#pedigree").hide();
+	}	
 }
 
 
@@ -354,13 +363,12 @@ function have_any_children(relationship_type, relative) {
 
 function createDiagramDialog() {
     var allnames = new Array();
-
     if($("#optionsPanelMain").dialog( "isOpen" ) == true) {
         $("#optionsPanelMain").dialog( "open" );
     }
     else {
         var array = new Array();
-        array.push("<option value='0' selected></option>")
+        array.push("<option value='0'></option>")
 
         /**
          * Me values
@@ -379,7 +387,12 @@ function createDiagramDialog() {
 //                      console.log("P->DN:[" + disname +  "]DDN[" + detdisname + "]DC[" + data['Disease Code'] + "]--> [" + thename + "]");
             if ($.inArray(thename, allnames) == -1) {
                 allnames.push(thename);
-                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "'>" + thename + "</option>")
+                if (tableOptions.selectedDisease==data['Disease Code']) {
+	                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "' selected>" + thename + "</option>")
+                }
+                else {
+	                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "'>" + thename + "</option>")                	
+                }
             }
         });
 
@@ -402,7 +415,12 @@ function createDiagramDialog() {
 //                                                      console.log("R->DN:[" + disname +  "]DDN[" + detdisname + "]DC[" + data['Disease Code'] + "]--> [" + thename + "]");
                             if ($.inArray(thename, allnames) == -1) {
                                 allnames.push(thename);
-                                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "'>" + thename + "</option>")
+			                if (tableOptions.selectedDisease==data['Disease Code']) {
+				                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "' selected>" + thename + "</option>")
+			                }
+			                else {
+				                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "'>" + thename + "</option>")                	
+			                }                                
                             }
                         });
                     }
@@ -412,7 +430,7 @@ function createDiagramDialog() {
 
 
 
-
+		
         var $optdialog = $("<div id='optionsPanelMain' width='800px' class='instructions option_dialog' style='width:800px;'><p>"
         + $.t("fhh_family_pedigree.diagram_options_desc")
         + "<table>"
@@ -427,9 +445,11 @@ function createDiagramDialog() {
         + "</tr>"
         + "<tr>"
         + "<td>"
-        // + "<input id='bmi' type='checkbox' name='chk_group' value='bmi' onclick='HideInfoMain()' checked />" + $.t("fhh_family_pedigree.diagram_options_checkbox1") + "<br />"
-        // + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfoMain()' checked />" + $.t("fhh_family_pedigree.diagram_options_checkbox2") + "<br />"
-        // + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='[/.]        // + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfoMain()' checked/>" + $.t("fhh_family_pedigree.diagram_options_checkbox4") + "<br />"
+	   + "<input id='bmi' type='checkbox' name='bmi' value='bmi' onclick='HidePersonalInfo()'"  + tableOptions.personal_info + " />" + $.t("fhh_family_pedigree.diagram_options_checkbox1") + "<br />"
+        + "<input id='names' type=	'checkbox' name='names' value='names' onclick='HideNames()' " + tableOptions.showNames + " />" + $.t("fhh_family_pedigree.diagram_options_checkbox2") + "<br />"
+        + "<input id='diagram' type='checkbox' name='diagram' value='diagram' onclick='HideDiagram()' " + tableOptions.showDiagram + " />" + $.t("fhh_family_pedigree.diagram_options_checkbox3") + "<br />"
+        + "<input id='table' type='checkbox' name='table' value='table' onclick='HideTable()' " + tableOptions.showTable + " />" + $.t("fhh_family_pedigree.diagram_options_checkbox4") + "<br />"
+        // + "<input id='diagram' type='checkbox' name='diagram' value='diagram' onclick='[/.]        // + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfoMain()' checked/>" + $.t("fhh_family_pedigree.diagram_options_checkbox4") + "<br />"
         // + "<input type='button' onclick='CloseInfoMain()' value='" + $.t("fhh_family_pedigree.close") + "'></button>"
         + "<br /><button onclick='CloseInfoMain()'>" + $.t("fhh_family_pedigree.close") + "</button>"
         + "</td>"
@@ -450,11 +470,90 @@ function createDiagramDialog() {
         });
 
         //Reset All to Original
-        ResetInfo();
+        // ResetInfo();
 
         return $optdialog
     }
 
+}
+
+function HidePersonalInfo() {
+    var selectPersonalInfo = document.getElementById("bmi").checked;
+    if (selectPersonalInfo) {
+    		$("#personal_info_table").show();
+    		tableOptions.personal_info = 'checked'
+    }
+    else {
+    		tableOptions.personal_info = '';
+    		$("#personal_info_table").hide();
+    }
+}
+
+function HideDiagram() {
+    var selectDiagram = document.getElementById("diagram").checked;
+    if (selectDiagram) {
+    		$("#pedigree").show();
+    		tableOptions.showDiagram = 'checked'
+    }
+    else {
+    		tableOptions.showDiagram = '';
+    		$("#pedigree").hide();
+    }
+}
+
+function HideTable() {
+    var selectTable = document.getElementById("table").checked;
+    if (selectTable) {
+    		$("#bottom_table").show();
+    		tableOptions.showTable = 'checked'
+    }
+    else {
+    		tableOptions.showTable = '';
+    		$("#bottom_table").hide();
+    }
+
+}
+
+
+function HideNames() {
+    var selectNames = document.getElementById("names").checked;
+    if (selectNames) {
+    		tableOptions.showNames = 'checked';
+    		$(".health_table_name").show();
+    		hideNamesForDiagram();
+    }
+    else {
+    		tableOptions.showNames = '';
+    		$(".health_table_name").hide();
+		hideNamesForDiagram('hide');
+    }
+}
+
+function hideNamesForDiagram(showHide) {
+    diagram = myDiagram.model;
+    array = diagram.nodeDataArray;
+    diagram.startTransaction("hideNames");
+    for (key in array) {
+        if (array[key]['s'] != 'LinkLabel') {
+            node = array[key];
+          if (showHide) {
+            if (node['t_n']) {
+              diagram.setDataProperty(node, "h_n", node['n']);
+              diagram.setDataProperty(node, "h_t_n", node['t_n']);
+              diagram.setDataProperty(node, "n", node['t_n'].replace('[','').replace("]",""));
+              diagram.setDataProperty(node, "t_n", "");
+            }
+          }
+          else {
+            if (node['h_t_n']) {
+              diagram.setDataProperty(node, "n", node['h_n']);
+              diagram.setDataProperty(node, "t_n", node['h_t_n']);
+            }            
+          }
+
+        }
+    }
+    diagram.commitTransaction("hideNames")
 }
 
 function ClearDna(){
@@ -475,6 +574,7 @@ function DiseaseDna(){
 
     var selectBox = document.getElementById("diseaseopts");
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+    tableOptions.selectedDisease = selectBox.options[selectBox.selectedIndex].value;
     var found = false;
         console.log( "<<<" + selectedValue + ">>>");
         capture_specific_disease(selectedValue);
@@ -548,7 +648,7 @@ function createImage(print) {
     WindowObject.document.writeln('<html><head></head><body><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title") + '</h2><img src="' + image + '"></div></body></html>');
     window.wo = WindowObject;
 	    WindowObject.focus();		
-    	
+
 	    WindowObject.print();
     }
     else {
