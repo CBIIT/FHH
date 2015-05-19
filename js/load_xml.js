@@ -423,10 +423,17 @@ function parse_xml(data) {
 		if (relative.name == null || relative.name.length == 0) relative.name = "";
 
 		var alive_status_code = $(this).find("relationshipHolder > deceasedIndCode ").attr("value");
-		
-		if (alive_status_code == "UNKNOWN") relative.is_alive = 'unknown';
-		else if (alive_status_code == "true") relative.is_alive = 'dead';
-		else relative.is_alive = 'alive';
+		if (alive_status_code == "UNKNOWN") {
+			relative.is_alive = 'unknown';
+		}
+
+		else if (alive_status_code == "true") {
+			relative.is_alive = 'dead';
+		}
+
+		else {
+			relative.is_alive = 'alive';
+		}
 
 //		alert(relative.name + ":" +relative.id);
 		

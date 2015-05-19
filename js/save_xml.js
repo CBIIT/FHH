@@ -299,7 +299,6 @@ function add_id(tag, id_text) {
 }
 
 function add_alive_status(tag, alive_text) {
-	if (alive_text == null) return;
 	if (alive_text == 'alive') return;
 	desceased_tag = doc.createElement("deceasedIndCode");
 	
