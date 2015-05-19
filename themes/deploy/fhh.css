@@ -208,6 +208,7 @@ a.button_link {
   border:1px solid black;
   padding:4px 7px 4px 7px;
   text-decoration: none;
+  font-size:.95em;
 }
 
 a.button_link:active {
