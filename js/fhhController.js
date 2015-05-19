@@ -292,7 +292,11 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                     STATICDISEASES.push(history[x]['Disease Code'])
                     health_history_entry["isOther"] = true;
                     health_code_lookup.push(history[x]['Disease Code']);                    
-                }                
+                }  
+                else {
+                    health_history_entry["translatedDiseaseName"] = $scope.translate("diseases", history[x]['Disease Code']);
+                    health_code_lookup.push(history[x]['Disease Code']);                    
+                }                                
             }
 
             health_history.push(health_history_entry)
