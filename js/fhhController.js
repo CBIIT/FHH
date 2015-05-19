@@ -43,14 +43,31 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
         }
         if (tableOptions.showNames=='') {
             $(".health_table_name").hide();
-        }
-        // if (tableOptions.personal_info=='') {
-        //     $("#personal_info_table").hide();
-        // }
-        // if (tableOptions.personal_info=='') {
-        //     $("#personal_info_table").hide();
-        // }                        
+        }                       
     });
+
+    $scope.calculateBMI = function(height, height_unit, weight, weight_unit) {
+        if (height&&height_unit&&weight&&weight_unit) {
+            height_in_meters = height*.01; //default height to height parameter, change below if inches //
+            weight_in_kg = weight; //default weight in kg, change below if pounds
+
+            if (height_unit=='inches') {
+                height_in_meters = height*.0254;
+            }
+            if (height_unit=='centimeters') {
+                height_in_meters = height*.010;
+            }    
+            if (weight_unit=='pound') {
+                weight_in_kg = weight*.453592;
+            }  
+
+            return (weight_in_kg/(height_in_meters*height_in_meters)).toFixed(2);
+        }
+        
+        else {
+            return "0.0";
+        }
+    }
 
 
     var initialDiseases = ['SNOMED_CT-56265001', 'SNOMED_CT-116288000', 'SNOMED_CT-73211009', 'SNOMED_CT-363406005', 'SNOMED_CT-254837009', 'SNOMED_CT-363443007'];
