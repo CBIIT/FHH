@@ -24,7 +24,7 @@ function init(diagram_data) {
       function attrFill(a) {
 
         switch (a) {
-          case "A": return "lightyellow"; // background color for adopted
+          case "A": return "#FFFF9A"; // background color for adopted
           case "S": return "white"; // background color for spouse
           case "D": return "red"; // background color for deceased
           case "SD": return "#9ffe92"; // background color for has specific disease
