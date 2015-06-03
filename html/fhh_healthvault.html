@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<HTML>
+	<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../themes/deploy/fhh.css">
+<script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
+<script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
+<script type="text/javascript" src="../js/keys.js"></script>
+
+<h2 id='healthvault_loading_message' style='display:none' class ='translate' data-i18n='fhh_fhh.load_health_vault_waiting'>Retrieving Information from Health Vault</h2>
+<h2 id='healthvault_saving_message' style='display:none' class ='translate' data-i18n='fhh_fhh.save_health_vault_waiting'>Saving Information to Health Vault</h2>
+<h3 id='healthvault_saving_message2' style='display:none' class ='translate' data-i18n='fhh_fhh.save_health_vault_waiting2'>This may take several minutes</h3>
+
+<div class='instructions' id='info'></div>
+<script>
+var d;
+
+	if (typeof i18n != "undefined") {
+		var option = { 
+			resGetPath: '../locales/__ns__-__lng__.json',
+			ns: { 
+		    namespaces: ['translation', 'diseases'], 
+		    defaultNs: 'translation'
+		  } 
+		};
+
+		i18n.init(option, function () {
+			$(".translate").i18n();
+			
+		});
+	}
+
+	var actionqs = getParameterByName('actionqs');
+	if (actionqs == 'LOAD') {
+		load_health_vault_data();
+	} else {
+		save_health_vault_data();
+	}
+	
+// Functions Below
+
+function load_health_vault_data() {
+	$("#healthvault_loading_message").show();
+	var info = window.location.search;
+	var wc_info = info.substr(info.indexOf("wctoken=", info)+8);
+	
+	var jsonData = {"authToken" : wc_info};
+
+	var urlString;
+	if (FHH_PROXY_PORT > 0) {
+		urlString = location.protocol + "//" + location.hostname + ":" + FHH_PROXY_PORT + "/FHH-REST/rest/hv/getRecord";
+	} else {
+		urlString = location.protocol + "//" + location.hostname + "/FHH-REST/rest/hv/getRecord";
+	}
+	
+//	var urlString = location.protocol + "//" + location.hostname + ":" + restInterfacePort + "/FHH-REST/rest/hv/getRecord";
+//	alert (urlString);
+	
+	$.ajax({          
+	    url        : urlString,
+	    crossDomain: true,
+	    contentType: 'application/json', 
+	    data       : JSON.stringify(jsonData),
+	    dataType   : 'json',
+	    type       : 'POST',
+	    success: function (data) {
+//        console.log(data);
+        console.dir(data);
+        try {
+// The below function does a deep copy of the data object.  This is needed to support IE10 and health Vault.  
+// When window closes is IE, it deletes all its data, by doing a deep copy the data stays on the opener window.
+
+					if (data != null) {
+						window.localStorage.setItem("pi",JSON.stringify(data));
+					} 
+					window.close();
+				} catch (exception) {
+					$("#info").append("<P>Error: " + exception.message + "</P>");
+					$("#info").append("<P>Closing this window in 5 seconds</P>");
+					setTimeout(window.close, 5000);
+				}
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+      	alert("Error: [" + XMLHttpRequest.status + "]: " + errorThrown);
+     	}
+	});
+}
+function save_health_vault_data() {
+	$("#healthvault_saving_message").show();
+	$("#healthvault_saving_message2").show();
+
+	var info = window.location.search;
+	var wc_info = info.substr(info.indexOf("wctoken=", info)+8);
+	
+	doc = document.implementation.createDocument("urn:hl7-org:v3", "FamilyHistory", null);
+	personal_information = JSON.parse(window.localStorage.getItem("pi"));
+
+	var xmlData = window.localStorage.getItem("outputString")
+
+	var jsonData = {"authToken" : wc_info, "xmlData" : xmlData};
+	var restInterfacePort = 8080;
+
+	var urlString;
+	if (FHH_PROXY_PORT > 0) {
+		urlString = location.protocol + "//" + location.hostname + ":" + FHH_PROXY_PORT + "/FHH-REST/rest/hv/putFHHDocumentAjax";
+	} else {
+		urlString = location.protocol + "//" + location.hostname + "/FHH-REST/rest/hv/putFHHDocumentAjax";
+	}
+	
+
+	$.ajax({          
+	    url        : urlString,
+	    crossDomain: true,
+	    contentType: 'application/json', 
+	    data       : JSON.stringify(jsonData),
+	    type       : 'POST',
+	    success: function () {
+        try {
+        	window.localStorage.setItem("HV Status", "Success");
+					window.close();
+				} catch (exception) {
+       		window.localStorage.setItem("HV Status", "Failed");
+					console.log("Failed to save to Health Vault Exception: " + exception.message)
+					window.close();
+				}
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+       		window.localStorage.setItem("HV Status", "Failed");
+				  console.log("Failed to save to Health Vault Exception: " + errorThrown.message)                                        				
+					window.close();
+    	}
+	});
+}
+
+/// Helper Functions below
+
+function getParameterByName(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}	
+
+function set_span(field, value) {
+	var span = document.getElementById(field);
+	
+	while( span.firstChild ) {
+	    span.removeChild( span.firstChild );
+	}
+	span.appendChild( document.createTextNode(value) );
+	
+}
+</script>
+</HTML>
