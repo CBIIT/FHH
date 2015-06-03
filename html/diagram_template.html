@@ -79,7 +79,7 @@
             {{translate("fhh_js","still_living")}}
          </th>
          <th ng-repeat="d in disease_list track by $index" ng-show="d.show">
-            <a href="" ng-click="removeDisease(d)"><img src="../static/images/close.png"></a>{{d.translatedDiseaseName}}
+            <a href="" ng-click="removeDisease(d)"><img src="../static/images/close.png"></a><br />{{d.translatedDiseaseName}}
          </th>
       </tr>
       <tr ng-repeat="person in pi | filter:filterText" ng-class="{'self_row':person.relationship=='Self'}">
