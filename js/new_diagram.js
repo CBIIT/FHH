@@ -633,6 +633,13 @@ function CloseInfoMain(){
 }
 
 function createImage(print) {
+	if (tableOptions.personal_info) {
+		pi_html = $("#personal_info_table").html() + '<BR />';
+	}
+	else {
+		pi_html = "";
+	}	
+	legend = $("#legend").html();
 	var image = 
 	myDiagram.makeImageData({
 		scale: zoom_scale,
@@ -645,7 +652,7 @@ function createImage(print) {
     if (print) {
     var WindowObject = window.open("", "Diagram",
     "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
-    WindowObject.document.writeln('<html><head></head><body><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title") + '</h2><img src="' + image + '"></div></body></html>');
+    WindowObject.document.writeln('<html><head><LINK href="../css/diagram_print.css" rel="stylesheet" type="text/css"></head><body><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title") + '</h2><div id="pi_html"><b>' + pi_html + '</b></div><img src="' + image + '"><br />' + legend + '</div></body></html>');
     window.wo = WindowObject;
 	    WindowObject.focus();		
 
@@ -654,13 +661,13 @@ function createImage(print) {
     else {
 		if (window.chrome) {
 	    var WindowObject = window.open(image, "Diagram",
-	    "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+	    "width=950,height=850,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
 
 		}
 		else{
 	    var WindowObject = window.open("", "Diagram",
-	    "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
-	    WindowObject.document.writeln('<html><head></head><body><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title") + '</h2><img src="' + image + '"></div></body></html>');
+	    "width=950,height=850,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+	    WindowObject.document.writeln('<html><head><LINK href="../css/diagram_print.css" rel="stylesheet" type="text/css"></head><body><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title") + '</h2><div id="pi_html"><b>' + pi_html + '</b></div><img src="' + image + '"><br />' + legend + '</div></body></html>');
 	    window.wo = WindowObject;
 		    WindowObject.focus();		
 		}    	
