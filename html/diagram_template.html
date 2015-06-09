@@ -26,6 +26,20 @@
       </td>
    </tr>
 </table>
+   <table width="100%" id="personal_info_table">
+      <tr>
+         <td>
+            <div id="personal_info" style="padding-left:20px;">
+               <div>{{translate("fhh_family_pedigree","personal_info")}}</div>
+               <div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
+               <div>{{translate("fhh_family_pedigree","height")}} {{self_history.height}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.height_unit)}}</span></div>
+               <div>{{translate("fhh_family_pedigree","weight")}} {{self_history.weight}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.weight_unit+"s")}}</span></div>
+               <div>{{translate("fhh_family_pedigree","bmi")}} {{calculateBMI(self_history.height,self_history.height_unit,self_history.weight,self_history.weight_unit)}}</div>
+               <div>{{calculcate_report_date()}}</div>
+            </div>
+         </td>
+      </tr>
+   </table>
 <div id="pedigree">
 <button class="translate" style="font-size:120% !important;" onclick="zoom(.2)">{{translate("fhh_family_pedigree","zoom_in")}}</button>
 <button class="translate" style="font-size:120% !important;" onclick="zoom(-.2)">{{translate("fhh_family_pedigree","zoom_out")}}</button>
