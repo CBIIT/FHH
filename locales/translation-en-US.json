@@ -623,6 +623,8 @@
 		"title":"View Diagram & Table",
 		"print_title":"My Family Health Portrait Diagram",
 		"print_title_table":"My Family Health Portrait Table",
+		"save_image_instructions":"To save the image, right click directly on the diagram and choose save image as",
+		"save_image_instructions_2":"To save the image, right click directly on the table and choose save image as",
 		"date_of_report":"Date of Report",		
 		"desc_line1":"You can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!",
 		"desc_line2":"If you would like to change the way the information below is shown, click 'Diagram & Table Options.' The bottom and right scroll bars are useful navigation tools when viewing larger tables and diagrams.",

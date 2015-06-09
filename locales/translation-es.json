@@ -630,6 +630,8 @@
 		"title":"Ver el Diagrama de mesa",
 		"print_title":"Mi familia Retrato Salud Diagrama",
 		"print_title_table":"Mi familia Retrato Salud Mesa",
+		"save_image_instructions":"Para guardar la imagen, haga clic directamente en el diagrama y selecciona Guardar como",
+		"save_image_instructions_2":"Para guardar la imagen, haga clic directamente en la mesa y selecciona Guardar como",
 		"date_of_report":"Fecha del informe",		
 		"desc_line1":"Puede imprimir su historial de salud familiar en forma de diagramas y tablas para compartir con su proveedor de atención médica. Hablar con su médico acerca de su historial de salud familiar puede ayudarle a mantenerse saludable!",
 		"desc_line2":"Si desea cambiar la forma en que la información se muestra a continuación, haga clic en 'Diagrama y tabla de opciones.' Las barras de desplazamiento inferior y derecho son herramientas de navegación útiles cuando la visualización de tablas y diagramas más grandes.",

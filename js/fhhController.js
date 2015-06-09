@@ -380,6 +380,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             // WindowObject.document.writeln('<html><head></head><body><div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div><img src="' + i + '"></body></html>');
 
             // }
+            var save_image_instructions = $scope.translate("fhh_family_pedigree","save_image_instructions_2")
             var header = '<head>'
             header+='<meta http-equiv="X-UA-Compatible" content="IE=edge">'
             header+='<noscript>&lt;meta http-equiv="refresh" content="0; URL=./unsupported_browser.html"&gt; &lt;/meta&gt; </noscript>'
@@ -417,7 +418,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             else {
             var WindowObject = window.open("", "Table",
                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
-            WindowObject.document.writeln('<html>' + header + '<body>' + personal_info + '<img src="' + i + '"></body></html>');
+            WindowObject.document.writeln('<html>' + header + '<body>' + personal_info + '<div><br /><B>' + save_image_instructions + '</B></div><br /><img src="' + i + '"></body></html>');
 
             }
 
