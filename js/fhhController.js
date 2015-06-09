@@ -392,7 +392,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             header+='</head>'
 
             if (tableOptions.personal_info) {
-                var personal_info = '<div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div>'                
+                var personal_info = '<div style="padding-left:10px;font-weight:bold;"><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title_table") + '</h2></div>' + $("div#personal_info").html() + '</div>'                
             }
             else {
                 var personal_info = ''                

@@ -638,6 +638,7 @@
 	"fhh_family_pedigree": {
 		"title":"Exibir Diagrama e Tabela",
 		"print_title":"Minha Família Diagrama Retrato de Saúde",
+		"print_title_table":"Minha Família Tabela Retrato de Saúde",
 		"date_of_report":"Data do Relatório",		
 		"desc_line1":"Você pode imprimir o seu histórico de saúde da família em uma forma de diagrama e mesa para compartilhar com o seu prestador de cuidados de saúde. Conversando com o seu provedor de cuidados de saúde sobre seu histórico de saúde da família pode ajudá-lo a manter-se saudável!",
 		"desc_line2":"Se você gostaria de mudar a forma como a informação é apresentada abaixo, clique em 'Diagrama e Tabela Opções.' As barras de rolagem inferior e direita são ferramentas de navegação úteis ao visualizar maiores tabelas e diagramas.",
