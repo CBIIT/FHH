@@ -401,7 +401,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
     if (print) {
             var WindowObject = window.open("", "Table",
                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
-            WindowObject.document.writeln('<html>' + header + '<body>' + personal_info + '<img src="' + i + '"></body></html>');
+            WindowObject.document.writeln('<html>' + header + '<body>' + personal_info + '<img style="display:block" src="' + i + '"></body></html>');
 
         $timeout(function() {
             WindowObject.focus();
