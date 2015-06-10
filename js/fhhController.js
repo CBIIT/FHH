@@ -273,7 +273,15 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                     person_dict["is_alive"] = $scope.translate("fhh_family_pedigree", o.is_alive);
                     person_dict["name"] = o.name;
                     window.cur = o;
-                    person_dict["relationship"] = $scope.translate("fhh_js", o.relationship);
+                    var reg = /([a-z]*)(_[0-9])/;
+                    match = reg.exec(o.relationship);
+                    if (match) {
+                        person_dict["relationship"] = $scope.translate("fhh_js", match[1]);
+                    }
+                    else {
+                        person_dict["relationship"] = $scope.translate("fhh_js", o.relationship);                        
+                    }
+                    // person_dict["relationship"] = $scope.translate("fhh_js", o.relationship);
                     if (o.cause_of_death_code) {
                         person_dict['cause_of_death'] = $scope.translate("diseases", o.cause_of_death_code)
                         person_dict['estimated_death_age'] = $scope.translate("fhh_js", o.estimated_death_age)
