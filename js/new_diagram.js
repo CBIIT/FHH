@@ -24,6 +24,7 @@
 
 // set initial zoom scale
 var zoom_scale = 2;
+var WindowObject = null;
 var tableOptions = {'selectedDisease':'','personal_info':'checked','showNames':'checked','showDiagram':'checked','showTable':'checked'};
 function setup_new_diagram_dialog() {
 	// $("#nd").load ("new_diagram_dialog.html", function () {
@@ -633,6 +634,10 @@ function CloseInfoMain(){
 }
 
 function createImage(print) {
+	if (WindowObject) {
+	WindowObject.close();		
+	}
+
 	if (tableOptions.personal_info) {
 		pi_html = $("#personal_info_table").html() + '<BR />';
 	}
@@ -650,7 +655,7 @@ function createImage(print) {
 
 	var instructions = $.t("fhh_family_pedigree.save_image_instructions");
     if (print) {
-    var WindowObject = window.open("", "Diagram",
+    WindowObject = window.open("", "Diagram",
     "width=750,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
     WindowObject.document.writeln('<html><head><LINK href="../css/diagram_print.css" rel="stylesheet" type="text/css"></head><body><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title") + '</h2><div id="pi_html"><b>' + pi_html + '</b></div><img src="' + image + '"><br />' + legend + '</div></body></html>');
     window.wo = WindowObject;
@@ -660,12 +665,12 @@ function createImage(print) {
     }
     else {
 		if (window.chrome) {
-	    var WindowObject = window.open(image, "Diagram",
+	    WindowObject = window.open(image, "Diagram",
 	    "width=950,height=850,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
 
 		}
 		else{
-	    var WindowObject = window.open("", "Diagram",
+	    WindowObject = window.open("", "Diagram",
 	    "width=950,height=850,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
 	    WindowObject.document.writeln('<html><head><LINK href="../css/diagram_print.css" rel="stylesheet" type="text/css"></head><body><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title") + '</h2><div id="pi_html"><b>' + pi_html + '</b></div><div><B>' + instructions + '</B><br /><br /></div><img src="' + image + '"><br />' + legend + '</div></body></html>');
 	    window.wo = WindowObject;

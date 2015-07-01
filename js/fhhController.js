@@ -1,7 +1,8 @@
 var app = angular.module('myApp', ['ui.bootstrap']);
 app.controller('fhhController', ['$rootScope', '$scope', '$window', '$timeout', '$modal', function($rootScope, $scope, $window, $timeout, $modal) {
     $scope.personal_information = personal_information;
-    
+    var WindowObject = null;
+    window.scope = $scope;
     // opens popup when user clicks view diagram and table //
     $scope.openDiagramTable = function() {
         var modalInstance = $modal.open({
@@ -85,7 +86,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
     // function to export data to csv //
     $scope.exportToExcel = function() {
         var dl = $scope.disease_list2.length;
-        var pl = $scope.pi.length;
+        var pl = $scope.filteredItems.length;
 
         var excelString = '"' + $scope.translate("fhh_js","name_relationship") + '","' + $scope.translate("fhh_js","still_living") + '",';
         for (key in $scope.disease_list2) {
@@ -95,8 +96,8 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             if (k == dl) excelString += "\n";
         }
 
-        for (record in $scope.pi) {
-            var r = $scope.pi[record];
+        for (record in $scope.filteredItems) {
+            var r = $scope.filteredItems[record];
             var pr = parseInt(record) + 1;
             if (r['name']!=''&&r['name']!=undefined) {
 	            excelString += '"' + r['name'] + '\n' + '('+r['relationship']+')' + '",'
@@ -363,6 +364,11 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
 
     // print table using gojs and converting to an image //
     $scope.print = function(print) {
+        if (WindowObject) {
+            WindowObject.close();            
+        }
+
+        console.log("TEST");
         $scope.diagram_show = true;
         // if (!$scope.diagram) {
             $timeout(function() {
@@ -407,7 +413,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                 var personal_info = ''                
             }            
     if (print) {
-            var WindowObject = window.open("", "Table",
+            WindowObject = window.open("", "Table",
                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
             WindowObject.document.writeln('<html>' + header + '<body>' + personal_info + '<img style="display:block" src="' + i + '"></body></html>');
 
@@ -419,12 +425,12 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
     }
     else {
             if (window.chrome) {
-            var WindowObject = window.open(i, "Table",
+            WindowObject = window.open(i, "Table",
                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
 
             }
             else {
-            var WindowObject = window.open("", "Table",
+            WindowObject = window.open("", "Table",
                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
             WindowObject.document.writeln('<html>' + header + '<body>' + personal_info + '<div><br /><B>' + save_image_instructions + '</B></div><br /><img src="' + i + '"></body></html>');
 
@@ -480,20 +486,20 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                 }));
             }
             table.add(row);
-            for (key in $scope.pi) {
+            for (key in $scope.filteredItems) {
                 row = $(go.Panel, "TableRow", {
                     row: parseInt(key) + 3
                 });
-                if ($scope.pi[key].name!=''&&$scope.pi[key].name!=undefined) {
+                if ($scope.filteredItems[key].name!=''&&$scope.filteredItems[key].name!=undefined) {
                     if (tableOptions.showNames=='checked') {
-                        var name = $scope.pi[key].name + "\n(" + $scope.pi[key].relationship + ")"
+                        var name = $scope.filteredItems[key].name + "\n(" + $scope.filteredItems[key].relationship + ")"
                     }
                     else {
-                        var name = $scope.pi[key].relationship                
+                        var name = $scope.filteredItems[key].relationship                
                     }
                 }
                 else {
-				var name = $scope.pi[key].relationship
+				var name = $scope.filteredItems[key].relationship
                 }
                 row.add($(go.TextBlock, name, {
                     width: 100,
@@ -502,10 +508,9 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                     margin: 6,
                     textAlign: "left"
                 }));
-                var is_alive = $scope.pi[key].is_alive;
-                console.log($scope.pi[key])
-                if ($scope.pi[key].is_alive=='No') {
-                    is_alive += ',\n'+$scope.pi[key]['cause_of_death']+'\n('+$scope.pi[key]['estimated_death_age']+')';
+                var is_alive = $scope.filteredItems[key].is_alive;
+                if ($scope.filteredItems[key].is_alive=='No') {
+                    is_alive += ',\n'+$scope.filteredItems[key]['cause_of_death']+'\n('+$scope.filteredItems[key]['estimated_death_age']+')';
                 }
                 row.add($(go.TextBlock, is_alive, {
                     width: 100,
@@ -518,10 +523,10 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                 for (col in $scope.disease_list) {
                     if ($scope.disease_list[col].code=='1') {
                         var dl_string = "";
-                        for (d in $scope.pi[key]['Health History']) {
-                            if ($scope.pi[key]['Health History'][d].isOther) {
-                                dl_string+='\n'+$scope.pi[key]['Health History'][d]['translatedDiseaseName']
-                                dl_string+='\n'+$scope.pi[key]['Health History'][d]['Age At Diagnosis']+'\n';
+                        for (d in $scope.filteredItems[key]['Health History']) {
+                            if ($scope.filteredItems[key]['Health History'][d].isOther) {
+                                dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['translatedDiseaseName']
+                                dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['Age At Diagnosis']+'\n';
                             }
                         }
                     row.add($(go.TextBlock, dl_string, {
@@ -533,7 +538,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                     }));                        
                     }
                     else {
-                    row.add($(go.TextBlock, $scope.lookupDisease($scope.pi[key], $scope.disease_list[col].code, true), {
+                    row.add($(go.TextBlock, $scope.lookupDisease($scope.filteredItems[key], $scope.disease_list[col].code, true), {
                         width: 100,
                         column: parseInt(col) + 2,
                         font: "bold 10pt sans-serif",

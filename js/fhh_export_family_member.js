@@ -21,7 +21,7 @@ function load_export_downloadify(){
 		onError: function(){ alert('You must put something in the File Contents or there will be nothing to save!'); },
 		swf: '../downloadify/media/downloadify.swf',
 		downloadImage: '../downloadify/images/download_copyfamily_'+lng+'.png',
-		width: 145,
+		width: 200,
 		height: 32,
 		transparent: true,
 		append: false

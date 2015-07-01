@@ -96,7 +96,7 @@
             <a href="" ng-click="removeDisease(d)"><img src="../static/images/close.png"></a><br />{{d.translatedDiseaseName}}
          </th>
       </tr>
-      <tr ng-repeat="person in pi | filter:filterText" ng-class="{'self_row':person.relationship=='Self'}">
+      <tr ng-repeat="person in (filteredItems = (pi | filter:filterText))" ng-class="{'self_row':person.relationship=='Self'}">
          <td>
             <span ng-if="person.name">
                 <span class="health_table_name">{{person.name}}<br /></span>
