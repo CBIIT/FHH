@@ -1,4 +1,4 @@
-{
+	{
 	"fhh_index": {
 		"usage": "Usando Retrato Meu Saúde da Família, você pode:",
 		"li1": "Digite o seu histórico de saúde da família",
@@ -171,8 +171,8 @@
 		"age_at_diagnosis_select": "Select Idade de Diagnóstico",
 		"prebirth": "Pré-Parto",
 		"newborn": "recém-nascido",
-		"infant": "na infância",
-		"child": "na infância",
+		"infant": "infantil",
+		"child": "criança",
 		"teen": "Na Adolescência",
 		"twenties": "20-29 anos",
 		"thirties": "30-39 anos",
