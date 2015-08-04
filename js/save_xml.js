@@ -231,10 +231,9 @@ function bind_save_heath_vault() {
 
 		var url_w_params;
 		re = /ppe/;
-		match = re.exec(HEATH_VAULT_PROXY_SERVER);
+		match = re.exec(HEATH_VAULT_PROXY_SERVER);		
 		if (match) {
-			if (FHH_SITE_PORT > 0) { // stage
-
+			if (FHH_SITE_PORT > 0) {
 				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
 					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE%26redirect=" 
 					+ protocol + "//" + hostname + ":" + FHH_SITE_PORT + "/FHH/html/fhh_save_healthvault.html"
@@ -243,7 +242,7 @@ function bind_save_heath_vault() {
 					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE%26redirect=" 
 					+ protocol + "//" + hostname + "/FHH/html/fhh_save_healthvault.html"			
 			}			
-		}  
+		}
 		else {
 			if (FHH_SITE_PORT > 0) {
 				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=appid=" 
@@ -252,9 +251,7 @@ function bind_save_heath_vault() {
 				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=appid=" 
 					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE";			
 			}			
-		}         		
-
-
+		}
 
 		window.open(url_w_params, "", "width=1000, height=600, scrollbars=yes");
 		timer = setInterval(function(){
@@ -275,7 +272,6 @@ function bind_save_heath_vault() {
 	$("#save_to_healthvault").append(button);
 
 }
-
 
 function add_root_information(root) {
 	root.setAttribute("moodCode", "EVN");
@@ -324,7 +320,7 @@ function add_personal_information(patient_tag, pi) {
 			pi.weight_unit,
 			pi.consanguinity,
 			pi["Health History"],
-			null,
+			null, null,
 			pi.twin_status,
 			pi.adopted,
 			pi.physically_active
@@ -341,6 +337,7 @@ function add_id(tag, id_text) {
 }
 
 function add_alive_status(tag, alive_text) {
+	if (alive_text == null) return;
 	if (alive_text == 'alive') return;
 	desceased_tag = doc.createElement("deceasedIndCode");
 	
@@ -513,7 +510,7 @@ function add_clinical_observations(tag,
 		weight, weight_unit, 
 		consanguinity, 
 		diseases, 
-		cause_of_death,
+		cause_of_death_code, cause_of_death,
 		twin_status,
 		adopted_flag, 
 		active_flag) 
@@ -529,7 +526,7 @@ function add_clinical_observations(tag,
 	add_weight(subjectOfTwo_tag, weight, weight_unit);
 	add_consanguinity(subjectOfTwo_tag, consanguinity);
 	add_diseases(subjectOfTwo_tag, diseases);
-	add_cause_of_death(subjectOfTwo_tag, cause_of_death);
+	add_cause_of_death(subjectOfTwo_tag, cause_of_death_code, cause_of_death);
 }
 
 function add_twin_tag(tag, twin_status) {
@@ -667,7 +664,7 @@ function add_estimated_age_tag(tag, code_tag, estimated_age) {
 	var av = get_age_values_from_estimated_age(estimated_age);
 	if (estimated_age == "Pre-Birth" || estimated_age == "prebirth") {
 		code_tag.setAttribute("originalText", "pre-birth");
-	} else if (estimated_age == "Unknown") {
+	} else if (estimated_age == "Unknown" || estimated_age == "unknown") {
 		code_tag.setAttribute("originalText", "unknown");
 	} else {
 		
@@ -720,7 +717,7 @@ function add_death_age(tag, estimated_death_age) {
 	
 }
 
-function add_cause_of_death(tag, cause_of_death) {
+function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 	if (cause_of_death == null) return;
 
 	var observation_tag = doc.createElement("clinicalObservation");
@@ -729,7 +726,16 @@ function add_cause_of_death(tag, cause_of_death) {
 	var code_tag = doc.createElement("code");
 	code_tag.setAttribute("displayName", cause_of_death);
 	code_tag.setAttribute("originalText", cause_of_death);
-	code_tag.setAttribute("codeSystemName", "SNOMED COMPLETE");
+	code_tag.setAttribute("codeSystemName", "SNOMED_CT");
+//	var cause_of_death_code = get_disease_code_from_detailed_disease(cause_of_death);
+	var ind = cause_of_death_code.lastIndexOf("-");
+	if (ind > 0) cause_of_death_code = cause_of_death_code.substr(ind+1);
+//	alert (cause_of_death_code);
+	
+	if (cause_of_death_code.substring(0, 10) == "SNOMED_CT-") cause_of_death_code = cause_of_death_code.substring(0, 10)
+	if (cause_of_death_code == null) cause_of_death_code = "OTHER";
+	
+	code_tag.setAttribute("code", cause_of_death_code);
 	observation_tag.appendChild(code_tag);
 	
 	var sourceOf_tag = doc.createElement("sourceOf");
@@ -881,7 +887,7 @@ function add_individual_relative(tag, relative_type, code, relative) {
 			null, null,
 			null,
 			relative["Health History"],
-			relative.detailed_cause_of_death,
+			relative.cause_of_death_code, relative.detailed_cause_of_death,
 			relative.twin_status,
 			relative.adopted,
 			null
@@ -950,7 +956,7 @@ function get_age_values_from_estimated_age(age_at_diagnosis) {
 		case "newborn": return {unit:"day", low:"0", high:"28"};
 		case "infant": return {unit:"day", low:"29", high:"729"};
 		case "child": return {unit:"year", low:"2", high:"10"};
-		case "teen": return {unit:"year", low:"11", high:"19"};
+		case "teen": return {unit:"year", low:"10", high:"19"};
 		case "twenties": return {unit:"year", low:"20", high:"29"};
 		case "thirties": return {unit:"year", low:"30", high:"39"};
 		case "fourties": return {unit:"year", low:"40", high:"49"};
