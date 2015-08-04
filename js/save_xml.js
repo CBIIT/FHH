@@ -225,15 +225,57 @@ function bind_save_heath_vault() {
 		var hostname = window.location.hostname;
 		
 		output_string = get_xml_string();
+		window.localStorage.setItem("outputString", output_string);
+		window.localStorage.setItem("HV Status", "");
+		
 
-		window.open(HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
-			+ HEATH_VAULT_APP_KEY + "%26actionqs=LOAD%26redirect=" 
-			+ protocol + "//" + hostname + "/FHH/html/fhh_save_healthvault.html",
-			 "", "width=1000, height=600, scrollbars=yes");
+		var url_w_params;
+		re = /ppe/;
+		match = re.exec(HEATH_VAULT_PROXY_SERVER);
+		if (match) {
+			if (FHH_SITE_PORT > 0) { // stage
+
+				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
+					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE%26redirect=" 
+					+ protocol + "//" + hostname + ":" + FHH_SITE_PORT + "/FHH/html/fhh_save_healthvault.html"
+			} else {
+				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=?appid=" 
+					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE%26redirect=" 
+					+ protocol + "//" + hostname + "/FHH/html/fhh_save_healthvault.html"			
+			}			
+		}  
+		else {
+			if (FHH_SITE_PORT > 0) {
+				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=appid=" 
+					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE";
+			} else {
+				url_w_params = HEATH_VAULT_PROXY_SERVER + "/redirect.aspx?target=AUTH&targetqs=appid=" 
+					+ HEATH_VAULT_APP_KEY + "%26actionqs=SAVE";			
+			}			
+		}         		
+
+
+
+		window.open(url_w_params, "", "width=1000, height=600, scrollbars=yes");
+		timer = setInterval(function(){
+			var st = window.localStorage.getItem("HV Status");
+			console.log("Checking status of save: " + st);
+			if (st != null && st != "") {
+				$("#save_personal_history_dialog").dialog("close");
+				if (st == "Failed") {
+					alert($.t("fhh_load_save.fail_to_save"));
+				} 
+				clearInterval(timer);
+			} 
+		},2000);
+
+
+
 	});
 	$("#save_to_healthvault").append(button);
 
 }
+
 
 function add_root_information(root) {
 	root.setAttribute("moodCode", "EVN");
