@@ -40,8 +40,8 @@ var doc;
 	var restInterfacePort = 8080;
 
 	var urlString;
-	if (FHH_LOCAL_PORT > 0) {
-		urlString = location.protocol + "//" + location.host + ":" + FHH_LOCAL_PORT + "/FHH-REST/rest/hv/putFHHDocumentAjax";
+	if (FHH_SITE_PORT > 0) {
+		urlString = location.protocol + "//" + location.host + ":" + FHH_SITE_PORT + "/FHH-REST/rest/hv/putFHHDocumentAjax";
 	} else {
 		urlString = location.protocol + "//" + location.host + "/FHH-REST/rest/hv/putFHHDocumentAjax";
 	}
