@@ -482,11 +482,13 @@ function HidePersonalInfo() {
     var selectPersonalInfo = document.getElementById("bmi").checked;
     if (selectPersonalInfo) {
     		$("#personal_info_table").show();
+    		$("#personal_info_diagram").show();
     		tableOptions.personal_info = 'checked'
     }
     else {
     		tableOptions.personal_info = '';
     		$("#personal_info_table").hide();
+    		$("#personal_info_diagram").hide();
     }
 }
 
