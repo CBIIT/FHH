@@ -438,7 +438,6 @@ function parse_xml(data) {
 		relative.name = $(this).find("relationshipHolder > name").attr("formatted");
 				
 		if (relative.name == null || relative.name.length == 0) relative.name = "";
-
 		var alive_status_code = $(this).find("relationshipHolder > deceasedIndCode ").attr("value");
 		if (alive_status_code == "UNKNOWN") {
 			relative.is_alive = 'unknown';
@@ -446,6 +445,10 @@ function parse_xml(data) {
 
 		else if (alive_status_code == "true") {
 			relative.is_alive = 'dead';
+		}
+
+		else if (!alive_status_code) {
+			relative.is_alive = 'unknown';
 		}
 
 		else {

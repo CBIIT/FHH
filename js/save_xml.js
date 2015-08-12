@@ -338,12 +338,17 @@ function add_id(tag, id_text) {
 
 function add_alive_status(tag, alive_text) {
 	if (alive_text == null) return;
-	if (alive_text == 'alive') return;
 	desceased_tag = doc.createElement("deceasedIndCode");
 	
 	if (alive_text == 'dead') {
 		desceased_tag.setAttribute("value", "true");
-	} else {
+	} 
+
+	else if (alive_text == 'alive') {
+		desceased_tag.setAttribute("value", "alive");
+	}
+
+	else {
 		desceased_tag.setAttribute("value", "UNKNOWN");
 	}
 
