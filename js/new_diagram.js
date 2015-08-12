@@ -560,9 +560,9 @@ function hideNamesForDiagram(showHide) {
 function ClearDna(){
 
     $.each(personal_information, function (key, item) {
-        if (typeof item != 'undefined'){
+        if (typeof item != 'undefined' && item){
             var ID = item.id;
-            if (typeof ID != 'undefined') {
+            if (typeof ID != 'undefined' && ID) {
                 $('#' + ID).attr({fill: 'silver', stroke: 'red'});
             }
         }
