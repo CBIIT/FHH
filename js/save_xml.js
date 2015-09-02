@@ -21,6 +21,7 @@ var XMLNS_SCHEMA= "http://www.w3.org/2001/XMLSchema-instance";
 var doc;
 var filename;
 var output_string;
+var isHealthVaultSave; // determine if saving to healthvault to set death disease display name to english //
 
 //  For downliadify to support Safari and IE downloading
 			function load_downloadify(){
@@ -98,6 +99,7 @@ function bind_save_download() {
 	}
 	
 	$("#download_xml").on("click", function () {
+		isHealthVaultSave = false; // not healthvault save		
 		output_string = get_xml_string();
 		filename = get_filename(personal_information);
 		
@@ -122,6 +124,7 @@ function bind_save_dropbox () {
 	var button = $("<BUTTON id='dropbox_save_button'>" + $.t("fhh_load_save.save_dropbox_button") + "</BUTTON>");
 	
 	button.on("click", function () {
+		isHealthVaultSave = false; // not healthvault save		
 		output_string = get_xml_string();
 		filename = get_filename(personal_information);
 		Dropbox.save({
@@ -147,6 +150,7 @@ function bind_save_google_drive () {
 	}
 	var button = $("<BUTTON id='google_drive_save_button'>" + $.t("fhh_load_save.save_google_drive_button") + "</BUTTON>");
 	button.on("click", function () {
+		isHealthVaultSave = false; // not healthvault save		
 		output_string = get_xml_string();
 		filename = get_filename(personal_information);
 		// this is an aysncronous call, we need to improve the user experience here somehow.
@@ -221,6 +225,7 @@ function bind_save_heath_vault() {
 	var button = $("<BUTTON id='health_vault_save_button'>" + $.t("fhh_load_save.save_health_vault_button") + "</BUTTON>");
 
 	button.on("click", function () {
+		isHealthVaultSave = true; // is healthvault save		
 		var protocol = window.location.protocol;
 		var hostname = window.location.hostname;
 		
@@ -729,8 +734,14 @@ function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 	tag.appendChild(observation_tag);
 
 	var code_tag = doc.createElement("code");
-	code_tag.setAttribute("displayName", cause_of_death);
-	code_tag.setAttribute("originalText", cause_of_death);
+	if (isHealthVaultSave) {
+		code_tag.setAttribute("displayName", get_detailed_disease_name_from_code(cause_of_death_code.replace("SNOMED_CT-","")));
+		code_tag.setAttribute("originalText", get_detailed_disease_name_from_code(cause_of_death_code.replace("SNOMED_CT-","")));
+	}
+	else {
+		code_tag.setAttribute("displayName", cause_of_death);
+		code_tag.setAttribute("originalText", cause_of_death);
+	}	
 	code_tag.setAttribute("codeSystemName", "SNOMED_CT");
 //	var cause_of_death_code = get_disease_code_from_detailed_disease(cause_of_death);
 	var ind = cause_of_death_code.lastIndexOf("-");
