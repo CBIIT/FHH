@@ -1,0 +1,16 @@
+<div style="text-align:left;">
+
+<h1 class="translate" data-i18n="fhh_js.load_help_dialog_title">Help for Use a Saved Family Health History File</h1>    
+<p class="translate" data-i18n="fhh_js.load_help_dialog_p1" style="padding-left:10px;">If you have already created a family health history file or if someone has sent you a family health history file, you will be able to upload it.  Once uploaded, you can open it to see or edit the file. You can also create a copy for yourself or another family member.</p>
+<p class="translate" data-i18n="fhh_js.load_help_dialog_p2" style="padding-left:10px;">You will need to know where the file is saved on your local computer or removable drive. To upload a file:</p>
+<ol>
+	<li><span class="translate" data-i18n="fhh_js.load_help_dialog_l1">Press on the "Browse" button. This will open a new window.</span><br />
+    <img src="../images/screenshot_importHistory_clickBrowse.gif" alt="Sample Open Saved History File window highlighting the "Browse" button." />
+    </li>
+	<li class="translate" data-i18n="fhh_js.load_help_dialog_l2">In the new window, you will have to go the directory that contains the file. The file will be of an ".xml" type.</li>
+	<li class="translate" data-i18n="fhh_js.load_help_dialog_l3">Select the file and press on the "Open" button.  This will close the new window.</li>
+	<li><span class="translate" data-i18n="fhh_js.load_help_dialog_l4">In the Use a Saved Family History window, press on the "Next" button.</span><br />
+    <img src="../images/screenshot_importHistory_clickNext.gif" alt="Sample Open Saved History File window highlighting the "Next" button." /></li>
+</ol>
+<p class="translate" data-i18n="fhh_js.load_help_dialog_p3" style="padding-left:10px;">Please note that this site only accepts files of an ".xml" extension that were saved from this tool, and also accepts files of an ".htm" extension that were saved from this tool prior to January, 2009. Any other file types will not be accepted.</p>
+</div>
