@@ -240,7 +240,16 @@ function start()
 //    });
 
 	// This page lets you load in a previously saved history
-	$("#load_personal_history_dialog").load ("load_personal_history_dialog.html", function () {
+
+	// remove //
+	var lng = window.i18n.lng();
+	var history_dialog = "load_personal_history_dialog.html";
+
+	if (lng=='it'||lng=='pt'||lng=='es') {
+		history_dialog = "load_personal_history_dialog_backup.html";
+	}
+
+	$("#load_personal_history_dialog").load (history_dialog, function () {
 		bind_load_personal_history_button();
 		bind_load_xml();
 		bind_load_help_button_action();
@@ -373,7 +382,13 @@ function start()
 		width:600
 	});		
 
-	$("#load_help_dialog").load ("load-help.html", function () {});
+
+	if (lng=='it'||lng=='pt'||lng=='es') {
+		$("#load_help_dialog").load ("load-help_backup.html", function () {});
+	}
+	else {
+		$("#load_help_dialog").load ("load-help.html", function () {});		
+	}
 	$("#load_help_dialog").dialog({
 		title:$.t("fhh_js.load_help_dialog_title"), 
 		position:['middle',0],
