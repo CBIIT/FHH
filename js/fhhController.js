@@ -303,14 +303,17 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             var health_history_entry = {};
             health_history_entry["Disease Code"] = history[x]['Disease Code'];
             health_history_entry["Age At Diagnosis"] = $scope.translate("fhh_js", history[x]['Age At Diagnosis']);
-            if (history[x]['Disease Code']=='SNOMED_CT-OTHER') {
+            if (history[x]['Disease Code']=='other-undefined'||history[x]['Disease Code']=='other') {
+                health_history_entry["Disease Code"] = history[x]['Detailed Disease Name'];
                 if (STATICDISEASES.indexOf(history[x]['Detailed Disease Name']) == -1) {
-                    health_history_entry["translatedDiseaseName"] = history[x]['Detailed Disease Name'];
                     STATICDISEASES.push(history[x]['Detailed Disease Name'])
-                    health_history_entry["isOther"] = true;
-                    health_code_lookup.push(history[x]['Detailed Disease Name']);
 
                 }
+                health_history_entry["translatedDiseaseName"] = history[x]['Detailed Disease Name'];
+                health_code_lookup.push(history[x]['Detailed Disease Name']);
+                health_history_entry["isOther"] = true;
+
+
             }
             else {
                 if (STATICDISEASES.indexOf(history[x]['Disease Code']) == -1) {
@@ -524,10 +527,8 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                     if ($scope.disease_list[col].code=='1') {
                         var dl_string = "";
                         for (d in $scope.filteredItems[key]['Health History']) {
-                            if ($scope.filteredItems[key]['Health History'][d].isOther) {
-                                dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['translatedDiseaseName']
+                                dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['Disease Code']
                                 dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['Age At Diagnosis']+'\n';
-                            }
                         }
                     row.add($(go.TextBlock, dl_string, {
                         width: 180,

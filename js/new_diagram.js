@@ -90,7 +90,6 @@ function load_data() {
 			diagram_data.push(mother);			
 		}
 		else {
-			console.log(diagram_data[1].r)
 			if (diagram_data[1].r=='self') {
 				diagram_data.push(spouse);					
 				diagram_data.push(mother);
@@ -176,13 +175,16 @@ function add_characteristics(relationship_type, relative, person) {
 
 // translate all diseases in the person's health history and add to existing disease object //
 function addTranslatedDiseaseName(diseases) {
+	console.log(diseases)
 	for (key in diseases) {
-		if (diseases[key]['Disease Code']=='SNOMED_CT-OTHER') {
-			diseases[key]['translatedDiseaseName']=diseases[key]['Detailed Disease Name'];			
+		if (diseases[key]['Disease Code']=='other'||diseases[key]['Disease Code']=='other-undefined') {
+			diseases[key]['translatedDiseaseName']=diseases[key]['Detailed Disease Name'];	
+			diseases[key]['Disease Code']=diseases[key]['Detailed Disease Name'];	
+
 		}
 		
 		else{
-			diseases[key]['translatedDiseaseName']=$.t("diseases:"+diseases[key]['Disease Code']);
+			diseases[key]['translatedDiseaseName']=$.t("diseases:"+diseases[key]['Disease Code']).replace("diseases:","");
 		}
    	}
    	return diseases;
@@ -379,20 +381,26 @@ function createDiagramDialog() {
             //var health = new Array();
             //health = data['Health History'];
 
-            var thename, temp;
+            var thename, temp, dcode;
             var disname = data['Disease Name'];
             var detdisname = $.t("diseases:" + data['Disease Code']);
+            dcode = data['Disease Code'];
+            if (dcode=='other'||dcode=='other-undefined') { 
+            	dcode=data['Detailed Disease Name']
+            	detdisname=data['Detailed Disease Name']
+            }
             if(detdisname=='diseases:null') detdisname = null;
             if (detdisname == null) thename = disname;
             else thename = detdisname;
 //                      console.log("P->DN:[" + disname +  "]DDN[" + detdisname + "]DC[" + data['Disease Code'] + "]--> [" + thename + "]");
+
             if ($.inArray(thename, allnames) == -1) {
                 allnames.push(thename);
-                if (tableOptions.selectedDisease==data['Disease Code']) {
-	                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "' selected>" + thename + "</option>")
+                if (tableOptions.selectedDisease==dcode) {
+	                array.push("<option id=" + disname + " value='" + dcode + "' selected>" + thename.replace("diseases:","") + "</option>")
                 }
                 else {
-	                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "'>" + thename + "</option>")                	
+	                array.push("<option id=" + disname + " value='" + dcode + "'>" + thename.replace("diseases:","") + "</option>")                	
                 }
             }
         });
@@ -407,20 +415,26 @@ function createDiagramDialog() {
                         var health = new Array();
                         health = item['Health History'];
                         $.each(health, function (k, data) {
-                            var thename, temp;
+                            var thename, temp, dcode;
                             var disname = data['Disease Name'];
                             var detdisname = $.t("diseases:" + data['Disease Code']);
+
+				            dcode = data['Disease Code'];
+				            if (dcode=='other'||dcode=='other-undefined') { 
+				            	dcode=data['Detailed Disease Name']
+				            	detdisname=data['Detailed Disease Name']
+				            }                                
                             if(detdisname=='diseases:null') detdisname = null;
                             if (detdisname == null) thename = disname;
                             else thename = detdisname;
 //                                                      console.log("R->DN:[" + disname +  "]DDN[" + detdisname + "]DC[" + data['Disease Code'] + "]--> [" + thename + "]");
                             if ($.inArray(thename, allnames) == -1) {
                                 allnames.push(thename);
-			                if (tableOptions.selectedDisease==data['Disease Code']) {
-				                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "' selected>" + thename + "</option>")
+			                if (tableOptions.selectedDisease==dcode) {
+				                array.push("<option id=" + disname + " value='" + dcode + "' selected>" + thename.replace("diseases:","") + "</option>")
 			                }
 			                else {
-				                array.push("<option id=" + disname + " value='" + data['Disease Code'] + "'>" + thename + "</option>")                	
+				                array.push("<option id=" + disname + " value='" + dcode + "'>" + thename.replace("diseases:","") + "</option>")                	
 			                }                                
                             }
                         });
@@ -463,7 +477,6 @@ function createDiagramDialog() {
 			$(".ui-front").zIndex(5000)
             },
             close: function (ev, ui) {
-            	console.log("closed");
                 $(this).empty();
                 $(this).dialog('destroy').remove();
 
@@ -579,7 +592,6 @@ function DiseaseDna(){
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
     tableOptions.selectedDisease = selectBox.options[selectBox.selectedIndex].value;
     var found = false;
-        console.log( "<<<" + selectedValue + ">>>");
         capture_specific_disease(selectedValue);
     /**
      * Me values
@@ -588,7 +600,6 @@ function DiseaseDna(){
     var ID = 'me';
     $.each(personal_information['Health History'], function (k, data) {
         if(typeof data !='undefined') {
-                        console.log("Testing: " + data["Disease Code"] + "==" + selectedValue);
                         if (selectedValue == data["Disease Code"]) {
               $('#' + ID).attr({fill: 'yellow', stroke: 'black'});
               found = true;
@@ -607,10 +618,8 @@ function DiseaseDna(){
             if (typeof ID != 'undefined') {
                                 var hh = item['Health History'];
                                 $.each(hh, function (health_key, disease) {
-//                                  console.log("Testing["+item.name+"]: " + disease["Disease Code"] + "==" + selectedValue);
                                     
                                     if (selectedValue == disease["Disease Code"]) {
-//                                      console.log("HIT: " + ID);
                                         found = true;
                                         $('#' + ID).attr({fill: 'yellow', stroke: 'black'});            
                                     }

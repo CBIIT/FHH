@@ -93,7 +93,8 @@
             {{translate("fhh_js","still_living")}}
          </th>
          <th ng-repeat="d in disease_list track by $index" ng-show="d.show">
-            <a href="" ng-click="removeDisease(d)"><img src="../static/images/close.png"></a><br />{{d.translatedDiseaseName}}
+            <a href="" ng-click="removeDisease(d)"><img src="../static/images/close.png"></a><br />
+            {{d.translatedDiseaseName}}
          </th>
       </tr>
       <tr ng-repeat="person in (filteredItems = (pi | filter:filterText))" ng-class="{'self_row':person.relationship=='Self'}">
@@ -111,8 +112,8 @@
          <td>{{person.is_alive}}<span ng-if="person.cause_of_death">,<br /> {{person.cause_of_death}}<br />({{person.estimated_death_age}})</span></td>
          <td ng-repeat="d in disease_list" ng-show="d.show">
             <span ng-if="d.code=='1'">
-               <div class="other_disease" ng-repeat="od in person['Health History'] track by $index" ng-if="od.isOther">
-                  {{od.translatedDiseaseName}}<br />({{od['Age At Diagnosis']}})
+               <div class="other_disease" ng-repeat="od in person['Health History'] track by $index">
+                  {{od['Disease Code']}}<br />({{od['Age At Diagnosis']}})
                </div>
             </span>
             {{lookupDisease(person,d['code'])['Age At Diagnosis']}}

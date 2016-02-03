@@ -1180,7 +1180,8 @@ function bind_family_member_submit_button_action () {
 					specific_health_issue = {"Disease Name": cause_of_death,
 					                          "Detailed Disease Name": family_member_information['detailed_cause_of_death'],
 					                          "Age At Diagnosis": estimated_death_age,
-					                          "Disease Code": cause_of_death_code};
+					                          "Disease Code": cause_of_death_code};	                          console.log(disease_code)
+
 					current_health_history.push(specific_health_issue);
 				} //changed Unknown to estimated_death_age Bug 103
 		} else if (alive_flag == 'unknown') {
@@ -1919,12 +1920,66 @@ function set_age_at_diagnosis_pulldown(instructions, age_at_diagnosis_select) {
 	return age_at_diagnosis_select;
 }
 
+// function add_other_disease(new_disease_name) {
+// 	// here we add new diseases to the personal history and diseases object //
+// 	if (!diseases['OTHER']) {
+// 		// create other diseases object //
+// 		diseases['OTHER'] = [];
+// 	}
+// 	// add new disease to other disease category //
+// 	else {
+// 		// search disease list for current disease and don't add if exists //
+
+// 		console.log(diseases['OTHER']['abc'])
+// 	}
+// 	diseases['OTHER'].push({"abbr":"","code":"other","name":new_disease_name,"system":"other"});
+// 	// $("#disease_choice_select").append('<option value="SOME"> Some Disease </option>');
+// 	$("#personal_health_information #disease_choice_select").append('<option value="' + new_disease_name + '">' + new_disease_name + '</option>');
+// 	$("#family_health_information #disease_choice_select").append('<option value="' + new_disease_name + '">' + new_disease_name + '</option>');
+// 	$("#update_family_member_health_history_dialog #cause_of_death_select").append('<option value="' + new_disease_name + '">' + new_disease_name + '</option>');
+// }
+
+function add_other_disease(new_disease_name) {
+	// here we add new diseases to the personal history and diseases object //
+	
+	// set match variable to 0. this will determine if the exact disease name already exists. Note this is case sensitive. ABC!=abc
+	var match = 0;
+
+	// cehck if Other diseases exist in the diseases obejct //
+	if (!diseases['OTHER']) {
+		// create other diseases object //
+		diseases['OTHER'] = [];
+	}
+
+	else {
+		// search disease list for current disease and don't add if exists. set match to 1 if there is a match //
+		for (var i=0;i<diseases['OTHER'].length;i++) {
+			if (new_disease_name==diseases['OTHER'][i]['name']) {
+				match = 1;
+				break;
+			}
+		}
+	}
+
+	// if no match, add disease to diseases object and dropdowns //
+	if (!match) {
+		// add new disease to other disease category //
+		diseases['OTHER'].push({"abbr":"","code":"other","name":new_disease_name,"system":"other"});
+		$("#personal_health_information #disease_choice_select").append('<option value="' + new_disease_name + '">' + new_disease_name + '</option>');
+		$("#family_health_information #disease_choice_select").append('<option value="' + new_disease_name + '">' + new_disease_name + '</option>');
+		$("#update_family_member_health_history_dialog #cause_of_death_select").append('<option value="' + new_disease_name + '">' + new_disease_name + '</option>');
+	}
+};
+
+
 function add_disease() {
 //	alert($(this).parent().parent().parent().html());
 	var disease_name = $(this).parent().parent().find("#disease_choice_select").val();
 	var disease_code = $(this).parent().parent().find("#detailed_disease_choice_select").val();
 	var age_at_diagnosis = $(this).parent().parent().find("#age_at_diagnosis_select").val();
 	var disease_detail = $.t("diseases:" + disease_code, disease_name);
+
+
 	
 	if (disease_name == null || disease_name == '' || disease_name == 'not_picked' || disease_name == 'diseases:null') {
 		alert ($.t("fhh_js.disease_select"));
@@ -1944,16 +1999,29 @@ function add_disease() {
 	var new_disease_name = $(this).parent().parent().find("#new_disease_name").val();
 	
 	if (disease_name == 'other') {
+		
 		if (new_disease_name == null || new_disease_name != "") {
-			disease_code = "SNOMED_CT-OTHER";
+			// add disease to disease object //
+			add_other_disease(new_disease_name);
+			
+			disease_code = "other-undefined";
 			disease_name = new_disease_name;
-			disease_detail = new_disease_name;
+			disease_detail = new_disease_name;		
+
 		} else {
 			alert ($.t("disease_name_enter"));
 			return;		
 		}
 	}
-	
+	//remove else
+	else {
+		// disease is other disease and can not be looked up //
+		if (!disease_code) {
+			disease_code = 'other'; disease_detail = disease_name;
+		}
+	console.log(disease_name, disease_detail, age_at_diagnosis, disease_code)
+	}
+	//end remove else
 	specific_health_issue = {"Disease Name": disease_name,
 	                          "Detailed Disease Name": disease_detail,
 	                          "Age At Diagnosis": age_at_diagnosis,

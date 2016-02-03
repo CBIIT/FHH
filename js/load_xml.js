@@ -781,8 +781,12 @@ function get_specific_health_issue (relative_name, data) {
 	var specific_health_issue = {"Disease Name": highLevelDiseaseName,
                   "Detailed Disease Name": detailedDiseaseName,
                   "Age At Diagnosis": ageAtDiagnosis};
+
   if (diseaseCode) specific_health_issue["Disease Code"] = diseaseCodeSystem + "-" + diseaseCode;
-  
+  	if (diseaseCode=='undefined') { specific_health_issue["Disease Code"] = diseaseCodeSystem}
+  	if (diseaseCodeSystem + "-" + diseaseCode == 'other-undefined') {
+  		add_other_disease(detailedDiseaseName);
+  	}
 	return specific_health_issue;
 }
 
