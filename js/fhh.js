@@ -1205,8 +1205,14 @@ function bind_family_member_submit_button_action () {
 				
 				var new_disease = true;
 				for (var i=0; i< current_health_history.length;i++) {
+					console.log(family_member_information['cause_of_death_code'],current_health_history[i]['Disease Code'])
+					if (current_health_history[i]['Disease Code']=='other' || current_health_history[i]['Disease Code']=='other-undefined') {
+						if (family_member_information['cause_of_death_code'] == current_health_history[i]['Disease Name']) {
+							new_disease = false;
+						}
+					}
+
 					if (family_member_information['cause_of_death_code'] == current_health_history[i]['Disease Code']) new_disease=false;
-//					alert (JSON.stringify(current_health_history[i],null,2));
 				}
 				if (new_disease && cause_of_death != null && cause_of_death_code != null && cause_of_death_code != 'not_picked') {
 					if (cause_of_death=='other') { cod_temp = cause_of_death_code; code_temp = 'other-undefined' }
