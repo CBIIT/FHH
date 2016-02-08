@@ -504,9 +504,8 @@ function parse_xml(data) {
 			var detailed_cause_of_death = death.parent().parent().children("code").attr("displayName");
 			var cause_of_death_code = death.parent().parent().children("code").attr("code");
 			var cause_of_death_system = death.parent().parent().children("code").attr("codeSystemName");
-			
+			var is_other_cause_of_death = cause_of_death_code==detailed_cause_of_death;
 //			alert (relative.name + " died around [" + death_age + "] of :[" + cause_of_death+ "]");
-			
 			if (cause_of_death_system == 'undefined' || cause_of_death_system == null) relative.cause_of_death_system = 'SNOMED_CT';
 			else if (cause_of_death_system == 'SNOMED COMPLETE') relative.cause_of_death_system = 'SNOMED_CT';
 			else relative.cause_of_death_system = cause_of_death_system;
@@ -514,15 +513,22 @@ function parse_xml(data) {
 
 
 //			alert (relative.name + "[" + cause_of_death_code + "]:" + relative.cause_of_death);
-			if (cause_of_death_code) {
-				relative.cause_of_death_code = relative.cause_of_death_system + "-" + cause_of_death_code;				
-			} else {
-				relative.cause_of_death_code = relative.cause_of_death_system + "-" + get_disease_code_from_detailed_disease(detailed_cause_of_death);
+			
+			// if cause of death is other //
+			if (is_other_cause_of_death) {
+				relative.cause_of_death_code = cause_of_death_code;
 			}
-	
+			// if cause of death is not other
+			else {
+				if (cause_of_death_code) {
+						relative.cause_of_death_code = relative.cause_of_death_system + "-" + cause_of_death_code;				
+					} else {
+						relative.cause_of_death_code = relative.cause_of_death_system + "-" + get_disease_code_from_detailed_disease(detailed_cause_of_death);
+					}					
+			}
 			relative.cause_of_death = get_high_level_disease_name_from_disease_code(cause_of_death_code);			
-			if (relative.cause_of_death == 'other' && typeof detailedDiseaseName != "undefined") 
-				relative.cause_of_death = get_disease_name_from_detailed_name(detailedDiseaseName);
+			if (is_other_cause_of_death) 
+				relative.cause_of_death = cause_of_death_code;
 				
 			if (relative.detailed_cause_of_death != detailed_cause_of_death) relative.detailed_cause_of_death = detailed_cause_of_death;
 			relative.estimated_death_age = death_age;
@@ -751,7 +757,6 @@ function parse_xml(data) {
 }
 
 function get_specific_health_issue (relative_name, data) {
-	
 //	alert(relative_name + " " + $(data).attr('displayName'));get_disease_name_from_detailed_name
 	var detailedDiseaseName = $(data).attr('displayName');
 	var diseaseCode = $(data).attr('code');

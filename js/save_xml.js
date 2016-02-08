@@ -635,13 +635,11 @@ function add_diseases(tag, diseases) {
 		
 		var observation_tag = doc.createElement("clinicalObservation");
 		tag.appendChild(observation_tag);
-
 		var code_tag = doc.createElement("code");
 		if (disease_code_and_system) {
 			var dcas =  disease_code_and_system.split("-");
 			var disease_code_system = dcas[0];
 			var disease_code = dcas[1];
-			
 			code_tag.setAttribute("codeSystemName", disease_code_system);  
 			code_tag.setAttribute("code", disease_code);
 			var potential_detailed_disease_name = get_detailed_disease_name_from_code(disease_code);
@@ -729,10 +727,9 @@ function add_death_age(tag, estimated_death_age) {
 
 function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 	if (cause_of_death == null) return;
-
+	var temp_cause_of_death = cause_of_death_code;
 	var observation_tag = doc.createElement("clinicalObservation");
 	tag.appendChild(observation_tag);
-
 	var code_tag = doc.createElement("code");
 	if (isHealthVaultSave) {
 		code_tag.setAttribute("displayName", get_detailed_disease_name_from_code(cause_of_death_code.replace("SNOMED_CT-","")));
@@ -744,13 +741,14 @@ function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 	}	
 	code_tag.setAttribute("codeSystemName", "SNOMED_CT");
 //	var cause_of_death_code = get_disease_code_from_detailed_disease(cause_of_death);
+
 	var ind = cause_of_death_code.lastIndexOf("-");
 	if (ind > 0) cause_of_death_code = cause_of_death_code.substr(ind+1);
 //	alert (cause_of_death_code);
-	
 	if (cause_of_death_code.substring(0, 10) == "SNOMED_CT-") cause_of_death_code = cause_of_death_code.substring(0, 10)
 	if (cause_of_death_code == null) cause_of_death_code = "OTHER";
-	
+	console.log(temp_cause_of_death)
+
 	code_tag.setAttribute("code", cause_of_death_code);
 	observation_tag.appendChild(code_tag);
 	
@@ -758,7 +756,10 @@ function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 	observation_tag.appendChild(sourceOf_tag);
 	var newcode_tag = doc.createElement("code");
 	newcode_tag.setAttribute("displayName", "death");
+	var re = /SNOMED_CT/;
+
 	newcode_tag.setAttribute("codeSystemName", "SNOMED_CT");
+
 	newcode_tag.setAttribute("code", SNOMED_CODE.DEATH);
 	sourceOf_tag.appendChild(newcode_tag);
 }

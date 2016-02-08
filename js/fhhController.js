@@ -262,7 +262,6 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             'health_code_lookup': self_health_history.health_code_lookup
         })
         for (var k=0; k<personal_information.length;k++) {
-            console.log("A");
         }
         for (x in personal_information) {
             var o = personal_information[x];
@@ -284,7 +283,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                     }
                     // person_dict["relationship"] = $scope.translate("fhh_js", o.relationship);
                     if (o.cause_of_death_code) {
-                        person_dict['cause_of_death'] = $scope.translate("diseases", o.cause_of_death_code)
+                        person_dict['cause_of_death'] = $scope.translate("diseases", o.cause_of_death_code).replace("diseases:","")
                         person_dict['estimated_death_age'] = $scope.translate("fhh_js", o.estimated_death_age)
                     }
                     var hh = $scope.createHealthHistory(health_history, health_code_lookup, o['Health History'])
@@ -371,7 +370,6 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             WindowObject.close();            
         }
 
-        console.log("TEST");
         $scope.diagram_show = true;
         // if (!$scope.diagram) {
             $timeout(function() {
