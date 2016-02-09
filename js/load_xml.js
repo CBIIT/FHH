@@ -783,9 +783,11 @@ function get_specific_health_issue (relative_name, data) {
 		diseaseCode = get_disease_code_from_detailed_disease(detailedDiseaseName);
 		diseaseCodeSystem = 'SNOMED_CT'; // The default
 	}
+
 	var specific_health_issue = {"Disease Name": highLevelDiseaseName,
                   "Detailed Disease Name": detailedDiseaseName,
                   "Age At Diagnosis": ageAtDiagnosis};
+					console.log(specific_health_issue)
 
   if (diseaseCode) specific_health_issue["Disease Code"] = diseaseCodeSystem + "-" + diseaseCode;
   	if (diseaseCode=='undefined') { specific_health_issue["Disease Code"] = diseaseCodeSystem}
