@@ -209,7 +209,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
 
                    dl.push({
                         'code': d,
-                        'translatedDiseaseName': $scope.translate("diseases", d),
+                        'translatedDiseaseName': $scope.translate("diseases", d).replace("diseases:",""),
                         'show': true
                     })                        
                     
@@ -237,7 +237,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                 else {
                     dl.push({
                         'code': d,
-                        'translatedDiseaseName': $scope.translate("diseases", d),
+                        'translatedDiseaseName': $scope.translate("diseases", d).replace("diseases:",""),
                         'show': true
                     })                    
                 }              
@@ -316,13 +316,13 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
             }
             else {
                 if (STATICDISEASES.indexOf(history[x]['Disease Code']) == -1) {
-                    health_history_entry["translatedDiseaseName"] = $scope.translate("diseases", history[x]['Disease Code']);
+                    health_history_entry["translatedDiseaseName"] = $scope.translate("diseases", history[x]['Disease Code']).replace("diseases:","");
                     STATICDISEASES.push(history[x]['Disease Code'])
                     health_history_entry["isOther"] = true;
                     health_code_lookup.push(history[x]['Disease Code']);                    
                 }  
                 else {
-                    health_history_entry["translatedDiseaseName"] = $scope.translate("diseases", history[x]['Disease Code']);
+                    health_history_entry["translatedDiseaseName"] = $scope.translate("diseases", history[x]['Disease Code']).replace("diseases:","");
                     health_code_lookup.push(history[x]['Disease Code']);                    
                 }                                
             }
@@ -525,8 +525,13 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
                     if ($scope.disease_list[col].code=='1') {
                         var dl_string = "";
                         for (d in $scope.filteredItems[key]['Health History']) {
-                                dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['Disease Code']
-                                dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['Age At Diagnosis']+'\n';
+                                // this is where the other collapsed diseases are //
+                                // dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['Disease Code']
+                                if ($scope.filteredItems[key]['Health History'][d]['isOther']) {
+                                dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['translatedDiseaseName']
+                                dl_string+='\n'+$scope.filteredItems[key]['Health History'][d]['Age At Diagnosis']+'\n';                                    
+                                }
+
                         }
                     row.add($(go.TextBlock, dl_string, {
                         width: 180,

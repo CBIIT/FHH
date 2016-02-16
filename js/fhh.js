@@ -508,6 +508,13 @@ function bind_create_new_personal_history_button_action () {
 		}
 		current_health_history = [];
 		clear_and_set_personal_health_history_dialog();
+
+		// delete other diseases and reset dropdowns //
+		delete diseases.OTHER
+		$("#personal_health_information #disease_choice_select option[label='other_disease']").remove()
+		$("#family_health_information #disease_choice_select option[label='other_disease']").remove()
+		$("#update_family_member_health_history_dialog #cause_of_death_select option[label='other_disease']").remove()
+
 		$( "#add_personal_information_dialog" ).dialog( "open" );	
 	}
 }
@@ -2013,12 +2020,11 @@ function add_other_disease(new_disease_name) {
 
 	// if no match, add disease to diseases object and dropdowns //
 	if (!match) {
-		console.log("IS THIS A MATCH")
 		// add new disease to other disease category //
 		diseases['OTHER'].push({"abbr":"","code":"other","name":new_disease_name,"system":"other"});
-		$("#personal_health_information #disease_choice_select").append('<option value="' + new_disease_name + '">' + new_disease_name + '</option>');
-		$("#family_health_information #disease_choice_select").append('<option value="' + new_disease_name + '">' + new_disease_name + '</option>');
-		$("#update_family_member_health_history_dialog #cause_of_death_select").append('<option value="' + new_disease_name + '">' + new_disease_name + '</option>');
+		$("#personal_health_information #disease_choice_select").append('<option value="' + new_disease_name + '" label="other_disease">' + new_disease_name + '</option>');
+		$("#family_health_information #disease_choice_select").append('<option value="' + new_disease_name + '" label="other_disease">' + new_disease_name + '</option>');
+		$("#update_family_member_health_history_dialog #cause_of_death_select").append('<option value="' + new_disease_name + '" label="other_disease">' + new_disease_name + '</option>');
 	}
 };
 
@@ -2070,7 +2076,6 @@ function add_disease() {
 		// disease is other disease and can not be looked up //
 		console.log(disease_code)
 		if (!disease_code||disease_code==null || disease_code == 'null' || disease_code == 'other') {
-			console.log("AAAAAAAA")
 			disease_code = 'other'; disease_detail = disease_name;
 		}	
 	}
@@ -2704,6 +2709,8 @@ function clear_and_set_personal_health_history_dialog() {
 		$("#personal_race_ethnicity").find("#selectedEthnicities-17").prop('checked',false);
 		
 	}
+
+
 }
 // Helper functions
 /*
