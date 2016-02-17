@@ -2066,7 +2066,7 @@ function add_disease() {
 			disease_detail = new_disease_name;		
 
 		} else {
-			alert ($.t("disease_name_enter"));
+			alert ($.t("fhh_js.disease_name_enter"));
 			return;		
 		}
 	}
