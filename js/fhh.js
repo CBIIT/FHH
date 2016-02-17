@@ -1053,6 +1053,7 @@ function bind_family_member_submit_button_action () {
 	// Validation age determination
 
 	$("#addFamilyMemberSubmitButton").on("click", function(){ 
+
 		// Cause of Death or Age/Estimated-Age variables
 		var alive_flag = $("#is_person_alive").val();
 		var age_determination_flag = $('#age_determination').val();
@@ -1093,6 +1094,14 @@ function bind_family_member_submit_button_action () {
 			alert ($.t("fhh_js.invalid_data_alert"));
 			return false;
 		}
+
+
+		// check if cause of death is a new disease and if the new disease is blank throw error message //
+		if ($("#is_person_alive").val()=='dead' && $("#cause_of_death_select").val()=='other' && $("#new_disease_name").val()=='') {
+			alert ($.t("fhh_js.invalid_cause_of_death"));	
+			return false;
+		}
+
 
 		// Check to ensure the user has not entered anything in the disease section that they have not saved.
 		var disease_name = $("#update_family_member_health_history_dialog").find("#disease_choice_select").val();

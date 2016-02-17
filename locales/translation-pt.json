@@ -24,6 +24,7 @@
 	},
 	
 	"fhh_js": {
+		"invalid_cause_of_death" : "Por favor, indique uma causa válida de morte",		
 		"ashkenazi": "Por que perguntar sobre Ashkenazi?",
 		"pi": "Inserir informações pessoais",
 		"select_age": "Selecione idade estimada",

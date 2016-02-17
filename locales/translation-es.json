@@ -25,6 +25,7 @@
 		"done" : "done"
 	},
 	"fhh_js": {
+		"invalid_cause_of_death" : "Por favor, introduzca una causa válida de muerte",		
 		"ashkenazi": "¿Por qué preguntamos sobre el origen judio Ashkenazi?",
 		"pi":"Introduzca información personal",
 		"select_age": "Seleccione Edad estimada",
