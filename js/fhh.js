@@ -7,7 +7,6 @@ var isiPad = navigator.userAgent.match(/iPad/i) != null;
 
 $(document).ready(function() {
 
-
 	// Check to see whether this browser has the FileAPI
 	/* Removing to test IE8
 	var FileApiSupported = window.File && window.FileReader && window.FileList && window.Blob;
@@ -1243,7 +1242,6 @@ function bind_family_member_submit_button_action () {
 				if (other_new_disease) {
 					add_other_disease(family_member_information['detailed_cause_of_death'])				
 				}
-				console.log(specific_health_issue)
 				
 		} else if (alive_flag == 'unknown') {
 			family_member_information['is_alive'] = 'unknown';

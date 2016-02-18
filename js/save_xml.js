@@ -731,15 +731,29 @@ function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 	var observation_tag = doc.createElement("clinicalObservation");
 	tag.appendChild(observation_tag);
 	var code_tag = doc.createElement("code");
+	var code_system = "SNOMED_CT";
 	if (isHealthVaultSave) {
-		code_tag.setAttribute("displayName", get_detailed_disease_name_from_code(cause_of_death_code.replace("SNOMED_CT-","")));
-		code_tag.setAttribute("originalText", get_detailed_disease_name_from_code(cause_of_death_code.replace("SNOMED_CT-","")));
+		if (get_detailed_disease_name_from_code(cause_of_death_code.replace("SNOMED_CT-",""))) {
+			code_tag.setAttribute("displayName", get_detailed_disease_name_from_code(cause_of_death_code.replace("SNOMED_CT-","")));
+			code_tag.setAttribute("originalText", get_detailed_disease_name_from_code(cause_of_death_code.replace("SNOMED_CT-","")));
+		}
+		else {
+			code_tag.setAttribute("displayName", cause_of_death);
+			code_tag.setAttribute("originalText", cause_of_death);			
+			code_system = "other";
+		}
+
+
+		// code_tag.setAttribute("displayName", get_detailed_disease_name_from_code(cause_of_death_code.replace("SNOMED_CT-","")));
+		// code_tag.setAttribute("originalText", get_detailed_disease_name_from_code(cause_of_death_code.replace("SNOMED_CT-","")));		
 	}
 	else {
 		code_tag.setAttribute("displayName", cause_of_death);
 		code_tag.setAttribute("originalText", cause_of_death);
 	}	
-	code_tag.setAttribute("codeSystemName", "SNOMED_CT");
+	console.log(code_system)
+	code_tag.setAttribute("codeSystemName", code_system);
+
 //	var cause_of_death_code = get_disease_code_from_detailed_disease(cause_of_death);
 
 	var ind = cause_of_death_code.lastIndexOf("-");

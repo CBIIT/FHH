@@ -243,7 +243,6 @@ function googlePostAuthLoad(authResult) {
 
 function 	bind_load_health_vault() {
 	var button = $("<BUTTON id='healthvault_load_button'>" + $.t("fhh_load_save.load_health_vault_button") + "</BUTTON>");
-	
 	var protocol = window.location.protocol;
 	var hostname = window.location.hostname;
 	
@@ -279,20 +278,53 @@ function 	bind_load_health_vault() {
 			var ls = window.localStorage.getItem("pi"); 
 			var d = JSON.parse(ls);
 			if (ls != null && ls != "" && d != null) {
+
 				personal_information = d;
 				build_family_history_data_table();
 				$("#add_another_family_member_button").show();
 				$("#load_personal_history_dialog").parent().hide();
 				clearInterval(timer);
+				createHealthHistory(personal_information);
 			}
 		},2000);
 	});
-	
 	$("#load_from_healthvault").append(button);			
 	
 }
 
-
+function createHealthHistory(pi) {
+		var other_diseases = [];
+		var re = /other/;
+		var self_history = personal_information['Health History'];
+		for (x in self_history) {
+			var disease_code = self_history[x]['Disease Code'];
+			var match = re.exec(disease_code)
+			if (match) {
+				add_other_disease(self_history[x]['Disease Name']);
+			}
+		}
+        for (x in personal_information) {
+            var o = personal_information[x];
+            if (o != undefined) {
+                if (o.gender != undefined) {
+                	if (o.cause_of_death_code != undefined) {
+                		var re = /other-/;
+                		if (re.exec(o.cause_of_death_code)) {
+                			personal_information[x]['cause_of_death_code'] = o.cause_of_death_code.replace("other-","")
+                		}
+                	}
+					for (var item in o['Health History']) {
+						var disease_code = o['Health History'][item]['Disease Code'];
+						if (re.exec(disease_code)) {
+							personal_information[x]['Health History'][item]['Disease Code'] = "other-undefined";
+							// personal_information[x]['Health History'][item]['Disease Code'] = o['Health History'][item]['Disease Code'].replace("other-","")
+							add_other_disease(o['Health History'][item]['Disease Name']);
+						}
+					}
+                }
+            }
+        }
+};
 
 function load_family_history(loaded_file) {
 	var reader = new FileReader();
@@ -787,7 +819,6 @@ function get_specific_health_issue (relative_name, data) {
 	var specific_health_issue = {"Disease Name": highLevelDiseaseName,
                   "Detailed Disease Name": detailedDiseaseName,
                   "Age At Diagnosis": ageAtDiagnosis};
-					console.log(specific_health_issue)
 
   if (diseaseCode) specific_health_issue["Disease Code"] = diseaseCodeSystem + "-" + diseaseCode;
   	if (diseaseCode=='undefined') { specific_health_issue["Disease Code"] = diseaseCodeSystem}
@@ -906,6 +937,7 @@ function get_age_at_diagnosis (xml_snippet) {
 
 function get_disease_code_from_detailed_disease(detailedDiseaseName) {
 	// Must search through every code until we have a match,
+
 	var disease_categories = Object.keys(diseases);
 	for (var i=0; i <	disease_categories.length; i++) {
 		disease_list = diseases[ disease_categories[i] ];
