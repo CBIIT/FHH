@@ -695,6 +695,7 @@
 		"dead":"No",
 		"alive":"Yes",
 		"unknown":"Unknown",
+		"Unknown":"Unknown",
 		"undefined":"Unknown",
 		"other_disease":"Other Diseases",
 		"collapse_table":"Collapse Table",

@@ -707,6 +707,7 @@
 		"dead":"No",
 		"alive":"Sì",
 		"unknown":"Sconosciuto",
+		"Unknown":"Sconosciuto",
 		"undefined":"Sconosciuto",
 		"other_disease":"Altre Malattie",
 		"collapse_table":"Tavolo Crollo",
