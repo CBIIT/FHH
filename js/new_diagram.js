@@ -397,10 +397,10 @@ function createDiagramDialog() {
             if ($.inArray(thename, allnames) == -1) {
                 allnames.push(thename);
                 if (tableOptions.selectedDisease==dcode) {
-	                array.push("<option id=" + disname + " value='" + dcode + "' selected>" + thename.replace("diseases:","") + "</option>")
+	                array.push("<option id=" + '"' + disname + '"' + " value=" + '"' + dcode + '"' + " selected>" + thename.replace("diseases:","") + "</option>")
                 }
                 else {
-	                array.push("<option id=" + disname + " value='" + dcode + "'>" + thename.replace("diseases:","") + "</option>")                	
+	                array.push("<option id=" + '"' + disname + '"' + " value=" + '"' + dcode + '"' + ">" + thename.replace("diseases:","") + "</option>")                	
                 }
             }
         });
@@ -431,10 +431,10 @@ function createDiagramDialog() {
                             if ($.inArray(thename, allnames) == -1) {
                                 allnames.push(thename);
 			                if (tableOptions.selectedDisease==dcode) {
-				                array.push("<option id=" + disname + " value='" + dcode + "' selected>" + thename.replace("diseases:","") + "</option>")
+				                array.push("<option id=" + '"' + disname + '"' + " value=" + '"' + dcode + '"' + " selected>" + thename.replace("diseases:","") + "</option>")
 			                }
 			                else {
-				                array.push("<option id=" + disname + " value='" + dcode + "'>" + thename.replace("diseases:","") + "</option>")                	
+				                array.push("<option id=" + '"' + disname + '"' + " value=" + '"' + dcode + '"' + ">" + thename.replace("diseases:","") + "</option>")                	
 			                }                                
                             }
                         });
