@@ -295,11 +295,13 @@ function 	bind_load_health_vault() {
 function createHealthHistory(pi) {
 		var other_diseases = [];
 		var re = /other/;
+		var re2 = /-undefined/;
+
 		var self_history = personal_information['Health History'];
 		for (x in self_history) {
 			var disease_code = self_history[x]['Disease Code'];
-			var match = re.exec(disease_code)
-			if (match) {
+			if (re.exec(disease_code) || re2.exec(disease_code)) {
+				personal_information['Health History'][x]['Disease Code'] = "other-undefined";
 				add_other_disease(self_history[x]['Disease Name']);
 			}
 		}
@@ -309,13 +311,14 @@ function createHealthHistory(pi) {
                 if (o.gender != undefined) {
                 	if (o.cause_of_death_code != undefined) {
                 		var re = /other-/;
-                		if (re.exec(o.cause_of_death_code)) {
-                			personal_information[x]['cause_of_death_code'] = o.cause_of_death_code.replace("other-","")
+                		if (re.exec(o.cause_of_death_code) || re2.exec(o.cause_of_death_code)) {
+                			console.log(o.cause_of_death_code)
+                			personal_information[x]['cause_of_death_code'] = o.cause_of_death_code.replace("other-","").replace("-undefined","")
                 		}
                 	}
 					for (var item in o['Health History']) {
 						var disease_code = o['Health History'][item]['Disease Code'];
-						if (re.exec(disease_code)) {
+						if (re.exec(disease_code) || re2.exec(disease_code)) {
 							personal_information[x]['Health History'][item]['Disease Code'] = "other-undefined";
 							// personal_information[x]['Health History'][item]['Disease Code'] = o['Health History'][item]['Disease Code'].replace("other-","")
 							add_other_disease(o['Health History'][item]['Disease Name']);
