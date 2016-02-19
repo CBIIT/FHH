@@ -1234,7 +1234,6 @@ function bind_family_member_submit_button_action () {
 					                          "Detailed Disease Name": family_member_information['detailed_cause_of_death'],
 					                          "Age At Diagnosis": estimated_death_age,
 					                          "Disease Code": code_temp};
-					                          console.log(specific_health_issue)
 					current_health_history.push(specific_health_issue);
 				} //changed Unknown to estimated_death_age Bug 103
 				if (other_new_disease) {
@@ -1622,9 +1621,7 @@ function add_new_family_history_row_title(table, name) {
 
 function add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable) {
 
-	// console.log(relationship_id.substr(0, relationship_id.indexOf('_')))
 	// Html requires that all blank fields have at least 1 char or it will not show border
-	// console.log(relationship_id)
 	var name;
 	if (family_member == null || family_member.name == null || 
 		  family_member.name == "" || $.isEmptyObject(family_member) ) name = "&nbsp;";
@@ -1937,7 +1934,6 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 			if (cod) {
 				var new_disease_selected = $("#cause_of_death_select").val();
 			}
-			console.log(new_disease_selected)
 
 			if ((detailed_disease && detailed_disease.length > 0)) {
 				if (detailed_disease.length == 1) {
@@ -1986,24 +1982,6 @@ function set_age_at_diagnosis_pulldown(instructions, age_at_diagnosis_select) {
 	return age_at_diagnosis_select;
 }
 
-// function add_other_disease(new_disease_name) {
-// 	// here we add new diseases to the personal history and diseases object //
-// 	if (!diseases['OTHER']) {
-// 		// create other diseases object //
-// 		diseases['OTHER'] = [];
-// 	}
-// 	// add new disease to other disease category //
-// 	else {
-// 		// search disease list for current disease and don't add if exists //
-
-// 		console.log(diseases['OTHER']['abc'])
-// 	}
-// 	diseases['OTHER'].push({"abbr":"","code":"other","name":new_disease_name,"system":"other"});
-// 	// $("#disease_choice_select").append('<option value="SOME"> Some Disease </option>');
-// 	$("#personal_health_information #disease_choice_select").append('<option value="' + new_disease_name + '">' + new_disease_name + '</option>');
-// 	$("#family_health_information #disease_choice_select").append('<option value="' + new_disease_name + '">' + new_disease_name + '</option>');
-// 	$("#update_family_member_health_history_dialog #cause_of_death_select").append('<option value="' + new_disease_name + '">' + new_disease_name + '</option>');
-// }
 
 
 function add_other_disease(new_disease_name) {
@@ -2044,6 +2022,7 @@ function add_disease() {
 	var age_at_diagnosis = $(this).parent().parent().find("#age_at_diagnosis_select").val();
 	var disease_detail = $.t("diseases:" + disease_code, disease_name);
 
+	var other_disease_label = $(this).parent().parent().find("#disease_choice_select :selected").attr('label');
 
 	
 	if (disease_name == null || disease_name == '' || disease_name == 'not_picked' || disease_name == 'diseases:null') {
@@ -2062,7 +2041,6 @@ function add_disease() {
 	}
 	
 	var new_disease_name = $(this).parent().parent().find("#new_disease_name").val();
-	
 	if (disease_name == 'other') {
 		
 		if (new_disease_name == null || new_disease_name != "") {
@@ -2078,11 +2056,12 @@ function add_disease() {
 			return;		
 		}
 	}
+
 	//remove else
 
 	else {
 		// disease is other disease and can not be looked up //
-		if (!disease_code||disease_code==null || disease_code == 'null' || disease_code == 'other') {
+		if (!disease_code||disease_code==null || disease_code == 'null' || disease_code == 'other' || other_disease_label) {
 			disease_code = 'other'; disease_detail = disease_name;
 		}	
 	}
