@@ -24,7 +24,7 @@
 		"done" : "done"
 	},
 	"fhh_js": {
-		"invalid_cause_of_death" : "Please enter a valid cause of death",	
+		"invalid_cause_of_death" : "Please Enter a Disease Name.",	
 		"ashkenazi" : "Why Ask About Ashkenazi?",
 		"pi":"Enter Personal Information",
 		"select_age": "Select Estimated Age",
