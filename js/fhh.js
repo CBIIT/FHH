@@ -1937,7 +1937,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 			if (cod) {
 				var new_disease_selected = $("#cause_of_death_select").val();
 			}
-
+			console.log(new_disease_selected)
 
 			if ((detailed_disease && detailed_disease.length > 0)) {
 				if (detailed_disease.length == 1) {
@@ -1957,7 +1957,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 			}
 			else {
 					detailed_disease_select.hide();
-					detailed_disease_select.append("<option value='" + new_disease_selected + "'>" + new_disease_selected + "</option>");	
+					detailed_disease_select.append("<option value="+ '"' + new_disease_selected + '">' + new_disease_selected + "</option>");	
 			}
 		}
 	});
