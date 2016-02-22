@@ -1168,6 +1168,7 @@ function bind_family_member_submit_button_action () {
 			family_member_information['is_alive'] = 'dead';
 				var cause_of_death_code = $('#detailed_cause_of_death_select').val();
 				var do_not_translate = false;
+				var other_disease_label = $("#cause_of_death_select :selected").attr('label');
 				if (cause_of_death_code != null && cause_of_death_code != "") {
 					detailed_cause_of_death = $.t($('#detailed_cause_of_death_select').val());
 				} else {
@@ -1194,7 +1195,8 @@ function bind_family_member_submit_button_action () {
 				
 				var re = /SNOMED_CT/; 
 				var cause_of_death_code_is_snomed = re.exec(cause_of_death_code); 
-				if (cause_of_death == 'other') {
+				if (cause_of_death == 'other') {		
+
 					family_member_information['detailed_cause_of_death'] = $("#new_disease_name").val();
 				}
 				else {
@@ -1218,6 +1220,7 @@ function bind_family_member_submit_button_action () {
 				// Check to see if the cause of death code is already in history.
 				
 				var new_disease = true;
+
 				for (var i=0; i< current_health_history.length;i++) {
 					if (current_health_history[i]['Disease Code']=='other' || current_health_history[i]['Disease Code']=='other-undefined') {
 						if (family_member_information['cause_of_death_code'] == current_health_history[i]['Disease Name']) {
@@ -1228,8 +1231,12 @@ function bind_family_member_submit_button_action () {
 					if (family_member_information['cause_of_death_code'] == current_health_history[i]['Disease Code']) new_disease=false;
 				}
 				if (new_disease && cause_of_death != null && cause_of_death_code != null && cause_of_death_code != 'not_picked') {
+
 					if (cause_of_death=='other') { cod_temp = cause_of_death_code; code_temp = 'other-undefined' }
 					else { cod_temp = cause_of_death_code; code_temp = cause_of_death_code }
+					if (other_disease_label=='other_disease') {
+						code_temp = 'other'
+					}
 					specific_health_issue = {"Disease Name": cod_temp,
 					                          "Detailed Disease Name": family_member_information['detailed_cause_of_death'],
 					                          "Age At Diagnosis": estimated_death_age,
@@ -1953,7 +1960,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 			}
 			else {
 					detailed_disease_select.hide();
-					detailed_disease_select.append("<option value="+ '"' + new_disease_selected + '">' + new_disease_selected + "</option>");	
+					detailed_disease_select.append("<option value="+ '"' + new_disease_selected.replace('"',"&quot;") + '">' + new_disease_selected + "</option>");	
 			}
 		}
 	});
@@ -2008,9 +2015,9 @@ function add_other_disease(new_disease_name) {
 	if (!match) {
 		// add new disease to other disease category //
 		diseases['OTHER'].push({"abbr":"","code":"other","name":new_disease_name,"system":"other"});
-		$("#personal_health_information #disease_choice_select").append('<option value="' + new_disease_name + '" label="other_disease">' + new_disease_name + '</option>');
-		$("#family_health_information #disease_choice_select").append('<option value="' + new_disease_name + '" label="other_disease">' + new_disease_name + '</option>');
-		$("#update_family_member_health_history_dialog #cause_of_death_select").append('<option value="' + new_disease_name + '" label="other_disease">' + new_disease_name + '</option>');
+		$("#personal_health_information #disease_choice_select").append('<option value="' + new_disease_name.replace('"',"&quot;") + '" label="other_disease">' + new_disease_name + '</option>');
+		$("#family_health_information #disease_choice_select").append('<option value="' + new_disease_name.replace('"',"&quot;") + '" label="other_disease">' + new_disease_name + '</option>');
+		$("#update_family_member_health_history_dialog #cause_of_death_select").append('<option value="' + new_disease_name.replace('"',"&quot;") + '" label="other_disease">' + new_disease_name + '</option>');
 	}
 };
 

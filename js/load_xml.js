@@ -312,7 +312,6 @@ function createHealthHistory(pi) {
                 	if (o.cause_of_death_code != undefined) {
                 		var re = /other-/;
                 		if (re.exec(o.cause_of_death_code) || re2.exec(o.cause_of_death_code)) {
-                			console.log(o.cause_of_death_code)
                 			personal_information[x]['cause_of_death_code'] = o.cause_of_death_code.replace("other-","").replace("-undefined","")
                 		}
                 	}
@@ -824,8 +823,9 @@ function get_specific_health_issue (relative_name, data) {
                   "Age At Diagnosis": ageAtDiagnosis};
 
   if (diseaseCode) specific_health_issue["Disease Code"] = diseaseCodeSystem + "-" + diseaseCode;
-  	if (diseaseCode=='undefined') { specific_health_issue["Disease Code"] = diseaseCodeSystem}
-  	if (diseaseCodeSystem + "-" + diseaseCode == 'other-undefined') {
+  	// if (diseaseCode=='undefined') { specific_health_issue["Disease Code"] = diseaseCodeSystem}
+  	if (diseaseCode=='undefined') { specific_health_issue["Disease Code"] = 'other-undefined'}
+  	if (diseaseCodeSystem + "-" + diseaseCode == 'other-undefined' || diseaseCode == 'undefined') {
   		add_other_disease(detailedDiseaseName);
   	}
 	return specific_health_issue;

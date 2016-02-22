@@ -175,7 +175,6 @@ function add_characteristics(relationship_type, relative, person) {
 
 // translate all diseases in the person's health history and add to existing disease object //
 function addTranslatedDiseaseName(diseases) {
-	console.log(diseases)
 	for (key in diseases) {
 		if (diseases[key]['Disease Code']=='other'||diseases[key]['Disease Code']=='other-undefined') {
 			diseases[key]['translatedDiseaseName']=diseases[key]['Detailed Disease Name'];	
@@ -397,10 +396,10 @@ function createDiagramDialog() {
             if ($.inArray(thename, allnames) == -1) {
                 allnames.push(thename);
                 if (tableOptions.selectedDisease==dcode) {
-	                array.push("<option id=" + '"' + disname + '"' + " value=" + '"' + dcode + '"' + " selected>" + thename.replace("diseases:","") + "</option>")
+	                array.push("<option id=" + '"' + disname.replace('"',"&quot;") + '"' + " value=" + '"' + dcode.replace('"',"&quot;") + '"' + " selected>" + thename.replace("diseases:","") + "</option>")
                 }
                 else {
-	                array.push("<option id=" + '"' + disname + '"' + " value=" + '"' + dcode + '"' + ">" + thename.replace("diseases:","") + "</option>")                	
+	                array.push("<option id=" + '"' + disname.replace('"',"&quot;") + '"' + " value=" + '"' + dcode.replace('"',"&quot;") + '"' + ">" + thename.replace("diseases:","") + "</option>")                	
                 }
             }
         });
@@ -431,10 +430,10 @@ function createDiagramDialog() {
                             if ($.inArray(thename, allnames) == -1) {
                                 allnames.push(thename);
 			                if (tableOptions.selectedDisease==dcode) {
-				                array.push("<option id=" + '"' + disname + '"' + " value=" + '"' + dcode + '"' + " selected>" + thename.replace("diseases:","") + "</option>")
+				                array.push("<option id=" + '"' + disname.replace('"',"&quot;") + '"' + " value=" + '"' + dcode.replace('"',"&quot;") + '"' + " selected>" + thename.replace("diseases:","") + "</option>")
 			                }
 			                else {
-				                array.push("<option id=" + '"' + disname + '"' + " value=" + '"' + dcode + '"' + ">" + thename.replace("diseases:","") + "</option>")                	
+				                array.push("<option id=" + '"' + disname.replace('"',"&quot;") + '"' + " value=" + '"' + dcode.replace('"',"&quot;") + '"' + ">" + thename.replace("diseases:","") + "</option>")                	
 			                }                                
                             }
                         });
