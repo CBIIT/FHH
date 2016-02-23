@@ -510,9 +510,9 @@ function bind_create_new_personal_history_button_action () {
 
 		// delete other diseases and reset dropdowns //
 		delete diseases.OTHER
-		$("#personal_health_information #disease_choice_select option[label='other_disease']").remove()
-		$("#family_health_information #disease_choice_select option[label='other_disease']").remove()
-		$("#update_family_member_health_history_dialog #cause_of_death_select option[label='other_disease']").remove()
+		$("#personal_health_information #disease_choice_select option[class='other_disease']").remove()
+		$("#family_health_information #disease_choice_select option[class='other_disease']").remove()
+		$("#update_family_member_health_history_dialog #cause_of_death_select option[class='other_disease']").remove()
 
 		$( "#add_personal_information_dialog" ).dialog( "open" );	
 	}
@@ -1168,7 +1168,7 @@ function bind_family_member_submit_button_action () {
 			family_member_information['is_alive'] = 'dead';
 				var cause_of_death_code = $('#detailed_cause_of_death_select').val();
 				var do_not_translate = false;
-				var other_disease_label = $("#cause_of_death_select :selected").attr('label');
+				var other_disease_label = $("#cause_of_death_select :selected").attr('class');
 				if (cause_of_death_code != null && cause_of_death_code != "") {
 					detailed_cause_of_death = $.t($('#detailed_cause_of_death_select').val());
 				} else {
@@ -2015,9 +2015,9 @@ function add_other_disease(new_disease_name) {
 	if (!match) {
 		// add new disease to other disease category //
 		diseases['OTHER'].push({"abbr":"","code":"other","name":new_disease_name,"system":"other"});
-		$("#personal_health_information #disease_choice_select").append('<option value="' + new_disease_name.replace(/\"/g,"&quot;") + '" label="other_disease">' + new_disease_name + '</option>');
-		$("#family_health_information #disease_choice_select").append('<option value="' + new_disease_name.replace(/\"/g,"&quot;") + '" label="other_disease">' + new_disease_name + '</option>');
-		$("#update_family_member_health_history_dialog #cause_of_death_select").append('<option value="' + new_disease_name.replace(/\"/g,"&quot;") + '" label="other_disease">' + new_disease_name + '</option>');
+		$("#personal_health_information #disease_choice_select").append('<option value="' + new_disease_name.replace(/\"/g,"&quot;") + '" class="other_disease">' + new_disease_name + '</option>');
+		$("#family_health_information #disease_choice_select").append('<option value="' + new_disease_name.replace(/\"/g,"&quot;") + '" class="other_disease">' + new_disease_name + '</option>');
+		$("#update_family_member_health_history_dialog #cause_of_death_select").append('<option value="' + new_disease_name.replace(/\"/g,"&quot;") + '" class="other_disease">' + new_disease_name + '</option>');
 	}
 };
 
@@ -2029,7 +2029,7 @@ function add_disease() {
 	var age_at_diagnosis = $(this).parent().parent().find("#age_at_diagnosis_select").val();
 	var disease_detail = $.t("diseases:" + disease_code, disease_name);
 
-	var other_disease_label = $(this).parent().parent().find("#disease_choice_select :selected").attr('label');
+	var other_disease_label = $(this).parent().parent().find("#disease_choice_select :selected").attr('class');
 
 	
 	if (disease_name == null || disease_name == '' || disease_name == 'not_picked' || disease_name == 'diseases:null') {
