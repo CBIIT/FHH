@@ -225,7 +225,7 @@ function add_relative(relationship_type, relative) {
 }
 
 function push_all_relatives_of_type(diagram_data, relationship_type) {
-	var pi = personal_information;
+	var pi = jQuery.extend(true,{},personal_information);
 	var i = 0;
 	var relative = pi[relationship_type + "_" + i];
 	while (relative != null) {
@@ -276,7 +276,7 @@ function add_non_blood_spouse(relative, new_diagram_relative, num) {
 }
 
 function get_parents (relationship_type, relative) {
-	var pi = personal_information;
+	var pi = jQuery.extend(true,{},personal_information);
 	var p = {};
 	switch (relationship_type) {
 		case "self": 
@@ -327,7 +327,7 @@ function get_parents (relationship_type, relative) {
 }
 
 function get_husband(relationship_type, relative) {
-	var pi = personal_information;
+	var pi = jQuery.extend(true,{},personal_information);
 	switch (relationship_type) {
 		case "mother": return pi.father.id.hashCode();	
 		case "maternal_grandmother": return pi.maternal_grandfather.id.hashCode();	
@@ -337,7 +337,7 @@ function get_husband(relationship_type, relative) {
 }
 
 function get_wife(relationship_type, relative) {
-	var pi = personal_information;
+	var pi = jQuery.extend(true,{},personal_information);
 	switch (relationship_type) {
 		case "father": return pi.mother.id.hashCode();	
 		case "maternal_grandfather": return pi.maternal_grandmother.id.hashCode();	
