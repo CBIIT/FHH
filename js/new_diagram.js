@@ -57,7 +57,7 @@ function load_diagram() {
 
 function load_data() {
 	var diagram_data = [];
-	var pi = personal_information;
+	var pi = jQuery.extend(true,{},personal_information)
 	var mom_key = pi.mother.id.hashCode();
 	var dad_key = pi.father.id.hashCode();
 	var proband = add_relative("self", pi);
@@ -396,10 +396,10 @@ function createDiagramDialog() {
             if ($.inArray(thename, allnames) == -1) {
                 allnames.push(thename);
                 if (tableOptions.selectedDisease==dcode) {
-	                array.push("<option id=" + '"' + disname.replace('"',"&quot;") + '"' + " value=" + '"' + dcode.replace('"',"&quot;") + '"' + " selected>" + thename.replace("diseases:","") + "</option>")
+	                array.push("<option id=" + '"' + disname.replace(/\"/g,"&quot;") + '"' + " value=" + '"' + dcode.replace(/\"/g,"&quot;") + '"' + " selected>" + thename.replace("diseases:","") + "</option>")
                 }
                 else {
-	                array.push("<option id=" + '"' + disname.replace('"',"&quot;") + '"' + " value=" + '"' + dcode.replace('"',"&quot;") + '"' + ">" + thename.replace("diseases:","") + "</option>")                	
+	                array.push("<option id=" + '"' + disname.replace(/\"/g,"&quot;") + '"' + " value=" + '"' + dcode.replace(/\"/g,"&quot;") + '"' + ">" + thename.replace("diseases:","") + "</option>")                	
                 }
             }
         });
@@ -430,10 +430,10 @@ function createDiagramDialog() {
                             if ($.inArray(thename, allnames) == -1) {
                                 allnames.push(thename);
 			                if (tableOptions.selectedDisease==dcode) {
-				                array.push("<option id=" + '"' + disname.replace('"',"&quot;") + '"' + " value=" + '"' + dcode.replace('"',"&quot;") + '"' + " selected>" + thename.replace("diseases:","") + "</option>")
+				                array.push("<option id=" + '"' + disname.replace(/\"/g,"&quot;") + '"' + " value=" + '"' + dcode.replace(/\"/g,"&quot;") + '"' + " selected>" + thename.replace("diseases:","") + "</option>")
 			                }
 			                else {
-				                array.push("<option id=" + '"' + disname.replace('"',"&quot;") + '"' + " value=" + '"' + dcode.replace('"',"&quot;") + '"' + ">" + thename.replace("diseases:","") + "</option>")                	
+				                array.push("<option id=" + '"' + disname.replace(/\"/g,"&quot;") + '"' + " value=" + '"' + dcode.replace(/\"/g,"&quot;") + '"' + ">" + thename.replace("diseases:","") + "</option>")                	
 			                }                                
                             }
                         });

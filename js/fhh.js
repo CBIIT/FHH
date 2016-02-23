@@ -1960,7 +1960,7 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 			}
 			else {
 					detailed_disease_select.hide();
-					detailed_disease_select.append("<option value="+ '"' + new_disease_selected.replace('"',"&quot;") + '">' + new_disease_selected + "</option>");	
+					detailed_disease_select.append("<option value="+ '"' + new_disease_selected.replace(/\"/g,"&quot;") + '">' + new_disease_selected + "</option>");	
 			}
 		}
 	});
@@ -2015,9 +2015,9 @@ function add_other_disease(new_disease_name) {
 	if (!match) {
 		// add new disease to other disease category //
 		diseases['OTHER'].push({"abbr":"","code":"other","name":new_disease_name,"system":"other"});
-		$("#personal_health_information #disease_choice_select").append('<option value="' + new_disease_name.replace('"',"&quot;") + '" label="other_disease">' + new_disease_name + '</option>');
-		$("#family_health_information #disease_choice_select").append('<option value="' + new_disease_name.replace('"',"&quot;") + '" label="other_disease">' + new_disease_name + '</option>');
-		$("#update_family_member_health_history_dialog #cause_of_death_select").append('<option value="' + new_disease_name.replace('"',"&quot;") + '" label="other_disease">' + new_disease_name + '</option>');
+		$("#personal_health_information #disease_choice_select").append('<option value="' + new_disease_name.replace(/\"/g,"&quot;") + '" label="other_disease">' + new_disease_name + '</option>');
+		$("#family_health_information #disease_choice_select").append('<option value="' + new_disease_name.replace(/\"/g,"&quot;") + '" label="other_disease">' + new_disease_name + '</option>');
+		$("#update_family_member_health_history_dialog #cause_of_death_select").append('<option value="' + new_disease_name.replace(/\"/g,"&quot;") + '" label="other_disease">' + new_disease_name + '</option>');
 	}
 };
 
