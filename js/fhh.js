@@ -1096,7 +1096,7 @@ function bind_family_member_submit_button_action () {
 
 
 		// check if cause of death is a new disease and if the new disease is blank throw error message //
-		if ($("#is_person_alive").val()=='dead' && $("#cause_of_death_select").val()=='other' && $("#new_disease_name").val()=='') {
+		if ($("#is_person_alive").val()=='dead' && $("#cause_of_death_select").val()=='other' && $("#new_disease_name_cod").val()=='') {
 			alert ($.t("fhh_js.invalid_cause_of_death"));	
 			return false;
 		}
@@ -1175,8 +1175,8 @@ function bind_family_member_submit_button_action () {
 					other_new_disease = true;
 
 					if ($("#cause_of_death_select").val()=='other') {
-						cause_of_death_code = 	$("#new_disease_name").val();
-						if ($("#new_disease_name").val() != "") detailed_cause_of_death = $("#new_disease_name").val();
+						cause_of_death_code = 	$("#new_disease_name_cod").val();
+						if ($("#new_disease_name_cod").val() != "") detailed_cause_of_death = $("#new_disease_name_cod").val();
 			 			else detailed_cause_of_death = cause_of_death;
 		 			}
 		 			else {
@@ -1197,7 +1197,7 @@ function bind_family_member_submit_button_action () {
 				var cause_of_death_code_is_snomed = re.exec(cause_of_death_code); 
 				if (cause_of_death == 'other') {		
 
-					family_member_information['detailed_cause_of_death'] = $("#new_disease_name").val();
+					family_member_information['detailed_cause_of_death'] = $("#new_disease_name_cod").val();
 				}
 				else {
 					if (do_not_translate) {
@@ -1922,13 +1922,28 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 	disease_select.on('change', function() {	
 
 		if ($(this).find("option:selected" ).val() == 'other') {
-			
-			if ( $("#new_disease_name").length == 0)
-				$(this).after($("<span id='new_disease'><INPUT id='new_disease_name' type='text' size='20'></INPUT></span>"));
-				$("#detailed_cause_of_death_select").hide();
-				detailed_disease_select.empty().hide();	
-		} else {
-			$("#new_disease_name").remove();
+			if (cod) {
+				if ( $("#new_disease_name_cod").length == 0) {
+					$(this).after($("<span id='new_disease'><INPUT id='new_disease_name_cod' type='text' size='20'></INPUT></span>"));
+					$("#detailed_cause_of_death_select").hide();
+					detailed_disease_select.empty().hide();	
+				}				
+			}
+			else {
+				if ( $("#new_disease_name").length == 0) {
+					$(this).after($("<span id='new_disease'><INPUT id='new_disease_name' type='text' size='20'></INPUT></span>"));
+					detailed_disease_select.empty().hide();	
+				}				
+			}			
+
+		} 
+		else {
+			if (cod) {
+				$("#new_disease_name_cod").remove();
+			}
+			else {
+				$("#new_disease_name").remove();
+			}
 			var chosen_disease_name = $.trim($(this).find("option:selected" ).val());
 			var disease_box = disease_select.parent();
 
@@ -2328,6 +2343,7 @@ function clear_family_member_health_history_dialog() {
 
 function clear_and_set_current_family_member_health_history_dialog(family_member) {
 	$("#new_disease_name").remove();
+	$("#new_disease_name_cod").remove();
 	var relationship_name = get_relationship_from_relationship_id(family_member.relationship);
 	$("#family_member_parent_id").val(family_member.parent_id);
 	$("#family_member_relationship").empty().append($.t("fhh_js." + relationship_name));
@@ -2385,7 +2401,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		$("#cause_of_death_select").val(cause_of_death);
 		$("#cause_of_death_select").trigger("change");
 		if (family_member.detailed_cause_of_death) {
-			if (family_member.cause_of_death == 'other') $("#new_disease_name").val(family_member.detailed_cause_of_death);
+			if (family_member.cause_of_death == 'other') $("#new_disease_name_cod").val(family_member.detailed_cause_of_death);
 			else {
 				var code = family_member.cause_of_death_code;
 				$("#detailed_cause_of_death_select").show().val(code);
