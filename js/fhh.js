@@ -1164,6 +1164,11 @@ function bind_family_member_submit_button_action () {
 				if (family_member_information['age'] != null) delete family_member_information['age'];
 			}
 		} else if (alive_flag == 'dead') {	
+
+			var cod_disease;
+			if ($("#new_disease_name_cod").val()!="" && $("#new_disease_name_cod").val() != undefined) {
+				cod_disease = does_disease_exist($("#new_disease_name_cod").val())[1];
+			}
 			var other_new_disease = false;	
 			family_member_information['is_alive'] = 'dead';
 				var cause_of_death_code = $('#detailed_cause_of_death_select').val();
@@ -1175,8 +1180,8 @@ function bind_family_member_submit_button_action () {
 					other_new_disease = true;
 
 					if ($("#cause_of_death_select").val()=='other') {
-						cause_of_death_code = 	$("#new_disease_name_cod").val();
-						if ($("#new_disease_name_cod").val() != "") detailed_cause_of_death = $("#new_disease_name_cod").val();
+						cause_of_death_code = cod_disease;
+						if ($("#new_disease_name_cod").val() != "") detailed_cause_of_death = cod_disease;
 			 			else detailed_cause_of_death = cause_of_death;
 		 			}
 		 			else {
@@ -1197,7 +1202,7 @@ function bind_family_member_submit_button_action () {
 				var cause_of_death_code_is_snomed = re.exec(cause_of_death_code); 
 				if (cause_of_death == 'other') {		
 
-					family_member_information['detailed_cause_of_death'] = $("#new_disease_name_cod").val();
+					family_member_information['detailed_cause_of_death'] = cod_disease;
 				}
 				else {
 					if (do_not_translate) {
@@ -2018,12 +2023,9 @@ function add_other_disease(new_disease_name) {
 
 	else {
 		// search disease list for current disease and don't add if exists. set match to 1 if there is a match //
-		for (var i=0;i<diseases['OTHER'].length;i++) {
-			if (new_disease_name==diseases['OTHER'][i]['name']) {
-				match = 1;
-				break;
-			}
-		}
+		var existing_disease = does_disease_exist(new_disease_name);
+		var match = existing_disease[0];
+		var diseaseName = existing_disease[1];
 	}
 
 	// if no match, add disease to diseases object and dropdowns //
@@ -2036,6 +2038,18 @@ function add_other_disease(new_disease_name) {
 	}
 };
 
+function does_disease_exist(new_disease_name) {
+	var match = 0;
+	var diseaseName = new_disease_name;
+	for (var i=0;i<diseases['OTHER'].length;i++) {
+		if (new_disease_name.toLowerCase()==diseases['OTHER'][i]['name'].toLowerCase()) {
+			match = 1;
+			diseaseName = diseases['OTHER'][i]['name'];
+			break;
+		}
+	}	
+	return [match, diseaseName];
+}
 
 function add_disease() {
 //	alert($(this).parent().parent().parent().html());
@@ -2068,10 +2082,9 @@ function add_disease() {
 		if (new_disease_name == null || new_disease_name != "") {
 			// add disease to disease object //
 			add_other_disease(new_disease_name);
-			
 			disease_code = "other-undefined";
-			disease_name = new_disease_name;
-			disease_detail = new_disease_name;		
+			disease_name = does_disease_exist(new_disease_name)[1];
+			disease_detail = disease_name;		
 
 		} else {
 			alert ($.t("fhh_js.disease_name_enter"));
