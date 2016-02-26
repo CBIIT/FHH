@@ -632,6 +632,10 @@ function add_diseases(tag, diseases) {
 		var disease_name = diseases[i]["Disease Name"];
 		var detailed_disease_name = diseases[i]["Detailed Disease Name"];
 		var disease_code_and_system = diseases[i]["Disease Code"];
+		if (disease_code_and_system == 'other' || disease_code_and_system == 'other-undefined') {
+			disease_code_and_system = 'SNOMED_CT-OTHER';
+		}
+		console.log(disease_code_and_system, diseases[i]["Detailed Disease Name"])
 		if (!detailed_disease_name) detailed_disease_name = disease_name;
 		var age_at_diagnosis = diseases[i]["Age At Diagnosis"];
 		
@@ -753,7 +757,6 @@ function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 		code_tag.setAttribute("displayName", cause_of_death);
 		code_tag.setAttribute("originalText", cause_of_death);
 	}	
-	console.log(code_system)
 	code_tag.setAttribute("codeSystemName", code_system);
 
 //	var cause_of_death_code = get_disease_code_from_detailed_disease(cause_of_death);
@@ -763,7 +766,6 @@ function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 //	alert (cause_of_death_code);
 	if (cause_of_death_code.substring(0, 10) == "SNOMED_CT-") cause_of_death_code = cause_of_death_code.substring(0, 10)
 	if (cause_of_death_code == null) cause_of_death_code = "OTHER";
-	console.log(temp_cause_of_death)
 
 	code_tag.setAttribute("code", cause_of_death_code);
 	observation_tag.appendChild(code_tag);

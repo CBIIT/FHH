@@ -296,9 +296,10 @@ function createHealthHistory(pi) {
 		var other_diseases = [];
 		var re = /other/;
 		var re2 = /-undefined/;
+		var re3 = /SNOMED_CT-OTHER/;
 
 		var self_history = personal_information['Health History'];
-		for (x in self_history) {
+		for (x in self_history) {			
 			var disease_code = self_history[x]['Disease Code'];
 			if (re.exec(disease_code) || re2.exec(disease_code)) {
 				personal_information['Health History'][x]['Disease Code'] = "other-undefined";
@@ -798,7 +799,6 @@ function get_specific_health_issue (relative_name, data) {
 	var diseaseCodeSystem = $(data).attr('codeSystemName');
 	if (diseaseCodeSystem == 'undefined') diseaseCodeSystem = 'SNOMED_CT'; // Default if not found is SNOMED_CT
 	if (diseaseCodeSystem == 'SNOMED COMPLETE') diseaseCodeSystem = 'SNOMED_CT'; // For backwards compatibility
-
 	highLevelDiseaseName = 'other';
 //	highLevelDiseaseName = get_high_level_disease_name_from_disease_code(diseaseCode)
 	if (highLevelDiseaseName == 'other') highLevelDiseaseName = (detailedDiseaseName);
@@ -817,17 +817,20 @@ function get_specific_health_issue (relative_name, data) {
 		diseaseCode = get_disease_code_from_detailed_disease(detailedDiseaseName);
 		diseaseCodeSystem = 'SNOMED_CT'; // The default
 	}
-
 	var specific_health_issue = {"Disease Name": highLevelDiseaseName,
                   "Detailed Disease Name": detailedDiseaseName,
                   "Age At Diagnosis": ageAtDiagnosis};
 
   if (diseaseCode) specific_health_issue["Disease Code"] = diseaseCodeSystem + "-" + diseaseCode;
   	// if (diseaseCode=='undefined') { specific_health_issue["Disease Code"] = diseaseCodeSystem}
-  	if (diseaseCode=='undefined') { specific_health_issue["Disease Code"] = 'other-undefined'}
-  	if (diseaseCodeSystem + "-" + diseaseCode == 'other-undefined' || diseaseCode == 'undefined') {
+  	// if (diseaseCode=='undefined') { specific_health_issue["Disease Code"] = 'other-undefined'}
+  	// if (diseaseCodeSystem + "-" + diseaseCode == 'other-undefined' || diseaseCode == 'undefined') {
+  	// 	add_other_disease(detailedDiseaseName);
+  	// }
+  	if (diseaseCode=='OTHER') { specific_health_issue["Disease Code"] = 'other-undefined'}
+  	if (diseaseCodeSystem + "-" + diseaseCode == 'SNOMED_CT-OTHER' || diseaseCode == 'undefined') {
   		add_other_disease(detailedDiseaseName);
-  	}
+  	}  	
 	return specific_health_issue;
 }
 
