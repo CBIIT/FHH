@@ -188,7 +188,8 @@ function googlePostAuthSave(authResult) {
 		    'title': filename,
 		    'mimeType': content_type
 		  };
-		
+			console.log(output_string)
+			window.base64Data = output_string;		
 			var base64Data = btoa(output_string);
 			var multipartRequestBody =
 				delimiter +
@@ -284,9 +285,10 @@ function add_root_information(root) {
 	id_tag = doc.createElement("id");
 	id_tag.setAttribute("extention", "gov.hhs.fhh:" + XML_FORMAT_ID);
 	root.appendChild(id_tag);
-	effectiveTime_tag = doc.createElement("effectiveTime");
 	date = new Date();
-	effectiveTime_tag.setAttribute("value", date.toLocaleDateString());
+	formatted_date = date.getMonth()+1+"/"+date.getDate()+"/"+date.getFullYear();
+	effectiveTime_tag = doc.createElement("effectiveTime");
+	effectiveTime_tag.setAttribute("value",formatted_date);
 	root.appendChild(effectiveTime_tag);
 	methodCode_tag = doc.createElement("methodCode");
 	methodCode_tag.setAttribute("displayName", TOOL_NAME);
