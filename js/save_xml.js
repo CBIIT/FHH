@@ -188,7 +188,6 @@ function googlePostAuthSave(authResult) {
 		    'title': filename,
 		    'mimeType': content_type
 		  };
-			console.log(output_string)
 			window.base64Data = output_string;		
 			var base64Data = btoa(output_string);
 			var multipartRequestBody =
@@ -262,7 +261,6 @@ function bind_save_heath_vault() {
 		window.open(url_w_params, "", "width=1000, height=600, scrollbars=yes");
 		timer = setInterval(function(){
 			var st = window.localStorage.getItem("HV Status");
-			console.log("Checking status of save: " + st);
 			if (st != null && st != "") {
 				$("#save_personal_history_dialog").dialog("close");
 				if (st == "Failed") {
@@ -635,7 +633,6 @@ function add_diseases(tag, diseases) {
 		if (disease_code_and_system == 'other' || disease_code_and_system == 'other-undefined') {
 			disease_code_and_system = 'SNOMED_CT-OTHER';
 		}
-		console.log(disease_code_and_system, diseases[i]["Detailed Disease Name"])
 		if (!detailed_disease_name) detailed_disease_name = disease_name;
 		var age_at_diagnosis = diseases[i]["Age At Diagnosis"];
 		
@@ -732,6 +729,12 @@ function add_death_age(tag, estimated_death_age) {
 }
 
 function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
+	var is_other_disease;
+
+	if (cause_of_death_code==cause_of_death) {
+		is_other_disease = true;
+	}
+
 	if (cause_of_death == null) return;
 	var temp_cause_of_death = cause_of_death_code;
 	var observation_tag = doc.createElement("clinicalObservation");
@@ -746,7 +749,7 @@ function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 		else {
 			code_tag.setAttribute("displayName", cause_of_death);
 			code_tag.setAttribute("originalText", cause_of_death);			
-			code_system = "other";
+			code_system = "SNOMED_CT";
 		}
 
 
@@ -767,7 +770,12 @@ function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 	if (cause_of_death_code.substring(0, 10) == "SNOMED_CT-") cause_of_death_code = cause_of_death_code.substring(0, 10)
 	if (cause_of_death_code == null) cause_of_death_code = "OTHER";
 
-	code_tag.setAttribute("code", cause_of_death_code);
+	if (is_other_disease) {
+		code_tag.setAttribute("code", "OTHER");
+	}
+	else {
+		code_tag.setAttribute("code", cause_of_death_code);		
+	}
 	observation_tag.appendChild(code_tag);
 	
 	var sourceOf_tag = doc.createElement("sourceOf");
@@ -776,9 +784,14 @@ function add_cause_of_death(tag, cause_of_death_code, cause_of_death) {
 	newcode_tag.setAttribute("displayName", "death");
 	var re = /SNOMED_CT/;
 
-	newcode_tag.setAttribute("codeSystemName", "SNOMED_CT");
 
-	newcode_tag.setAttribute("code", SNOMED_CODE.DEATH);
+	newcode_tag.setAttribute("codeSystemName", "SNOMED_CT");
+	if (is_other_disease) {
+		newcode_tag.setAttribute("code", "OTHER");
+	}
+	else {
+		newcode_tag.setAttribute("code", SNOMED_CODE.DEATH);
+	}
 	sourceOf_tag.appendChild(newcode_tag);
 }
 

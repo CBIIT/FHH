@@ -312,13 +312,14 @@ function createHealthHistory(pi) {
                 if (o.gender != undefined) {
                 	if (o.cause_of_death_code != undefined) {
                 		var re = /other-/;
-                		if (re.exec(o.cause_of_death_code) || re2.exec(o.cause_of_death_code)) {
-                			personal_information[x]['cause_of_death_code'] = o.cause_of_death_code.replace("other-","").replace("-undefined","")
+                		var snomed_re = /SNOMED_CT-EMPTY/;
+                		if (re.exec(o.cause_of_death_code) || snomed_re.exec(o.cause_of_death_code)) {
+                			personal_information[x]['cause_of_death_code'] = o.detailed_cause_of_death;
                 		}
                 	}
 					for (var item in o['Health History']) {
 						var disease_code = o['Health History'][item]['Disease Code'];
-						if (re.exec(disease_code) || re2.exec(disease_code)) {
+						if (re.exec(disease_code) || re2.exec(disease_code) || re3.exec(disease_code) || snomed_re.exec(disease_code)) {
 							personal_information[x]['Health History'][item]['Disease Code'] = "other-undefined";
 							// personal_information[x]['Health History'][item]['Disease Code'] = o['Health History'][item]['Disease Code'].replace("other-","")
 							add_other_disease(o['Health History'][item]['Disease Name']);
@@ -539,7 +540,7 @@ function parse_xml(data) {
 			var detailed_cause_of_death = death.parent().parent().children("code").attr("displayName");
 			var cause_of_death_code = death.parent().parent().children("code").attr("code");
 			var cause_of_death_system = death.parent().parent().children("code").attr("codeSystemName");
-			var is_other_cause_of_death = cause_of_death_code==detailed_cause_of_death;
+			var is_other_cause_of_death = cause_of_death_code=="OTHER";
 //			alert (relative.name + " died around [" + death_age + "] of :[" + cause_of_death+ "]");
 			if (cause_of_death_system == 'undefined' || cause_of_death_system == null) relative.cause_of_death_system = 'SNOMED_CT';
 			else if (cause_of_death_system == 'SNOMED COMPLETE') relative.cause_of_death_system = 'SNOMED_CT';
@@ -551,7 +552,7 @@ function parse_xml(data) {
 			
 			// if cause of death is other //
 			if (is_other_cause_of_death) {
-				relative.cause_of_death_code = cause_of_death_code;
+				relative.cause_of_death_code = detailed_cause_of_death;
 			}
 			// if cause of death is not other
 			else {
@@ -563,7 +564,7 @@ function parse_xml(data) {
 			}
 			relative.cause_of_death = get_high_level_disease_name_from_disease_code(cause_of_death_code);			
 			if (is_other_cause_of_death) 
-				relative.cause_of_death = cause_of_death_code;
+				relative.cause_of_death = detailed_cause_of_death;
 				
 			if (relative.detailed_cause_of_death != detailed_cause_of_death) relative.detailed_cause_of_death = detailed_cause_of_death;
 			relative.estimated_death_age = death_age;
