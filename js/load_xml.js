@@ -301,7 +301,7 @@ function createHealthHistory(pi) {
 		var self_history = personal_information['Health History'];
 		for (x in self_history) {			
 			var disease_code = self_history[x]['Disease Code'];
-			if (re.exec(disease_code) || re2.exec(disease_code)) {
+			if (re.exec(disease_code) || re2.exec(disease_code) || re3.exec(disease_code)) {
 				personal_information['Health History'][x]['Disease Code'] = "other-undefined";
 				add_other_disease(self_history[x]['Disease Name']);
 			}
