@@ -1929,14 +1929,14 @@ function set_disease_choice_select (disease_select, detailed_disease_select, cod
 		if ($(this).find("option:selected" ).val() == 'other') {
 			if (cod) {
 				if ( $("#new_disease_name_cod").length == 0) {
-					$(this).after($("<span id='new_disease'><INPUT id='new_disease_name_cod' type='text' size='20'></INPUT></span>"));
+					$(this).after($("<span id='new_disease'><INPUT id='new_disease_name_cod' type='text' size='40'></INPUT></span>"));
 					$("#detailed_cause_of_death_select").hide();
 					detailed_disease_select.empty().hide();	
 				}				
 			}
 			else {
 				if ( $("#new_disease_name").length == 0) {
-					$(this).after($("<span id='new_disease'><INPUT id='new_disease_name' type='text' size='20'></INPUT></span>"));
+					$(this).after($("<span id='new_disease'><INPUT id='new_disease_name' type='text' size='40'></INPUT></span>"));
 					detailed_disease_select.empty().hide();	
 				}				
 			}			
