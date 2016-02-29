@@ -310,9 +310,11 @@ function createHealthHistory(pi) {
             var o = personal_information[x];
             if (o != undefined) {
                 if (o.gender != undefined) {
+            		var snomed_re = /SNOMED_CT-EMPTY/;
+
                 	if (o.cause_of_death_code != undefined) {
                 		var re = /other-/;
-                		var snomed_re = /SNOMED_CT-EMPTY/;
+                		console.log(o.cause_of_death_code);
                 		if (re.exec(o.cause_of_death_code) || snomed_re.exec(o.cause_of_death_code)) {
                 			personal_information[x]['cause_of_death_code'] = o.detailed_cause_of_death;
                 		}
