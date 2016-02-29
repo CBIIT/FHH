@@ -2041,13 +2041,19 @@ function add_other_disease(new_disease_name) {
 function does_disease_exist(new_disease_name) {
 	var match = 0;
 	var diseaseName = new_disease_name;
-	for (var i=0;i<diseases['OTHER'].length;i++) {
-		if (new_disease_name.toLowerCase()==diseases['OTHER'][i]['name'].toLowerCase()) {
-			match = 1;
-			diseaseName = diseases['OTHER'][i]['name'];
-			break;
-		}
-	}	
+	if (diseases['OTHER']) {
+		for (var i=0;i<diseases['OTHER'].length;i++) {
+			if (new_disease_name.toLowerCase()==diseases['OTHER'][i]['name'].toLowerCase()) {
+				match = 1;
+				diseaseName = diseases['OTHER'][i]['name'];
+				break;
+			}
+		}			
+	}
+	else {
+		return [0,new_disease_name];
+	}
+
 	return [match, diseaseName];
 }
 
