@@ -1095,10 +1095,25 @@ function bind_family_member_submit_button_action () {
 		}
 
 
-		// check if cause of death is a new disease and if the new disease is blank throw error message //
-		if ($("#is_person_alive").val()=='dead' && $("#cause_of_death_select").val()=='other' && $("#new_disease_name_cod").val()=='') {
-			alert ($.t("fhh_js.invalid_cause_of_death"));	
-			return false;
+		// check if cause of death is blank throw error message. check if age at death is blank, throw error //
+		if ($("#is_person_alive").val()=='dead') {
+			if ($("#estimated_death_age_select").val()==null || $("#estimated_death_age_select").val()=='not_picked') {
+				alert ($.t("fhh_js.age_at_diagnosis_select"));	
+				return false;
+			}
+			else {
+				if ($("#cause_of_death_select").val()=='other' && $("#new_disease_name_cod").val()=='') {
+					alert ($.t("fhh_js.invalid_cause_of_death"));	
+					return false;
+				}
+				else {
+					if ($("#cause_of_death_select").val()==null || $("#cause_of_death_select").val()=='not_picked') {
+						alert ($.t("fhh_js.invalid_cause_of_death"));	
+						return false;
+					}
+				}	
+			}
+
 		}
 
 
