@@ -25,7 +25,7 @@
 		"done" : "done"
 	},
 	"fhh_js": {
-		"invalid_cause_of_death" : "Por favor ingrese un Nombre de Enfermedades.",		
+		"invalid_cause_of_death" : "Por favor seleccione la Causa de Muerte",		
 		"ashkenazi": "¿Por qué preguntamos sobre el origen judio Ashkenazi?",
 		"pi":"Introduzca información personal",
 		"select_age": "Seleccione Edad estimada",
@@ -231,7 +231,7 @@
 		"disease_select" : "Seleccione una de las Enfermedades",
 		"add_new" : "Otros - Crear Nuevo",
 		"disease_subtype_select" : "Seleccione un subtipo específico",
-		"disease_name_enter": "Por favor ingrese un Nombre de Enfermedades.",
+		"disease_name_enter": "Por favor ingrese un Nombre de Enfermedades",
 
 		"add" : "Añadir",
 		"remove" : "Eliminar",

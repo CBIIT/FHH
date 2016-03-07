@@ -24,7 +24,7 @@
 	},
 	
 	"fhh_js": {
-		"invalid_cause_of_death" : "Por favor insira um nome da doença.",		
+		"invalid_cause_of_death" : "Selecione Causa da Morte",		
 		"ashkenazi": "Por que perguntar sobre Ashkenazi?",
 		"pi": "Inserir informações pessoais",
 		"select_age": "Selecione idade estimada",
@@ -231,7 +231,7 @@
 		"disease_select": "Selecione uma Doença",
 		"add_new": "Outros - Adicionar Novo",
 		"disease_subtype_select": "Selecione um subtipo específico",
-		"disease_name_enter": "Por favor insira um nome da doença.",
+		"disease_name_enter": "Por favor insira um nome da doença",
 
 		"add": "Adicionar",
 		"remove": "Remover",
