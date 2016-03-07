@@ -1111,6 +1111,10 @@ function bind_family_member_submit_button_action () {
 						alert ($.t("fhh_js.invalid_cause_of_death"));	
 						return false;
 					}
+					if ($("#detailed_cause_of_death_select").val()=='not_picked') {
+						alert($.t("fhh_js.disease_subtype_select"));
+						return false;
+					}
 				}	
 			}
 
