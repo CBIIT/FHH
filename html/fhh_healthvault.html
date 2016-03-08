@@ -71,6 +71,7 @@ function load_health_vault_data() {
 
 					if (data != null) {
 						window.localStorage.setItem("pi",JSON.stringify(data));
+						window.opener.localStorage.setItem("pi",JSON.stringify(data));						
 					} 
 					window.close();
 				} catch (exception) {
