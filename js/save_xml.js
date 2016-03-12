@@ -128,7 +128,7 @@ function bind_save_dropbox () {
 		output_string = get_xml_string();
 		filename = get_filename(personal_information);
 		Dropbox.save({
-		   files: [ {'url': 'data:application/xml,' + output_string, 'filename': filename } ],
+		   files: [ {'url': 'data:application/xml;base64,' + btoa(unescape(encodeURIComponent(output_string))), 'filename': filename } ],
 			 success: function () { $("#save_personal_history_dialog").dialog("close");},
 			 error: function (errorMessage) { alert ("ERROR:" + errorMessage);}
 		});
