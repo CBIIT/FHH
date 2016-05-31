@@ -276,7 +276,7 @@
 		"p_update_my_history_b1_before" : "Añadir información a un familiar pulsando",
 		"p_update_my_history_b1_after" : " junto al nombre en la lista.",
 		"p_update_my_history_b2_before" : "Cambiar su información o la información de un miembro de la familia pulsando",
-		"p_update_my_history_b2_after" : " junto al nombre en la lista.",
+		"p_update_my_history_b2_after" : " junto al nombre en la lista o haciendo clic en el nombre del miembro de la familia.",
 		"p_update_my_history_b3_before" : "Retirar un miembro de la familia de su historial pulsando",
 		"p_update_my_history_b3_after" : " junto al nombre en la lista. (No se puede quitar a ti mismo, a tus padres, o abuelos.)",
 		"p_update_my_history2" : "También puede:",

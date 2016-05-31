@@ -1632,7 +1632,11 @@ function add_personal_history_row(table) {
 	name = 'Self';	
 	var new_row = $("<tr id='self'></tr>");
 	new_row.addClass("proband");
-	new_row.append("<td class='information' id='relatives_name'><a href='#'>" + personal_information.name + "</a></td>");
+	var nameColumn_td = $("<td class='information' id='relatives_name'></td>")
+	var nameColumn_text = $("<a name=''>" + personal_information.name + "</a>");
+	nameColumn_td.append(nameColumn_text);
+	new_row.append(nameColumn_td);
+
 	new_row.append("<td class='information' >" + $.t("fhh_js.self") + "</td>");
 	
 	var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
@@ -1640,13 +1644,12 @@ function add_personal_history_row(table) {
 	update_history_td.append(update_history);
 
 	update_history.on("click", function() { 
-		if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
-				$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
-			current_relationship = 'self';
-			clear_and_set_personal_health_history_dialog();
-			$( "#add_personal_information_dialog" ).dialog( "open" );
-		}
-	});		
+		updateHistoryDialog('self');
+	});	
+
+	nameColumn_text.on("click", function() { 
+		updateHistoryDialog('self');
+	});			
 
 	new_row.append(update_history_td);
 	
@@ -1676,7 +1679,17 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	
 	var new_row = $("<tr id='" + relationship_id + "'></tr>");
 	new_row.addClass("proband");
-	new_row.append("<td class='information' id='relatives_name'><a href='#'>" + name + "</a></td>");
+	var nameColumn_td = $("<td class='information' id='relatives_name'></td>")
+	var nameColumn_text = $("<a name=''>" + name + "</a>");
+	nameColumn_td.append(nameColumn_text);
+	nameColumn_text.attr("relationship_id", relationship_id);
+	new_row.append(nameColumn_td);
+
+	nameColumn_text.on("click", function(){ 
+		current_relationship = $(this).attr('relationship_id');
+		updateHistoryDialog(current_relationship,family_member);
+	});
+
 	new_row.append("<td class='information' >" + relationship + "</td>");
 	if (is_already_defined) {
 
@@ -1700,16 +1713,8 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		}		
 
 		update_history.on("click", function(){ 
-			if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
-					$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
-				family_member = personal_information[$(this).attr('relationship_id')];
-				current_relationship = $(this).attr('relationship_id');
-				family_member.relationship = relationship_id;
-				
-				clear_and_set_current_family_member_health_history_dialog(family_member);
-	
-				$( "#update_family_member_health_history_dialog" ).dialog( "open" );
-			}
+			current_relationship = $(this).attr('relationship_id');
+			updateHistoryDialog(current_relationship, family_member);
 		});
 		
 		new_row.append(update_history_td);
@@ -2920,7 +2925,29 @@ function closeEditorWarning(){
     if (personal_information) return "Leaving";
 };
 
+function updateHistoryDialog(relationship, family_member) {
+	if (relationship=='self') {
+		if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
+				$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
+			current_relationship = 'self';
+			clear_and_set_personal_health_history_dialog();
+			$( "#add_personal_information_dialog" ).dialog( "open" );
+		}
+	}
+	else {
+		if ($("#add_personal_information_dialog").dialog( "isOpen" ) == false &&
+				$("#update_family_member_health_history_dialog").dialog( "isOpen" ) == false) {
+			family_member = personal_information[relationship];
+			current_relationship = relationship;
+			family_member.relationship = relationship;
+			
+			clear_and_set_current_family_member_health_history_dialog(family_member);
 
+			$( "#update_family_member_health_history_dialog" ).dialog( "open" );
+		}		
+	}
+	
+}
 
 
 

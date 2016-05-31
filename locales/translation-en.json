@@ -270,7 +270,7 @@
 		"p_update_my_history_b1_before" : "Add information for a family member by pressing",
 		"p_update_my_history_b1_after" : " next to the name in the list.",
 		"p_update_my_history_b2_before" : "Change your information or a family member's information by pressing",
-		"p_update_my_history_b2_after" : " next to the name in the list.",
+		"p_update_my_history_b2_after" : " next to the name in the list or clicking the family member's name.",
 		"p_update_my_history_b3_before" : "Remove a family member from your history by pressing",
 		"p_update_my_history_b3_after" : " next to the name in the list. (You cannot remove yourself, your parents, or grandparents.)",
 		"p_update_my_history2" : "You can also:",

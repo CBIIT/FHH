@@ -279,7 +279,7 @@
 		"p_update_my_history_b1_before" : "Adicionar informações de um membro da família, pressionando",
 		"p_update_my_history_b1_after" : " ao lado do nome na lista.",
 		"p_update_my_history_b2_before" : "Altere suas informações ou as informações de um membro da família, pressionando",
-		"p_update_my_history_b2_after" : " ao lado do nome na lista.",
+		"p_update_my_history_b2_after" : " ao lado do nome na lista ou clicando no nome do membro da família.",
 		"p_update_my_history_b3_before" : "Remover um membro da família do seu histórico pressionando",
 		"p_update_my_history_b3_after" : " ao lado do nome na lista. (Você não pode remover a si mesmo, seus pais, ou avós).",
 		"p_update_my_history2" : "Você também pode:",
