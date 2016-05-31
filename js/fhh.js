@@ -1620,7 +1620,6 @@ function add_family_history_header_row(table) {
 	var header_row = $("<tr></tr>");
 	header_row.append("<th scope='col' class='nowrap'>" + $.t("fhh_js.name") + "</th>");
 	header_row.append("<th scope='col' abbr='Relationship' class='nowrap'>" + $.t("fhh_js.relationship_to_me") + "</th>");
-	header_row.append("<th scope='col' abbr='Add' class='nowrap'>" + $.t("fhh_js.add_history") + "</th>");
 	header_row.append("<th scope='col' abbr='Update' class='nowrap'>" + $.t("fhh_js.update_history") + "</th>");
 	header_row.append("<th scope='col' abbr='Remove' class='nowrap'>" + $.t("fhh_js.remove_relative") + "</th>");
 	header_row.append("");
@@ -1633,9 +1632,8 @@ function add_personal_history_row(table) {
 	name = 'Self';	
 	var new_row = $("<tr id='self'></tr>");
 	new_row.addClass("proband");
-	new_row.append("<td class='information' id='relatives_name'>" + personal_information.name + "</td>");
+	new_row.append("<td class='information' id='relatives_name'><a href='#'>" + personal_information.name + "</a></td>");
 	new_row.append("<td class='information' >" + $.t("fhh_js.self") + "</td>");
-	new_row.append("<td class='action add_history'>&nbsp;</td>");
 	
 	var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
 	var update_history = $("<A class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
@@ -1660,7 +1658,7 @@ function add_personal_history_row(table) {
 function add_new_family_history_row_title(table, name) {
 	var new_row = $("<tr></tr>");
 	new_row.addClass("summary_category_header_row");
-	new_row.append("<td colspan='5'>" + name + "</td>");
+	new_row.append("<td colspan='4'>" + name + "</td>");
 	table.append(new_row);
 	
 }
@@ -1678,10 +1676,9 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	
 	var new_row = $("<tr id='" + relationship_id + "'></tr>");
 	new_row.addClass("proband");
-	new_row.append("<td class='information' id='relatives_name'>" + name + "</td>");
+	new_row.append("<td class='information' id='relatives_name'><a href='#'>" + name + "</a></td>");
 	new_row.append("<td class='information' >" + relationship + "</td>");
 	if (is_already_defined) {
-		new_row.append("<td class='action add_history'>&nbsp;</td>");
 
 		var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
 
@@ -1731,7 +1728,6 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		});
 
 		
-		new_row.append(add_history);
 		new_row.append("<td class='action update_history'>&nbsp;</td>");
 	}
 	if (is_removeable) {
@@ -2923,6 +2919,8 @@ function which_IE(){
 function closeEditorWarning(){
     if (personal_information) return "Leaving";
 };
+
+
 
 
 

@@ -552,3 +552,16 @@ padding:8px 0px 0px 0px;
 display:inline;
 padding-right:5px;
 }
+
+#relatives_name {
+  padding:0px;
+}
+
+#relatives_name a{
+  padding:5px;
+  margin:0px;
+  display:block;
+  width:100%;
+  color:#000;
+  text-decoration:none;
+}
