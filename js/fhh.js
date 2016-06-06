@@ -1803,8 +1803,9 @@ function remove_family_member_by_id(id) {
 
 
 function update_family_history_row(relationship_id, family_member_information) {
+	console.log("u heree")
 //	alert ("Rel:" + relationship_id);
-	$("#" + relationship_id).find("#relatives_name").html(family_member_information["name"]);
+	$("#" + relationship_id).find("#relatives_name").find("a").html(family_member_information["name"]);
 
 //	var update_history = $("<td class='action update_history' relationship_id='" + relationship_id 
 //				+ "' ><img src='images/icon_edit.gif' alt='Update History' title='Update History'></td>");
@@ -1839,7 +1840,7 @@ function update_family_history_row(relationship_id, family_member_information) {
 }
 
 function update_personal_history_row() {
-	$("#self").find("#relatives_name").html(personal_information.name);
+	$("#self").find("#relatives_name").find("a").html(personal_information.name);
 }
 
 function build_history_edit_dialog () {
