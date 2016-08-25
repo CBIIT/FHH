@@ -51,7 +51,7 @@ div.main_container {
 
 
 
-<!--  Header Styles Below -->
+/*<!--  Header Styles Below -->*/
 div.header_container {
     border: 1px solid #000000;
     margin: 0px;
@@ -131,7 +131,7 @@ button {
     border-right: 1px;
 }
 
-<!-- Main Styles -->
+/*<!-- Main Styles -->*/
 
 p {
     font-size: 1.0em;
@@ -198,17 +198,18 @@ th.label {
 }
 
 a.button_link {
-  background-color:#337AB7;
-  color:#fff;
-  white-space:nowrap
+  background-color: #337AB7;
+  color: #fff;
+  white-space: nowrap
   /* DRC/CR Calculator: Added rounded corners <div> */
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  border:1px solid black;
-  padding:4px 7px 4px 7px;
+  border: 1px solid black;
+  padding: 4px 7px 4px 7px;
+  margin: 2px 3px 2px 3px;
   text-decoration: none;
-  font-size:.95em;
+  font-size: .86em;
 }
 
 a.button_link:active {
@@ -565,4 +566,75 @@ padding-right:5px;
   color:#000;
   text-decoration:none;
   cursor:pointer;
+}
+
+/* My FHH - NEW Navigation and actions */
+
+.homeMain {
+  border: 1px solid #41719c;
+  margin: 0.5%;
+  float: left;
+  width: 99%;
+}
+
+.homeHead {
+  margin-left: 5px;
+}
+
+.homeIndentText {
+  margin-left: 38px !important;
+}
+
+.homeManage {
+  border: 1px solid #41719c;
+  float: left;
+  width: 80%;
+  height: 122px;
+}
+
+.homeText {
+  margin-left: 2px;
+  display: inline-block;
+}
+
+.homeHelp {
+  border: 1px solid #41719c;
+  float: right;
+  width: 20%;
+  height: 122px;
+  padding: 10px;
+}
+
+.homeHelpBtn {
+  font-size: 1.0em !important;
+  margin-left: 51px !important;
+}
+
+.homeHelpText {
+  padding-top: 5px;
+}
+
+.homeHelpText p {
+  margin-left: 5px;
+  font-size: 1.3em;
+}
+
+.homeView {
+  border: 1px solid #41719c;
+  float: left;
+  width: 40%;
+  height: 62px;
+}
+
+.homeCheck {
+  border: 1px solid #41719c;
+  float: right;
+  width: 60%;
+  height: 62px;
+}
+
+.homeAdd {
+  border: 1px solid #41719c;
+  float: left;
+  width: 100%;
 }
