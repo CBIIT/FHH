@@ -102,7 +102,7 @@
 <div class="header_container">
     <table class="banner">
         <tr>
-            <td class="banner_left"><img src="../themes/deploy/banner_left.png" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></td>
+            <td class="banner_left"><a id="warnAndGoHome" href="index.html"><img src="../themes/deploy/banner_left.png" alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></a></td>
             <td class="banner_right"><img height="60" width="326" src="../themes/deploy/banner_right.png" alt="Collection of family photos from diverse families." class="fhhBannerPhotos"></td>
         </tr>
     </table>
@@ -130,7 +130,7 @@
                 <p class="translate homeText"> - save for use by a family member</p>
             </div>
             <div>
-                <a id="create_new_personal_history_button" href="#" class='translate button_link homeIndentText'>Start over</a>
+                <a id="warnAndGoHome" href="index.html" class='translate button_link homeIndentText'>Start over</a>
                 <p class="translate homeText"> - delete all <u>unsaved</u> data and restart with new data, or load saved data</p>
             </div>
         </span>
@@ -298,10 +298,6 @@
 
 <script type='text/javascript' >
 // Static links need to know what language
-
-function goto_create() {
-    location.href='fhh.html?action=create'
-}
 
 function get_help() {
     window.open("./static/help_" + i18n.lng().substr(0,2) + ".html", "", "width=800, height=600, scrollbars=yes");
