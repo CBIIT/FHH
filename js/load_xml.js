@@ -79,6 +79,7 @@ function bind_uploader() {
 				plupload.each(files, function(file) {
 					document.getElementById('filelist').innerHTML = '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
 						document.getElementById('console').innerHTML = "";
+						uploader.start();
 				});
 			},
 			UploadProgress: function(up, file) {
