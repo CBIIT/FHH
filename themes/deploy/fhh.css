@@ -597,6 +597,14 @@ padding-right:5px;
   display: inline-block;
 }
 
+.saveText {
+  margin-left: 7px !important;
+}
+
+.deleteText {
+  margin-left: 11px !important;
+}
+
 .homeHelp {
   border: 1px solid #41719c;
   float: right;
