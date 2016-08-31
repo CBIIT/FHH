@@ -47,6 +47,16 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
         }                       
     });
 
+    var interval = setInterval(function() {
+        var href = $("#tableAnchor").attr('href');
+        window.location.href = href;
+        stopinterval();
+    },100);
+
+    function stopinterval() {
+        clearInterval(interval);
+    }
+
     $scope.calculateBMI = function(height, height_unit, weight, weight_unit) {
         if (height&&height_unit&&weight&&weight_unit) {
             height_in_meters = height*.01; //default height to height parameter, change below if inches //

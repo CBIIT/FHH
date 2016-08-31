@@ -21,7 +21,7 @@
          <br />
          <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line2")}}</p>
          <br />
-         <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line3_before_anchor")}} <a href="#personal_info_table">{{translate("fhh_family_pedigree","desc_line3_anchor")}}</a> {{translate("fhh_family_pedigree","desc_line3_after_anchor")}}</p>
+         <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line3_before_anchor")}} <a id="tableAnchor" href="#personal_info_table">{{translate("fhh_family_pedigree","desc_line3_anchor")}}</a> {{translate("fhh_family_pedigree","desc_line3_after_anchor")}}</p>
          <br />         
       </td>
    </tr>
@@ -84,7 +84,7 @@
          <a href="" ng-click="showDisease(d)"><img src="../static/images/open.gif"></a>{{d.translatedDiseaseName}}
       </li>
    </ul>
-   <table class="health_table" width="100%">
+   <table id="healthTable" class="health_table" width="100%">
       <tr>
          <th>
             {{translate("fhh_js","name_relationship")}}
@@ -130,3 +130,9 @@
 <div id="diagram_container">
 <div ng-show="diagram_show" id="print_diagram" style="width:auto; height:{{getTableHeight()}}px; background-color: #fff;"></div>
 </div>
+
+
+
+
+
+

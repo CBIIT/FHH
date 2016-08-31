@@ -76,7 +76,8 @@ function get_xml_string() {
 		add_root_information(root);
 		root.appendChild(add_personal_history(personal_information));
 	
-		var str = serializeXmlNode(root)
+		var str = '<!-- TO OPEN THIS DATA IN THE "MY FAMILY HEALTH PORTRAIT" APPLICATION: 	- Open your browser and navigate to "https://familyhistory.hhs.gov." 	- Click the "Use a Saved History" button to show the file-open options. 	- Go to the location where this file is stored. 	- Select the filename and open the file. 	Click "Help" on the "Load your Family Health History" page for more help. -->';
+		str = str + serializeXmlNode(root);
 		return(str);
 }
 
@@ -102,7 +103,6 @@ function bind_save_download() {
 		isHealthVaultSave = false; // not healthvault save		
 		output_string = get_xml_string();
 		filename = get_filename(personal_information);
-		
 		save_document($(this), output_string, filename);
 		$("#save_personal_history_dialog").dialog("close");		
 	});	
