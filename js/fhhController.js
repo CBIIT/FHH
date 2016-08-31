@@ -51,7 +51,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
         var href = $("#tableAnchor").attr('href');
         window.location.href = href;
         stopinterval();
-    },100);
+    },1);
 
     function stopinterval() {
         clearInterval(interval);
