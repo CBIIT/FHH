@@ -8,7 +8,6 @@ app.controller('fhhController', ['$rootScope', '$scope', '$window', '$timeout', 
     // opens popup when user clicks view diagram and table //
     $scope.openDiagramTable = function(isPedigree) {
         $rootScope.isPedigree = isPedigree;
-        console.log($rootScope.isPedigree);
         var modalInstance = $modal.open({
             animation: $scope.animationsEnabled,
             templateUrl: 'diagram_template.html',
