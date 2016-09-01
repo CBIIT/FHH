@@ -3,8 +3,12 @@ app.controller('fhhController', ['$rootScope', '$scope', '$window', '$timeout', 
     $scope.personal_information = personal_information;
     var WindowObject = null;
     window.scope = $scope;
+    $rootScope.isPedigree;
+
     // opens popup when user clicks view diagram and table //
-    $scope.openDiagramTable = function() {
+    $scope.openDiagramTable = function(isPedigree) {
+        $rootScope.isPedigree = isPedigree;
+        console.log($rootScope.isPedigree);
         var modalInstance = $modal.open({
             animation: $scope.animationsEnabled,
             templateUrl: 'diagram_template.html',
@@ -36,7 +40,7 @@ app.controller('fhhController', ['$rootScope', '$scope', '$window', '$timeout', 
 
 }]);
 
-app.controller('tableController', ['$scope', '$modalInstance', '$timeout', function($scope, $modalInstance, $timeout) {
+app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$rootScope', function($scope, $modalInstance, $timeout, $rootScope) {
     // set disease lists to create disease lists with translated names //
     $timeout(function() {
         if (tableOptions.personal_info=='') {
@@ -47,15 +51,17 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', funct
         }                       
     });
 
-    var interval = setInterval(function() {
-        var href = $("#tableAnchor").attr('href');
-        window.location.href = href;
-        stopinterval();
-    },1);
+    if (!$rootScope.isPedigree) {
+            var interval = setInterval(function() {
+                var href = $("#tableAnchor").attr('href');
+                window.location.href = href;
+                stopinterval();
+            },1);
 
-    function stopinterval() {
-        clearInterval(interval);
-    }
+            function stopinterval() {
+                clearInterval(interval);
+            };
+    };
 
     $scope.calculateBMI = function(height, height_unit, weight, weight_unit) {
         if (height&&height_unit&&weight&&weight_unit) {
