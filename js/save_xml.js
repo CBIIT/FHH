@@ -77,6 +77,14 @@ function get_xml_string() {
 		root.appendChild(add_personal_history(personal_information));
 	
 		var str = '<!-- TO OPEN THIS DATA IN THE "MY FAMILY HEALTH PORTRAIT" APPLICATION: 		- Open your browser and navigate to "https://familyhistory.hhs.gov." 		- Click the "Use a Saved History" button to show the file-open options. 		- Go to the location where this file is stored. 					- Select the filename and open the file. 						 Click "Help" on the "Load your Family Health History" page for more help. -->';
+			
+		// var str = '<!-- TO OPEN THIS DATA IN THE "MY FAMILY HEALTH PORTRAIT" APPLICATION: -->';
+		// str = str + '<!-- 	- Open your browser and navigate to "https://familyhistory.hhs.gov." -->';
+		// str = str + '<!-- 	- Click the "Use a Saved History" button to show the file-open options. -->';
+		// str = str + '<!-- 	- Go to the location where this file is stored. -->';
+		// str = str + '<!-- 	- Select the filename and open the file. -->';
+		// str = str + '<!-- Click "Help" on the "Load your Family Health History" page for more help. -->';
+
 		str = str + serializeXmlNode(root);
 		return(str);
 }
