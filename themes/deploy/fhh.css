@@ -627,6 +627,11 @@ padding-right:5px;
   font-size: 1.3em;
 }
 
+.homeHelpImg {
+  margin-left: 36px;
+  margin-top: -3px;
+}
+
 .homeView {
   border: 1px solid #41719c;
   float: left;

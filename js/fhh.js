@@ -833,7 +833,7 @@ function get_gender(relationship) {
 }
 function bind_personal_submit_button_action () {
 
-	$("#addPersonInformationSubmitButton").on("click", function(){ 
+	$("#addPersonInformationSubmitButton").on("click", function() { 
 		$("#invalid_name_warning").remove();
 		$("#invalid_date_of_birth_warning").remove();
 		$("#invalid_gender_warning").remove();
@@ -866,6 +866,10 @@ function bind_personal_submit_button_action () {
 		if (errors) {
 			alert ($.t("fhh_js.invalid_data_alert"));
 			return false;
+		}
+
+		if (!errors) {
+			alert ('NO ERROR PROMPT!');
 		}
 		
 		// Check to ensure the user has not entered anything in the disease section that they have not saved.
@@ -1092,6 +1096,9 @@ function bind_family_member_submit_button_action () {
 		if (errors) {
 			alert ($.t("fhh_js.invalid_data_alert"));
 			return false;
+		}
+		if (!errors) {
+			alert ('NO ERROR!!');
 		}
 
 

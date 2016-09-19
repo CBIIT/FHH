@@ -416,14 +416,12 @@ function make_export_string(pi) {
 	add_root_information(root);
 	root.appendChild(add_personal_history(pi));
 			
-	// var str = '<!-- TO OPEN THIS DATA IN THE "MY FAMILY HEALTH PORTRAIT" APPLICATION: 		- Open your browser and navigate to "https://familyhistory.hhs.gov." 		- Click the "Use a Saved History" button to show the file-open options. 		- Go to the location where this file is stored. 					- Select the filename and open the file. 						 Click "Help" on the "Load your Family Health History" page for more help. -->';
-
-	var str = '<!--OPEN THIS DATA IN "MY FAMILY HEALTH PORTRAIT":-->';
-	str = str + '<!--Use browser - https://familyhistory.hhs.gov-->';
-	str = str + '<!--Click Use a Saved History to open file-->';
-	str = str + '<!--Go to where file is stored-->';
-	str = str + '<!--Select filename and open file-->';
-	str = str + '<!--Click Help for more help-->';
+	var str = '<!-- TO OPEN THIS DATA IN THE "MY FAMILY HEALTH PORTRAIT" APPLICATION: -->';
+	str = str + '<!-- 	- Open your browser and navigate to "https://familyhistory.hhs.gov." -->';
+	str = str + '<!-- 	- Click the "Use a Saved History" button to show the file-open options. -->';
+	str = str + '<!-- 	- Go to the location where this file is stored. -->';
+	str = str + '<!-- 	- Select the filename and open the file. -->';
+	str = str + '<!-- Click "Help" on the "Load your Family Health History" page for more help. -->';
 
 	var str = serializeXmlNode(root)
 	return(str);

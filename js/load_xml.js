@@ -86,7 +86,7 @@ function bind_uploader() {
 				document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
 			},
 			Error: function(up, err) {
-				document.getElementById('console').innerHTML = "\nError #" + err.code + ": " + err.message;
+				document.getElementById('console').innerHTML = "\nPlease select a valid xml history file"
 			},
 			FileUploaded: function(upldr, file, obj) {
 				if(file.getNative() !== null) {
