@@ -868,10 +868,6 @@ function bind_personal_submit_button_action () {
 			return false;
 		}
 
-		if (!errors) {
-			alert ('NO ERROR PROMPT!');
-		}
-		
 		// Check to ensure the user has not entered anything in the disease section that they have not saved.
 		var disease_name = $("#add_personal_information_dialog").find("#disease_choice_select").val();
 		var disease_code = $("#add_personal_information_dialog").find("#detailed_disease_choice_select").val();
@@ -1093,14 +1089,11 @@ function bind_family_member_submit_button_action () {
 			}
 			errors = true;			
 		}
+
 		if (errors) {
 			alert ($.t("fhh_js.invalid_data_alert"));
 			return false;
 		}
-		if (!errors) {
-			alert ('NO ERROR!!');
-		}
-
 
 		// check if cause of death is blank throw error message. check if age at death is blank, throw error //
 		if ($("#is_person_alive").val()=='dead') {
