@@ -182,7 +182,7 @@
 		"remove" : "Remove",
 		"next" : "Next",
 		"cancel" : "Cancel",
-		"save" : "Save",
+		"save" : "Next",
 		
 		"export_instructions":"You may make your father, mother, brothers, sisters, and children be the center person of the family health history. This person can then add relatives from their families to create a new family health history without having to start from the very beginning.",
 		"export_instructions2":"Your family health history is not saved on this website or any other system. You must save your family health history to your own local storage area (such as your computer's hard drive, a CD-ROM, or USB thumb drive), whether you are saving your own history or saving a copy for a family member.",
@@ -320,7 +320,7 @@
 		"puncles":"How many brothers does your father have? (your uncles)",
 		"paunts":"How many sisters does your father have? (your aunts)",
 
-		"save":"Save",
+		"save":"Next",
 		"cancel":"Cancel",
 
 		"done" : "done"
