@@ -386,7 +386,7 @@
 	},
 
 	"fhh_load_save": {
-		"browse":"Browse",		
+		"browse":"Open",		
 		"open_from_computer":"Open From Computer",
 		"no_file_chosen_error1":"Please click ",
 		"no_file_chosen_error2":"and choose a file to upload.",
