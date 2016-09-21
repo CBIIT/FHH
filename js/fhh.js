@@ -525,6 +525,7 @@ function bind_view_diagram_and_table_button_action () {
 }
 
 function bind_save_personal_history_button_action () {
+	$("#firstVari").text("");
 	$( "#save_personal_history_dialog" ).dialog( "open" );	
 }
 
@@ -1803,8 +1804,13 @@ function remove_family_member_by_id(id) {
 
 
 function update_family_history_row(relationship_id, family_member_information) {
-	console.log("u heree")
+	// console.log("u heree")
 //	alert ("Rel:" + relationship_id);
+	
+	if (angular.equals(JSON.stringify(thirdVari),JSON.stringify(family_member_information))) {
+		$("#firstVari").text("You have unsaved data!");
+	}
+
 	$("#" + relationship_id).find("#relatives_name").find("a").html(family_member_information["name"]);
 
 //	var update_history = $("<td class='action update_history' relationship_id='" + relationship_id 
@@ -1841,6 +1847,9 @@ function update_family_history_row(relationship_id, family_member_information) {
 
 function update_personal_history_row() {
 	$("#self").find("#relatives_name").find("a").html(personal_information.name);
+	if (angular.equals(JSON.stringify(secondVari),JSON.stringify(personal_information))) {
+		$("#firstVari").text("You have unsaved data!");
+	}
 }
 
 function build_history_edit_dialog () {
@@ -2396,6 +2405,8 @@ function clear_family_member_health_history_dialog() {
 	
 }
 
+var thirdVari;
+
 function clear_and_set_current_family_member_health_history_dialog(family_member) {
 	$("#new_disease_name").remove();
 	$("#new_disease_name_cod").remove();
@@ -2616,7 +2627,11 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 		$("#family_race_ethnicity").find("#selectedEthnicities-17").prop('checked', false);
 
 	}
+
+	thirdVari = family_member;
 }
+
+var secondVari;
 
 function clear_and_set_personal_health_history_dialog() {
 	if (personal_information == null) personal_information = new Object();
@@ -2774,6 +2789,7 @@ function clear_and_set_personal_health_history_dialog() {
 		
 	}
 
+	secondVari = personal_information;
 
 }
 // Helper functions
