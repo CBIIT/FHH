@@ -280,7 +280,7 @@
 		"p_update_my_history2_b4" : "View a diagram and table of your family tree by clicking on 'Pedigree drawing' button. Alternatively, you can click the 'Family Health table' button to navigate to the table in the page directly",
 		"p_update_my_history2_b5" : "Export your family infomation to give a close relative a headstart on his/her family tree by clicking on the 'Share Data' button",
 		"p_update_my_history2_b6" : "Use one of the Disease Risk Calculators to determine if you are at increased risk of a disease based on your family history by clicking on the 'Check your risk' button",
-		"p_update_my_history2_b7" : "Get additional Help by clicking on the 'Get Help' button",
+		"p_update_my_history2_b7" : "Get additional Help by clicking on the 'Get Help For This Page' button",
 		
 		"btn_create_my_history" : "Delete all Data and Restart",
 		"btn_save_my_history" : "Save Family History for Later Re-use",
