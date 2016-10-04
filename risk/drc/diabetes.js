@@ -64,7 +64,7 @@ function enable_appropriate_changers() {
 	
 }
 
-var fifthVari;
+var fourthVari;
 
 function load_all_data_and_calculate_score() {
 		
@@ -83,7 +83,7 @@ function load_all_data_and_calculate_score() {
 			create_have_diabetes_dialog(diabetes_types);
 		}
 
-		fifthVari = angular.copy(personal_information);
+		fourthVari = angular.copy(personal_information);
 
 }
 
@@ -309,7 +309,7 @@ function get_required_info_dialog(valid) {
 	$("#extra_info_dialog").append(continue_button);
 	$("#diabetes_content").hide();	
 
-	fifthVari = angular.copy(personal_information);
+	fourthVari = angular.copy(personal_information);
 
 	// Some notes at the end of the page
 	if (valid.physically_active == false) {
@@ -369,7 +369,7 @@ function apply_required_additional_data_entry_button () {
 		$("#extra_info_dialog").hide();
 		$("#diabetes_content").show();
 
-		if (!angular.equals(JSON.stringify(fifthVari),JSON.stringify(personal_information))) {
+		if (!angular.equals(JSON.stringify(fourthVari),JSON.stringify(personal_information))) {
 			$("#firstVari").text("You have unsaved data!");
 		}
 		
@@ -629,7 +629,7 @@ function enable_changing_physical_activity_status () {
   		if ($(this).attr('value') == 1) personal_information.physically_active = false; 
   		else personal_information.physically_active = true;
 
-  		if (!angular.equals(JSON.stringify(fifthVari),JSON.stringify(personal_information))) {
+  		if (!angular.equals(JSON.stringify(fourthVari),JSON.stringify(personal_information))) {
 			$("#firstVari").text("You have unsaved data!");
 		}
 

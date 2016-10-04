@@ -1809,7 +1809,7 @@ function remove_family_member_by_id(id) {
 function update_family_history_row(relationship_id, family_member_information) {
 	// console.log("u heree")
 //	alert ("Rel:" + relationship_id);
-	delete thirdVari.id;
+
 	if (angular.equals(JSON.stringify(thirdVari),JSON.stringify(family_member_information))) {
 		$("#firstVari").text("");
 	}
