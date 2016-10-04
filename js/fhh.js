@@ -1440,7 +1440,9 @@ function bind_add_all_family_members_submit_button_action() {
 		build_family_history_data_table();
 
 		$("#add_another_family_member_button").show();
-
+		
+		$("#firstVari").text("You have unsaved data!");
+		
 		$("#add_all_family_members_dialog").dialog("close");
 	});
 	
@@ -1768,6 +1770,7 @@ function remove_family_member(relationship_id, confirm_flag) {
 
 		delete personal_information[relationship_id];
 		$("#" + relationship_id).remove();
+		$("#firstVari").text("You have unsaved data!");
 	} else {
 		// DO nothing
 	}
@@ -1806,10 +1809,11 @@ function remove_family_member_by_id(id) {
 function update_family_history_row(relationship_id, family_member_information) {
 	// console.log("u heree")
 //	alert ("Rel:" + relationship_id);
-	
+	delete thirdVari.id;
 	if (angular.equals(JSON.stringify(thirdVari),JSON.stringify(family_member_information))) {
-		$("#firstVari").text("You have unsaved data!");
+		$("#firstVari").text("");
 	}
+	else $("#firstVari").text("You have unsaved data!");
 
 	$("#" + relationship_id).find("#relatives_name").find("a").html(family_member_information["name"]);
 
@@ -1848,8 +1852,9 @@ function update_family_history_row(relationship_id, family_member_information) {
 function update_personal_history_row() {
 	$("#self").find("#relatives_name").find("a").html(personal_information.name);
 	if (angular.equals(JSON.stringify(secondVari),JSON.stringify(personal_information))) {
-		$("#firstVari").text("You have unsaved data!");
+		$("#firstVari").text("");
 	}
+	else $("#firstVari").text("You have unsaved data!");
 }
 
 function build_history_edit_dialog () {
@@ -2628,7 +2633,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 
 	}
 
-	thirdVari = family_member;
+	thirdVari = angular.copy(family_member);
 }
 
 var secondVari;
@@ -2789,7 +2794,8 @@ function clear_and_set_personal_health_history_dialog() {
 		
 	}
 
-	secondVari = personal_information;
+	secondVari = angular.copy(personal_information);
+
 
 }
 // Helper functions
