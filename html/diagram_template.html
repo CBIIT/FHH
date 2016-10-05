@@ -16,7 +16,7 @@
    <tr>
       <td style="padding-left:5px;">
          <h1>
-         {{translate("fhh_family_pedigree","title")}}</h3>
+         {{translate("fhh_family_pedigree","title")}}</h1>
          <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line1")}}</p>
          <br />
          <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line2")}}</p>
@@ -26,25 +26,28 @@
       </td>
    </tr>
 </table>
-   <table width="100%" id="personal_info_diagram">
-      <tr>
-         <td>
-            <div id="personal_info" style="padding-left:20px;">
-               <div>{{translate("fhh_family_pedigree","personal_info")}}</div>
-               <div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
-               <div>{{translate("fhh_family_pedigree","height")}} {{self_history.height}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.height_unit)}}</span></div>
-               <div>{{translate("fhh_family_pedigree","weight")}} {{self_history.weight}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.weight_unit+"s")}}</span></div>
-               <div>{{translate("fhh_family_pedigree","bmi")}} {{calculateBMI(self_history.height,self_history.height_unit,self_history.weight,self_history.weight_unit)}}</div>
-               <div>{{calculcate_report_date()}}</div>
-            </div>
-         </td>
-      </tr>
-   </table>
+
+<table width="100%" id="personal_info_diagram">
+  <tr>
+    <td>
+      <h1>Family Tree Diagram (Pedigree)</h1>
+        <div id="personal_info" style="padding-left:20px;">
+          <div>{{translate("fhh_family_pedigree","personal_info")}}</div>
+          <div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
+          <div>{{translate("fhh_family_pedigree","height")}} {{self_history.height}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.height_unit)}}</span></div>
+          <div>{{translate("fhh_family_pedigree","weight")}} {{self_history.weight}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.weight_unit+"s")}}</span></div>
+          <div>{{translate("fhh_family_pedigree","bmi")}} {{calculateBMI(self_history.height,self_history.height_unit,self_history.weight,self_history.weight_unit)}}</div>
+          <div>{{calculcate_report_date()}}</div>
+        </div>
+    </td>
+  </tr>
+</table>
 <div id="pedigree">
-<button class="translate" style="font-size:120% !important;" onclick="zoom(.2)">{{translate("fhh_family_pedigree","zoom_in")}}</button>
-<button class="translate" style="font-size:120% !important;" onclick="zoom(-.2)">{{translate("fhh_family_pedigree","zoom_out")}}</button>
-<button class="translate" style="font-size:120% !important;" onclick="createImage(print=true)">{{translate("fhh_family_pedigree","print")}}</button>
-<button class="translate" style="font-size:120% !important;" onclick="createImage()">{{translate("fhh_family_pedigree","save_image")}}</button>
+<button class="translate btn_left" style="font-size:120% !important;" onclick="zoom(.2)">{{translate("fhh_family_pedigree","zoom_in")}}</button>
+<button class="translate btn_cleft" style="font-size:120% !important;" onclick="zoom(-.2)">{{translate("fhh_family_pedigree","zoom_out")}}</button>
+<button class="translate btn_cright" style="font-size:120% !important;" onclick="createImage(print=true)">{{translate("fhh_family_pedigree","print")}}</button>
+<button class="translate btn_right" style="font-size:120% !important;" onclick="createImage()">{{translate("fhh_family_pedigree","save_image")}}</button>
+<div class="translate" style="font-size:120% !important;">Place the mouse pointer over a family member to see a list of their health conditions</div>
 <div id="myDiagramDiv" style="width:auto; height:600px; background-color: #fff;">No data to create diagram</div>
 <div id="legend"><img src="../static/images/Legend_{{lng}}.png"></div>
 </div>
@@ -54,7 +57,8 @@
    <table width="100%" id="personal_info_table">
       <tr>
          <td>
-            <div id="personal_info">
+          <h1>Table of Family Diseases and Conditions</h1>    
+            <div id="personal_info" style="padding-left:20px;">
                <div>{{translate("fhh_family_pedigree","personal_info")}}</div>
                <div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
                <div>{{translate("fhh_family_pedigree","height")}} {{self_history.height}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.height_unit)}}</span></div>
@@ -78,7 +82,9 @@
         </li>-->
     </ul>
 </div>
-   <a href="" ng-click="collapseTable()">{{collapse_status.collapse_text}}</a><br />
+   <button class="translate" style="font-size:120% !important;" ng-click="collapseTable()">{{collapse_status.collapse_text}}</button>
+   <span class="translate" style="font-size:120% !important;">&nbsp;&nbsp;(Six common conditions your doctor should know about are always shown)</span>
+   <br />
    <ul id="disease_list">
       <li ng-repeat="d in disease_list" ng-if="!d.show">
          <a href="" ng-click="showDisease(d)"><img src="../static/images/open.gif"></a>{{d.translatedDiseaseName}}

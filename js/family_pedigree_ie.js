@@ -345,7 +345,7 @@ alert("raphael 0")
         HEADERS.push({"title":'Id'});
         HEADERS.push({"title":'Name & Relationship'});
         //HEADERS.push({"title":'Relationship'});
-        HEADERS.push({"title":'Still Living'});
+        HEADERS.push({"title":'Still Living, cause of death (age)'});
 
         for (var t = 0; t < STATICDISEASES.length; t++) {
             var NAME = STATICDISEASES[t];

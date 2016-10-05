@@ -646,3 +646,27 @@ padding-right:5px;
   float: left;
   width: 100%;
 }
+
+/* Pedigree Diagram */
+
+.btn_left {
+  margin-right: 2px;
+}
+
+.btn_cleft {
+  margin-right: 22px;
+}
+
+.btn_cright {
+  margin-left: 22px;
+}
+
+.btn_right {
+  margin-left: 2px;
+}
+
+
+
+
+
+
