@@ -211,8 +211,8 @@ function IEload() {
         '<h1>View Diagram & Table</h1><br/>'+
         '<table class="infolayer">' +
         '<tr><td>' +
-        '<p style="margin-bottom: 1px">sYou can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!</p><br style="line-height: 0px"/>' +
-        '<p>If you would like to change the way the information below is shown, click "Diagram & Table Options." The bottom and right scroll bars are useful navigation tools when viewing larger tables and diagrams.</p>' +
+        '<p style="margin-bottom: 1px">sTalking with your health care provider about your family health history can help you stay healthy!</p><br style="line-height: 0px"/>' +
+        '<p>Your family health conditions are shown here in a diagram and a table (below the diagram).  Scroll up and down to see both.</p>' +
         '</td></tr></table>'
     );
 
@@ -361,7 +361,7 @@ alert("raphael 0")
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" class="closeimg"/></a>' + NAME
+            '<img src="../static/images/close.png" height="16" class="closeimg"/></a>' + NAME
             });
         }
 
@@ -379,7 +379,7 @@ alert("raphael 0")
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" style="padding-right: 5px;padding-top: 2px"/></a>' + NAME
+            '<img src="../static/images/close.png" height="16" style="padding-right: 5px;padding-top: 2px"/></a>' + NAME
             });
         }
 

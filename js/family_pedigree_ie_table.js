@@ -113,7 +113,7 @@ function IEloadTable() {
         '<h1>' + $.t("fhh_family_pedigree.title") + '</h1><br/>'+
         '<table class="infolayer">' +
         '<tr><td>' +
-        '<p style="margin-bottom: 1px">' + $.t("fhh_family_pedigree.desc_line1") + 'You can print your family health history in a diagram and table form to share with your health care provider. Talking with your health care provider about your family health history can help you stay healthy!</p><br style="line-height: 0px"/>' +
+        '<p style="margin-bottom: 1px">' + $.t("fhh_family_pedigree.desc_line1") + 'Talking with your health care provider about your family health history can help you stay healthy!</p><br style="line-height: 0px"/>' +
         '<p>' + $.t("fhh_family_pedigree.desc_line2") + '</p>' +
         '</td></tr></table>' +
 
@@ -314,7 +314,7 @@ function IEloadTable() {
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" class="closeimg"/></a>' + $.t("diseases:"+NAME)
+            '<img src="../static/images/close.png" height="16" class="closeimg"/></a>' + $.t("diseases:"+NAME)
             });
         }
         for (var i = 0; i < diseasearray.length; i++) {
@@ -331,7 +331,7 @@ function IEloadTable() {
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" class="closeimg"/></a>' + $.t("diseases:"+NAME)
+            '<img src="../static/images/close.png" height="16" class="closeimg"/></a>' + $.t("diseases:"+NAME)
             });
         }
 

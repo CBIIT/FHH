@@ -15,14 +15,13 @@
 <table class="infolayer">
    <tr>
       <td style="padding-left:5px;">
-         <h1>
-         {{translate("fhh_family_pedigree","title")}}</h1>
-         <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line1")}}</p>
-         <br />
-         <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line2")}}</p>
-         <br />
-         <p style="margin-bottom: 1px">{{translate("fhh_family_pedigree","desc_line3_before_anchor")}} <a id="tableAnchor" href="#personal_info_table">{{translate("fhh_family_pedigree","desc_line3_anchor")}}</a> {{translate("fhh_family_pedigree","desc_line3_after_anchor")}}</p>
-         <br />         
+        <h1>{{translate("fhh_family_pedigree","title")}}</h1>
+          <ul style="list-style-type:square">
+            <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line1")}}</li>
+            <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line2_before_anchor1")}} <a href="#personal_info_diagram">{{translate("fhh_family_pedigree","desc_line2_anchor1")}}</a> {{translate("fhh_family_pedigree","desc_line2_before_anchor2")}} <a id="tableAnchor" href="#personal_info_table">{{translate("fhh_family_pedigree","desc_line2_anchor2")}}</a> {{translate("fhh_family_pedigree","desc_line2_after_anchor2")}}</li>
+            <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line3")}}</li>
+            <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line4")}}</li>
+          </ul>
       </td>
    </tr>
 </table>
@@ -99,7 +98,7 @@
             {{translate("fhh_js","still_living")}}
          </th>
          <th ng-repeat="d in disease_list track by $index" ng-show="d.show">
-            <a href="" ng-click="removeDisease(d)"><img src="../static/images/close.png"></a><br />
+            <a href="" ng-click="removeDisease(d)"><img src="../static/images/close.png" height="16"></a><br />
             {{d.translatedDiseaseName}}
          </th>
       </tr>

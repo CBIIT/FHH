@@ -374,7 +374,7 @@ function xmlload() {
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" class="closeimg"/></a>' + $.t("diseases:"+NAME)
+            '<img src="../static/images/close.png" height="16" class="closeimg"/></a>' + $.t("diseases:"+NAME)
             });
         }
 
@@ -393,7 +393,7 @@ function xmlload() {
 
             HEADERS.push({"title": '<a class="toggle-vis"  ' +
             'data-column="' + COL + '" id="' + DID + '" name="' + NAME + '" href="#">' +
-            '<img src="../static/images/close.png" class="closeimg"/></a>' + $.t("diseases:"+NAME)
+            '<img src="../static/images/close.png" height="16" class="closeimg"/></a>' + $.t("diseases:"+NAME)
             });
         }
 
