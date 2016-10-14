@@ -1157,7 +1157,7 @@ if (personal_information && personal_information.length > 0){
         + "<table>"
         + "<tr>"
         + "<td>"
-        + "<label for='diseaseopts'>Select a disease or condition to highlight in the table  </label>"
+        + "<label for='diseaseopts'>Choose a disease or condition to highlight in the diagram:  </label>"
         + "<select id='diseaseopts' onchange=''>"
         + array.toString()
         + "<option value='one'></option>"

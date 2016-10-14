@@ -646,7 +646,7 @@
 		"ie_disclaimer":"This feature has been tested and is supported in the following browsers - Internet Explorer 10 and recent versions, Firefox, Chrome, Safari.",		
 		"diagram_options":"Diagram & Table Options",
 		"diagram_options_desc":"You can view, save or print your family health history to share with your health care provider. They can assess your risk for certain diseases, and develop disease prevention strategies that are right for you. You can also share the table with other family members to your your family's disease history. You can change what is shown in the table yourself by selecting from the options below. Please select from the options below what you would like to show on your table.",
-		"diagram_options_disease":"Select a disease or condition to highlight in the table",
+		"diagram_options_disease":"Choose a disease or condition to highlight in the diagram: ",
 		"diagram_options_checkbox1":"Show my personal information (age, height, weight, and body mass index) at the top of the diagram and table.",
 		"diagram_options_checkbox2":"Show the names of family members in the diagram and table.",
 		"diagram_options_checkbox3":"Show drawing (the tree diagram of your family's health history)",

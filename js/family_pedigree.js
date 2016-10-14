@@ -6894,7 +6894,6 @@ function createDialogMain() {
         + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfoMain()' checked />" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox2") + "<br />"
         + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfoMain()' checked/>" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox3") + "<br />"
         + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfoMain()' checked/>" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox4") + "<br />"
-        // + "<input type='button' onclick='CloseInfoMain()' value='" + $.t("fhh_family_pedigree.close") + "'></button>"
         + "<br /><button onclick='CloseInfoMain()'>" + $.t("fhh_family_pedigree.close") + "</button>"
         + "</td>"
         + "</tr></table>"

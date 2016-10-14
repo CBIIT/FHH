@@ -6327,7 +6327,7 @@ function createDialog_Ie() {
         + "<table>"
         + "<tr>"
         + "<td>"
-        + "<label for='diseaseopts'>Select a disease or condition to highlight in the table  </label>"
+        + "<label for='diseaseopts'>Choose a disease or condition to highlight in the diagram:  </label>"
         + "<select id='diseaseopts' onchange='DiseaseDna_Ie()'>"
         + array.toString()
         + "<option value='one'></option>"
@@ -6340,7 +6340,6 @@ function createDialog_Ie() {
         + "<input id='names' type='checkbox' name='chk_group' value='names' onclick='HideInfo_Ie()' checked /> Show the names of family members in the diagram and table.<br />"
         + "<input id='diagram' type='checkbox' name='chk_group' value='diagram' onclick='HideInfo_Ie()' checked/> Show drawing (the tree diagram of your family's health history)<br />"
         + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfo_Ie()' checked/> Show table (your family's health history displayed as a listing table)<br />"
-
         + "</td>"
         + "</tr></table>"
 

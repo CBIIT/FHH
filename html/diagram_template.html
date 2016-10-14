@@ -3,15 +3,7 @@
    <div id="left">{{translate("fhh_family_pedigree","title")}}</div>
    <div id="right"><button ng-click="close()">{{translate("fhh_family_pedigree","close")}}</button></div>
 </div>
-<div id="navBar">
-<ul>    
-   <li>
-      <a  href="#optionsPanelMan" onclick="createDiagramDialog()">{{translate("fhh_family_pedigree","diagram_options")}}
-      </a>         
-   </li>
-</ul>
-   
-</div>
+
 <table class="infolayer">
    <tr>
       <td style="padding-left:5px;">
@@ -21,6 +13,22 @@
           <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line2_before_anchor1")}} <a href="#personal_info_diagram">{{translate("fhh_family_pedigree","desc_line2_anchor1")}}</a> {{translate("fhh_family_pedigree","desc_line2_before_anchor2")}} <a id="tableAnchor" href="#personal_info_table">{{translate("fhh_family_pedigree","desc_line2_anchor2")}}</a> {{translate("fhh_family_pedigree","desc_line2_after_anchor2")}}</li>
           <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line3")}}</li>
           <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line4")}}</li>
+        </ul>
+        <ul style="list-style-type:none;padding-left:20px;">
+        <li>Options:</li>
+          <ul style="list-style-type:none;padding-left:60px;">
+            <li>
+              <input id='bmi' type='checkbox' name='bmi' value='bmi' onclick='HidePersonalInfo()' checked /> {{translate("fhh_family_pedigree","diagram_options_checkbox1")}}<br />
+            </li>
+            <li>
+              <input id='names' type=  'checkbox' name='names' value='names' onclick='HideNames()' checked /> {{translate("fhh_family_pedigree","diagram_options_checkbox2")}}<br />
+            </li>
+            <li>
+              <label for='diseaseopts'>Choose a disease or condition to highlight in the diagram:  </label>
+              <select id='diseaseopts' onchange='DiseaseDna()'>
+              </select>
+            </li>
+          </ul>
         </ul>
       </td>
    </tr>

@@ -51,6 +51,7 @@ function load_diagram() {
 	if (tableOptions.showDiagram=='') {
 		$("#pedigree").hide();
 	}	
+	createDiagramDialog();
 }
 
 
@@ -361,24 +362,13 @@ function have_any_children(relationship_type, relative) {
 	return parent_status;
 }
 
-
-
 function createDiagramDialog() {
-    var allnames = new Array();
-    if($("#optionsPanelMain").dialog( "isOpen" ) == true) {
-        $("#optionsPanelMain").dialog( "open" );
-    }
-    else {
-        var array = new Array();
-        array.push("<option value='0'></option>")
 
-        /**
-         * Me values
-         */
-        $.each(personal_information['Health History'], function (k, data) {
+	var allnames = new Array();
+	var array = new Array();
+        array.push("<option value='0'>Don’t highlight a disease</option>")
 
-            //var health = new Array();
-            //health = data['Health History'];
+		$.each(personal_information['Health History'], function (k, data) {
 
             var thename, temp, dcode;
             var disname = data['Disease Name'];
@@ -391,7 +381,6 @@ function createDiagramDialog() {
             if(detdisname=='diseases:null') detdisname = null;
             if (detdisname == null) thename = disname;
             else thename = detdisname;
-//                      console.log("P->DN:[" + disname +  "]DDN[" + detdisname + "]DC[" + data['Disease Code'] + "]--> [" + thename + "]");
 
             if ($.inArray(thename, allnames) == -1) {
                 allnames.push(thename);
@@ -426,7 +415,6 @@ function createDiagramDialog() {
                             if(detdisname=='diseases:null') detdisname = null;
                             if (detdisname == null) thename = disname;
                             else thename = detdisname;
-//                                                      console.log("R->DN:[" + disname +  "]DDN[" + detdisname + "]DC[" + data['Disease Code'] + "]--> [" + thename + "]");
                             if ($.inArray(thename, allnames) == -1) {
                                 allnames.push(thename);
 			                if (tableOptions.selectedDisease==dcode) {
@@ -441,53 +429,7 @@ function createDiagramDialog() {
                 }
             }
         });
-
-
-
-		
-        var $optdialog = $("<div id='optionsPanelMain' width='800px' class='instructions option_dialog' style='width:800px;'><p>"
-        + $.t("fhh_family_pedigree.diagram_options_desc")
-        + "<table>"
-        + "<tr>"
-        + "<td>"
-        + "<label for='diseaseopts'>" + $.t("fhh_family_pedigree.diagram_options_disease") + "  </label>"
-        + "<select id='diseaseopts' onchange='DiseaseDna()'>"
-        + array.toString()
-        + "<option value='one'></option>"
-        + "</select>"
-        + "</td>"
-        + "</tr>"
-        + "<tr>"
-        + "<td>"
-	   + "<input id='bmi' type='checkbox' name='bmi' value='bmi' onclick='HidePersonalInfo()'"  + tableOptions.personal_info + " />" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox1") + "<br />"
-        + "<input id='names' type=	'checkbox' name='names' value='names' onclick='HideNames()' " + tableOptions.showNames + " />" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox2") + "<br />"
-        + "<input id='diagram' type='checkbox' name='diagram' value='diagram' onclick='HideDiagram()' " + tableOptions.showDiagram + " />" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox3") + "<br />"
-        + "<input id='table' type='checkbox' name='table' value='table' onclick='HideTable()' " + tableOptions.showTable + " />" + ' ' + $.t("fhh_family_pedigree.diagram_options_checkbox4") + "<br />"
-        // + "<input id='diagram' type='checkbox' name='diagram' value='diagram' onclick='[/.]        // + "<input id='table' type='checkbox' name='chk_group' value='table' onclick='HideInfoMain()' checked/>" + $.t("fhh_family_pedigree.diagram_options_checkbox4") + "<br />"
-        // + "<input type='button' onclick='CloseInfoMain()' value='" + $.t("fhh_family_pedigree.close") + "'></button>"
-        + "<br /><button onclick='CloseInfoMain()'>" + $.t("fhh_family_pedigree.close") + "</button>"
-        + "</td>"
-        + "</tr></table>"
-        + "</p></div>").dialog({
-            width: 900,
-            position: ['top',100],
-            title: $.t("fhh_family_pedigree.diagram_options"),
-            open: function(ev,ui) {
-			$(".ui-front").zIndex(5000)
-            },
-            close: function (ev, ui) {
-                $(this).empty();
-                $(this).dialog('destroy').remove();
-
-            }
-        });
-
-        //Reset All to Original
-        // ResetInfo();
-
-        return $optdialog
-    }
-
+        $("#diseaseopts").append(array.toString());
 }
 
 function HidePersonalInfo() {
