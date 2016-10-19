@@ -10,7 +10,7 @@
         <h1>{{translate("fhh_family_pedigree","title")}}</h1>
         <ul style="list-style-type:square">
           <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line1")}}</li>
-          <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line2_before_anchor1")}} <a href="#personal_info_diagram">{{translate("fhh_family_pedigree","desc_line2_anchor1")}}</a> {{translate("fhh_family_pedigree","desc_line2_before_anchor2")}} <a id="tableAnchor" href="#personal_info_table">{{translate("fhh_family_pedigree","desc_line2_anchor2")}}</a> {{translate("fhh_family_pedigree","desc_line2_after_anchor2")}}</li>
+          <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line2_before_anchor1")}} <a href="#diagram_head">{{translate("fhh_family_pedigree","desc_line2_anchor1")}}</a> {{translate("fhh_family_pedigree","desc_line2_before_anchor2")}} <a id="tableAnchor" href="#table_head">{{translate("fhh_family_pedigree","desc_line2_anchor2")}}</a> {{translate("fhh_family_pedigree","desc_line2_after_anchor2")}}</li>
           <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line3")}}</li>
           <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line4")}}</li>
         </ul>
@@ -34,10 +34,13 @@
    </tr>
 </table>
 
+<h1 style="text-align:left;display:inline;margin-left:-860px;" id="diagram_head">Family Tree Diagram (Pedigree)</h1><!-- 940px -->
+<span style="float:right;"><button style="font-size:14px !important;margin-right:11px;margin-top:3px;" ng-click="close()">{{translate("fhh_family_pedigree","close")}}</button></span>
+<span style="float:right;"><a href="#close"><button style="font-size:14px !important;margin-right:4px;margin-top:3px;">/\ TOP</button></a></span>
+
 <table width="100%" id="personal_info_diagram">
   <tr>
     <td>
-      <h1>Family Tree Diagram (Pedigree)</h1>
         <div id="personal_info" style="padding-left:20px;">
           <div>{{translate("fhh_family_pedigree","personal_info")}}</div>
           <div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
@@ -61,10 +64,14 @@
 <hr id="health_table">
 <div class="modal-body"><a name="#personal_info_table"></a>
   <div id="bottom_table">
+
+   <h1 style="text-align:left;display:inline;margin-left:0;" id="table_head">Table of Family Diseases and Conditions</h1>  
+   <span style="float:right;"><button style="font-size:14px !important;margin-right:-9px;margin-top:3px;" ng-click="close()">{{translate("fhh_family_pedigree","close")}}</button></span>  
+   <span style="float:right;"><a href="#close"><button style="font-size:14px !important;margin-right:4px;margin-top:3px;">/\ TOP</button></a></span>
+
    <table width="100%" id="personal_info_table">
       <tr>
          <td>
-          <h1>Table of Family Diseases and Conditions</h1>    
             <div id="personal_info" style="padding-left:20px;">
                <div>{{translate("fhh_family_pedigree","personal_info")}}</div>
                <div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
