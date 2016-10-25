@@ -6,8 +6,8 @@
 
 <table class="infolayer">
    <tr>
-      <td style="padding-left:5px;background-color:#dfdddd;width:88%">
-        <h1>{{translate("fhh_family_pedigree","title")}}</h1>
+      <td style="padding-left:5px;background-color:#dfdddd;width:1%;border-style:solid;border-width:1px;">
+        <h1 style="margin: 0em 0.5em 1em !important;">{{translate("fhh_family_pedigree","title")}}</h1>
         <ul style="list-style-type:square;">
           <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line1")}}</li>
           <li style="margin-bottom:1px">{{translate("fhh_family_pedigree","desc_line2_before_anchor1")}} <a href="#diagram_head">{{translate("fhh_family_pedigree","desc_line2_anchor1")}}</a> {{translate("fhh_family_pedigree","desc_line2_before_anchor2")}} <a id="tableAnchor" href="#table_head">{{translate("fhh_family_pedigree","desc_line2_anchor2")}}</a> {{translate("fhh_family_pedigree","desc_line2_after_anchor2")}}</li>
@@ -33,10 +33,10 @@
       </td>
    </tr>
 </table>
-
-<h1 style="text-align:left;display:inline;margin-left:-860px;" id="diagram_head">Family Tree Diagram (Pedigree)</h1><!-- 940px -->
+<br />
+<h1 style="text-align:left;display:inline;margin-top:0;position:absolute;left:4px;" id="diagram_head">Family Tree Diagram (Pedigree)</h1>
 <span style="float:right;"><button style="font-size:14px !important;margin-right:11px;margin-top:3px;" ng-click="close()">{{translate("fhh_family_pedigree","close")}}</button></span>
-<span style="float:right;"><a href="#close"><button style="font-size:14px !important;margin-right:4px;margin-top:3px;">/\ TOP</button></a></span>
+<span style="float:right;"><a href="#close"><button style="font-size:14px !important;margin-right:4px;margin-top:3px;">Top</button></a></span>
 
 <table width="100%" id="personal_info_diagram">
   <tr>
@@ -67,7 +67,7 @@
 
    <h1 style="text-align:left;display:inline;margin-left:0;" id="table_head">Table of Family Diseases and Conditions</h1>  
    <span style="float:right;"><button style="font-size:14px !important;margin-right:-9px;margin-top:3px;" ng-click="close()">{{translate("fhh_family_pedigree","close")}}</button></span>  
-   <span style="float:right;"><a href="#close"><button style="font-size:14px !important;margin-right:4px;margin-top:3px;">/\ TOP</button></a></span>
+   <span style="float:right;"><a href="#close"><button style="font-size:14px !important;margin-right:4px;margin-top:3px;">Top</button></a></span>
 
    <table width="100%" id="personal_info_table">
       <tr>
@@ -146,7 +146,10 @@
 </div>
 </div>
 <div id="#diagram_image"></div>
-<div class="modal-footer"></div>
+<div class="modal-footer">
+  <span style="float:right;"><button style="font-size:14px !important;margin-right:-9px;" ng-click="close()">{{translate("fhh_family_pedigree","close")}}</button></span>
+  <span style="float:right;"><a href="#close"><button style="font-size:14px !important;margin-right:4px;">Top</button></a></span>
+</div>
 <div id="diagram_container">
 <div ng-show="diagram_show" id="print_diagram" style="width:auto; height:{{getTableHeight()}}px; background-color: #fff;"></div>
 </div>
