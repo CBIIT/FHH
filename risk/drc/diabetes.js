@@ -371,6 +371,8 @@ function apply_required_additional_data_entry_button () {
 
 		if (!angular.equals(JSON.stringify(fourthVari),JSON.stringify(personal_information))) {
 			$("#firstVari").text("You have unsaved data!");
+			$("#save_personal_history_button").css("background-color","red");
+
 		}
 		
 		load_all_data_and_calculate_score();
@@ -631,6 +633,8 @@ function enable_changing_physical_activity_status () {
 
   		if (!angular.equals(JSON.stringify(fourthVari),JSON.stringify(personal_information))) {
 			$("#firstVari").text("You have unsaved data!");
+			$("#save_personal_history_button").css("background-color","red");
+
 		}
 
 	});	

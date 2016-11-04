@@ -42,12 +42,32 @@
   <tr>
     <td>
         <div id="personal_info" style="padding-left:20px;">
-          <div>{{translate("fhh_family_pedigree","personal_info")}}</div>
-          <div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
-          <div>{{translate("fhh_family_pedigree","height")}} {{self_history.height}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.height_unit)}}</span></div>
-          <div>{{translate("fhh_family_pedigree","weight")}} {{self_history.weight}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.weight_unit+"s")}}</span></div>
-          <div>{{translate("fhh_family_pedigree","bmi")}} {{calculateBMI(self_history.height,self_history.height_unit,self_history.weight,self_history.weight_unit)}}</div>
-          <div>{{calculcate_report_date()}}</div>
+          <table style="border: 1px solid; padding: 2px;">
+            <tr style="border: 1px solid; padding: 2px;">
+              <td colspan="4" style="border: 1px solid; padding: 2px;">
+                <div>{{translate("fhh_family_pedigree","personal_info")}}</div>
+              </td>
+            </tr>
+            <tr style="border: 1px solid; padding: 2px;">
+              <td style="border: 1px solid; padding: 2px;">
+                <div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
+              </td>
+              <td style="border: 1px solid; padding: 2px;">
+                <div>{{translate("fhh_family_pedigree","height")}} {{self_history.height}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.height_unit)}}</span></div>
+              </td>
+              <td style="border: 1px solid; padding: 2px;">
+                <div>{{translate("fhh_family_pedigree","weight")}} {{self_history.weight}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.weight_unit+"s")}}</span></div>
+              </td>
+              <td style="border: 1px solid; padding: 2px;">
+                <div>{{translate("fhh_family_pedigree","bmi")}} {{calculateBMI(self_history.height,self_history.height_unit,self_history.weight,self_history.weight_unit)}}</div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4" style="border: 1px solid; padding: 2px;">
+                <div>{{calculcate_report_date()}}</div>
+              </td>
+            </tr>
+          </table>
         </div>
     </td>
   </tr>
@@ -72,13 +92,33 @@
    <table width="100%" id="personal_info_table">
       <tr>
          <td>
-            <div id="personal_info" style="padding-left:20px;">
-               <div>{{translate("fhh_family_pedigree","personal_info")}}</div>
-               <div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
-               <div>{{translate("fhh_family_pedigree","height")}} {{self_history.height}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.height_unit)}}</span></div>
-               <div>{{translate("fhh_family_pedigree","weight")}} {{self_history.weight}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.weight_unit+"s")}}</span></div>
-               <div>{{translate("fhh_family_pedigree","bmi")}} {{calculateBMI(self_history.height,self_history.height_unit,self_history.weight,self_history.weight_unit)}}</div>
-               <div>{{calculcate_report_date()}}</div>
+            <div id="personal_info" style="padding-left:10px;">
+               <table style="border: 1px solid; padding: 2px;">
+                <tr style="border: 1px solid; padding: 2px;">
+                  <td colspan="4" style="border: 1px solid; padding: 2px;">
+                    <div>{{translate("fhh_family_pedigree","personal_info")}}</div>
+                  </td>
+                </tr>
+                <tr style="border: 1px solid; padding: 2px;">
+                  <td style="border: 1px solid; padding: 2px;">
+                    <div>{{translate("fhh_family_pedigree","age")}} {{calculateAge(self_history.date_of_birth)}}</div>
+                  </td>
+                  <td style="border: 1px solid; padding: 2px;">
+                    <div>{{translate("fhh_family_pedigree","height")}} {{self_history.height}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.height_unit)}}</span></div>
+                  </td>
+                  <td style="border: 1px solid; padding: 2px;">
+                    <div>{{translate("fhh_family_pedigree","weight")}} {{self_history.weight}} <span ng-if="self_history.height_unit">{{translate("fhh_diabetes_calculator",self_history.weight_unit+"s")}}</span></div>
+                  </td>
+                  <td style="border: 1px solid; padding: 2px;">
+                    <div>{{translate("fhh_family_pedigree","bmi")}} {{calculateBMI(self_history.height,self_history.height_unit,self_history.weight,self_history.weight_unit)}}</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="4" style="border: 1px solid; padding: 2px;">
+                    <div>{{calculcate_report_date()}}</div>
+                  </td>
+                </tr>
+              </table>
             </div>
          </td>
       </tr>

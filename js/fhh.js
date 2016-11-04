@@ -526,6 +526,7 @@ function bind_view_diagram_and_table_button_action () {
 
 function bind_save_personal_history_button_action () {
 	$("#firstVari").text("");
+	$("#save_personal_history_button").css("background-color","#337AB7");
 	$( "#save_personal_history_dialog" ).dialog( "open" );	
 }
 
@@ -1442,6 +1443,7 @@ function bind_add_all_family_members_submit_button_action() {
 		$("#add_another_family_member_button").show();
 		
 		$("#firstVari").text("You have unsaved data!");
+		$("#save_personal_history_button").css("background-color","red");
 		
 		$("#add_all_family_members_dialog").dialog("close");
 	});
@@ -1621,8 +1623,9 @@ function build_family_history_data_table () {
 
 function add_family_history_header_row(table) {
 	var header_row = $("<tr></tr>");
-	header_row.append("<th scope='col' class='nowrap'>" + $.t("fhh_js.name") + "</th>");
+	header_row.append("<th scope='col' class='nowrap'>" + $.t("fhh_js.name") + "</th>");	
 	header_row.append("<th scope='col' abbr='Relationship' class='nowrap'>" + $.t("fhh_js.relationship_to_me") + "</th>");
+	header_row.append("<th scope='col' abbr='Living' class='nowrap'>" + $.t("fhh_js.still_living_main") + "</th>");
 	header_row.append("<th scope='col' abbr='Update' class='nowrap'>" + $.t("fhh_js.update_history") + "</th>");
 	header_row.append("<th scope='col' abbr='Remove' class='nowrap'>" + $.t("fhh_js.remove_relative") + "</th>");
 	header_row.append("");
@@ -1641,6 +1644,8 @@ function add_personal_history_row(table) {
 	new_row.append(nameColumn_td);
 
 	new_row.append("<td class='information' >" + $.t("fhh_js.self") + "</td>");
+
+	new_row.append("<td class='information' id='still_living'>" + "Yes" + "</td>");
 	
 	var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
 	var update_history = $("<A class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
@@ -1664,7 +1669,7 @@ function add_personal_history_row(table) {
 function add_new_family_history_row_title(table, name) {
 	var new_row = $("<tr></tr>");
 	new_row.addClass("summary_category_header_row");
-	new_row.append("<td colspan='4'>" + name + "</td>");
+	new_row.append("<td colspan='5'>" + name + "</td>");
 	table.append(new_row);
 	
 }
@@ -1672,6 +1677,7 @@ function add_new_family_history_row_title(table, name) {
 function add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable) {
 
 	// Html requires that all blank fields have at least 1 char or it will not show border
+
 	var name;
 	if (family_member == null || family_member.name == null || 
 		  family_member.name == "" || $.isEmptyObject(family_member) ) name = "&nbsp;";
@@ -1694,6 +1700,21 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	});
 
 	new_row.append("<td class='information' >" + relationship + "</td>");
+
+	var status = "";
+
+	if (family_member.is_alive=="unknown") {
+		status = "Unknown";
+	}
+	if (family_member.is_alive=="dead") {
+		status = "No";
+	}
+	if (family_member.is_alive=="alive") {
+		status = "Yes";
+	}
+
+	new_row.append("<td class='information' >" + status + "</td>");
+
 	if (is_already_defined) {
 
 		var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
@@ -1771,6 +1792,8 @@ function remove_family_member(relationship_id, confirm_flag) {
 		delete personal_information[relationship_id];
 		$("#" + relationship_id).remove();
 		$("#firstVari").text("You have unsaved data!");
+		$("#save_personal_history_button").css("background-color","red");
+
 	} else {
 		// DO nothing
 	}
@@ -1812,8 +1835,12 @@ function update_family_history_row(relationship_id, family_member_information) {
 
 	if (angular.equals(JSON.stringify(thirdVari),JSON.stringify(family_member_information))) {
 		$("#firstVari").text("");
+		$("#save_personal_history_button").css("background-color","#337AB7");
 	}
-	else $("#firstVari").text("You have unsaved data!");
+	else {
+		$("#firstVari").text("You have unsaved data!");
+		$("#save_personal_history_button").css("background-color","red");
+	}
 
 	$("#" + relationship_id).find("#relatives_name").find("a").html(family_member_information["name"]);
 
@@ -1853,8 +1880,13 @@ function update_personal_history_row() {
 	$("#self").find("#relatives_name").find("a").html(personal_information.name);
 	if (angular.equals(JSON.stringify(secondVari),JSON.stringify(personal_information))) {
 		$("#firstVari").text("");
+		$("#save_personal_history_button").css("background-color","#337AB7");
 	}
-	else $("#firstVari").text("You have unsaved data!");
+	else {
+		$("#firstVari").text("You have unsaved data!");
+		$("#save_personal_history_button").css("background-color","red");
+	}
+
 }
 
 function build_history_edit_dialog () {
