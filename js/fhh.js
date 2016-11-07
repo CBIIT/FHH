@@ -1643,9 +1643,9 @@ function add_personal_history_row(table) {
 	nameColumn_td.append(nameColumn_text);
 	new_row.append(nameColumn_td);
 
-	new_row.append("<td class='information' >" + $.t("fhh_js.self") + "</td>");
+	new_row.append("<td class='information'>" + $.t("fhh_js.self") + "</td>");
 
-	new_row.append("<td class='information' id='still_living'>" + "Yes" + "</td>");
+	new_row.append("<td class='information'>Yes</td>");
 	
 	var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
 	var update_history = $("<A class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
@@ -1701,16 +1701,20 @@ function add_new_family_history_row(table, family_member, relationship, relation
 
 	new_row.append("<td class='information' >" + relationship + "</td>");
 
-	var status = "";
+	if (family_member!=undefined) {
 
-	if (family_member.is_alive=="unknown") {
-		status = "Unknown";
-	}
-	if (family_member.is_alive=="dead") {
-		status = "No";
-	}
-	if (family_member.is_alive=="alive") {
-		status = "Yes";
+		var status = "";
+
+		if (family_member.is_alive=="unknown") {
+			status = "Unknown";
+		}
+		if (family_member.is_alive=="dead") {
+			status = "No";
+		}
+		if (family_member.is_alive=="alive") {
+			status = "Yes";
+		}
+	
 	}
 
 	new_row.append("<td class='information' >" + status + "</td>");
