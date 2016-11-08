@@ -332,16 +332,16 @@ function start()
 		width:1064
 	});
 
-	$("#navRiskCalculator").on("click", function(){ 
+	$("#navRiskCalculator").on("click", function() { 
 		$("#disease_risk_calculator").dialog("open");
 		load_risk_links();
 	});
 
-	$("#navViewDiagram").on("click", function(){ 
+	$("#navViewDiagram").on("click", function() { 
      xmlload();
    });
 
-	$("#navCopyFamily").on("click", function(){ 
+	$("#navCopyFamily").on("click", function() { 
      $("#copy_for_family_member").dialog("open");
      build_copy_for_family_member_dialog();
   });
@@ -416,7 +416,7 @@ function start()
 //	}
 
 	// Below function is temporary to allow debuging of the pedigree
-	$("#nav_help").on("click", function(){ 
+	$("#nav_help").on("click", function() { 
 		$("#help_dialog").dialog("open");
 
 		// test if iPad // 
@@ -427,7 +427,7 @@ function start()
 		
 	});
 	
-	$(".banner_right").on("click", function(){ 
+	$(".banner_right").on("click", function() { 
 //		$("#help_dialog").append(JSON.stringify(personal_information, null, 2));
 //		$("#help_dialog").dialog("open");
 		if (DEBUG) {
@@ -1013,7 +1013,7 @@ function check_date_of_birth_in_correct_format (date_of_birth) {
 }
 
 function bind_personal_cancel_button_action () {
-	$("#addPersonInformationCancelButton").on("click", function(){ 
+	$("#addPersonInformationCancelButton").on("click", function() { 
 		$("#invalid_name_warning").remove();
 		$("#invalid_date_of_birth_warning").remove();
 		$("#invalid_gender_warning").remove();
@@ -1026,25 +1026,25 @@ function bind_personal_cancel_button_action () {
 }
 
 function bind_personal_help_button_action () {
-	$("#add-help").on("click", function(){ 
+	$("#add-help").on("click", function() { 
 		$("#personal_help_dialog").dialog("open");
 	});
 }
 
 function bind_family_member_help_button_action () {
-	$("#update-help").on("click", function(){ 
+	$("#update-help").on("click", function() { 
 		$("#update_help_dialog").dialog("open");
 	});
 }
 
 function bind_load_help_button_action() {
-	$("#load-help").on("click", function(){ 
+	$("#load-help").on("click", function() { 
 		$("#load_help_dialog").dialog("open");
 	});	
 }
 
 function bind_immediate_help_button_action() {
-	$("#immediate-help").on("click", function(){ 
+	$("#immediate-help").on("click", function() { 
 		$("#immediate_help_dialog").dialog("open");
 	});	
 }
@@ -1053,7 +1053,7 @@ function bind_immediate_help_button_action() {
 function bind_family_member_submit_button_action () {
 	// Validation age determination
 
-	$("#addFamilyMemberSubmitButton").on("click", function(){ 
+	$("#addFamilyMemberSubmitButton").on("click", function() { 
 
 		// Cause of Death or Age/Estimated-Age variables
 		var alive_flag = $("#is_person_alive").val();
@@ -1364,7 +1364,7 @@ function cancel_update_family_member() {
 
 function bind_add_all_family_members_submit_button_action() {
 
-	$("#create_immediate_family_submit").on("click", function(){ 
+	$("#create_immediate_family_submit").on("click", function() { 
 		var number_brothers = parseInt($("#family_brothers").val()) || 0;
 		var number_sisters = parseInt($("#family_sisters").val()) || 0;
 		var number_sons = parseInt( $("#family_sons").val()) || 0;
@@ -1451,7 +1451,7 @@ function bind_add_all_family_members_submit_button_action() {
 }
 
 function bind_add_all_family_members_cancel_button_action() {
-	$("#create_immediate_family_cancel").on("click", function(){ 
+	$("#create_immediate_family_cancel").on("click", function() { 
 //		alert ("Cancelling Adding of Family Members");
 		$("#add_all_family_members_dialog").dialog("close");
 	});	
@@ -1645,7 +1645,7 @@ function add_personal_history_row(table) {
 
 	new_row.append("<td class='information'>" + $.t("fhh_js.self") + "</td>");
 
-	new_row.append("<td class='information'>Yes</td>");
+	new_row.append("<td class='information' id='still_living_main'>Yes</td>");
 	
 	var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
 	var update_history = $("<A class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
@@ -1674,6 +1674,8 @@ function add_new_family_history_row_title(table, name) {
 	
 }
 
+// function 
+
 function add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable) {
 
 	// Html requires that all blank fields have at least 1 char or it will not show border
@@ -1694,7 +1696,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	nameColumn_text.attr("relationship_id", relationship_id);
 	new_row.append(nameColumn_td);
 
-	nameColumn_text.on("click", function(){ 
+	nameColumn_text.on("click", function() { 
 		current_relationship = $(this).attr('relationship_id');
 		updateHistoryDialog(current_relationship,family_member);
 	});
@@ -1717,7 +1719,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	
 	}
 
-	new_row.append("<td class='information' >" + status + "</td>");
+	new_row.append("<td class='information' id='still_living_main'>" + status + "</td>");
 
 	if (is_already_defined) {
 
@@ -1740,7 +1742,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 			family_member.relationship = relationship_id;
 		}		
 
-		update_history.on("click", function(){ 
+		update_history.on("click", function() { 
 			current_relationship = $(this).attr('relationship_id');
 			updateHistoryDialog(current_relationship, family_member);
 		});
@@ -1751,7 +1753,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	} else {
 		var add_history = $("<td class='action add_history'><img src='../images/icon_add.gif' alt='Add History' title='Add History'></td>")
 
-		add_history.on("click", function(){ 
+		add_history.on("click", function() { 
 //			alert("Updating history for: " + relationship)
 			$("#accordian_title_relationship").html(" <h2> Your " + relationship_id + "'s Health Information</h2>");
 			
@@ -1769,7 +1771,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 		var remove_history = $("<A href='#' class='action remove_history'><img style='border:0px' src='../images/icon_trash.gif' alt='Remove History' title='Remove History'></A>")
 		remove_history_td.append(remove_history);
 		remove_history.attr("relationship_id", relationship_id);
-		remove_history.on("click", function(){ 
+		remove_history.on("click", function() { 
 			remove_family_member( $(this).attr('relationship_id'), true);
 		});
 		
@@ -1848,6 +1850,24 @@ function update_family_history_row(relationship_id, family_member_information) {
 
 	$("#" + relationship_id).find("#relatives_name").find("a").html(family_member_information["name"]);
 
+	if (family_member_information!=undefined) {
+
+		var status = "";
+
+		if (family_member_information.is_alive=="unknown") {
+			status = "Unknown";
+		}
+		if (family_member_information.is_alive=="dead") {
+			status = "No";
+		}
+		if (family_member_information.is_alive=="alive") {
+			status = "Yes";
+		}
+	
+	}
+
+	$("#" + relationship_id).find("#still_living_main").html(status);	
+
 //	var update_history = $("<td class='action update_history' relationship_id='" + relationship_id 
 //				+ "' ><img src='images/icon_edit.gif' alt='Update History' title='Update History'></td>");
 
@@ -1855,7 +1875,7 @@ function update_family_history_row(relationship_id, family_member_information) {
 	$("#" + relationship_id).find(".update_history").attr("relationship_id", relationship_id);
 	$("#" + relationship_id).find(".add_history").html("&nbsp;");
 	
-	$("#" + relationship_id).find(".update_history").unbind().on("click", function(){
+	$("#" + relationship_id).find(".update_history").unbind().on("click", function() {
 		family_member = personal_information[$(this).attr('relationship_id')];
 		current_relationship = $(this).attr('relationship_id');
 		family_member.relationship = relationship_id;
@@ -1873,7 +1893,7 @@ function update_family_history_row(relationship_id, family_member_information) {
 		remove_history = $("#" + relationship_id).find(".remove_history");
 		remove_history.html("<img src='../images/icon_trash.gif' alt='Remove History' title='Remove History'>");
 		remove_history.attr("relationship_id", relationship_id);
-		remove_history.unbind().on("click", function(){ 
+		remove_history.unbind().on("click", function() { 
 			remove_family_member( $(this).attr('relationship_id'), true);
 		});
 	}
@@ -2971,7 +2991,7 @@ function is_IE_8_or_9 () {
 	return false;
 }
 
-function which_IE(){
+function which_IE() {
   var myNav = navigator.userAgent.toLowerCase();
   return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
 }
@@ -2980,7 +3000,7 @@ function which_IE(){
 
 
 
-function closeEditorWarning(){
+function closeEditorWarning() {
     if (personal_information) return "Leaving";
 };
 
