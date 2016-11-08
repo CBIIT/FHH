@@ -1674,8 +1674,6 @@ function add_new_family_history_row_title(table, name) {
 	
 }
 
-// function 
-
 function add_new_family_history_row(table, family_member, relationship, relationship_id, is_removeable) {
 
 	// Html requires that all blank fields have at least 1 char or it will not show border
