@@ -45,9 +45,12 @@
             	<div class='instructions'>mm/dd/yyyy</div>
             </td>
         </tr>
+        </table>
+      <table class="form" summary="Enter personal information.">
+
         <tr>
             <th class='translate label' data-i18n='info_dialog.twin_status'> Were you born a twin?</th>
-            <td><input name="person.twin_status" id="personal_info_form_twin_status_no" checked="checked" value="NO" tabindex="11" type="radio">
+            <td class="twin_status"><input name="person.twin_status" id="personal_info_form_twin_status_no" checked="checked" value="NO" tabindex="11" type="radio">
             		<label for="personal_info_form_twin_status_no" class="translate" data-i18n='info_dialog.no'>No</label>
 								<input name="person.twin_status" id="personal_info_form_twin_status_identical" value="IDENTICAL" tabindex="11" type="radio">
 								<label for="personal_info_form_twin_status_identical"  class="translate" data-i18n='info_dialog.identical'>Yes - Identical (Same)</label>
@@ -92,7 +95,7 @@
  <table width="100%" cellspacing="0" cellpadding="0" border="0">
   <tr>
 
-  <td style="text-align:right;">
+  <td style="text-align:center;">
     <button id='addPersonInformationCancelButton' class="translate" data-i18n='info_dialog.btn2_fam_hist'>Cancel</button>    
    	<button id='addPersonInformationSubmitButton' class="translate" data-i18n='info_dialog.btn1_fam_hist' style="text-align:right;font-size:110% !important">Next </button>
   </td>

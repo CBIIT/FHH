@@ -223,6 +223,21 @@ a.button_link:active {
   margin-left:6px;
 }
 
+
+.top_instructions {
+    font-size:15px;
+    text-align:left;
+}
+
+.top_instructions div.left {
+    display:inline-block;
+    width:75%;
+}
+.top_instructions div.right {
+    display:inline-block;
+    float:right;
+}
+
 table.summary_table {
   background-color: #FFFFFF;
   margin: 0px;
@@ -520,6 +535,20 @@ padding:4px 0px 4px 10px;
 margin-bottom:5px;
 }
 
+table.form {
+  width:50%;
+  border:1px solid #43729a;
+  margin-bottom:8px;margin-top:8px;
+}
+
+table.form th {
+  padding-left:4px;
+}
+
+
+table.form td {
+  padding-top:5px;
+}
 
 ul#disease_list {
 list-style:none;
@@ -665,6 +694,16 @@ padding-right:5px;
   margin-left: 2px;
 }
 
+.twin_status label{ 
+  padding-right:2em;
+}
+
+div#person_is_alive{
+  width:340px;
+  padding:10px 0px 10px 0px;
+  border:2px solid rgb(16, 157, 186);
+  margin-top:10px;
+}
 
 
 

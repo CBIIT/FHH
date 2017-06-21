@@ -1924,7 +1924,11 @@ function build_family_health_information_section() {
 	var bar = $("<div class='title-bar' id='hi-title'>");
 	bar.append($.t("fhh_js.family_subtitle"));
 	information.empty().append(bar);
-	information.append($("<p class='instructions'>" + $.t("fhh_js.add_disease_instructions") + "</p>"))
+	information.append($("<p><ul>"))
+	information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_1") + "</ul>"))
+	information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_2") + "</ul>"))
+	information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_3") + "</ul>"))
+	information.append($("</ul></p>"))
 
 	var hi_health_history_table = $("<table class='disease_table'>");
 	var hi_header_row = $("<tr>");
@@ -1972,8 +1976,13 @@ function build_personal_health_information_section() {
 	var bar = $("<div class='title-bar' id='hi-title'>");
 	bar.append($.t("fhh_js.personal_health_subtitle"));
 	information.empty().append(bar);
-	
-	information.append($("<p class='instructions'>" + $.t("fhh_js.add_disease_instructions") + "</p>"))
+	information.append($("<p><ul>"))
+	information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_1") + "</ul>"))
+	information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_2") + "</ul>"))
+	information.append($("<li class='instructions'>" +  $.t("fhh_js.add_disease_instructions_3") + "</ul>"))
+	information.append($("</ul></p>"))
+
+
 	
 	var hi_health_history_table = $("<table class='disease_table'>");
 	var hi_header_row = $("<tr>");
@@ -2287,7 +2296,7 @@ function remove_disease() {
 function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 //	var race_ethnicity = $("#personal_race_ethnicity");
 	// First put up accordion entry
-	var bar = $("<div class='title-bar' id='bi=title'>" + $.t("fhh_js.race_ethnicity_title") + "</div>");
+	var bar = $("<div class='title-bar' id='bi-title'>" + $.t("fhh_js.race_ethnicity_title") + "</div>");
 	race_ethnicity.empty().append(bar);
 	
 	var race_checkboxes = $("<td class='race_checkbox'>" +
