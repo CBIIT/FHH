@@ -705,7 +705,13 @@ div#person_is_alive{
   margin-top:10px;
 }
 
+.update_dialog_help li {
+  padding:10px 0px 0px 0px;
+}
 
+.update_dialog_help li li{
+  padding:4px 0px 0px 0px;
+}
 
 
 

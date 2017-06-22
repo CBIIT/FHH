@@ -1,32 +1,47 @@
-<div style="text-align:left;">
-
-<h1 class="translate" data-i18n="fhh_js.update_help_dialog_h1">Enter Personal Information</h1>
-<p style="padding-left:10px;" class="translate" data-i18n="fhh_js.update_help_dialog_p">When creating your personal information you will be asked to:</p>
-<ol>
-	<li><span class="translate" data-i18n="fhh_js.update_help_dialog_l1">Enter your personal information such as name, gender, date of birth, twin status, adopted status, height and weight.</span></li>
-	<li><span class="translate" data-i18n="fhh_js.update_help_dialog_l2">Enter your health information. This includes:</span><br />
-    	<ol>
-        	<li class="translate" data-i18n="fhh_js.update_help_dialog_l2_l1">Selecting the disease or condition you may have by clicking on the drop-down selection box next to the "Disease or Condition" label</li>
-        	<li class="translate" data-i18n="fhh_js.update_help_dialog_l2_l2">If you select a disease or condition that has the words "more options" next to it, you will be asked to give more information by clicking on the drop-down box next to the "Please Specify" label</li>
-        	<li class="translate" data-i18n="fhh_js.update_help_dialog_l2_l3">Select the age of onset from the ranges that are offered after clicking on the drop-down selection box next to "Age at Diagnosis"</li>
-        	<li class="translate" data-i18n="fhh_js.update_help_dialog_l2_l4">You can add more diseases or conditions after adding one to the list. You can also press on the "Remove" link if the information doesn't appear correct</li>
-        </ol>
-    </li>
-	<li><span class="translate" data-i18n="fhh_js.update_help_dialog_l3">Enter your family background. This includes:</span><br />
-    	<ol>
-        	<li class="translate" data-i18n="fhh_js.update_help_dialog_l3_l1">Selecting whether your parents are related to each other in any way other than being married</li>
-        	<li class="translate" data-i18n="fhh_js.update_help_dialog_l3_l2">Selecting the race and ethnic background for a family member. Please note that you can select more than one option within this list. You will also be able to provide more specific race information.</li>
-        </ol>
-    </li>
-</ol>
+<div style="text-align:left;" class="update_dialog_help">
+   <ol>
+      <li>
+         <span class="translate" data-i18n="[html]fhh_js.update_help_dialog_l1">
+         Enter the family member’s personal information.  Gender is required.  A name is required for yourself and optional for others, but names will help you keep track, especially for larger families.
+         </span>
+      </li>
+      <li>
+         <span class="translate" data-i18n="[html]fhh_js.update_help_dialog_l2">
+         Chose an option for “Living?” If living, enter a date of birth, or an age or estimated age, in years. If not living, enter an age or age range at death, and a cause of death.  NOTE: A date of birth is required for a living family member if you will later convert your data file to share with them for recording their family data.
+         </span>
+      </li>
+      <li>
+         <span class="translate" data-i18n="[html]fhh_js.update_help_dialog_l3">Enter other information such as twin status, adopted status, and height and weight, when requested.</span>
+      </li>
+      <li>
+         <span class="translate" data-i18n="[html]fhh_js.update_help_dialog_l4">Enter diseases and conditions for this person:</span><br />
+         <ol>
+            <li class="translate" data-i18n="[html]fhh_js.update_help_dialog_l4_l1">If none, skip this section</li>
+            <li class="translate" data-i18n="[html]fhh_js.update_help_dialog_l4_l2">Select a disease or condition from the dropdown list titled "Disease or Condition"</li>
+            <li class="translate" data-i18n="[html]fhh_js.update_help_dialog_l4_l3">If the phrase "(more options…)" appears next to the disease category you choose, also make a selection from the Specific Subtype dropdown list that appears</li>
+            <li class="translate" data-i18n="[html]fhh_js.update_help_dialog_l4_l4">Select the age of onset (age when the disease was first noticed) from the offered ranges in the dropdown list of that name</li>
+            <li class="translate" data-i18n="[html]fhh_js.update_help_dialog_l4_l5">IMPORTANT: Press the “Add” button to link the entry to the family member’s data</li>
+            <li class="translate" data-i18n="[html]fhh_js.update_help_dialog_l4_l6">A new data entry row will then appear to allow you to enter another disease or condition; if not needed, leave it blank and go on to the next section</li>
+            <li class="translate" data-i18n="[html]fhh_js.update_help_dialog_l4_l7">A “Remove” button will also appear in case you want to delete items already added</li>
+         </ol>
+      </li>
+      <li>
+         <span class="translate" data-i18n="[html]fhh_js.update_help_dialog_l5">Enter other, optional information, where asked
+         </span><br />
+         <ol>
+            <li class="translate" data-i18n="[html]fhh_js.update_help_dialog_l5_l1">Indicate if your parents are related to each other in any way other than being married</li>
+            <li class="translate" data-i18n="[html]fhh_js.update_help_dialog_l5_l2">Select each race and ethic background that applies. You can select more than one of each</li>
+         </ol>
+      </li>
+   </ol>
 </div>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-84860122-1', 'auto');
-  ga('send', 'pageview');
-
+   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+   
+   ga('create', 'UA-84860122-1', 'auto');
+   ga('send', 'pageview');
+   
 </script>
