@@ -537,6 +537,7 @@ margin-bottom:5px;
 
 table.form {
   width:50%;
+  min-width:650px;
   border:1px solid #43729a;
   margin-bottom:8px;margin-top:8px;
 }
