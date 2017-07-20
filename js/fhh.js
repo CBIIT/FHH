@@ -92,6 +92,7 @@ function start()
 	$("#dropbox_save").click(function() {
 		$("#dropbox_save").attr("href", "data:application/xml," + JSON.stringify(personal_information, null, 2));
 	});
+
 	
 	// personal_information_dialog
 	$("#add_personal_information_dialog").load ("add_personal_information_dialog.html", function () {
@@ -119,12 +120,20 @@ function start()
 			}
 		});
 		$("#personal_race_ethnicity").find("#selectedEthnicities-1").on("change", function () {
+			console.log("aaaa")
 			if ($(this).prop("checked") == true) $("#add_personal_information_dialog").find("#hispanic_checkboxes").show();
 			else {
 				$("#add_personal_information_dialog").find("#hispanic_checkboxes").hide();
 				// We made need to uncheck the boxes
 			}
 		});
+	
+
+		$("#personal_race_ethnicity").find("#selectedEthnicities-3").on("change", function () {
+	
+				$("#add_personal_information_dialog").find("#hispanic_checkboxes").hide();
+				// We made need to uncheck the boxes
+		});		
 
 //		var option = { resGetPath: '../locales/__ns__-__lng__.json'};
 //		i18n.init(option, function () {
@@ -169,6 +178,13 @@ function start()
 			}
 		});
 		
+
+
+		$("#family_race_ethnicity").find("#selectedEthnicities-3").on("change", function () {
+	
+				$("#update_family_member_health_history_dialog").find("#hispanic_checkboxes").hide();
+				// We made need to uncheck the boxes
+		});				
 
 		$("#person_is_alive").hide();
 		$("#person_is_not_alive").hide();
@@ -2293,28 +2309,30 @@ function remove_disease() {
 
 // Health Information Section
 
+
+
+
 function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 //	var race_ethnicity = $("#personal_race_ethnicity");
 	// First put up accordion entry
 	var bar = $("<div class='title-bar' id='bi-title'>" + $.t("fhh_js.race_ethnicity_title") + "</div>");
 	race_ethnicity.empty().append(bar);
 	
-	var race_checkboxes = $("<td class='race_checkbox'>" +
-			"<input tabindex='21' name='selectedRaces' value='1' id='selectedRaces-1'  type='checkbox'/>" +
-			"<label for='selectedRaces-1' class='checkboxLabel'>" + $.t("fhh_js.race_native_american") + "</label>" +
-			"<input tabindex='21' name='selectedRaces' value='2' id='selectedRaces-2' type='checkbox'/>" +
-			"<label for='selectedRaces-2' class='checkboxLabel'>" + $.t("fhh_js.race_asian") + "</label>" +
-			"<input tabindex='21' name='selectedRaces' value='3' id='selectedRaces-3' type='checkbox'/>" +
-			"<label for='selectedRaces-3' class='checkboxLabel'>" + $.t("fhh_js.race_black") + "</label>" +
-		    "<br>" +
-			"<input tabindex='21' name='selectedRaces' value='4' id='selectedRaces-4'  type='checkbox'/>" +
-			"<label for='selectedRaces-4' class='checkboxLabel'>" + $.t("fhh_js.race_south_pacific") + "</label>" +
-			"<input tabindex='21' name='selectedRaces' value='5' id='selectedRaces-5'  type='checkbox'/>" +
-			"<label for='selectedRaces-5' class='checkboxLabel'>" + $.t("fhh_js.race_white") + "</label>" +
-			"</td>");
+	var race_checkboxes = $("<div class='race_checkbox'>" + $.t("fhh_js.race") +
+			"<div><input tabindex='21' name='selectedRaces' value='1' id='selectedRaces-1'  type='checkbox'/>" +
+			"<label for='selectedRaces-1' class='checkboxLabel'>" + $.t("fhh_js.race_native_american") + "</label></div>" +
+			"<div><input tabindex='21' name='selectedRaces' value='2' id='selectedRaces-2' type='checkbox'/>" +
+			"<label for='selectedRaces-2' class='checkboxLabel'>" + $.t("fhh_js.race_asian") + "</label></div>" +
+			"<div><input tabindex='21' name='selectedRaces' value='3' id='selectedRaces-3' type='checkbox'/>" +
+			"<label for='selectedRaces-3' class='checkboxLabel'>" + $.t("fhh_js.race_black") + "</label></div>" +
+			"<div><input tabindex='21' name='selectedRaces' value='4' id='selectedRaces-4'  type='checkbox'/>" +
+			"<label for='selectedRaces-4' class='checkboxLabel'>" + $.t("fhh_js.race_south_pacific") + "</label></div>" +
+			"<div><input tabindex='21' name='selectedRaces' value='5' id='selectedRaces-5'  type='checkbox'/>" +
+			"<label for='selectedRaces-5' class='checkboxLabel'>" + $.t("fhh_js.race_white") + "</label></div>" +
+			"</div>");
 			
-	var asian_race_checkboxes = $("<td class='race_checkbox'>" +
-			"<input tabindex='22' name='selectedRaces' value='11' id='selectedRaces-11'  type='checkbox'/>" +
+	var asian_race_checkboxes = $("<div class='race_checkbox'>" + $.t("fhh_js.more_race")  +
+			"<div><input tabindex='22' name='selectedRaces' value='11' id='selectedRaces-11'  type='checkbox'/>" +
 			"<label for='selectedRaces-11' class='checkboxLabel'>" + $.t("fhh_js.race_asian_indian") + "</label>" +
 			"<input tabindex='22' name='selectedRaces' value='12' id='selectedRaces-12' type='checkbox'/>" +
 			"<label for='selectedRaces-12' class='checkboxLabel'>" + $.t("fhh_js.race_chinese") + "</label>" +
@@ -2330,10 +2348,10 @@ function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 			"<label for='selectedRaces-17' class='checkboxLabel'>" + $.t("fhh_js.race_other_asian") + "</label>" +
 			"<input tabindex='22' name='selectedRaces' value='18' id='selectedRaces-18' type='checkbox'/>" +
 			"<label for='selectedRaces-18' class='checkboxLabel'>" + $.t("fhh_js.race_unknown_asian") + "</label>" +
-			"</td>");
+			"</div></div>");
 
-	var south_pacific_race_checkboxes = $("<td class='race_checkbox'>" +
-			"<input tabindex='23' name='selectedRaces' value='21' id='selectedRaces-21'  type='checkbox'>" +
+	var south_pacific_race_checkboxes = $("<div class='race_checkbox'>" + $.t("fhh_js.more_race") +
+			"<div><input tabindex='23' name='selectedRaces' value='21' id='selectedRaces-21'  type='checkbox'>" +
 			"<label for='selectedRaces-21' class='checkboxLabel'>" + $.t("fhh_js.race_chamorro") + "</label>" +
 			"<input tabindex='23' name='selectedRaces' value='22' id='selectedRaces-22' type='checkbox'>" +
 			"<label for='selectedRaces-22' class='checkboxLabel'>" + $.t("fhh_js.race_guamanian") + "</label>" +
@@ -2343,19 +2361,25 @@ function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 			"<label for='selectedRaces-24' class='checkboxLabel'>" + $.t("fhh_js.race_samoan") + "</label>" +
 			"<input tabindex='23' name='selectedRaces' value='25' id='selectedRaces-25' type='checkbox'>" +
 			"<label for='selectedRaces-25' class='checkboxLabel'>" + $.t("fhh_js.race_unknown_south_pacific") + "</label>" +
-			"</td>");
+			"</div></div>");
 
-	var ethnicity_checkboxes = $("<td class='race_checkbox'>" +
-			"<input tabindex='24' name='selectedEthnicities' value='1' id='selectedEthnicities-1' type='checkbox'>" +
-			"<label for='selectedEthnicities-1' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_hispanic") + "</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='2' id='selectedEthnicities-2' type='checkbox'>" +
-			"<label for='selectedEthnicities-2' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_jewish") + "</label>" +
-			"<input tabindex='24' name='selectedEthnicities' value='3' id='selectedEthnicities-3' type='checkbox'>" +
-			"<label for='selectedEthnicities-3' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_nothispanic") + "</label>" +
-			"</td>");
+	var ethnicity_checkboxes = $("<div class='race_checkbox'>" + $.t("fhh_js.ethnicity") +
+			"<div><label for='selectedEthnicities-1' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_hispanic") + ": </label>" + 
+			"<input tabindex='24' name='selectedEthnicities' value='1' id='selectedEthnicities-1' type='radio'>" +
+			"<label for='selectedEthnicities-1' class='checkboxLabel'>" + $.t("fhh_js.yes") + "</label>" + 
+			"<input tabindex='24' name='selectedEthnicities' value='3' id='selectedEthnicities-3' type='radio'>" + 
+			"<label for='selectedEthnicities-1' class='checkboxLabel'>" + $.t("fhh_js.no") + "</label></div>" +
+			"<div><label for='selectedEthnicities-2' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_jewish") + ": </label>" + 
+			"<input tabindex='24' name='selectedEthnicities-2' value='2' id='selectedEthnicities-2' type='radio'>" +
+			"<label for='selectedEthnicities1-2' class='checkboxLabel'>"+ $.t("fhh_js.yes") +"</label>" + 
+			"<input tabindex='24' name='selectedEthnicities-2' value='0' id='selectedEthnicities-4' type='radio'>" +
+			"<label for='selectedEthnicities1-2' class='checkboxLabel'>" + $.t("fhh_js.no") + "</label>" + 
 
-	var hispanic_ethnicity_checkboxes = $("<td class='race_checkbox'>" +
-			"<input tabindex='24' name='selectedEthnicities' value='11' id='selectedEthnicities-11' type='checkbox'>" +
+			"</div>" +
+			"</div>");
+
+	var hispanic_ethnicity_checkboxes = $("<div class='race_checkbox'>" + $.t("fhh_js.more_ethnicity") +
+			"<div><input tabindex='24' name='selectedEthnicities' value='11' id='selectedEthnicities-11' type='checkbox'>" +
 			"<label for='selectedEthnicities-11' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_central_american") + "</label>" +
 			"<input tabindex='24' name='selectedEthnicities' value='12' id='selectedEthnicities-12' type='checkbox'>" +
 			"<label for='selectedEthnicities-12' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_cuban") + "</label>" +
@@ -2369,39 +2393,36 @@ function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 			"<label for='selectedEthnicities-16' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_puerto_rican") + "</label>" +
 			"<input tabindex='24' name='selectedEthnicities' value='17' id='selectedEthnicities-17' type='checkbox'>" +
 			"<label for='selectedEthnicities-17' class='checkboxLabel'>" + $.t("fhh_js.ethnicity_south_american") + "</label>" +
-			"</td>");
+			"</div></div>");
 
 	var table = $("<table>");
-	race_ethnicity.append(table);
-	
-	if (personal_flag) {
-		
-		table.append($("<tr>")
-						.append("<td colspan='3'><label for='person_consanguinity'>" + $.t("fhh_js.consanguinity") + "</label>"
-								+ "<input name='person.consanguinity' value='true' tabindex='20' id='person_consanguinity' type='checkbox'/></td>"));
-	}
-	table.append($("<tr>").append("<td colspan='2'>" + $.t("fhh_js.multiple_races_selectable") + "</td>") );
-	table.append($("<tr>")
-						.append("<td style='width:150px;'>" + $.t("fhh_js.race") + "</td>")
-						.append(race_checkboxes) );
-	table.append($("<tr id='asian_checkboxes'>")
-						.append("<td>" + $.t("fhh_js.more_race") + "</td>")
-						.append(asian_race_checkboxes) );
-	table.append($("<tr id='south_pacific_checkboxes'>")
-						.append("<td>" + $.t("fhh_js.more_race") + "</td>")
-						.append(south_pacific_race_checkboxes) );
-	table.append($("<tr>")
-						.append("<td><br />" + $.t("fhh_js.ethnicity") + "</td>")
-						.append(ethnicity_checkboxes) );
-	table.append($("<tr id='hispanic_checkboxes'>")
-						.append("<td>" + $.t("fhh_js.more_ethnicity") + "</td>")
-						.append(hispanic_ethnicity_checkboxes) );
+	var why_ask_ashkenazi_link = $("<span><a tabindex='29' href='#' id='why_ask_ashkenazi_link'>" + $.t("fhh_js.ashkezani_q") + "</a></span>");
 
-	var why_ask_ashkenazi_link = $("<td><a tabindex='29' href='#' id='why_ask_ashkenazi_link'>" + $.t("fhh_js.ashkezani_q") + "</a></td>");
-	why_ask_ashkenazi_link.click(function () {
+	race_ethnicity.append(table)
+	
+	// if (personal_flag) {
+		
+	// 	table.append($("<tr>")
+	// 					.append("<td colspan='3'><label for='person_consanguinity'>" + $.t("fhh_js.consanguinity") + "</label>"
+	// 							+ "<input name='person.consanguinity' value='true' tabindex='20' id='person_consanguinity' type='checkbox'/></td>"));
+	// }
+
+	table.append("<tr><td>" + $.t("fhh_js.multiple_races_selectable"));
+	table.append($("<tr class='checkbox_table'>")
+		.append("<td>" + race_checkboxes.html() + "</td>")
+		.append("<td>" + ethnicity_checkboxes.html() + why_ask_ashkenazi_link.html() + "</td>"));
+
+	table.append($("<tr id='asian_checkboxes'>")
+						.append("<td colspan='2'><div id='border'>" + asian_race_checkboxes.html() + "</td>"));
+	table.append($("<tr id='south_pacific_checkboxes'>")
+						.append("<td colspan='2'><div id='border'>" + south_pacific_race_checkboxes.html() + "</td>"));
+
+	table.append($("<tr id='hispanic_checkboxes'>")
+						.append("<td colspan='2'><div id='border'>" +  hispanic_ethnicity_checkboxes.html() + "</div></td>"));
+
+	$("#why_ask_ashkenazi_link").click(function () {
 		$("#why_ask_ashkenazi_dialog").dialog("open");
 	});
-	race_ethnicity.append($("<tr>").append(why_ask_ashkenazi_link));
 	
 }
 
@@ -2461,8 +2482,8 @@ function clear_family_member_health_history_dialog() {
 	
 	$("#family_race_ethnicity").find("#selectedEthnicities-1").prop('checked',false);
 	$("#family_race_ethnicity").find("#selectedEthnicities-2").prop('checked',false);
+	$("#family_race_ethnicity").find("#selectedEthnicities-4").prop('checked',false);
 	$("#family_race_ethnicity").find("#selectedEthnicities-3").prop('checked',false);
-
 	$("#family_race_ethnicity").find("#selectedEthnicities-11").prop('checked',false);
 	$("#family_race_ethnicity").find("#selectedEthnicities-12").prop('checked',false);
 	$("#family_race_ethnicity").find("#selectedEthnicities-13").prop('checked',false);
@@ -2671,6 +2692,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	if (family_member.ethnicity != null) {
 		$("#family_race_ethnicity").find("#selectedEthnicities-1").prop('checked',family_member.ethnicity['Hispanic or Latino']);
 		$("#family_race_ethnicity").find("#selectedEthnicities-2").prop('checked',family_member.ethnicity['Ashkenazi Jewish']);
+		$("#family_race_ethnicity").find("#selectedEthnicities-4").prop('checked',!family_member.ethnicity['Ashkenazi Jewish']);
 		$("#family_race_ethnicity").find("#selectedEthnicities-3").prop('checked',family_member.ethnicity['Not Hispanic or Latino']);
 
 		$("#family_race_ethnicity").find("#selectedEthnicities-11").prop('checked',family_member.ethnicity['Central American']);
@@ -2684,6 +2706,7 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	} else {
 		$("#family_race_ethnicity").find("#selectedEthnicities-1").prop('checked', false);
 		$("#family_race_ethnicity").find("#selectedEthnicities-2").prop('checked', false);
+		$("#family_race_ethnicity").find("#selectedEthnicities-4").prop('checked', false);
 		$("#family_race_ethnicity").find("#selectedEthnicities-3").prop('checked', false);
 
 		$("#family_race_ethnicity").find("#selectedEthnicities-11").prop('checked', false);
@@ -2832,6 +2855,7 @@ function clear_and_set_personal_health_history_dialog() {
 	if (personal_information.ethnicity != null) {
 		$("#personal_race_ethnicity").find("#selectedEthnicities-1").prop('checked',personal_information.ethnicity['Hispanic or Latino']);
 		$("#personal_race_ethnicity").find("#selectedEthnicities-2").prop('checked',personal_information.ethnicity['Ashkenazi Jewish']);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-4").prop('checked',!personal_information.ethnicity['Ashkenazi Jewish']);
 		$("#personal_race_ethnicity").find("#selectedEthnicities-3").prop('checked',personal_information.ethnicity['Not Hispanic or Latino']);
 
 		$("#personal_race_ethnicity").find("#selectedEthnicities-11").prop('checked',personal_information.ethnicity['Central American']);
@@ -2845,6 +2869,7 @@ function clear_and_set_personal_health_history_dialog() {
 	}	else {
 		$("#personal_race_ethnicity").find("#selectedEthnicities-1").prop('checked',false);
 		$("#personal_race_ethnicity").find("#selectedEthnicities-2").prop('checked',false);
+		$("#personal_race_ethnicity").find("#selectedEthnicities-4").prop('checked',false);		
 		$("#personal_race_ethnicity").find("#selectedEthnicities-3").prop('checked',false);
 
 		$("#personal_race_ethnicity").find("#selectedEthnicities-11").prop('checked',false);

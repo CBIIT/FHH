@@ -715,4 +715,44 @@ div#person_is_alive{
 }
 
 
+.checkbox_table {
+  border:2px solid rgb(67, 114, 154);
+}
+
+.checkbox_table label{
+  padding-left:4px;
+  padding-right:4px;
+}
+
+
+.checkbox_table td {
+  border:2px solid rgb(67, 114, 154);
+  vertical-align:top;
+  width:50%;
+  min-width:400px;
+  padding:10px 10px 10px 10px;
+}
+
+
+#personal_race_ethnicity div#border{
+  margin-top:10px;
+  border:2px solid rgb(67, 114, 154);
+  padding:10px 10px 10px 10px;
+}
+
+#personal_race_ethnicity div#border label{
+  padding:0px 20px 0px 4px;
+}
+
+
+
+#family_race_ethnicity div#border{
+  margin-top:10px;
+  border:2px solid rgb(67, 114, 154);
+  padding:10px 10px 10px 10px;
+}
+
+#family_race_ethnicity div#border label{
+  padding:0px 20px 0px 4px;
+}
 
