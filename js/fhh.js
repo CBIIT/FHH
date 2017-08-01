@@ -2400,12 +2400,12 @@ function build_race_ethnicity_section(race_ethnicity, personal_flag) {
 
 	race_ethnicity.append(table)
 	
-	// if (personal_flag) {
+	if (personal_flag) {
 		
-	// 	table.append($("<tr>")
-	// 					.append("<td colspan='3'><label for='person_consanguinity'>" + $.t("fhh_js.consanguinity") + "</label>"
-	// 							+ "<input name='person.consanguinity' value='true' tabindex='20' id='person_consanguinity' type='checkbox'/></td>"));
-	// }
+		table.append($("<tr>")
+						.append("<td colspan='2'><input name='person.consanguinity' value='true' tabindex='20' id='person_consanguinity' type='checkbox'/>"
+								+ "<label for='person_consanguinity'>" + $.t("fhh_js.consanguinity") + "</label></td>"));
+	}
 
 	table.append("<tr><td>" + $.t("fhh_js.multiple_races_selectable"));
 	table.append($("<tr class='checkbox_table'>")

@@ -756,3 +756,7 @@ div#person_is_alive{
   padding:0px 20px 0px 4px;
 }
 
+#person_consanguinity {
+  margin:10px 10px 10px 0px !important;
+}
+
