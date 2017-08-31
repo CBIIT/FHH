@@ -344,8 +344,8 @@ function start()
 		title:$.t("fhh_js.risk_calculator_dialog_title"),
     position:['top',0],
 		autoOpen: false,
-		height:'auto',
-		width:1064
+		height:325,
+		width:550
 	});
 
 	$("#navRiskCalculator").on("click", function() { 
@@ -802,6 +802,7 @@ function exact_family_member_relationship_selection_change_action() {
 }
 
 function create_new_family_member(current_relationship, relationship, parent_id) {
+
 	family_member_information = new Object();
 	current_health_history = [];
 
@@ -814,7 +815,8 @@ function create_new_family_member(current_relationship, relationship, parent_id)
 	personal_information[current_relationship] = family_member_information;
 	
 	var table = $("#history_summary_table");
-	add_new_family_history_row(table, "", $.t("fhh_js." + relationship), current_relationship, false, true);
+	build_family_history_data_table(); // redraw table //
+	// add_new_family_history_row(table, "", $.t("fhh_js." + relationship), current_relationship, false, true);
 	
 }
 
@@ -1520,6 +1522,7 @@ function set_pi_information(data) {
 }
 
 function build_family_history_data_table () {
+	console.log(personal_information)
 	var table = $("#history_summary_table");
 	
 	add_family_history_header_row(table);
@@ -1633,7 +1636,7 @@ function build_family_history_data_table () {
 		add_new_family_history_row(table, personal_information['maternal_halfsister_' + i], $.t("fhh_js.maternal_halfsister"), "maternal_halfsister_" + i, true);
 		i++;
 	}
-	add_new_family_history_row_title(table, $.t("fhh_js.recently_added"));	
+	// add_new_family_history_row_title(table, $.t("fhh_js.recently_added"));	
 
 }
 
