@@ -1811,10 +1811,10 @@ function createConditionsList(family_member, listType) {
 			html += '<ul class="conditionsList">'
 			$.each(family_member['Health History'], function(index, value) {
 				if (index>1) {
-					html += '<li class="conditionsEntryHidden">' + value['Detailed Disease Name'] + '</li>';			
+					html += '<li class="conditionsEntryHidden">' +  $.t("diseases:" + value['Disease Code'])  + '</li>';			
 				}
 				else {
-					html += '<li class="conditionsEntry">' + value['Detailed Disease Name'] + '</li>';			
+					html += '<li class="conditionsEntry">' + $.t("diseases:" + value['Disease Code']) + '</li>';			
 				};
 			});
 			html += '</ul>'
