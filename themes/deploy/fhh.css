@@ -351,7 +351,7 @@ table.disease_table td {
   background-color:#337AB7;
 }
 
-.risk_calculator h3,p{ 
+.risk_calculator h3, .risk_calculator p{ 
   color:#fff;
   font-size:90%
 }
