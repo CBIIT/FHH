@@ -7,6 +7,7 @@ var isiPad = navigator.userAgent.match(/iPad/i) != null;
 
 $(document).ready(function() {
 
+
 	// Check to see whether this browser has the FileAPI
 	/* Removing to test IE8
 	var FileApiSupported = window.File && window.FileReader && window.FileList && window.Blob;
@@ -67,6 +68,7 @@ $(document).ready(function() {
 		$(".language").val(lng);
 		$(".language_fhh").val(lng);
 	}
+
 });
 
 
@@ -1645,6 +1647,7 @@ function add_family_history_header_row(table) {
 	header_row.append("<th scope='col' class='nowrap'>" + $.t("fhh_js.name") + "</th>");	
 	header_row.append("<th scope='col' abbr='Relationship' class='nowrap'>" + $.t("fhh_js.relationship_to_me") + "</th>");
 	header_row.append("<th scope='col' abbr='Living' class='nowrap'>" + $.t("fhh_js.still_living_main") + "</th>");
+	header_row.append("<th scope='col' abbr='Conditions' class='nowrap'>" + $.t("fhh_js.conditions") + "</th>");
 	header_row.append("<th scope='col' abbr='Update' class='nowrap'>" + $.t("fhh_js.update_history") + "</th>");
 	header_row.append("<th scope='col' abbr='Remove' class='nowrap'>" + $.t("fhh_js.remove_relative") + "</th>");
 	header_row.append("");
@@ -1665,7 +1668,8 @@ function add_personal_history_row(table) {
 	new_row.append("<td class='information'>" + $.t("fhh_js.self") + "</td>");
 
 	new_row.append("<td class='information' id='still_living_main'>Yes</td>");
-	
+	window.personal_information  = personal_information;
+	new_row.append("<td class='information' id='conditionsList'>" + createConditionsList(personal_information,abbreviatedlist=true) + "</td>");
 	var update_history_td = $("<td style='text-align:center;border:1px solid #888; padding:2px;'>");
 	var update_history = $("<A class='action update_history'><img style='border:0' src='../images/icon_edit.gif' alt='Update History' title='Update History'></A>");
 	update_history_td.append(update_history);
@@ -1688,7 +1692,7 @@ function add_personal_history_row(table) {
 function add_new_family_history_row_title(table, name) {
 	var new_row = $("<tr></tr>");
 	new_row.addClass("summary_category_header_row");
-	new_row.append("<td colspan='5'>" + name + "</td>");
+	new_row.append("<td colspan='6'>" + name + "</td>");
 	table.append(new_row);
 	
 }
@@ -1737,6 +1741,7 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	}
 
 	new_row.append("<td class='information' id='still_living_main'>" + status + "</td>");
+	new_row.append("<td class='information' id='conditionsList'>" + createConditionsList(family_member, abbreviatedlist = true) + "</td>");
 
 	if (is_already_defined) {
 
@@ -1798,6 +1803,53 @@ function add_new_family_history_row(table, family_member, relationship, relation
 	table.append(new_row);
 }
 
+// creates condition list for user to display in table //
+function createConditionsList(family_member, listType) {
+	var html = '<div class="conditionsContainer">';
+	if (family_member) {
+		if (family_member['Health History']) {
+			html += '<ul class="conditionsList">'
+			$.each(family_member['Health History'], function(index, value) {
+				if (index>1) {
+					html += '<li class="conditionsEntryHidden">' + value['Detailed Disease Name'] + '</li>';			
+				}
+				else {
+					html += '<li class="conditionsEntry">' + value['Detailed Disease Name'] + '</li>';			
+				};
+			});
+			html += '</ul>'
+			if (family_member['Health History'].length>2) {
+				html+= '<div class="readMore"><button class="readMoreButton" value="0">' + $.t('fhh_js.more') + '</button></div></div>';
+			};
+		};
+	};
+	return html;
+};
+
+// displays all diseasea or hides all but 2 diseases in the conditions column //
+$(document).on('click', '.readMoreButton', function() {
+	var button = $(this);
+	window.button = button
+	var cell = button.closest(".conditionsContainer");
+	var diseases = $(cell).find("li");
+
+	if (button.attr("value")=="0") {
+		button.attr("value","1");
+		diseases.switchClass("conditionsEntryHidden","conditionsEntry");		
+		button.text($.t("fhh_js.less"));
+	}
+	else {
+		button.attr("value","0");
+		diseases.each(function(index,value) {
+			if (index>1) {
+				$(value).switchClass("conditionsEntry","conditionsEntryHidden")
+			};
+		});
+		button.text($.t("fhh_js.more"));		
+	};
+
+	});
+
 function remove_family_member(relationship_id, confirm_flag) {
 	if (personal_information[relationship_id] == null) return;
 
@@ -1855,7 +1907,6 @@ function remove_family_member_by_id(id) {
 function update_family_history_row(relationship_id, family_member_information) {
 	// console.log("u heree")
 //	alert ("Rel:" + relationship_id);
-
 	if (angular.equals(JSON.stringify(thirdVari),JSON.stringify(family_member_information))) {
 		$("#firstVari").text("");
 		$("#save_personal_history_button").css("background-color","#337AB7");
@@ -1866,6 +1917,7 @@ function update_family_history_row(relationship_id, family_member_information) {
 	}
 
 	$("#" + relationship_id).find("#relatives_name").find("a").html(family_member_information["name"]);
+	$("#" + relationship_id).find("#conditionsList").html(createConditionsList(family_member_information, abbreviatedList = true));
 
 	if (family_member_information!=undefined) {
 
@@ -1919,6 +1971,7 @@ function update_family_history_row(relationship_id, family_member_information) {
 
 function update_personal_history_row() {
 	$("#self").find("#relatives_name").find("a").html(personal_information.name);
+	$("#self").find("#conditionsList").html(createConditionsList(personal_information, abbreviatedlist = true));
 	if (angular.equals(JSON.stringify(secondVari),JSON.stringify(personal_information))) {
 		$("#firstVari").text("");
 		$("#save_personal_history_button").css("background-color","#337AB7");

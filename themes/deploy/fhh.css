@@ -466,6 +466,8 @@ right:
 }
 
 
+
+
 .modal-content #close button{
 position:absolute;
 right:10px;
@@ -773,4 +775,34 @@ div#person_is_alive{
 
 .familydate {
   margin-left:155px;
+}
+
+
+#history_summary_table td{
+  vertical-align:top;
+}
+
+div.conditionsContainer{
+    position: relative;
+    font-size:90%;
+}
+
+div.conditionsContainer ul {
+  margin-left:15px;
+  padding:0px;
+}
+
+
+.readMore {
+  padding:8px;
+}
+
+.readMoreButton{
+  position: absolute;
+  right:0;
+  bottom:0;
+}
+
+.conditionsEntryHidden {
+  display:none;
 }

@@ -132,6 +132,7 @@
 
 		"relationship_to_me" : "Relationship To Me:",
 		"still_living_main" : "Still Living",
+		"conditions" : "Conditions",
 		"aunt_relationship_q" : "Who is the aunt related to:",
 		"uncle_relationship_q" : "Who is the uncle related to:",
 		"cousin_parent_q" : "Who is the parent of your first cousin:",
@@ -253,7 +254,9 @@
 		"yes":"Yes",
 		"no":"No",
 		"unknown":"Unknown",
-		"android":"This Feature is not supported on the Android Browser"
+		"android":"This Feature is not supported on the Android Browser",
+		"more":"More",
+		"less":"Less"
 	},
 	
 	"fhh_fhh": {
