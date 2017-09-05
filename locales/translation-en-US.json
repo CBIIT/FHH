@@ -316,8 +316,8 @@
 		"li2_3_help_main_page" : "Make a copy of your family health history for a family member by pressing 'Copy for Family Member.'",
 		"li2_4_help_main_page" : "View a diagram of your family tree and a table of your family health history by pressing 'View Diagram & Table.'",
 		"li2_5_help_main_page" : "Get extra help by pressing 'Get Help.'",
-	
-		"done" : "done"
+		"done" : "done",
+		"calculator_instructions":"These calculators use the family health information you have already entered to estimate your risk for the disease (average or increased). If you add to or change the information for your relatives, you should re-calculate your risks."
 	},
 	
 	"info_dialog": {

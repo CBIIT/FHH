@@ -344,8 +344,8 @@ function start()
 		title:$.t("fhh_js.risk_calculator_dialog_title"),
     position:['top',0],
 		autoOpen: false,
-		height:325,
-		width:550
+		height:'auto',
+		width:1064
 	});
 
 	$("#navRiskCalculator").on("click", function() { 

@@ -356,6 +356,10 @@ table.disease_table td {
   font-size:90%
 }
 
+#calculator_instructions {
+  text-align:left;
+}
+
 
 .ui-widget-header {
   background-color: #FFE060; color:#000;

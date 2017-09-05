@@ -323,8 +323,9 @@
 		"li2_3_help_main_page": "Hacer una copia de su historial de salud familiar para un miembro de la familia pulsando 'Copia para miembro de la familia.'",
 		"li2_4_help_main_page": "Ver un diagrama de su árbol genealógico y una tabla de su historial de salud familiar pulsando 'Ver el Diagrama y la Tabla.'",
 		"li2_5_help_main_page": "Obtener ayuda adicional pulsando 'Obtener ayuda.'",	
-
-		"done" : "done"
+		"done" : "done",
+		"calculator_instructions":"These calculators use the family health information you have already entered to estimate your risk for the disease (average or increased). If you add to or change the information for your relatives, you should re-calculate your risks."
+		
 	},
 	
 	"info_dialog": {

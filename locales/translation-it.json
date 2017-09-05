@@ -318,8 +318,9 @@
 		"li2_3_help_main_page": "Fare una copia della vostra storia di salute della famiglia per un membro della famiglia premendo 'Copy per membro della famiglia.'",
 		"li2_4_help_main_page": "Vedi un diagramma del tuo albero genealogico e una tavola della vostra storia di salute della famiglia premendo 'Visualizza Diagramma & Table.'",
 		"li2_5_help_main_page": "Get aiuto extra premendo 'chiedere aiuto.'",
+		"done": "fatto",
+		"calculator_instructions":"These calculators use the family health information you have already entered to estimate your risk for the disease (average or increased). If you add to or change the information for your relatives, you should re-calculate your risks."
 		
-		"done": "fatto"
 	},
 
 	"info_dialog": {
