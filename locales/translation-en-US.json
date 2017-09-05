@@ -6,6 +6,7 @@
 		"li3" : "Print your family health history to share with family or your health care provider.",
 		"li4" : "Save your family health history so you can update it over time.",
 		"talking" : "Talking with your health care provider about your family health history can help you stay healthy!",
+		"mobile_message" : "(Note: this tool is designed for laptop/desktop computers, not mobile devices).",
 		"learn_more" : "Learn more about My Family Health Portrait",
 		"create" : "Create a Family Health History",
 		"load" : "Use a Saved History",
@@ -22,7 +23,7 @@
 		"updates" : "Site Updates",
 
 		"done" : "done"
-	},
+		},
 	"fhh_js": {
 		"invalid_cause_of_death" : "Please Select Cause of Death",
 		"ashkenazi" : "Why Ask About Ashkenazi?",
