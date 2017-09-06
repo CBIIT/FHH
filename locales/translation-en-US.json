@@ -39,6 +39,7 @@
 		"family_member_copy_dialog_title" : "Copy for a Family Member",
 		"help":"Help",
 		"add_help_dialog_title":"Enter Personal Information Help",
+		"disease_list_dialog_title":"Disease List",
 		"update_help_dialog_title":"Enter Family Member Information Help",
 		"update_help_dialog_l1":"Enter the family member's personal information.  Gender is required.  A name is required for yourself and optional for others, but names will help you keep track, especially for larger families.",
 		"update_help_dialog_l2":"Chose an option for &#34;Living?&#34; If living, enter a date of birth, or an age or estimated age, in years. If not living, enter an age or age range at death, and a cause of death.  <i>NOTE</i>: A date of birth is required for a living family member if you will later convert your data file to share with them for recording their family data.",
@@ -257,7 +258,8 @@
 		"unknown":"Unknown",
 		"android":"This Feature is not supported on the Android Browser",
 		"more":"More",
-		"less":"Less"
+		"less":"Less",
+		"disease_button":"Disease List"
 	},
 	
 	"fhh_fhh": {

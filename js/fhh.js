@@ -69,8 +69,39 @@ $(document).ready(function() {
 		$(".language_fhh").val(lng);
 	}
 
+
 });
 
+function createDiseaseHelpList() {
+	var html = '<div class="diseaseList">'
+	html+= '<ul class="diseaseList">'
+	for (x in diseases) {
+		if (diseases[x].length==1) {
+		     html+='<li>' + $.t('diseases:' + diseases[x][0].system + '-' + diseases[x][0].code) + '</li>'
+
+	    }
+		else {
+			var mainDisease = stripMoreText($.t("diseases:" + x));
+
+			html+='<li><button id="main_disease" class="closed">' + mainDisease + '</button>'
+			html+='<ul>'
+			var parent_disease = diseases[x];
+			$(parent_disease).each(function(index,sub_disease) {
+				html+='<li class="sub_disease" style="display:none">'+ $.t('diseases:'+sub_disease.system+'-'+sub_disease.code) + '</li>'
+			});
+			html+='</li></ul>'
+	    }
+	}	
+	html+= '</ul>'
+	html+= '</div>'
+	$('.diseaseList').html(html);
+
+};
+
+function stripMoreText(disease) {
+	var moreOpen = (disease.lastIndexOf('('))
+	return disease.slice(0,moreOpen)
+};
 
 function start() 
 {
@@ -396,6 +427,15 @@ function start()
 		height:'auto',
 		width:600
 	});	
+
+	$("#disease_list_dialog").load ("disease_list.html", function () {});
+	$("#disease_list_dialog").dialog({
+		title:$.t("fhh_js.disease_list_dialog_title"), 
+		position:['middle',0],
+		autoOpen: false,
+		height:'auto',
+		width:600
+	});		
 
 	$("#personal_help_dialog").load ("personal-help.html", function () {});
 	$("#personal_help_dialog").dialog({
@@ -1836,26 +1876,30 @@ function createConditionsList(family_member, listType) {
 // displays all diseasea or hides all but 2 diseases in the conditions column //
 $(document).on('click', '.readMoreButton', function() {
 	var button = $(this);
-	window.button = button
+	var buttonDisplayName = {"0":$.t("fhh_js.more"),"1":$.t("fhh_js.less")}
 	var cell = button.closest(".conditionsContainer");
-	var diseases = $(cell).find("li");
+	var diseases = $(cell).find("li.conditionsEntryHidden");
+	diseases.toggle('slow');
+	button.attr("value",(button.val() == 0 ? 1 : 0));
+	button.text(buttonDisplayName[button.val()]);
+});
 
-	if (button.attr("value")=="0") {
-		button.attr("value","1");
-		diseases.switchClass("conditionsEntryHidden","conditionsEntry");		
-		button.text($.t("fhh_js.less"));
+
+$(document).on('click', '#diseaseList', function() {
+	$("#disease_list_dialog").dialog("open");
+});
+
+$(document).on('click', '#main_disease', function() {
+	var button = $(this);
+	var sub_diseases = button.closest(".sub_disease");
+	button.parent().find("li.sub_disease").toggle('slow');
+	if (button.hasClass("open")) {
+		button.switchClass("open","closed");
 	}
 	else {
-		button.attr("value","0");
-		diseases.each(function(index,value) {
-			if (index>1) {
-				$(value).switchClass("conditionsEntry","conditionsEntryHidden")
-			};
-		});
-		button.text($.t("fhh_js.more"));		
+		button.switchClass("closed","open");
 	};
-
-	});
+});
 
 function remove_family_member(relationship_id, confirm_flag) {
 	if (personal_information[relationship_id] == null) return;
@@ -2018,12 +2062,12 @@ function build_family_health_information_section() {
 	var hi_data_entry_row = $("<tr id='health_data_entry_row'>");
 	var disease_select_label = $("<label for='disease_choice_select'> &nbsp; </label>");
 	var disease_select = $("<select tabindex='17' id='disease_choice_select' name='disease_choice_select'></select>");
-	var detailed_disease_select_label = $("<label for='detailed_disease_choice_select'> &nbsp; </label>");
+	var detailed_disease_select_label = $("<label for='detailed_disease_choice_select'>&nbsp; </label>");
 	var	detailed_disease_select = $("<select tabindex='18' id='detailed_disease_choice_select' name='detailed_disease_choice_select'></select>");
 	
 	set_disease_choice_select(disease_select, detailed_disease_select);
 	hi_data_entry_row.append($("<td>").append(disease_select_label).append(disease_select)
-		.append("<br />&nbsp;&nbsp;")
+		.append('<button id="diseaseList">' + $.t("fhh_js.disease_button") + '</button>').append("<br />&nbsp;&nbsp;")
 		.append(detailed_disease_select_label).append(detailed_disease_select));
 	
 
@@ -2090,7 +2134,7 @@ function build_personal_health_information_section() {
 	var	detailed_disease_select = $("<select tabindex='18' id='detailed_disease_choice_select' name='detailed_disease_choice_select'></select>");
 	
 	set_disease_choice_select(disease_select, detailed_disease_select);
-	hi_data_entry_row.append($("<td>").append(disease_select).append("<br />&nbsp;&nbsp;").append(detailed_disease_select));
+	hi_data_entry_row.append($("<td>").append(disease_select).append('<button id="diseaseList">' + $.t("fhh_js.disease_button") + '</button><br />&nbsp;&nbsp;').append(detailed_disease_select));
 	
 	var age_at_diagnosis_select = $("<select tabindex='19' name='age_at_diagnosis_select' id='age_at_diagnosis_select'></select>");
 	set_age_at_diagnosis_pulldown($.t("fhh_js.age_at_diagnosis_select"), age_at_diagnosis_select);	
@@ -2111,6 +2155,7 @@ function build_personal_health_information_section() {
 function set_disease_choice_select (disease_select, detailed_disease_select, cod) {
 	detailed_disease_select.hide();
 	disease_select.append("<option value='not_picked'>" + $.t("fhh_js.disease_select") + "</option>");
+	console.log(diseases)
 	for (disease_name in diseases) {
 		disease_select.append("<option value='" + disease_name + "'> " + $.t("diseases:" + disease_name) + " </option>");		
 	}

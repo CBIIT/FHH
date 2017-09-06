@@ -23,7 +23,7 @@
 		"updates" : "Site Updates",
 
 		"done" : "done"
-	},
+		},
 	"fhh_js": {
 		"invalid_cause_of_death" : "Please Select Cause of Death",
 		"ashkenazi" : "Why Ask About Ashkenazi?",
@@ -39,6 +39,7 @@
 		"family_member_copy_dialog_title" : "Copy for a Family Member",
 		"help":"Help",
 		"add_help_dialog_title":"Enter Personal Information Help",
+		"disease_list_dialog_title":"Disease List",
 		"update_help_dialog_title":"Enter Family Member Information Help",
 		"update_help_dialog_l1":"Enter the family member's personal information.  Gender is required.  A name is required for yourself and optional for others, but names will help you keep track, especially for larger families.",
 		"update_help_dialog_l2":"Chose an option for &#34;Living?&#34; If living, enter a date of birth, or an age or estimated age, in years. If not living, enter an age or age range at death, and a cause of death.  <i>NOTE</i>: A date of birth is required for a living family member if you will later convert your data file to share with them for recording their family data.",
@@ -133,6 +134,7 @@
 
 		"relationship_to_me" : "Relationship To Me:",
 		"still_living_main" : "Still Living",
+		"conditions" : "Conditions",
 		"aunt_relationship_q" : "Who is the aunt related to:",
 		"uncle_relationship_q" : "Who is the uncle related to:",
 		"cousin_parent_q" : "Who is the parent of your first cousin:",
@@ -254,7 +256,10 @@
 		"yes":"Yes",
 		"no":"No",
 		"unknown":"Unknown",
-		"android":"This Feature is not supported on the Android Browser"
+		"android":"This Feature is not supported on the Android Browser",
+		"more":"More",
+		"less":"Less",
+		"disease_button":"Disease List"
 	},
 	
 	"fhh_fhh": {
@@ -319,7 +324,6 @@
 		"li2_5_help_main_page" : "Get extra help by pressing 'Get Help.'",
 		"done" : "done",
 		"calculator_instructions":"These calculators use the family health information you have already entered to estimate your risk for the disease (average or increased). If you add to or change the information for your relatives, you should re-calculate your risks."
-		
 	},
 	
 	"info_dialog": {
