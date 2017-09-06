@@ -837,7 +837,6 @@ ul.diseaseList li button.closed::before{
   font-family: 'FontAwesome';
   content:"\f0fe";
   padding-right:6px;
-  margin:-4px;
   background-color:#fff;
 }
 
@@ -845,7 +844,6 @@ ul.diseaseList li button.open::before{
   font-family: 'FontAwesome';
   content:"\f146";
   padding-right:6px;
-  margin:-4px;
   background-color:#fff;
 }
 
