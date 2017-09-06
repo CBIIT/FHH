@@ -430,6 +430,7 @@ function createDiagramDialog() {
             }
         });
         $("#diseaseopts").append(array.toString());
+        $("#diseaseopts").val("0");
 }
 
 function HidePersonalInfo() {

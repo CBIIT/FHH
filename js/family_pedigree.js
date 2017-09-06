@@ -69,7 +69,6 @@ var defaultfamilyarray=[
 var ua = window.navigator.userAgent;
 var msie = ua.indexOf("MSIE ");
 function xmlload() {
-
     var lng = window.i18n.lng();
     if (lng=='en-US') {
         lng = 'en';
