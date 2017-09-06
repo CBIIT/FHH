@@ -1858,7 +1858,12 @@ function createConditionsList(family_member, listType) {
 			html += '<ul class="conditionsList">'
 			$.each(family_member['Health History'], function(index, value) {
 				if (index>1) {
-					html += '<li class="conditionsEntryHidden">' +  $.t("diseases:" + value['Disease Code'])  + '</li>';			
+					if (value['Disease Code']=='other'|| value['Disease Code']=='other-undefined') {
+						html += '<li class="conditionsEntryHidden">' +  value['Detailed Disease Name']  + '</li>';			
+					}
+					else {
+						html += '<li class="conditionsEntryHidden">' +  $.t("diseases:" + value['Disease Code'])  + '</li>';			
+					};
 				}
 				else {
 					html += '<li class="conditionsEntry">' + $.t("diseases:" + value['Disease Code']) + '</li>';			
