@@ -791,6 +791,7 @@ div#person_is_alive{
 div.conditionsContainer{
     position: relative;
     font-size:90%;
+    width:200px;
 }
 
 div.conditionsContainer ul {

@@ -1857,7 +1857,7 @@ function createConditionsList(family_member, listType) {
 		if (family_member['Health History']) {
 			html += '<ul class="conditionsList">'
 			$.each(family_member['Health History'], function(index, value) {
-				if (index>1) {
+				if (index>2) {
 					if (value['Disease Code']=='other'|| value['Disease Code']=='other-undefined') {
 						html += '<li class="conditionsEntryHidden">' +  value['Detailed Disease Name']  + '</li>';			
 					}
