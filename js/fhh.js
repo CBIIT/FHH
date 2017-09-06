@@ -200,10 +200,17 @@ function start()
 
 
 		$("#age_determination").on("change", function () {
-			if ($("#age_determination").val() == 'date_of_birth' || $("#age_determination").val() == 'age') {
+			var ageDetermination = $("#age_determination");
+			if (ageDetermination.val() == 'date_of_birth' || ageDetermination.val() == 'age') {
+				if (ageDetermination.val() == 'date_of_birth') {
+					$("#age_determination_text").attr("placeholder","mm/dd/yyyy")
+				}
+				else {
+					$("#age_determination_text").attr("placeholder","")
+				};
 				$("#age_determination_text").show();
 				$("#estimated_age_select").hide();
-			} else if ($("#age_determination").val() == 'estimated_age') {
+			} else if (ageDetermination.val() == 'estimated_age') {
 				$("#age_determination_text").hide();
 				$("#estimated_age_select").show();
 			}
