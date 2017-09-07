@@ -249,6 +249,17 @@ function start()
 
 		$("#is_person_alive").on("change", function () {
 			if ($("#is_person_alive").val() == 'alive') {
+				$("#is_person_alive").val('alive');
+				$("#age_determination").val('date_of_birth');
+				$("#age_determination_text").attr("placeholder","mm/dd/yyyy")	
+				$("#age_determination_text").show();
+							
+				// $('#age_determination_text').show().val(family_member.date_of_birth);
+				$('#estimated_age_select').hide();
+				$("#person_is_alive").show();
+				$("#person_is_not_alive").hide();				
+				// $("#age_determination").val('date_of_birth');
+
 				$("#person_is_alive").show();
 				$("#person_is_not_alive").hide();
 			} else if ($("#is_person_alive").val() == 'dead') {
