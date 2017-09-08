@@ -1877,11 +1877,16 @@ function createConditionsList(family_member, listType) {
 					};
 				}
 				else {
-					html += '<li class="conditionsEntry">' + $.t("diseases:" + value['Disease Code']) + '</li>';			
+					if (value['Disease Code']=='other'|| value['Disease Code']=='other-undefined') {
+						html += '<li class="conditionsEntry">' + value['Detailed Disease Name'] + '</li>';	
+						}		
+					else {
+						html += '<li class="conditionsEntry">' + $.t("diseases:" + value['Disease Code']) + '</li>';			
+					};
 				};
 			});
 			html += '</ul>'
-			if (family_member['Health History'].length>2) {
+			if (family_member['Health History'].length>3) {
 				html+= '<div class="readMore"><button class="readMoreButton" value="0">' + $.t('fhh_js.more') + '</button></div></div>';
 			};
 		};
