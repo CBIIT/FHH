@@ -39,6 +39,7 @@
 		"family_member_copy_dialog_title" : "Copia para el Miembro de la Familia",
 		"help":"Ayuda",
 		"add_help_dialog_title":"Ingrese la información personal Ayuda",
+		"disease_list_dialog_title":"Disease List",		
 		"update_help_dialog_title":"Introduzca Familia Información Miembro Ayuda",
 		"update_help_dialog_h1":"Introducir información de miembro de la familia",
 		"update_help_dialog_p":"Al crear la información de su familiar se le pedirá que:",
@@ -98,6 +99,8 @@
 		"grandfather":"Abuelo",			
 		"name_relationship":"Nombre y Relación",	
 		"still_living":"Aún Viven",
+		"conditions" : "Conditions",
+
 		"still_living_main":"Aún Viven",
 
 
@@ -162,6 +165,10 @@
 
 		"remove_q" : "Realmente desea remover familiar",
 		"remove_q2" : "Esto también eliminará todos sus hijos",
+		"family_health_subtitle" : "Your Family's Health Information",
+		"add_disease_instructions_1" : "<B>If there are no diseases or conditions, skip this section.</B>",
+		"add_disease_instructions_2" : "Otherwise, select a <B>disease or condition</B> from the dropdown list.  Then select <B>Age at Diagnosis</B>, and press the <B>Add</B> button.",
+		"add_disease_instructions_3" : "Repeat this process to add more diseases or conditions.",
 		
 		"family_health_information_subtitle" : "Información sobre la Salud de su Familia",
 		"add_disease_instructions" : "En la siguiente lista, seleccione una <B>Enfermedad o Condición</B> (si existe) en el cuadro desplegable. A continuación, seleccione la <B>edad al diagnóstico</B> y pulse el botón <B>Agregar</B>. Puede repetir este proceso según sea necesario.",
@@ -253,7 +260,10 @@
 		"yes":"Sí",
 		"no":"No",		
 		"unknown":"Desconocido",
-		"android":"Esta característica no se admite en el navegador de Android"		
+		"android":"Esta característica no se admite en el navegador de Android",
+		"more":"More",
+		"less":"Less",		
+		"disease_button":"Disease List"		
 	},
 
 	"fhh_fhh": {		
@@ -637,6 +647,14 @@
 		"save_image_instructions_2":"Para guardar la imagen, haga clic directamente en la mesa y selecciona Guardar como",
 		"date_of_report":"Fecha del informe",		
 		"desc_line1":"Puede imprimir su historial de salud familiar en forma de diagramas y tablas para compartir con su proveedor de atención médica. Hablar con su médico acerca de su historial de salud familiar puede ayudarle a mantenerse saludable!",
+		"desc_line2_before_anchor1":"Your family health conditions are shown here in a",
+		"desc_line2_anchor1":"diagram",
+		"desc_line2_before_anchor2":"and a",
+		"desc_line2_anchor2":"table",
+		"desc_line2_after_anchor2":"(below the diagram).  Scroll up and down to see both.",
+		"desc_line3":"Print them to share with your healthcare provider.  Click the ‘Print’ buttons just above the diagram and the table, then follow the instructions.",
+		"desc_line4":"Use the bottom and right scroll bars to view larger tables and diagrams.",
+
 		"desc_line2":"Si desea cambiar la forma en que la información se muestra a continuación, haga clic en 'Diagrama y tabla de opciones.' Las barras de desplazamiento inferior y derecho son herramientas de navegación útiles cuando la visualización de tablas y diagramas más grandes.",
 		"desc_line3_before_anchor":"Su historial de salud familiar también está disponible en la parte inferior de esta página en formato de tabla , que muestra los detalles de cada miembro de la familia . Esto puede ser útil en la revisión de su historial de salud familiar con su profesional de la salud . Presione",
 		"desc_line3_anchor":"aquí",

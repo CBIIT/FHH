@@ -290,7 +290,7 @@
 		"p_update_my_history2_b1" : "Restart your family history by clicking on the 'Start Over' button",
 		"p_update_my_history2_b2" : "Save your history to a file on your computer or into the cloud by clicking on 'Save Data' button",
 		"p_update_my_history2_b3" : "Add another family member to your family history by clicking 'Add a Family Member' button",
-		"p_update_my_history2_b4" : "View a diagram of your family tree by clicking on 'Pedigree drawing' button. Alternatively, you can click the 'Family Health Table' button to navigate to the table directly",
+		"p_update_my_history2_b4" : "View a diagram of your family tree by clicking on 'Family Tree' button. Alternatively, you can click the 'Family Health Table' button to navigate to the table directly",
 		"p_update_my_history2_b5" : "Export your family information to give a close relative a headstart on his/her family tree by clicking on the 'Share Data' button",
 		"p_update_my_history2_b6" : "Use one of the Disease Risk Calculators to determine if you are at increased risk of a disease based on your family history by clicking on the 'Check Your Risk' button",
 		"p_update_my_history2_b7" : "Get additional Help by clicking on the 'Get Help For This Page' button",

@@ -41,6 +41,7 @@
 
 
 		"add_help_dialog_title":"Inserir informações pessoais Ajuda",
+		"disease_list_dialog_title":"Disease List",		
 		"update_help_dialog_title":"Digite o membro da família Informações Ajuda",
 		"update_help_dialog_h1":"Digite Informações do membro da família",
 		"update_help_dialog_p":"Ao criar as informações do seu membro da família, você será solicitado a:",
@@ -98,6 +99,7 @@
 		"grandfather":"Avô",
 		"name_relationship":"Nome e Relacionamento",	
 		"still_living":"Ainda Vivem",
+		"conditions" : "Conditions",		
 		"still_living_main":"Ainda Vivem",
 
 
@@ -162,6 +164,9 @@
 		"remove_q": "Você realmente quer remover",
 		"remove_q2": "Isso também irá apagar todos os seus filhos",
 
+		"add_disease_instructions_1" : "<B>If there are no diseases or conditions, skip this section.</B>",
+		"add_disease_instructions_2" : "Otherwise, select a <B>disease or condition</B> from the dropdown list.  Then select <B>Age at Diagnosis</B>, and press the <B>Add</B> button.",
+		"add_disease_instructions_3" : "Repeat this process to add more diseases or conditions.",
 
 		"family_health_subtitle": "Informações de saúde da sua família",
 		"add_disease_instructions": "Na lista abaixo, selecione uma <B>doença ou condição</B> (se houver) na caixa suspensa. Em seguida, selecione a <B>idade ao diagnóstico</B> e pressione o botão <B>Adicionar</B>. Você pode repetir esse processo, se necessário.",
@@ -253,7 +258,11 @@
 		"yes":"Sim",
 		"no":"Não",
 		"unknown":"Desconhecido",
-		"android":"Esse recurso não é suportado no navegador Android"		
+		"android":"Esse recurso não é suportado no navegador Android",
+		"more":"More",
+		"less":"Less",		
+		"disease_button":"Disease List"
+
 	},
 
 	"fhh_fhh": {
@@ -645,6 +654,13 @@
 		"save_image_instructions_2":"Para salvar a imagem, clique direito diretamente sobre a tabela e escolha salvar imagem como",
 		"date_of_report":"Data do Relatório",		
 		"desc_line1":"Você pode imprimir o seu histórico de saúde da família em uma forma de diagrama e mesa para compartilhar com o seu prestador de cuidados de saúde. Conversando com o seu provedor de cuidados de saúde sobre seu histórico de saúde da família pode ajudá-lo a manter-se saudável!",
+		"desc_line2_before_anchor1":"Your family health conditions are shown here in a",
+		"desc_line2_anchor1":"diagram",
+		"desc_line2_before_anchor2":"and a",
+		"desc_line2_anchor2":"table",
+		"desc_line2_after_anchor2":"(below the diagram).  Scroll up and down to see both.",
+		"desc_line3":"Print them to share with your healthcare provider.  Click the ‘Print’ buttons just above the diagram and the table, then follow the instructions.",
+		"desc_line4":"Use the bottom and right scroll bars to view larger tables and diagrams.",
 		"desc_line2":"Se você gostaria de mudar a forma como a informação é apresentada abaixo, clique em 'Diagrama e Tabela Opções.' As barras de rolagem inferior e direita são ferramentas de navegação úteis ao visualizar maiores tabelas e diagramas.",
 		"desc_line3_before_anchor":"Seu histórico de saúde da família também está disponível na parte inferior desta página em formato de tabela , que lista os detalhes de cada membro da família. Isso pode ser útil ao rever o seu histórico de saúde da família com o seu profissional de saúde. Pressione",
 		"desc_line3_anchor":"aquí",
