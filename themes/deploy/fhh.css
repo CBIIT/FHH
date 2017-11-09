@@ -851,3 +851,12 @@ ul.diseaseList li button.open::before{
 button#diseaseList {
   margin-left:10px;
 }
+
+#age_of_diagnosis_disclaimer {
+  color:red;
+  font-weight:bold;
+  font-size:94%;
+  padding-top:5px;
+}
+
+
