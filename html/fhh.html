@@ -120,62 +120,62 @@
     <div>
         <span class="homeManage">
             <div>
-                <p class='translate homeHead'>Manage your data</p>
+                <p class='translate homeHead' data-i18n='fhh_fhh.manageData'>Manage your data</p>
             </div>
             <div>
-                <a id="save_personal_history_button" href="#" class='translate button_link homeIndentText'>Save Data</a>
-                <p class="translate homeText saveText"> - So you can use and update it later (<u>do not use</u> browser menu “save”) <span id="firstVari" style="color:red;font-weight:bold;font-size:1.1em"></span></p>
+                <a id="save_personal_history_button" href="#" data-i18n="fhh_fhh.saveData" class='translate button_link homeIndentText'>Save Data</a>
+                <p class="translate homeText saveText"> - <span data-i18n="fhh_fhh.updateLater">So you can use and update it later</span> (<u><span data-i18n="fhh_fhh.updateLaterDoNotUse">do not use</span></u> <span data-i18n="fhh_fhh.updateLaterBrowserSave">browser menu “save”</span>) <span id="firstVari" style="color:red;font-weight:bold;font-size:1.1em"></span></p>
             </div>
             <div>
-                <a id="navCopyFamily" href="#" class='translate button_link homeIndentText'>Share Data</a>
-                <p class="translate homeText"> - Save for use by a family member</p>
+                <a id="navCopyFamily" href="#" class='translate button_link homeIndentText' data-i18n="fhh_fhh.shareData">Share Data</a>
+                <p class="translate homeText"> - <span data-i18n="fhh_fhh.updateLaterFamilyMember">Save for use by a family member</span></p>
             </div>
             <div>
-                <a id="warnAndGoHome" href="index.html" class='translate button_link homeIndentText'>Start Over</a>
-                <p class="translate homeText deleteText"> - Delete all <u>unsaved</u> data and restart with new data, or load saved data</p>
+                <a id="warnAndGoHome" href="index.html" class='translate button_link homeIndentText' data-i18n="fhh_fhh.startOver">Start Over</a>
+                <p class="translate homeText deleteText"> - <span data-i18n="fhh_fhh.deleteAll">Delete all</span> <u><span data-i18n="fhh_fhh.unsaved">unsaved</span></u> <span data-i18n="fhh_fhh.dataRestart">data and restart with new data, or load saved data</span></p>
             </div>
         </span>
         <span class="homeHelp">
             <div>
-                <a id="nav_help" class='translate button_link homeHelpBtn'>Get Help For This Page</a>
+                <a id="nav_help" class='translate button_link homeHelpBtn' data-i18n="fhh_fhh.getHelp">Get Help For This Page</a>
             </div>
         </span>
     </div>
     <div>
         <span class="homeView">
             <div>
-                <p class='translate homeHead'>View and print data</p>
+                <p class='translate homeHead' data-i18n="fhh_fhh.viewPrint">View and print data</p>
             </div>
             <div>
-                <a id="navViewDiagram" href="#" ng-click="openDiagramTable(true)" class='translate button_link homeIndentText' ng-controller="fhhController">Family Tree</a>
-                <a id="navViewDiagram" href="#personal_info_table" ng-click="openDiagramTable(false)" class='translate button_link' ng-controller="fhhController">Family Health Table</a>
+                <a id="navViewDiagram" href="#" ng-click="openDiagramTable(true)" class='translate button_link homeIndentText' ng-controller="fhhController" data-i18n="fhh_fhh.familyTree">Family Tree</a>
+                <a id="navViewDiagram" href="#personal_info_table" ng-click="openDiagramTable(false)" class='translate button_link' ng-controller="fhhController" data-i18n="fhh_fhh.healthTable">Family Health Table</a>
             </div>
         </span>
         <span class="homeCheck">
             <div>
-                <p class='translate homeHead'>Check your risk for certain common diseases in your family</p>
+                <p class='translate homeHead' data-i18n="fhh_fhh.checkRiskText">Check your risk for certain common diseases in your family</p>
             </div>
             <div>
-                <a id="navRiskCalculator" href="#" class='translate button_link homeIndentText'>Check Your Risk</a>
+                <a id="navRiskCalculator" href="#" class='translate button_link homeIndentText' data-i18n="fhh_fhh.checkRisk">Check Your Risk</a>
             </div>
         </span>
     </div>
     <div class="homeAdd">
         <div>
-            <p class='translate homeHead'>Edit your family and health histories</p>
+            <p class='translate homeHead' data-i18n="fhh_fhh.editFamily">Edit your family and health histories</p>
         </div>
         <div>
-            <a id="add_another_family_member_button" href="#" class='translate button_link homeIndentText'>Add a Family Member</a>
-            <p class="translate homeText"> - Add another family member and enter their health information.</p>
+            <a id="add_another_family_member_button" href="#" class='translate button_link homeIndentText' data-i18n="fhh_fhh.addFamily">Add a Family Member</a>
+            <p class="translate homeText"> - <span data-i18n="fhh_fhh.addFamilyText">Add another family member and enter their health information.</span></p>
         </div>
         <div>
-            <p class="translate homeIndentText">Click <IMG src='../images/icon_edit.gif' alt= 'Update History' height='16'/> in the table below to make changes to a family member’s information and health history.</p>
+            <p class="translate homeIndentText"><span data-i18n="fhh_fhh.click">Click</span> <IMG src='../images/icon_edit.gif' alt= 'Update History' height='16'/> <span data-i18n="fhh_fhh.tableBelow1">in the table below to make changes to a family member’s information and health history.</span></p>
         </div>
         <div>
-            <p class="translate homeIndentText">Click <IMG src='../images/icon_trash.gif' alt= 'Remove History' height='16'/> in the table below to remove a family member and their data.</p>
+            <p class="translate homeIndentText"><span data-i18n="fhh_fhh.click">Click</span> <IMG src='../images/icon_trash.gif' alt= 'Remove History' height='16'/> <span data-i18n="fhh_fhh.tableBelow2">in the table below to remove a family member and their data.</span></p>
         </div>
         <div>
-            <p class="translate homeText"><em>Remember to click the “Save Data” button above if you want to save your changes for future use.</em></p>
+            <p class="translate homeText"><em><span data-i18n="fhh_fhh.remember">Remember to click the “Save Data” button above if you want to save your changes for future use.</span></em></p>
         </div>
     </div>
 </div>
@@ -193,7 +193,7 @@
     </tr>
     <tr class="person_row">
         <td class='information'></td>
-        <td class='information'>Self</td>
+        <td class='information' data-i18n="fhh_fhh.self">Self</td>
         <td class="action">&nbsp;</td>
         <td class="action">&nbsp;</td>
     </tr>
