@@ -859,4 +859,7 @@ button#diseaseList {
   padding-top:5px;
 }
 
+.hideHealthVault {
+  display:none;
+}
 
