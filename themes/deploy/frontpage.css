@@ -33,6 +33,18 @@ div.main_container
     {  padding-left: 20px;
       padding-top: 20px;
     }
+    div.main_container.redirect {
+      background-color:#F0AD4F;
+      font-size:15px;
+    }
+    div.main_container.redirect div {
+      padding:10px;
+    }    
+
+      div.main_container.redirect a{
+        color:blue;
+        text-decoration:none;
+      }     
 
 #separatorBox
 {  height: 35px;
