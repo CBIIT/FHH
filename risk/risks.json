@@ -1,6 +1,26 @@
 {
+	
+	
+	"crca": {
+	  "name.en": "Colorectal Cancer",
+	  "name.es": "Calcula tu riesgo de cáncer colorrectal",
+	  "name.pt": "Calcule o risco de câncer colorretal",
+	  "name.it": "Calcola il tuo rischio cancro colorettale",
+	  "description.en": "",
+	  "description.es": "La Calculadora de Riesgo colorrectal",
+	  "description.pt": "A Calculadora de Risco Colorretal",
+	  "description.it": "Il Risk Calculator Colorectal",
+	  "link": "crca/crca.html",
+	  "status": "active"
+	},
+	"heart": {
+		"name.en": "Heart Disease",
+		"description.en": "",
+		"link": "heart/heart.html",
+		"status": "active"
+	  },
 	"drc": {
-	  "name.en": "Calculate your Diabetes Risk",
+	  "name.en": "Diabetes",
 	  "name.es": "Calcula tu riesgo de diabetes",
 	  "name.pt": "Calcule seu risco de Diabetes",
 	  "name.it": "Calcola il tuo rischio di diabete",
@@ -10,23 +30,6 @@
 	  "description.it": "Il Risk Calculator diabete",
 	  "link": "drc/diabetes.html",
 	  "status": "active"
-	},
-	"crca": {
-	  "name.en": "Calculate your Colorectal Cancer Risk",
-	  "name.es": "Calcula tu riesgo de cáncer colorrectal",
-	  "name.pt": "Calcule o risco de câncer colorretal",
-	  "name.it": "Calcola il tuo rischio cancro colorettale",
-	  "description.en": "The Colorectal Risk Calculator",
-	  "description.es": "La Calculadora de Riesgo colorrectal",
-	  "description.pt": "A Calculadora de Risco Colorretal",
-	  "description.it": "Il Risk Calculator Colorectal",
-	  "link": "crca/crca.html",
-	  "status": "active"
-	},
-	"lung": {
-	  "name": "Calculate your Lung Cancer Risk",
-	  "description": "The Lung Risk Calculator",
-	  "link": "lung/lung.html",
-	  "status": "inactive"
 	}
+
 }

@@ -1,0 +1,37 @@
+p.heart {
+	text-align:left;
+}
+
+#heart_table {
+	border-collapse:collapse;
+	border:1px solid black;
+	width:100%;
+}
+
+#heart_table tr:nth-child(even) {
+	background-color:#DDF;
+}
+
+#heart_table th {
+	background:#AAD;
+	text-decoration:none;
+}
+
+#heart_table td {
+	border:0px;
+	padding: 2px;
+}
+
+#heart_table #test {
+	width:50px;
+}
+
+.heart-final {
+	border: 1px solid black;
+	font-weight:bold;
+	background-color:#AAD;
+}
+
+#heart_key {
+	font-size:14;
+}

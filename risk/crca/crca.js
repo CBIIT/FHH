@@ -17,7 +17,7 @@
 	"SNOMED_CT-64766004": "Ulcerative Colitis",
 	"SNOMED_CT-363518003": "Kidney Cancer",
 */
-
+//debugger;
 var final_risk = false;
 
 // get lng and set to variable. used to open correct pdf //
@@ -528,16 +528,32 @@ function test_secondary_family_members_uterine_cancer() {
 
 function test_final() {
 	if (final_risk) {
-		set_icon($("#final"), 'positive');
+		set_icon_final($("#final"), 'positive');
 		set_reason($("#final"),$.t("fhh_colorectal_calculator.final_risk1"));
 		$("#explanation_low_risk").hide();
 		$("#explanation_high_risk").show();
 	} else {
-		set_icon($("#final"), 'negative');
+		set_icon_final($("#final"), 'negative');
 		set_reason($("#final"),$.t("fhh_colorectal_calculator.final_risk2"));
 		$("#explanation_high_risk").hide();
 		$("#explanation_low_risk").show();
 	}
+}
+
+function main_test_crca()
+{
+	test_past_cancer();
+test_polyps();
+test_inflammatory_bowel_disease();
+test_any_family_members_fap_hnpcc();
+test_immediate_family_members_cancer();
+test_immediate_family_members_polyps();
+test_secondary_family_members_cancer();
+test_secondary_family_members_colon_cancer_before_60();
+test_secondary_family_members_uterine_cancer_before_50();
+test_secondary_family_members_uterine_cancer();
+
+return final_risk;
 }
 ///  Support functions 
 
@@ -572,16 +588,34 @@ function is_age_before(age_to_check, age_at_diagnosis) {
 function set_icon(field, state) {
 	switch (state) {
 		case 'waiting':
-			$(field).find("#test").empty().append("<IMG alt='waiting' src='../risk/crca/blue_waiting.png' height='40'/>");
+			$(field).find("#test").empty().append("<IMG alt='waiting' src='../risk/image/blue_waiting.png' height='40'/>");
 			break;
 		case 'calculating':
-			$(field).find("#test").empty().append("<IMG alt='calculating' src='../risk/crca/blue_calculating.gif' height='40'/>");
+			$(field).find("#test").empty().append("<IMG alt='calculating' src='../risk/image/blue_calculating_sm.gif' height='20'/>");
 			break;
 		case 'negative':
-			$(field).find("#test").empty().append("<IMG alt='good_because_negative' src='../risk/crca/green_x.png' height='40'/>");
+			$(field).find("#test").empty().append("<IMG alt='good_because_negative' src='../risk/image/green_check_sm.gif' height='20'/>");
 			break;
 		case 'positive':
-			$(field).find("#test").empty().append("<IMG alt='bad_because_positive' src='../risk/crca/red_check.png' height='40'/>");
+			$(field).find("#test").empty().append("<IMG alt='bad_because_positive' src='../risk/image/red_x_sm.gif' height='20'/>");
+			break;
+			
+	}
+}
+
+function set_icon_final(field, state) {
+	switch (state) {
+		case 'waiting':
+			$(field).find("#test").empty().append("<IMG alt='waiting' src='../risk/image/blue_waiting.png' height='40'/>");
+			break;
+		case 'calculating':
+			$(field).find("#test").empty().append("<IMG alt='calculating' src='../image/brca/blue_calculating.gif' height='40'/>");
+			break;
+		case 'negative':
+			$(field).find("#test").empty().append("<IMG alt='good_because_negative' src='../risk/image/smiley.gif' height='40'/>");
+			break;
+		case 'positive':
+			$(field).find("#test").empty().append("<IMG alt='bad_because_positive' src='../risk/image/triangle.gif' height='40'/>");
 			break;
 			
 	}

@@ -1,9 +1,9 @@
 
 // Dropbox Keys
-var DROPBOX_APP_KEY = '5qz5g5nkzdzwpd3';
+var DROPBOX_APP_KEY = 's6x5f48hxhzrx92';
 
 // Google Drive Keys
-var GOOGLE_CLIENT_ID = '459770573635-ohh6qdb4gu4i8nlnlap609oogsoa0ub8.apps.googleusercontent.com';
+var GOOGLE_CLIENT_ID = '907415503342-ghssjk1ned3mkkotmfatqc5jd3oecg8e.apps.googleusercontent.com';
 var GOOGLE_SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
 // Health Vault Settings

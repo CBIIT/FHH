@@ -1,7 +1,13 @@
-<!-- For File upload -->
+﻿<meta http-equiv="X-UA-Compatible" content="IE=Edge"><!-- For File upload -->
       <div style="text-align:right;font-size:110%">
         <button id="load-help" class="translate" data-i18n="fhh_js.help">Help</button>
-      </div><br />
+	  </div>
+	  
+	  <div id="wrapper" style='border:0px solid black;'></div>
+	  <div style="text-align:left;font-family:grey;font-size:90%">Disclaimer: <em>The Surgeon General's My Family Health Portrait tool does NOT allow the government or other entities to access your information. The tool provides the software for organizing your information, but your information is not transmitted back to government or other servers and can only be downloaded by you. Your information is never available to anyone else, unless you choose to share it. The Surgeon General's tool does not provide medical advice. For questions related to family health history and your health, talk to your doctor. </em></font>
+  </div>
+	
+	  <br />
 <script type="text/javascript" src="../js/plupload.full.min.js"></script>
 <div class="loadPersonalInfoFromFile">
 	<div class="title-bar translate">Load Your Family Health History from a Device
@@ -34,59 +40,11 @@
 	</TD>
 	</TR>	
 	</TABLE>
+	
 	<!-- End PL Uploader -->
 </div>
 <br>
-<div class="title-bar translate">Load Your Family Health History from Google Drive</div>
-<TABLE>
-<TR>
-<TD style='width:200px;text-align:center;'>
-	<IMG src='../images/google_drive_icon.png' alt='Open from Google Drive'>
-</TD>
-<TD style='vertical-align:top;width:600px;'>
-	<P id='load_google_drive_instructions' class='translate'>Load a previously-saved Family Health History file from Google Drive.</P>
-	<P id='load_google_drive_instructions' class='translate'>You will need to sign into your Google account to continue.</p>
-	<div id='load_from_google_drive'></div>
-<br />
-</TD>
-</TR>	
-</TABLE>
-<!-- <pre id="console" style="color:red;"></pre> -->
-<div class="title-bar translate">Load Your Family Health History from Dropbox</div>
-<TABLE>
-<TR>
-<TD style='width:200px;text-align:center;'>
-	<IMG src='../images/dropbox_icon.png' alt='Open from Dropbox' width='48' height='48'>
-</TD>
-<TD style='vertical-align:top;width:600px;'>
-	<P id='load_dropbox_instructions'  class='translate'>Load a previously-saved Family Health History file from Dropbox.</P>
-	<P id='load_dropbox_instructions'  class='translate'>You will need to sign into your Dropbox account to continue.</p>
-	<div id='load_from_dropbox'></div>
-</TD>
-</TR>	
-</TABLE><br />
-<div class="title-bar translate">Load Your Family Health History from Microsoft HealthVault</div>
 
-<TABLE>
-<TR>
-<TD style='width:200px;text-align:center;'>
-	<IMG src='../images/tile_HealthVaultBlue_h_rgb_147width.png' alt='Open from Health Vault Icon'>
-</TD>
-<TD style='vertical-align:top;width:600px;'>
-	<P class='translate'>Copy family health information from your HealthVault account.</P>
-	<P class='translate'>Microsoft HealthVault lets you gather, store, and share health information online.</p>
-	<P class='translate'>You will need to sign into your HealthVault account to continue.</p>
-	</P>
-</TD>
-</TR>	
-<tr><td></td><td>	<div id='load_from_healthvault'></div></td></tr>
-
-</TABLE>
-
-<hr />
-<P class='translate instructions'>
-NOTE: When you share family health information with a third-party system, such as Google or Dropbox, the information is retained in that system. Please review the third-party’s terms of use and privacy policy to ensure that your information is secure.
-</P>
 
 <script type='text/javascript' >
 	
@@ -101,7 +59,7 @@ function health_vault() {
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-84860122-1', 'auto');
+  ga('create', 'UA-2686643-4', 'auto');
   ga('send', 'pageview');
 
 </script>

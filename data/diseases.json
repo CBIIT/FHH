@@ -3,6 +3,7 @@
 		{"name":"Bone Cancer","abbr":"BoC","code":"269466003","system":"SNOMED_CT"},
 		{"name":"Brain Cancer","abbr":"BrC","code":"1000000","system":"SNOMED_CT"},
 		{"name":"Breast Cancer","abbr":"BrC","code":"254837009","system":"SNOMED_CT"},
+		{"name":"Breast Cancer (triple negative)","abbr":"BrC","code":"706970001","system":"SNOMED_CT"},
 		{"name":"Colon Cancer","abbr":"ColC","code":"363406005","system":"SNOMED_CT"},
 		{"name":"Colorectal Cancer","abbr":"CrC","code":"1000001","system":"SNOMED_CT"},
 		{"name":"Esophageal Cancer","abbr":"EsC","code":"363402007","system":"SNOMED_CT"},
@@ -15,7 +16,7 @@
 		{"name":"Lung Cancer","abbr":"LuC","code":"363358000","system":"SNOMED_CT"},
 		{"name":"Muscle Cancer","abbr":"MuC","code":"363495004","system":"SNOMED_CT"},
 		{"name":"Other Cancer","abbr":"OtC","code":"OTCANCER","system":"SNOMED_CT"},
-		{"name":"Ovarian Cancer","abbr":"OvC","code":"363443007","system":"SNOMED_CT"},
+		{"name":"Ovarian Cancer/Peritoneal Cancer/Fallopian Tube Cancer","abbr":"OvC","code":"363443007","system":"SNOMED_CT"},
 		{"name":"Pancreatic Cancer","abbr":"PnC","code":"363418001","system":"SNOMED_CT"},
 		{"name":"Prostate Cancer","abbr":"PrC","code":"399068003","system":"SNOMED_CT"},
 		{"name":"Rectal Cancer","abbr":"ReC","code":"254582000","system":"SNOMED_CT"},
@@ -60,10 +61,12 @@
 		{"name":"Coronary Artery Disease","abbr":"CAD","code":"53741008","system":"SNOMED_CT"},
 		{"name":"Heart Attack","abbr":"HA","code":"22298006","system":"SNOMED_CT"},
 		{"name":"Heart Disease","abbr":"HD","code":"56265001","system":"SNOMED_CT"},
+		{"name":"Familial Hypercholesterolemia","abbr":"FH","code":"398036000","system":"SNOMED_CT"},
 		{"name":"Unknown Heart Disease","abbr":"UHD","code":"UNHEADIS","system":"SNOMED_CT"}
 	],
 	"High Cholesterol" : [
-		{"name":"High Cholesterol","abbr":"HCH","code":"55822004","system":"SNOMED_CT"}
+		{"name":"High Cholesterol","abbr":"HCH","code":"55822004","system":"SNOMED_CT"},
+		{"name":"Familial Hypercholesterolemia","abbr":"FH","code":"398036000","system":"SNOMED_CT"}
 	],
 	"Hypertension": [
 		{"name":"Hypertension","abbr":"HYP","code":"38341003","system":"SNOMED_CT"}

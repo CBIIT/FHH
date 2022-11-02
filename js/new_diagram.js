@@ -430,7 +430,6 @@ function createDiagramDialog() {
             }
         });
         $("#diseaseopts").append(array.toString());
-        $("#diseaseopts").val("0");
 }
 
 function HidePersonalInfo() {
@@ -614,12 +613,22 @@ function createImage(print) {
     window.wo = WindowObject;
 	    WindowObject.focus();		
 
-	    WindowObject.print();
+		WindowObject.print();
+		
     }
     else {
-		if (window.chrome) {
-	    WindowObject = window.open(image, "Diagram",
-	    "width=950,height=850,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+		//if (window.chrome) {
+	    //WindowObject = window.open(image, "Diagram",
+	   // "width=950,height=850,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+		var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+
+		if (isChrome) {
+			WindowObject = window.open("", "Diagram",
+			"width=950,height=850,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+			WindowObject.document.writeln('<html><head><LINK href="../css/diagram_print.css" rel="stylesheet" type="text/css"></head><body><div style="text-align:center"><h2>'  + $.t("fhh_family_pedigree.print_title") + '</h2><div id="pi_html"><b>' + pi_html + '</b></div><div><B>' + instructions + '</B><br /><br /></div><img src="' + image + '"><br />' + legend + '</div></body></html>');
+			window.wo = WindowObject;
+			WindowObject.document.location = "#";
+		
 
 		}
 		else{

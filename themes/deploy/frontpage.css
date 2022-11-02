@@ -7,7 +7,7 @@
 body
 {  
      /*background-color:#ddd;*/
-	background: url('page_background.jpg') repeat-x scroll center top #ECE0D3
+	/*background: url('page_background.jpg') repeat-x scroll center top #ECE0D3*/
 }
 
 div.main_container
@@ -26,25 +26,13 @@ div.main_container
     }
 
         div.main_container table.homepage td.maintext
-        {  padding: 20px 0px 0px 15px
+        {  padding: 20px 0px 0px 20px
         }
 
     div.main_container .logo
     {  padding-left: 20px;
       padding-top: 20px;
     }
-    div.main_container.redirect {
-      background-color:#F0AD4F;
-      font-size:15px;
-    }
-    div.main_container.redirect div {
-      padding:10px;
-    }    
-
-      div.main_container.redirect a{
-        color:blue;
-        text-decoration:none;
-      }     
 
 #separatorBox
 {  height: 35px;
@@ -122,13 +110,4 @@ float:right;
 padding-right:10px;
 }
 
-.mobileMessage {
-  font-size:110%;
-  font-weight:bold;
-  color:red;
-  padding:10px;
-}
 
-.homepage_bullets {
-margin-bottom:3px;
-}

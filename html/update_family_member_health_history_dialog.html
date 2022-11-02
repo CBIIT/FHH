@@ -1,61 +1,63 @@
-<div class="top_instructions">
-  <div class="left">
-    <ul>
-      <li>
-        <span class='instructions translate' data-i18n='info_dialog.family_instructions1'>
-          Enter personal, health history, and background information for this family member.
-        </span>
-        <span class="required">*</span><span class='instructions translate' data-i18n='info_dialog.required'>Indicates Required Information
-        </span>
-      </li>
-      <li>
-        <span class='instructions translate' data-i18n='info_dialog.family_instructions2'>
-          When done, press “Next” at the bottom to return to the main screen (scroll down if needed). 
-        </span> 
-      </li>
-      <li>
-        <span class='instructions translate' data-i18n='info_dialog.family_instructions3'>
-          This information is not saved until the “Save Data” button is pressed on the main screen. 
-        </span>
-      </li>
-    </ul>
-  </div>
+<script>
 
-  <div class="right" style="text-align:right;font-size:110%">
-    <button id="update-help" class="translate" data-i18n="fhh_js.help">Help</button>
-  </div>
-</div>
+	$( function() {
+  
+	  $( "#datepicker" ).datepicker({
+  
+		changeMonth: true,
+  
+		changeYear: true,
+  
+		yearRange: "c-100:c0",
+		showOn: "button",
+  
+		buttonImage: "../images/calendar.gif",
+  
+		buttonImageOnly: true,
+  
+		buttonText: "Select date"
+  
+  
+  
+	  });
+  
+	} );
+  
+	</script>
+	
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">      <div style="text-align:right;font-size:110%">
+        <button id="update-help" class="translate" data-i18n="fhh_js.help">Help</button>
+      </div><br />
       <div class="title-bar translate" data-i18n='info_dialog.div_family_info' id="family-title"> Your Family Member's Personal Information </div>
 
-
+	<p class='instructions translate' data-i18n='info_dialog.family_instructions'> </p>
+	
+    <p class='instructions'><span class="required">*</span>
+    	<span class='translate' data-i18n='info_dialog.required'>
+    </p>
+    
     <table class="form" summary="Enter family member health information.">
     	<input id="family_member_parent_id" type="hidden" value="">
         <tr>
-      		<th class="label translate" data-i18n='info_dialog.relationship'>Relationship:</label></th>
-      		<td id='family_member_relationship' ></td>
-		    </tr>
+    		<th class="label translate" data-i18n='info_dialog.relationship'>Relationship:</label></th>
+    		<td id='family_member_relationship' ></td>
+		</tr>
         <tr>
-      		<th class="label"><label for="family_member_info_form_name" class="label">
-      			<span class='translate' data-i18n='info_dialog.name'>Name:</span></label>
-      		</th>
-      		<td>
-            <input name="family.member.name" size="30" maxlength="255" value="" tabindex="2" id="family_member_info_form_name" type="text">
-          </td>
-		    </tr>
+    		<th class="label"><label for="family_member_info_form_name" class="label">
+    			<span class='translate' data-i18n='info_dialog.name'>Name:</span></label>
+    		</th>
+    		<td><input name="family.member.name" size="30" maxlength="255" value="" tabindex="2" id="family_member_info_form_name" type="text"></td>
+		</tr>
         <tr>
-          <th class="label">
-						<span class="required">*</span><span class='translate' data-i18n='info_dialog.gender'>Gender:</span>
-          </th>
-          <td>
-            <input name="family.member.gender" id="family_member_info_form_gender_male" value="MALE" tabindex="2" type="radio">
-          	<label for="family_member_info_form_gender_male" class='translate' data-i18n='info_dialog.male'>Male</label>
-			      <input name="family.member.gender" id="family_member_info_form_gender_female" value="FEMALE" tabindex="2" type="radio">
-            <label for="family_member_info_form_gender_female" class='translate' data-i18n='info_dialog.female'>Female</label>
-    			</td>
+            <th class="label">
+							<span class="required">*</span><span class='translate' data-i18n='info_dialog.gender'>Gender at Birth:</span>
+            </th>
+            <td><input name="family.member.gender" id="family_member_info_form_gender_male" value="MALE" tabindex="2" type="radio">
+            		<label for="family_member_info_form_gender_male" class='translate' data-i18n='info_dialog.male'>Male</label>
+				<input name="family.member.gender" id="family_member_info_form_gender_female" value="FEMALE" tabindex="2" type="radio">
+					<label for="family_member_info_form_gender_female" class='translate' data-i18n='info_dialog.female'>Female</label>
+			</td>
         </tr>
-      </table>
-      <table class="form" summary="Enter family member health information.">
-
         <tr>
 					<th class="label translate" data-i18n='info_dialog.alive' style='vertical-align:top;'> Is this person still alive </th>
 					<td><label for='is_person_alive'> &nbsp; </label></label><select id='is_person_alive'>
@@ -72,8 +74,7 @@
 								<option value='estimated_age' class='translate' data-i18n='info_dialog.estimated_age'>Estimated Age</option>
 							</select>
 							<label for='age_determination_text'> &nbsp; </label>
-							<INPUT id='age_determination_text' type='text' placeholder="mm/dd/yyyy" />
-
+							<INPUT id='age_determination_text' type='text' />
 							<label for='estimated_age_select'> &nbsp; </label>
 							<select id='estimated_age_select' ></select>
 						</div>
@@ -84,13 +85,12 @@
 									<select id='detailed_cause_of_death_select' ></select><br/>
 									<label for='estimated_death_age_select'><span class='translate' data-i18n='info_dialog.age_at_death'>Age at Death</span> </label>
 									<select id='estimated_death_age_select' ></select>
-                  <div id="age_of_diagnosis_disclaimer">CAUTION: Age at Death is noted as Age at Diagnosis in Family Health History Table print-out.</div>
 						</div>
 					</td>
         </tr>
         <tr>
             <th class='translate label' data-i18n='info_dialog.family_twin_status'> Was this person born a twin?</th>
-            <td class="twin_status"><input name="family.member.twin_status" id="family_member_info_form_twin_status_no" checked="checked" value="NO" tabindex="11" type="radio">
+            <td><input name="family.member.twin_status" id="family_member_info_form_twin_status_no" checked="checked" value="NO" tabindex="11" type="radio">
             		<label for="family_member_info_form_twin_status_no" class="translate" data-i18n='info_dialog.no'>No</label>
 								<input name="family.member.twin_status" id="family_member_info_form_twin_status_identical" value="IDENTICAL" tabindex="11" type="radio">
 								<label for="family_member_info_form_twin_status_identical" class="translate" data-i18n='info_dialog.identical'>Yes - Identical (Same)</label>
@@ -115,7 +115,7 @@
     <div id='family_race_ethnicity'> Race and Ethnicity Information </div>
 <br />
  <table width="100%" cellspacing="0" cellpadding="0" border="0">
-  <tr><td style="text-align:center;">
+  <tr><td style="text-align:right;">
 	<button id='addFamilyMemberCancelButton' class='translate' data-i18n='fhh_js.cancel'>Cancel </button>
     <button id='addFamilyMemberSubmitButton' style="font-size:110% !important" class='translate' data-i18n='fhh_js.save'>Next </button>
 
@@ -130,7 +130,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-84860122-1', 'auto');
+  ga('create', 'UA-2686643-4', 'auto');
   ga('send', 'pageview');
 
 </script>

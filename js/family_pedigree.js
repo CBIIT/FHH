@@ -69,6 +69,7 @@ var defaultfamilyarray=[
 var ua = window.navigator.userAgent;
 var msie = ua.indexOf("MSIE ");
 function xmlload() {
+
     var lng = window.i18n.lng();
     if (lng=='en-US') {
         lng = 'en';
@@ -1268,7 +1269,7 @@ Already put mother in earlier
             var DocumentContainer = $(mdialog);
             var WindowObject = window.open('', "Print", "width=800,height=1000,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no");
             WindowObject.document.writeln('<!DOCTYPE html>'
-            + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
+            + '<html><head><title>MFHP|' + $.t("fhh_family_pedigree.page_title") + '|PHGKB</title>'
             +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
 
             + '<p>' + $.t("fhh_family_pedigree.page_title") + '</p>'
@@ -1351,7 +1352,7 @@ Already put mother in earlier
             <!-- PRINT STARTS HERE -->
             if(DISPLAY != 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                    + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
+                    + '<html><head><title>MFHP|' + $.t("fhh_family_pedigree.page_title") + '|PHGKB</title>'
                     + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
                     + '<p>' + $.t("fhh_family_pedigree.page_title") + '</p>'
@@ -1367,7 +1368,7 @@ Already put mother in earlier
             }
             else if(DISPLAY == 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                    + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
+                    + '<html><head><title>MFHP|' + $.t("fhh_family_pedigree.page_title") + '|PHGKB</title>'
                     + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
                     + '<DIV style="page-break-after:none"></DIV>'
                     + $(healthtable).html()
@@ -1452,7 +1453,7 @@ Already put mother in earlier
             <!-- PRINT STARTS HERE -->
             if(DISPLAY != 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                    + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
+                    + '<html><head><title>MFHP|' + $.t("fhh_family_pedigree.page_title") + '|PHGKB</title>'
                     + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
                     + '<p>' + $.t("fhh_family_pedigree.page_title") + '</p>'
@@ -1465,7 +1466,7 @@ Already put mother in earlier
             }
             else if(DISPLAY == 'none' ) {
                 myWindow.document.write('<!DOCTYPE html>'
-                    + '<html><head><title>' + $.t("fhh_family_pedigree.page_title") + '</title>'
+                    + '<html><head><title>MFHP|' + $.t("fhh_family_pedigree.page_title") + '|PHGKB</title>'
                     + '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="print">'
 
                         // + '<p>' + $.t("fhh_famil_pedigree.page_title") + '</p>'
@@ -1525,7 +1526,7 @@ Already put mother in earlier
                 'width=' + width + ',height=' + height);
             printWindow.document.writeln(
                 '<!DOCTYPE html>'
-                + '<html><head><title>Disease Matrix</title>'
+                + '<html><head><title>MFHP|Disease Matrix|PHGKB</title>'
                 +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
                 + $(container).html()
                     //+ printContents
@@ -1546,7 +1547,7 @@ Already put mother in earlier
         var originalContents = document.body.innerHTML;
 
         document.body.innerHTML = '<!DOCTYPE html>'
-        + '<html><head><title>Disease Matrix</title>'
+        + '<html><head><title>MFHP|Disease Matrix|PHGKB</title>'
         +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
         + $(printContents).html()
             //+ printContents

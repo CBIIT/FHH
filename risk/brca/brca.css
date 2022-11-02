@@ -1,0 +1,37 @@
+p.crca {
+	text-align:left;
+}
+
+#crca_table {
+	border-collapse:collapse;
+	border:1px solid black;
+	width:100%;
+}
+
+#crca_table tr:nth-child(even) {
+	background-color:#DDF;
+}
+
+#crca_table th {
+	background:#AAD;
+	text-decoration:none;
+}
+
+#crca_table td {
+	border:0px;
+	padding: 2px;
+}
+
+#crca_table #test {
+	width:50px;
+}
+
+.crca-final {
+	border: 1px solid black;
+	font-weight:bold;
+	background-color:#AAD;
+}
+
+#crca_key {
+	font-size:14;
+}

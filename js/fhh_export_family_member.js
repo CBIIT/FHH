@@ -231,6 +231,7 @@ function export_son_or_daughter(relative_being_exported, my_gender) {
 // Nephew, Nieces, Aunts, Uncles, Granparents, Cousins all drop off
 	if (my_gender == 'MALE') {
 		pi.father = my_information_as_a_relative;
+		pi.father.gender = 'MALE';
 		pi.mother = new Object(); pi.mother.gender = 'FEMALE';
 		move_single_relative(pi, 'father', 'paternal_grandfather');
 		move_single_relative(pi, 'mother', 'paternal_grandmother');
@@ -251,7 +252,9 @@ function export_son_or_daughter(relative_being_exported, my_gender) {
 		
 	} else {
 		pi.mother = my_information_as_a_relative;
-		pi.father = new Object(); pi.mother.gender = 'FEMALE';
+		pi.father = new Object(); 
+		pi.father.gender = 'MALE';
+		pi.mother.gender = 'FEMALE';
 		move_single_relative(pi, 'father', 'maternal_grandfather');
 		move_single_relative(pi, 'mother', 'maternal_grandmother');
 		move_relatives(pi, 'brother', 'maternal_uncle');
@@ -266,8 +269,8 @@ function export_son_or_daughter(relative_being_exported, my_gender) {
 		move_relatives(pi, 'grandson', 'son', 'only_descendants', pi.id);
 		move_relatives(pi, 'granddaughter', 'daughter', 'only_descendants', pi.id);
 
-		pi.paternal_grandfather = new Object(); pi.maternal_grandfather.gender = 'MALE';
-		pi.paternal_grandmother = new Object(); pi.maternal_grandmother.gender = 'FEMALE';
+		pi.paternal_grandfather = new Object(); pi.paternal_grandfather.gender = 'MALE';
+		pi.paternal_grandmother = new Object(); pi.paternal_grandmother.gender = 'FEMALE';
 	}
 	
 	return pi;	

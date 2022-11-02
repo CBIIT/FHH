@@ -399,17 +399,18 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
             $("#diagram_container").html('<div ng-show="diagram_show" id="print_diagram" style="width:auto; height:{{getTableHeight()}}px; background-color: #fff;"></div>');
             $scope.diagram_show = false;
 
-            // if (!!window.chrome) {
-	           //  var WindowObject = window.open(i, "Table",
-	           //      "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+             if (!!window.chrome) {
+	             var WindowObject = window.open(i, "Table",
+	                "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
 
-            // }
-            // else {
-            // var WindowObject = window.open("", "Table",
-            //     "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
-            // WindowObject.document.writeln('<html><head></head><body><div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div><img src="' + i + '"></body></html>');
+             }
+             else {
+             var WindowObject = window.open("", "Table",
+                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+             WindowObject.document.writeln('<html><head></head><body><div style="padding-left:10px;font-weight:bold;">' + $("div#personal_info").html() + '</div><img src="' + i + '"></body></html>');
 
-            // }
+             }
+             
             var save_image_instructions = $scope.translate("fhh_family_pedigree","save_image_instructions_2")
             var header = '<head>'
             header+='<meta http-equiv="X-UA-Compatible" content="IE=edge">'
@@ -419,7 +420,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
             header+='<meta http-equiv="cache-control" content="no-cache">'
             header+='<meta http-equiv="expires" content="0">'
             header+='<meta http-equiv="pragma" content="no-cache">'
-            header+='<title>My Family Health Portrait</title>'
+            header+='<title>MFHP|PHGKB</title>'
             header+='</head>'
 
             if (tableOptions.personal_info) {
@@ -440,15 +441,19 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
         });               
     }
     else {
-            if (window.chrome) {
-            WindowObject = window.open(i, "Table",
-                "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+        var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
 
+            if (isChrome) {
+                WindowObject = window.open("", "Table",
+                "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+            WindowObject.document.writeln('<html>' + header + '<body>' + personal_info + '<div><br /><B>' + save_image_instructions + '</B></div><br /><img src="' + i + '"></body></html>');
+            WindowObject.document.location = "#";
             }
             else {
             WindowObject = window.open("", "Table",
                 "width=" + $("table.health_table").width() + ",height=" + parseInt($("table.health_table").height())+5 + ",top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
-            WindowObject.document.writeln('<html>' + header + '<body>' + personal_info + '<div><br /><B>' + save_image_instructions + '</B></div><br /><img src="' + i + '"></body></html>');
+            WindowObject.document.writeln('<html>' + header + '<body>' + personal_info + '<div><br /><B>' + 
+            _instructions + '</B></div><br /><img src="' + i + '"></body></html>');
 
             }
 

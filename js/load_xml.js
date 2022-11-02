@@ -1,5 +1,5 @@
 var personal_information = null;
-
+//debugger;
 // Constants From SNOMED_CT
 var SNOMED_CT_CODES = {
 		'IDENTICAL_TWIN_CODE': '313415001', 
@@ -10,7 +10,7 @@ var SNOMED_CT_CODES = {
 function bind_load_xml() {
 	// Change the name of the Load File here to support internationalization
 	bind_uploader();
-	//bind_load_file();
+	bind_load_file();
 	bind_load_dropbox();
 	bind_load_google_drive();
 	bind_load_health_vault();
@@ -44,7 +44,7 @@ function bind_load_file() {
 }
 
 function bind_uploader() {
-
+//debugger;
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,html4,flash,silverlight',
 		browse_button : 'pickfiles', // you can pass in id...
