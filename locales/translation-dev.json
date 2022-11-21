@@ -91,7 +91,7 @@
 		
 		"invalid_name" : "Invalid Name",
 		"invalid_data_of_birth" : "Invalid Date of Birth",
-		"invalid_gender" : "Invalid Gender Selection",
+		"invalid_gender" : "Make a Gender Selection",
 		"invalid_data_alert" : "Some of the data your entered was invalid, please fix your errors and try again.",
 		"halfway_through_adding_disease" : "You have not saved the new disease information, please click 'Add' to add the disease first.",
 		
@@ -110,7 +110,7 @@
 
 		"family_health_subtitle" : "Your Family's Health Information",
 		"add_disease_instructions" : "In the list below, select a Disease or Condition (if any) from the dropdown box. Then select the Age at Diagnosis and press the Add button. You may repeat this process as necessary.",
-		"disease_or_condition" : "Disease or Condition",
+		"disease_or_condition" : "Your Disease or Condition",
 		"age_at_diagnosis" : "Age at Diagnosis",
 		"action" : "Action",
 
@@ -273,7 +273,7 @@
 		"required":"Indicates required information.",
 		"relationship":"Relationship:",
 		"name":"Name:",
-		"gender":"Gender:",
+		"gender":"Gender at birth:",
 		"male":"Male",
 		"female":"Female",
 		"alive":"Is this person still alive:",

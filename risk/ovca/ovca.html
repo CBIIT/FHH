@@ -1,0 +1,68 @@
+<script type="text/javascript" src="../risk/ovca/ovca.js"></script>
+<link rel="stylesheet" type="text/css" href="../risk/ovca/ovca.css">
+
+<div id="ovca_content">
+	<h1 class='title_bar translate' data-i18n="fhh_ovarian_calculator.title_bar"> Your Ovarian Cancer Familial Risk
+		Information </h1><br />
+
+	<P class='instructions translate' data-i18n="fhh_ovarian_calculator.instruction1">On this screen you can:</P>
+	<UL>
+		<LI class='instructions translate' data-i18n="fhh_ovarian_calculator.instruction2">Get your risk for ovarian
+			cancer based on your personal and family history information</LI>
+		<LI class='instructions translate' data-i18n="fhh_ovarian_calculator.instruction3">Learn which risk factors you
+			may have for ovarian cancer</LI>
+	</UL>
+	<P class='instructions translate' data-i18n="fhh_breast_calculator.instruction5"> This tool will run a series of
+		tests, one at a time, to determine your risk for ovarian cancer.</P>
+	<hr />
+	<TABLE id='ovca_table'>
+		<TR>
+			<TH class="translate" data-i18n="fhh_ovarian_calculator.test">Test</TH>
+			<TH class="translate" data-i18n="fhh_ovarian_calculator.reason">Reason</TH>
+		</TR>
+		<TR id='past_cancers'>
+			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
+			<TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='immediate_family_members_cancer'>
+			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
+			<TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='secondary_family_members_cancer'>
+			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20'/>
+			</TD><TD id='reason'>&nbsp;</TD>
+			
+		</TR>
+		<TR class='ovca-final' id='final'>
+			<TD class='ovca-final' id='test'><IMG src='../risk/image/blue_waiting.png' alt='waiting' height='40' /></TD>
+			<TD class='ovca-final' id='reason'>&nbsp;</TD>
+		</TR>
+	</TABLE>
+	<br /><br />
+	<div id='bottom-area'>
+		<div id='explanation_side' style='float:left;width:700px;'>
+			<TABLE id='explanation_low_risk' style='display:none;'>
+				<TR>
+					<TD>Information to normal: <br>
+						<ul>
+							<li>Info1</li>
+							<li>Info2</li>
+						</ul>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE id='explanation_high_risk' style='display:none;'>
+				<TR>
+					<TD>Information to the risk<br>
+						<ul>
+							<li>Info1</li>
+							<li>Info2</li>
+						</ul>
+					</TD>
+
+
+				</TR>
+			</TABLE>
+		</div>
+	</div>
+	</div>

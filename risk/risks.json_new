@@ -1,0 +1,40 @@
+{
+	
+	"brca": {
+	  "name.en": "Breast and Ovarian Cancer",
+	  "description.en": "",
+	  "link": "brca/brca.html",
+	  "status": "active"
+	},
+	"heart": {
+	  "name.en": "Heart Disease",
+	  "description.en": "",
+	  "link": "heart/heart.html",
+	  "status": "active"
+	},
+	"crca": {
+	  "name.en": "Colorectal Cancer",
+	  "name.es": "Calcula tu riesgo de cáncer colorrectal",
+	  "name.pt": "Calcule o risco de câncer colorretal",
+	  "name.it": "Calcola il tuo rischio cancro colorettale",
+	  "description.en": "",
+	  "description.es": "La Calculadora de Riesgo colorrectal",
+	  "description.pt": "A Calculadora de Risco Colorretal",
+	  "description.it": "Il Risk Calculator Colorectal",
+	  "link": "crca/crca.html",
+	  "status": "active"
+	},
+	"drc": {
+	  "name.en": "Diabetes",
+	  "name.es": "Calcula tu riesgo de diabetes",
+	  "name.pt": "Calcule seu risco de Diabetes",
+	  "name.it": "Calcola il tuo rischio di diabete",
+	  "description.en": "The Diabetes Risk Calculator",
+	  "description.es": "La calculadora de riesgo de diabetes",
+	  "description.pt": "A Calculadora de Risco Diabetes",
+	  "description.it": "Il Risk Calculator diabete",
+	  "link": "drc/diabetes.html",
+	  "status": "active"
+	}
+
+}

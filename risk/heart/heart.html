@@ -1,0 +1,64 @@
+<script type="text/javascript" src="../risk/heart/heart.js"></script>
+<link rel="stylesheet" type="text/css" href="../risk/heart/heart.css">
+
+<div id="heart_content">
+	<h1 class='title_bar translate' data-i18n="fhh_heart_calculator.title_bar"> Your Premature Heart Disease Familial Risk
+		Information </h1><br />
+
+	<P class='instructions translate' data-i18n="fhh_heart_calculator.instruction1">On this screen you can:</P>
+	<UL>
+		<LI class='instructions translate' data-i18n="fhh_heart_calculator.instruction2">Get your risk for premature heart disease
+			 based on your personal and family history information</LI>
+		<LI class='instructions translate' data-i18n="fhh_heart_calculator.instruction3">Learn which risk factors you
+			may have for premature heart disease</LI>
+	</UL>
+	<P class='instructions translate' data-i18n="fhh_heart_calculator.instruction5"> This tool will run a series of
+		tests, one at a time, to determine your risk for premature heart disease.</P>
+	<hr />
+	<TABLE id='heart_table'>
+		<TR>
+			<TH class="translate" data-i18n="fhh_heart_calculator.test">Test</TH>
+			<TH class="translate" data-i18n="fhh_heart_calculator.reason">Reason</TH>
+		</TR>
+		<TR id='past_heart'>
+			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
+			<TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='family_members_heart_disease_before_50'>
+			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
+			<TD id='reason'>&nbsp;</TD>
+		</TR>
+	
+		<TR class='heart-final' id='final'>
+			<TD class='heart-final' id='test'><IMG src='../risk/image/blue_waiting.png' alt='waiting' height='40' /></TD>
+			<TD class='heart-final' id='reason'>&nbsp;</TD>
+		</TR>
+	</TABLE>
+	<br /><br />
+	<div id='bottom-area'>
+		<div id='explanation_side' style='float:left;width:700px;'>
+			<TABLE id='explanation_low_risk' style='display:none;'>
+				<TR>
+					<TD>Userful Resources: <br>
+						<ul>
+							<li><a href='https://www.cdc.gov/dhdsp/index.htm' target='_blank'>CDC Heart Disease and Stroke Site</a></li>
+							<li><a href='https://www.heart.org/' target='_blank'>American Heart Association</a></li>
+						</ul>
+					</TD>
+				</TR>
+			</TABLE>
+			<TABLE id='explanation_high_risk' style='display:none;'>
+				<TR>
+					<TD>Userful Resources<br>
+						<ul>
+							<li><a href='https://www.cdc.gov/dhdsp/index.htm' target='_blank'>CDC Heart Disease and Stroke Site</a></li>
+							<li><a href='https://www.heart.org/' target='_blank'>American Heart Association</a></li>
+						</ul>
+					</TD>
+
+
+				</TR>
+			</TABLE>
+		</div>
+	</div>
+	</div>

@@ -1,0 +1,929 @@
+﻿<!DOCTYPE HTML>
+<!--[if lt IE 8]>      <html class="no-js no-nav theme-green lt-ie10 lt-ie9 lt-ie8" lang="en-us"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js no-nav theme-green lt-ie10 lt-ie9" lang="en-us"> <![endif]-->
+<!--[if IE 9]>         <html class="no-js no-nav theme-green lt-ie10" lang="en-us"> <![endif]-->
+<!--[if !IE]><!-->
+<html class="no-js nav theme-teal noLinking" lang="en-us">
+<!--<![endif]-->
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<script type="text/javascript">
+
+		var progressEnd = 31;		// set to number of progress <span>'s.
+		var progressColor = '#FFD350';	// set to progress bar color
+		var progressInterval = 360;	// set to time between updates (milli-seconds)
+
+		var progressAt = progressEnd;
+		var progressTimer;
+		function progress_clear() {
+			for (var i = 1; i <= progressEnd; i++) document.getElementById('progress' + i).style.backgroundColor = 'transparent';
+			progressAt = 0;
+		}
+		function progress_update() {
+			progressAt++;
+			if (progressAt > progressEnd) progress_clear();
+			else document.getElementById('progress' + progressAt).style.backgroundColor = progressColor;
+			progressTimer = setTimeout('progress_update()', progressInterval);
+		}
+		function progress_stop() {
+			clearTimeout(progressTimer);
+			progress_clear();
+		}
+
+		function submitForm() {
+			var element = document.getElementsByName("Mysubmit");
+			element[0].disabled = true;
+			// Hide the code in first div tag
+			//document.getElementById('formDiv').style.display = 'none';
+			//var element = document.getElementsByName("Mysubmit");
+			//element[0].disabled=true;
+			// Display code in second div tag
+			progress_update();		// start progress bar
+			document.getElementById('pleaseWaitDiv').style.display = 'block';
+		}
+	</script>
+	<meta charset="utf-8" />
+
+
+	<meta name="description" content="The mission of the Public Health Genomics is to integrate advances in human genetics into public health research, policy, and programs" />
+	<meta name="keywords" content="CDC, Genomics,Genetic Testing, Gene, Disease CDC, genomics, genetic testing, centers for disease control, genetics, public health, OGDP, Office of Genomics and Precision Public Health, Genomics and Disease Prevention, environment, science, prevention, information, Public Health Genomics Knowledge base. Human Genome Epidemiology, CDC - Public Health Genomics Knowledge Base includes genomics and health impact news and publications, CDC announcements, reports, blogs, podcasts, and other products. The Update features sections on infectious diseases and noncommunicable diseases with a focus on human and pathogen genomics, genomic tests, family history, public health science, programs and practice, as well as policy and legislation " />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="shortcut icon" href="../../TemplatePackage/3.0/images/favicon.ico" />
+
+	<link rel="apple-touch-icon" href="/images/cdc-touch-icon.png" />
+
+	<meta name="robots" content="index,follow" />
+	<!-- CDC Template Version -->
+	<meta property="cdc:template_version" content="3.0" />
+	<!-- Facebook Metadata -->
+	<meta property="og:title" content="" />
+	<meta property="og:image" content="image/png" />
+	<meta property="og:site_name" content="Public Health Genomics Knowledge Base" />
+	<meta property="og:description" content="" />
+	<link href="../../PHGKB/altmetric.css" rel="stylesheet" type="text/css" />
+	<script type='text/javascript' src='https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js'></script>
+
+	<link href="../../PHGKB/css/local.css" rel="stylesheet" type="text/css" />
+	<link href="../../PHGKB/altmetric.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="../../TemplatePackage/3.0/css/altmetric.css" />
+	<link rel="stylesheet" href="../../TemplatePackage/3.0/css/lib/flexslider.css" />
+	<link rel="stylesheet" href="../../TemplatePackage/3.0/css/flexslider.css" />
+	<link rel="stylesheet" href="../../TemplatePackage/3.0/css/lib/cdcmaps/cdcnavmap.css" />
+	<link rel="stylesheet" href="../../TemplatePackage/3.0/css/app.css?3.1.12.1" />
+	<link rel="stylesheet" media="print" href="../../TemplatePackage/3.0/css/print.css?3.1.12.1" />
+	<link rel="stylesheet" href="../../TemplatePackage/3.0/css/lib/bootstrap24.css" />
+	<link rel="stylesheet" media="print" href="../../TemplatePackage/3.0/css/print.css?3.1.12.1" />
+
+	<script src="../../TemplatePackage/3.0/js/libs/modernizr-latest.js"></script>
+
+
+	<title>My Family Health Portrait|Public Health Genomics Knowledge Base</title>
+
+	<!-- jquery UI CSS, currently accordion and tabs -->
+	<link rel="stylesheet" href="../../TemplatePackage/3.0/css/lib/jquery-ui/jquery-ui.css" />
+	<link rel="stylesheet" href="../../TemplatePackage/3.0/css/jquery-ui.css" />
+	<link rel="stylesheet" href="../../TemplatePackage/3.0/css/lib/bootstrap24.css" />
+	<link rel="stylesheet" href="../../TemplatePackage/3.0/css/app.css" />
+	<!--[if gt IE 9]><!-->
+	<!--<![endif]-->
+
+	<!--[if IE 7]>
+	  <link rel="stylesheet" href="../../TemplatePackage/3.0/css/lib/font-awesome-ie7.css">
+	<![endif]-->
+
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="../../TemplatePackage/3.0/css/ie.css" />
+	<![endif]-->
+
+	<style type="text/css" media="print">
+		@import "../../TemplatePackage/3.0/css/print.css";
+	</style>
+
+	<noscript>
+		<link rel="stylesheet" href="../../TemplatePackage/3.0/css/noscript.css" />
+	</noscript>
+
+	<script src="../../TemplatePackage/3.0/js/libs/modernizr-latest.js"></script>
+	<!-- <script src="../../TemplatePackage/3.0/js/libs/modernizr-custom.js"></script> -->
+
+	<script src="../../TemplatePackage/3.0/js/libs/modernizr-latest.js"></script>
+
+	<script src='//www.google.com/recaptcha/api.js'></script>
+
+</head>
+
+
+<body>
+	<div id="skipmenu">
+		<a href="#searchTarget" class="skippy">Skip directly to search</a>
+		<a href="#azTab" class="skippy">Skip directly to A to Z list</a>
+		<a href="#nav-container" class="skippy">Skip directly to navigation</a>
+		<a href="#share-bar" class="skippy">Skip directly to page options</a>
+		<a href="#contentArea" class="skippy">Skip directly to site content</a>
+	</div>
+	<div id="wrapper">
+		<!--[if lt IE 7]>
+		<p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+	<![endif]-->
+
+
+
+		<header id="header">
+			<div class="container">
+				<!-- header -->
+				<div class="row">
+					<!-- cdc -->
+					<div id="logo" class="span14">
+						<a href="http://www.cdc.gov"><img src="../../TemplatePackage/3.0/images/cdcHeaderLogo.gif" alt="CDC.gov" class="hidden-one" /><img
+							 src="../../TemplatePackage/3.0/images/m-cdc-logo.png" alt="CDC.gov" class="visible-one" /></a>
+
+					</div>
+					<!-- search -->
+					<div id="searchArea" class="span10 hidden-one hidden-two">
+						<div class="hidden"><a href="#" id="searchTarget">Start of Search Controls</a></div>
+						<form id="searchForm" method="get" action="http://www.cdc.gov/search.do">
+							<fieldset>
+								<legend>Search Form Controls</legend>
+								<table>
+									<tr>
+										<td class="searchtd"><label class="search-box"><input id="searchBox" type="text" placeholder="SEARCH" name="queryText" /><span
+												 class="hidden">Search The CDC</span></label></td>
+										<td class="buttontd"><button class="submit" value="submit"><span class="sprite-16-search-black">submit</span></button></td>
+									</tr>
+								</table>
+							</fieldset>
+						</form>
+						<div class="a2z-button pull-right hidden-one hidden-two"><a href="#" id="azTab">CDC A-Z Index <span class="icon-angle-down"></span></a></div>
+
+
+					</div>
+				</div>
+				<div class="hidden-three hidden-four" id="mobile-menu">
+					<ul>
+						<li id="vp1-menu-button" class="border-bottom-white"><a href="#" id="menu-nav"><span class="sprite-16-menu"></span>MENU</a></li>
+						<li id="vp1-a2z-button" class="border-bottom-white"><a href="#" id="menu-az">CDC A-Z</a></li>
+						<li id="vp1-search-button" class="border-bottom-white"><a href="#" id="menu-search"><span class="sprite-16-search-white"></span>SEARCH</a></li>
+					</ul>
+				</div>
+
+				<div class="a2z-bar hide">
+					<div>
+						<ul>
+							<li><a href="http://www.cdc.gov/az/a.html">A</a></li>
+							<li><a href="http://www.cdc.gov/az/b.html">B</a></li>
+							<li><a href="http://www.cdc.gov/az/c.html">C</a></li>
+							<li><a href="http://www.cdc.gov/az/d.html">D</a></li>
+							<li><a href="http://www.cdc.gov/az/e.html">E</a></li>
+							<li><a href="http://www.cdc.gov/az/f.html">F</a></li>
+							<li><a href="http://www.cdc.gov/az/g.html">G</a></li>
+							<li><a href="http://www.cdc.gov/az/h.html">H</a></li>
+							<li><a href="http://www.cdc.gov/az/i.html">I</a></li>
+							<li><a href="http://www.cdc.gov/az/j.html">J</a></li>
+							<li><a href="http://www.cdc.gov/az/k.html">K</a></li>
+							<li><a href="http://www.cdc.gov/az/l.html">L</a></li>
+							<li><a href="http://www.cdc.gov/az/m.html">M</a></li>
+							<li><a href="http://www.cdc.gov/az/n.html">N</a></li>
+							<li><a href="http://www.cdc.gov/az/o.html">O</a></li>
+							<li><a href="http://www.cdc.gov/az/p.html">P</a></li>
+							<li><a href="http://www.cdc.gov/az/q.html">Q</a></li>
+							<li><a href="http://www.cdc.gov/az/r.html">R</a></li>
+							<li><a href="http://www.cdc.gov/az/s.html">S</a></li>
+							<li><a href="http://www.cdc.gov/az/t.html">T</a></li>
+							<li><a href="http://www.cdc.gov/az/u.html">U</a></li>
+							<li><a href="http://www.cdc.gov/az/v.html">V</a></li>
+							<li><a href="http://www.cdc.gov/az/w.html">W</a></li>
+							<li><a href="http://www.cdc.gov/az/x.html">X</a></li>
+							<li><a href="http://www.cdc.gov/az/y.html">Y</a></li>
+							<li><a href="http://www.cdc.gov/az/z.html">Z</a></li>
+							<li><a href="http://www.cdc.gov/az/0.html">#</a></li>
+						</ul>
+					</div>
+
+				</div>
+				<div id="searchArea-two-column" class="span24 searchbar hide hidden-three hidden-four">
+					<form id="searchFormBottom" method="get" action="http://www.cdc.gov/search.do">
+						<fieldset>
+							<legend>Search Form Controls</legend>
+							<table>
+								<tr>
+									<td class="searchtd"><label class="search-box"><input id="searchBoxBottom" type="text" placeholder="SEARCH"
+											 name="queryText" /><span class="hidden">Search The CDC</span></label></td>
+									<td class="buttontd"><button class="submit" value="submit"><span class="sprite-16-search-black">submit</span></button></td>
+								</tr>
+							</table>
+						</fieldset>
+					</form>
+					<div class="a2z-button pull-right hidden-one hidden-two"><a href="#" id="azTabBottom">CDC A-Z Index <span class="icon-angle-down"></span></a></div>
+
+				</div>
+				<div id="emergencyContainer" class="span12">
+					<!--include virtual="../../TemplatePackage/3.0/includes/emergency.html" -->
+					<!--<div id="emergency-alert">
+	<h1></h1> 
+	<p></p>
+	<a href="#"></a>
+	</div>-->
+
+				</div>
+				<!-- /header -->
+
+				<div class="titlebar">
+					<h2>
+						<a href="/PHGKB/phgHome.action?action=home">Public Health Genomics and Precision Health Knowledge (7.4)</a>
+					</h2>
+				</div>
+				<!-- no script -->
+				<noscript>
+					<div class="alert alert-block"> Note: Javascript is disabled or is not supported by your browser. For this reason,
+						some items on this page will be unavailable. For more information about this message, please visit this page: <a
+						 href="//www.cdc.gov/other/about_cdcgov.html">About CDC.gov</a>.</div>
+				</noscript>
+
+			</div>
+
+		</header>
+		<div class="container">
+			<div id="content">
+				<div class="row">
+					<!-- left nav -->
+					<div id="nav-container" class="hidden-one hidden-two span5">
+
+
+
+
+						<nav id="left" class="hidden-one hidden-two">
+							<h3>
+								<a href="/PHGKB/phgHome.action?action=home">PHGKB</a>
+							</h3>
+							<ul id="nav-primary">
+								<li><a href="/PHGKB/phgHome.action?action=about">About</a>
+								</li>
+								<li><a href="/PHGKB/myPHGKB.action">MyPHGKB</a>
+								</li>
+								<li><a href="/PHGKB/specificPHGKB.action?action=about">Specialized PHGKB</a>
+									<ul>
+										<li><a href="/PHGKB/specificPHGKB.action?topic=cancer&query=home">Cancer PHGKB</a>	</li>
+			<li><a href="/PHGKB/specificPHGKB.action?topic=diabetes&query=home">Diabetes PHGKB</a>	</li>
+			<li><a href="/PHGKB/specificPHGKB.action?topic=Infectious%20diseases&query=home">Infectious Diseases PHGKB</a>	</li>
+			<li><a href="/PHGKB/specificPHGKB.action?topic=HLBS&query=home">HLBS-PopOmics</a>	</li>
+			<li><a href="/PHGKB/specificPHGKB.action?topic=rare&query=home">Rare Diseases PHGKB</a>	</li>
+			<li><a href="/PHGKB/specificPHGKB.action?topic=equity&query=home">Health Equity PHGKB</a>	</li>
+			<li><a href="/PHGKB/specificPHGKB.action?topic=fhh&query=home">Family Health History PHGKB</a>	</li>
+			<li><a href="/PHGKB/specificPHGKB.action?topic=rch&query=home">Reproductive and Child Health PHGKB</a>	</li>
+			<li><a href="/PHGKB/specificPHGKB.action?topic=pgx&query=home">Pharmacogenomics  PHGKB</a>	</li>
+			<li><a href="/PHGKB/specificPHGKB.action?topic=nd&query=home">Neurological Disorders PHGKB</a>	</li>
+									</ul>
+								</li>
+								<li><a href="/PHGKB/phgHome.action?action=a2z">Genomics (A-Z)</a>
+								</li>
+								<li>
+									<a href="http://www.cdc.gov/genomics/">Office of Genomics and Precision Public Health</a>
+								</li>
+								<li><a href="/FHH"><b>My Family Health Portrait</b></a>
+								</li>
+								<li><a href="/PHGKB/stateMapStartPage.action">State Public Health Genomics Programs Map</a>
+								</li>
+								<li><a href="/PHGKB/translationClip.action?action=home">Genomics Precision Health Weekly Scan<br>(Current
+										Edition)</a></li>
+								<li><a href="/PHGKB/amdClip.action?action=home">Advanced Molecular Detection Weekly Clips<br>(Current Edition)</a></li>
+								<li><a href="/PHGKB/translationClip.action?action=nonGhome">Non-Genomics Precision Health Weekly Scan <br>(Current Edition)</a></li>
+								<li><a href="/PHGKB/cdcPubFinder.action?Mysubmit=update">CDC-authored Publications Update</a></li>
+								<li><a href="/PHGKB/coVInfoClip.action?action=home">COVID-19 Precision Health Weekly Update<br>(Current Edition)</a></li>
+								<li><a href="/PHGKB/phgHome.action?action=about">All Databases</a>
+									<ul>
+										<li><a href="/PHGKB/coVInfoStartPage.action">COVID-19 GPH</a>
+										<li><a href="/PHGKB/cDCInfoStartPage.action">CDC/NIH Web Information Database</a> </li>
+										<li><a href="/PHGKB/cdcPubStartPage.action">CDC-Authored Genomics and Precision Health Publications Database </a> </li>
+										<li><a href="/PHGKB/translationStartPage.action">Precision Health Database </a></li>
+										<li><a href="/PHGKB/tierStartPage.action">Tier-Classified Guidelines Database</a>	
+
+										<li><a href="/PHGKB/implementationStartPage.action">State Public Health Genomics Programs Database </a> </li>
+										<li><a href="/PHGKB/amdStartPage.action">Pathogen Advanced Molecular Detection Database </a></li>
+			
+										
+										<li><a href="/PHGKB/hNHome.action">HuGE Navigator</a>	
+											<ul>
+											<li><a href="/PHGKB/startPagePhenoPedia.action" >Phenopedia</a></li>
+											<li><a href="/PHGKB/startPagePedia.action" >Genopedia</a></li>
+											<li><a href="/PHGKB/startPagePubLit.action" >HuGE Literature Finder</a></li>
+											<li><a href="/PHGKB/startPageMapper.action" >Variant Name Mapper</a></li>
+											
+											</ul>		
+										
+										</ul>
+									</li>
+
+										
+									</ul>
+								</li>
+								<li><a href="/PHGKB/downloadCenter.action" >DataSet Download Center</a></li>
+								<li><a href="/PHGKB/phgHome.action?action=release">Release Note</a></li>
+								<li>
+									<a href="mailto:genetics@cdc.gov">Contact Us</a>
+								</li>
+
+
+							</ul>
+
+
+						</nav>
+
+
+
+
+					</div>
+					<div class="breadcrumbs hidden-one span19">
+						<br>
+					</div>
+					<div class="span19 pagetitle">
+
+
+
+
+
+
+
+
+					</div>
+					<div id="share-bar" class="span19">
+						<div class="socialmediabar">
+							<div class="row">
+								<div class="hidden-one pull-right">
+									<!--BEGIN PAGE OPTIONS - FOR DEMO PURPOSES ONLY - REMOVE INCLUDES BEFORE TEMPLATE USE. The markup in this region for page format & languages will be generated by the CMS via editorial options. -->
+									<!-- END PAGE OPTIONS -->
+								</div>
+								<div class="span8">
+									<div id="socialMediaShareContainer"></div>
+									<!-- target anchor for return to top feature in VP1 -->
+									<a id="content-start" tabindex="-1"></a>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- body -->
+					<div id="body" class="span19">
+						<div id="contentArea">
+							<!-- begin editable -->
+
+							<table>
+								<tr>
+									<TD colspan="2" align="center">
+										<div id="pleaseWaitDiv" style="DISPLAY: none">
+											<!-- jsp:include page="/jsp/wrongEmail.jsp"/-->
+											<TABLE>
+												<TR>
+													<TD><B>
+															<FONT color="#ffd350"><SPAN>
+																	<H8>
+																		<FONT color="#800040">Please Wait <SPAN id="progress1">.</SPAN>
+																			<SPAN id="progress2">.</SPAN> <SPAN id="progress3">.</SPAN> <SPAN id="progress4">.</SPAN> <SPAN id="progress5">.</SPAN>
+																			<SPAN id="progress6">.</SPAN> <SPAN id="progress7">.</SPAN> <SPAN id="progress8">.</SPAN> <SPAN id="progress9">.</SPAN>
+																			<SPAN id="progress10">.</SPAN> <SPAN id="progress11">.</SPAN> <SPAN id="progress12">.</SPAN> <SPAN
+																			 id="progress13">.</SPAN> <SPAN id="progress14">.</SPAN> <SPAN id="progress15">.</SPAN> <SPAN id="progress16">.</SPAN>
+																			<SPAN id="progress17">.</SPAN> <SPAN id="progress18">.</SPAN> <SPAN id="progress19">.</SPAN> <SPAN
+																			 id="progress20">.</SPAN> <SPAN id="progress21">.</SPAN> <SPAN id="progress22">.</SPAN> <SPAN id="progress23">.</SPAN>
+																			<SPAN id="progress24">.</SPAN> <SPAN id="progress25">.</SPAN> <SPAN id="progress26">.</SPAN> <SPAN
+																			 id="progress27">.</SPAN>
+																			<SPAN id="progress28">.</SPAN> <SPAN id="progress29">.</SPAN>
+																			<SPAN id="progress30">.</SPAN> <SPAN id="progress31">.</SPAN>
+
+
+
+																		</FONT>
+																		</H4>
+																		<FONT color="#800040"></FONT>
+																</SPAN></FONT>
+														</B></TD>
+												</TR>
+											</TABLE>
+											<B></B>
+											<FONT></FONT>
+										</div>
+									</TD>
+								</tr>
+							</table> <br>
+
+
+							
+							<div>
+								<title>My Family Health Portrait|Public Health Genomics Knowledge Base</title>
+								<script type="text/javascript" src="../jquery/jquery-1.11.1.js"></script>
+								<script type="text/javascript" src="../jquery/jquery-ui-1.10.4.js"></script>
+								<link rel="stylesheet" type="text/css" href="../jquery/jquery-ui-1.10.4.css">
+								<script type="text/javascript" src="../js/fhh.js"></script>
+
+								<!-- Themes go here -->
+								<link rel="stylesheet" type="text/css" href="../themes/deploy/frontpage.css">
+								<link rel="shortcut icon" href="../themes/deploy/favicon.ico" type="image/x-icon">
+								<!-- Also includes images banner_left.png and banner_right.png -->
+
+								<!-- For language translation -->
+								<script type="text/javascript" src="../js/i18next-1.7.4.js"></script>
+								</head>
+
+								<body>
+									<div align="center"><img src="../themes/deploy/photos_frontpage_logo.png" alt="My Family Health Portrait - A tool from the Surgeon General"
+										 class="fhhBannerTitle"></div>
+									<div class="nav" align="right">
+										<BUTTON id="nav_help" class="help_item translate" data-i18n="fhh_fhh.a_get_help" onclick="get_help()">Get
+											Help</BUTTON>
+									</div>
+
+									<!-- 		<div id="button">
+					<a href="javascript://nop/" id="nav_help" class='help_item translate' data-i18n='fhh_fhh.a_get_help' onclick="get_help()">Get Help</a>
+				</div> -->
+
+									<div id="wrapper" class="main_container" style='border:1px solid black;'>
+										<!-- BEGIN HEADER -->
+										<div id="skipNavBegin" style="width: 0; height: 0; overflow: hidden;">
+											<a href="#skipNavEnd" accesskey="n">Skip navigation</a>
+										</div>
+
+										<div>
+											<table class="homepage" border="0" cellpadding="0" cellspacing="0">
+												<tr>
+													<td style='width:50%' class="maintext" valign="top">
+														<div class='translate' data-i18n='fhh_index.usage'> Using My Family Health Portrait you can:</div>
+														<UL>
+															<LI class='translate' data-i18n='fhh_index.li1'>Enter your family health history.</LI>
+															<LI class='translate' data-i18n='fhh_index.li2'>Learn about your risk for conditions that can run in
+																families.</LI>
+															<LI class='translate' data-i18n='fhh_index.li3'>Print your family health history to share with family or
+																your health care provider</LI>
+															<LI class='translate' data-i18n='fhh_index.li4'>Save your family health history so you can update it
+																over time.</LI>
+														</UL>
+
+														<div class='translate' data-i18n='fhh_index.talking'>Talking with your health care provider about your
+															family health history can help you stay healthy!</div>
+														<br />
+														<a href='#' class='translate' data-i18n='fhh_index.learn_more' onclick="learn_more()">Learn more about
+															<em> My Family Health Portrait </em></a>
+														<br /><br />
+														<TABLE class="buttons" style='width:100%' border="0" cellspacing="0" cellpadding="0">
+															<TR>
+																<TD valign="top">
+																	<BUTTON class='frontpage create translate' data-i18n='fhh_index.create' onclick="goto_create()">Create
+																		a Family Health History</BUTTON>
+
+																</TD>
+																<TD valign="top">
+																	<BUTTON class='frontpage create translate' data-i18n='fhh_index.load' onclick="goto_load()">Use a
+																		Saved History</BUTTON>
+																</tD>
+																<!--				<TD valign="top">
+						<BUTTON class='frontpage translate' onclick="location.href='?setLng=en'" >In English</BUTTON>
+						<br /><br />
+						<BUTTON class='frontpage translate' onclick="location.href='?setLng=es'" >En Espanol</BUTTON>
+						<br /><br />
+						<BUTTON class='frontpage translate' onclick="location.href='?setLng=pt'" >Em Portugues</BUTTON>
+						<br /><br />
+						<BUTTON class='frontpage translate' onclick="location.href='?setLng=it'" >In Italiano</BUTTON>
+						<br /><br />
+						</TD> -->
+															</TR>
+															<TR>
+																<font color="red">Note: You must use the “Use a Saved History” button to open the family history file you created.</font>
+															</TR>
+														</TABLE>
+
+													</td>
+													<td align="right" valign="top" style='vertical-align:bottom; padding:0px;'><img src="../themes/deploy/photos_frontpage_main.jpg"
+														 alt="My Family Health Portrait - A tool from the Surgeon General" class="fhhBannerTitle"></td>
+												</tr>
+												<tr>
+													<td colspan="2" id="separatorBox">
+														<!-- color separator -->
+													</td>
+												</tr>
+												<tr>
+													<td colspan='2'><img src="../themes/deploy/photos_frontpage_bottom.jpg" alt="My Family Health Portrait - A tool from the Surgeon General"
+														 class="fhhBannerTitle"></td>
+												</tr>
+											</table>
+										</div>
+
+									</div>
+
+									<!-- BEGIN FOOTER -->
+
+									<table class="footerTable">
+										<tbody>
+											<tr>
+												<td class="footerTdLinks">
+
+													<a href="#" onclick="glossary()" class='translate' data-i18n='fhh_index.glossary'>Glossary</a> |
+
+													<a href="#" onclick="faq()" class='translate' data-i18n='fhh_index.faq'>FAQ</a> |
+													<a href="http://www.hhs.gov/Accessibility.html" target="_blank" class='translate' data-i18n='fhh_index.accessability'>Accessibility</a>
+													|
+													<a href="http://www.hhs.gov/Privacy.html" target="_blank" class='translate' data-i18n='fhh_index.privacy'>Privacy
+														&amp; Security Policy</a> |
+
+													<a href="#" onclick="about()" class='translate' data-i18n='fhh_index.about'>About This Site</a> |
+
+													<a href="#" onclick="contact()" class='translate' data-i18n='fhh_index.contact'>Contact Us</a> |
+
+													<a href="#" onclick="site_updates()" class='translate' data-i18n='fhh_index.updates'>Site Updates</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table class="footerTable">
+										<tbody>
+											<tr>
+
+												<td class="footerTdLinks">
+													Created By <a href="https://www.nih.gov/" target="_blank">NIH</a>-
+													<a href="https://www.genome.gov/" target="_blank">NHGRI</a>
+												</td>
+												<td class="footerTdLinks"> &nbsp;&nbsp;
+													Maintained By <a href="https://www.cdc.gov/" target="_blank">CDC</a>-
+													<a href="https://www.cdc.gov/genomics" target="_blank">OGPPH</a>
+												</td>
+
+
+
+											</tr>
+										</tbody>
+									</table><br>
+									<div id="wrapper" class="main_container" style='border:0px solid black;'>
+										<font color="grey">Disclaimer: The Surgeon General's My Family Health Portrait tool does NOT allow the
+											government or other entities to access your information. The tool provides the software for organizing your
+											information, but your information is not transmitted back to government or other servers and can only be
+											downloaded by you. Your information is never available to anyone else, unless you choose to share it. The
+											Surgeon General's tool does not provide medical advice. For questions related to family health history and
+											your
+											health, talk to your doctor. </font>
+									</div>
+								</div>
+
+								</body>
+								<!-- Need to set the language on the links out to create or load -->
+
+								<script>
+									var language = /[&?]setLng=([^&]+)/.exec(location.search);
+
+									function goto_create() {
+										if (language && language[1]) location.href = 'fhh.html?action=create&setLng=' + language[1];
+										else location.href = 'fhh.html?action=create'
+									}
+
+									function goto_load() {
+										if (language && language[1]) location.href = 'fhh.html?action=load&setLng=' + language[1];
+										else location.href = 'fhh.html?action=load'
+									}
+
+
+									// Static links need to know what language
+
+									function get_help() {
+										window.open("./static/help_" + i18n.lng().substr(0, 2) + ".html", "", "width=800, height=600, scrollbars=yes");
+									}
+
+									function learn_more() {
+										window.open("./static/learn_more_" + i18n.lng().substr(0, 2) + ".html", "", "width=800, height=600, scrollbars=yes");
+									}
+
+									function glossary() {
+										window.open("./static/glossary_" + i18n.lng().substr(0, 2) + ".html", "", "width=800, height=600, scrollbars=yes");
+									}
+									function faq() {
+										window.open("./static/faq_" + i18n.lng().substr(0, 2) + ".html", "", "width=800, height=600, scrollbars=yes");
+									}
+									function about() {
+										window.open("./static/about_" + i18n.lng().substr(0, 2) + ".html", "", "width=800, height=600, scrollbars=yes");
+									}
+									function contact() {
+										window.open("./static/contact_" + i18n.lng().substr(0, 2) + ".html", "", "width=800, height=600, scrollbars=yes");
+									}
+									function site_updates() {
+										window.open("./static/site_update_" + i18n.lng().substr(0, 2) + ".html", "", "width=800, height=600, scrollbars=yes");
+									}
+								</script>
+
+
+
+
+							</div>
+
+
+
+							<!-- Related Nav Area -->
+							<div class="nav-related"></div>
+							<!-- /end Related Nav Area -->
+							<!-- Persistent Content Area -->
+							<div id="content-secondary">
+
+								<!-- begin editable -->
+								<!--  // This area is optional
+									// All content in the Right Column (except for Page Option links and GovD) will be moved to the Persistent Content Area upon migration
+									// This area will need to enabled if it is being used otherwise not included in the page build...
+									-->
+								<!-- /end editable -->
+							</div>
+							<!-- /end #content-secondary -->
+						</div>
+						<!-- /end #contentArea -->
+					</div>
+					<!-- /end #body -->
+				</div>
+
+				<div class="row">
+					<div class="span24 visible-one">
+						<!--BEGIN PAGE OPTIONS - FOR DEMO PURPOSES ONLY - REMOVE INCLUDES BEFORE TEMPLATE USE. The markup in this region for page format & languages will be generated by the CMS via editorial options. -->
+						<!-- END PAGE OPTIONS -->
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="span24">
+						<div id="plugin-legend" class="pluginOff">
+							<h5>File Formats Help:</h5><span><a href="http://www.cdc.gov/Other/plugins/">How do I view different file
+									formats (PDF, DOC, PPT, MPEG) on this site?</a></span>
+							<ul>
+								<li class="plugin-pdf"><a href="http://www.cdc.gov/Other/plugins/#pdf"><span class="sprite-16-pdf">Adobe PDF
+											file</span></a></li>
+								<li class="plugin-ppt"><a href="http://www.cdc.gov/Other/plugins/#ppt"><span class="sprite-16-ppt">Microsoft
+											PowerPoint file</span></a></li>
+								<li class="plugin-word"><a href="http://www.cdc.gov/Other/plugins/#doc"><span class="sprite-16-word">Microsoft
+											Word file</span></a></li>
+								<li class="plugin-excel"><a href="http://www.cdc.gov/Other/plugins/#xls"><span class="sprite-16-excel">Microsoft
+											Excel file</span></a></li>
+								<li class="plugin-wmv"><a href="http://www.cdc.gov/Other/plugins/#wmv"><span class="sprite-16-wmv">Audio/Video
+											file</span></a></li>
+								<li class="plugin-qt"><a href="http://www.cdc.gov/Other/plugins/#qt"><span class="sprite-16-qt">Apple Quicktime
+											file</span></a></li>
+								<li class="plugin-real"><a href="http://www.cdc.gov/Other/plugins/#ram"><span class="sprite-16-rp">RealPlayer
+											file</span></a></li>
+								<li class="plugin-text"><a href="http://www.cdc.gov/Other/plugins/#text"><span class="sprite-16-txt">Text file</span></a></li>
+								<li class="plugin-zip"><a href="http://www.cdc.gov/Other/plugins/#zip"><span class="sprite-16-zip">Zip Archive
+											file</span></a></li>
+								<li class="plugin-sas"><a href="http://www.cdc.gov/Other/plugins/#sas"><span class="sprite-16-sas">SAS file</span></a></li>
+								<li class="plugin-epub"><a href="http://www.cdc.gov/Other/plugins/#epub"><span class="sprite-16-ebook">ePub
+											file</span></a></li>
+							</ul>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- date stamp -->
+				<div class="row" id="datestamp" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+					<div class="span24">
+						<ul>
+
+
+
+
+							<li class="last-reviewed">Page last reviewed:<span itemprop="lastReviewed">May 1st, 2020</span></li>
+							<li class="last-updated">Page last updated:<span itemprop="dateModified">May 1st, 2020</span></li>
+							<li class="content-source">Content source:
+								<ul>
+									<a href="http://www.cdc.gov/genomics/" target="_blank">Office of Genomics and Precision Public Health</a>, <a href="http://www.cdc.gov/ophss/csels/index.html"
+									 target="_blank">Center for Surveillance, Epidemiology and Laboratory Services (CSELS)</a>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- /end #content -->
+		</div>
+		<!-- / end .container -->
+
+		<!-- footer -->
+
+		<footer id="footer">
+			<div class="socialMedia">
+				<div class="container">
+					<nav class="socialFooter followcdc">
+						<h6>Follow CDC</h6>
+						<ul>
+							<li><a href="http://www.cdc.gov/Other/emailupdates/"><span class="sprite-24-govd"></span>Email</a></li>
+							<li><a href="http://www.facebook.com/CDC" target="_blank"><span class="sprite-24-facebook"></span>Recommend</a></li>
+							<li><a href="http://twitter.com/CDCgov" target="_blank"><span class="sprite-24-twitter"></span>Tweet</a></li>
+							<li><a href="http://www.linkedin.com/company/centers-for-disease-control-and-prevention" target="_blank"><span
+									 class="sprite-24-linkedin"></span>Post</a></li>
+							<li><a href="http://www2c.cdc.gov/podcasts/rss.asp"><span class="sprite-24-rss"></span>RSS</a></li>
+						</ul>
+					</nav>
+					<nav class="socialFooter cdcmedia">
+						<h6>CDC Media</h6>
+						<ul>
+							<li><a href="http://www2c.cdc.gov/podcasts/"><span class="sprite-24-listen"></span>Listen</a></li>
+							<li><a href="http://www.cdc.gov/cdctv"><span class="sprite-24-watch"></span>Watch</a></li>
+							<li><a href="http://tools.cdc.gov/ecards/"><span class="sprite-24-ecards"></span>eCards</a></li>
+							<li><a href="http://www.youtube.com/CDCstreamingHealth" target="_blank"><span class="sprite-24-youtube"></span>YouTube</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+
+			<div class="container">
+				<div id="hhs"><a href="http://www.hhs.gov/"><img alt="Department of Health and Human Services" src="../../TemplatePackage/3.0/images/hhs.png" /></a></div>
+
+				<!-- class="pull-right" -->
+
+				<ul class="cdcLinks">
+					<li class="span5">
+						<nav>
+							<h6><span class="icon-angle-down visible-one pull-left"></span>About CDC</h6>
+							<ul class="hidden-one">
+								<li><a href="http://www.cdc.gov/employment/">Employment</a></li>
+								<li><a href="http://www.cdc.gov/media/index.html">Newsroom</a></li>
+								<li><a href="http://www.cdc.gov/Learning/">Training/Education</a></li>
+								<li><a href="http://www.cdc.gov/about/business/funding.htm">Funding</a></li>
+								<li><a href="http://www.cdc.gov/about/organization/cio.htm">CDC's Organization</a></li>
+								<li><a href="http://www.cdc.gov/about/organization/mission.htm">Mission and Vision</a></li>
+								<li><a href="http://www.cdc.gov/Other/about_cdcgov.html">Using this Site</a></li>
+								<li><a href="http://www.cdc.gov/Other/languages/">All Languages</a></li>
+							</ul>
+						</nav>
+					</li>
+					<li class="span5">
+						<nav>
+							<h6><span class="icon-angle-down visible-one pull-left"></span>Legal</h6>
+							<ul class="hidden-one">
+								<li><a href="http://www.cdc.gov/Other/link.html">Link to Us</a></li>
+								<li><a href="http://www.cdc.gov/Other/policies.html">Policies</a></li>
+								<li><a href="http://www.cdc.gov/od/foia/">FOIA</a></li>
+								<li><a href="http://www.cdc.gov/contact/accessibility.html">Accessibility</a></li>
+								<li><a href="http://www.cdc.gov/privacy.html">Privacy</a></li>
+								<li><a href="http://www.cdc.gov/diversity/nofearact/">No FEAR Act</a></li>
+							</ul>
+						</nav>
+					</li>
+					<li class="local-contact">
+					</li>
+					<li class="contact">
+						<section>
+							<h6><span class="icon-angle-down visible-one pull-left"></span>Contact CDC</h6>
+							<address class="address hidden-one" itemscope="itemscope" itemtype="http://www.schema.org/Organization">
+								<div itemprop="name">Centers for Disease Control and Prevention</div>
+								<div class="value" itemprop="address" itemscope="itemscope" itemtype="http://www.schema.org/PostalAddress">
+									<span itemprop="streetAddress">1600 Clifton Rd.</span>
+									<span itemprop="addressLocality">Atlanta</span>,
+									<span itemprop="addressRegion">GA</span>
+									<span itemprop="postalCode">30333</span>
+									<span itemprop="addressCountry">USA</span>
+								</div>
+								<div class="value" itemprop="telephone">800-CDC-INFO (800-232-4636)</div>
+								<div class="value" itemprop="contactPoint" itemscope="itemscope" itemtype="http://www.schema.org/ContactPoint">
+									<span itemprop="url"><a href="http://www.cdc.gov/cdc-info/requestform.html">Contact CDC-INFO</a></span>
+								</div>
+							</address>
+						</section>
+
+					</li>
+				</ul>
+			</div>
+		</footer>
+
+		<!-- /#footer -->
+		<div id="totop" class="off visible-one">TOP</div>
+	</div>
+	<script src="../../TemplatePackage/3.0/js/libs/jquery.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/bootstrap.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/underscore.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/jquery.mediahelpers.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/jquery.hammer.min.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/jquery.cookie.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/picturefill.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/media.match.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/enquire.js"></script>
+	<script src="../../TemplatePackage/3.0/js/jquery-funcs.js"></script>
+	<script src="../../TemplatePackage/3.0/js/core.js"></script>
+	<script src="../../TemplatePackage/3.0/js/global.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/dynamic/gadgets.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/dynamic/flexslider.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/jquery.flexslider2.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/jquery-ui.js"></script>
+	<script src="../../TemplatePackage/3.0/js/socialmenu.js"></script>
+
+	<script src="../../TemplatePackage/3.0/js/libs.min.js"></script>
+	<script src="../../TemplatePackage/3.0/js/app.min.js"></script>
+
+	<script src="../../TemplatePackage/3.0/js/libs/d3/d3.min.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/d3/queue.v1.min.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/d3/topojson.v1.min.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/d3/datamaps.all.min.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/d3/d3.geo.projection.v0.min.js"></script>
+
+	<!--<![endif]-->
+	<script src="../../TemplatePackage/3.0/js/libs/cdcmaps/states-by-abbreviation.js"></script>
+	<script src="../../TemplatePackage/3.0/js/libs/cdcmaps/cdcnavmap.js"></script>
+
+
+	<!--<![endif]-->
+
+
+
+
+	<!-- Begin Survey scripts -->
+	<script src="/JScript/foresee/foresee-trigger.js"></script>
+	<script src="/JScript/foresee-variables.js"></script>
+	<!-- End Survey scripts -->
+	<script src="../../TemplatePackage/3.0/js/constants.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/dynamic/gadgets.js"></script>
+
+	<!-- Global JS Settings Overrides should be placed here between the previous and following includes. -->
+
+	<script>CDC.Global.settings.enableExternalLinks = true;</script>
+
+	<script src="../../TemplatePackage/3.0/js/dynamic.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/dynamic/mobile.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/responsive.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/modules.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/breadcrumbs.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/leftnav.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/pageoptions.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/search.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/policy.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/socialmedia.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/gadgets.js"></script>
+	<script src="../../TemplatePackage/3.0/js/modules/govdelivery.js"></script>
+	<script src="../../TemplatePackage/3.0/js/app.js"></script>
+
+	<!-- Module Extension & Overrides should be placed here between the previous and following includes. -->
+
+	<!-- Begin Survey scripts -->
+	<script type="text/javascript" src="/JScript/foresee/foresee-trigger.js"></script>
+	<script type="text/javascript" src="/JScript/foresee-variables.js"></script>
+	<!-- End Survey scripts -->
+
+	<!-- The following include is for including any local JS code to the page -->
+	<!-- xxxxxxxxxxxxxxxxxx METRICS code begins here xxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+	<div id="metrics">
+
+		<!-- Begin Google Analytics Class Definition Code -->
+		<script type="text/javascript" src="/JScript/metrics/google/google-cdc-a.js"></script>
+		<!-- End Google Analytics Class Definition Code -->
+
+		<!-- SiteCatalyst code version: H.21. -->
+		<script type="text/javascript" src="/JScript/metrics/topic_levels.js"></script>
+		<script type="text/javascript" src="/JScript/metrics/s_code_v21_cdcgov.js"></script>
+		<script type="text/javascript">
+
+
+
+
+
+
+			s.prop2 = window.location.href;
+			s.prop26 = document.title;
+			s.prop30 = document.title;
+			s.prop31 = window.location.href;
+			s.prop46 = window.location.href;
+			s.server = window.location.hostname;
+
+			// Update the level variables here.
+			updateVariables(s);
+
+			/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+			var s_code = s.t(); if (s_code) document.write(s_code);//--></script>
+		<script type="text/javascript">< !--
+if (navigator.appVersion.indexOf('MSIE') >= 0) document.write(unescape('%3C') + '\!-' + '-');
+//--></script><noscript><a href="http://www.omniture.com"><img src="http://mtrics.cdc.gov/b/ss/cdcgov/1/H.21--NS/0"
+				 height="1" width="1" alt="Web Analytics" /></a></noscript>
+		<!--/DO NOT REMOVE/-->
+		<!-- End SiteCatalyst code version: H.21. -->
+		<!-- Begin Google Analytics Execution Code -->
+		<script type="text/javascript" src="/JScript/metrics/google/google-cdc-c.js"></script>
+		<!-- End Google Analytics Execution Code -->
+	</div>
+	<!-- xxxxxxxxxxxxxxxxxx METRICS code ends here xxxxxxxxxxxxxxxxxxxxxxxxxxx-->
+
+
+
+
+	<!-- The following include is for overriding left nav rendering functionality -->
+
+	<script>
+
+		$(document).ready(function () {
+			var cdcLeftNav = new CDC.LeftNav("nav-primary");
+			cdcLeftNav.render();
+		});
+
+	</script>
+
+	<script>
+		(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date(); a = s.createElement(o),
+			m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+		ga('create', 'UA-2686643-4', 'auto');
+		ga('send', 'pageview');
+
+	</script>
+
+</body>
+
+</html>

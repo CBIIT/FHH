@@ -1,6 +1,43 @@
-      <div style="text-align:right;font-size:110%">
+<script>
+
+  $( function() {
+
+    $( "#datepicker" ).datepicker({
+
+      changeMonth: true,
+
+      changeYear: true,
+
+      yearRange: "c-100:c0",
+      showOn: "button",
+
+      buttonImage: "../images/calendar.gif",
+
+      buttonImageOnly: true,
+
+      buttonText: "Select date"
+
+
+
+    });
+
+  } );
+
+  </script>
+
+
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">      <div style="text-align:right;font-size:110%">
         <button id="add-help" class="translate" data-i18n="fhh_js.help">Help</button>
       </div><br />
+
+      <div id="wrapper" style='border:0px solid black;'></div>
+        <font color="grey">Disclaimer: <em>The Surgeon General's My Family Health Portrait tool does NOT keep a government record of the information you fill in nor make your health information available to anyone else but you. It only provides the software for organizing your information. By accessing the tool on the web, you make use of that software. But the information you fill in is not transmitted back to our servers, and never available to anyone else, unless you choose to share or disclose it. After you fill in your information, it is available only to you for downloading. After that, it's up to you whether you want to share the information with other family members or provide it to your health care practitioner. The Surgeon General's tool helps gather information that will be useful for you and your health care practitioner, but it does not provide medical advice. You should consult with a health professional about advice based on your family health history information.</em></font>
+    </div>
+        <p>
 
     <div class="title-bar translate" data-i18n='info_dialog.div_personal_info' id="personalInfo"> Your Personal Information </div>
 <table>
@@ -26,31 +63,28 @@
 			</tr>
       <tr>
         <th class="label">
-        		<span class="required">*</span><span class='translate' data-i18n='info_dialog.gender'></span>
+        		<span class="required">*</span><span class='translate' data-i18n='info_dialog.gender'> </span>
         </th>
           <td>
-          	<input name="person.gender" id="personal_info_form_gender_male" value="MALE" tabindex="2" type="radio">
+              &nbsp  &nbsp <input name="person.gender" id="personal_info_form_gender_male" value="MALE" tabindex="2" type="radio">
         		<label for="personal_info_form_gender_male" class='translate' data-i18n='info_dialog.male'>Male</label>
 						<input name="person.gender" id="personal_info_form_gender_female" value="FEMALE" tabindex="2" type="radio">
-						<label for="personal_info_form_gender_female" class='translate' data-i18n='info_dialog.female'>Female</label>
-					</td>
+            <label for="personal_info_form_gender_female" class='translate' data-i18n='info_dialog.female'>Female</label>
+            					</td>
       </tr>
       <tr>
         <th class="label">
-        	<span class="required">*</span>
-        	<label for="personal_info_form_date_of_birth">
-        		<span class='translate' data-i18n='info_dialog.dob'>Date of Birth</span>:
-        	</label></th>
-            <td><input name="person.date_of_birth" size="30" maxlength="255" value="" tabindex="10" id="personal_info_form_date_of_birth" type="text" placeholder="mm/dd/yyyy">
-            	<!-- <div class='instructions'>mm/dd/yyyy</div> -->
+          	<label for="personal_info_form_nampersonal_info_form_date_of_birth" class="label"></label>
+          <span class="required">*</span><span class='translate' data-i18n='info_dialog.dob'></span>
+        </label>
+        	</th>
+            <td><input name="person.date_of_birth" size="20" maxlength="255" value="" tabindex="10"  class = "personal_info_form_date_of_birth" id="datepicker" type="text" readonly> 
+            	<span class='instructions'>click the icon to select.</span>
             </td>
         </tr>
-        </table>
-      <table class="form" summary="Enter personal information.">
-
         <tr>
             <th class='translate label' data-i18n='info_dialog.twin_status'> Were you born a twin?</th>
-            <td class="twin_status"><input name="person.twin_status" id="personal_info_form_twin_status_no" checked="checked" value="NO" tabindex="11" type="radio">
+            <td><input name="person.twin_status" id="personal_info_form_twin_status_no" checked="checked" value="NO" tabindex="11" type="radio">
             		<label for="personal_info_form_twin_status_no" class="translate" data-i18n='info_dialog.no'>No</label>
 								<input name="person.twin_status" id="personal_info_form_twin_status_identical" value="IDENTICAL" tabindex="11" type="radio">
 								<label for="personal_info_form_twin_status_identical"  class="translate" data-i18n='info_dialog.identical'>Yes - Identical (Same)</label>
@@ -95,7 +129,7 @@
  <table width="100%" cellspacing="0" cellpadding="0" border="0">
   <tr>
 
-  <td style="text-align:center;">
+  <td style="text-align:right;">
     <button id='addPersonInformationCancelButton' class="translate" data-i18n='info_dialog.btn2_fam_hist'>Cancel</button>    
    	<button id='addPersonInformationSubmitButton' class="translate" data-i18n='info_dialog.btn1_fam_hist' style="text-align:right;font-size:110% !important">Next </button>
   </td>
@@ -117,7 +151,7 @@ function health_vault() {
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-84860122-1', 'auto');
+  ga('create', 'UA-2686643-4', 'auto');
   ga('send', 'pageview');
-createDiseaseHelpList()
+
 </script>

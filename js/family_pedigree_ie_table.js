@@ -513,7 +513,7 @@ $('#age').text = age;
             var DocumentContainer = $(mdialog);
             var WindowObject = window.open('', "Print", "width=1000,height=1000,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no");
             WindowObject.document.writeln('<!DOCTYPE html>'
-            + '<html><head><title>My Family Health Table</title>'
+            + '<html><head><title>MFHP|Pedigree|PHGKB</title>'
             +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
             + '<DIV style="page-break-after:none;height:200px;left:10px"></DIV>'
             + '<p><b>My Family Health Portrait-Table</b></p>'

@@ -16,13 +16,7 @@
 /* ************************************* */
 /* ----- BASIC HTML ELEMENT STYLES ----- */
 /* ************************************* */
-@font-face {
-  font-family: 'FontAwesome';
-  src: url('../../fonts/fontawesome-webfont.eot?v=4.7.0');
-  src: url('../../fonts/fontawesome-webfont.eot?#iefix&v=4.7.0') format('embedded-opentype'), url('../../fonts/fontawesome-webfont.woff2?v=4.7.0') format('woff2'), url('../../fonts/fontawesome-webfont.woff?v=4.7.0') format('woff'), url('../../fonts/fontawesome-webfont.ttf?v=4.7.0') format('truetype'), url('../../fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
+
 .gshHeader {
   border-color: #e79baa;
   font-size: 10;
@@ -31,7 +25,7 @@
 
 
 body {
-    background: url('page_background.jpg') repeat-x scroll center top #ECE0D3;
+    /*background: url('page_background.jpg') repeat-x scroll center top #ECE0D3;*/
     font-family: Arial, Helvetica, sans-serif;
     font-size: 75%;
     padding: 10px;
@@ -218,6 +212,21 @@ a.button_link {
   font-size: .86em;
 }
 
+a.button_link_check {
+  background-color: rgb(218, 69, 11);
+  color: #fff;
+  white-space: nowrap
+  /* DRC/CR Calculator: Added rounded corners <div> */
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid black;
+  padding: 4px 7px 4px 7px;
+  margin: 2px 3px 2px 3px;
+  text-decoration: none;
+  font-size: .86em;
+}
+
 a.button_link:active {
   background-color:#BBB;
   cursor:wait
@@ -227,21 +236,6 @@ a.button_link:active {
   font-size:small;
   text-align:left;
   margin-left:6px;
-}
-
-
-.top_instructions {
-    font-size:15px;
-    text-align:left;
-}
-
-.top_instructions div.left {
-    display:inline-block;
-    width:75%;
-}
-.top_instructions div.right {
-    display:inline-block;
-    float:right;
 }
 
 table.summary_table {
@@ -312,7 +306,39 @@ table.disease_table td {
   vertical-align: middle;
 }
 
+table.risk_table {
+  background-color: #FFFFFF;
+  margin: 0px;
+  width: 100%;
+  border:1px solid black;
+margin-left:auto;
+margin-right:auto;
+border-collapse:collapse;
+}
 
+table.risk_table th {
+  background-color:  rgb(235, 242, 250);
+  border-bottom: 1px solid #666666;
+  border-right:1px solid #666666;
+  color: #000000;
+  font-weight: bold;
+  margin: 0px;
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+table.risk_table td {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #666666;
+  border-right:1px solid #666666;
+  color: #000000;
+  font-weight: bold;
+  margin: 0px;
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+}
 .footerTable
 {  margin: 0px auto 0px auto;
 }
@@ -346,26 +372,17 @@ table.disease_table td {
 }
 
 .risk_calculator {
-  margin-top:15px !important;
+  text-align:left;
   border:1px solid black;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  margin:0 auto;
-  width:350px;
-  box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
-  background-color:#337AB7;
+  padding:2px;
 }
 
-.risk_calculator h3, .risk_calculator p{ 
-  color:#fff;
-  font-size:90%
+.risk_calculator:hover {
+  background-color:#DDF;
 }
-
-#calculator_instructions {
-  text-align:left;
-}
-
 
 .ui-widget-header {
   background-color: #FFE060; color:#000;
@@ -472,8 +489,6 @@ right:
 }
 
 
-
-
 .modal-content #close button{
 position:absolute;
 right:10px;
@@ -554,21 +569,6 @@ padding:4px 0px 4px 10px;
 margin-bottom:5px;
 }
 
-table.form {
-  width:50%;
-  min-width:650px;
-  border:1px solid #43729a;
-  margin-bottom:8px;margin-top:8px;
-}
-
-table.form th {
-  padding-left:4px;
-}
-
-
-table.form td {
-  padding-top:5px;
-}
 
 ul#disease_list {
 list-style:none;
@@ -637,7 +637,7 @@ padding-right:5px;
 .homeManage {
   border: 1px solid #41719c;
   float: left;
-  width: 80%;
+  width: 100%;
   height: 122px;
 }
 
@@ -658,7 +658,7 @@ padding-right:5px;
   border: 1px solid #41719c;
   float: right;
   width: 20%;
-  height: 122px;
+  height: 67px;
   padding: 10px;
 }
 
@@ -679,15 +679,21 @@ padding-right:5px;
 .homeView {
   border: 1px solid #41719c;
   float: left;
-  width: 40%;
-  height: 62px;
+  width: 100%;
 }
-
+/*
 .homeCheck {
   border: 1px solid #41719c;
   float: right;
   width: 60%;
   height: 62px;
+}*/
+
+.homeCheck {
+  border: 1px solid #41719c;
+  float: left;
+  width: 80%;
+  height: 67px;
 }
 
 .homeAdd {
@@ -714,148 +720,8 @@ padding-right:5px;
   margin-left: 2px;
 }
 
-.twin_status label{ 
-  padding-right:2em;
-}
-
-div#person_is_alive{
-  width:340px;
-  padding:10px 0px 10px 0px;
-  border:2px solid rgb(16, 157, 186);
-  margin-top:10px;
-}
-
-.update_dialog_help li {
-  padding:10px 0px 0px 0px;
-}
-
-.update_dialog_help li li{
-  padding:4px 0px 0px 0px;
-}
-
-
-.checkbox_table {
-  border:2px solid rgb(67, 114, 154);
-}
-
-.checkbox_table label{
-  padding-left:4px;
-  padding-right:4px;
-}
-
-
-.checkbox_table td {
-  border:2px solid rgb(67, 114, 154);
-  vertical-align:top;
-  width:50%;
-  min-width:400px;
-  padding:10px 10px 10px 10px;
-}
-
-
-#personal_race_ethnicity div#border{
-  margin-top:10px;
-  border:2px solid rgb(67, 114, 154);
-  padding:10px 10px 10px 10px;
-}
-
-#personal_race_ethnicity div#border label{
-  padding:0px 20px 0px 4px;
-}
 
 
 
-#family_race_ethnicity div#border{
-  margin-top:10px;
-  border:2px solid rgb(67, 114, 154);
-  padding:10px 10px 10px 10px;
-}
 
-#family_race_ethnicity div#border label{
-  padding:0px 20px 0px 4px;
-}
-
-#person_consanguinity {
-  margin:10px 10px 10px 0px !important;
-}
-
-.familydate {
-  margin-left:155px;
-}
-
-
-#history_summary_table td{
-  vertical-align:top;
-}
-
-div.conditionsContainer{
-    position: relative;
-    font-size:90%;
-    width:200px;
-}
-
-div.conditionsContainer ul {
-  margin-left:15px;
-  padding:0px;
-}
-
-
-.readMore {
-  padding:8px;
-}
-
-.readMoreButton{
-  position: absolute;
-  right:0;
-  bottom:0;
-}
-
-.conditionsEntryHidden {
-  display:none;
-}
-
-ul.diseaseList {
-  list-style:none;
-  margin:0px;
-  text-align:left;
-}
-
-ul.diseaseList li {
-  margin:0px;
-  padding:0px;
-}
-
-ul.diseaseList li button {
-  background-color:transparent;
-  white-space: nowrap;
-  color:#000;
-  border:0px;
-  font-size:100% !important;
-  padding:0px;
-  margin:0px;
-}
-ul.diseaseList li button.closed::before{
-  font-family: 'FontAwesome';
-  content:"\f0fe";
-  padding-right:6px;
-  background-color:#fff;
-}
-
-ul.diseaseList li button.open::before{
-  font-family: 'FontAwesome';
-  content:"\f146";
-  padding-right:6px;
-  background-color:#fff;
-}
-
-button#diseaseList {
-  margin-left:10px;
-}
-
-#age_of_diagnosis_disclaimer {
-  color:red;
-  font-weight:bold;
-  font-size:94%;
-  padding-top:5px;
-}
 

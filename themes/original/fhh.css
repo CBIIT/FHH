@@ -238,6 +238,40 @@ table.disease_table td {
     vertical-align: middle;
 }
 
+table.risk_table {
+    background-color: #FFFFFF;
+    margin: 0px;
+    width: 100%;
+    border:1px solid black;
+	margin-left:auto;
+	margin-right:auto;
+	border-collapse:collapse;
+}
+
+table.risk_table th {
+    background-color:  #FFE060;
+    border-bottom: 1px solid #666666;
+    border-right:1px solid #666666;
+    color: #000000;
+    font-weight: bold;
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table.risk_table td {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #666666;
+    border-right:1px solid #666666;
+    color: #000000;
+    font-weight: bold;
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+
 
 table.footerTable {
     background-color: transparent;

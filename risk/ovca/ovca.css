@@ -1,0 +1,37 @@
+p.ovca {
+	text-align:left;
+}
+
+#ovca_table {
+	border-collapse:collapse;
+	border:1px solid black;
+	width:100%;
+}
+
+#ovca_table tr:nth-child(even) {
+	background-color:#DDF;
+}
+
+#ovca_table th {
+	background:#AAD;
+	text-decoration:none;
+}
+
+#ovca_table td {
+	border:0px;
+	padding: 2px;
+}
+
+#ovca_table #test {
+	width:50px;
+}
+
+.ovca-final {
+	border: 1px solid black;
+	font-weight:bold;
+	background-color:#AAD;
+}
+
+#ovca_key {
+	font-size:14;
+}

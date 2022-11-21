@@ -6,7 +6,6 @@
 		"li3" : "Print your family health history to share with family or your health care provider.",
 		"li4" : "Save your family health history so you can update it over time.",
 		"talking" : "Talking with your health care provider about your family health history can help you stay healthy!",
-		"mobile_message" : "(Note: this tool is designed for laptop/desktop computers, not mobile devices).",
 		"learn_more" : "Learn more about My Family Health Portrait",
 		"create" : "Create a Family Health History",
 		"load" : "Use a Saved History",
@@ -23,15 +22,15 @@
 		"updates" : "Site Updates",
 
 		"done" : "done"
-		},
+	},
 	"fhh_js": {
-		"invalid_cause_of_death" : "Please Select Cause of Death",
+		"invalid_cause_of_death" : "Please Select Cause of Death",	
 		"ashkenazi" : "Why Ask About Ashkenazi?",
 		"pi":"Enter Personal Information",
 		"select_age": "Select Estimated Age",
 		"family_subtitle":"Your Family Member's Health Information",		
 		"select_age_death": "Select Estimated Age at Death",
-		"family_health_history_title":"Enter Family Member's Information",
+		"family_health_history_title":"Enter Family Member's Health History",
 		"load_dialog_title": "Load Your Family Health History",
 		"save_dialog_title": "Save Your Family Health History",
 		"add_family_members_dialog_title": "Add Family Members",
@@ -39,22 +38,17 @@
 		"family_member_copy_dialog_title" : "Copy for a Family Member",
 		"help":"Help",
 		"add_help_dialog_title":"Enter Personal Information Help",
-		"disease_list_dialog_title":"Disease List",
 		"update_help_dialog_title":"Enter Family Member Information Help",
-		"update_help_dialog_l1":"Enter the family member's personal information.  Gender is required.  A name is required for yourself and optional for others, but names will help you keep track, especially for larger families.",
-		"update_help_dialog_l2":"Chose an option for &#34;Living?&#34; If living, enter a date of birth, or an age or estimated age, in years. If not living, enter an age or age range at death, and a cause of death.  <i>NOTE</i>: A date of birth is required for a living family member if you will later convert your data file to share with them for recording their family data.",
-		"update_help_dialog_l3":"Enter other information such as twin status, adopted status, and height and weight, when requested.",
-		"update_help_dialog_l4":"Enter diseases and conditions for this person:",
-		"update_help_dialog_l4_l1":"If none, skip this section",
-		"update_help_dialog_l4_l2":"Select a disease or condition from the dropdown list titled &#34;Disease or Condition&#34;",
-		"update_help_dialog_l4_l3":"If the phrase &#34;(more options…)&#34; appears next to the disease category you choose, also make a selection from the Specific Subtype dropdown list that appears",
-		"update_help_dialog_l4_l4":"Select the age of onset (age when the disease was first noticed) from the offered ranges in the dropdown list of that name",
-		"update_help_dialog_l4_l5":"<B>IMPORTANT</B>: Press the &#34;Add&#34; button to link the entry to the family member's data",
-		"update_help_dialog_l4_l6":"A new data entry row will then appear to allow you to enter <i>another</i> disease or condition; if not needed, leave it blank and go on to the next section",
-		"update_help_dialog_l4_l7":"A &#34;Remove&#34; button will also appear in case you want to delete items already added",
-		"update_help_dialog_l5":"Enter other, optional information, where asked",
-		"update_help_dialog_l5_l1":"Indicate if your parents are related to each other in any way other than being married",
-		"update_help_dialog_l5_l2":"Select each race and ethic background that applies. You can select more than one of each",
+		"update_help_dialog_h1":"Enter Family Member Information",
+		"update_help_dialog_p":"When creating your family member's information you will be asked to:",
+		"update_help_dialog_l1":"Enter their personal information such as name, gender, date of birth, twin status, adopted status, height and weight.",
+		"update_help_dialog_l2":"Enter their health information. This includes:",
+		"update_help_dialog_l2_l1":"Selecting the disease or condition they may have by clicking on the drop-down selection box next to the 'Disease or Condition' label",
+		"update_help_dialog_l2_l2":"If you select a disease or condition that has the words 'more options' next to it, you will be asked to give more information by clicking on the drop-down box next to the 'Please Specify' label",
+		"update_help_dialog_l2_l3":"Select the age of onset from the ranges that are offered after clicking on the drop-down selection box next to 'Age at Diagnosis'",
+		"update_help_dialog_l2_l4":"You can add more diseases or conditions after adding one to the list. You can also press on the 'Remove' link if the information doesn't appear correct",
+		"update_help_dialog_l3":"Enter your family background. This includes:",
+		"update_help_dialog_l3_l2":"Selecting the race and ethnic background for a family member. Please note that you can select more than one option within this list. You will also be able to provide more specific race information.",
 		"personal_help_dialog_title":"Enter Personal Information Help",
 		"personal_help_dialog_h1":"Enter Personal Information",
 		"personal_help_dialog_p":"When creating your personal information you will be asked to:",
@@ -67,7 +61,6 @@
 		"personal_help_dialog_l3":"Enter your family background. This includes:",
 		"personal_help_dialog_l3_l1":"Selecting whether your parents are related to each other in any way other than being married",
 		"personal_help_dialog_l3_l2":"Selecting the race and ethnic background for a family member. Please note that you can select more than one option within this list. You will also be able to provide more specific race information.",
-
 		"load_help_dialog_title":"Load Your Family Health History Help",
 		"load_help_dialog_h1":"Help for Use a Saved Family Health History File",
 		"load_help_dialog_p1":"If you have already created a family health history file or if someone has sent you a family health history file, you will be able to upload it.  Once uploaded, you can open it to see or edit the file. You can also create a copy for yourself or another family member.",
@@ -134,7 +127,6 @@
 
 		"relationship_to_me" : "Relationship To Me:",
 		"still_living_main" : "Still Living",
-		"conditions" : "Conditions",
 		"aunt_relationship_q" : "Who is the aunt related to:",
 		"uncle_relationship_q" : "Who is the uncle related to:",
 		"cousin_parent_q" : "Who is the parent of your first cousin:",
@@ -165,9 +157,7 @@
 
 
 		"family_health_subtitle" : "Your Family's Health Information",
-		"add_disease_instructions_1" : "<B>If there are no diseases or conditions, skip this section.</B>",
-		"add_disease_instructions_2" : "Otherwise, select a <B>disease or condition</B> from the dropdown list.  Then select <B>Age at Diagnosis</B>, and press the <B>Add</B> button.",
-		"add_disease_instructions_3" : "Repeat this process to add more diseases or conditions.",
+		"add_disease_instructions" : "In the list below, select a <B>Disease or Condition</B> (if any) from the dropdown box. Then select the <B>Age at Diagnosis</B> and press the <B>Add</B> button. You may repeat this process as necessary.",
 		"disease_or_condition" : "Disease or Condition",
 		"age_at_diagnosis" : "Age at Diagnosis",
 		"action" : "Action",
@@ -227,7 +217,8 @@
 		"ethnicity_south_american" : "South American",
 		
 		"consanguinity": "Check here if your parents are related to each other in any way other than marriage.",
-		"multiple_races_selectable" : "Multiple races and ethnicities may be selected.",
+		"select_races_selectable" : "Select races and ethnicities.",
+		"multiple_races_selectable" : "(multiple races and ethnicities may be selected)",
 		"ashkezani_q": "Why are we asking about Ashkenazi Jewish heritage?",
 		
 		"personal_health_subtitle" : "Your Health Information",
@@ -256,10 +247,8 @@
 		"yes":"Yes",
 		"no":"No",
 		"unknown":"Unknown",
-		"android":"This Feature is not supported on the Android Browser",
-		"more":"More",
-		"less":"Less",
-		"disease_button":"Disease List"
+		"android":"This Feature is not supported on the Android Browser"
+
 	},
 	
 	"fhh_fhh": {
@@ -290,7 +279,7 @@
 		"p_update_my_history2_b1" : "Restart your family history by clicking on the 'Start Over' button",
 		"p_update_my_history2_b2" : "Save your history to a file on your computer or into the cloud by clicking on 'Save Data' button",
 		"p_update_my_history2_b3" : "Add another family member to your family history by clicking 'Add a Family Member' button",
-		"p_update_my_history2_b4" : "View a diagram of your family tree by clicking on 'Family Tree' button. Alternatively, you can click the 'Family Health Table' button to navigate to the table directly",
+		"p_update_my_history2_b4" : "View a diagram of your family tree by clicking on 'Pedigree Drawing' button. Alternatively, you can click the 'Family Health Table' button to navigate to the table directly",
 		"p_update_my_history2_b5" : "Export your family information to give a close relative a headstart on his/her family tree by clicking on the 'Share Data' button",
 		"p_update_my_history2_b6" : "Use one of the Disease Risk Calculators to determine if you are at increased risk of a disease based on your family history by clicking on the 'Check Your Risk' button",
 		"p_update_my_history2_b7" : "Get additional Help by clicking on the 'Get Help For This Page' button",
@@ -322,8 +311,8 @@
 		"li2_3_help_main_page" : "Make a copy of your family health history for a family member by pressing 'Copy for Family Member.'",
 		"li2_4_help_main_page" : "View a diagram of your family tree and a table of your family health history by pressing 'View Diagram & Table.'",
 		"li2_5_help_main_page" : "Get extra help by pressing 'Get Help.'",
-		"done" : "done",
-		"calculator_instructions":"These calculators use the family health information you have already entered to estimate your risk for the disease (average or increased). If you add to or change the information for your relatives, you should re-calculate your risks."
+	
+		"done" : "done"
 	},
 	
 	"info_dialog": {
@@ -336,21 +325,19 @@
 		
 		"instructions" : "We start the family health history with you. Enter the required personal information and your health history information. At the bottom of the page (you may need to scroll), press the 'Next' button. You will then be asked to tell the system which family members you would like to add to the health history.",
 		"health_vault" : "If you have a Microsoft HealthVault account, you can choose to copy your HealthVault family history information into this website.  Press 'Copy from HealthVault' to get started.",
-		"family_instructions1":"Enter personal, health history, and background information for this family member.",
-		"family_instructions2":"When done, press “Next” at the bottom to return to the main screen (scroll down if needed).",
-		"family_instructions3":"This information is not saved until the “Save Data” button is pressed on the main screen.",
+		"family_instructions":"Enter required personal information and health history information for this family member. Background information may also be entered. At the bottom of the page (you may need to scroll), press the 'Save' button to save this person's information.",
 		"required":"Indicates required information.",
 		"relationship":"Relationship:",
 		"name":"Name:",
-		"gender":"Gender:",
+		"gender":"Gender at Birth:",
 		"male":"Male",
 		"female":"Female",
-		"alive":"Living?",
+		"alive":"Is this person still alive:",
 		"dob":"Date of Birth",
-		"twin_status" : "Born a twin?",
-		"family_twin_status" : "Born a twin?",
-		"adopted" : "Adopted?",
-		"family_adopted" : "Adopted?",
+		"twin_status" : "Were you born a twin?",
+		"family_twin_status" : "Was this person born a twin?",
+		"adopted" : "Were you adopted?",
+		"family_adopted" : "Was this person adopted?",
 		
 		"yes": "Yes",
 		"no":"No",
@@ -422,7 +409,7 @@
 		"load_dropbox_button" : "Load from Dropbox",
 
 		"save_instructions_title" : "Why save your family health history file?",
-		"save_instructions" : "To respect individual privacy concerns, this website does not save your family health history information. However, you can save your family health history to your own local storage area (such as your computer's hard drive, a CD-ROM, or USB thumb drive). In addition, you can save to a third-party system such as Microsoft® HealthVault, Google Drive, and Dropbox. Some hospitals and doctors' offices will be able to obtain this family health history information stored with a third party system, if you grant them permission, and directly incorporate your family health history into an electronic medical record.",
+		"save_instructions" : "To respect individual privacy concerns, this website does not save your family health history information. However, you can save your family health history to your own local storage area (such as your computer's hard drive, a CD-ROM, or USB thumb drive). In addition, you can save to a third-party system such as Microsoft® HealthVault, Google Drive, and Dropbox (other third party systems will be added in the future). Some hospitals and doctors' offices will be able to obtain this family health history information stored with a third party system, if you grant them permission, and directly incorporate your family health history into an electronic medical record.",
 		"save_to_file" : "Save Your Personal Information to a File",
 		"save_file_instructions1" : "In this step, you can save your family health history to your computer or portable storage device as an XML data file. This data file can be opened in this website later to update your family health history.",
 		"save_file_instructions2" : "Press 'Save to a File' and your browser will put the file in your preferred download location",
@@ -436,7 +423,7 @@
 		"save_dropbox" : "Save Your Personal Information to Dropbox",
 		"save_dropbox_instructions" : "You can save a file to Dropbox by signing into your dropbox account and picking a location to save and naming the file.",
 		"save_dropbox_button" : "Save to Dropbox",
-		"fail_to_save":"Failed to save to Health Vault. Please save locally and try again.",
+		"fail_to_save":"Failed to save to Health Vault. Please save locally and try again.",		
 		"disclaimer" : "When you choose to copy your family health history information to any third party system, please note that your information will be retained in that system, and will be subject to the terms of use and privacy policy of that system.",
 
 		"detailed_instructions":"Detailed file opening instructions",
@@ -454,7 +441,7 @@
 		"detailed_instructions_li5":"Press the button marked 'Open From Computer' on this screen",		
 
 		"done" : "done"
-		},
+	},
 	
 	"fhh_why_ask_ashkenazi": {
 		"help_title" : "Help for Ashkenazi Jew",
@@ -465,8 +452,9 @@
 		"points":"points",
 		"pounds":"pounds",	
 		"feet":"feet",
-		"inches":"inches",		
-		"centimeters":"centimeters",
+		"inches":"inches",	
+		"centimeters":"centimeters",	
+		"kilograms":"kilograms",	
 		"height":"Height",
 		"weight":"Weight",
 		"lbs":"lbs",
@@ -550,7 +538,7 @@
 		"done" : "done"
 	},
 	"fhh_colorectal_calculator": {
-		"title_bar":"Your Colorectal Cancer Risk Information",
+		"title_bar":"11111Your Colorectal Cancer Risk Information",
 		"instruction1":"On this screen you can:",
 		"instruction2":"Get your risk for colorectal cancer based on your personal and family history information",
 		"instruction3":"Learn which risk factors you may have for colorectal cancer",
@@ -634,6 +622,8 @@
 		"final_risk1":"You have at least one of the above risk factors.  Based on this your risk of colorectal cancer is increased.",
 		"final_risk2":"You have none of the above risks.  Therefore your risk of colorectal cancer is average",
 		"additional_info":"Additional information about the test can be found in: Feero WG et al. Preliminary validation of a consumer-oriented colorectal cancer risk assessment tool compatible with the US Surgeon General's My Family Health Portrait. Genet Med. 2014 Dec 18. doi: 10.1038/gim.2014.179. http://www.ncbi.nlm.nih.gov/pubmed/25521335"
+		
+
 	},
 	"fhh_family_pedigree": {
 		"title":"View Diagram & Table",
@@ -641,7 +631,7 @@
 		"print_title_table":"My Family Health Portrait Table",
 		"save_image_instructions":"To save the image, right click directly on the diagram and choose save image as",
 		"save_image_instructions_2":"To save the image, right click directly on the table and choose save image as",
-		"date_of_report":"Date of Report",		
+		"date_of_report":"Date of Report",
 		"desc_line1":"Talking with your health care provider about your family health history can help you stay healthy!",
 		"desc_line2_before_anchor1":"Your family health conditions are shown here in a",
 		"desc_line2_anchor1":"diagram",
@@ -649,14 +639,14 @@
 		"desc_line2_anchor2":"table",
 		"desc_line2_after_anchor2":"(below the diagram).  Scroll up and down to see both.",
 		"desc_line3":"Print them to share with your healthcare provider.  Click the ‘Print’ buttons just above the diagram and the table, then follow the instructions.",
-		"desc_line4":"Use the bottom and right scroll bars to view larger tables and diagrams.",
+		"desc_line4":"Use the bottom and right scroll bars to view larger tables and diagrams.",		
 		"go_to_diagram":"Go To Diagram",
 		"go_to_table":"Go To Table",
 		"print":"Print",
 		"zoom_in":"Zoom In",
-		"zoom_out":"Zoom Out",
+		"zoom_out":"Zoom Out",		
 		"save_image":"Save To Image",
-		"page_title":"My Family Health Portrait-Diagram",
+		"page_title":"My Family Health Portrait-Diagram",		
 		"close":"Close",
 		"ie_disclaimer":"This feature has been tested and is supported in the following browsers - Internet Explorer 10 and recent versions, Firefox, Chrome, Safari.",		
 		"diagram_options":"Diagram & Table Options",
@@ -676,10 +666,10 @@
 		"maternal":"Maternal",
 		"father":"Father",
 		"mother":"Mother",
-		"maternal_grandmother":"Grandmother",
-		"maternal_grandfather":"Grandfather",
-		"paternal_grandmother":"Grandmother",
-		"paternal_grandfather":"Grandfather",
+		"maternal_grandmother":"Maternal Grandmother",
+		"maternal_grandfather":"Maternal Grandfather",
+		"paternal_grandmother":"Paternal Grandmother",
+		"paternal_grandfather":"Paternal Grandfather",
 		"daughter":"Daughter",
 		"son":"Son",
 		"brother":"Brother",
@@ -725,13 +715,13 @@
 		"csv_line4":"From the File menu, choose Import",
 		"csv_line5":"Select CSV file",
 		"csv_line6":"Click Import",
-		"csv_line7":"Choose the filename saved from step 1"
-			},
+		"csv_line7":"Choose the filename saved from step 1"				
+	},
 	"fhh_export": {
 		"relative_no_name":"This relative does not have a name.  In order to export, the relative needs to have a name.  Please add a name and try again",
 		"relative_no_gender":"This relative does not have a gender.  In order to export, the relative needs to have a gender.  Please add a gender and try again",
 		"relative_no_dob":"This relative does not have a Date of Birth.  In order to export, the relative needs to be listed as alive and have a valid Date of Birth.  Please add a Date of Birth and try again"
-	}
+	}	
 
 
 }	

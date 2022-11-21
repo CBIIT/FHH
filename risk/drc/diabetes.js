@@ -16,8 +16,7 @@ if (lng=='en-US') {
 };
 
 $(document).ready(function() {
-
-	
+debugger;
 	$('.aradio').buttonset();
 
 	build_required_information_for_personal_history();
@@ -68,7 +67,7 @@ var fourthVari;
 
 function load_all_data_and_calculate_score() {
 		
-		
+		debugger;
 		load_age();
 		load_gender();
 		load_gestational_diabetes();
@@ -144,6 +143,8 @@ function check_for_diabetes_prediabetes() {
 
 function test_for_any_missing_data() {
 	var valid = {};
+	var ok;
+
 	valid.age = test_for_age();
 	valid.gender = test_for_gender();
 	valid.physically_active = test_for_physically_active();
