@@ -2,43 +2,44 @@ var personal_information = null;
 //debugger;
 // Constants From SNOMED_CT
 var SNOMED_CT_CODES = {
-		'IDENTICAL_TWIN_CODE': '313415001', 
+		'IDENTICAL_TWIN_CODE': '313415001',
 		'FRATERNAL_TWIN_CODE':'313416000',
 		'ADOPTED_CODE': '160496001'
 }
 
 function bind_load_xml() {
 	// Change the name of the Load File here to support internationalization
-	bind_uploader();
+//	bind_uploader();
 	bind_load_file();
-	bind_load_dropbox();
-	bind_load_google_drive();
-	bind_load_health_vault();
-	
+//	bind_load_dropbox();
+//	bind_load_google_drive();
+//	bind_load_health_vault();
+
 }
 
 function bind_load_file() {
-	$("#file_upload_button").val($.t("fhh_load_save.load_file_button"));	
-	$("#file_upload_button").on("click", function () {
-		
+//	$("#file_upload_button").val($.t("fhh_load_save.load_file_button"));
+//	$("#file_upload_button").on("click", function () {
+	$("#pedigree_file").on("change", function () {
+
 		if ($('#pedigree_file')[0].files[0] == null) {
 			alert ($.t("fhh_load_save.choose_a_file"));
 			return false;
 		}
 //    $("#view_diagram_and_table_button").attr('onclick', 'xmlload()');
 		personal_information = new Object();
-		
+
 		var fsize = $('#pedigree_file')[0].files[0].size;
 //		alert ("Filename is (" + fsize + "): " + $("#pedigree_file").val());
 		console.dir(fsize);
 		console.dir($('#pedigree_file')[0].files);
-		
+
 		var reader = new FileReader();
 		reader.readAsText($('#pedigree_file')[0].files[0], "UTF-8");
 		reader.onload = loaded;
 
 		$("#load_personal_history_dialog").dialog("close");
-		
+
 		return false;
 	});
 }
@@ -66,7 +67,7 @@ function bind_uploader() {
 
 				document.getElementById('uploadfiles').onclick = function() {
 					if (uploader.files.length == 0) {
-						var message = $.t("fhh_load_save.no_file_chosen_error1") + " '" 
+						var message = $.t("fhh_load_save.no_file_chosen_error1") + " '"
 							+ $.t("fhh_load_save.browse") + "' "
 							+ $.t("fhh_load_save.no_file_chosen_error2");
 						alert (message);
@@ -90,7 +91,7 @@ function bind_uploader() {
 			},
 			FileUploaded: function(upldr, file, obj) {
 				if(file.getNative() !== null) {
-					load_family_history(file.getNative());				
+					load_family_history(file.getNative());
 				} else {
 					//We do not have a getNative object so send response from upload2.php.
 //					var decoded = $("<div/>").html(obj.response).text();
@@ -104,7 +105,7 @@ function bind_uploader() {
 
 				}
 
-				$("#load_personal_history_dialog").dialog("close");			
+				$("#load_personal_history_dialog").dialog("close");
 			}
 		}
 	});
@@ -115,7 +116,7 @@ function bind_uploader() {
 		    uploader.refresh();// must refresh for flash runtime
 		}
 	});
-	
+
 	uploader.init();
 }
 /*
@@ -149,10 +150,10 @@ function bind_load_dropbox() {
 		$("#load_dropbox_instructions").hide();
 		return;
 	}
-	
+
 	if (typeof DROPBOX_APP_KEY == 'undefined') {
-		if (typeof DEBUG != 'undefined' && DEBUG) $("#load_from_dropbox").append("No Dropbox App Key Defined");	
-		else $("#load_from_dropbox").append("Coming Soon");	
+		if (typeof DEBUG != 'undefined' && DEBUG) $("#load_from_dropbox").append("No Dropbox App Key Defined");
+		else $("#load_from_dropbox").append("Coming Soon");
 		return;
 	}
 
@@ -163,22 +164,22 @@ function bind_load_dropbox() {
 			multiselect: false,
 			linkType: "direct",
 			extensions: ['.xml'],
-			success: function (files) { 
+			success: function (files) {
 				$.get( files[0].link, function( xmlData ) {
 					var out = (new XMLSerializer()).serializeToString(xmlData);
-					
+
 					parse_xml(out);
 					build_family_history_data_table();
 					$("#add_another_family_member_button").show();
-				}); 
+				});
 			},
 			error: function (errorMessage) { alert ("ERROR:" + errorMessage);}
 		});
 		$("#load_personal_history_dialog").dialog("close");
-		
+
 		return false;
 	});
-	$("#load_from_dropbox").append(button);		
+	$("#load_from_dropbox").append(button);
 }
 
 
@@ -188,26 +189,26 @@ function bind_load_google_drive() {
 		$("#load_google_drive_instructions").hide();
 		return;
 	}
-	
-	
+
+
 	if (typeof GOOGLE_CLIENT_ID == 'undefined') {
-		if (typeof DEBUG != 'undefined' && DEBUG) $("#load_from_google_drive").append("No Google Drive App Key Defined");				
-		else $("#load_from_google_drive").append("Coming Soon");	
+		if (typeof DEBUG != 'undefined' && DEBUG) $("#load_from_google_drive").append("No Google Drive App Key Defined");
+		else $("#load_from_google_drive").append("Coming Soon");
 		return;
 	}
-	
-	
+
+
 	var button = $("<BUTTON id='dropbox_load_button'>" + $.t("fhh_load_save.load_google_drive_button") + "</BUTTON>");
 	button.on("click", function () {
 		personal_information = new Object();
 		gapi.auth.authorize( {'client_id': GOOGLE_CLIENT_ID, 'scope': GOOGLE_SCOPES, 'immediate': false}, googlePostAuthLoad);
 	});
-	
-	$("#load_from_google_drive").append(button);			
+
+	$("#load_from_google_drive").append(button);
 }
 
 function googlePostAuthLoad(authResult) {
-	
+
 	if (authResult && !authResult.error) {
 		var request = gapi.client.request({
 				'path': 'drive/v2/files',
@@ -215,30 +216,30 @@ function googlePostAuthLoad(authResult) {
 		});
 		var	callback = function(data) {
 			var items = data.items;
-			
+
 			if (items.length <= 0) {
 				alert( "No File Found"  );
 				return;
 			}
-			
+
 			var file_link = items[0].downloadUrl;
-	
+
 	    var accessToken = gapi.auth.getToken().access_token;
-	    
+
 	    $.ajax({
 	    	url: file_link,
 	    	headers: {"Authorization": 'Bearer ' + accessToken}
 	    }).done(function(data) {
-					
+
 					parse_xml(data);
 					build_family_history_data_table();
 					$("#add_another_family_member_button").show();
 
 					$("#load_personal_history_dialog").dialog("close");
 			});
-	   
+
 		};
-		request.execute(callback);	
+		request.execute(callback);
 	}
 }
 
@@ -246,7 +247,7 @@ function 	bind_load_health_vault() {
 	var button = $("<BUTTON id='healthvault_load_button'>" + $.t("fhh_load_save.load_health_vault_button") + "</BUTTON>");
 	var protocol = window.location.protocol;
 	var hostname = window.location.hostname;
-	
+
 	button.on("click", function () {
 		window.localStorage.removeItem("pi");
 		var url_w_params
@@ -276,7 +277,7 @@ function 	bind_load_health_vault() {
            }
 		var child = window.open(url_w_params, "", "width=1200, height=800, scrollbars=yes");
 		timer = setInterval(function(){
-			var ls = window.localStorage.getItem("pi"); 
+			var ls = window.localStorage.getItem("pi");
 			var d = JSON.parse(ls);
 			if (ls != null && ls != "" && d != null) {
 
@@ -289,8 +290,8 @@ function 	bind_load_health_vault() {
 			}
 		},2000);
 	});
-	$("#load_from_healthvault").append(button);			
-	
+	$("#load_from_healthvault").append(button);
+
 }
 
 function createHealthHistory(pi) {
@@ -300,7 +301,7 @@ function createHealthHistory(pi) {
 		var re3 = /SNOMED_CT-OTHER/;
 
 		var self_history = personal_information['Health History'];
-		for (x in self_history) {			
+		for (x in self_history) {
 			var disease_code = self_history[x]['Disease Code'];
 			if (re.exec(disease_code) || re2.exec(disease_code) || re3.exec(disease_code)) {
 				personal_information['Health History'][x]['Disease Code'] = "other-undefined";
@@ -340,7 +341,7 @@ function load_family_history(loaded_file) {
 }
 
 function read_family_history (evt) {
-	var fileString = evt.target.result;	
+	var fileString = evt.target.result;
 	parse_xml(fileString);
 	build_family_history_data_table();
 	$("#add_another_family_member_button").show();
@@ -369,7 +370,7 @@ function load_xml(xmlInput) {
 	$("#add_another_family_member_button").show();
 }
 function loaded (evt) {
-	var fileString = evt.target.result;	
+	var fileString = evt.target.result;
 	console.dir(evt);
 	parse_xml(fileString);
 	build_family_history_data_table();
@@ -383,12 +384,12 @@ function make_disease_array () {
 		for (var j=0; j<diseases[keys[i]].length; j++) {
 			disease_list.push(diseases[keys[i]][j]);
 		}
-	}	
+	}
 }
 */
 function parse_xml(data) {
 	personal_information.id = $(data).find("patientPerson > id").attr("extension");
-	
+
 	// Handle the misspelling from the previous version of the software
 	if (personal_information.id == null) personal_information.id = $(data).find("patientPerson > id").attr("extention");
 	personal_information.name = $(data).find("patientPerson > name").attr("formatted");
@@ -396,11 +397,11 @@ function parse_xml(data) {
 
 	var date_of_birth = $(data).find("patientPerson > birthTime").attr("value");
 	personal_information.date_of_birth = date_of_birth;
-		
+
 	personal_information.gender = $(data).find("patientPerson > administrativeGenderCode").attr("displayName").toUpperCase();
 	consanguity_flag = $(data).find('patientPerson > subjectOf2 > ClinicalObservation > code[originalText="Parental consanguinity indicated"]')
 	if (consanguity_flag && consanguity_flag.length > 0) personal_information.consanguinity = true;
-	
+
 	// Twin and Adopted Status
 	var identical_twin_status_field = $(data).find("patientPerson > subjectOf2 > ClinicalObservation > code[code="
 			+ SNOMED_CT_CODES.IDENTICAL_TWIN_CODE + "]");
@@ -408,16 +409,16 @@ function parse_xml(data) {
 	var fraternal_twin_status_field = $(data).find("patientPerson > subjectOf2 > ClinicalObservation > code[code="
 			+ SNOMED_CT_CODES.FRATERNAL_TWIN_CODE + "]");
 	if (fraternal_twin_status_field.length > 0) personal_information.twin_status = "FRATERNAL";
-	
+
 	var adopted_status_field = $(data).find("patientPerson > subjectOf2 > ClinicalObservation > code[code="
 			+ SNOMED_CT_CODES.ADOPTED_CODE + "]");
 	if (adopted_status_field.length > 0) personal_information.adopted = true;
-	
-	
-	
+
+
+
 	// Race and Ethnicity
 	personal_information.ethnicity = load_ethnicity($(data) );
-	personal_information.race = load_race(data); 
+	personal_information.race = load_race(data);
 
 	// Height and Weight and actvity
 	$(data).find("patientPerson > subjectOf2 > ClinicalObservation").each(function () {
@@ -437,7 +438,7 @@ function parse_xml(data) {
 			else personal_information.physically_active = false;
 		}
 	});
-	
+
 	// Personal Diseases
 		current_health_history = new Array();
 		// Looking for diseases, first we need to pull out the displayNames for every code tag
@@ -453,7 +454,7 @@ function parse_xml(data) {
 					duplicate=true;break;
 				}
 			}
-			if (specific_health_issue != null && !duplicate && specific_health_issue["Age At Diagnosis"] != null) 
+			if (specific_health_issue != null && !duplicate && specific_health_issue["Age At Diagnosis"] != null)
 				current_health_history.push(specific_health_issue);
 
 //				alert(relative.name + ":"+ highLevelDiseaseName + ", " + detailedDiseaseName + ": " + ageAtDiagnosis);
@@ -464,7 +465,7 @@ function parse_xml(data) {
 	// All Relatives
 	$(data).find("patientPerson > relative").each( function () {
 		var relative = new Object();
-		
+
 		var relationship_code = $(this).find("code").attr("code");
 		relative.id = $(this).find("> relationshipHolder > id").attr("extension");
 		// Handle the misspelling from the previous version of the software
@@ -473,9 +474,9 @@ function parse_xml(data) {
 			if (relative.id == null) {
 				relative.id = guid()
 			}
-		} 
+		}
 		relative.name = $(this).find("relationshipHolder > name").attr("formatted");
-				
+
 		if (relative.name == null || relative.name.length == 0) relative.name = "";
 		var alive_status_code = $(this).find("relationshipHolder > deceasedIndCode ").attr("value");
 		if (alive_status_code == "UNKNOWN") {
@@ -495,37 +496,37 @@ function parse_xml(data) {
 		}
 
 //		alert(relative.name + ":" +relative.id);
-		
+
 //		var boo = $(this).find("> relationshipHolder > relative > relationshipHolder").html();
 	// For the purpose of connecting the tree we only need one parent, also check for spelling error
 		var parent_id = $(this).find("> relationshipHolder > relative > relationshipHolder > id").attr("extention");
-		if (parent_id == null || parent_id.length == 0) 
+		if (parent_id == null || parent_id.length == 0)
 			parent_id = $(this).find("> relationshipHolder > relative > relationshipHolder > id").attr("extension");
-		
+
 		if (parent_id  && parent_id.length > 0) {
 			relative.parent_id = parent_id;
 //			alert (relative.name + ":P(" + parent_id + ")");
-		}			
+		}
 
 		var gender_code =  $(this).find("administrativeGenderCode").attr("displayName");
 		if (gender_code) relative.gender = gender_code.toUpperCase();
-		
-		
+
+
 		var date_of_birth = $(this).find("relationshipHolder > birthTime").attr("value");
-		if (date_of_birth) {			
+		if (date_of_birth) {
 			if (date_of_birth.length > 4) {
 				relative.date_of_birth = date_of_birth;
 			} else {
 				var d = new Date();
 				var n = d.getFullYear();
-				
+
 				var age = n - date_of_birth;
 				relative.age = age;
 			}
 		}
 		var estimated_age =  get_age_at_diagnosis($(this).find("relationshipHolder > dataEstimatedAge"));
 		if (estimated_age) relative.estimated_age = estimated_age;
-		
+
 		relative.twin_status = 'NO';
 		relative.adopted = 'false';
 		$(this).find("relationshipHolder > subjectOf2 > clinicalObservation > code").each( function() {
@@ -535,7 +536,7 @@ function parse_xml(data) {
 		});
 
 		// Cause of Death
-		
+
 
 		var death = $(this).find("relationshipHolder > subjectOf2 > clinicalObservation > sourceOf > code[displayName='death']");
 		if (death.length) {
@@ -552,7 +553,7 @@ function parse_xml(data) {
 
 
 //			alert (relative.name + "[" + cause_of_death_code + "]:" + relative.cause_of_death);
-			
+
 			// if cause of death is other //
 			if (is_other_cause_of_death) {
 				relative.cause_of_death_code = detailed_cause_of_death;
@@ -560,15 +561,15 @@ function parse_xml(data) {
 			// if cause of death is not other
 			else {
 				if (cause_of_death_code) {
-						relative.cause_of_death_code = relative.cause_of_death_system + "-" + cause_of_death_code;				
+						relative.cause_of_death_code = relative.cause_of_death_system + "-" + cause_of_death_code;
 					} else {
 						relative.cause_of_death_code = relative.cause_of_death_system + "-" + get_disease_code_from_detailed_disease(detailed_cause_of_death);
-					}					
+					}
 			}
-			relative.cause_of_death = get_high_level_disease_name_from_disease_code(cause_of_death_code);			
-			if (is_other_cause_of_death) 
+			relative.cause_of_death = get_high_level_disease_name_from_disease_code(cause_of_death_code);
+			if (is_other_cause_of_death)
 				relative.cause_of_death = detailed_cause_of_death;
-				
+
 			if (relative.detailed_cause_of_death != detailed_cause_of_death) relative.detailed_cause_of_death = detailed_cause_of_death;
 			relative.estimated_death_age = death_age;
 		}
@@ -587,7 +588,7 @@ function parse_xml(data) {
 					duplicate=true;break;
 				}
 			}
-			if (specific_health_issue != null && !duplicate && specific_health_issue["Age At Diagnosis"] != null) 
+			if (specific_health_issue != null && !duplicate && specific_health_issue["Age At Diagnosis"] != null)
 				current_health_history.push(specific_health_issue);
 
 //				alert(relative.name + ":"+ highLevelDiseaseName + ", " + detailedDiseaseName + ": " + ageAtDiagnosis);
@@ -602,7 +603,7 @@ function parse_xml(data) {
 			relative.ethnicity[ethnicity] = true;
 		});
 
-		relative.race = new Object(); 
+		relative.race = new Object();
 		$(this).find("raceCode").each(function () {
 			race = $(this).attr("displayName");
 			relative.race[race] = true;
@@ -632,7 +633,7 @@ function parse_xml(data) {
 			relative.relationship = 'paternal_grandfather';
 			personal_information.paternal_grandfather = relative;
 		}
-		
+
 		if (relationship_code == "NBRO") {
 			var i = 0;
 			while (personal_information["brother_" + i] != null) i++;
@@ -657,7 +658,7 @@ function parse_xml(data) {
 			relative.relationship = 'daughter';
 			personal_information["daughter_" + i] = relative;
 		}
-		
+
 		if (relationship_code == "MAUNT") {
 			var i = 0;
 			while (personal_information["maternal_aunt_" + i] != null) i++;
@@ -682,18 +683,18 @@ function parse_xml(data) {
 			relative.relationship = 'paternal_uncle';
 			personal_information["paternal_uncle_" + i] = relative;
 		}
-		
+
 		if (relationship_code == "HBRO") {
 			if ($(this).find("relationshipHolder > relative").html().indexOf("NMTH") > -1) {
 				var i = 0;
 				while (personal_information["maternal_halfbrother_" + i] != null) i++;
 				relative.relationship = 'maternal_halfbrother';
-				personal_information["maternal_halfbrother_" + i] = relative;				
+				personal_information["maternal_halfbrother_" + i] = relative;
 			} else {
 				var i = 0;
 				while (personal_information["paternal_halfbrother_" + i] != null) i++;
 				relative.relationship = 'paternal_halfbrother';
-				personal_information["paternal_halfbrother_" + i] = relative;				
+				personal_information["paternal_halfbrother_" + i] = relative;
 			}
 		}
 		if (relationship_code == "HSIS") {
@@ -701,12 +702,12 @@ function parse_xml(data) {
 				var i = 0;
 				while (personal_information["maternal_halfsister_" + i] != null) i++;
 				relative.relationship = 'maternal_halfsister';
-				personal_information["maternal_halfsister_" + i] = relative;				
+				personal_information["maternal_halfsister_" + i] = relative;
 			} else {
 				var i = 0;
 				while (personal_information["paternal_halfsister_" + i] != null) i++;
 				relative.relationship = 'paternal_halfsister';
-				personal_information["paternal_halfsister_" + i] = relative;				
+				personal_information["paternal_halfsister_" + i] = relative;
 			}
 		}
 
@@ -715,26 +716,26 @@ function parse_xml(data) {
 			var i = 0;
 			while (personal_information["maternal_halfbrother_" + i] != null) i++;
 			relative.relationship = 'maternal_halfbrother';
-			personal_information["maternal_halfbrother_" + i] = relative;				
+			personal_information["maternal_halfbrother_" + i] = relative;
 		}
 		if (relationship_code == "MHSIS") {
 			var i = 0;
 			while (personal_information["maternal_halfsister_" + i] != null) i++;
 			relative.relationship = 'maternal_halfsister';
-			personal_information["maternal_halfsister_" + i] = relative;				
+			personal_information["maternal_halfsister_" + i] = relative;
 		}
 // Paternal HalfSiblings
 		if (relationship_code == "PHBRO") {
 			var i = 0;
 			while (personal_information["paternal_halfbrother_" + i] != null) i++;
 			relative.relationship = 'paternal_halfbrother';
-			personal_information["paternal_halfbrother_" + i] = relative;				
+			personal_information["paternal_halfbrother_" + i] = relative;
 		}
 		if (relationship_code == "PHSIS") {
 			var i = 0;
 			while (personal_information["paternal_halfsister_" + i] != null) i++;
 			relative.relationship = 'paternal_halfsister';
-			personal_information["paternal_halfsister_" + i] = relative;				
+			personal_information["paternal_halfsister_" + i] = relative;
 		}
 
 		if (relationship_code == "NEPHEW") {
@@ -787,12 +788,12 @@ function parse_xml(data) {
 			relative.relationship = 'granddaughter';
 			personal_information["granddaughter_" + i] = relative;
 		}
-		
+
 		relative = null;
 	});
-	
+
 //	alert (JSON.stringify(personal_information, null, 2));
-	
+
 }
 
 function get_specific_health_issue (relative_name, data) {
@@ -834,7 +835,7 @@ function get_specific_health_issue (relative_name, data) {
   	if (diseaseCode=='OTHER') { specific_health_issue["Disease Code"] = 'other-undefined'}
   	if (diseaseCodeSystem + "-" + diseaseCode == 'SNOMED_CT-OTHER' || diseaseCode == 'undefined') {
   		add_other_disease(detailedDiseaseName);
-  	}  	
+  	}
 	return specific_health_issue;
 }
 
@@ -891,12 +892,12 @@ function make_disease_array () {
 		for (var j=0; j<diseases[keys[i]].length; j++) {
 		disease_list.push(diseases[keys[i]][j]);
 		}
-	}	
+	}
 }
 */
 function load_ethnicity(node) {
 	// Race and Ethnicity
-	ethnicity = new Object(); 
+	ethnicity = new Object();
 	node.find("patientPerson > ethnicGroupCode").each(function () {
 		ethnicity_tag = $(this).attr("displayName");
 		ethnicity[ethnicity_tag] = true;
@@ -905,7 +906,7 @@ function load_ethnicity(node) {
 }
 
 function load_race(data) {
-	race = new Object(); 
+	race = new Object();
 	$(data).find("patientPerson > raceCode").each(function () {
 		race_tag = $(this).attr("displayName");
 
@@ -921,7 +922,7 @@ function load_race(data) {
 
 function get_age_at_diagnosis (xml_snippet) {
 	if (xml_snippet == null) return null;
-	
+
 	if (xml_snippet.html() && xml_snippet.html().indexOf("pre-birth") > -1) return 'prebirth';
 	var estimated_age = xml_snippet.html();
 	if (estimated_age && estimated_age.indexOf('unit="day"') > -1) {
@@ -932,7 +933,7 @@ function get_age_at_diagnosis (xml_snippet) {
 		if (estimated_age.indexOf('value="2"') > -1) return "child";
 		if (estimated_age.indexOf('value="10"') > -1) return "teen";
 		if (estimated_age.indexOf('value="11"') > -1) return "teen";
-		if (estimated_age.indexOf('value="20"') > -1) return "twenties"; 
+		if (estimated_age.indexOf('value="20"') > -1) return "twenties";
 		if (estimated_age.indexOf('value="30"') > -1) return "thirties";
 		if (estimated_age.indexOf('value="40"') > -1) return "fourties";
 		if (estimated_age.indexOf('value="50"') > -1) return "fifties";
@@ -959,7 +960,7 @@ function get_disease_code_from_detailed_disease(detailedDiseaseName) {
 		}
 	}
 	return null; // No disease code found
-	
+
 }
 function get_detailed_disease_name_from_code(disease_code) {
 	// Must search through every code until we have a match,
