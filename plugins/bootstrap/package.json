@@ -30,7 +30,7 @@
     "karma-jasmine": "^0.3.5",
     "node-markdown": "0.1.1",
     "semver": "^4.3.3",
-    "shelljs": "^0.4.0"
+    "shelljs": "^0.8.5"
   },
   "license": "MIT"
 }
