@@ -1,0 +1,60 @@
+
+body {
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-style: normal;
+}
+
+.button_area {
+  display:flex;
+  flex-wrap: wrap;
+}
+
+.title {
+  color:#109DBB;
+  font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+  font-size: 1.5em;
+  font-style: normal;
+  font-weight: bold;
+}
+.banner {
+  background-color: #e29b1c;
+  display:flex;
+  flex-wrap: wrap;
+}
+.bubble {
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 5px;
+  margin: 5px;
+  color: #fff;
+  cursor: pointer;
+  background-color: #337AB7;
+  width: fit-content;
+}
+.help {
+  float: right;
+}
+
+.option {
+  padding-left:20px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items: center;
+}
+.section {
+  padding:20px;
+}
+.fhh_title {
+  background-color:#f8d290;
+}
+.disabled {
+  background-color: #888888;
+
+}
+
+.mobile_hide { display: inline; }
+
+/* Smartphone Portrait and Landscape */
+@media only screen and (max-width : 480px) {
+   .mobile_hide { display: none;}
+}

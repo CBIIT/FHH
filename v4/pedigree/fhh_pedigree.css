@@ -1,0 +1,75 @@
+
+.fhh_card {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  box-shadow: 5px 5px #CCC;
+  display:flex;
+  flex-wrap:wrap;
+  padding-bottom:5px;
+  margin:10px;
+  font-size:14px
+
+}
+
+.fhh_title {
+  background-color:ddd;
+  border-bottom:1px solid black;
+  width:100%;
+  padding:5px;
+  text-align:left;
+}
+
+.fhh_picture_box {
+  float:left;
+}
+
+.fhh_stats_box {
+  width:180px;
+  float:left;
+  padding:5px;
+}
+
+.fhh_picture_stats_box {
+  padding:5px;
+}
+
+.fhh_race_ethnicity_box {
+  flex-grow: 1;
+  float:left;
+  padding:10px;
+}
+
+.fhh_disease_box {
+  width:100%;
+  float:left;
+  padding:10px;
+}
+
+.fhh_turn_on_removing {
+  background-color:#FFC;
+  border:1px solid grey;
+}
+
+.fhh_turn_on_editing {
+  background-color:#FFC;
+  cursor:pointer;
+  border:1px solid grey;
+  position: relative;
+}
+.fhh_turn_on_editing::after{
+	content: "edit";
+  position: absolute;
+  top: 2;
+  right: 2;
+  z-index: 3;
+  font-size: 8px;
+  color: grey;
+  text-align: right;
+}
+
+.edit_dialog {
+  font-size: small;
+  background-color:EEE;
+}
