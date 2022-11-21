@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, Verdana, sans-serif;
+}
+
+.fhh_family {
+  align-self: center;
+  justify-self: center;
+}
+
+
+.navbar {
+  align-self:baseline;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content: center;
+}
+
+.navbutton {
+  text-align:center;
+  padding:5px;
+}
+
+.blue {
+  background-color:#66D;
+  border:2px solid #44A;
+}
+.blue:hover {
+  background-color: #88F;
+  cursor: pointer;
+}
+
+.green {
+  background-color:#6D6;
+  border:2px solid #4A4;
+}
+.green:hover {
+  background-color: #8F8;
+  cursor: pointer;
+}
+
+.red {
+  background-color:#D66;
+  border:2px solid #A44;
+}
+.red:hover {
+  background-color: #F88;
+  cursor: pointer;
+}
+
+.yellow {
+  background-color:#DD6;
+  border:2px solid #AA4;
+}
+.yellow:hover {
+  background-color: #FF8;
+  cursor: pointer;
+}
+
+.magenta {
+  background-color:#D6D;
+  border:2px solid #A4A;
+}
+.magenta:hover {
+  background-color: #F8F;
+  cursor: pointer;
+}
+
+.cyan {
+  background-color:#6DD;
+  border:2px solid #4AA;
+}
+.cyan:hover {
+  background-color: #8FF;
+  cursor: pointer;
+}
