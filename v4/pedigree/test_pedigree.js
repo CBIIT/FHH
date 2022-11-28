@@ -116,6 +116,12 @@ $(document).ready(function() {
     }
   }
 
+
+  $("#save_svg").click(function() {
+    saveSvg($("#svg")[0], 'test.svg')
+  });
+
+
 });
 
 

@@ -11,6 +11,8 @@ var max_generation = 7;
 var page_x;
 var page_y;
 var object_being_moved;
+var dragging = false;
+var target = null;
 
 (function ( $ ) {
 $.widget("fhh.pedigree",{
@@ -227,9 +229,16 @@ function display_svg(left_side, all_blood_relatives, right_side) {
 
   var diagram = $("#fhh_pedigree");
   var svg = $(createSvg("svg"))
+    .attr("id", "svg")
     .attr('width', diagram_width)
     .attr('height', diagram_height);
   diagram.empty().append(svg);
+
+  // Add event listeners HERE
+  svg.on("mouseup", function (e) { stop_dragging(e); });
+  svg.on("mousemove", function (e) { if(dragging) drag_object(e); } );
+  svg.on("mouseleave", function (e) { stop_dragging(e); } );
+
 
   var already_part_of_couple = [];
 
@@ -314,10 +323,10 @@ function draw_couple(svg, couple) {
 
   if (male_id) {
     if (data["people"][male_id] && data["people"][male_id]["miscarriage"]) draw_miscarriage(svg, male_id, location, generation, "male");
-    else draw_male (svg, male_id, location, generation);
+    else draw_male (svg, male_id, female_id, location, generation);
     if (data["people"][male_id]) {
       var name = data["people"][male_id]["name"];
-      draw_details (svg, male_id, location, generation, true);
+      draw_details (svg, male_id, female_id, location, generation, true);
 
       connect_to_parent(svg, male_id, "Male", offset, generation, location);
     }
@@ -326,21 +335,21 @@ function draw_couple(svg, couple) {
   if (female_id) {
     if (data["people"][female_id] && data["people"][female_id]["miscarriage"]) draw_miscarriage(svg, female_id, location, generation, "female");
     else if (data["people"][female_id] && data["people"][female_id]['demographics'] && data["people"][female_id]['demographics']['gender'] == "Female") {
-      draw_female (svg, female_id, location, generation);
+      draw_female (svg, female_id, male_id, location, generation);
     } else if (female_id == "Unknown") {
-      draw_female (svg, female_id, location, generation);
+      draw_female (svg, female_id, male_id, location, generation);
     } else {
       draw_unknown (svg, female_id, location, generation);
     }
     var name = "";
     if (data["people"][female_id] && data["people"][female_id]["name"]) name = data["people"][female_id]["name"];
-    draw_details(svg, female_id, location, generation, false);
+    draw_details(svg, female_id, male_id, location, generation, false);
 
     connect_to_parent(svg, female_id, "Female", offset, generation, location);
   }
 
   if (male_id && female_id) {
-    draw_link (svg, location, generation);
+    draw_link (svg, male_id, female_id, location, generation);
   }
 }
 
@@ -349,7 +358,7 @@ function draw_paternal_half_sibling_parent(svg, father_id) {
   var nonblood_mother_pedigree = find_last_child_pedigree(father_id);
 
   console.log(nonblood_mother_pedigree);
-  draw_female (svg, "Unknown", nonblood_mother_pedigree["location"], nonblood_mother_pedigree["generation"]+1);
+  draw_female (svg, "Unknown", father_id, nonblood_mother_pedigree["location"], nonblood_mother_pedigree["generation"]+1);
   var father_pedigree = data["people"][father_id]["pedigree"];
   draw_paternal_long_link(svg, nonblood_mother_pedigree["location"], father_pedigree["location"], father_pedigree["generation"]);
 }
@@ -359,12 +368,12 @@ function draw_maternal_half_sibling_parent(svg, mother_id) {
   var nonblood_father_pedigree = find_last_child_pedigree(mother_id);
 
   console.log(nonblood_father_pedigree);
-  draw_male (svg, "Unknown", nonblood_father_pedigree["location"], nonblood_father_pedigree["generation"]+1);
+  draw_male (svg, "Unknown", mother_id, nonblood_father_pedigree["location"], nonblood_father_pedigree["generation"]+1);
   var mother_pedigree = data["people"][mother_id]["pedigree"];
   draw_maternal_long_link(svg, nonblood_father_pedigree["location"], mother_pedigree["location"], mother_pedigree["generation"]);
 }
 
-function draw_details (svg, id, location, generation, male=true) {
+function draw_details (svg, id, partner_id, location, generation, male=true) {
   var lines = [];
   var person_details = data["people"][id];
 
@@ -438,6 +447,8 @@ function draw_details (svg, id, location, generation, male=true) {
       else gender_offset = 2*unit;
       var text = $(createSvg("text"))
         .attr("x", x+gender_offset).attr("y", y+unit/2 + 20 +(index*20) )
+        .attr("id", id)
+        .attr("partner_id", partner_id)
         .attr("font-family", "arial")
         .attr("font-size", fs)
         .attr("font-weight", fw)
@@ -454,6 +465,7 @@ function draw_details (svg, id, location, generation, male=true) {
       }
       var text = $(createSvg("text"))
         .attr("x", x+gender_offset).attr("y", y+unit/2 + 20 +(index*20) )
+        .attr("id", id)
         .attr("font-family", "arial")
         .attr("font-size", fs)
         .attr("font-weight", fw)
@@ -465,7 +477,7 @@ function draw_details (svg, id, location, generation, male=true) {
   });
 }
 
-function draw_male(svg, id, location, generation) {
+function draw_male(svg, id, partner_id, location, generation) {
 
   var x = (offset+location)*space;
   var y = (max_generation - generation)*vertical;
@@ -478,8 +490,14 @@ function draw_male(svg, id, location, generation) {
   if (data["people"][id] && data["people"][id]['partners']) color = 'grey';
   if (data["people"][id] && data["people"][id]["blood"]) color = "yellow";
 
+  // Set the actual map location of the person_id
+  if (data["people"][id]) {
+    data["people"][id]["map"] = {"x": x, "y": y}
+  }
+
   var rect = $(createSvg("rect"))
     .attr("id",id)
+    .attr("partner_id", partner_id)
     .attr("x",x-unit/2).attr("y",y-unit/2)
     .attr("height",unit).attr("width",unit)
     .attr("stroke","black")
@@ -488,6 +506,7 @@ function draw_male(svg, id, location, generation) {
   if (id && id != "Unknown" && has_parent) {
     var line = $(createSvg("line"))
       .attr("id", id)
+      .attr("partner_id", partner_id)
       .attr("x1",x).attr("y1",y-unit/2)
       .attr("x2",x).attr("y2",y-unit)
       .attr("stroke","black");
@@ -496,8 +515,10 @@ function draw_male(svg, id, location, generation) {
     svg.append(line);
   }
 //  rect.on("click", function (e) { sayHi(e)});
-  rect.on("mousedown", function (e) { start_dragging (e) });
-  rect.on("mouseup", function (e) { stop_dragging (e) });
+  rect.on("mousedown", function (e) { start_dragging(e); });
+//  rect.on("mouseup", function (e) { stop_dragging(e); });
+//  rect.on("mousemove", function (e) { if(dragging) drag_object(e); } );
+//  rect.on("mouseout", function (e) { stop_dragging(e); } );
 
   if (data["people"][id] && data["people"][id]["deceased"]) {
     var line = $(createSvg("line"))
@@ -526,7 +547,7 @@ function draw_male(svg, id, location, generation) {
 }
 
 // Functions to help with drawing
-function draw_female(svg, id, location, generation) {
+function draw_female(svg, id, partner_id, location, generation) {
   var x = ((offset+location)*space)+2*unit;
   var y = (max_generation - generation)*vertical;
 
@@ -540,17 +561,24 @@ function draw_female(svg, id, location, generation) {
   if (data["people"][id] && data["people"][id]['partners']) color = 'grey';
   if (data["people"][id] && data["people"][id]["blood"]) color = "yellow";
 
+  // Set the actual map location of the person_id
+  if (data["people"][id]) {
+    data["people"][id]["map"] = {"x": x, "y": y}
+  }
+
   var circle = $(createSvg("circle"))
     .attr("id",id)
+    .attr("partner_id", partner_id)
     .attr("cx",x).attr("cy",y)
     .attr("r",unit/2)
     .attr("stroke","black")
     .attr("fill",color);
   svg.append(circle);
-  circle.on("click", function (e) { sayHi(e)});
+//  circle.on("click", function (e) { sayHi(e)});
   if (id && id != "Unknown" && has_parent) {
     var line = $(createSvg("line"))
       .attr("id", id)
+      .attr("partner_id", partner_id)
       .attr("x1",x).attr("y1",y-unit/2)
       .attr("x2",x).attr("y2",y-unit)
       .attr("stroke","black");
@@ -558,6 +586,12 @@ function draw_female(svg, id, location, generation) {
     if (data["people"][id] && data["people"][id]["adopted_in"]) line.attr("stroke-dasharray", "2");
     svg.append(line);
   }
+
+//  rect.on("click", function (e) { sayHi(e)});
+  circle.on("mousedown", function (e) { start_dragging(e); });
+//  circle.on("mouseup", function (e) { stop_dragging(e); });
+//  circle.on("mousemove", function (e) { if(dragging) drag_object(e); } );
+//  circle.on("mouseout", function (e) { stop_dragging(e); } );
 
   if (data["people"][id] && data["people"][id]["deceased"]) {
     var line = $(createSvg("line"))
@@ -595,6 +629,11 @@ function draw_unknown(svg, id, location, generation) {
   var has_parent = false;
   if (data["people"][id] && data["people"][id]["father"]) has_parent = true;
   if (data["people"][id] && data["people"][id]["mother"]) has_parent = true;
+
+  // Set the actual map location of the person_id
+  if (data["people"][id]) {
+    data["people"][id]["map"] = {"x": x, "y": y}
+  }
 
   var points = "";
   points += (x) + "," + (y-unit/2) + " ";
@@ -798,7 +837,7 @@ function draw_adopted(svg, gender, location, generation) {
 }
 
 
-function draw_link(svg, location, generation) {
+function draw_link(svg, male_id, female_id, location, generation) {
   var x = (offset+location)*space+unit;
   var y = (max_generation - generation)*vertical;
 
@@ -809,11 +848,17 @@ function draw_link(svg, location, generation) {
 
 
   var line = $(createSvg("line"))
+    .attr("male_id",male_id)
+    .attr("female_id",female_id)
+    .attr("type","connector")
     .attr("x1",x1).attr("y1",y1)
     .attr("x2",x2).attr("y2",y2)
     .attr("stroke","black");
   svg.append(line);
   var line = $(createSvg("line"))
+    .attr("male_id",male_id)
+    .attr("female_id",female_id)
+    .attr("type","link")
     .attr("x1",x).attr("y1",y)
     .attr("x2",x).attr("y2",y+vertical-unit)
     .attr("stroke","black");
@@ -869,8 +914,13 @@ function draw_maternal_long_link(svg, nonblood_location, blood_location, generat
 
 }
 
-function draw_connector(svg, x1, y1, x2, y2) {
+function draw_connector(svg, id, partner_id, father_id, mother_id, x1, y1, x2, y2) {
   var line = $(createSvg("line"))
+    .attr("child_id", id)
+    .attr("partner_child_id", partner_id)
+    .attr("father_id", father_id)
+    .attr("mother_id", mother_id)
+    .attr("x1",x1).attr("y1",y1)
     .attr("x1",x1).attr("y1",y1)
     .attr("x2",x2).attr("y2",y2)
     .attr("stroke","black");
@@ -889,6 +939,11 @@ function connect_to_parent(svg, id, gender, offset, generation, location) {
   var father_id = data["people"][id]["father"];
   var mother_id = data["people"][id]["mother"];
 
+  // Need partner to keep connection with their parents
+  var partner_id = null;
+  if (data["people"][id]["partners"]) partner_id = data["people"][id]["partners"][0];
+
+  var parent_id;
   // Will Have to Go Back to determine Half-Siblings connection
   if (father_id == "Unknown") {
     console.log("Father Unknown");
@@ -897,7 +952,7 @@ function connect_to_parent(svg, id, gender, offset, generation, location) {
     var nonblood_location = nonblood_pedigree["location"];
 
     console.log(location + "," + nonblood_location);
-    draw_connector(svg, (location+offset)*space+gender_offset, (max_generation-generation)*vertical-unit,
+    draw_connector(svg, id, partner_id, null, mother_id, (location+offset)*space+gender_offset, (max_generation-generation)*vertical-unit,
                         (nonblood_location+offset)*space-unit,(max_generation-generation)*vertical-unit);
 
   } else if (mother_id == "Unknown") {
@@ -907,7 +962,7 @@ function connect_to_parent(svg, id, gender, offset, generation, location) {
     var nonblood_location = nonblood_pedigree["location"];
 
     console.log(location + "," + nonblood_location);
-    draw_connector(svg, (location+offset)*space+gender_offset, (max_generation-generation)*vertical-unit,
+    draw_connector(svg, id, partner_id, father_id, null, (location+offset)*space+gender_offset, (max_generation-generation)*vertical-unit,
                         (nonblood_location+offset)*space+(3*unit), (max_generation-generation)*vertical-unit);
 
   } else if (father_id && data['people'][father_id]['pedigree']) {
@@ -918,7 +973,7 @@ function connect_to_parent(svg, id, gender, offset, generation, location) {
 
   if (parental_pedigree) {
     var parental_parent_location = parental_pedigree["location"];
-    draw_connector(svg, (location+offset)*space+gender_offset, (max_generation-generation)*vertical-unit,
+    draw_connector(svg, id, partner_id, father_id, mother_id, (location+offset)*space+gender_offset, (max_generation-generation)*vertical-unit,
                         (parental_parent_location+offset)*space+unit,(max_generation-generation)*vertical-unit);
   }
 }
@@ -952,6 +1007,7 @@ function draw_proband_arrow (svg, offset) {
 
   var polygon = $(createSvg("polygon"))
     .attr("points", points)
+    .attr("proband_id",proband_id)
     .attr("stroke","black")
     .attr("fill","black");
   svg.append(polygon);
@@ -959,6 +1015,7 @@ function draw_proband_arrow (svg, offset) {
   var line = $(createSvg("line"))
     .attr("x1",x1).attr("y1",proband_center_y)
     .attr("x2",x2).attr("y2",proband_center_y)
+    .attr("proband_id",proband_id)
     .attr("stroke","black");
   svg.append(line);
 
@@ -1277,26 +1334,144 @@ function sayHi(e) {
 }
 
 function start_dragging(e) {
+  target = e.target;
+
   var id = e.target.attributes.id.value;
+
+  if (id && id != "Unknown") {
+    dragging = true;
+    page_x = e.pageX;
+    page_y = e.pageY;
+
+    // Move to the front
+    $(e.target).appendTo("#svg");
+    console.log (page_x + "," + page_y + " " + id);
+  }
+
+}
+
+function drag_object(e) {
+  var diff_x = page_x - e.pageX;
+  var diff_y = page_y - e.pageY;
   page_x = e.pageX;
   page_y = e.pageY;
+  var id = target.attributes.id.value;
+  var obj = $(target);
 
-  console.log (page_x + "," + page_y + " " + id);
-  $("#" + id).attr("fill", "green");
-  $("#" + id).attr("x", page_x - 10);
+// First you move the shape representing the person, this also moves the text under the person
+  $('*[id*=' + id + ']').each(function() {
+    move_object(this, diff_x, diff_y);
+  });
 
+  // Then you move the partner of the person
+  $('*[partner_id*=' + id + ']').each(function() {
+    move_object(this, diff_x, diff_y);
+  });
+
+  // The the link between the couple
+  $('*[male_id*=' + id + ']').each(function() {
+    move_link(this, diff_x, diff_y);
+  });
+  $('*[female_id*=' + id + ']').each(function() {
+    move_link(this, diff_x, diff_y);
+  });
+
+  // Now resize the link to the parent if there is done
+  $('*[child_id*=' + id + ']').each(function() {
+    resize_link_child(this, diff_x, diff_y);
+  });
+  $('*[partner_child_id*=' + id + ']').each(function() {
+    resize_link_child(this, diff_x, diff_y);
+  });
+  $('*[father_id*=' + id + ']').each(function() {
+    resize_link_parent(this, diff_x, diff_y);
+  });
+  $('*[mother_id*=' + id + ']').each(function() {
+    resize_link_parent(this, diff_x, diff_y);
+  });
+
+
+}
+
+function move_object(obj, diff_x, diff_y) {
+  if (obj.tagName == "rect") move_rect(obj, diff_x, diff_y);
+  if (obj.tagName == "circle") move_circle(obj, diff_x, diff_y);
+  else if (obj.tagName == "line") move_vertical_line(obj, diff_x, diff_y);
+  else if (obj.tagName == "text") move_text(obj, diff_x, diff_y);
+}
+
+function move_rect(obj, diff_x, diff_y) {
+  var current_x = $(obj).attr("x");
+  var new_x = current_x - diff_x;
+  $(obj).attr("x", new_x);
+}
+
+function move_vertical_line(obj, diff_x, diff_y) {
+  var current_x = $(obj).attr("x1");
+  var new_x = current_x - diff_x;
+  $(obj).attr("x1", new_x);
+  $(obj).attr("x2", new_x);
+
+}
+
+function move_circle(obj, diff_x, diff_y) {
+  var current_x = $(obj).attr("cx");
+  var new_x = current_x - diff_x;
+  $(obj).attr("cx", new_x);
+}
+
+function move_text(obj, diff_x, diff_y) {
+  var current_x = $(obj).attr("x");
+  var new_x = current_x - diff_x;
+  $(obj).attr("x", new_x);
+
+}
+
+function move_link(obj, diff_x, diff_y) {
+  if ($(obj).attr("type") == "connector") {
+    var current_x1 = $(obj).attr("x1");
+    var new_x1 = current_x1 - diff_x;
+    var current_x2 = $(obj).attr("x2");
+    var new_x2 = current_x2 - diff_x;
+    $(obj).attr("x1", new_x1);
+    $(obj).attr("x2", new_x2);
+  } else if ($(obj).attr("type") == "link") {
+    var current_x = $(obj).attr("x1");
+    var new_x = current_x - diff_x;
+    $(obj).attr("x1", new_x);
+    $(obj).attr("x2", new_x);
+  }
+
+}
+
+function resize_link_child(obj, diff_x, diff_y) {
+  var current_x1 = $(obj).attr("x1");
+  var new_x1 = current_x1 - diff_x;
+  $(obj).attr("x1", new_x1);
+}
+
+function resize_link_parent(obj, diff_x, diff_y) {
+  var current_x2 = $(obj).attr("x2");
+  var new_x2 = current_x2 - diff_x;
+  $(obj).attr("x2", new_x2);
 }
 
 function stop_dragging(e) {
-  var id = e.target.attributes.id.value;
-  var diff_x = e.pageX - page_x;
-  var diff_y = e.pageY - page_y;
-
-  console.log (diff_x + "," + diff_y + " " + id);
-  console.log()
+  dragging = false;
+  target = null;
 }
 
-function mouse_is_moving(e) {
-  var id = e.target.attributes.id.value;
-
+// From https://stackoverflow.com/questions/23218174/how-do-i-save-export-an-svg-file-after-creating-an-svg-with-d3-js-ie-safari-an
+function saveSvg(svgEl, name) {
+    svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    var svgData = svgEl.outerHTML;
+    var preface = '<?xml version="1.0" standalone="no"?>\r\n';
+    var svgBlob = new Blob([preface, svgData], {type:"image/svg+xml;charset=utf-8"});
+    var svgUrl = URL.createObjectURL(svgBlob);
+    var downloadLink = document.createElement("a");
+    downloadLink.href = svgUrl;
+    downloadLink.download = name;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
 }
