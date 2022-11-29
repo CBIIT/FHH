@@ -1,15 +1,16 @@
-import csv
 import json
 from faker import Faker
 from datetime import timedelta, date
 import numpy as np
-import pandas as pd
 
 fake = Faker()
+
+#global variable, main data object
+data={}
 #Faker.seed(1)
 
 def create_dod(inDate):
-    # Using builtin support of timedelta, add 18 years (in days accounting for up to 4 leap years), and 100 years as a cap0
+    # Using builtin support of timedelta, add 18 years (in days accounting for up to 4 leap years), and 100 years as a cap
     age_min_offset = 6574
     age_max_offset = 36900
     dod_min  = inDate + timedelta(days=age_min_offset)
@@ -19,115 +20,143 @@ def create_dod(inDate):
     dod_out = fake.date_between_dates(date_start=dod_min, date_end=dod_max)
     return dod_out
 
-'''
-def datagenerate(patients, headers):
-    fake = Faker('en_US')
-    with open("Synthetic_FHH_Data.csv", 'wt') as csvFile:
-        writer = csv.DictWriter(csvFile, fieldnames=headers)
-        writer.writeheader()
 
-        for i in range(patients):
-            sex = np.random.choice(["M", "F"], p=[0.5, 0.5])
-            adopted = np.random.choice(["In", "Out", "No"], p=[0.0023, 0.0002, 0.9975])
-            dob = fake.date_of_birth(minimum_age=18, maximum_age=100)
-            deceased = np.random.choice(["Yes", "No"], p=[0.25, 0.75])
-
-            #multiBirthtype = np.random.choice(["Fraternal", "Identical", "Triplets", " "], p=[0.03, 0.01, 0.005, 0.955])
-
-            race = np.random.choice(["American Indian or Alaskan Native", "Asian", "Native Hawaiian or Other Pacific Islander", "Black or African American", "White", "Other"],
-                p=[0.013, 0.061, 0.003, 0.136, 0.758, 0.029])
-
-            writer.writerow({
-                    "Patient ID": fake.uuid4(),#'01-001' if i==0 else fake.bothify('0#-0##'),     #ADD logic to specify the age for 01-001 for generation
-                    "First Name": fake.first_name_male() if sex=="M" else fake.first_name_female(),
-                    "Last Name": fake.last_name(),
-                    "Sex": sex,
-                    #Parental Identification: they must not have the same parents and FOR NOW hetero relationships ONLY
-                        #Father ID - implement logic for sex==M, ages within the same age bracket of other parent
-                        #Mother ID - implement logic for sex==F, ages within the same age bracket of other parent
-                    "Adopted": adopted,
-
-                    #Family Name - a static surname drawn from the proband for pedigree title
-
-                    #"Multiple Birth Type": multiBirthtype,
-                    #Multiple birth id must be within the same age bracket, further rules below:
-                        #implement logic for fraternal(dizygotic) and identical (monozygotic), must be two of type per set
-                        #implement logic for triplets which there must be three of type per set, does not matter the sex combo
-
-                    #Spouse Number, the number assigned to spouses based on first marriage = 1 and so on. Might need to be manual input until logic is considered
-                        #Consult Spouse table for info
-                    #Spouse ID
-                        # Implement logic which must be within the same age bracket, date of birth not matching partner, must not have the same parents
-
-                    "Date of Birth":dob,
-                    "Deceased": deceased,
-                    "Date of Death": create_dod(dob) if deceased=="Yes" else " ",
-                    "Race": race,
-                    "Hispanic": 'Hispanic' if race=="Other" else "Not Hispanic"
-
-                    #ICD-o-3 morphology codes & names
-                    #ICD-o-3 sites codes & names, some are based on sex
-                    #ICD 10 codes & names, some are based on sex
-
-                    #ICD 9-CM codes & names, some are based on sex
-
-                    })
-'''
-
-def datagenerate_person(person_id, father = None, mother = None):
-
-    #print("making proband")
-    sex = np.random.choice(["M", "F"], p=[0.5, 0.5])
+def datagenerate_person(person_id, sex, father = None, mother = None, p_gpa = None, p_gma = None, m_gpa = None, m_gma = None):
+    
+    #sex = np.random.choice(["Male", "Female"], p=[0.5, 0.5]) 
+        #how to put the random sex in the siblings and potentially the generations below proband
     adopted = np.random.choice(["In", "Out", "No"], p=[0.0023, 0.0002, 0.9975])
     dob = fake.date_of_birth(minimum_age=18, maximum_age=100)
-    deceased = np.random.choice(["Yes", "No"], p=[0.25, 0.75])
+    dob_string = dob.strftime('%m/%d/%Y')
+    deceased = bool(np.random.choice([True, False], p=[0.25, 0.75]))
     #multiBirthtype = np.random.choice(["Fraternal", "Identical", "Triplets", " "], p=[0.03, 0.01, 0.005, 0.955])
-    race = np.random.choice(["American Indian or Alaskan Native", "Asian", "Native Hawaiian or Other Pacific Islander", "Black or African American", "White", "Other"],
+    race = np.random.choice(["American Indian or Alaskan Native", "Asian", "Native Hawaiian or Other Pacific Islander", "Black or African American", "White", "Other"], 
         p=[0.013, 0.061, 0.003, 0.136, 0.758, 0.029])
+    first_name = fake.first_name_male() if sex=="Male" else fake.first_name_female() 
+    last_name = fake.last_name()
 
-    person = {
+    proband = {
+            "name": first_name + " " + last_name,
             "Patient ID": person_id,
-            "First Name": fake.first_name_male() if sex=="M" else fake.first_name_female(),
-            "Last Name": fake.last_name(),
-            "Sex": sex,
-            "Adopted": adopted,
-            "Date of Birth":dob.strftime("%m/%d/%Y"),
-            "Deceased": deceased,
-            "Date of Death": create_dod(dob).strftime("%m/%d/%Y") if deceased=="Yes" else " ",
+            "demographics": {
+                "gender": sex,
+                "birthdate":dob_string,
+            },
+
+            "adopted": adopted,
+            "deceased": deceased,
+            "Date of Death": create_dod(dob).strftime('%m/%d/%Y') if deceased==True else " ",
             "Race": race,
-            "Ethnicity": 'Hispanic' if race=="Other" else "Not Hispanic"
+            "Ethnicity": 'Hispanic' if race=="Other" else "Not Hispanic"        
     }
 
     if(father is not None):
-        person["father"] = father
-
+        proband["father"] = father
+    
     if(mother is not None):
-        person["mother"] = mother
+        proband["mother"] = mother
 
-    return(person)
+################################################
+  #For Paternal Grandparents of Proband
+    if(p_gpa is not None):
+        father["father"] = p_gpa
+    
+    if(p_gma is not None):
+        father["mother"] = p_gma
+
+#############################################    
+  #For Maternal Grandparents of Proband
+    if(m_gpa is not None):
+        mother["father"] = m_gpa        
+
+    if(m_gma is not None):
+        mother["mother"] = m_gma
+
+    return(proband)    
+
+###############################################
+
+def make_children(num_children, father_id, mother_id):
+    children = []
+    for i in range(num_children):
+        person_id = fake.uuid4()
+        sex_assigned = np.random.choice(["Male", "Female"], p=[0.5, 0.5]) 
+        person = datagenerate_person(person_id, sex_assigned, father_id, mother_id)
+        #print(person_id)
+        children.append(person_id)
+        data["people"][person_id] = person
+    return children
+
+###############################################
+
+    #implemention of diseases, using a sample from PPB noncancers
+
+##############################################################################################################
 
 if __name__ == '__main__':
-    print("starting")
-    data = {}
-    proband_id = fake.uuid4();
+    proband_id = fake.uuid4()
+    father_id = fake.uuid4()
+    mother_id = fake.uuid4()
+    
+    p_gpa_id = fake.uuid4()
+    p_gma_id = fake.uuid4()
+    
+    m_gpa_id = fake.uuid4()
+    m_gma_id = fake.uuid4()
+    
+    probandsex = np.random.choice(["Male", "Female"], p=[0.5, 0.5])
+########################################################
 
-    #patients = 10
-    headers = ["Patient ID", "First Name", "Last Name", "Sex", "Adopted", "Date of Birth", "Deceased", "Date of Death", "Race", "Ethnicity"]
-    #datagenerate(patients, headers)
+    proband = datagenerate_person(proband_id, probandsex, father_id, mother_id)
 
-    father_id = fake.uuid4();
-    father = datagenerate_person(father_id)
-    mother_id = fake.uuid4();
-    mother = datagenerate_person(mother_id)
-    #p_grandfather = datagenerate_person()
-    #p_grandmother = datagenerate_person()
-    #m_grandfather = datagenerate_person()
-    #m_grandmother = datagenerate_person()
+    father = datagenerate_person(father_id, "Male", p_gpa_id, p_gma_id)
+    mother = datagenerate_person(mother_id, "Female", m_gpa_id, m_gma_id)
+    
+    p_gpa = datagenerate_person(p_gpa_id, "Male")
+    p_gma = datagenerate_person(p_gma_id, "Female")
 
-    person = datagenerate_person(proband_id, father_id, mother_id)
+    m_gpa = datagenerate_person(m_gpa_id, "Male")
+    m_gma = datagenerate_person(m_gma_id, "Female")
 
-    data["proband_id"] = proband_id
-    #print(person)
-    print(json.dumps(person, indent=4))
+#######################################################
 
-    #print("CSV generation complete!")
+    data["proband"] = proband_id
+    data["people"] = {}
+
+    data["people"][proband_id] = proband
+    data["people"][father_id] = father
+    data["people"][mother_id] = mother
+
+    data["people"][p_gpa_id] = p_gpa
+    data["people"][p_gma_id] = p_gma
+    data["people"][m_gpa_id] = m_gpa
+    data["people"][m_gma_id] = m_gma
+
+#######################################################
+
+    #num_children = 1
+    num_children = np.random.randint(1, 4)
+    siblings = make_children(num_children, father_id, mother_id)
+    fathers_siblings = make_children(num_children, p_gpa_id, p_gma_id)
+    mothers_siblings = make_children(num_children, m_gpa_id, m_gma_id)
+    proband_children = make_children(num_children, proband_id, None)
+
+    for person_id in siblings:
+        siblings_children = make_children(num_children, person_id, None)
+
+    for person_id in fathers_siblings:
+        fathers_siblings_children = make_children(num_children, person_id, None)
+
+    for person_id in mothers_siblings:
+        mothers_siblings_children = make_children(num_children, person_id, None)
+
+    for person_id in proband_children:
+        proband_grandchildren = make_children(num_children, person_id, None)
+
+
+    print(json.dumps(data, indent=4))
+    
+    #print(siblings)
+    #print(fathers_siblings)
+    #print(mothers_siblings)
+    #print(grandchildren)
