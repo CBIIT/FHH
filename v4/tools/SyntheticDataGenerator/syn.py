@@ -41,11 +41,11 @@ def datagenerate_person(person_id, sex, father = None, mother = None, p_gpa = No
             "demographics": {
                 "gender": sex,
                 "birthdate":dob_string,
+                "deathdate":create_dod(dob).strftime('%m/%d/%Y') if deceased==True else "",
             },
 
             "adopted": adopted,
             "deceased": deceased,
-            "Date of Death": create_dod(dob).strftime('%m/%d/%Y') if deceased==True else " ",
             "Race": race,
             "Ethnicity": 'Hispanic' if race=="Other" else "Not Hispanic"        
     }
@@ -134,8 +134,8 @@ if __name__ == '__main__':
 
 #######################################################
 
-    #num_children = 1
-    num_children = np.random.randint(1, 4)
+    num_children = 1
+    #num_children = np.random.randint(1, 4)
     siblings = make_children(num_children, father_id, mother_id)
     fathers_siblings = make_children(num_children, p_gpa_id, p_gma_id)
     mothers_siblings = make_children(num_children, m_gpa_id, m_gma_id)
