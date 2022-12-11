@@ -2649,13 +2649,13 @@ function clear_and_set_current_family_member_health_history_dialog(family_member
 	if (family_member.gender == "FEMALE") $('#family_member_info_form_gender_female').prop('checked', true);
 	else $('#family_member_info_form_gender_female').prop('checked', false);
 
-	if (relationship_name == 'maternal_cousin' || relationship_name == 'paternal_cousin') {
+	//if (relationship_name == 'maternal_cousin' || relationship_name == 'paternal_cousin') {
 		$('#family_member_info_form_gender_male').prop('disabled', false);
 		$('#family_member_info_form_gender_female').prop('disabled', false);
-	} else {
-		$('#family_member_info_form_gender_male').prop('disabled', true);
-		$('#family_member_info_form_gender_female').prop('disabled', true);
-	}
+	//} else {
+		//$('#family_member_info_form_gender_male').prop('disabled', true);
+		//$('#family_member_info_form_gender_female').prop('disabled', true);
+	//}
 
 	$("#age_determination_text").val(family_member.date_of_birth);
 	$("#family_member_info_form_date_of_birth").val(family_member.date_of_birth);

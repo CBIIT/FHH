@@ -2,18 +2,14 @@
 <link rel="stylesheet" type="text/css" href="../risk/heart/heart.css">
 
 <div id="heart_content">
-	<h1 class='title_bar translate' data-i18n="fhh_heart_calculator.title_bar"> Your Premature Heart Disease Familial Risk
-		Information </h1><br />
+	<h1 class='title_bar translate' data-i18n="fhh_heart_calculator.title_bar"> Your Heart Disease Family Health History Risk Information </h1><br />
 
 	<P class='instructions translate' data-i18n="fhh_heart_calculator.instruction1">On this screen you can:</P>
 	<UL>
-		<LI class='instructions translate' data-i18n="fhh_heart_calculator.instruction2">Get your risk for premature heart disease
-			 based on your personal and family history information</LI>
-		<LI class='instructions translate' data-i18n="fhh_heart_calculator.instruction3">Learn which risk factors you
-			may have for premature heart disease</LI>
+		<LI class='instructions translate' data-i18n="fhh_heart_calculator.instruction2">Get your risk for heart disease based on your family history information</LI>
+		<LI class='instructions translate' data-i18n="fhh_heart_calculator.instruction3">Learn which family health history risk factors for heart disease you might have</LI>
 	</UL>
-	<P class='instructions translate' data-i18n="fhh_heart_calculator.instruction5"> This tool will run a series of
-		tests, one at a time, to determine your risk for premature heart disease.</P>
+	<P class='instructions translate' data-i18n="fhh_heart_calculator.instruction5"> This tool will look at the information you provided to determine your family health history risk for heart disease based on that information. Your overall risk for heart disease may be higher or lower depending on other risk factors, such as unhealthy diet, lack of physical activity, smoking, or obesity.</P>
 	<hr />
 	<TABLE id='heart_table'>
 		<TR>
@@ -24,41 +20,131 @@
 			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
 			<TD id='reason'>&nbsp;</TD>
 		</TR>
-		<TR id='family_members_heart_disease_before_50'>
+		<TR id='personal_stroke'>
 			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
 			<TD id='reason'>&nbsp;</TD>
 		</TR>
-	
+		<TR id='personal_diabetes'>
+			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
+			<TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='personal_hypertension'>
+			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
+			<TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='personal_fh'>
+			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
+			<TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='relative_heart_disease_before_50_60'>
+			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
+			<TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='relative_stroke__brain_attack_before_50_60'>
+			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
+			<TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='relative_fh'>
+			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
+			<TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='relative_diabetes'>
+			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
+			<TD id='reason'>&nbsp;</TD>
+		</TR>
+		<TR id='relative_sudden_death_before_50_60'>
+			<TD id='test'><IMG src='../risk/image/blue_waiting_sm.gif' alt='waiting' height='20' /></TD>
+			<TD id='reason'>&nbsp;</TD>
+		</TR>
 		<TR class='heart-final' id='final'>
 			<TD class='heart-final' id='test'><IMG src='../risk/image/blue_waiting.png' alt='waiting' height='40' /></TD>
 			<TD class='heart-final' id='reason'>&nbsp;</TD>
 		</TR>
 	</TABLE>
-	<br /><br />
+	<br/><br />
 	<div id='bottom-area'>
 		<div id='explanation_side' style='float:left;width:700px;'>
-			<TABLE id='explanation_low_risk' style='display:none;'>
-				<TR>
-					<TD>Userful Resources: <br>
-						<ul>
-							<li><a href='https://www.cdc.gov/dhdsp/index.htm' target='_blank'>CDC Heart Disease and Stroke Site</a></li>
-							<li><a href='https://www.heart.org/' target='_blank'>American Heart Association</a></li>
-						</ul>
-					</TD>
-				</TR>
-			</TABLE>
-			<TABLE id='explanation_high_risk' style='display:none;'>
-				<TR>
-					<TD>Userful Resources<br>
-						<ul>
-							<li><a href='https://www.cdc.gov/dhdsp/index.htm' target='_blank'>CDC Heart Disease and Stroke Site</a></li>
-							<li><a href='https://www.heart.org/' target='_blank'>American Heart Association</a></li>
-						</ul>
-					</TD>
-
-
-				</TR>
-			</TABLE>
+			<TABLE id='explanation_low_risk' style='display:none;'><TR>
+				<TD><button id='crca_personal_lower_risk' onClick='submit_low()' style='font-size:18px;font-weight:bold;'> <span class="translate" data-i18n="fhh_colorectal_calculator.button1_line1">Get</span> <br /><span class="translate" data-i18n="fhh_colorectal_calculator.button1_line2">Risk Letter</span> </button></TD>
+        <TD><button id='crca_provider_lower_risk' onClick='submit_low_physician()' style='font-size:18px;font-weight:bold;'> <span class="translate" data-i18n="fhh_colorectal_calculator.button2_line1">Get&nbsp;Risk</span><br /><span class="translate" data-i18n="fhh_colorectal_calculator.button2_line2">Provider&nbsp;Letter</span> </button></TD>
+			</TR></TABLE>			
+			<TABLE id='explanation_high_risk' style='display:none;'><TR>
+				<TD><button id='crca_personal_higher_risk' onClick='submit_high()' style='font-size:18px;font-weight:bold;'> <span class="translate" data-i18n="fhh_colorectal_calculator.button3_line1">Get&nbsp;Increased</span><br /><span class="translate" data-i18n="fhh_colorectal_calculator.button3_line2">Risk&nbsp;Letter</span> </button></TD>
+        <TD><button id='crca_provider_higher_risk' onClick='submit_high_physician()' style='font-size:18px;font-weight:bold;'> <span class="translate" data-i18n="fhh_colorectal_calculator.button4_line1">Get&nbsp;Increased</span><br /><span class="translate" data-i18n="fhh_colorectal_calculator.button4_line2">Risk&nbsp;Provider&nbsp;Letter</span> </button></TD>
+			</TR></TABLE>			
 		</div>
-	</div>
-	</div>
+		<div id='key_side' style='float:right;width:300px;'>
+			<TABLE id='crca_key'>
+				<TR>
+					<TD colspan='4' class="translate" data-i18n="fhh_colorectal_calculator.table_key">Table Key:</TD>
+				</TR>
+				<TR>
+					<TD><IMG src='../risk/image/green_check_sm.gif' alt='No history found' height='20'> </TD><TD colspan='3' class="translate" data-i18n="fhh_colorectal_calculator.no_history_found">No personal or family history with this test</TD>
+					<TD><IMG src='../risk/image/red_x_sm.gif' alt='History found' height='20'> </TD><TD colspan='3' class="translate" data-i18n="fhh_colorectal_calculator.history_found">There was personal or family history with this test</TD></TR>	
+				</TR>
+			</TABLE>			
+		</div>
+		
+		<div id='bottom_info' style='float:left;width:100%;'><hr>
+      <P class='instructions translate' >No risk tool is perfect, and your actual risk may be higher or lower than this. This tool only uses your family health history to determine your risk for heart disease. You may have other risk factors, such as unhealthy diet, lack of physical activity, smoking, or obesity. If you have questions about your heart disease risk, please speak with a health care provider.</P>
+      <P class='instructions translate' >Having a risk factor does not mean that you will definitely get heart disease or have a heart attack. Talk with your doctor about steps you can take to reduce your risk, such as  </P>
+			<UL>
+				<LI class='instructions translate' >Choosing health foods and drinks
+      	</LI>
+		  <LI class='instructions translate' >Choosing health foods and drinks
+		</LI>
+		<LI class='instructions translate'>Keeping or reaching a healthy weight
+		</LI>
+		<LI class='instructions translate' >Not smoking
+		</LI>
+		<LI class='instructions translate' >Checking your cholesterol
+		</LI>
+		<LI class='instructions translate' >Controlling your blood pressure
+		</LI>
+		<LI class='instructions translate' >Managing your diabetes, if you have it
+		</LI>
+		<LI class='instructions translate' >Taking your medicines as directed
+		</LI>
+      </UL>
+
+	  <P class='instructions translate'>This risk tool is based on information from: </P>
+			<UL>
+				<LI class='instructions translate'> Grundy et al. 2018 <A href ='https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7403606/' target='_blank'>AHA/ACC/AACVPR/AAPA/ABC/ACPM/ADA/AGS/ APhA/ASPC/NLA/PCNA Guideline on the Management of Blood Cholesterol: A Report of the American College of Cardiology/American Heart Association Task Force on Clinical Practice Guidelines. </A>J Am Coll Cardiol. 2019; 73:e285-350.
+      	</LI>
+		  <LI class='instructions translate'> Lloyd-Jones et al. <A href ='https://pubmed.ncbi.nlm.nih.gov/30586766/' target='_blank'>Use of Risk Assessment Tools to Guide Decision-Making in the Primary Prevention of Atherosclerotic Cardiovascular Disease: A Special Report From the American Heart Association and American College of Cardiology. </A>Circulation. 2019; 139:e1162-e1177.
+			<LI class='instructions translate'> Moonesinghe et al. <A href ='https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6662130/' target='_blank'>Prevalence and Cardiovascular Health Impact of Family History of Premature Heart Disease in the United States: Analysis of the National Health and Nutrition Examination Survey, 2007-2014. </A>J Am Heart Assoc. 2019; 8:e012364.
+				<LI class='instructions translate'> Ridker et al.<A href ='https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2752381/' target='_blank'> C-Reactive Protein and Parental History Improve Global Cardiovascular Risk Prediction: The Reynolds Risk Score for Men.</A> Circulation. 2008; 118:2243-51.
+					<LI class='instructions translate'> Ridker et al.<A href ='https://pubmed.ncbi.nlm.nih.gov/17299196/' target='_blank'> Development and validation of improved algorithms for the assessment of global cardiovascular risk in women: the Reynolds Risk Score. </A>JAMA. 2007; 297:611-9.
+    
+      </UL>
+
+	  <P class='instructions translate'>More information about heart disease can be found at: </P>
+	  <UL>
+		  <LI class='instructions translate'> <A href ='https://www.cdc.gov/genomics/disease/fh/index.htm' target='_blank'>Heart Disease, Family Health History, and Familial Hypercholesterolemia</A>
+	</LI>
+	<LI class='instructions translate'> <A href ='https://www.cdc.gov/heartdisease/index.htm' target='_blank'>CDC Heart Disease</A>
+	  <LI class='instructions translate'> <A href ='https://millionhearts.hhs.gov/' target='_blank'>Million Hearts® </A>
+</UL>
+
+		</div>
+</div>
+
+<script type="text/javascript">
+
+    function submit_high() {
+
+    window.open('../risk/heart/Heart_Increased_Risk_Patient_Letter_' + lng + '.pdf', "_blank", "fullscreen=no");
+    }
+    function submit_high_physician() {
+        window.open('../risk/heart/Heart_Increased_Risk_Physician_Letter_' + lng + '.pdf', "_blank", "fullscreen=no");
+    }
+
+    function submit_low() {
+        window.open('../risk/heart/Heart_Lower_Risk_Patient_Letter_' + lng + '.pdf', "_blank", "fullscreen=no");
+    }
+
+    function submit_low_physician() {
+        window.open('../risk/heart/Heart_Lower_Risk_Physician_Letter_' + lng + '.pdf', "_blank", "fullscreen=no");
+    }
+
+</script>
