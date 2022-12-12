@@ -61,12 +61,11 @@
 		{"name":"Coronary Artery Disease","abbr":"CAD","code":"53741008","system":"SNOMED_CT"},
 		{"name":"Heart Attack","abbr":"HA","code":"22298006","system":"SNOMED_CT"},
 		{"name":"Heart Disease","abbr":"HD","code":"56265001","system":"SNOMED_CT"},
-		{"name":"Familial Hypercholesterolemia","abbr":"FH","code":"398036000","system":"SNOMED_CT"},
 		{"name":"Unknown Heart Disease","abbr":"UHD","code":"UNHEADIS","system":"SNOMED_CT"}
 	],
 	"High Cholesterol" : [
-		{"name":"High Cholesterol","abbr":"HCH","code":"55822004","system":"SNOMED_CT"},
-		{"name":"Familial Hypercholesterolemia","abbr":"FH","code":"398036000","system":"SNOMED_CT"}
+		{"name":"Familial Hypercholesterolemia","abbr":"FH","code":"398036000","system":"SNOMED_CT"},
+		{"name":"High Cholesterol","abbr":"HCH","code":"55822004","system":"SNOMED_CT"}
 	],
 	"Hypertension": [
 		{"name":"Hypertension","abbr":"HYP","code":"38341003","system":"SNOMED_CT"}
@@ -116,8 +115,11 @@
 	"Stroke/Brain Attack": [
 		{"name":"Stroke/Brain Attack","abbr":"SBA","code":"116288000","system":"SNOMED_CT"}
 	],
-	"Sudden Infant Death Syndrome": [
-		{"name":"Sudden Infant Death Syndrome","abbr":"SIDS","code":"51178009","system":"SNOMED_CT"}
+	"Sudden Death": [
+		{"name":"Sudden Infant Death Syndrome","abbr":"SIDS","code":"51178009","system":"SNOMED_CT"},
+		{"name":"Sudden Death due to Heart Problem","abbr":"SDHP","code":"No_Code_SDHP","system":"SNOMED_CT"},
+		{"name":"Accident/Suicide/Murder","abbr":"ASM","code":"No_Code_ASM","system":"SNOMED_CT"},
+		{"name":"Unknown Cause","abbr":"SDHP","code":"90049009","system":"SNOMED_CT"}
 	],
 	"Unknown Disease": [
 		{"name":"Unknown Disease","abbr":"HD","code":"315645005","system":"SNOMED_CT"}

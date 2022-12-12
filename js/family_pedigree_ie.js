@@ -1318,7 +1318,7 @@ alert("11")
             var DocumentContainer = $(mdialog);
             var WindowObject = window.open('', "Print", "width=800,height=700,top=200,left=200,toolbars=no,scrollbars=yes,status=no,resizable=no");
             WindowObject.document.writeln('<!DOCTYPE html>'
-            + '<html><head><title>MFHP|Disease Matrix|PHGKB</title>'
+            + '<html><head><title>MFHP|Disease Matrix</title>'
             +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
             + $(DocumentContainer).html()
             + '</head><body>');
@@ -1373,7 +1373,7 @@ alert("11")
 
 
             myWindow.document.write('<!DOCTYPE html>'
-            + '<html><head><title>MFHP|Disease Matrix|PHGKB</title>'
+            + '<html><head><title>MFHP|Disease Matrix|</title>'
             +  '<link rel="stylesheet" type="text/css" href="../static/css/pedigree.css" media="all">'
 
                 //+ $(diaelem).html()

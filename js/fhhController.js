@@ -420,7 +420,7 @@ app.controller('tableController', ['$scope', '$modalInstance', '$timeout', '$roo
             header+='<meta http-equiv="cache-control" content="no-cache">'
             header+='<meta http-equiv="expires" content="0">'
             header+='<meta http-equiv="pragma" content="no-cache">'
-            header+='<title>MFHP|PHGKB</title>'
+            header+='<title>MFHP</title>'
             header+='</head>'
 
             if (tableOptions.personal_info) {

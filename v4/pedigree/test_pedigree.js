@@ -1,7 +1,15 @@
 var data = {};
+var config = {};
 
 $(document).ready(function() {
 //  Functions from the top NAVBAR Buttons
+
+  $.getJSON('./pedigree/config.json', function(d) {
+    config = d
+    console.log(config);
+    start_pedigree();
+  });
+
   $("#log").click(function() {
     console.log(data);
   });
@@ -73,58 +81,84 @@ $(document).ready(function() {
 
   });
 
+  $("#save_svg").click(function() {
+    saveSvg($("#svg")[0], 'pedigree.svg')
+  });
+
+});
+
+//// ************************************ ////
+
+function start_pedigree() {
+  console.log(config);
   $(".fhh_pedigree").pedigree();
 
   var queryString = getUrlVars();
+
+  // Config variables will be set from the config file, but can be overridden by the querystring
+  if (config && config.style) $(".fhh_pedigree").pedigree("set_style", config.style);
+
+  var quadrant1, quadrant2, quadrant3, quadrant4;
+  if (config && config.quadrant1) quadrant1 = config.quadrant1;
+  if (config && config.quadrant2) quadrant2 = config.quadrant2;
+  if (config && config.quadrant3) quadrant3 = config.quadrant3;
+  if (config && config.quadrant4) quadrant4 = config.quadrant4;
+  $(".fhh_pedigree").pedigree("set_quadrants", quadrant1, quadrant2, quadrant3, quadrant4);
+
+
+  if (queryString) {
+    update_config_from_querystring(queryString);
+  }
+}
+
+function update_config_from_querystring (queryString) {
   var options = false;
   var quadrant1, quadrant2, quadrant3, quadrant4;
   var style;
 
-  if (queryString) {
-    if (queryString["style"]) {
-      style = queryString["style"];
-      $(".fhh_pedigree").pedigree("set_style", style);
-    }
-    if (queryString["quadrant1"]) {
-      quadrant1_str = queryString["quadrant1"];
-      quadrant1 = quadrant1_str.split(",");
-    }
-    if (queryString["quadrant2"]) {
-      quadrant2_str = queryString["quadrant2"];
-      quadrant2 = quadrant2_str.split(",");
-    }
-    if (queryString["quadrant3"]) {
-      quadrant3_str = queryString["quadrant3"];
-      quadrant3 = quadrant3_str.split(",");
-    }
-    if (queryString["quadrant4"]) {
-      quadrant4_str = queryString["quadrant4"];
-      quadrant4 = quadrant4_str.split(",");
-    }
-    console.log(style);
-    $(".fhh_pedigree").pedigree("set_quadrants", quadrant1, quadrant2, quadrant3, quadrant4);
-
-    if (queryString["family_id"]) {
-      var filename = "sampledata/families/" + queryString["family_id"] + ".json";
-
-      $.getJSON(filename, function(data) {
-        console.log(data);
-        $("#fhh_pedigree").pedigree("data", data);
-        $("#fhh_pedigree").pedigree("display");
-        if (queryString["test"]) check_svg();
-      });
-    }
+  if (queryString["style"]) {
+    style = queryString["style"];
+    $(".fhh_pedigree").pedigree("set_style", style);
   }
+  if (queryString["quadrant1"]) {
+    quadrant1_str = queryString["quadrant1"];
+    quadrant1 = quadrant1_str.split(",");
+  } else {
+    quadrant1 = config.quadrant1;
+  }
+  if (queryString["quadrant2"]) {
+    quadrant2_str = queryString["quadrant2"];
+    quadrant2 = quadrant2_str.split(",");
+  } else {
+    quadrant2 = config.quadrant2;
+  }
+  if (queryString["quadrant3"]) {
+    quadrant3_str = queryString["quadrant3"];
+    quadrant3 = quadrant3_str.split(",");
+  } else {
+    quadrant3 = config.quadrant3;
+  }
+  if (queryString["quadrant4"]) {
+    quadrant4_str = queryString["quadrant4"];
+    quadrant4 = quadrant4_str.split(",");
+  } else {
+    quadrant4 = config.quadrant4;
+  }
+  
+  console.log(style);
+  $(".fhh_pedigree").pedigree("set_quadrants", quadrant1, quadrant2, quadrant3, quadrant4);
 
+  if (queryString["family_id"]) {
+    var filename = "sampledata/families/" + queryString["family_id"] + ".json";
 
-  $("#save_svg").click(function() {
-    saveSvg($("#svg")[0], 'test.svg')
-  });
-
-
-});
-
-
+    $.getJSON(filename, function(data) {
+      console.log(data);
+      $("#fhh_pedigree").pedigree("data", data);
+      $("#fhh_pedigree").pedigree("display");
+      if (queryString["test"]) check_svg();
+    });
+  }
+}
 // Read a page's GET URL variables and return them as an associative array.
 function getUrlVars()
 {
