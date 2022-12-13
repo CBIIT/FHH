@@ -391,6 +391,13 @@ function draw_details (svg, id, partner_id, location, generation, male=true) {
     key_line_num++;
   }
 
+  if (config.show_initials) {
+    lines[line_num] = getFirstLetters(get_full_name(person_details));
+    lines[line_num]
+    line_num += 1;
+    key_line_num++;
+  }
+
   if (config.show_id) {
     if (!config.display_id_size || config.display_id_size < 10) config.display_id_size = 10;
     lines[line_num] = id.substring(0, config.display_id_size);
@@ -399,38 +406,54 @@ function draw_details (svg, id, partner_id, location, generation, male=true) {
     key_line_num++;
   }
   if (config.show_dates) {
-    var dates = get_birth_and_death_dates(person_details);
-    if (dates) {
-      lines[line_num] = dates
+    var birthdate = get_birthdate(person_details);
+    if (birthdate) {
+      lines[line_num] = birthdate
       line_num++;
       key_line_num++;
     }
+    var deathdate = get_deathdate(person_details);
+    if (deathdate) {
+      lines[line_num] = deathdate
+      line_num++;
+      key_line_num++;
+    }
+
   }
 
   if (config.show_diseases && config.key_diseases) {
+    lines[line_num] = "";
     $.each(config.key_diseases, function (index, key_disease) {
       $.each(person_details["diseases"], function (disease, details) {
         if (key_disease.code == details.code) {
-          lines[line_num] = key_disease.shorthand;
+          lines[line_num] += key_disease.shorthand;
           if (config.show_age_of_diagnosis && details.age_of_diagnosis) {
-            lines[line_num] += "(" + details.age_of_diagnosis + ")"
+            lines[line_num] += "(" + Math.floor(details.age_of_diagnosis) + ") "
           }
-          line_num++;
         }
       });
     });
-  }
-  // Old code
-  if (options["show_diseases"] && false) {
-    $.each(person_details["diseases"], function (disease_name, details) {
-      lines[line_num] = disease_name
-      if (details["age_of_diagnosis"]) lines[line_num] = lines[line_num] + " [" + parseInt(details["age_of_diagnosis"]) + "]";
-      line_num++;
-      if (line_num > 3 + options["show_diseases"]) return false; // Only room for diseases to go to row 4
-    });
+    line_num++;
   }
 
-  if (options["show_procedures"]) {
+  if (config.show_procedures && config.key_procedures) {
+    lines[line_num] = "";
+    $.each(config.key_procedures, function (index, key_procedure) {
+      $.each(person_details["procedures"], function (disease, details) {
+        console.log(key_procedure.code + " " + details.code);
+        if (key_procedure.code == details.code) {
+          lines[line_num] += key_procedure.shorthand;
+          if (config.show_age_of_procedure && details.age_at_procedure) {
+            lines[line_num] += "(" + Math.floor(details.age_at_procedure) + ") "
+          }
+        }
+      });
+    });
+    line_num++;
+  }
+
+  // Old Code
+  if (options["show_procedures"]  && false) {
     $.each(person_details["procedures"], function (procedure_name, details) {
       lines[line_num] = procedure_name
       if (details["age_at_procedure"]) lines[line_num] = lines[line_num] + " [" + parseInt(details["age_at_procedure"]) + "]";
@@ -445,7 +468,7 @@ function draw_details (svg, id, partner_id, location, generation, male=true) {
 
 
     var str;
-    if (contents && contents.length > options["max_chars"]) str =  contents.substring(0, options["max_chars"]) + "..";
+    if (contents && contents.length > config.max_chars) str =  contents.substring(0, config.max_chars) + "..";
     else str = contents;
 
     var anchor
@@ -458,47 +481,24 @@ function draw_details (svg, id, partner_id, location, generation, male=true) {
     }
 
     var fw = "normal";
-    var fs = "11"
+    var fs = "14"
     var boldlines = 1;
     var center = false;
 
-    if (options["max_chars"] <= 10) {
-      // This is for compact view, center the text
-      if (index < key_line_num) {
-        fw = "bolder";
-        fs= "16"
-      }
-      if (male) gender_offset = 0;
-      else gender_offset = 2*unit;
-      var text = $(createSvg("text"))
-        .attr("x", x+gender_offset).attr("y", y+unit/2 + 20 +(index*20) )
-        .attr("partner_id", partner_id)
-        .attr("id", id)
-        .attr("font-family", "arial")
-        .attr("font-size", fs)
-        .attr("font-weight", fw)
-        .attr("text-anchor", "middle")
-        .append(str);
-      svg.append(text);
-
-
-    } else {
-      if (index < key_line_num) {
-        fw = "bolder";
-        fs= "16"
-      }
-      var text = $(createSvg("text"))
-        .attr("x", x+gender_offset).attr("y", y+unit/2 + 20 +(index*20) )
-        .attr("partner_id", partner_id)
-        .attr("id", id)
-        .attr("font-family", "arial")
-        .attr("font-size", fs)
-        .attr("font-weight", fw)
-        .attr("text-anchor", anchor)
-        .append(str);
-      svg.append(text);
-
+    if (index < key_line_num) {
+      fw = "bolder";
+      fs= "16"
     }
+    var text = $(createSvg("text"))
+      .attr("x", x+gender_offset).attr("y", y+unit/2 + 20 +(index*20) )
+      .attr("partner_id", partner_id)
+      .attr("id", id)
+      .attr("font-family", "arial")
+      .attr("font-size", fs)
+      .attr("font-weight", fw)
+      .attr("text-anchor", anchor)
+      .append(str);
+    svg.append(text);
   });
 }
 
@@ -512,6 +512,38 @@ function get_full_name(person_details) {
     return person_details["last_name"];
   }
   return "Unknown";
+}
+
+function get_birthdate(person_details) {
+
+  if (person_details["demographics"] && person_details["demographics"]["birthdate"]) {
+    var birthdate = new Date(person_details["demographics"]["birthdate"]);
+    var combined_date = person_details["demographics"]["birthdate"] ;
+    var now = new Date();
+    if (!person_details['deceased']) {
+      var current_age = diff_years(now, birthdate);
+      combined_date += " (" + current_age + "y)"
+    }
+    return combined_date;
+  }
+  return null;
+}
+
+function get_deathdate(person_details) {
+
+  if (person_details["demographics"] && person_details["demographics"]["deathdate"]) {
+    var combined_date = person_details["demographics"]["deathdate"] ;
+
+    if (person_details["demographics"]["birthdate"]) {
+      var deathdate = new Date(person_details["demographics"]["deathdate"]);
+      var birthdate = new Date(person_details["demographics"]["birthdate"]);
+      var age_at_death = diff_years(deathdate, birthdate);
+      combined_date += " (d " + age_at_death + "y)"
+
+    }
+    return combined_date;
+  }
+  return null;
 }
 
 function get_birth_and_death_dates(person_details) {
@@ -1600,5 +1632,14 @@ function saveSvg(svgEl, name) {
 function diff_years(dt2, dt1) {
   var diff =(dt2.getTime() - dt1.getTime()) / 1000;
   diff /= (60 * 60 * 24);
-  return Math.abs(Math.round(diff/365.25));
+  return Math.abs(Math.floor(diff/365.25));
+}
+
+function getFirstLetters(str) {
+  const firstLetters = str
+    .split(' ')
+    .map(word => word[0])
+    .join('');
+
+  return firstLetters;
 }
