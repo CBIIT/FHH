@@ -11,15 +11,25 @@ data={}
 #Faker.seed(1)
 
 def create_dod(inDate):
-    # Using builtin support of timedelta, add 18 years (in days accounting for up to 4 leap years), and 100 years as a cap
+    # Using builtin support of timedelta, add 26 years (in days accounting for up to 4 leap years), and 100 years as a cap
     age_min_offset = 9500       #Minimum age at death is around 26
-    age_max_offset = 36900      #Maximum age at death is aroung 100
+    age_max_offset = 36900      #Maximum age at death is around 100
     dod_min  = inDate + timedelta(days=age_min_offset)
     dod_max = inDate + timedelta(days=age_max_offset)
     if(dod_max - date.today() > timedelta(0)):
         dod_max = date.today()
     dod_out = fake.date_between_dates(date_start=dod_min, date_end=dod_max)
     return dod_out
+
+def diagnosis_date(inDate):
+    age_min_offset = 8365       #Minimum age at diagnosis is around 23
+    age_max_offset = 25555      #Maximum age at diagnosis is around 70
+    diagnosis_min  = inDate + timedelta(days=age_min_offset)
+    diagnosis_max = inDate + timedelta(days=age_max_offset)
+    if(diagnosis_max - date.today() > timedelta(0)):
+        diagnosis_max = date.today()
+    diagnosis_out = fake.date_between_dates(date_start=diagnosis_min, date_end=diagnosis_max)
+    return diagnosis_out
 
 
 #DATAFRAMES MADE FROM READING IN CSV FILES 
@@ -28,17 +38,26 @@ icdo3site = pd.read_csv('ICD_O_3_SITE_CODES.csv')
 icd9 = pd.read_csv('ICD_9_CODES.csv')
 icd10 = pd.read_csv('ICD_10_CODES.csv')
 
-#RANDOMLY SELECTS 1 ROW FROM THE DATAFRAME
-icdo3_morph_sample = icdo3morph.sample()
-icdo3_site_sample = icdo3site.sample()
-icd9sample = icd9.sample()
-icd10sample = icd10.sample()
 
-#MAKES THE ROW SELECTED INTO A STRING, REMOVES THE INDEX & HEADERS FROM ROW & COLUMNS TO CONDENSE IT DOWN
-icdo3_morph_json = icdo3_morph_sample.to_string(index=False, header=False)
-icdo3_site_json = icdo3_site_sample.to_string(index=False, header=False)
-icd9json = icd9sample.to_string(index=False, header=False)
-icd10json = icd10sample.to_string(index=False, header=False)
+def icdo3_morph_output():
+    icdo3_morph_sample = icdo3morph.sample()
+    icdo3_morph_json = icdo3_morph_sample.to_string(index=False, header=False)
+    return icdo3_morph_json
+
+def icdo3_site_output():
+    icdo3_site_sample = icdo3site.sample()
+    icdo3_site_json = icdo3_site_sample.to_string(index=False, header=False)
+    return icdo3_site_json
+
+def icd9_output():
+    icd9sample = icd9.sample()
+    icd9json = icd9sample.to_string(index=False, header=False)
+    return icd9json
+
+def icd10_output():
+    icd10sample = icd10.sample() 
+    icd10json = icd10sample.to_string(index=False, header=False)
+    return icd10json
 
 
 def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa = None, p_gma = None, m_gpa = None, m_gma = None, ):
@@ -61,9 +80,9 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa
     #VARIABLES TO BE USED IN NONTESTING
 
     cancer = np.random.choice(["Yes", "No"], p=[0.75, 0.25])
-    noncancer = np.random.choice(["Yes", "No"], p=[0.80, 0.20])
+    noncancer = np.random.choice(["Yes", "No"], p=[0.75, 0.25])
     procedure = np.random.choice(["Yes", "No"], p=[0.50, 0.50])
-    
+
 
     proband = {
             "name": first_name + " " + last_name,
@@ -74,12 +93,15 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa
                 "deathdate":create_dod(dob).strftime('%m/%d/%Y') if deceased==True else "",
             },
             "diseases":{
-                "icd03morph": icdo3_morph_json if cancer=="Yes" else '',
-                "icdo3site": icdo3_site_json if cancer=="Yes" else '',
-                "icd10": icd10json if noncancer=="Yes" else '',
+                "code/morph": icdo3_morph_output() if cancer=="Yes" else '',
+                "site": icdo3_site_output() if cancer=="Yes" else '',
+                "cancer_date_of_diagnosis": diagnosis_date(dob).strftime('%m/%d/%Y') if cancer=="Yes" else '',
+                "icd10": icd10_output() if noncancer=="Yes" else '',
+                "noncancer_date_of_diagnosis": diagnosis_date(dob).strftime('%m/%d/%Y') if noncancer=="Yes" else '',
             },
             "procedures":{
-                "icd9": icd9json if procedure=="Yes" else '',
+                "icd9": icd9_output() if procedure=="Yes" else '',
+                "date_of_diagnosis": diagnosis_date(dob).strftime('%m/%d/%Y') if procedure=="Yes" else '',
             },
             "adopted": adopted,
             "deceased": deceased,
@@ -201,8 +223,8 @@ if __name__ == '__main__':
     for person_id in mothers_siblings:
         mothers_siblings_children = make_children(num_children, dob_generator(54, 58), person_id, None)
 
-    for person_id in proband_children:
-        proband_grandchildren = make_children(num_children, dob_generator(18, 22), person_id, None)
+    #for person_id in proband_children:
+        #proband_grandchildren = make_children(num_children, dob_generator(18, 22), person_id, None)
 
 
     print(json.dumps(data, indent=4))
