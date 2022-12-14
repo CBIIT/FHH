@@ -21,18 +21,24 @@ def create_dod(inDate):
     dod_out = fake.date_between_dates(date_start=dod_min, date_end=dod_max)
     return dod_out
 
-ppbNonCancer = {
-            'code':  ['E039', 'E069', 'J984', 'D1430', 'J939', 'N281', 'K635', 'E042', 'E063', 'E059', 'E041', 'D319', 'D332', 'D352', 'J90X', 'J339', 'E079', 'D34X', 'Q753', 'H3500'],
-            'name': ['Hypothryoidism, unspec.' , 'Thyroiditis, unspec.' ,'Lung Cyst','Benign lung growth' ,'Pneumothorax' ,'Renal/kidney cyst ','Intestinal polyps','Goiter',
-                    'Hashimoto thyroiditis','Hyperthyroidism','Thyroid cyst/thyroid nodule','Eye tumor','Benign brain tumor','Pituitary gland tumor','Pleural effusion','Nasal polyps/cyst',
-                    'Disorder of thyroid, unspecified','Thyroid Adenoma','Macrocephaly','Retinopathy'],
-            'shorthand': ['HypoThyr','Thyroiditis','Cyst, Lung','Bronchus/lung','Pneumothor','Cyst, Kidney','Polyps, Colon','Goiter','Thyroiditis/Hash','HyperThyr','Cyst, Thyroid','Tumor, Eye',
-                        'Tumor, Brain','Tumor, Pituit','Pleur eff','Cyst, Nasal','Thyr Dis','Thyroid adenoma','Macrocephaly','Retinopathy']
-        }
 
-df = pd.DataFrame(ppbNonCancer, columns = ['code','name','shorthand'])
-dd = df.sample()
-dj = dd.to_json()
+#DATAFRAMES MADE FROM READING IN CSV FILES 
+icdo3morph = pd.read_csv('ICD_O_3_MORPH_CODES.csv')
+icdo3site = pd.read_csv('ICD_O_3_SITE_CODES.csv')
+icd9 = pd.read_csv('ICD_9_CODES.csv')
+icd10 = pd.read_csv('ICD_10_CODES.csv')
+
+#RANDOMLY SELECTS 1 ROW FROM THE DATAFRAME
+icdo3_morph_sample = icdo3morph.sample()
+icdo3_site_sample = icdo3site.sample()
+icd9sample = icd9.sample()
+icd10sample = icd10.sample()
+
+#MAKES THE ROW SELECTED INTO A STRING, REMOVES THE INDEX & HEADERS FROM ROW & COLUMNS TO CONDENSE IT DOWN
+icdo3_morph_json = icdo3_morph_sample.to_string(index=False, header=False)
+icdo3_site_json = icdo3_site_sample.to_string(index=False, header=False)
+icd9json = icd9sample.to_string(index=False, header=False)
+icd10json = icd10sample.to_string(index=False, header=False)
 
 
 def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa = None, p_gma = None, m_gpa = None, m_gma = None, ):
@@ -44,8 +50,20 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa
         p=[0.013, 0.061, 0.003, 0.136, 0.758, 0.029])
     first_name = fake.first_name_male() if sex=="Male" else fake.first_name_female() 
     last_name = fake.last_name()
-    noncancer = np.random.choice(["Yes", "No"], p=[0.75, 0.25])
 
+    #TESTING ONLY VARIABLES
+    '''
+    cancer = np.random.choice(["Yes", "No"], p=[0.99, 0.01])
+    noncancer = np.random.choice(["Yes", "No"], p=[0.99, 0.01])
+    procedure = np.random.choice(["Yes", "No"], p=[0.99, 0.01])
+    '''
+
+    #VARIABLES TO BE USED IN NONTESTING
+
+    cancer = np.random.choice(["Yes", "No"], p=[0.75, 0.25])
+    noncancer = np.random.choice(["Yes", "No"], p=[0.80, 0.20])
+    procedure = np.random.choice(["Yes", "No"], p=[0.50, 0.50])
+    
 
     proband = {
             "name": first_name + " " + last_name,
@@ -56,7 +74,12 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa
                 "deathdate":create_dod(dob).strftime('%m/%d/%Y') if deceased==True else "",
             },
             "diseases":{
-                "disease": dj if noncancer=="Yes" else '',
+                "icd03morph": icdo3_morph_json if cancer=="Yes" else '',
+                "icdo3site": icdo3_site_json if cancer=="Yes" else '',
+                "icd10": icd10json if noncancer=="Yes" else '',
+            },
+            "procedures":{
+                "icd9": icd9json if procedure=="Yes" else '',
             },
             "adopted": adopted,
             "deceased": deceased,
@@ -123,6 +146,7 @@ if __name__ == '__main__':
     def dob_generator(minimum_in, maximum_in):
         return fake.date_of_birth(minimum_age=minimum_in, maximum_age=maximum_in)
 
+    '''
     g_grandparent_gen_dob = fake.date_of_birth(minimum_age=109, maximum_age=111)
     grandparent_gen_dob = fake.date_of_birth(minimum_age=90, maximum_age=94)
     parent_gen_dob = fake.date_of_birth(minimum_age=72, maximum_age=76)
@@ -130,6 +154,7 @@ if __name__ == '__main__':
     kids_gen_dob = fake.date_of_birth(minimum_age=36, maximum_age=40)
     grandkids_gen_dob = fake.date_of_birth(minimum_age=18, maximum_age=22)
     g_grandkids_gen_dob = fake.date_of_birth(minimum_age=0, maximum_age=1)
+    '''
 
 ########################################################    
 
@@ -160,8 +185,8 @@ if __name__ == '__main__':
 
 #######################################################
 
-    num_children = 1
-    #num_children = np.random.randint(1, 4)
+    num_children = 1 #used for testing changes in code without many family members
+    #num_children = np.random.randint(1, 4) 
     siblings = make_children(num_children, dob_generator(54, 58), father_id, mother_id)
     fathers_siblings = make_children(num_children, dob_generator(72, 76), p_gpa_id, p_gma_id)
     mothers_siblings = make_children(num_children, dob_generator(72, 76), m_gpa_id, m_gma_id)
