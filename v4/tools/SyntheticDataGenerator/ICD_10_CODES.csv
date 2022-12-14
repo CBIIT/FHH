@@ -1,0 +1,414 @@
+icd_10,icd_10_code
+"Respiratory tuberculosis, unspec",A169
+"Acute hepatitis B, w/o coma",B169
+"Chronic viral hepatitis, NOS",B189
+"Hepatitis, NOS",B199
+AIDS/HIV,B20
+Mumps orchitis,B260
+Other infectious mononucleosis,B278
+"Infectious mononucleosis, unspec",B279
+Schwannoma,C3610
+"LCIS, right breast",D0501
+"LCIS, left breast",D0502
+"Carcinoma in situ of cervix, unspecified",D069
+Benign neoplasm of the nasopharynx,D106
+"Benign neoplasm major salivary gland, parotid",D110
+"Benign neoplasm colon, sigmoid",D125
+"Benign neoplasm colon, unspec",D126
+Benign Neoplasm of the Esophagus,D130
+Benign Neoplasm of the Stomach (polyp),D131
+Benign neoplasm of the liver,D134
+"Benign neoplasm other digestive, pancreas",D136
+"Benign neoplasm other digestive, NOS",D139
+Nasal Chondromesenchymal hamartoma,D140
+Benign Neoplasm Bronchus and Lung,D1430
+"Benign Neoplasm of Bone, NOS",D169
+"Benign lipomatous neoplasm,skin/subcutaneous trunk",D171
+"Benign lipomatous neoplasm,skin/subcutaneous limbs",D172
+"Benign lipomatous neoplasm, intrathoracic organs",D174
+"Benign lipomatous neoplasm, unspecified",D179X
+"Benign Neoplasm of Connective/Soft Tissue, unspec.",D219
+"Melanocytic nevi, trunk",D225
+Spitz Nevi,D229
+Spitzoid Nevi,D22X
+"Other benign neoplasm skin, other/unspec face",D233
+"Other Benign Neoplasm of Skin, unspecified",D239
+"Benign neoplasm, breast",D24X
+"Leiomyoma uterus, unspec",D259
+"Benign neoplasm, cervix uteri",D260
+Benign neoplasm of unspecified ovary,D279
+Benign neoplasm of uterine tubes and ligaments,D282
+"Benign neoplasm male genital organs, testes",D292
+"Benign neoplasm, cerebral meninges",D320
+Meningioma ,D329
+"Benign neoplasm brain, supratentorial",D330
+Benign neoplasm Brain,D332
+Benign Neoplasm of cranial nerves-Acoustic Neuroma,D333
+"Benign neoplasm, thyroid",D34X
+Benign Neoplasm of Adrenal Gland,D3500
+Benign neoplasm of parathyroid gland,D351
+Benign neoplasm Pituitary gland,D352
+Benign Neoplasm of Pineal Gland,D354
+"Benign neoplasm, peripheral/autonomic nerves",D361
+Polycythemia Vera,D45
+"Myelodysplastic syndrome, unspec",D469
+Monoclonal gammopathy undetermined significance,D472
+MGUS - IgM,D4721
+MGUS - IgG,D4722
+Polyclonal IgM,D4726
+Polyclonal IgM - non-IgM,D4727
+Hypo IgA,D4728
+Hypo IgA - non-IgA,D4729
+"Other neoplasms of lymphoid, heme and related tiss",D47Z9
+"Neoplasm of uncertain behavior, Bone/Cartilage",D480
+Neoplasm of uncertain behavior of skin,D485
+"Vitamin B12 deficiency anemia, intrinsic factor",D510
+"Vitamin B12 deficiency anemia, NOS",D519
+"Thalassemia, unspec [incl Minor]",D569
+Other hemoglobinopathies,D582
+"Anemia, hereditary hemolytic",D589
+Other autoimmune hemolytic anemia,D591
+Cold agglutinin syndrome,D5911
+Constitutional aplastic anemia,D610
+Diamond-Blackfan anemia,D6101
+Shwachman-Diamond syndrome,D6103
+Fanconi anemia,D6109
+Pancytopenia,D6181
+"Aplastic anemia, unspec",D619
+Bone marrow failure,D6190
+"Pancytopenia, acquired",D6191
+Pearson syndrome,D6480
+"Anemia, unspecified",D649
+Congenital factor VIII disorder [incl Hemophilia NOS],D66X
+Von Willebrands disease,D680
+Other spec coagulation defects [incl AP syndrome],D688
+Protein C deficiency,D6890
+Protein S deficiency,D6891
+Factor V Leiden,D6893
+PAI-1 mutation,D6894
+MTHFR polymorphism,D6895
+Prothrombin 20210 mutation,D6896
+Qualitative platelet defects,D691
+Idiopathic Thrombocytopenic Purpura,D693
+Amegakaryocytic thrombocytopenia,D6942
+"Thrombocytopenia, unspec",D696
+Leukopenia,D700
+Neutropenia,D709
+Cyclic neutropenia,D70X0
+Autoimmune neutropenia,D70X1
+Severe congenital neutropenia,D70X5
+"Eosinophilia, NOS",D721
+Leukocytosis,D728
+"GATA 2 [other disorders of WBCs, unspecified]",D729
+Other spec diseases blood [incl Macrocytosis],D758
+"Disease of blood and blood-forming organs, unspecified",D759
+Deficiency (Hypo) IgG subclass,D803
+Di George&#39;s Syndrome,D821
+"Common variable immunodeficiency, unspecified",D839
+"Immunodeficiency, NOS",D849
+Sarcoidosis,D869
+Cryoglobulinemia,D891
+"Hypergammaglobulinaemia, unspecified",D892
+"Hypothyroidism, unspec",E039
+Thyroid nodule/Cyst nontoxic,E041
+Nontoxic multinodular goiter,E042
+"Nontoxic goiter, unspecified",E049
+Thyrotoxicosis w/ diffuse goiter [incl Graves],E050
+"Thyrotoxicosis, NOS",E059
+Autoimmune thyroiditis [incl Hashimoto],E063
+"Thyroiditis, unspec",E069
+"Disorder of thyroid, unspecified",E079
+"Diabetes mellitus, insulin dependent w/ unspec complications",E108
+"Diabetes mellitus, insulin dependent w/o complications",E109
+"Diabetes mellitus, non-insulin dependent, unspec",E118
+"Diabetes mellitus, non-insulin dependent w/o complications",E119
+"Diabetes, unspec",E138
+"Diabetes mellitus, NOS",E14X
+Hyperparathyroidism,E213
+Acromegaly and pituitary gigantism,E220
+"Hyperfunction of pituitary gland, unspec",E229
+Hypopituitarism [incl Pituitary dwarfism],E230
+Cushing's Syndrome,E249
+Primary adrenocortical insufficiency [incl Addisons],E271
+Polycystic ovarian syndrome,E282
+Testicular hypofunction,E291
+Precocious puberty,E301
+Acute intermittent (hepatic) Porphyria,E8021
+Gilberts syndrome,E804
+Hemochromatosis -hereditary,E831
+Hemochromatosis due to repeated blood transfusions,E8311
+"Cystic Fibrosis, unspecified",E849
+"Amyloidosis, non-neuropathic heredofamilial [incl Systemic, skin]",E850
+"Amyloidosis, secondary systemic",E853
+"Amyloidosis, NEC",E858
+Amyloidosis,E859
+"Lipomatosis, NEC",E882
+"Encephalitis, myeloitis and encephalomyelitis, unspec",G049
+ALS,G1221
+"Spinal Muscle Atrophy, NOS",G129
+Parkinsons disease,G20X
+Alzheimers disease,G30X
+Multiple Sclerosis,G35
+Other cranial nerve disorders in diseases classified elsewhere,G538
+Brachial plexus disorders,G540
+Lumbosacral plexus disorders,G541
+Other nerve root and plexus disorders,G548
+"Polyneuropathy, unspecified [incl POEMS syndrome]",G629
+Muscular dystrophy,G710
+Obstructive hydrocephalus,G911
+Arachnoid Cyst,G930
+"Encephalopathy, Other",G9349
+"Infantile, juvenile and presenile cataract [incl Nonsenile]",H260
+"Cataract, unspecified",H269
+Background retinopathy/retinal vascular changes,H350
+Retinitis pigmentosa,H355
+Degenerated conditions globe [incl Optic atrophy],H445
+Papilledema,H471
+Esotropia,H500
+Exotropia,H501
+"Strabismus, unspec",H509
+Profound Vision Impairment,H534
+"Profound Vision Impairment, Both Eyes",H540
+"Profound Vision Impairment, One Eye",H541
+Other spec disorders eye/adnexa [incl Eye movement disorder],H578
+"Disorder of eye and adnexa, unspec",H579
+"Sensorineural hearing loss, unspec",H905
+"Mixed conductive/sensorineural hearing loss, unspec",H908
+"Hearing loss, unspec",H919
+Tinnitus,H931
+Essential hypertension,I10X
+"Acute myocardial infarction, unspec",I219
+Atherosclerotic cardiovascular disease,I250
+Atherosclerotic heart disease,I251
+Pulmonary Hypertension,I270X
+Arteriovenous fistula of pulmonary vessels,I280
+Congestive heart failure,I500
+Heart failure,I509
+Myocardial degeneration,I515
+All other forms of heart disease,I519
+"Intracerebral hemorrhage, unspec",I619
+Cerebrovascular accident (stroke),I64X
+Occlusion/stenosis unspec cerebral artery,I669
+Raynauds syndrome,I730
+"Arteriovenous fistula, acquired",I770
+"Diseases of capillaries, nevus, non-neoplastic",I781
+Scrotal varices,I861
+Pneumonia,J189
+"Acute bronchiolitis, unspec",J219
+Nasal Polyps,J339
+Paralysis of vocal cords and larynx,J380
+Polyp of vocal cord and larynx,J381
+Emphysema,J439
+Other chronic lower respiratory diseases,J449
+Asthma,J459
+Pulmonary fibrosis [other interstitial pulmonary disease],J8410
+Tracheal esophageal fistula,J860
+Pleural effusion,J90X
+Pneumothorax unspecified,J939
+"Cyst, lung",J984
+Other spec disorders of teeth/supporting structures,K088
+"Disorders of teeth/supporting structures, unspec",K089
+Developmental odontogenic cysts,K090
+Other cysts of jaw,K092
+"Cyst of oral region, unspec",K099
+Leukoplakia (oral),K1321
+Barrett&#39;s Esophagus,K227
+"Duodenal ulcer, chronic/unspec w/ hemorrhage",K264
+"Acute appendicities, unspec [incl w/o peritonitis]",K359
+Bilateral iquinal hernia w/o obstruct or NOS,K402
+"Unilateral or unspec inguinal hernia, w/o obstruction",K409
+Crohn's disease,K509
+"Ulcerative colitis, unspec",K519
+Colon polyp,K635
+Liver fibrosis,K740
+Liver cirrhosis,K7460
+Hepatopulmonary syndrome,K7681
+"Liver Disease, unspecified",K769
+Celiac disease,K900
+Pemphigus,L109
+Psoriasis,L409
+Actinic keratosis,L570
+Trichilemmal cyst [incl Sebaceous],L721
+"Epidermal thickening, unspec",L859
+Other local lupus erythematosus,L932
+Sweet syndrome,L982
+Skin Disorders NEC,L988
+Rheumatoid arthritis,M069
+Psoriatic arthritis,M073
+"Arthritis, unspec",M139
+"Polyarthrosis, unspec [incl Osteoarthritis, generalized NOS]",M159
+Drug-induced systemic lupus erythematosus,M320
+Systemic lupus erythematosus w/ organ/system involvement,M321
+Other systemic lupus erythromatosus,M328
+"Systemic lupus erythromatosus, unspec",M329
+Dermatopolymyositis,M339
+"Systemic sclerosis, unspec",M349
+Sicca syndrome [Sjogren],M350
+Behcets syndrome,M352
+Polymyalgia rheumatica,M353
+Autoimmune (Systemic) Unspecified,M359
+Kyphosis,M402
+Lordosis,M405
+Scoliosis,M419
+"Deforming dorsopathy, unspec [incl Curvature spine]",M439
+"Ankylosing spondylitis, site unspec",M459
+"Rheumatism, unspecified",M790
+Other cyst of bone,M856
+"Osteomyelitis, NOS",M869
+"Osteonecrosis, unspec [include Avascular]",M879
+"Osteolysis, Unspecified site",M8950
+Other acquired deformity of head,M952
+Acquired deformity of chest and rib,M954
+Other specified acquired deformity of musculoskeletal system,M958
+"Nephrotic syndrome, unspec",N049
+Acute tubulo-interstitial nephritis,N10X
+"Tubulo-interstitial nephritis, NOS [incl Pyelonephritis]",N12X
+Renal failure,N179
+"Renal Sclerosis, Unspecified",N269
+Cyst of kidney acquired,N281
+Encysted hydrocele,N430
+"Hydrocele, NOS",N433
+Epididymal cyst/spermatocele,N434
+"Orchitis, Epididymitis with abscess",N450
+"Orchitis, Epididymitis w/o abscess",N459
+Male infertility [incl Azoospermia] [Oligospermia],N46X
+Atrophy of testis,N500
+Other specified disorders of male genital organs,N508
+Testicular cyst,N5081
+Testicular microlithiasis,N5082
+Testicular microcalcifications,N5083
+Solitary cyst breast,N600
+Diffuse cystic mastopathy [incl Fibrocystic breast],N601
+Fibroadenosis of breast,N602
+Fibrosclerosis of breast,N603
+Other specified benign mammary dysplasias,N608
+Atypical lobular hyperplasia,N6081
+Atypical ductal hyperplasia,N6082
+"Benign mammary dysplasia, unspecified",N609
+Hypertrophy of breast [incl Gynecomastia],N62X
+Other specified breast disorder,N648
+"Breast Disorder, NOS",N649
+Acute salpingitis and oophritis,N700
+Chronic salpingitis and oophritis,N701
+Inflammatory disease cervic uteri [Cervicitis],N72X
+"Endometriosis, uterus",N800
+Follicular cyst of ovary,N830
+Corpus luteum cyst,N831
+Other and unspec ovarian cysts,N832
+Endometrial glandular hyperplasia,N850
+Cervical Intraepithelial Neoplasia-CIN I,N870
+Cervical Intraepithelial Neoplasia-CIN II,N871
+"Dysplasia cervix uteri, unspec",N879
+"Female infertility, anovulation",N970
+"Female infertility, unspec",N979
+Tubal pregnancy,O001
+"Ectopic Pregnancy, NOS",O009
+Spontaneous abortion complicated by infection,O035
+Legal abortion complicated by infection,O070
+"Failed medical abortion, without complication",O074
+Spontaneous Abortion,O200
+Intrauterine Death,O364
+Rh isoimmunization fetus/newborn,P550
+Encephalocele,Q019
+Microcephaly,Q02X
+"Congenital hydrocephalus, unspec",Q039
+Cerebellar hypoplasia,Q043
+Brain Anomaly NEC,Q049
+Spina bifida,Q059
+Other Spinal Cord Anomalies,Q069
+"Congenital malformation nevous system, unspec",Q079
+Congenital cataract,Q120
+"Anterior Segment Anomalies, NEC",Q139
+Other spec congenital malformations eye,Q158
+"Congenital malformations eye, unspec",Q159
+Other spec congenital malformations ear,Q178
+"Congenital malformations ear, unspec",Q179
+Ventricular septal defect,Q210
+Atrial septal defect,Q211
+atrioventricular canal defect,Q212
+Tetralogy of Fallot,Q213
+"Congenital malformation, heart",Q249
+total anomalous pulmonary venous return,Q268
+Agenesis and aplasia of uterus,Q510
+"Undescended testicle, unilateral",Q531
+"Undescended testicle, bilateral",Q532
+"Undescended testicle, unspec [Cryptorchism NOS]",Q539
+"Hypospadias, unspec",Q549
+Absence and aplasia of testis,Q550
+Other congenital malformation testis/scrotum [incl Testes or scrotum NOS],Q552
+Other specified congenital malformations of male genital organs,Q558
+"Congenital malformation of male genital organ, unspec",Q559
+"Renal agenesis, unspec",Q602
+Other obstructive defects of renal pelvis and ureter,Q623
+"Lobulated, fused and horseshoe kidney",Q631
+"Congenital malformation kidney, NOS",Q639
+Polydactyly,Q699
+Syndactyly,Q709
+"Reduction defect upper limb, uspec",Q719
+"Reduction defect lower limb, unspec",Q729
+"Other reduction defect, unspec limb",Q738
+"Other congenital malformations, upper limb",Q740
+"Other congenital malformations, lower limb",Q742
+Other spec congenital malformation limb(s),Q748
+Unspec congenital malformation limb(s),Q749
+Macrocephaly,Q753
+"Congenital malformation skull/face bones, unspec",Q759
+Other congenital malformation spine,Q764
+Jeune's syndrome (asphyxiating thoracic dystrophy),Q772
+Metaphyseal dysostosis,Q7780
+"Osteochondrodysplasia, unspec",Q789
+Mastocytosis,Q822
+Dyskeratosis congenita,Q8280
+Revesz syndrome,Q8281
+Hoyeraal Hreidarsson syndrome,Q8282
+Rothmund-Thomson syndrome,Q8284
+Accessory nipple,Q833
+Neurofibromatosis Type 1,Q8501
+Schwannomatosis,Q8503
+Tuberous sclerosis,Q851
+"Phakomatosis, unspec [incl Hamartosis NOS]",Q859
+Seckel syndrome,Q8710
+Dubowitz syndrome,Q8711
+Thrombocytopenia absent radii,Q872
+VATER syndrome,Q8721
+Congenital malformations adrenal gland,Q891
+Situs inversus,Q893
+"Multiple congenital malformations, NEC",Q897
+"Congenital malformations,deformations",Q898
+"Congenital malformation, unspec",Q899
+"Downs syndrome, unspec",Q909
+"Trisomy 18, mosaicism",Q911
+"Trisomy 18, unspec",Q913
+Trisomy 8,Q9280
+Monosomy 7,Q9380
+"Deletion autosomes, unspec",Q939
+"Balanced rearrangement/structural marker, unspec [incl Balanced autosomal translocation]",Q959
+"Turners syndrome, unspec",Q969
+"Kleinfelters syndrome, unspec",Q984
+Abnormal cytogenetics (Karyotype) BM,Q998
+Abnormal cytogenetics (karyotype) Blood,Q9981
+Abnormal cytogenetics (array) BM,Q9982
+abnormal cytogenetics (array) Blood,Q9983
+"Chromosome abnormality, unspec",Q999
+"Splenomegaly, NEC",R161
+Rash & other nonspec skin eruption (chronic skin),R21X
+Other/unspec convulsions [incl Idiopathic],R568
+Lymphadenopathy,R591
+"Enlarged lymph nodes, unspecified (Castleman's)",R599
+"Edema, localized",R600
+Abnormal immunological finding serum [incl IFE],R769
+Paroxysmal nocturnal hemoglobinuria,R823
+"Abnormal specimen female genital organs, cytologic [PAP]",R876
+Abnormal thyroid function studies,R946
+SIDS,R95X
+Graft versus host disease (GVHD),T860
+Examination for normal comparison and control in clinical research program,Z006
+Radiotherapy session,Z510
+Family history of malignant neoplasm of digestive system,Z800
+"Family history of malignant neoplasm of trachea, bronchus and lung",Z801
+Family history of malignant neoplasm of breast,Z803
+Family history of malignant neoplasm of urinary tract,Z805
+"Family history of other malignant neoplasms of lymphoid, hematopoietic, and related tissue",Z807
+Family history of malignant neoplasm of other organs or systems,Z808
+"Family history of malignant neoplasm, unspecified",Z809
+QA Review,ZZZZ
