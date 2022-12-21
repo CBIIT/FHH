@@ -15,7 +15,7 @@ def is_str(value_in):
 
 def create_dod(inDate):
     # Using builtin support of timedelta, add 26 years (in days accounting for up to 4 leap years), and 100 years as a cap
-    age_min_offset = 9500       #Minimum age at death is around 26
+    age_min_offset = 0       #Minimum age at death is around 0
     age_max_offset = 36900      #Maximum age at death is around 100
     dod_min  = inDate + timedelta(days=age_min_offset)
     dod_max = inDate + timedelta(days=age_max_offset)
@@ -24,9 +24,27 @@ def create_dod(inDate):
         dod_max = date.today()
         dod_out = fake.date_between_dates(date_start=dod_min, date_end=dod_max)
     return dod_out
+'''
+def max_age(arr):
+    max_age = 0
+    for x in arr:
+        d = date.strptime(data[x]["demographics"]["birthdate"], '%m/%d/%Y').timestamp()
+        print(d)
+        if (d > max_age):
+            max_age = d 
+    return max_age
+
+def update_dod(id, children):
+    #if (data[id]["deceased"] is not None):
+    #    return 
+    print("boo")
+    d = date.strptime(data[id]["demographics"]["deathdate"], '%m/%d/%Y').timestamp()
+    if (d < max_age): d = max_age
+    data[id]["demographics"]["deathdate"] = date(d)
+'''
 
 def diagnosis_date(inDate):
-    age_min_offset = 8365       #Minimum age at diagnosis is around 23
+    age_min_offset = 1095       #Minimum age at diagnosis is around 3
     age_max_offset = 25555      #Maximum age at diagnosis is around 70
     diagnosis_min  = inDate + timedelta(days=age_min_offset)
     diagnosis_max = inDate + timedelta(days=age_max_offset)
@@ -43,10 +61,10 @@ icdo3site = pd.read_csv('ICD_O_3_SITE_CODES.csv')
 icd9 = pd.read_csv('ICD_9_CODES.csv')
 icd10 = pd.read_csv('ICD_10_CODES.csv')
 
-
 def icdo3_morph_output():
     icdo3_morph_sample = icdo3morph.sample()
     icdo3_morph = icdo3_morph_sample.to_string(index=False, header=False)
+    #print(icdo3_morph.split(" ", 1)[0])
     return icdo3_morph
 
 def icdo3_site_output():
@@ -75,6 +93,7 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa
     first_name = fake.first_name_male() if sex=="Male" else fake.first_name_female() 
     last_name = fake.last_name()
 
+    icd_morph = icdo3_morph_output()
     #TESTING ONLY VARIABLES
     '''
     cancer = np.random.choice(["Yes", "No"], p=[0.99, 0.01])
@@ -97,15 +116,15 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa
                 "birthdate":dob.strftime('%m/%d/%Y'),
                 "deathdate":create_dod(dob).strftime('%m/%d/%Y') if (deceased==True and not is_str(create_dod(dob))) else "",
             },
-            "diseases":{
-                "code": '',
-                "morphology": icdo3_morph_output() if cancer=="Yes" else '',
+            "diseases":[{
+                "code": icd_morph.split(" ", 1)[0] if cancer=="Yes" else '',
+                "morphology": icd_morph if cancer=="Yes" else '',
                 "site": icdo3_site_output() if cancer=="Yes" else '',
                 "laterality": '',
                 "cancer_date_of_diagnosis": diagnosis_date(dob).strftime('%m/%d/%Y') if (cancer=="Yes" and not is_str(diagnosis_date(dob))) else '',
                 "icd10": icd10_output() if noncancer=="Yes" else '',
                 "noncancer_date_of_diagnosis": diagnosis_date(dob).strftime('%m/%d/%Y') if (noncancer=="Yes" and not is_str(diagnosis_date(dob))) else '',
-            },
+            }],
             "procedures":{
                 "icd9": icd9_output() if procedure=="Yes" else '',
                 "date_of_diagnosis": diagnosis_date(dob).strftime('%m/%d/%Y') if (procedure=="Yes" and not is_str(diagnosis_date(dob))) else '',
@@ -213,6 +232,9 @@ if __name__ == '__main__':
     num_children = 1 #used for testing changes in code without many family members
     #num_children = np.random.randint(1, 4) 
     siblings = make_children(num_children, dob_generator(54, 58), father_id, mother_id)
+
+    #update_dod(father_id, siblings)
+
     fathers_siblings = make_children(num_children, dob_generator(72, 76), p_gpa_id, p_gma_id)
     mothers_siblings = make_children(num_children, dob_generator(72, 76), m_gpa_id, m_gma_id)
     proband_children = make_children(num_children, dob_generator(36, 40), proband_id, None)
@@ -227,7 +249,7 @@ if __name__ == '__main__':
         mothers_siblings_children = make_children(num_children, dob_generator(54, 58), person_id, None)
 
 #CODE BELOW KEEPS GIVING ERRORS AFTER DATAFRAMES WERE IMPLEMENTED, believe it errors in dod function and date_of_diagnosis function
-    #for person_id in proband_children:
-       #proband_grandchildren = make_children(num_children, dob_generator(18, 22), person_id, None)
+    for person_id in proband_children:
+       proband_grandchildren = make_children(num_children, dob_generator(18, 22), person_id, None)
 
     print(json.dumps(data, indent=4))
