@@ -1,170 +1,170 @@
-icd_9_cm,icd_9_cm_code
-Thyroidectomy-complete or total,64
-Closed [percutaneous][needle] biopsy of brain,113
-Excision of lesion or tissue of cerebral meninges,151
-Lobectomy of Brain,153
-Other excision or destruction of lesion or tissue of brain,159
-Other exploration and decompression of spinal canal,309
-Regional lymph node excision,403
-Total splenectomy,415
-Total Pancreatectomy,526
-Whipple Procedure,527
-Destruction of peritoneal tissue [incl omentectomy],544
-Partial nephrectomy,554
-Biopsy Thyroid,611
-Excision or destruction testicular lesion,622
-Unilateral orchiectomy,623
-Thyroidectomy-partial or subtotal,639
-Total unilateral salpingectomy,664
-Conization of cervix,672
-Pelvic evisceration,688
-Other Parathyroidectomy (excision of lesion),689
-Adrenalectomy Subtotal NEC,729
-Thymectomy,780
-Radical excision skin lesion,864
-Other intracapsular extraction of lens,1319
-"Other enucleation of eyeball, NOS",1649
-Other operations on eyeball,1699
-Laparoscopic resection multiple segments Colon,1731
-"Biopsy Tongue, Closed",2501
-Operations on Tongue,2509
-"Brush Biopsy, Tongue",2599
-Other Operations on Mouth and Face,2790
-"Brush Biopsy, Oral Cavity",2799
-Operations on Pharynx - other,2999
-"Biopsy, Larynx",3143
-Diagnostic Procedures of Larynx,3148
-"Wedge Resection of the Lung, NOS",3229
-Lobectomy of lung,3249
-Biopsy Lung Closed Percutaneous,3326
-"Lung Biopsy, NEC",3327
-Lung Transplant,3350
-Other Operations of the Lung,3399
-"Biopsy, mediastinal, open",3426
-Thoracentesis/Pleurocentesis,3491
-Biopsy of lymphatic structure,4011
-Excision of deep cervical lymph node,4021
-Excision of axillary lymph node,4023
-Excision of inguinal lymph node,4024
-Simple excision of other lymphatic structure,4029
-"Radical neck dissection, NOS",4040
-"Radical neck dissection, unilateral",4041
-"Radical neck dissection, bilateral",4042
-"Radical excision of lymph nodes, NOS",4050
-"Bone marrow transplant, NOS",4100
-Allogeneic bone marrow transplant w/ purging,4102
-Allogeneic bone marrow transplant w/o purging,4103
-Autologous hematopoietic stem cell transplant,4104
-Allogeneic hematopoietic SC transplant w/o purging,4105
-Cord blood stem cell transplant,4106
-Allogeneic hematopoietic SC transplant w/ purging,4108
-Biopsy of bone marrow,4131
-Closed [aspiration][percutaneous] biopsy of spleen,4132
-Aspiration of bone marrow from donor for transplant,4191
-"Biopsy, Esophagus closed",4224
-Operations on Esophagus - other,4299
-Other Partial Gastrectomy,4389
-Total Gastrectomy,4399
-"Biopsy, Stomach closed",4414
-"Biopsy, Small Intestine Closed",4514
-Colonoscopy,4523
-Endoscopic biopsy of the Large Intestine,4525
-Resection Small Intestine Parital/Segmental,4562
-Open and other Right Hemicolectomy,4573
-Open and other Left Hemicolectomy,4575
-Sigmoid Colectomy,4576
-Laparoscopic appendectomy,4701
-Other appendectomy,4709
-Liver Biopsy (closed),5011
-Liver Transplant,5059
-"Cholecystectomy, Total",5122
-Biopsy Pancreas closed percutaneous,5211
-Partial Pancreatectomy,5259
-Biopsy of abdominal wall,5422
-Biopsy (closed) of intra-abdominal mass,5424
-"Biopsy Kidney, Closed",5523
-Nephroureterectomy,5551
-Bilateral nephrectomy,5554
-Kidney Transplant,5569
-"Biopsy, Bladder",5733
-Percutaneous [needle] Biopsy of Prostate,6011
-Prostatectomy ,6069
-Closed biopsy of testis,6211
-Open biopsy of testis,6212
-Other diagnostic procedures on testes,6219
-Biopsy (other) of ovary,6512
-Wedge resection of ovary,6522
-Laparoscopic local excision or destruction ovary,6525
-Other local excision or destruction of ovary,6529
-Laparoscopic unilateral oophorectomy,6531
-Other unilateral oophorectomy,6539
-Laparoscopic unilateral salpingo-oophorectomy,6541
-Other unilateral salpingo-oophorectomy,6549
-Other removal both ovaries same procedure,6551
-Other removal of remaining ovary,6552
-Other removal of both ovaries and tubes at same operative episode,6561
-Other removal of remaining ovary and tube,6562
-Laparoscopic removal of both ovaries and tubes at same operative episode,6563
-Laparoscopic removal of remaining ovary and tube,6564
-Other bilateral endoscopic destructin or occlusion of fallopian tubes,6629
-Other bilateral destruction or occlusion of falloopian tubes,6639
-Removal of both fallopian tubes at same operative episode [Total bilateral salpingectomy],6651
-Salpingectomy w/ removal of tubal pregnancy,6662
-Destruction of lesion of cervix by cauterization,6732
-Destruction of lesion of cervix by cryosurgery,6733
-Other excision or destruction of lesion or tissue of cervix,6739
-"Biopsy, Endometrial",6816
-Other excision or destruction of lesion of uterus,6829
-Laparoscopic supracervical hysterectomy,6831
-Other subtotal abdominal hysterectomy,6839
-Total abdominal hysterectomy,6841
-Laparoscopically assisted vaginal hysterectomy,6851
-Other vaginal hysterectomy,6859
-Radical abdominal hysterectomy,6869
-Operations on Vagina and Cul-de-Sac - other diagnositc procedur,7029
-Other incision of vulva and perineum,7109
-Biopsy Bone,7740
-"Diagnostic Procedures on bone, NEC",7880
-"Arthroplasty Knee, Total",8154
-Other incision soft tissue of hand,8209
-"Operations on Muscle, Tendon, and Fascia of hand - other",8299
-Biopsy of Soft Tissue includes muscle,8321
-Hemipelvectomy,8419
-Closed [percutaneous][needle] biopsy of breast,8511
-Open biopsy of breast,8512
-Other diagnostic procedures on breast,8519
-"Excision or destruction of breast tissue, NOS",8520
-Local excision of lesion of breast,8521
-Resection of quadrant of breast,8522
-Unilateral simple mastectomy,8541
-Bilateral simple mastectomy,8542
-Unilateral extended simple mastectomy,8543
-Bilateral extended simple mastectomy,8544
-Unilateral radical mastectomy,8545
-Bilateral radical mastectomy,8546
-Unilateral extended radical mastectomy,8547
-Bilateral extended radical mastectomy,8548
-Aspiration of breast,8591
-Other operations on the breast,8599
-Biopsy of Skin and Subcutaneous Tissue,8611
-Size reduction plastic surgery,8683
-CT Scan Brain,8703
-CT Scan Chest,8741
-Cxray,8744
-CT Scan Abdomen,8801
-"CT Scan, NOS",8838
-US Thyroid,8873
-US Urinary System,8875
-US Abdomen and Retroperitoneum,8876
-MRI Brain,8891
-MRI Spine,8893
-MRI Abdomen,8897
-Chemotherapy,9225
-Radiation Therapy,9229
-Tonsillectomy without adenoidectomy,282X
-Tonsillectomy w/ adenoidectomy,283X
-"Bilateral orchiectomy, unspecified",624X
-Other salpingectomy,666X
-Operations on Cervix,67XX
-Other and unspecified hysterectomy,689X
-Other incision and excision of Uterus,68XX
+icd_9_cm_code,icd_9_cm
+64,Thyroidectomy-complete or total
+113,Closed [percutaneous][needle] biopsy of brain
+151,Excision of lesion or tissue of cerebral meninges
+153,Lobectomy of Brain
+159,Other excision or destruction of lesion or tissue of brain
+309,Other exploration and decompression of spinal canal
+403,Regional lymph node excision
+415,Total splenectomy
+526,Total Pancreatectomy
+527,Whipple Procedure
+544,Destruction of peritoneal tissue [incl omentectomy]
+554,Partial nephrectomy
+611,Biopsy Thyroid
+622,Excision or destruction testicular lesion
+623,Unilateral orchiectomy
+639,Thyroidectomy-partial or subtotal
+664,Total unilateral salpingectomy
+672,Conization of cervix
+688,Pelvic evisceration
+689,Other Parathyroidectomy (excision of lesion)
+729,Adrenalectomy Subtotal NEC
+780,Thymectomy
+864,Radical excision skin lesion
+1319,Other intracapsular extraction of lens
+1649,"Other enucleation of eyeball, NOS"
+1699,Other operations on eyeball
+1731,Laparoscopic resection multiple segments Colon
+2501,"Biopsy Tongue, Closed"
+2509,Operations on Tongue
+2599,"Brush Biopsy, Tongue"
+2790,Other Operations on Mouth and Face
+2799,"Brush Biopsy, Oral Cavity"
+2999,Operations on Pharynx - other
+3143,"Biopsy, Larynx"
+3148,Diagnostic Procedures of Larynx
+3229,"Wedge Resection of the Lung, NOS"
+3249,Lobectomy of lung
+3326,Biopsy Lung Closed Percutaneous
+3327,"Lung Biopsy, NEC"
+3350,Lung Transplant
+3399,Other Operations of the Lung
+3426,"Biopsy, mediastinal, open"
+3491,Thoracentesis/Pleurocentesis
+4011,Biopsy of lymphatic structure
+4021,Excision of deep cervical lymph node
+4023,Excision of axillary lymph node
+4024,Excision of inguinal lymph node
+4029,Simple excision of other lymphatic structure
+4040,"Radical neck dissection, NOS"
+4041,"Radical neck dissection, unilateral"
+4042,"Radical neck dissection, bilateral"
+4050,"Radical excision of lymph nodes, NOS"
+4100,"Bone marrow transplant, NOS"
+4102,Allogeneic bone marrow transplant w/ purging
+4103,Allogeneic bone marrow transplant w/o purging
+4104,Autologous hematopoietic stem cell transplant
+4105,Allogeneic hematopoietic SC transplant w/o purging
+4106,Cord blood stem cell transplant
+4108,Allogeneic hematopoietic SC transplant w/ purging
+4131,Biopsy of bone marrow
+4132,Closed [aspiration][percutaneous] biopsy of spleen
+4191,Aspiration of bone marrow from donor for transplant
+4224,"Biopsy, Esophagus closed"
+4299,Operations on Esophagus - other
+4389,Other Partial Gastrectomy
+4399,Total Gastrectomy
+4414,"Biopsy, Stomach closed"
+4514,"Biopsy, Small Intestine Closed"
+4523,Colonoscopy
+4525,Endoscopic biopsy of the Large Intestine
+4562,Resection Small Intestine Parital/Segmental
+4573,Open and other Right Hemicolectomy
+4575,Open and other Left Hemicolectomy
+4576,Sigmoid Colectomy
+4701,Laparoscopic appendectomy
+4709,Other appendectomy
+5011,Liver Biopsy (closed)
+5059,Liver Transplant
+5122,"Cholecystectomy, Total"
+5211,Biopsy Pancreas closed percutaneous
+5259,Partial Pancreatectomy
+5422,Biopsy of abdominal wall
+5424,Biopsy (closed) of intra-abdominal mass
+5523,"Biopsy Kidney, Closed"
+5551,Nephroureterectomy
+5554,Bilateral nephrectomy
+5569,Kidney Transplant
+5733,"Biopsy, Bladder"
+6011,Percutaneous [needle] Biopsy of Prostate
+6069,Prostatectomy 
+6211,Closed biopsy of testis
+6212,Open biopsy of testis
+6219,Other diagnostic procedures on testes
+6512,Biopsy (other) of ovary
+6522,Wedge resection of ovary
+6525,Laparoscopic local excision or destruction ovary
+6529,Other local excision or destruction of ovary
+6531,Laparoscopic unilateral oophorectomy
+6539,Other unilateral oophorectomy
+6541,Laparoscopic unilateral salpingo-oophorectomy
+6549,Other unilateral salpingo-oophorectomy
+6551,Other removal both ovaries same procedure
+6552,Other removal of remaining ovary
+6561,Other removal of both ovaries and tubes at same operative episode
+6562,Other removal of remaining ovary and tube
+6563,Laparoscopic removal of both ovaries and tubes at same operative episode
+6564,Laparoscopic removal of remaining ovary and tube
+6629,Other bilateral endoscopic destructin or occlusion of fallopian tubes
+6639,Other bilateral destruction or occlusion of falloopian tubes
+6651,Removal of both fallopian tubes at same operative episode [Total bilateral salpingectomy]
+6662,Salpingectomy w/ removal of tubal pregnancy
+6732,Destruction of lesion of cervix by cauterization
+6733,Destruction of lesion of cervix by cryosurgery
+6739,Other excision or destruction of lesion or tissue of cervix
+6816,"Biopsy, Endometrial"
+6829,Other excision or destruction of lesion of uterus
+6831,Laparoscopic supracervical hysterectomy
+6839,Other subtotal abdominal hysterectomy
+6841,Total abdominal hysterectomy
+6851,Laparoscopically assisted vaginal hysterectomy
+6859,Other vaginal hysterectomy
+6869,Radical abdominal hysterectomy
+7029,Operations on Vagina and Cul-de-Sac - other diagnositc procedur
+7109,Other incision of vulva and perineum
+7740,Biopsy Bone
+7880,"Diagnostic Procedures on bone, NEC"
+8154,"Arthroplasty Knee, Total"
+8209,Other incision soft tissue of hand
+8299,"Operations on Muscle, Tendon, and Fascia of hand - other"
+8321,Biopsy of Soft Tissue includes muscle
+8419,Hemipelvectomy
+8511,Closed [percutaneous][needle] biopsy of breast
+8512,Open biopsy of breast
+8519,Other diagnostic procedures on breast
+8520,"Excision or destruction of breast tissue, NOS"
+8521,Local excision of lesion of breast
+8522,Resection of quadrant of breast
+8541,Unilateral simple mastectomy
+8542,Bilateral simple mastectomy
+8543,Unilateral extended simple mastectomy
+8544,Bilateral extended simple mastectomy
+8545,Unilateral radical mastectomy
+8546,Bilateral radical mastectomy
+8547,Unilateral extended radical mastectomy
+8548,Bilateral extended radical mastectomy
+8591,Aspiration of breast
+8599,Other operations on the breast
+8611,Biopsy of Skin and Subcutaneous Tissue
+8683,Size reduction plastic surgery
+8703,CT Scan Brain
+8741,CT Scan Chest
+8744,Cxray
+8801,CT Scan Abdomen
+8838,"CT Scan, NOS"
+8873,US Thyroid
+8875,US Urinary System
+8876,US Abdomen and Retroperitoneum
+8891,MRI Brain
+8893,MRI Spine
+8897,MRI Abdomen
+9225,Chemotherapy
+9229,Radiation Therapy
+282X,Tonsillectomy without adenoidectomy
+283X,Tonsillectomy w/ adenoidectomy
+624X,"Bilateral orchiectomy, unspecified"
+666X,Other salpingectomy
+67XX,Operations on Cervix
+689X,Other and unspecified hysterectomy
+68XX,Other incision and excision of Uterus
