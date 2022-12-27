@@ -198,7 +198,7 @@ function set_style(style, options) {
   console.log (style);
   if (style == "compact") {
     console.log(options);
-    vertical = 150;
+    vertical = 200;
     space = 250;
     unit = 70;
     options["show_id"] = false;
@@ -440,7 +440,7 @@ function draw_details (svg, id, partner_id, location, generation, male=true) {
     lines[line_num] = "";
     $.each(config.key_procedures, function (index, key_procedure) {
       $.each(person_details["procedures"], function (disease, details) {
-        console.log(key_procedure.code + " " + details.code);
+//        console.log(key_procedure.code + " " + details.code);
         if (key_procedure.code == details.code) {
           lines[line_num] += key_procedure.shorthand;
           if (config.show_age_of_procedure && details.age_at_procedure) {

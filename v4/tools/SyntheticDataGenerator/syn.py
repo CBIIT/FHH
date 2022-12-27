@@ -3,6 +3,8 @@ from faker import Faker
 from datetime import timedelta, date
 import numpy as np
 import pandas as pd
+import argparse
+import sys
 
 fake = Faker()
 
@@ -31,12 +33,12 @@ def max_age(arr):
         d = date.strptime(data[x]["demographics"]["birthdate"], '%m/%d/%Y').timestamp()
         print(d)
         if (d > max_age):
-            max_age = d 
+            max_age = d
     return max_age
 
 def update_dod(id, children):
     #if (data[id]["deceased"] is not None):
-    #    return 
+    #    return
     print("boo")
     d = date.strptime(data[id]["demographics"]["deathdate"], '%m/%d/%Y').timestamp()
     if (d < max_age): d = max_age
@@ -55,7 +57,7 @@ def diagnosis_date(inDate):
     return diagnosis_out
 
 
-#DATAFRAMES MADE FROM READING IN CSV FILES 
+#DATAFRAMES MADE FROM READING IN CSV FILES
 icdo3morph = pd.read_csv('ICD_O_3_MORPH_CODES.csv')
 icdo3site = pd.read_csv('ICD_O_3_SITE_CODES.csv')
 icd9 = pd.read_csv('ICD_9_CODES.csv')
@@ -78,19 +80,19 @@ def icd9_output():
     return icd_9
 
 def icd10_output():
-    icd10sample = icd10.sample() 
+    icd10sample = icd10.sample()
     icd_10 = icd10sample.to_string(index=False, header=False)
     return icd_10
 
 
 def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa = None, p_gma = None, m_gpa = None, m_gma = None):
-    
+
     adopted = np.random.choice(["In", "Out", "No"], p=[0.0023, 0.0002, 0.9975])
     deceased = bool(np.random.choice([True, False], p=[0.25, 0.75]))
     #multiBirthtype = np.random.choice(["Fraternal", "Identical", "Triplets", " "], p=[0.03, 0.01, 0.005, 0.955])
-    race = np.random.choice(["American Indian or Alaskan Native", "Asian", "Native Hawaiian or Other Pacific Islander", "Black or African American", "White", "Other"], 
+    race = np.random.choice(["American Indian or Alaskan Native", "Asian", "Native Hawaiian or Other Pacific Islander", "Black or African American", "White", "Other"],
         p=[0.013, 0.061, 0.003, 0.136, 0.758, 0.029])
-    first_name = fake.first_name_male() if sex=="Male" else fake.first_name_female() 
+    first_name = fake.first_name_male() if sex=="Male" else fake.first_name_female()
     last_name = fake.last_name()
 
     icd_morph = icdo3_morph_output()
@@ -132,12 +134,12 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa
             "adopted": adopted,
             "deceased": deceased,
             "Race": race,
-            "Ethnicity": 'Hispanic' if race=="Other" else "Not Hispanic"        
+            "Ethnicity": 'Hispanic' if race=="Other" else "Not Hispanic"
     }
 
     if(father is not None):
         proband["father"] = father
-    
+
     if(mother is not None):
         proband["mother"] = mother
 
@@ -145,27 +147,34 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa
   #For Paternal Grandparents of Proband
     if(p_gpa is not None):
         father["father"] = p_gpa
-    
+
     if(p_gma is not None):
         father["mother"] = p_gma
 
-#############################################    
+#############################################
   #For Maternal Grandparents of Proband
     if(m_gpa is not None):
-        mother["father"] = m_gpa        
+        mother["father"] = m_gpa
 
     if(m_gma is not None):
         mother["mother"] = m_gma
 
-    return(proband)    
+    return(proband)
 
 ###############################################
 
-def make_children(num_children, dob, father_id, mother_id):
+def make_children(min, max, dob, father_id, mother_id):
+    num_children = 0;
+
+    if (int(min) < int(max)):
+        num_children = np.random.randint(min, max)
+    else:
+        num_children = int(min);
+
     children = []
     for i in range(num_children):
         person_id = fake.uuid4()
-        sex_assigned = np.random.choice(["Male", "Female"], p=[0.5, 0.5]) 
+        sex_assigned = np.random.choice(["Male", "Female"], p=[0.5, 0.5])
         #fathers_surname
         person = datagenerate_person(person_id, sex_assigned, dob, father_id, mother_id)
         #print(person_id)
@@ -178,21 +187,9 @@ def make_children(num_children, dob, father_id, mother_id):
     #implemention of diseases, using a sample from PPB noncancers
 
 ##############################################################################################################
-
-if __name__ == '__main__':
-    proband_id = fake.uuid4()
-    father_id = fake.uuid4()
-    mother_id = fake.uuid4()
-    
-    p_gpa_id = fake.uuid4()
-    p_gma_id = fake.uuid4()
-    
-    m_gpa_id = fake.uuid4()
-    m_gma_id = fake.uuid4()
-
 #######################################################
-    def dob_generator(minimum_in, maximum_in):
-        return fake.date_of_birth(minimum_age=minimum_in, maximum_age=maximum_in)
+def dob_generator(minimum_in, maximum_in):
+    return fake.date_of_birth(minimum_age=minimum_in, maximum_age=maximum_in)
 
     '''
     g_grandparent_gen_dob = fake.date_of_birth(minimum_age=109, maximum_age=111)
@@ -200,23 +197,42 @@ if __name__ == '__main__':
     g_grandkids_gen_dob = fake.date_of_birth(minimum_age=0, maximum_age=1)
     '''
 
-########################################################    
+########################################################
+
+#############################
+# Below function supports min/max as 2 values: <min>-<max> or 1 value: <min>
+def get_min_max(input_string):
+    min_max = input_string.split("-")
+    if (len(min_max) >= 2): return min_max[0], min_max[1]
+    else: return min_max[0], min_max[0]
+
+def make_family():
+    global args
+
+    proband_id = fake.uuid4()
+    father_id = fake.uuid4()
+    mother_id = fake.uuid4()
+
+    p_gpa_id = fake.uuid4()
+    p_gma_id = fake.uuid4()
+
+    m_gpa_id = fake.uuid4()
+    m_gma_id = fake.uuid4()
+
+    data["proband"] = proband_id
+    data["people"] = {}
 
     probandsex = np.random.choice(["Male", "Female"], p=[0.5, 0.5])
     proband = datagenerate_person(proband_id, probandsex, dob_generator(54, 58), father_id, mother_id)
 
     father = datagenerate_person(father_id, "Male", dob_generator(72, 76), p_gpa_id, p_gma_id)
     mother = datagenerate_person(mother_id, "Female", dob_generator(72, 76), m_gpa_id, m_gma_id)
-    
+
     p_gpa = datagenerate_person(p_gpa_id, "Male", dob_generator(90, 94))
     p_gma = datagenerate_person(p_gma_id, "Female", dob_generator(90, 94))
 
     m_gpa = datagenerate_person(m_gpa_id, "Male", dob_generator(90, 94))
     m_gma = datagenerate_person(m_gma_id, "Female", dob_generator(90, 94))
-
-#######################################################
-    data["proband"] = proband_id
-    data["people"] = {}
 
     data["people"][proband_id] = proband
     data["people"][father_id] = father
@@ -227,29 +243,71 @@ if __name__ == '__main__':
     data["people"][m_gpa_id] = m_gpa
     data["people"][m_gma_id] = m_gma
 
-#######################################################
 
-    num_children = 1 #used for testing changes in code without many family members
-    #num_children = np.random.randint(1, 4) 
-    siblings = make_children(num_children, dob_generator(54, 58), father_id, mother_id)
+    # Make Children
+    [min, max] = get_min_max(args.children)
+    proband_children = make_children(min, max, dob_generator(36, 40), proband_id, None)
 
-    #update_dod(father_id, siblings)
+    # Make Siblings
+    [min, max] = get_min_max(args.siblings)
+    siblings = make_children(min, max, dob_generator(54, 58), data["people"][proband_id]["father"], data["people"][proband_id]["mother"])
 
-    fathers_siblings = make_children(num_children, dob_generator(72, 76), p_gpa_id, p_gma_id)
-    mothers_siblings = make_children(num_children, dob_generator(72, 76), m_gpa_id, m_gma_id)
-    proband_children = make_children(num_children, dob_generator(36, 40), proband_id, None)
+    # Make Uncles and Aunts, Note both parents use the same max/min variable
+    [min, max] = get_min_max(args.parents_siblings)
+    fathers_siblings = make_children(min, max, dob_generator(72, 76), p_gpa_id, p_gma_id)
+    mothers_siblings = make_children(min, max, dob_generator(72, 76), m_gpa_id, m_gma_id)
 
     for person_id in siblings:
-        siblings_children = make_children(num_children, dob_generator(36, 40), person_id, None)
+        [min, max] = get_min_max(args.siblings_children)
+        cousins = make_children(min, max, dob_generator(36, 40), person_id, None)
 
     for person_id in fathers_siblings:
-        fathers_siblings_children = make_children(num_children, dob_generator(54, 58), person_id, None)
+        [min, max] = get_min_max(args.cousins)
+        paternal_cousins = make_children(min, max, dob_generator(54, 58), person_id, None)
 
     for person_id in mothers_siblings:
-        mothers_siblings_children = make_children(num_children, dob_generator(54, 58), person_id, None)
+        [min, max] = get_min_max(args.cousins)
+        maternal_cousins = make_children(min, max, dob_generator(54, 58), person_id, None)
 
-#CODE BELOW KEEPS GIVING ERRORS AFTER DATAFRAMES WERE IMPLEMENTED, believe it errors in dod function and date_of_diagnosis function
     for person_id in proband_children:
-       proband_grandchildren = make_children(num_children, dob_generator(18, 22), person_id, None)
+        [min, max] = get_min_max(args.grandchildren)
+        proband_grandchildren = make_children(min, max, dob_generator(18, 22), person_id, None)
 
-    print(json.dumps(data, indent=4))
+    if (args.output == None):
+        sys.stderr.write("Writing to stdout\n");
+        print(json.dumps(data, indent=4))
+    else:
+        sys.stderr.write("Writing to File: " + args.output + "\n");
+        with open(args.output, 'w') as f:
+            print(json.dumps(data, indent=4), file=f)
+
+################################
+# Argument Parser Functions
+
+def parse_arguments():
+    global args
+    parser = argparse.ArgumentParser(description='The options are listed below')
+    parser.add_argument("-c", "--children", nargs='?', help='<min>-<max>', default="1-3")
+    parser.add_argument("-g", "--grandchildren", nargs='?', help='<min>-<max>', default="1-3")
+    parser.add_argument("-s", "--siblings", nargs='?', help='<min>-<max>', default="1-3")
+    parser.add_argument("-u", "--parents_siblings", nargs='?', help='<min>-<max>', default="1-3")
+    parser.add_argument("-n", "--siblings_children", nargs='?', help='<min>-<max>', default="1-3")
+    parser.add_argument("-C", "--cousins", nargs='?', help='<min>-<max>', default="1-3")
+    parser.add_argument("-d", "--diseases", nargs='?', help='<diseases-filename>')
+    parser.add_argument("-p", "--procedures", nargs='?', help='<procedures-filename>')
+
+    parser.add_argument("output", nargs='?', default=None)
+
+    args = parser.parse_args()
+
+################################
+# Main Functions Always at bottom of files
+
+def main():
+    global args
+    parse_arguments()
+    make_family()
+
+
+if __name__ == "__main__":
+    main()
