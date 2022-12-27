@@ -615,6 +615,7 @@ function draw_male(svg, id, partner_id, location, generation) {
     var line = $(createSvg("line"))
       .attr("deceased", "Deceased")
       .attr("id", id)
+      .attr("partner_id", partner_id)
       .attr("x1",x+unit/2+5).attr("y1",y-unit/2-5)
       .attr("x2",x-unit/2-5).attr("y2",y+unit/2+5)
       .attr("stroke","black");
@@ -687,6 +688,7 @@ function draw_female(svg, id, partner_id, location, generation) {
   if (data["people"][id] && data["people"][id]["deceased"]) {
     var line = $(createSvg("line"))
       .attr("deceased", "Deceased")
+      .attr("partner_id", partner_id)    
       .attr("id", id)
       .attr("x1",x+unit/2+5).attr("y1",y-unit/2-5)
       .attr("x2",x-unit/2-5).attr("y2",y+unit/2+5)
