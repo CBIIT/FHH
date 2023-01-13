@@ -45,7 +45,16 @@
     <script type="text/javascript" src="../js/load_xml.js"></script>
     <script type="text/javascript" src="../js/save_xml.js"></script>
 
-   
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BHSEFD2G9V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-BHSEFD2G9V');
+    </script>
+
 
 
 
@@ -95,14 +104,14 @@
     <script>
 
         $( function() {
-      
+
           $( "#datepicker" ).datepicker();
-      
+
         } );
-      
+
         </script>
-      
-      
+
+
 </head>
 
 <body ng-app="myApp">
@@ -118,7 +127,7 @@
         }
     </script>
 
-    <!-- Google Drive Integration -->
+      <!-- Google Drive Integration -->
     <script type="text/javascript" src="https://apis.google.com/js/client.js"></script>
 
 
@@ -239,8 +248,8 @@
 
             </div>
 
-            <table id="history_summary_table" class="summary_table" summary="This table lists the members of your family 
-        and groups them based on how they are related to you and which side of the family they are on. 
+            <table id="history_summary_table" class="summary_table" summary="This table lists the members of your family
+        and groups them based on how they are related to you and which side of the family they are on.
         You may add, update or remove family members from the links within the table.">
                 <tr class=''>
                     <th scope="col" class="nowrap translate" data-i18n='fhh_fhh.th_name'>Name</th>
@@ -355,12 +364,12 @@
                     <a href="#" onclick="glossary()" class='translate' data-i18n='fhh_index.glossary'>Glossary</a> |
 
                     <a href="#" onclick="faq()" class='translate' data-i18n='fhh_index.faq'>FAQ</a> |
-                   
+
                     <a href="#" onclick="about()" class='translate' data-i18n='fhh_index.about'>About This Site</a> |
 
-                    <a href="#" onclick="contact()" class='translate' data-i18n='fhh_index.contact'>Contact Us</a> 
+                    <a href="#" onclick="contact()" class='translate' data-i18n='fhh_index.contact'>Contact Us</a>
 
-                    
+
                 </td>
             </tr>
         </tbody>
