@@ -75,13 +75,19 @@ $.widget("fhh.pedigree",{
 
       var maternal_half_siblings = find_maternal_half_siblings(father_id, mother_id);
 
+      // Do we still use this?
       var siblings_children = find_all_children_from_list(full_siblings);
+
 //      var brothers_children = find_all_children_from_list(full_brothers);
 //      var sisters_children = find_all_children_from_list(full_sisters);
       var older_siblings_children = find_all_children_from_list(older_siblings);
 //      if (older_siblings_children) older_siblings_children.reverse();
+      console.log(older_siblings_children);
+      give_fake_children(older_siblings_children);
 
       var younger_siblings_children = find_all_children_from_list(younger_siblings);
+      console.log(younger_siblings_children);
+      give_fake_children(younger_siblings_children);
 
       var children = find_children_from_one_parent(proband_id);
 //      var sons = find_sons_from_one_parent(proband_id);
@@ -92,16 +98,18 @@ $.widget("fhh.pedigree",{
 
       var maternal_cousins_children = find_all_children_from_list(maternal_cousins);
 
-      var siblings_children = find_all_children_from_list(children);
 
       var grandchildren = find_all_children_from_list(children);
 //      var sons_children = find_all_children_from_list(sons);
 //      var daughters_children = find_all_children_from_list(daughters);
-
+      var older_siblings_grandchildren = find_all_children_from_list(older_siblings_children);
+      console.log(older_siblings_grandchildren);
+      var younger_siblings_grandchildren = find_all_children_from_list(younger_siblings_grandchildren);
+      console.log(younger_siblings_grandchildren);
 
 // Now, Starting at the bottom, set the Pedigree Location for each couple
 
-      set_location_grandchildren_generation(grandchildren);
+      set_location_grandchildren_generation(older_siblings_grandchildren, grandchildren, younger_siblings_grandchildren);
       set_location_children_generation(paternal_cousins_children, older_siblings_children, children, younger_siblings_children, maternal_cousins_children);
       set_location_proband_generation(paternal_cousins, paternal_half_siblings, older_siblings,
           proband_id, younger_siblings, maternal_half_siblings, maternal_cousins);
@@ -306,8 +314,10 @@ function draw_couple(svg, couple) {
 
   var male_id = couple["male"];
   var female_id = couple["female"];
-  if (data["people"][male_id] && data["people"][male_id]["placeholder"]) return;
-  if (data["people"][female_id] && data["people"][female_id]["placeholder"]) return;
+//  if (data["people"][male_id] && data["people"][male_id]["placeholder"]) return;
+//  if (data["people"][female_id] && data["people"][female_id]["placeholder"]) return;
+  if (data["people"][male_id] && data["people"][male_id]["placeholder"]) console.log("Placeholder");
+  if (data["people"][female_id] && data["people"][female_id]["placeholder"]) console.log("Placeholder");
 
   if (male_id == null && does_person_have_children(female_id)) {
     male_id = "Unknown";
@@ -688,7 +698,7 @@ function draw_female(svg, id, partner_id, location, generation) {
   if (data["people"][id] && data["people"][id]["deceased"]) {
     var line = $(createSvg("line"))
       .attr("deceased", "Deceased")
-      .attr("partner_id", partner_id)    
+      .attr("partner_id", partner_id)
       .attr("id", id)
       .attr("x1",x+unit/2+5).attr("y1",y-unit/2-5)
       .attr("x2",x-unit/2-5).attr("y2",y+unit/2+5)
@@ -1207,11 +1217,16 @@ function set_relatives_location(relatives) {
   });
 }
 
-function set_location_grandchildren_generation(grandchildren) {
-  var starting_index = -Math.floor(grandchildren.length / 2) - 1;
-  console.log (starting_index);
+function set_location_grandchildren_generation(older_siblings_grandchildren, grandchildren, younger_siblings_grandchildren) {
+  var index_left = -Math.floor(grandchildren.length/2)-1;
+  var index_right = -Math.floor(grandchildren.length/2)-1;
 
-  var ending_index = set_location_general(grandchildren, +1, starting_index, 1);
+  console.log(older_siblings_grandchildren);
+  console.log(younger_siblings_grandchildren);
+
+  index_left = set_location_general(older_siblings_grandchildren, -1, index_left, 1);
+  index_right = set_location_general(grandchildren, +1, index_right, 1);
+  index_right = set_location_general(younger_siblings_grandchildren, +1, index_right, 1);
 }
 
 function set_location_children_generation(paternal_cousins_children, older_siblings_children, children, younger_siblings_children, maternal_cousins_children) {
@@ -1225,6 +1240,26 @@ function set_location_children_generation(paternal_cousins_children, older_sibli
   index_right = set_location_general(children, +1, index_right, 2) ;
   index_right = set_location_general(younger_siblings_children, +1, index_right, 2);
   index_right = set_location_general(maternal_cousins_children, +1, index_right, 2);
+
+}
+
+function give_fake_children(list) {
+  $.each(list, function(index, person_id) {
+    var num_children = find_children(person_id).length;
+    if (num_children == 0) {
+
+      var fake_id = person_id + "_1";
+      data["people"][fake_id] = {};
+      data["people"][fake_id]["name"] = "Child of " + data["people"][person_id]["name"];
+      data["people"][fake_id]["demographics"] = {};
+      data["people"][fake_id]["demographics"]["gender"] = "Unknown";
+      if (data["people"][person_id]["demographics"]["gender"] == "Male") {
+        data["people"][fake_id]["father"] = person_id;
+      } else {
+        data["people"][fake_id]["mother"] = person_id;
+      }
+    }
+  });
 
 }
 
@@ -1269,16 +1304,10 @@ function set_location_parents_generation(dads_siblings, dads_extra_partners, fat
 
 
 function set_location_grandparents_generation(paternal_grandfather_id, paternal_grandmother_id, maternal_grandfather_id, maternal_grandmother_id) {
-//  data["people"][paternal_grandfather_id]["pedigree"] = {"location":-1,"generation":5};
-//  data["people"][paternal_grandmother_id]["pedigree"] = {"location":-1,"generation":5};
-//  data["people"][maternal_grandfather_id]["pedigree"] = {"location":1,"generation":5};
-//  data["people"][maternal_grandmother_id]["pedigree"] = {"location":1,"generation":5};;
-
-  set_location_individual(paternal_grandfather_id, +1, 0, 5);
-
-  set_location_individual(paternal_grandmother_id, +1, 0, 5);
-  set_location_individual(maternal_grandfather_id, +1, 0, 5);
-  set_location_individual(maternal_grandmother_id, +1, 0, 5);
+  set_location_individual(paternal_grandfather_id, -1, -1, 5);
+  set_location_individual(paternal_grandmother_id, -1, -1, 5);
+  set_location_individual(maternal_grandfather_id, +1, 1, 5);
+  set_location_individual(maternal_grandmother_id, +1, 1, 5);
 }
 
 function set_location_great_grandparents_generation(great_grandparents,
@@ -1312,7 +1341,6 @@ function set_location_great_grandparents_generation(great_grandparents,
 }
 
 function set_location_individual (person_id, direction, starting_index, generation) {
-  if (person_id == "579704002") console.log ("HERE");
   var location_index = starting_index;
 
   var child_pedigree = find_last_child_pedigree(person_id);
@@ -1322,11 +1350,12 @@ function set_location_individual (person_id, direction, starting_index, generati
   data["people"][person_id]["pedigree"] = {};
   data["people"][person_id]["pedigree"]["generation"] = generation;
   if (child_pedigree != null && child_pedigree["location"] != null) {
-    if (person_id == "579704001") console.log (location_index);
-    if (person_id == "579704002") console.log (location_index);
     location_index = child_pedigree["location"] + direction;
     var new_location = Math.floor( (child_pedigree["location"] + first_child_pedigree["location"]) / 2);
+    if (num_children == 1) new_location = location_index;
     data["people"][person_id]["pedigree"]["location"] = new_location;
+    if (person_id == "ef77435b-5311-4629-982f-457e6f323913") console.log (num_children);
+    if (person_id == "4e3796a4-eea3-454a-bdd4-b967a69680b3") console.log (num_children);
 
   } else {
     location_index = location_index + direction;
