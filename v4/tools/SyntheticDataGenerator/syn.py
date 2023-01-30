@@ -15,9 +15,11 @@ data={}
 def is_str(value_in):
     return type(value_in) is str
 
+
+#DATE OF DEATH NEEDS CONFIGURATION TO MAKE SURE THE RANDOMLY GENERATED DEATH IS AFTER A CERTAIN AGE
 def create_dod(inDate):
     # Using builtin support of timedelta, add 26 years (in days accounting for up to 4 leap years), and 100 years as a cap
-    age_min_offset = 0       #Minimum age at death is around 0
+    age_min_offset = 6600      #Minimum age at death is around 18
     age_max_offset = 36900      #Maximum age at death is around 100
     dod_min  = inDate + timedelta(days=age_min_offset)
     dod_max = inDate + timedelta(days=age_max_offset)
@@ -30,7 +32,7 @@ def create_dod(inDate):
 def max_age(arr):
     max_age = 0
     for x in arr:
-        d = date.strptime(data[x]["demographics"]["birthdate"], '%m/%d/%Y').timestamp()
+        d = date.strptime(data[x]["demographics"]["birthdate"], '%Y-%m-%d').timestamp()
         print(d)
         if (d > max_age):
             max_age = d
@@ -40,13 +42,13 @@ def update_dod(id, children):
     #if (data[id]["deceased"] is not None):
     #    return
     print("boo")
-    d = date.strptime(data[id]["demographics"]["deathdate"], '%m/%d/%Y').timestamp()
+    d = date.strptime(data[id]["demographics"]["deathdate"], '%Y-%m-%d').timestamp()
     if (d < max_age): d = max_age
     data[id]["demographics"]["deathdate"] = date(d)
 '''
 
 def diagnosis_date(inDate):
-    age_min_offset = 1095       #Minimum age at diagnosis is around 3
+    age_min_offset = 0       #Minimum age at diagnosis is 0
     age_max_offset = 25555      #Maximum age at diagnosis is around 70
     diagnosis_min  = inDate + timedelta(days=age_min_offset)
     diagnosis_max = inDate + timedelta(days=age_max_offset)
@@ -62,6 +64,8 @@ icdo3morph = pd.read_csv('ICD_O_3_MORPH_CODES.csv')
 icdo3site = pd.read_csv('ICD_O_3_SITE_CODES.csv')
 icd9 = pd.read_csv('ICD_9_CODES.csv')
 icd10 = pd.read_csv('ICD_10_CODES.csv')
+lat_diag = pd.read_csv('LATERALITY.csv')
+procedure_intent = pd.read_csv('INTENT.csv')
 
 def icdo3_morph_output():
     icdo3_morph_sample = icdo3morph.sample()
@@ -84,18 +88,35 @@ def icd10_output():
     icd_10 = icd10sample.to_string(index=False, header=False)
     return icd_10
 
+def lat_diag_output():
+    lat_diag_sample = lat_diag.sample()
+    latdiag = lat_diag_sample.to_string(index=False, header=False)
+    return latdiag
+
+def procedure_intent_output():
+    procedure_intent_sample = procedure_intent.sample()
+    proc_intent = procedure_intent_sample.to_string(index=False, header=False)
+    return proc_intent
 
 def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa = None, p_gma = None, m_gpa = None, m_gma = None):
 
     adopted = np.random.choice(["In", "Out", "No"], p=[0.0023, 0.0002, 0.9975])
-    deceased = bool(np.random.choice([True, False], p=[0.25, 0.75]))
-    #multiBirthtype = np.random.choice(["Fraternal", "Identical", "Triplets", " "], p=[0.03, 0.01, 0.005, 0.955])
+    deceased = bool(np.random.choice([True, False], p=[0.15, 0.85]))
+    multiBirthtype = np.random.choice(["Fraternal", "Identical", "Triplets", " "], p=[0.03, 0.01, 0.005, 0.955])
     race = np.random.choice(["American Indian or Alaskan Native", "Asian", "Native Hawaiian or Other Pacific Islander", "Black or African American", "White", "Other"],
         p=[0.013, 0.061, 0.003, 0.136, 0.758, 0.029])
     first_name = fake.first_name_male() if sex=="Male" else fake.first_name_female()
     last_name = fake.last_name()
+    date_of_death = create_dod(dob)
 
     icd_morph = icdo3_morph_output()
+    icd3_site = icdo3_site_output()
+    icd9_code = icd9_output()
+    lateraily_canc = lat_diag_output()
+    cancer_diag_meth = np.random.choice(["Pathology Report", "Person Relation Report", "Physician/Consult Report", "Radiology/Imaging Report", "Self Report", "Study Pathologist Determined", ""], p=[0.175, 0.056, 0.009, 0.359, 0.054, 0.207, 0.14])
+    non_cancer_diag_meth = np.random.choice(["Autopsy Report", "Cytogenetic Assay Report", "Pathology Report", "Person Relation Report", "Physician/Consult Report", "Radiology/Imaging Report", "Self Report", "Study Investigator Determined", 
+        "Study Pathologist Determined", "Study Radiologist Review", "Surgery/Operation Report", "", "Flow Cytometry Report"], 
+        p=[0.0002, 0.0014, 0.1477, 0.1212, 0.1206, 0.3243, 0.2664, 0.0007, 0.0043, 0.0031, 0.0084, 0.0006, 0.0011])
     #TESTING ONLY VARIABLES
     '''
     cancer = np.random.choice(["Yes", "No"], p=[0.99, 0.01])
@@ -105,34 +126,96 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa
 
     #VARIABLES TO BE USED IN NONTESTING
 
-    cancer = np.random.choice(["Yes", "No"], p=[0.40, 0.60])
-    noncancer = np.random.choice(["Yes", "No"], p=[0.75, 0.25])
+    cancer = np.random.choice(["Yes", "No"], p=[0.25, 0.75])
+    noncancer = np.random.choice(["Yes", "No"], p=[0.60, 0.40])
     procedure = np.random.choice(["Yes", "No"], p=[0.25, 0.75])
-
+    
 
     proband = {
-            "name": first_name + " " + last_name,
-            "Patient ID": person_id,
-            "demographics": {
-                "gender": sex,
-                "birthdate":dob.strftime('%m/%d/%Y'),
-                "deathdate":create_dod(dob).strftime('%m/%d/%Y') if (deceased==True and not is_str(create_dod(dob))) else "",
-            },
-            "diseases":[{
-                "code": icd_morph.split(" ", 1)[0] if cancer=="Yes" else '',
-                "morphology": icd_morph if cancer=="Yes" else '',
-                "site": icdo3_site_output() if cancer=="Yes" else '',
-                "laterality": '',
-                "cancer_date_of_diagnosis": diagnosis_date(dob).strftime('%m/%d/%Y') if (cancer=="Yes" and not is_str(diagnosis_date(dob))) else '',
-                "icd10": icd10_output() if noncancer=="Yes" else '',
-                "noncancer_date_of_diagnosis": diagnosis_date(dob).strftime('%m/%d/%Y') if (noncancer=="Yes" and not is_str(diagnosis_date(dob))) else '',
+            "id": person_id,
+            "name": 
+                [
+                {
+                    #"use" : "official",
+                    #"family" : "",
+                    "given" : [last_name, first_name]
+                },
+                
+                #{
+                #    "use" : "usual",
+                #    "given" : [first_name]  #May not be able to synthetically generate accurate nicknames based on given name
+                #},
+                
+                #{
+                #    "use" : "maiden", #Need to add if else for if they are female, fill in the blanks 
+                #    "family" : "",
+                #    "given" : [last_name, first_name],
+                #}
+                ],
+            "gender" : sex,
+            "birthDate": dob.strftime('%Y-%m-%d'),
+            "deceasedBoolean": deceased,
+            "deceasedDateTime" : date_of_death.strftime('%Y-%m-%d') if (deceased==True and not is_str(create_dod(dob))) else '',
+            
+            "condition":
+            [{
+                "code" : 
+                    {
+                        "coding" : 
+                        [{
+                            #"system" : "",
+                            "code" : icd_morph.split(" ", 1)[0] if cancer=="Yes" else '',   #Potential to add non_cancer on same line with a condition added but icd is different if non_cancer == Yes
+                            "display" : icd_morph if cancer=="Yes" else '', #EXAMPLE:"Burn of ear"
+                        }],
+                        #"text" : "", #"Burnt Ear"
+                    },
+                    "bodySite" : 
+                    [{
+                        "coding" : 
+                        [{
+                            #"system" : "",
+                            "code" :icd3_site.split(" ", 1)[0] if cancer=="Yes" else '',
+                            "display" : icd3_site if cancer=="Yes" else '',#"Left external ear structure"
+                        }],
+                        #"text" : "",#"Left Ear"
+                    }],
+                "onsetDateTime" : diagnosis_date(dob).strftime('%Y-%m-%d') if (cancer=="Yes" and not is_str(diagnosis_date(dob))) else '',
+
+            #ABOVE DOES NOT INCLUDE NON_CANCER CONDITIONS
+
+                #"icd10": icd10_output() if noncancer=="Yes" else '',
+                #"noncancer_date_of_diagnosis": diagnosis_date(dob).strftime('%Y-%m-%d') if (noncancer=="Yes" and not is_str(diagnosis_date(dob))) else '',
+                #"non_cancer_diagnosis_meth":non_cancer_diag_meth if cancer=="Yes" else'',
+
+                #"laterality": lateraily_canc if cancer=="Yes" else'',
+                #"cancer_diagnosis_meth": cancer_diag_meth if cancer=="Yes" else'',
+                #"cancer_date_of_diagnosis": diagnosis_date(dob).strftime('%Y-%m-%d') if (cancer=="Yes" and not is_str(diagnosis_date(dob))) else '',
+                
             }],
-            "procedures":{
-                "icd9": icd9_output() if procedure=="Yes" else '',
-                "date_of_diagnosis": diagnosis_date(dob).strftime('%m/%d/%Y') if (procedure=="Yes" and not is_str(diagnosis_date(dob))) else '',
-            },
+            "procedure":[{
+                "category" : 
+                [{
+                    "coding" : 
+                    [{
+                        #"system" : "",
+                        #"code" : "",
+                        "display" : procedure_intent_output() if procedure=="Yes" else '',
+                    }],
+                    #"text" : "Diagnostic procedure"
+                }],
+                "code" : 
+                {
+                    "coding" : 
+                    [{
+                        ##"system" : "",
+                        "code" : icd9_code.split(" ", 1)[0] if cancer=="Yes" or noncancer =="Yes" else '',
+                        "display" : icd9_code if procedure=="Yes" else '',
+                    }],
+                    #"text" : "",#"Appendectomy"
+                },
+                "occurrenceDateTime": diagnosis_date(dob).strftime('%Y-%m-%d') if (procedure=="Yes" and not is_str(diagnosis_date(dob))) else '',
+            }],
             "adopted": adopted,
-            "deceased": deceased,
             "Race": race,
             "Ethnicity": 'Hispanic' if race=="Other" else "Not Hispanic"
     }
@@ -164,12 +247,12 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa
 ###############################################
 
 def make_children(min, max, dob, father_id, mother_id):
-    num_children = 0;
+    num_children = 0
 
     if (int(min) < int(max)):
         num_children = np.random.randint(min, max)
     else:
-        num_children = int(min);
+        num_children = int(min)
 
     children = []
     for i in range(num_children):
@@ -182,24 +265,16 @@ def make_children(min, max, dob, father_id, mother_id):
         data["people"][person_id] = person
     return children
 
-###############################################
-
-    #implemention of diseases, using a sample from PPB noncancers
-
 ##############################################################################################################
-#######################################################
+
 def dob_generator(minimum_in, maximum_in):
     return fake.date_of_birth(minimum_age=minimum_in, maximum_age=maximum_in)
-
     '''
     g_grandparent_gen_dob = fake.date_of_birth(minimum_age=109, maximum_age=111)
-    grandkids_gen_dob = fake.date_of_birth(minimum_age=18, maximum_age=22)
     g_grandkids_gen_dob = fake.date_of_birth(minimum_age=0, maximum_age=1)
     '''
-
 ########################################################
 
-#############################
 # Below function supports min/max as 2 values: <min>-<max> or 1 value: <min>
 def get_min_max(input_string):
     min_max = input_string.split("-")
@@ -274,10 +349,10 @@ def make_family():
         proband_grandchildren = make_children(min, max, dob_generator(18, 22), person_id, None)
 
     if (args.output == None):
-        sys.stderr.write("Writing to stdout\n");
+        sys.stderr.write("Writing to stdout\n")
         print(json.dumps(data, indent=4))
     else:
-        sys.stderr.write("Writing to File: " + args.output + "\n");
+        sys.stderr.write("Writing to File: " + args.output + "\n")
         with open(args.output, 'w') as f:
             print(json.dumps(data, indent=4), file=f)
 
@@ -293,8 +368,8 @@ def parse_arguments():
     parser.add_argument("-u", "--parents_siblings", nargs='?', help='<min>-<max>', default="1-3")
     parser.add_argument("-n", "--siblings_children", nargs='?', help='<min>-<max>', default="1-3")
     parser.add_argument("-C", "--cousins", nargs='?', help='<min>-<max>', default="1-3")
-    parser.add_argument("-d", "--diseases", nargs='?', help='<diseases-filename>')
-    parser.add_argument("-p", "--procedures", nargs='?', help='<procedures-filename>')
+    parser.add_argument("-d", "--condition", nargs='?', help='<condition-filename>')
+    parser.add_argument("-p", "--procedure", nargs='?', help='<procedure-filename>')
 
     parser.add_argument("output", nargs='?', default=None)
 
