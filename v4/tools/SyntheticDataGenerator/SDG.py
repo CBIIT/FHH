@@ -15,6 +15,11 @@ data={}
 def is_str(value_in):
     return type(value_in) is str
 
+#need to change code to reflect age AT diagnosis
+def calculateAge(dob):
+    today = date.today()
+    age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+    return age
 
 #DATE OF DEATH NEEDS CONFIGURATION TO MAKE SURE THE RANDOMLY GENERATED DEATH IS AFTER A CERTAIN AGE
 def create_dod(inDate):
@@ -98,7 +103,9 @@ def procedure_intent_output():
     proc_intent = procedure_intent_sample.to_string(index=False, header=False)
     return proc_intent
 
-def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa = None, p_gma = None, m_gpa = None, m_gma = None):
+
+def datagenerate_person(person_id, sex, dob, father = None, mother = None, paternal_grandfather = None, paternal_grandmother = None, maternal_grandfather = None, maternal_grandmother = None):
+
 
     adopted = np.random.choice(["In", "Out", "No"], p=[0.0023, 0.0002, 0.9975])
     deceased = bool(np.random.choice([True, False], p=[0.15, 0.85]))
@@ -107,7 +114,11 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa
         p=[0.013, 0.061, 0.003, 0.136, 0.758, 0.029])
     first_name = fake.first_name_male() if sex=="Male" else fake.first_name_female()
     last_name = fake.last_name()
+    practioner_name = fake.first_name() + " " + fake.last_name()
     date_of_death = create_dod(dob)
+
+    age_out = calculateAge(dob)
+    today_date = date.today()
 
     icd_morph = icdo3_morph_output()
     icd3_site = icdo3_site_output()
@@ -118,81 +129,106 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa
         "Study Pathologist Determined", "Study Radiologist Review", "Surgery/Operation Report", "", "Flow Cytometry Report"], 
         p=[0.0002, 0.0014, 0.1477, 0.1212, 0.1206, 0.3243, 0.2664, 0.0007, 0.0043, 0.0031, 0.0084, 0.0006, 0.0011])
     #TESTING ONLY VARIABLES
-    '''
+    
     cancer = np.random.choice(["Yes", "No"], p=[0.99, 0.01])
     noncancer = np.random.choice(["Yes", "No"], p=[0.99, 0.01])
     procedure = np.random.choice(["Yes", "No"], p=[0.99, 0.01])
-    '''
+    
 
     #VARIABLES TO BE USED IN NONTESTING
-
+    '''
     cancer = np.random.choice(["Yes", "No"], p=[0.25, 0.75])
     noncancer = np.random.choice(["Yes", "No"], p=[0.60, 0.40])
     procedure = np.random.choice(["Yes", "No"], p=[0.25, 0.75])
-    
+    '''
 
+    #Proband = {} here is a dictionary
     proband = {
+        "individuals":
+        {
             "id": person_id,
             "name": 
                 [
-                {
-                    #"use" : "official",
-                    #"family" : "",
-                    "given" : [last_name, first_name]
-                },
-                
-                #{
-                #    "use" : "usual",
-                #    "given" : [first_name]  #May not be able to synthetically generate accurate nicknames based on given name
-                #},
-                
-                #{
-                #    "use" : "maiden", #Need to add if else for if they are female, fill in the blanks 
-                #    "family" : "",
-                #    "given" : [last_name, first_name],
-                #}
+                    {
+                        "use" : "official",
+                        "family" : "",
+                        "given" : [last_name, first_name]
+                    },
+                    
+                    {
+                        "use" : "usual",
+                        "given" : [first_name]  #May not be able to synthetically generate accurate nicknames based on given name
+                    },
+                    
+                    {
+                        "use" : "maiden", #Need to add if else for if they are female, fill in the blanks 
+                        "family" : "",
+                        "given" : [last_name, first_name],
+                    }
                 ],
             "gender" : sex,
             "birthDate": dob.strftime('%Y-%m-%d'),
             "deceasedBoolean": deceased,
-            "deceasedDateTime" : date_of_death.strftime('%Y-%m-%d') if (deceased==True and not is_str(create_dod(dob))) else '',
+            "deceasedDateTime" : 
+            {
+                "extension" : 
+                [{
+                    #"url" : "http://hl7.org/fhir/StructureDefinition/patient-birthTime",
+                    "valueDateTime" : date_of_death.strftime('%Y-%m-%d') if (deceased==True and not is_str(create_dod(dob))) else ''
+                }]
+            },
             
-            "condition":
+            "adopted": adopted,
+            "race": race,
+            "ethnicity": 'Hispanic' if race=="Other" else "Not Hispanic",
+            
+            #el-if for if a condition is yes, display everything in relation, otherwise don't show the empty condition fields
+            "conditions":
             [{
                 "code" : 
                     {
                         "coding" : 
                         [{
-                            #"system" : "",
+                            "system" : "ICD-O-3 Morphology",
                             "code" : icd_morph.split(" ", 1)[0] if cancer=="Yes" else '',   #Potential to add non_cancer on same line with a condition added but icd is different if non_cancer == Yes
                             "display" : icd_morph if cancer=="Yes" else '', #EXAMPLE:"Burn of ear"
                         }],
-                        #"text" : "", #"Burnt Ear"
                     },
                     "bodySite" : 
                     [{
                         "coding" : 
                         [{
-                            #"system" : "",
+                            "system" : "ICD-O-3 Site",
                             "code" :icd3_site.split(" ", 1)[0] if cancer=="Yes" else '',
                             "display" : icd3_site if cancer=="Yes" else '',#"Left external ear structure"
                         }],
-                        #"text" : "",#"Left Ear"
                     }],
                 "onsetDateTime" : diagnosis_date(dob).strftime('%Y-%m-%d') if (cancer=="Yes" and not is_str(diagnosis_date(dob))) else '',
+                "onsetAge" : 
+                {
+                    "value" : age_out,
+                    "unit" : "years",
+                    "system" : "Example: http://unitsofmeasure.org",
+                    "code" : "a"
+                },
+                "recordedDate" : today_date.strftime('%Y-%m-%d'),
+                "evidence" : 
+                [{
+                    "reference" : 
+                    {
+                        "reference" : cancer_diag_meth,
+                        "display" : cancer_diag_meth
+                    }
+                }]
 
             #ABOVE DOES NOT INCLUDE NON_CANCER CONDITIONS
-
-                #"icd10": icd10_output() if noncancer=="Yes" else '',
-                #"noncancer_date_of_diagnosis": diagnosis_date(dob).strftime('%Y-%m-%d') if (noncancer=="Yes" and not is_str(diagnosis_date(dob))) else '',
-                #"non_cancer_diagnosis_meth":non_cancer_diag_meth if cancer=="Yes" else'',
-
-                #"laterality": lateraily_canc if cancer=="Yes" else'',
-                #"cancer_diagnosis_meth": cancer_diag_meth if cancer=="Yes" else'',
-                #"cancer_date_of_diagnosis": diagnosis_date(dob).strftime('%Y-%m-%d') if (cancer=="Yes" and not is_str(diagnosis_date(dob))) else '',
                 
             }],
-            "procedure":[{
+
+            #el-if for if a procedure is yes, display everything in relation otherwise, don't show the empty procedure fields
+            "procedure":
+            [{
+                "status" : "completed",
                 "category" : 
                 [{
                     "coding" : 
@@ -201,47 +237,49 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, p_gpa
                         #"code" : "",
                         "display" : procedure_intent_output() if procedure=="Yes" else '',
                     }],
-                    #"text" : "Diagnostic procedure"
                 }],
                 "code" : 
                 {
                     "coding" : 
                     [{
-                        ##"system" : "",
+                        "system" : "ICD 9",
                         "code" : icd9_code.split(" ", 1)[0] if cancer=="Yes" or noncancer =="Yes" else '',
                         "display" : icd9_code if procedure=="Yes" else '',
                     }],
                     #"text" : "",#"Appendectomy"
                 },
                 "occurrenceDateTime": diagnosis_date(dob).strftime('%Y-%m-%d') if (procedure=="Yes" and not is_str(diagnosis_date(dob))) else '',
+                "recorded" : diagnosis_date(dob).strftime('%Y-%m-%d') if (procedure=="Yes" and not is_str(diagnosis_date(dob))) else '',
+                "performer" : 
+                [{
+                    "actor" : 
+                    {
+                        "reference" : "Practitioner",
+                        "display" : "Dr. " + practioner_name,
+                    }
+                }],
             }],
-            "adopted": adopted,
-            "Race": race,
-            "Ethnicity": 'Hispanic' if race=="Other" else "Not Hispanic"
+        },
     }
-
+    
     if(father is not None):
         proband["father"] = father
 
     if(mother is not None):
         proband["mother"] = mother
 
-################################################
-  #For Paternal Grandparents of Proband
-    if(p_gpa is not None):
-        father["father"] = p_gpa
+    if(paternal_grandfather is not None):
+        father["father"] = paternal_grandfather
 
-    if(p_gma is not None):
-        father["mother"] = p_gma
+    if(paternal_grandmother is not None):
+        father["mother"] = paternal_grandmother
 
-#############################################
-  #For Maternal Grandparents of Proband
-    if(m_gpa is not None):
-        mother["father"] = m_gpa
+    if(maternal_grandfather is not None):
+        mother["father"] = maternal_grandfather
 
-    if(m_gma is not None):
-        mother["mother"] = m_gma
-
+    if(maternal_grandmother is not None):
+        mother["mother"] = maternal_grandmother
+    
     return(proband)
 
 ###############################################
@@ -264,6 +302,22 @@ def make_children(min, max, dob, father_id, mother_id):
         children.append(person_id)
         data["people"][person_id] = person
     return children
+##############################################################################################################
+
+def generate_relationships(person_id, other_person_id):
+    #Currently only generates relationship for father, mother, all grandparents of the proband ONLY
+    relationships = {
+        "relationships":
+        {
+            "individual_id": person_id,
+            "relation":
+            {
+                "label": "", #Mother of, father of, sibling of, etc. 
+                "relative_id": other_person_id 
+            }
+        }
+    }
+    return (relationships)
 
 ##############################################################################################################
 
@@ -288,36 +342,48 @@ def make_family():
     father_id = fake.uuid4()
     mother_id = fake.uuid4()
 
-    p_gpa_id = fake.uuid4()
-    p_gma_id = fake.uuid4()
+    paternal_grandfather_id = fake.uuid4()
+    paternal_grandmother_id = fake.uuid4()
 
-    m_gpa_id = fake.uuid4()
-    m_gma_id = fake.uuid4()
+    maternal_grandfather_id = fake.uuid4()
+    maternal_grandmother_id = fake.uuid4()
 
     data["proband"] = proband_id
     data["people"] = {}
+    data["relationships"] = {}
 
     probandsex = np.random.choice(["Male", "Female"], p=[0.5, 0.5])
+
+    #generates individual persons info
     proband = datagenerate_person(proband_id, probandsex, dob_generator(54, 58), father_id, mother_id)
-
-    father = datagenerate_person(father_id, "Male", dob_generator(72, 76), p_gpa_id, p_gma_id)
-    mother = datagenerate_person(mother_id, "Female", dob_generator(72, 76), m_gpa_id, m_gma_id)
-
-    p_gpa = datagenerate_person(p_gpa_id, "Male", dob_generator(90, 94))
-    p_gma = datagenerate_person(p_gma_id, "Female", dob_generator(90, 94))
-
-    m_gpa = datagenerate_person(m_gpa_id, "Male", dob_generator(90, 94))
-    m_gma = datagenerate_person(m_gma_id, "Female", dob_generator(90, 94))
-
+    father = datagenerate_person(father_id, "Male", dob_generator(72, 76), paternal_grandfather_id, paternal_grandmother_id)
+    mother = datagenerate_person(mother_id, "Female", dob_generator(72, 76), maternal_grandfather_id, maternal_grandmother_id)
+    paternal_grandfather = datagenerate_person(paternal_grandfather_id, "Male", dob_generator(90, 94))
+    paternal_grandmother = datagenerate_person(paternal_grandmother_id, "Female", dob_generator(90, 94))
+    maternal_grandfather = datagenerate_person(maternal_grandfather_id, "Male", dob_generator(90, 94))
+    maternal_grandmother = datagenerate_person(maternal_grandmother_id, "Female", dob_generator(90, 94))
+    #generate relationship
+    proband_father = generate_relationships(father_id, proband_id)
+    proband_mother = generate_relationships(mother_id, proband_id)
+    proband_p_gpa = generate_relationships(paternal_grandfather_id, father_id)
+    proband_p_gma = generate_relationships(paternal_grandmother_id, father_id)
+    proband_m_gpa = generate_relationships(maternal_grandfather_id, mother_id)
+    proband_m_gma = generate_relationships(maternal_grandmother_id, mother_id)
+    #Generates individuals
     data["people"][proband_id] = proband
     data["people"][father_id] = father
     data["people"][mother_id] = mother
-
-    data["people"][p_gpa_id] = p_gpa
-    data["people"][p_gma_id] = p_gma
-    data["people"][m_gpa_id] = m_gpa
-    data["people"][m_gma_id] = m_gma
-
+    data["people"][paternal_grandfather_id] = paternal_grandfather
+    data["people"][paternal_grandmother_id] = paternal_grandmother
+    data["people"][maternal_grandfather_id] = maternal_grandfather
+    data["people"][maternal_grandmother_id] = maternal_grandmother
+    #Generates the relationships
+    data["relationships"][father_id] = proband_father
+    data["relationships"][mother_id] = proband_mother
+    data["relationships"][paternal_grandfather_id] = proband_p_gpa
+    data["relationships"][paternal_grandmother_id] = proband_p_gma
+    data["relationships"][maternal_grandfather_id] = proband_m_gpa
+    data["relationships"][maternal_grandmother_id] = proband_m_gma
 
     # Make Children
     [min, max] = get_min_max(args.children)
@@ -329,9 +395,9 @@ def make_family():
 
     # Make Uncles and Aunts, Note both parents use the same max/min variable
     [min, max] = get_min_max(args.parents_siblings)
-    fathers_siblings = make_children(min, max, dob_generator(72, 76), p_gpa_id, p_gma_id)
-    mothers_siblings = make_children(min, max, dob_generator(72, 76), m_gpa_id, m_gma_id)
-
+    fathers_siblings = make_children(min, max, dob_generator(72, 76), paternal_grandfather_id, paternal_grandmother_id)
+    mothers_siblings = make_children(min, max, dob_generator(72, 76), maternal_grandfather_id, maternal_grandmother_id)
+    
     for person_id in siblings:
         [min, max] = get_min_max(args.siblings_children)
         cousins = make_children(min, max, dob_generator(36, 40), person_id, None)
@@ -347,7 +413,7 @@ def make_family():
     for person_id in proband_children:
         [min, max] = get_min_max(args.grandchildren)
         proband_grandchildren = make_children(min, max, dob_generator(18, 22), person_id, None)
-
+    
     if (args.output == None):
         sys.stderr.write("Writing to stdout\n")
         print(json.dumps(data, indent=4))
