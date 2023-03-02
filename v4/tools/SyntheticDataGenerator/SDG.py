@@ -1,6 +1,8 @@
 import json
 from faker import Faker
 from datetime import timedelta, date
+from dateutil import relativedelta
+import random
 import numpy as np
 import pandas as pd
 import argparse
@@ -15,12 +17,6 @@ data={}
 def is_str(value_in):
     return type(value_in) is str
 
-#need to change code to reflect age AT diagnosis
-def calculateAge(dob):
-    today = date.today()
-    age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
-    return age
-
 #DATE OF DEATH NEEDS CONFIGURATION TO MAKE SURE THE RANDOMLY GENERATED DEATH IS AFTER A CERTAIN AGE
 def create_dod(inDate):
     # Using builtin support of timedelta, add 26 years (in days accounting for up to 4 leap years), and 100 years as a cap
@@ -33,24 +29,6 @@ def create_dod(inDate):
         dod_max = date.today()
         dod_out = fake.date_between_dates(date_start=dod_min, date_end=dod_max)
     return dod_out
-'''
-def max_age(arr):
-    max_age = 0
-    for x in arr:
-        d = date.strptime(data[x]["demographics"]["birthdate"], '%Y-%m-%d').timestamp()
-        print(d)
-        if (d > max_age):
-            max_age = d
-    return max_age
-
-def update_dod(id, children):
-    #if (data[id]["deceased"] is not None):
-    #    return
-    print("boo")
-    d = date.strptime(data[id]["demographics"]["deathdate"], '%Y-%m-%d').timestamp()
-    if (d < max_age): d = max_age
-    data[id]["demographics"]["deathdate"] = date(d)
-'''
 
 def diagnosis_date(inDate):
     age_min_offset = 0       #Minimum age at diagnosis is 0
@@ -63,77 +41,68 @@ def diagnosis_date(inDate):
         diagnosis_out = fake.date_between_dates(date_start=diagnosis_min, date_end=diagnosis_max)
     return diagnosis_out
 
-
 #DATAFRAMES MADE FROM READING IN CSV FILES
-icdo3morph = pd.read_csv('ICD_O_3_MORPH_CODES.csv')
-icdo3site = pd.read_csv('ICD_O_3_SITE_CODES.csv')
-icd9 = pd.read_csv('ICD_9_CODES.csv')
-icd10 = pd.read_csv('ICD_10_CODES.csv')
-lat_diag = pd.read_csv('LATERALITY.csv')
-procedure_intent = pd.read_csv('INTENT.csv')
-
-def icdo3_morph_output():
-    icdo3_morph_sample = icdo3morph.sample()
-    icdo3_morph = icdo3_morph_sample.to_string(index=False, header=False)
-    #print(icdo3_morph.split(" ", 1)[0])
-    return icdo3_morph
-
-def icdo3_site_output():
-    icdo3_site_sample = icdo3site.sample()
-    icdo3_site = icdo3_site_sample.to_string(index=False, header=False)
-    return icdo3_site
-
-def icd9_output():
-    icd9sample = icd9.sample()
-    icd_9 = icd9sample.to_string(index=False, header=False)
-    return icd_9
-
-def icd10_output():
-    icd10sample = icd10.sample()
-    icd_10 = icd10sample.to_string(index=False, header=False)
-    return icd_10
-
-def lat_diag_output():
-    lat_diag_sample = lat_diag.sample()
-    latdiag = lat_diag_sample.to_string(index=False, header=False)
-    return latdiag
-
-def procedure_intent_output():
-    procedure_intent_sample = procedure_intent.sample()
-    proc_intent = procedure_intent_sample.to_string(index=False, header=False)
-    return proc_intent
+#icdo3morph = pd.read_csv('ICD_O_3_MORPH_CODES.csv')
+#icdo3site = pd.read_csv('ICD_O_3_SITE_CODES.csv')
+ppbcancer = pd.read_csv('PPB_Cancer.csv')
+ppbC = pd.DataFrame(ppbcancer)
+#ppbnoncancer = pd.read_csv('PPB_Noncancer.csv')
+#ppbN = pd.DataFrame(ppbnoncancer)
+ppbprocedures = pd.read_csv('PPB_Procedure.csv')
+ppbP = pd.DataFrame(ppbprocedures)
 
 
 def datagenerate_person(person_id, sex, dob, father = None, mother = None, paternal_grandfather = None, paternal_grandmother = None, maternal_grandfather = None, maternal_grandmother = None):
-
-
+    ppb_cancer_number = (random.randint(0,4924))
+    ppb_noncancer_number = 0 
+    ppb_procedures_number = (random.randint(0,5867))
     adopted = np.random.choice(["In", "Out", "No"], p=[0.0023, 0.0002, 0.9975])
     deceased = bool(np.random.choice([True, False], p=[0.15, 0.85]))
-    multiBirthtype = np.random.choice(["Fraternal", "Identical", "Triplets", " "], p=[0.03, 0.01, 0.005, 0.955])
-    race = np.random.choice(["American Indian or Alaskan Native", "Asian", "Native Hawaiian or Other Pacific Islander", "Black or African American", "White", "Other"],
-        p=[0.013, 0.061, 0.003, 0.136, 0.758, 0.029])
+    #multiBirthtype = np.random.choice(["Fraternal", "Identical", "Triplets", " "], p=[0.03, 0.01, 0.005, 0.955])
+    race = np.random.choice(["American Indian or Alaskan Native", "Asian", "Native Hawaiian or Other Pacific Islander", "Black or African American", "White", "Other"], p=[0.013, 0.061, 0.003, 0.136, 0.758, 0.029])
     first_name = fake.first_name_male() if sex=="Male" else fake.first_name_female()
     last_name = fake.last_name()
-    practioner_name = fake.first_name() + " " + fake.last_name()
+    practitioner_name = fake.first_name() + " " + fake.last_name()
     date_of_death = create_dod(dob)
+    death_date_str = date_of_death.strftime('%Y-%m-%d') if (deceased==True and not is_str(create_dod(dob))) else ''
+    
+    icd_morph_code = ppbC.loc[ppb_cancer_number, 'icdo3 morphology codes']
+    icd_morph = ppbC.loc[ppb_cancer_number, 'icdo3 morphology']
+    icd3_site_code = ppbC.loc[ppb_cancer_number, 'icdo3 site codes']
+    icd3_site = ppbC.loc[ppb_cancer_number, 'icdo3 site']
+    diagnosis_method = ppbC.loc[ppb_cancer_number, 'diagnosis method']
 
-    age_out = calculateAge(dob)
-    today_date = date.today()
+    icd_morph_code_str = str(icd_morph_code)
+    icd_morph_str = str(icd_morph)
+    icd3_site_code_str = str(icd3_site_code)
+    icd3_site_str = str(icd3_site)
+    diagnosis_method_str = str(diagnosis_method)
 
-    icd_morph = icdo3_morph_output()
-    icd3_site = icdo3_site_output()
-    icd9_code = icd9_output()
-    lateraily_canc = lat_diag_output()
-    cancer_diag_meth = np.random.choice(["Pathology Report", "Person Relation Report", "Physician/Consult Report", "Radiology/Imaging Report", "Self Report", "Study Pathologist Determined", ""], p=[0.175, 0.056, 0.009, 0.359, 0.054, 0.207, 0.14])
-    non_cancer_diag_meth = np.random.choice(["Autopsy Report", "Cytogenetic Assay Report", "Pathology Report", "Person Relation Report", "Physician/Consult Report", "Radiology/Imaging Report", "Self Report", "Study Investigator Determined", 
-        "Study Pathologist Determined", "Study Radiologist Review", "Surgery/Operation Report", "", "Flow Cytometry Report"], 
-        p=[0.0002, 0.0014, 0.1477, 0.1212, 0.1206, 0.3243, 0.2664, 0.0007, 0.0043, 0.0031, 0.0084, 0.0006, 0.0011])
+    icd_9_code = ppbP.loc[ppb_procedures_number, 'icd 9 codes']
+    icd_9 = ppbP.loc[ppb_procedures_number, 'icd 9']
+    intent = ppbP.loc[ppb_procedures_number, 'intent']
+    laterailty = ppbP.loc[ppb_procedures_number, 'laterailty']
+    procedure_val = ppbP.loc[ppb_procedures_number, 'procedure validation']
+
+    icd_9_code_str = str(icd_9_code)
+    icd_9_str = str(icd_9)
+    intent_str = str(intent)
+    laterailty_str = str(laterailty)
+    procedure_val_str = str(procedure_val)
+
     #TESTING ONLY VARIABLES
     
     cancer = np.random.choice(["Yes", "No"], p=[0.99, 0.01])
     noncancer = np.random.choice(["Yes", "No"], p=[0.99, 0.01])
     procedure = np.random.choice(["Yes", "No"], p=[0.99, 0.01])
     
+    condition_date = diagnosis_date(dob)
+    condition_date_str = condition_date.strftime('%Y-%m-%d') if (cancer=="Yes" and not is_str(diagnosis_date(dob))) else ''
+    procedure_date = diagnosis_date(dob)
+    procedure_date_str = procedure_date.strftime('%Y-%m-%d') if (procedure=="Yes" and not is_str(diagnosis_date(dob))) else ''
+    
+    condition_age_out = (relativedelta.relativedelta(condition_date, dob)).years
+
 
     #VARIABLES TO BE USED IN NONTESTING
     '''
@@ -143,7 +112,7 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, pater
     '''
 
     #Proband = {} here is a dictionary
-    proband = {
+    person = {
         "individuals":
         {
             "id": person_id,
@@ -174,7 +143,7 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, pater
                 "extension" : 
                 [{
                     #"url" : "http://hl7.org/fhir/StructureDefinition/patient-birthTime",
-                    "valueDateTime" : date_of_death.strftime('%Y-%m-%d') if (deceased==True and not is_str(create_dod(dob))) else ''
+                    "valueDateTime" : death_date_str
                 }]
             },
             
@@ -190,8 +159,8 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, pater
                         "coding" : 
                         [{
                             "system" : "ICD-O-3 Morphology",
-                            "code" : icd_morph.split(" ", 1)[0] if cancer=="Yes" else '',   #Potential to add non_cancer on same line with a condition added but icd is different if non_cancer == Yes
-                            "display" : icd_morph if cancer=="Yes" else '', #EXAMPLE:"Burn of ear"
+                            "code" :  icd_morph_code_str if cancer=="Yes" else '', #Potential to add non_cancer on same line with a condition added but icd is different if non_cancer == Yes
+                            "display" : icd_morph_str if cancer=="Yes" else '', 
                         }],
                     },
                     "bodySite" : 
@@ -199,32 +168,30 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, pater
                         "coding" : 
                         [{
                             "system" : "ICD-O-3 Site",
-                            "code" :icd3_site.split(" ", 1)[0] if cancer=="Yes" else '',
-                            "display" : icd3_site if cancer=="Yes" else '',#"Left external ear structure"
+                            "code" :icd3_site_code_str if cancer=="Yes" else '',
+                            "display" : icd3_site_str if cancer=="Yes" else '',
                         }],
                     }],
-                "onsetDateTime" : diagnosis_date(dob).strftime('%Y-%m-%d') if (cancer=="Yes" and not is_str(diagnosis_date(dob))) else '',
+                "onsetDateTime" : condition_date_str,
                 "onsetAge" : 
                 {
-                    "value" : age_out,
-                    "unit" : "years",
-                    "system" : "Example: http://unitsofmeasure.org",
-                    "code" : "a"
+                    "value" : '' if cancer=="No" else condition_age_out,
+                    "unit" : "years"
                 },
-                "recordedDate" : today_date.strftime('%Y-%m-%d'),
+                "recordedDate" : condition_date_str,
                 "evidence" : 
                 [{
                     "reference" : 
                     {
-                        "reference" : cancer_diag_meth,
-                        "display" : cancer_diag_meth
+                        "reference" : diagnosis_method_str if cancer=="Yes" else "",
+                        "display" : diagnosis_method_str if cancer=="Yes" else ""
                     }
                 }]
 
             #ABOVE DOES NOT INCLUDE NON_CANCER CONDITIONS
                 
             }],
-
+            
             #el-if for if a procedure is yes, display everything in relation otherwise, don't show the empty procedure fields
             "procedure":
             [{
@@ -235,7 +202,7 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, pater
                     [{
                         #"system" : "",
                         #"code" : "",
-                        "display" : procedure_intent_output() if procedure=="Yes" else '',
+                        "display" : intent_str if procedure=="Yes" else '',
                     }],
                 }],
                 "code" : 
@@ -243,19 +210,19 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, pater
                     "coding" : 
                     [{
                         "system" : "ICD 9",
-                        "code" : icd9_code.split(" ", 1)[0] if cancer=="Yes" or noncancer =="Yes" else '',
-                        "display" : icd9_code if procedure=="Yes" else '',
+                        "code" : icd_9_code_str if procedure=="Yes" else '',
+                        "display" : icd_9_str if procedure=="Yes" else '',
                     }],
                     #"text" : "",#"Appendectomy"
                 },
-                "occurrenceDateTime": diagnosis_date(dob).strftime('%Y-%m-%d') if (procedure=="Yes" and not is_str(diagnosis_date(dob))) else '',
-                "recorded" : diagnosis_date(dob).strftime('%Y-%m-%d') if (procedure=="Yes" and not is_str(diagnosis_date(dob))) else '',
+                "occurrenceDateTime": procedure_date_str,
+                "recorded" : procedure_date_str,
                 "performer" : 
                 [{
                     "actor" : 
                     {
-                        "reference" : "Practitioner",
-                        "display" : "Dr. " + practioner_name,
+                        "reference" : "Practitioner" if procedure=="Yes" else "",
+                        "display" : "Dr. " + practitioner_name if procedure=="Yes" else "",
                     }
                 }],
             }],
@@ -263,10 +230,10 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, pater
     }
     
     if(father is not None):
-        proband["father"] = father
+        person["father"] = father
 
     if(mother is not None):
-        proband["mother"] = mother
+        person["mother"] = mother
 
     if(paternal_grandfather is not None):
         father["father"] = paternal_grandfather
@@ -280,7 +247,7 @@ def datagenerate_person(person_id, sex, dob, father = None, mother = None, pater
     if(maternal_grandmother is not None):
         mother["mother"] = maternal_grandmother
     
-    return(proband)
+    return(person)
 
 ###############################################
 
@@ -299,25 +266,18 @@ def make_children(min, max, dob, father_id, mother_id):
         #fathers_surname
         person = datagenerate_person(person_id, sex_assigned, dob, father_id, mother_id)
         #print(person_id)
+
         children.append(person_id)
         data["people"][person_id] = person
+        '''
+        child_father = generate_relationships("father", father_id, person_id)
+        child_mother = generate_relationships("mother", mother_id, person_id)
+        data["relationships"][father_id] = child_father
+        data["relationships"][mother_id] = child_mother
+        '''
     return children
 ##############################################################################################################
 
-def generate_relationships(person_id, other_person_id):
-    #Currently only generates relationship for father, mother, all grandparents of the proband ONLY
-    relationships = {
-        "relationships":
-        {
-            "individual_id": person_id,
-            "relation":
-            {
-                "label": "", #Mother of, father of, sibling of, etc. 
-                "relative_id": other_person_id 
-            }
-        }
-    }
-    return (relationships)
 
 ##############################################################################################################
 
@@ -335,6 +295,28 @@ def get_min_max(input_string):
     if (len(min_max) >= 2): return min_max[0], min_max[1]
     else: return min_max[0], min_max[0]
 
+def generate_relationships(relation, person_id, other_person_id):
+    #Currently only generates relationship for father, mother, all grandparents of the proband ONLY
+    #Need to implement this "http://purl.org/ga4gh/kin.fhir" to comply with GA4GH & HL7 FHIR for relationships
+        #Example: KIN:003 (in link above) is "isBiologicalParentOf", KIN:026 is "PartnerOf"
+    bio_father_of = "BiologicalFatherOf"
+    bio_mother_of = "BiologicalMotherOf"
+    adopted_parent = "AdoptedParentOf"
+
+
+    relationships = {
+        "relationships":
+        {
+            "individual_id": person_id,
+            "relation":
+            {
+                "label": bio_father_of if not relation == "mother" else (adopted_parent if relation == "adopted" else bio_mother_of), #Next is to do sibling of, child of, spouse of
+                "relative_id": other_person_id 
+            }
+        }
+    }
+    return (relationships)
+
 def make_family():
     global args
 
@@ -348,7 +330,7 @@ def make_family():
     maternal_grandfather_id = fake.uuid4()
     maternal_grandmother_id = fake.uuid4()
 
-    data["proband"] = proband_id
+    #data["proband"] = proband_id
     data["people"] = {}
     data["relationships"] = {}
 
@@ -362,13 +344,7 @@ def make_family():
     paternal_grandmother = datagenerate_person(paternal_grandmother_id, "Female", dob_generator(90, 94))
     maternal_grandfather = datagenerate_person(maternal_grandfather_id, "Male", dob_generator(90, 94))
     maternal_grandmother = datagenerate_person(maternal_grandmother_id, "Female", dob_generator(90, 94))
-    #generate relationship
-    proband_father = generate_relationships(father_id, proband_id)
-    proband_mother = generate_relationships(mother_id, proband_id)
-    proband_p_gpa = generate_relationships(paternal_grandfather_id, father_id)
-    proband_p_gma = generate_relationships(paternal_grandmother_id, father_id)
-    proband_m_gpa = generate_relationships(maternal_grandfather_id, mother_id)
-    proband_m_gma = generate_relationships(maternal_grandmother_id, mother_id)
+    
     #Generates individuals
     data["people"][proband_id] = proband
     data["people"][father_id] = father
@@ -377,13 +353,6 @@ def make_family():
     data["people"][paternal_grandmother_id] = paternal_grandmother
     data["people"][maternal_grandfather_id] = maternal_grandfather
     data["people"][maternal_grandmother_id] = maternal_grandmother
-    #Generates the relationships
-    data["relationships"][father_id] = proband_father
-    data["relationships"][mother_id] = proband_mother
-    data["relationships"][paternal_grandfather_id] = proband_p_gpa
-    data["relationships"][paternal_grandmother_id] = proband_p_gma
-    data["relationships"][maternal_grandfather_id] = proband_m_gpa
-    data["relationships"][maternal_grandmother_id] = proband_m_gma
 
     # Make Children
     [min, max] = get_min_max(args.children)
@@ -391,13 +360,31 @@ def make_family():
 
     # Make Siblings
     [min, max] = get_min_max(args.siblings)
-    siblings = make_children(min, max, dob_generator(54, 58), data["people"][proband_id]["father"], data["people"][proband_id]["mother"])
+    siblings = make_children(min, max, dob_generator(54, 58), father_id, mother_id)
 
     # Make Uncles and Aunts, Note both parents use the same max/min variable
     [min, max] = get_min_max(args.parents_siblings)
     fathers_siblings = make_children(min, max, dob_generator(72, 76), paternal_grandfather_id, paternal_grandmother_id)
     mothers_siblings = make_children(min, max, dob_generator(72, 76), maternal_grandfather_id, maternal_grandmother_id)
     
+    
+    #generate relationship
+    proband_father = generate_relationships("father", father_id, proband_id)
+    proband_mother = generate_relationships("mother", mother_id, proband_id)
+    proband_p_gpa = generate_relationships("father", paternal_grandfather_id, father_id)
+    proband_p_gma = generate_relationships("mother", paternal_grandmother_id, father_id)
+    proband_m_gpa = generate_relationships("father", maternal_grandfather_id, mother_id)
+    proband_m_gma = generate_relationships("mother", maternal_grandmother_id, mother_id)
+    
+    #Generates the relationships
+    data["relationships"][father_id] = proband_father
+    data["relationships"][mother_id] = proband_mother
+    data["relationships"][paternal_grandfather_id] = proband_p_gpa
+    data["relationships"][paternal_grandmother_id] = proband_p_gma
+    data["relationships"][maternal_grandfather_id] = proband_m_gpa
+    data["relationships"][maternal_grandmother_id] = proband_m_gma    
+    
+
     for person_id in siblings:
         [min, max] = get_min_max(args.siblings_children)
         cousins = make_children(min, max, dob_generator(36, 40), person_id, None)
@@ -448,7 +435,6 @@ def main():
     global args
     parse_arguments()
     make_family()
-
 
 if __name__ == "__main__":
     main()
