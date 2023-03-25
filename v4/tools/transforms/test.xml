@@ -1,0 +1,696 @@
+<?xml version="1.0"?>
+<!-- TO OPEN THIS DATA IN THE "MY FAMILY HEALTH PORTRAIT" APPLICATION: -->
+<!-- 	- Open your browser and navigate to "https://familyhistory.hhs.gov." -->
+<!-- 	- Click the "Use a Saved History" button to show the file-open options. -->
+<!-- 	- Go to the location where this file is stored. -->
+<!-- 	- Select the filename and open the file. -->
+<!-- Click "Help" on the "Load your Family Health History" page for more help. -->
+<FamilyHistory moodCode="EVN" classCode="OBS">
+  <id extention="gov.hhs.fhh:718163810183"/>
+  <effectiveTime value="11/21/2022"/>
+  <methodCode displayName="Surgeon General's Family Heath History Tool"/>
+  <subject typeCode="SBJ">
+    <patient classCode="PAT">
+      <patientPerson>
+        <id extension="d19c19b1-d0dc-4042-80da-bdf6e964676f"/>
+        <name formatted="Lawrence Brem"/>
+        <birthTime value="11/19/1968"/>
+        <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="male" code="248153007"/>
+        <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+        <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+        <subjectOf2>
+          <clinicalObservation>
+            <code displayName="height" codeSystemName="SNOMED_CT" code="271603002"/>
+            <value value="69" unit="inches"/>
+          </clinicalObservation>
+          <clinicalObservation>
+            <code displayName="weight" codeSystemName="SNOMED_CT" code="107647005"/>
+            <value value="220" unit="pound"/>
+          </clinicalObservation>
+          <clinicalObservation>
+            <code codeSystemName="SNOMED_CT" code="PREDIABE" displayName="Pre-Diabetes" originalText="Pre-Diabetes"/>
+            <subject>
+              <dataEstimatedAge>
+                <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                <value unit="year">
+                  <low value="50"/>
+                  <high value="59"/>
+                </value>
+              </dataEstimatedAge>
+            </subject>
+          </clinicalObservation>
+        </subjectOf2>
+        <relative>
+          <code displayName="Mother" codeSystemName="HL7 Family History Model" code="NMTH"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder/>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="female" code="248152002"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="73211009" displayName="Diabetes" originalText="Diabetes"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="50"/>
+                      <high value="59"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="OTHER" displayName="Liaden Factor 5" originalText="Liaden Factor 5"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="60"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+            </subjectOf2>
+            <id extension="4912af13-00c1-46a5-bc93-2efe0c444896"/>
+            <name formatted="Myrna Levetin Brem"/>
+            <deceasedIndCode value="alive"/>
+            <birthTime value="1938"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Father" codeSystemName="HL7 Family History Model" code="NFTH"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder/>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="male" code="248153007"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="372130007" displayName="Skin Cancer" originalText="Skin Cancer"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="50"/>
+                      <high value="59"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="399068003" displayName="Prostate Cancer" originalText="Prostate Cancer"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="60"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="93143009" displayName="Leukemia" originalText="Leukemia"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="60"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+            </subjectOf2>
+            <id extension="2b6340bd-6488-43de-9d9f-661e1326d1ca"/>
+            <name formatted="Marshall Brem"/>
+            <deceasedIndCode value="alive"/>
+            <birthTime value="1937"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Maternal Grandmother" codeSystemName="HL7 Family History Model" code="MGRMTH"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder/>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="female" code="248152002"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf1>
+              <deceasedEstimatedAge>
+                <code displayName="Age at Death" codeSystemName="LOINC" code="39016-1"/>
+                <value unit="year">
+                  <low value="60"/>
+                </value>
+              </deceasedEstimatedAge>
+            </subjectOf1>
+            <subjectOf2>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="363349007" displayName="Gastric Cancer" originalText="Gastric Cancer"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="60"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+              <clinicalObservation>
+                <code displayName="Gastric Cancer" originalText="Gastric Cancer" codeSystemName="SNOMED_CT" code="363349007"/>
+                <sourceOf>
+                  <code displayName="death" codeSystemName="SNOMED_CT" code="419620001"/>
+                </sourceOf>
+              </clinicalObservation>
+            </subjectOf2>
+            <id extension="79ccbfc2-de12-4f0e-85e1-3bec765d212f"/>
+            <name formatted="Jean Levetin"/>
+            <deceasedIndCode value="true"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Maternal Grandfather" codeSystemName="HL7 Family History Model" code="MGRFTH"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder/>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="male" code="248153007"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf1>
+              <deceasedEstimatedAge>
+                <code displayName="Age at Death" codeSystemName="LOINC" code="39016-1"/>
+                <value unit="year">
+                  <low value="60"/>
+                </value>
+              </deceasedEstimatedAge>
+            </subjectOf1>
+            <subjectOf2>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="22298006" displayName="Heart Attack" originalText="Heart Attack"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="60"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+              <clinicalObservation>
+                <code displayName="Heart Attack" originalText="Heart Attack" codeSystemName="SNOMED_CT" code="22298006"/>
+                <sourceOf>
+                  <code displayName="death" codeSystemName="SNOMED_CT" code="419620001"/>
+                </sourceOf>
+              </clinicalObservation>
+            </subjectOf2>
+            <id extension="99f033e3-e676-412d-a959-830bf4a317a0"/>
+            <name formatted="Samuel Levetin"/>
+            <deceasedIndCode value="true"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Paternal Grandmother" codeSystemName="HL7 Family History Model" code="PGRMTH"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder/>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="female" code="248152002"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf1>
+              <deceasedEstimatedAge>
+                <code displayName="Age at Death" codeSystemName="LOINC" code="39016-1"/>
+                <value unit="year">
+                  <low value="50"/>
+                  <high value="59"/>
+                </value>
+              </deceasedEstimatedAge>
+            </subjectOf1>
+            <subjectOf2>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="93143009" displayName="Leukemia" originalText="Leukemia"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="50"/>
+                      <high value="59"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+              <clinicalObservation>
+                <code displayName="Leukemia" originalText="Leukemia" codeSystemName="SNOMED_CT" code="93143009"/>
+                <sourceOf>
+                  <code displayName="death" codeSystemName="SNOMED_CT" code="419620001"/>
+                </sourceOf>
+              </clinicalObservation>
+            </subjectOf2>
+            <id extension="e70a2c78-9d95-4a2b-a9b5-c256f1c06c91"/>
+            <name formatted="Sadie Brem"/>
+            <deceasedIndCode value="true"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Paternal Grandfather" codeSystemName="HL7 Family History Model" code="PGRFTH"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder/>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="male" code="248153007"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf1>
+              <deceasedEstimatedAge>
+                <code displayName="Age at Death" codeSystemName="LOINC" code="39016-1"/>
+                <value unit="year">
+                  <low value="60"/>
+                </value>
+              </deceasedEstimatedAge>
+            </subjectOf1>
+            <subjectOf2>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="116288000" displayName="Stroke/Brain Attack" originalText="Stroke/Brain Attack"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="60"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+              <clinicalObservation>
+                <code displayName="Stroke/Brain Attack" originalText="Stroke/Brain Attack" codeSystemName="SNOMED_CT" code="116288000"/>
+                <sourceOf>
+                  <code displayName="death" codeSystemName="SNOMED_CT" code="419620001"/>
+                </sourceOf>
+              </clinicalObservation>
+            </subjectOf2>
+            <id extension="5c205d24-9278-4f8b-8a2c-14cec6489fdb"/>
+            <name formatted="James Brem"/>
+            <deceasedIndCode value="true"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Brother" codeSystemName="HL7 Family History Model" code="NBRO"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder/>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="male" code="248153007"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="OTHER" displayName="Liaden Factor 5" originalText="Liaden Factor 5"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="40"/>
+                      <high value="49"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+            </subjectOf2>
+            <id extension="9af0e10e-0f67-422b-916d-373eb9e07ba8"/>
+            <name formatted="Jeffrey Alan Brem"/>
+            <deceasedIndCode value="alive"/>
+            <birthTime value="1960"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Brother" codeSystemName="HL7 Family History Model" code="NBRO"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder/>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="male" code="248153007"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2/>
+            <id extension="4e1e9bc8-57b5-4fa5-b4f8-6e1cf826af2c"/>
+            <name formatted="Steven Franklin Brem"/>
+            <deceasedIndCode value="alive"/>
+            <birthTime value="02/19/1963"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Sister" codeSystemName="HL7 Family History Model" code="NSIS"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder/>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="female" code="248152002"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2/>
+            <id extension="09e50c44-c08e-4e0f-b77e-f54f7f3443ce"/>
+            <name formatted="Pamela Michelle Pardoe"/>
+            <deceasedIndCode value="alive"/>
+            <birthTime value="1970"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Daughter" codeSystemName="HL7 Family History Model" code="DAU"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder/>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="female" code="248152002"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2/>
+            <id extension="20a53e5b-836d-4c24-ae8f-44dcfc26082e"/>
+            <name formatted="Samantha Juliana Brem"/>
+            <deceasedIndCode value="alive"/>
+            <birthTime value="2002"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Daughter" codeSystemName="HL7 Family History Model" code="DAU"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder/>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="female" code="248152002"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2/>
+            <id extension="3ead641e-a721-4be5-8dee-019c77d168a0"/>
+            <name formatted="Miriam Desina Brem"/>
+            <deceasedIndCode value="alive"/>
+            <birthTime value="2005"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Maternal Aunt" codeSystemName="HL7 Family History Model" code="MAUNT"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder/>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="female" code="248152002"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="22298006" displayName="Heart Attack" originalText="Heart Attack"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="50"/>
+                      <high value="59"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+            </subjectOf2>
+            <id extension="0d1d9a57-ca28-4b0c-81a5-782d697b1a81"/>
+            <name formatted="Judy Goldman"/>
+            <deceasedIndCode value="alive"/>
+            <birthTime value="1945"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Paternal Aunt" codeSystemName="HL7 Family History Model" code="PAUNT"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder/>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="female" code="248152002"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <ethnicGroupCode displayName="Not Hispanic or Latino" code="2186-5" codeSystemName="HL7-TBD" id="3"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf1>
+              <deceasedEstimatedAge>
+                <code displayName="Age at Death" codeSystemName="LOINC" code="39016-1"/>
+                <value unit="year">
+                  <low value="60"/>
+                </value>
+              </deceasedEstimatedAge>
+            </subjectOf1>
+            <subjectOf2>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="315645005" displayName="Unknown Disease" originalText="Unknown Disease"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="60"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+              <clinicalObservation>
+                <code displayName="Unknown Disease" originalText="Unknown Disease" codeSystemName="SNOMED_CT" code="315645005"/>
+                <sourceOf>
+                  <code displayName="death" codeSystemName="SNOMED_CT" code="419620001"/>
+                </sourceOf>
+              </clinicalObservation>
+            </subjectOf2>
+            <id extension="41750753-4a5e-48cd-9fb0-13d220b31467"/>
+            <name formatted="Phyllis Shepard "/>
+            <deceasedIndCode value="true"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Maternal Cousin" codeSystemName="HL7 Family History Model" code="MCOUSN"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder>
+                <id extension="0d1d9a57-ca28-4b0c-81a5-782d697b1a81"/>
+              </relationshipHolder>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="female" code="248152002"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2/>
+            <id extension="798c1e9f-6bea-43d9-a204-24ad7f7f8b49"/>
+            <name formatted="Alysa O'Hara"/>
+            <deceasedIndCode value="alive"/>
+            <birthTime value="1968"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Paternal Cousin" codeSystemName="HL7 Family History Model" code="PCOUSN"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder>
+                <id extension="41750753-4a5e-48cd-9fb0-13d220b31467"/>
+              </relationshipHolder>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="male" code="248153007"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2/>
+            <id extension="3e27019e-f6ea-4260-85c6-cbbf3a1868ee"/>
+            <name formatted="Alan Sheppard"/>
+            <deceasedIndCode value="alive"/>
+            <dataEstimatedAge>
+              <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+              <value unit="year">
+                <low value="60"/>
+              </value>
+            </dataEstimatedAge>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Paternal Cousin" codeSystemName="HL7 Family History Model" code="PCOUSN"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder>
+                <id extension="41750753-4a5e-48cd-9fb0-13d220b31467"/>
+              </relationshipHolder>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="female" code="248152002"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2/>
+            <id extension="8d3e1eff-5fef-4547-b4be-abf218c2b7e8"/>
+            <name formatted="Nancy Heilman"/>
+            <deceasedIndCode value="alive"/>
+            <dataEstimatedAge>
+              <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+              <value unit="year">
+                <low value="60"/>
+              </value>
+            </dataEstimatedAge>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Niece" codeSystemName="HL7 Family History Model" code="NIECE"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder>
+                <id extension="9af0e10e-0f67-422b-916d-373eb9e07ba8"/>
+              </relationshipHolder>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="female" code="248152002"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2/>
+            <id extension="9d9b2204-33a6-4c8a-a9de-ced12561b108"/>
+            <name formatted="Amanda Brem"/>
+            <deceasedIndCode value="alive"/>
+            <dataEstimatedAge>
+              <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+              <value unit="year">
+                <low value="30"/>
+                <high value="39"/>
+              </value>
+            </dataEstimatedAge>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Niece" codeSystemName="HL7 Family History Model" code="NIECE"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder>
+                <id extension="9af0e10e-0f67-422b-916d-373eb9e07ba8"/>
+              </relationshipHolder>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="female" code="248152002"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="OTHER" displayName="Liaden Factor 5" originalText="Liaden Factor 5"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="20"/>
+                      <high value="29"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+            </subjectOf2>
+            <id extension="086906bb-2812-4c99-b4df-76b3e809ff7f"/>
+            <name formatted="Julia Brem"/>
+            <deceasedIndCode value="alive"/>
+            <dataEstimatedAge>
+              <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+              <value unit="year">
+                <low value="20"/>
+                <high value="29"/>
+              </value>
+            </dataEstimatedAge>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Niece" codeSystemName="HL7 Family History Model" code="NIECE"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder>
+                <id extension="9af0e10e-0f67-422b-916d-373eb9e07ba8"/>
+              </relationshipHolder>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="female" code="248152002"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2>
+              <clinicalObservation>
+                <code codeSystemName="SNOMED_CT" code="OTHER" displayName="Liaden Factor 5" originalText="Liaden Factor 5"/>
+                <subject>
+                  <dataEstimatedAge>
+                    <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+                    <value unit="year">
+                      <low value="20"/>
+                      <high value="29"/>
+                    </value>
+                  </dataEstimatedAge>
+                </subject>
+              </clinicalObservation>
+            </subjectOf2>
+            <id extension="26b53154-399e-4216-8a6a-8be2b14c2915"/>
+            <name formatted="Sarah Brem"/>
+            <deceasedIndCode value="alive"/>
+            <dataEstimatedAge>
+              <code displayName="Estimated Age" codeSystemName="LOINC" code="21611-9"/>
+              <value unit="year">
+                <low value="20"/>
+                <high value="29"/>
+              </value>
+            </dataEstimatedAge>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Nephew" codeSystemName="HL7 Family History Model" code="NEPHEW"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder>
+                <id extension="09e50c44-c08e-4e0f-b77e-f54f7f3443ce"/>
+              </relationshipHolder>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="male" code="248153007"/>
+            <subjectOf2/>
+            <id extension="35b0d7ad-6259-4fb2-aadf-8767e821b3da"/>
+            <name formatted="Samuel Pardoe"/>
+            <deceasedIndCode value="alive"/>
+            <birthTime value="2004"/>
+          </relationshipHolder>
+        </relative>
+        <relative>
+          <code displayName="Nephew" codeSystemName="HL7 Family History Model" code="NEPHEW"/>
+          <relationshipHolder>
+            <relative>
+              <code displayName="Parent" codeSystemName="HL7 Family History Model" code="PAR"/>
+              <relationshipHolder>
+                <id extension="09e50c44-c08e-4e0f-b77e-f54f7f3443ce"/>
+              </relationshipHolder>
+            </relative>
+            <administrativeGenderCode codeSystemName="SNOMED_CT" displayName="male" code="248153007"/>
+            <ethnicGroupCode displayName="Ashkenazi Jewish" code="81706006" codeSystemName="SNOMED_CT" id="2"/>
+            <raceCode displayName="White" code="2106-3" codeSystemName="HL7" id="5"/>
+            <subjectOf2/>
+            <id extension="9de24735-ec32-4c5f-b819-62e7a5b62482"/>
+            <name formatted="Aiden Pardoe"/>
+            <deceasedIndCode value="alive"/>
+            <birthTime value="2005"/>
+          </relationshipHolder>
+        </relative>
+      </patientPerson>
+    </patient>
+  </subject>
+</FamilyHistory>
