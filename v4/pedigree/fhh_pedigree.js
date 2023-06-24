@@ -314,8 +314,8 @@ function draw_couple(svg, couple) {
 
   var male_id = couple["male"];
   var female_id = couple["female"];
-//  if (data["people"][male_id] && data["people"][male_id]["placeholder"]) return;
-//  if (data["people"][female_id] && data["people"][female_id]["placeholder"]) return;
+  if (data["people"][male_id] && data["people"][male_id]["placeholder"]) return;
+  if (data["people"][female_id] && data["people"][female_id]["placeholder"]) return;
   if (data["people"][male_id] && data["people"][male_id]["placeholder"]) console.log("Placeholder");
   if (data["people"][female_id] && data["people"][female_id]["placeholder"]) console.log("Placeholder");
 
@@ -913,6 +913,9 @@ function draw_miscarriage(svg, id, location, generation, gender) {
       .attr("stroke","black");
     svg.append(line);
   }
+
+  polygon.on("mousedown", function (e) { start_dragging(e); });
+
 }
 
 
@@ -1250,10 +1253,11 @@ function give_fake_children(list) {
 
       var fake_id = person_id + "_1";
       data["people"][fake_id] = {};
+      data["people"][fake_id]["placeholder"] = true;
       data["people"][fake_id]["name"] = "Child of " + data["people"][person_id]["name"];
       data["people"][fake_id]["demographics"] = {};
       data["people"][fake_id]["demographics"]["gender"] = "Unknown";
-      if (data["people"][person_id]["demographics"]["gender"] == "Male") {
+      if (data["people"][person_id]["demographics"] && data["people"][person_id]["demographics"]["gender"] == "Male") {
         data["people"][fake_id]["father"] = person_id;
       } else {
         data["people"][fake_id]["mother"] = person_id;

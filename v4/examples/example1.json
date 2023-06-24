@@ -1,0 +1,1246 @@
+{
+  "proband": "5983-01-001",
+  "people": {
+    "5983-01-001": {
+      "name": "Proband Brown",
+      "father": "5983-02-001",
+      "mother": "5983-02-002",
+      "demographics": {
+        "gender": "Female"
+      },
+      "diseases": {
+        "86311-Sertoli-Leydig cell tumor of intermediate differentiation": {
+          "code": "86311",
+          "morphology": "86311-Sertoli-Leydig cell tumor of intermediate differentiation",
+          "site": "C56.9 - Ovary",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "16.99",
+          "date_of_diagnosis": "4/9/1997"
+        },
+        "E041-Thyroid nodule/Cyst nontoxic": {
+          "code": "E041",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "34.96",
+          "date_of_diagnosis": "3/30/2015"
+        }
+      },
+      "procedures": {
+        "6531-Laparoscopic unilateral oophorectomy": {
+          "code": "6531",
+          "age_at_procedure": "16.99",
+          "date_of_procedure": "4/9/1997",
+          "intent": "Surgical procedure for diganosis",
+          "procedure_validation": "Physician/Consult Report"
+        }
+      }
+    },
+    "5983-01-002": {
+      "name": "Adam Brown",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-01-003": {
+      "name": "Brad White",
+      "father": "5983-02-001",
+      "mother": "5983-02-002",
+      "demographics": {
+        "gender": "Male"
+      },
+      "diseases": {
+        "M856-Other cyst of bone": {
+          "code": "M856",
+          "diagnosis_method": "Pathology Report",
+          "laterality": "Not a paired organ site"
+        },
+        "E041-Thyroid nodule/Cyst nontoxic": {
+          "code": "E041",
+          "diagnosis_method": "Self Report",
+          "laterality": "Not a paired organ site"
+        },
+        "E042-Nontoxic multinodular goiter": {
+          "code": "E042",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Not a paired organ site"
+        }
+      },
+      "procedures": {
+        "8741-CT Scan Chest": {
+          "code": "8741",
+          "age_at_procedure": "30.96",
+          "date_of_procedure": "7/21/2014",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "31.02",
+          "date_of_procedure": "8/12/2014",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "3399-Other Operations of the Lung": {
+          "code": "3399",
+          "age_at_procedure": "31.4",
+          "date_of_procedure": "12/31/2014",
+          "intent": "Surgical procedure for treatment",
+          "procedure_validation": "Surgery/Operation Report"
+        }
+      }
+    },
+    "5983-01-004": {
+      "name": "Christine White",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-01-005": {
+      "name": "David Green",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-01-006": {
+      "name": "Esther Green",
+      "father": "5983-02-001",
+      "mother": "5983-02-002",
+      "demographics": {
+        "gender": "Female"
+      },
+      "diseases": {
+        "E041-Thyroid nodule/Cyst nontoxic": {
+          "code": "E041",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Not a paired organ site"
+        },
+        "E042-Nontoxic multinodular goiter": {
+          "code": "E042",
+          "diagnosis_method": "Physician/Consult Report",
+          "laterality": "Not a paired organ site"
+        }
+      },
+      "procedures": {
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "26.18",
+          "date_of_procedure": "7/26/2016",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-01-007": {
+      "name": "Frank Black",
+      "father": "5983-02-005",
+      "mother": "5983-02-006",
+      "demographics": {
+        "gender": "Male"
+      },
+      "procedures": {
+        "8741-CT Scan Chest": {
+          "code": "8741",
+          "age_at_procedure": "51.9",
+          "date_of_procedure": "",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Self Report"
+        }
+      }
+    },
+    "5983-01-008": {
+      "name": "Geroge Purple",
+      "father": "5983-02-007",
+      "mother": "5983-02-008",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-01-009": {
+      "name": "Miscarriage Purple",
+      "father": "5983-02-007",
+      "mother": "5983-02-008",
+      "demographics": {
+        "gender": "Unknown"
+      },
+      "miscarriage":true,
+      "deceased": true
+    },
+    "5983-01-010": {
+      "name": "Heather Grey",
+      "father": "5983-02-009",
+      "mother": "5983-02-010",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-01-011": {
+      "name": "Isabelle Pink",
+      "father": "5983-02-003",
+      "mother": "5983-02-004",
+      "demographics": {
+        "gender": "Female"
+      },
+      "diseases": {
+        "89730-PPB, Benign": {
+          "code": "89730",
+          "morphology": "89730-PPB, Benign",
+          "site": "C34.3 - Lower lobe, lung",
+          "laterality": "Left: origin of primary",
+          "age_of_diagnosis": "43.04",
+          "date_of_diagnosis": "3/22/2016"
+        },
+        "E041-Thyroid nodule/Cyst nontoxic": {
+          "code": "E041",
+          "diagnosis_method": "Self Report",
+          "laterality": "Left: origin of primary",
+          "age_of_diagnosis": "14.28",
+          "date_of_diagnosis": ""
+        },
+        "E042-Nontoxic multinodular goiter": {
+          "code": "E042",
+          "diagnosis_method": "Pathology Report",
+          "laterality": "Left: origin of primary",
+          "age_of_diagnosis": "37.11",
+          "date_of_diagnosis": "4/16/2010"
+        },
+        "J984-Cyst lung": {
+          "code": "J984",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Left: origin of primary",
+          "age_of_diagnosis": "43.04",
+          "date_of_diagnosis": "3/22/2016"
+        },
+        "N832-Other and unspec ovarian cysts": {
+          "code": "N832",
+          "diagnosis_method": "Study Investigator Determined",
+          "laterality": "Left: origin of primary",
+          "age_of_diagnosis": "43.16",
+          "date_of_diagnosis": "5/3/2016"
+        }
+      },
+      "procedures": {
+        "0639-Thyroidectomy-partial or subtotal": {
+          "code": "0639",
+          "age_at_procedure": "15.33",
+          "date_of_procedure": "7/6/1988",
+          "intent": "Surgical procedure for diganosis",
+          "procedure_validation": "Surgery/Operation Report"
+        },
+        "8741-CT Scan Chest": {
+          "code": "8741",
+          "age_at_procedure": "43.04",
+          "date_of_procedure": "3/22/2016",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "43.04",
+          "date_of_procedure": "3/21/2016",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-01-012": {
+      "name": "Miscarriage Purple",
+      "father": "5983-02-007",
+      "mother": "5983-02-008",
+      "demographics": {
+        "gender": "Unknown"
+      },
+      "miscarriage":true,
+      "deceased": true
+    },
+    "5983-01-013": {
+      "name": "Miscarriage Purple",
+      "father": "5983-02-007",
+      "mother": "5983-02-008",
+      "demographics": {
+        "gender": "Unknown"
+      },
+      "miscarriage":true,
+      "deceased": true
+    },
+    "5983-01-014": {
+      "name": "John Grey",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-01-015": {
+      "name": "Kevin Sweet",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-01-016": {
+      "name": "Laura Sweet",
+      "father": "5983-02-009",
+      "mother": "5983-02-010",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-01-017": {
+      "name": "Michael Sour",
+      "father": "5983-02-009",
+      "mother": "5983-02-010",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-01-018": {
+      "name": "Nancy Sour",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-01-019": {
+      "name": "Ophelia Sour",
+      "father": "5983-02-009",
+      "mother": "5983-02-010",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-01-020": {
+      "name": "Peter Salty",
+      "father": "5983-02-003",
+      "mother": "5983-02-004",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-01-021": {
+      "name": "Rachel Salty",
+      "father": "5983-02-003",
+      "mother": "5983-02-004",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-01-022": {
+      "name": "Susan Grape",
+      "father": "5983-02-005",
+      "mother": "5983-02-006",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-01-023": {
+      "name": "Tim Black",
+      "father": "5983-02-005",
+      "mother": "5983-02-006",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-01-024": {
+      "name": "Victor Pink",
+      "demographics": {
+        "gender": "Male"
+      },
+      "diseases": {
+        "J189-Pneumonia": {
+          "code": "J189",
+          "diagnosis_method": "Self Report",
+          "laterality": "Paired site, but no information on laterality"
+        },
+        "N281-Cyst of kidney acquired": {
+          "code": "N281",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Right: origin of primary"
+        }
+      },
+      "procedures": {
+        "5523-Biopsy Kidney, Closed": {
+          "code": "5523",
+          "age_at_procedure": "26.9",
+          "date_of_procedure": "",
+          "intent": "Surgical procedure for diganosis",
+          "procedure_validation": "Self Report"
+        },
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "46.67",
+          "date_of_procedure": "3/23/2016",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-01-025": {
+      "name": "William Black",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-02-001": {
+      "name": "Xavier White",
+      "father": "5983-04-001",
+      "mother": "5983-04-002",
+      "demographics": {
+        "gender": "Male"
+      },
+      "procedures": {
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "61.6",
+          "date_of_procedure": "7/14/2014",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-02-002": {
+      "name": "Yolanda White",
+      "father": "5983-04-003",
+      "mother": "5983-04-004",
+      "demographics": {
+        "gender": "Female"
+      },
+      "diseases": {
+        "80703-Squamous cell carcinoma, NOS": {
+          "code": "80703",
+          "morphology": "80703-Squamous cell carcinoma, NOS",
+          "site": "C44.9 - Skin, NOS (excludes skin of labia majora C51.0, skin of vulva C51.9, skin of penis C60.9 and skin of scrotum C63.2)",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "56.98",
+          "date_of_diagnosis": ""
+        },
+        "E063-Autoimmune thyroiditis [incl Hashimoto]": {
+          "code": "E063",
+          "diagnosis_method": "Personal Relation Report",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "8.98"
+        },
+        "E041-Thyroid nodule/Cyst nontoxic": {
+          "code": "E041",
+          "diagnosis_method": "Self Report",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "8.98"
+        },
+        "E042-Nontoxic multinodular goiter": {
+          "code": "E042",
+          "diagnosis_method": "Self Report",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "999"
+        },
+        "J984-Cyst lung": {
+          "code": "J984",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "60.06"
+        },
+        "D34X-Benign neoplasm thyroid": {
+          "code": "D34X",
+          "diagnosis_method": "Pathology Report",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "60.16"
+        },
+        "Q753-Macrocephaly": {
+          "code": "Q753",
+          "diagnosis_method": "Physician/Consult Report",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "60.06"
+        },
+        "80702-Squamous cell carcinoma in situ, NOS": {
+          "code": "80702",
+          "morphology": "80702-Squamous cell carcinoma in situ, NOS",
+          "site": "C44.9 - Skin, NOS (excludes skin of labia majora C51.0, skin of vulva C51.9, skin of penis C60.9 and skin of scrotum C63.2)",
+          "laterality": "Left: origin of primary",
+          "age_of_diagnosis": "57.91",
+          "date_of_diagnosis": "5/21/2012"
+        },
+        "89730-PPB, Benign": {
+          "code": "89730",
+          "morphology": "89730-PPB, Benign",
+          "site": "C34.1 - Upper lobe, lung",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "60.06",
+          "date_of_diagnosis": "7/16/2014"
+        }
+      },
+      "procedures": {
+        "0639-Thyroidectomy-partial or subtotal": {
+          "code": "0639",
+          "age_at_procedure": "20.98",
+          "date_of_procedure": "",
+          "intent": "Surgical procedure for treatment",
+          "procedure_validation": "Self Report"
+        },
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "60.06",
+          "date_of_procedure": "7/14/2014",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "8741-CT Scan Chest": {
+          "code": "8741",
+          "age_at_procedure": "60.06",
+          "date_of_procedure": "7/16/2014",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "0611-Biopsy Thyroid": {
+          "code": "0611",
+          "age_at_procedure": "60.12",
+          "date_of_procedure": "8/5/2014",
+          "intent": "Surgical procedure for diganosis",
+          "procedure_validation": "Pathology Report"
+        }
+      }
+    },
+    "5983-02-003": {
+      "name": "Zachary Salty",
+      "father": "5983-04-003",
+      "mother": "5983-04-004",
+      "demographics": {
+        "gender": "Male"
+      },
+      "diseases": {
+        "E041-Thyroid nodule/Cyst nontoxic": {
+          "code": "E041",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Not a paired organ site"
+        },
+        "J984-Cyst lung": {
+          "code": "J984",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Left: origin of primary"
+        },
+        "N281-Cyst of kidney acquired": {
+          "code": "N281",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Bilateral involvement stated to be single primary, site of origin unknown"
+        }
+      },
+      "procedures": {
+        "8741-CT Scan Chest": {
+          "code": "8741",
+          "age_at_procedure": "71.61",
+          "date_of_procedure": "8/7/2013",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "73.81",
+          "date_of_procedure": "10/21/2015",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-02-004": {
+      "name": "Abagail Salty",
+      "demographics": {
+        "gender": "Female"
+      },
+      "diseases": {
+        "E041-Thyroid nodule/Cyst nontoxic": {
+          "code": "E041",
+          "diagnosis_method": "Self Report",
+          "laterality": "Not a paired organ site"
+        },
+        "N281-Cyst of kidney acquired": {
+          "code": "N281",
+          "diagnosis_method": "Study Radiologist Review",
+          "laterality": "Left: origin of primary"
+        }
+      },
+      "procedures": {
+        "0639-Thyroidectomy-partial or subtotal": {
+          "code": "0639",
+          "age_at_procedure": "31.61",
+          "date_of_procedure": "",
+          "intent": "Surgical procedure, unknown intent",
+          "procedure_validation": "Self Report"
+        },
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "74.21",
+          "date_of_procedure": "10/19/2015",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-02-005": {
+      "name": "Benjamin Black",
+      "demographics": {
+        "gender": "Male"
+      },
+      "diseases": {
+        "N281-Cyst of kidney acquired": {
+          "code": "N281",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Bilateral involvement stated to be single primary, site of origin unknown"
+        }
+      },
+      "procedures": {
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "73.67",
+          "date_of_procedure": "6/23/2015",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-02-006": {
+      "name": "Clarissa Black",
+      "father": "5983-04-003",
+      "mother": "5983-04-004",
+      "demographics": {
+        "gender": "Female"
+      },
+      "deceased": true,
+      "diseases": {
+        "89730-PPB, Benign": {
+          "code": "89730",
+          "morphology": "89730-PPB, Benign",
+          "site": "C34.3 - Lower lobe, lung",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "72.58",
+          "date_of_diagnosis": "6/23/2015"
+        },
+        "D34X-Benign neoplasm thyroid": {
+          "code": "D34X",
+          "diagnosis_method": "Surgery/Operation Report",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "19.05",
+          "date_of_diagnosis": "12/12/1961"
+        },
+        "E042-Nontoxic multinodular goiter": {
+          "code": "E042",
+          "diagnosis_method": "Self Report",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "999",
+          "date_of_diagnosis": ""
+        },
+        "E039-Hypothyroidism unspec": {
+          "code": "E039",
+          "diagnosis_method": "Self Report",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "20.56",
+          "date_of_diagnosis": ""
+        },
+        "E059-Thyrotoxicosis NOS": {
+          "code": "E059",
+          "diagnosis_method": "Self Report",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "20.56",
+          "date_of_diagnosis": ""
+        },
+        "E069-Thyroiditis unspec": {
+          "code": "E069",
+          "diagnosis_method": "Pathology Report",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "19.05",
+          "date_of_diagnosis": "12/12/1961"
+        },
+        "N281-Cyst of kidney acquired": {
+          "code": "N281",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "72.57",
+          "date_of_diagnosis": "6/22/2015"
+        },
+        "E041-Thyroid nodule/Cyst nontoxic": {
+          "code": "E041",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "72.57",
+          "date_of_diagnosis": "6/22/2015"
+        },
+        "J189-Pneumonia": {
+          "code": "J189",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "19.05",
+          "date_of_diagnosis": "12/13/1961"
+        }
+      },
+      "procedures": {
+        "689X-Other and unspecified hysterectomy": {
+          "code": "689X",
+          "age_at_procedure": "32.56",
+          "date_of_procedure": "",
+          "intent": "Surgical procedure, unknown intent",
+          "procedure_validation": "Self Report"
+        },
+        "8741-CT Scan Chest": {
+          "code": "8741",
+          "age_at_procedure": "999",
+          "date_of_procedure": "",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Self Report"
+        },
+        "0639-Thyroidectomy-partial or subtotal": {
+          "code": "0639",
+          "age_at_procedure": "19.05",
+          "date_of_procedure": "12/11/1961",
+          "intent": "Surgical procedure for treatment",
+          "procedure_validation": "Surgery/Operation Report"
+        },
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "72.57",
+          "date_of_procedure": "6/22/2015",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-02-007": {
+      "name": "Daniel Purple",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-02-008": {
+      "name": "Evie Purple",
+      "father": "5983-04-003",
+      "mother": "5983-04-004",
+      "demographics": {
+        "gender": "Female"
+      },
+      "procedures": {
+        "689X-Other and unspecified hysterectomy": {
+          "code": "689X",
+          "age_at_procedure": "40.41",
+          "date_of_procedure": "",
+          "intent": "Surgical procedure, unknown intent",
+          "procedure_validation": "Self Report"
+        }
+      }
+    },
+    "5983-02-009": {
+      "name": "Frederick Sour",
+      "demographics": {
+        "gender": "Male"
+      },
+      "diseases": {
+        "E041-Thyroid nodule/Cyst nontoxic": {
+          "code": "E041",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Not a paired organ site"
+        },
+        "N281-Cyst of kidney acquired": {
+          "code": "N281",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Right: origin of primary"
+        }
+      },
+      "procedures": {
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "66.14",
+          "date_of_procedure": "4/20/2015",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-02-010": {
+      "name": "Grace Sour",
+      "father": "5983-04-003",
+      "mother": "5983-04-004",
+      "demographics": {
+        "gender": "Female"
+      },
+      "diseases": {
+        "87202-Melanoma in-situ": {
+          "code": "87202",
+          "morphology": "87202-Melanoma in-situ",
+          "site": "C44.9 - Skin, NOS (excludes skin of labia majora C51.0, skin of vulva C51.9, skin of penis C60.9 and skin of scrotum C63.2)",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "54.9",
+          "date_of_diagnosis": ""
+        },
+        "N281-Cyst of kidney acquired": {
+          "code": "N281",
+          "diagnosis_method": "Self Report",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "26.49"
+        },
+        "E041-Thyroid nodule/Cyst nontoxic": {
+          "code": "E041",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "65.75"
+        },
+        "89730-PPB, Benign": {
+          "code": "89730",
+          "morphology": "89730-PPB, Benign",
+          "site": "C34.8 - Overlapping lesion of lung",
+          "laterality": "Left: origin of primary",
+          "age_of_diagnosis": "65.75",
+          "date_of_diagnosis": "4/21/2015"
+        }
+      },
+      "procedures": {
+        "8520-Excision or destruction of breast tissue, NOS": {
+          "code": "8520",
+          "age_at_procedure": "64.4",
+          "date_of_procedure": "12/12/2013",
+          "intent": "Surgical procedure for diganosis",
+          "procedure_validation": "Pathology Report"
+        },
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "65.75",
+          "date_of_procedure": "4/20/2015",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "8741-CT Scan Chest": {
+          "code": "8741",
+          "age_at_procedure": "65.75",
+          "date_of_procedure": "4/21/2015",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-02-011": {
+      "name": "Hank Salty",
+      "father": "5983-04-003",
+      "mother": "5983-04-004",
+      "demographics": {
+        "gender": "Male"
+      },
+      "diseases": {
+        "E041-Thyroid nodule/Cyst nontoxic": {
+          "code": "E041",
+          "diagnosis_method": "Pathology Report",
+          "laterality": "Not a paired organ site"
+        },
+        "E042-Nontoxic multinodular goiter": {
+          "code": "E042",
+          "diagnosis_method": "Pathology Report",
+          "laterality": "Not a paired organ site"
+        },
+        "E069-Thyroiditis unspec": {
+          "code": "E069",
+          "diagnosis_method": "Pathology Report",
+          "laterality": "Not a paired organ site"
+        },
+        "E059-Thyrotoxicosis NOS": {
+          "code": "E059",
+          "diagnosis_method": "Physician/Consult Report",
+          "laterality": "Not a paired organ site"
+        }
+      },
+      "procedures": {
+        "064-Thyroidectomy-complete or total": {
+          "code": "064",
+          "age_at_procedure": "49.2",
+          "date_of_procedure": "4/19/2001",
+          "intent": "Surgical procedure for treatment",
+          "procedure_validation": "Surgery/Operation Report"
+        }
+      }
+    },
+    "5983-02-012": {
+      "name": "Ingrid Salty",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-02-013": {
+      "name": "Jeffrey Salty",
+      "father": "5983-04-003",
+      "mother": "5983-04-004",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-02-014": {
+      "name": "Kayla Salty",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-03-001": {
+      "name": "Larry Brown",
+      "father": "5983-01-002",
+      "mother": "5983-01-001",
+      "demographics": {
+        "gender": "Male"
+      },
+      "procedures": {
+        "8741-CT Scan Chest": {
+          "code": "8741",
+          "age_at_procedure": "5.34",
+          "date_of_procedure": "2/11/2014",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-03-002": {
+      "name": "Michele Brown",
+      "father": "5983-01-002",
+      "mother": "5983-01-001",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-03-003": {
+      "name": "Nathan Brown",
+      "father": "5983-01-002",
+      "mother": "5983-01-001",
+      "demographics": {
+        "gender": "Male"
+      },
+      "diseases": {
+        "89731-PPB, Borderline malignancy/Low malignant potential": {
+          "code": "89731",
+          "morphology": "89731-PPB, Borderline malignancy/Low malignant potential",
+          "site": "C34.3 - Lower lobe, lung",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "0.28",
+          "date_of_diagnosis": "1/23/2014"
+        },
+        "J939-Pneumothorax unspecified": {
+          "code": "J939",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "0.28",
+          "date_of_diagnosis": "1/24/2014"
+        }
+      },
+      "procedures": {
+        "3249-Lobectomy of lung": {
+          "code": "3249",
+          "age_at_procedure": "0.28",
+          "date_of_procedure": "1/23/2014",
+          "intent": "Surgical procedure for diganosis",
+          "procedure_validation": "Surgery/Operation Report"
+        },
+        "8741-CT Scan Chest": {
+          "code": "8741",
+          "age_at_procedure": "0.52",
+          "date_of_procedure": "4/21/2014",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-03-004": {
+      "name": "Miscarriage Brown",
+      "father": "5983-01-002",
+      "mother": "5983-01-001",
+      "demographics": {
+        "gender": "Unknown"
+      },
+      "miscarriage":true,
+      "deceased": true
+    },
+    "5983-03-005": {
+      "name": "Oscar Grey",
+      "father": "5983-01-014",
+      "mother": "5983-01-010",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-03-006": {
+      "name": "Phyllis Grey",
+      "father": "5983-01-014",
+      "mother": "5983-01-010",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-03-007": {
+      "name": "Randal Sweet",
+      "father": "5983-01-015",
+      "mother": "5983-01-016",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-03-008": {
+      "name": "Stephanie Sweet",
+      "father": "5983-01-015",
+      "mother": "5983-01-016",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-03-009": {
+      "name": "Taylor Sour",
+      "father": "5983-01-017",
+      "mother": "5983-01-018",
+      "demographics": {
+        "gender": "Male"
+      },
+      "twin_id": "5983-03-010",
+      "twin_type": "Fraternal"
+    },
+    "5983-03-010": {
+      "name": "Veronica Sour",
+      "father": "5983-01-017",
+      "mother": "5983-01-018",
+      "demographics": {
+        "gender": "Female"
+      },
+      "twin_id": "5983-03-009",
+      "twin_type": "Fraternal"
+    },
+    "5983-03-011": {
+      "name": "Wesley Pink",
+      "father": "5983-01-024",
+      "mother": "5983-01-011",
+      "demographics": {
+        "gender": "Male"
+      },
+      "procedures": {
+        "8891-MRI Brain": {
+          "code": "8891",
+          "age_at_procedure": "1.08",
+          "date_of_procedure": "11/29/2005",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "11.38",
+          "date_of_procedure": "3/21/2016",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "8741-CT Scan Chest": {
+          "code": "8741",
+          "age_at_procedure": "11.38",
+          "date_of_procedure": "3/21/2016",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "8703-CT Scan Brain": {
+          "code": "8703",
+          "age_at_procedure": "11.25",
+          "date_of_procedure": "2/2/2016",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-03-012": {
+      "name": "Aaron Pink",
+      "father": "5983-01-024",
+      "mother": "5983-01-011",
+      "demographics": {
+        "gender": "Male"
+      },
+      "procedures": {
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "9.45",
+          "date_of_procedure": "3/22/2016",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-03-013": {
+      "name": "Becky Pink",
+      "father": "5983-01-024",
+      "mother": "5983-01-011",
+      "demographics": {
+        "gender": "Female"
+      },
+      "diseases": {
+        "89730-PPB, Benign": {
+          "code": "89730",
+          "morphology": "89730-PPB, Benign",
+          "site": "C34.3 - Lower lobe, lung",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "7.93",
+          "date_of_diagnosis": "4/28/2016"
+        },
+        "J984-Cyst lung": {
+          "code": "J984",
+          "diagnosis_method": "Radiology/Imaging Report",
+          "laterality": "Right: origin of primary",
+          "age_of_diagnosis": "7.83",
+          "date_of_diagnosis": "3/22/2016"
+        }
+      },
+      "procedures": {
+        "8873-US Thyroid": {
+          "code": "8873",
+          "age_at_procedure": "7.83",
+          "date_of_procedure": "3/21/2016",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "8741-CT Scan Chest": {
+          "code": "8741",
+          "age_at_procedure": "7.83",
+          "date_of_procedure": "3/22/2016",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "8744-Cxray": {
+          "code": "8744",
+          "age_at_procedure": "8.83",
+          "date_of_procedure": "3/21/2017",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "3399-Other Operations of the Lung": {
+          "code": "3399",
+          "age_at_procedure": "7.93",
+          "date_of_procedure": "4/28/2016",
+          "intent": "Surgical procedure for diganosis",
+          "procedure_validation": "Surgery/Operation Report"
+        }
+      }
+    },
+    "5983-03-014": {
+      "name": "Chris Black",
+      "father": "5983-01-023",
+      "mother": "5983-01-025",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-03-015": {
+      "name": "David Black",
+      "father": "5983-01-023",
+      "mother": "5983-01-025",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-03-016": {
+      "name": "Eloise White",
+      "father": "5983-01-003",
+      "mother": "5983-01-004",
+      "demographics": {
+        "gender": "Female"
+      },
+      "procedures": {
+        "8744-Cxray": {
+          "code": "8744",
+          "age_at_procedure": "0",
+          "date_of_procedure": "10/17/2017",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        },
+        "8741-CT Scan Chest": {
+          "code": "8741",
+          "age_at_procedure": "0.29",
+          "date_of_procedure": "1/31/2018",
+          "intent": "Not Applicable - not a surgical procedure",
+          "procedure_validation": "Radiology/Imaging Report"
+        }
+      }
+    },
+    "5983-03-017": {
+      "name": "Ferb Green",
+      "father": "5983-01-005",
+      "mother": "5983-01-006",
+      "demographics": {
+        "gender": "Male"
+      }
+    },
+    "5983-03-018": {
+      "name": "Grady White",
+      "father": "5983-01-003",
+      "mother": "5983-01-004",
+      "demographics": {
+        "gender": "Female"
+      }
+    },
+    "5983-03-019": {
+      "name": "Pregnancy Green",
+      "father": "5983-01-005",
+      "mother": "5983-01-006",
+      "demographics": {
+        "gender": "Unknown"
+      }
+    },
+    "5983-04-001": {
+      "name": "Harvey White",
+      "demographics": {
+        "gender": "Male"
+      },
+      "deceased": true,
+      "diseases": {
+        "80003-Neoplasm, malignant": {
+          "code": "80003",
+          "morphology": "80003-Neoplasm, malignant",
+          "site": "C61.9 - Prostate gland",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "999",
+          "date_of_diagnosis": ""
+        }
+      }
+    },
+    "5983-04-002": {
+      "name": "Lori White",
+      "demographics": {
+        "gender": "Female"
+      },
+      "diseases": {
+        "80003-Neoplasm, malignant": {
+          "code": "80003",
+          "morphology": "80003-Neoplasm, malignant",
+          "site": "C67.9 - Bladder, NOS",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "999",
+          "date_of_diagnosis": ""
+        }
+      }
+    },
+    "5983-04-003": {
+      "name": "Marvin Salty",
+      "demographics": {
+        "gender": "Male"
+      },
+      "deceased": true
+    },
+    "5983-04-004": {
+      "name": "Marie Salty",
+      "demographics": {
+        "gender": "Female"
+      },
+      "deceased": true,
+      "diseases": {
+        "80003-Neoplasm, malignant": {
+          "code": "80003",
+          "morphology": "80003-Neoplasm, malignant",
+          "site": "C73.9 - Thyroid gland",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "52.79",
+          "date_of_diagnosis": ""
+        },
+        "E042-Nontoxic multinodular goiter": {
+          "code": "E042",
+          "diagnosis_method": "Personal Relation Report",
+          "laterality": "Not a paired organ site",
+          "age_of_diagnosis": "16.96"
+        }
+      }
+    },
+    "": {
+      "name": " ",
+      "demographics": {
+        "gender": "Unknown"
+      }
+    },
+    "undefined": {
+      "name": "undefined undefined",
+      "demographics": {
+        "gender": "Unknown"
+      }
+    }
+  }
+}
