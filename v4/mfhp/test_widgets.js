@@ -715,7 +715,9 @@ function display_fhh() {
   $("#fhh_data").append(maternal_grandmother_div);
 
   // Make Children Cards
-  var children = data["people"][proband_id]["children"];
+ // var children = data["people"][proband_id]["children"];
+  var children = find_children(proband_id);
+  console.log(children);
   if (children) {
     children.forEach(function(person_id) {
       var relationship  = get_relationship(person_id, "Son", "Daughter", "Child");
@@ -797,10 +799,10 @@ function get_full_siblings() {
   var fathers_children = [];
   var mothers_children = [];
 
-  if (data["people"][father_id] && data["people"][father_id]["children"])
-    fathers_children = data["people"][father_id]["children"];
-  if (data["people"][mother_id] != null && data["people"][mother_id]["children"] != null)
-    mothers_children = data["people"][mother_id]["children"];
+  if (data["people"][father_id] && find_children(father_id))
+    fathers_children = find_children(father_id);
+  if (data["people"][mother_id] && find_children(mother_id))
+    mothers_children = find_children(mother_id);
 
   var common = $(fathers_children).filter(mothers_children);
 
@@ -816,33 +818,10 @@ function get_nephews_and_nieces() {
 
   var full_siblings = get_full_siblings();
   full_siblings.forEach(function(person_id) {
-    var children = data["people"][person_id]["children"];
+    var children = find_children(person_id);
     if (children) nephews_and_nieces = nephews_and_nieces.concat(children);
   });
   return nephews_and_nieces;
-}
-
-function old_get_uncles_aunts() {
-  var proband_id = data["proband"];
-  var father_id = data["people"][proband_id]["father"];
-  var mother_id = data["people"][proband_id]["mother"];
-
-  var paternal_grandfather_id = data["people"][father_id]["father"];
-  var maternal_grandfather_id = data["people"][mother_id]["father"];
-
-  var paternal_uncles_and_aunts = data["people"][paternal_grandfather_id]["children"];
-  var maternal_uncles_and_aunts = data["people"][maternal_grandfather_id]["children"];
-
-  var uncles_and_aunts = [];
-  if (paternal_uncles_and_aunts && maternal_uncles_and_aunts) paternal_uncles_and_aunts.concat(maternal_uncles_and_aunts);
-  else if (paternal_uncles_and_aunts) uncles_and_aunts = paternal_uncles_and_aunts;
-  else if (maternal_uncles_and_aunts) uncles_and_aunts = maternal_uncles_and_aunts;
-
-  // Have to remove parents;
-  removeElement(uncles_and_aunts, father_id);
-  removeElement(uncles_and_aunts, mother_id);
-
-  return uncles_and_aunts;
 }
 
 function get_uncles_aunts() {
@@ -868,10 +847,10 @@ function get_grandchildren() {
   var proband_id = data["proband"];
   var grandchildren = [];
 
-  var children = data["people"][proband_id]["children"];
+  var children = find_children(proband_id);
   if (children) {
     children.forEach(function(person_id) {
-      var gc = data["people"][person_id]["children"];
+      var gc = find_children(person_id);
       if (gc && gc.length > 0) grandchildren = grandchildren.concat(gc);
     });
   }
@@ -885,7 +864,7 @@ function get_cousins() {
   var uncles_aunts = get_uncles_aunts();
   if (uncles_aunts) {
     uncles_aunts.forEach(function(person_id) {
-      var c = data["people"][person_id]["children"];
+      var c = find_children(person_id);
       if (c && c.length > 0) cousins = cousins.concat(c);
     });
   }
@@ -900,10 +879,10 @@ function get_half_siblings() {
   var fathers_children = [];
   var mothers_children = [];
 
-  if (data["people"][father_id] && data["people"][father_id]["children"])
-    fathers_children = data["people"][father_id]["children"];
-  if (data["people"][mother_id] != null && data["people"][mother_id]["children"] != null)
-    mothers_children = data["people"][mother_id]["children"];
+  if (data["people"][father_id] && find_children(father_id))
+    fathers_children = find_children(father_id);
+  if (data["people"][mother_id] && find_children(mother_id))
+    mothers_children = find_children(mother_id);
 
   var halfsiblings = [...$(fathers_children).not(mothers_children), ...$(mothers_children).not(fathers_children)];
   return (halfsiblings);

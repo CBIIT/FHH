@@ -1,3 +1,18 @@
+// General function to figure out someone's age
+function determine_age(id) {
+  if (!data['people'][id]) return 0;
+  if (!data['people'][id]['demographics']) return 0;
+
+  if (data['people'][id]['demographics']['age']) return data['people'][id]['demographics']['age'];
+
+  if (data['people'][id]['demographics']['birthdate']) {
+    var birthdate = new Date(data['people'][id]['demographics']['birthdate']);
+    console.log(birthdate);
+    var age = calculate_age(birthdate);
+    return age;
+  }
+}
+
 // Sometimes we need to find siblings, in which case we want to remove the person_being_checked
 function find_children(parent_id, exception_id) {
   var children = [];
