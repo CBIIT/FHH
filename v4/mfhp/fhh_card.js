@@ -89,6 +89,8 @@ function get_name(d) {
 function get_title_box(d, relationship, person_id) {
   var person_name = "Unknown";
   if (d && d["name"]) person_name = d["name"];
+  if (d["deceased"] == true) deceased_status = " - deceased ";  else deceased_status = "";
+
 
   var lock_div = $("<DIV>");
   lock_div.append("<IMG src='./mfhp/images/icon_lock.png' height='24' alt='lock' />")
@@ -96,7 +98,7 @@ function get_title_box(d, relationship, person_id) {
   lock_div.click({person_id:person_id, data:d} , lock_clicked);
 
   var div = $("<DIV>");
-  var name_div = $("<DIV>").append(relationship + " - <B>" + person_name + "</B>");
+  var name_div = $("<DIV>").append(relationship + " - <B>" + person_name + "</B> " + deceased_status);
 
   name_div.css("float","left").css("padding-top","5px");
   div.append(name_div).append(lock_div).addClass("fhh_title");

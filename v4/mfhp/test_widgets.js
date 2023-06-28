@@ -141,8 +141,6 @@ function add_proband (event) {
   data["people"][father_id]["name"] = "Father";
   data["people"][father_id]["demographics"] = {};
   data["people"][father_id]["demographics"]["gender"] = "Male";
-  data["people"][father_id]["children"] = [];
-  data["people"][father_id]["children"][0] = id;
 
   var mother_id = crypto.randomUUID();
   data["people"][id]["mother"] = mother_id;
@@ -150,8 +148,6 @@ function add_proband (event) {
   data["people"][mother_id]["name"] = "Mother";
   data["people"][mother_id]["demographics"] = {};
   data["people"][mother_id]["demographics"]["gender"] = "Female";
-  data["people"][mother_id]["children"] = [];
-  data["people"][mother_id]["children"][0] = id;
 
   // Add Paternal Grandparents
   var paternal_grandfather_id = crypto.randomUUID();
@@ -160,8 +156,6 @@ function add_proband (event) {
   data["people"][paternal_grandfather_id]["name"] = "Paternal Grandfather";
   data["people"][paternal_grandfather_id]["demographics"] = {};
   data["people"][paternal_grandfather_id]["demographics"]["gender"] = "Male";
-  data["people"][paternal_grandfather_id]["children"] = [];
-  data["people"][paternal_grandfather_id]["children"][0] = father_id;
 
   var paternal_grandmother_id = crypto.randomUUID();
   data["people"][father_id]["mother"] = paternal_grandmother_id;
@@ -169,8 +163,6 @@ function add_proband (event) {
   data["people"][paternal_grandmother_id]["name"] = "Paternal Grandmother";
   data["people"][paternal_grandmother_id]["demographics"] = {};
   data["people"][paternal_grandmother_id]["demographics"]["gender"] = "Female";
-  data["people"][paternal_grandmother_id]["children"] = [];
-  data["people"][paternal_grandmother_id]["children"][0] = father_id;
 
   // Add Maternal Grandparents
   var maternal_grandfather_id = crypto.randomUUID();
@@ -179,8 +171,6 @@ function add_proband (event) {
   data["people"][maternal_grandfather_id]["name"] = "Maternal Grandfather";
   data["people"][maternal_grandfather_id]["demographics"] = {};
   data["people"][maternal_grandfather_id]["demographics"]["gender"] = "Male";
-  data["people"][maternal_grandfather_id]["children"] = [];
-  data["people"][maternal_grandfather_id]["children"][0] = mother_id;
 
   var maternal_grandmother_id = crypto.randomUUID();
   data["people"][maternal_grandmother_id] = {}
@@ -188,8 +178,6 @@ function add_proband (event) {
   data["people"][maternal_grandmother_id]["name"] = "Maternal Grandmother";
   data["people"][maternal_grandmother_id]["demographics"] = {};
   data["people"][maternal_grandmother_id]["demographics"]["gender"] = "Female";
-  data["people"][maternal_grandmother_id]["children"] = [];
-  data["people"][maternal_grandmother_id]["children"][0] = mother_id;
 
   display_fhh();
   create_add_person_to_fhh_widget();
@@ -258,7 +246,6 @@ function add_parent_of_relative_select() {
   $("#ar_choose_parent").append(select_common_relative);
 
   if (new_relative_relationship == "Grandson" || new_relative_relationship == "Granddaughter") {
-//    var children = data["people"][proband_id]["children"];
     var children = find_children(proband_id);
     $.each(children, function(index, person_id) {
       var name = data["people"][person_id]["name"];
@@ -334,9 +321,6 @@ function action_add_child() {
   console.log(name);
 
   var id = crypto.randomUUID();
-  // Add the ID to the proband's Children
-  if (!data["people"][proband]["children"]) data["people"][proband]["children"] = [id];
-  else data["people"][proband]["children"].push(id);
 
   // Now create a new person_name
   data["people"][id] = {"name":name};
@@ -365,15 +349,8 @@ function action_add_sibling() {
 
   var id = crypto.randomUUID();
 
-  // Add the ID to the proband Parents's Children
   var father_id = data["people"][proband]["father"];
   var mother_id = data["people"][proband]["mother"];
-
-
-  if (!data["people"][father_id]["children"]) data["people"][father_id]["children"] = [id];
-  else data["people"][father_id]["children"].push(id);
-  if (!data["people"][mother_id]["children"]) data["people"][mother_id]["children"] = [id];
-  else data["people"][mother_id]["children"].push(id);
 
   // Now create a new person_name, also add same father and mother
   data["people"][id] = {"name":name, "father": father_id, "mother":mother_id};
@@ -397,10 +374,6 @@ function action_add_nephew_niece() {
   console.log(new_relative_parent);
 
   var id = crypto.randomUUID();
-
-  // Add the ID to the proband Parents's Children
-  if (!data["people"][new_relative_parent]["children"]) data["people"][new_relative_parent]["children"] = [id];
-  else data["people"][new_relative_parent]["children"].push(id);
 
   // Now create a new person_name
   data["people"][id] = {"name":name};
@@ -428,10 +401,6 @@ function action_add_grandchild() {
   console.log(new_relative_parent);
 
   var id = crypto.randomUUID();
-
-  // Add the ID to the proband Parents's Children
-  if (!data["people"][new_relative_parent]["children"]) data["people"][new_relative_parent]["children"] = [id];
-  else data["people"][new_relative_parent]["children"].push(id);
 
   // Now create a new person_name
   data["people"][id] = {"name":name};
@@ -470,11 +439,6 @@ function action_add_uncle_aunt() {
   var grandfather_id = data["people"][parent_id]["father"];
   var grandmother_id = data["people"][parent_id]["mother"];
 
-  if (!data["people"][grandfather_id]["children"]) data["people"][grandfather_id]["children"] = [id];
-  else data["people"][grandfather_id]["children"].push(id);
-  if (!data["people"][grandmother_id]["children"]) data["people"][grandmother_id]["children"] = [id];
-  else data["people"][grandmother_id]["children"].push(id);
-
   // Now create a new person_name
   data["people"][id] = {"name":name};
   data["people"][id]["demographics"] = {};
@@ -501,10 +465,6 @@ function action_add_cousin() {
   console.log(new_relative_parent);
 
   var id = crypto.randomUUID();
-
-  // Add the ID to the proband Parents's Children
-  if (!data["people"][new_relative_parent]["children"]) data["people"][new_relative_parent]["children"] = [id];
-  else data["people"][new_relative_parent]["children"].push(id);
 
   // Now create a new person_name
   data["people"][id] = {"name":name};
@@ -534,9 +494,6 @@ function action_add_half_sibling() {
   } else {
     parent_id = data["people"][proband]["mother"];
   }
-
-  if (!data["people"][parent_id]["children"]) data["people"][parent_id]["children"] = [id];
-  else data["people"][parent_id]["children"].push(id);
 
   // Now create a new person_name
   data["people"][id] = {"name":name};
@@ -613,68 +570,25 @@ function remove_person_dialog() {
 
 function action_remove_relative(event) {
   person_id = $("#rr_remove_person_select").val();
-  if (!data["people"][person_id]["children"] || data["people"][person_id]["children"].length == 0) {
+
+  // Make sure that person has no children
+  if (!find_children(person_id).length > 0) {
     var name = data["people"][person_id]["name"];
-    // Must also remove the id from the children of both father and mother
-    if (data["people"][person_id]["father"]) {
-      var father_id = data["people"][person_id]["father"];
-      removeElement(data["people"][father_id]["children"], person_id);
-    }
-    if (data["people"][person_id]["mother"]) {
-      var mother_id = data["people"][person_id]["mother"];
-      removeElement(data["people"][mother_id]["children"], person_id);
-    }
 
     delete data["people"][person_id];
     var card_to_remove = $(".fhh_card[person_id='" + person_id + "']");
     console.log(card_to_remove);
     console.log($(".fhh_card").length)
 
-
     card_to_remove.remove();
     console.log($(".fhh_card").length)
     alert (name + " was removed");
   } else {
-    alert ("Cannot Remove Person with active Childred, remove them first");
+    console.log(find_children(person_id));
+    alert ("Cannot Remove Person with active children, remove them first");
   }
   $("#rr_remove_relative_dialog").remove();
   display_fhh();
-}
-
-function create_remove_person_from_fhh_widget_old() {
-  $("#remove_person_from_fhh").empty();
-  var relative_select = $("<SELECT id='remove_person_select' />").append("<OPTION></OPTION>");
-
-  var people = data["people"];
-  $.each(people, function(person_id, details) {
-    var option = $("<OPTION>" + details["relationship"] + " - " + details["name"] + "</OPTION>").attr("value", person_id);
-    if (details["relationship"] != "Proband"
-      && details["relationship"] != "Father"
-      && details["relationship"] != "Mother"
-      && details["relationship"] != "Paternal Grandfather"
-      && details["relationship"] != "Paternal Grandmother"
-      && details["relationship"] != "Maternal Grandfather"
-      && details["relationship"] != "Maternal Grandmother")
-    {
-      relative_select.append(option);
-    }
-  });
-  var remove_button = $("<BUTTON>Remove Relative</BUTTON>");
-  remove_button.click(function (event) {
-    person_id = $("#remove_person_select").val();
-    if (!data["people"][person_id]["children"] || data["people"][person_id]["children"].length == 0) {
-      var name = data["people"][person_id]["name"]
-
-      delete data["people"][person_id];
-      var card_to_remove = $(".fhh_card[person_id='" + person_id + "']");
-      console.log(card_to_remove);
-      card_to_remove.remove();
-      alert (name + " was removed");
-    } else {
-      alert ("Cannot Remove Person with active Childred, remove them first");
-    }
-  });
-  $("#remove_person_from_fhh").append(relative_select).append(remove_button);
 }
 
 function display_fhh() {
@@ -715,7 +629,6 @@ function display_fhh() {
   $("#fhh_data").append(maternal_grandmother_div);
 
   // Make Children Cards
- // var children = data["people"][proband_id]["children"];
   var children = find_children(proband_id);
   console.log(children);
   if (children) {
