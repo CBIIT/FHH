@@ -13,6 +13,16 @@ function determine_age(id) {
   }
 }
 
+// We need a function to remove all placeholder people from a list and return that list
+function remove_placeholders(list) {
+  var new_list = [];
+  $.each(list, function(index, person_id) {
+    if (data['people'][person_id] && !data['people'][person_id]["placeholder"]) new_list.push(person_id);
+  });
+  return new_list;
+}
+
+
 // Sometimes we need to find siblings, in which case we want to remove the person_being_checked
 function find_children(parent_id, exception_id) {
   var children = [];
@@ -24,6 +34,20 @@ function find_children(parent_id, exception_id) {
   sort_people_by_age_name_id(children);
 
   return children;
+}
+
+function find_all_partners(person_id) {
+  var partners = [];
+
+  var children = find_children(person_id);
+  $.each(children, function(index, child_id) {
+    var mother = data['people'][child_id]['mother'];
+    var father = data['people'][child_id]['father'];
+    if (mother != person_id && $.inArray(mother, partners) == -1) partners.push(mother);
+    if (father != person_id && $.inArray(father, partners) == -1) partners.push(father);
+  });
+
+  return partners;
 }
 
 function find_sons_from_one_parent(parent_id, exception_id) {
@@ -219,6 +243,7 @@ function find_and_set_partners() {
       var mother_id = details['mother'];
 
       if (father_id && father_id != "Unknown") {
+        console.log(details);
         if (!data['people'][father_id]['partners']) {
           data['people'][father_id]['partners'] = [ mother_id ];
         } else if (data['people'][father_id]['partners'].indexOf(mother_id) === -1) {

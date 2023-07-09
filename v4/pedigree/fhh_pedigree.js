@@ -15,6 +15,7 @@ var original_y;
 var object_being_moved;
 var dragging = false;
 var target = null;
+var move_group = null;
 
 (function ( $ ) {
 $.widget("fhh.pedigree",{
@@ -82,11 +83,9 @@ $.widget("fhh.pedigree",{
 //      var sisters_children = find_all_children_from_list(full_sisters);
       var older_siblings_children = find_all_children_from_list(older_siblings);
 //      if (older_siblings_children) older_siblings_children.reverse();
-      console.log(older_siblings_children);
       give_fake_children(older_siblings_children);
 
       var younger_siblings_children = find_all_children_from_list(younger_siblings);
-      console.log(younger_siblings_children);
       give_fake_children(younger_siblings_children);
 
       var children = find_children_from_one_parent(proband_id);
@@ -103,9 +102,7 @@ $.widget("fhh.pedigree",{
 //      var sons_children = find_all_children_from_list(sons);
 //      var daughters_children = find_all_children_from_list(daughters);
       var older_siblings_grandchildren = find_all_children_from_list(older_siblings_children);
-      console.log(older_siblings_grandchildren);
       var younger_siblings_grandchildren = find_all_children_from_list(younger_siblings_grandchildren);
-      console.log(younger_siblings_grandchildren);
 
 // Now, Starting at the bottom, set the Pedigree Location for each couple
 
@@ -326,6 +323,16 @@ function draw_couple(svg, couple) {
     female_id = "Unknown";
   }
 
+  // the below is to position the item in a different location of a move was saved
+  var male_offset_x = 0;
+  if (data["people"][male_id] && data["people"][male_id]["offset_x"]) {
+    male_offset_x = data["people"][male_id]["offset_x"];
+  }
+  var female_offset_x = 0;
+  if (data["people"][female_id] && data["people"][female_id]["offset_x"]) {
+    female_offset_x = data["people"][female_id]["offset_x"];
+  }
+
 
   var proband_id = data["proband"];
 
@@ -334,34 +341,34 @@ function draw_couple(svg, couple) {
   var generation = couple["pedigree"]["generation"];
 
   if (male_id) {
-    if (data["people"][male_id] && data["people"][male_id]["miscarriage"]) draw_miscarriage(svg, male_id, location, generation, "male");
-    else draw_male (svg, male_id, female_id, location, generation);
+    if (data["people"][male_id] && data["people"][male_id]["miscarriage"]) draw_miscarriage(svg, male_id, location, male_offset_x, generation, "male");
+    else draw_male (svg, male_id, female_id, location, male_offset_x, generation);
     if (data["people"][male_id]) {
       var name = data["people"][male_id]["name"];
-      draw_details (svg, male_id, female_id, location, generation, true);
+      draw_details (svg, male_id, female_id, location, male_offset_x, generation, true);
 
-      connect_to_parent(svg, male_id, "Male", offset, generation, location);
+      connect_to_parent(svg, male_id, "Male", offset, male_offset_x, generation, location);
     }
   }
 
   if (female_id) {
-    if (data["people"][female_id] && data["people"][female_id]["miscarriage"]) draw_miscarriage(svg, female_id, location, generation, "female");
+    if (data["people"][female_id] && data["people"][female_id]["miscarriage"]) draw_miscarriage(svg, female_id, location, female_offset_x, generation, "female");
     else if (data["people"][female_id] && data["people"][female_id]['demographics'] && data["people"][female_id]['demographics']['gender'] == "Female") {
-      draw_female (svg, female_id, male_id, location, generation);
+      draw_female (svg, female_id, male_id, location, female_offset_x, generation);
     } else if (female_id == "Unknown") {
-      draw_female (svg, female_id, male_id, location, generation);
+      draw_female (svg, female_id, male_id, location, female_offset_x, generation);
     } else {
-      draw_unknown (svg, female_id, location, generation);
+      draw_unknown (svg, female_id, location, female_offset_x, generation);
     }
     var name = "";
     if (data["people"][female_id] && data["people"][female_id]["name"]) name = data["people"][female_id]["name"];
-    draw_details(svg, female_id, male_id, location, generation, false);
+    draw_details(svg, female_id, male_id, location, female_offset_x, generation, false);
 
-    connect_to_parent(svg, female_id, "Female", offset, generation, location);
+    connect_to_parent(svg, female_id, "Female", offset, female_offset_x, generation, location);
   }
 
   if (male_id && female_id) {
-    draw_link (svg, male_id, female_id, location, generation);
+    draw_link (svg, male_id, female_id, location, male_offset_x, generation);
   }
 }
 
@@ -370,7 +377,7 @@ function draw_paternal_half_sibling_parent(svg, father_id) {
   var nonblood_mother_pedigree = find_last_child_pedigree(father_id);
 
   console.log(nonblood_mother_pedigree);
-  draw_female (svg, "Unknown", father_id, nonblood_mother_pedigree["location"], nonblood_mother_pedigree["generation"]+1);
+  draw_female (svg, "Unknown", father_id, nonblood_mother_pedigree["location"], 0, nonblood_mother_pedigree["generation"]+1);
   var father_pedigree = data["people"][father_id]["pedigree"];
   draw_paternal_long_link(svg, nonblood_mother_pedigree["location"], father_pedigree["location"], father_pedigree["generation"]);
 }
@@ -380,16 +387,16 @@ function draw_maternal_half_sibling_parent(svg, mother_id) {
   var nonblood_father_pedigree = find_last_child_pedigree(mother_id);
 
   console.log(nonblood_father_pedigree);
-  draw_male (svg, "Unknown", mother_id, nonblood_father_pedigree["location"], nonblood_father_pedigree["generation"]+1);
+  draw_male (svg, "Unknown", mother_id, nonblood_father_pedigree["location"], 0, nonblood_father_pedigree["generation"]+1);
   var mother_pedigree = data["people"][mother_id]["pedigree"];
   draw_maternal_long_link(svg, nonblood_father_pedigree["location"], mother_pedigree["location"], mother_pedigree["generation"]);
 }
 
-function draw_details (svg, id, partner_id, location, generation, male=true) {
+function draw_details (svg, id, partner_id, location, offset_x, generation, male=true) {
   var lines = [];
   var person_details = data["people"][id];
 
-  if (!person_details) return;  // If there is no details on a perswon, skip
+  if (!person_details) return;  // If there is no details on a person, skip
 
   // Always show name
   var line_num = 0;
@@ -473,7 +480,7 @@ function draw_details (svg, id, partner_id, location, generation, male=true) {
   }
 
   $.each (lines, function (index, contents) {
-    var x = (offset+location)*space;
+    var x = (offset+location)*space + offset_x;
     var y = (max_generation - generation)*vertical;
 
 
@@ -578,9 +585,9 @@ function get_birth_and_death_dates(person_details) {
   return null;
 }
 
-function draw_male(svg, id, partner_id, location, generation) {
+function draw_male(svg, id, partner_id, location, offset_x, generation) {
 
-  var x = (offset+location)*space;
+  var x = (offset+location)*space + offset_x;
   var y = (max_generation - generation)*vertical;
   var color = "yellow";
   if (id == "Unknown") color = "white";
@@ -615,7 +622,7 @@ function draw_male(svg, id, partner_id, location, generation) {
     if (data["people"][id] && data["people"][id]["adopted_in"]) line.attr("stroke-dasharray", "2");
     svg.append(line);
   }
-//  rect.on("click", function (e) { sayHi(e)});
+//  rect.on("click", function (e) { move_relative(e)});
   rect.on("mousedown", function (e) { start_dragging(e); });
 //  rect.on("mouseup", function (e) { stop_dragging(e); });
 //  rect.on("mousemove", function (e) { if(dragging) drag_object(e); } );
@@ -632,7 +639,7 @@ function draw_male(svg, id, partner_id, location, generation) {
     svg.append(line);
   }
 
-  if (data["people"][id] && (data["people"][id]["adopted_in"] || data["people"][id]["adopted_out"])) draw_adopted(svg, "male", location, generation);
+  if (data["people"][id] && (data["people"][id]["adopted_in"] || data["people"][id]["adopted_out"])) draw_adopted(svg, "male", location, offset_x, generation);
   if (options["quadrant1"] && options["quadrant1"].length > 0 && has_disease(options["quadrant1"], id) == true) {
     fill_quadrant_male(svg, 1, id, partner_id, x, y, "#404040");
   }
@@ -649,8 +656,9 @@ function draw_male(svg, id, partner_id, location, generation) {
 }
 
 // Functions to help with drawing
-function draw_female(svg, id, partner_id, location, generation) {
-  var x = ((offset+location)*space)+2*unit;
+function draw_female(svg, id, partner_id, location, offset_x, generation) {
+
+  var x = ((offset+location)*space)+2*unit + offset_x;
   var y = (max_generation - generation)*vertical;
 
 
@@ -676,7 +684,7 @@ function draw_female(svg, id, partner_id, location, generation) {
     .attr("stroke","black")
     .attr("fill",color);
   svg.append(circle);
-//  circle.on("click", function (e) { sayHi(e)});
+//  circle.on("click", function (e) { move_relative(e)});
   if (id && id != "Unknown" && has_parent) {
     var line = $(createSvg("line"))
       .attr("id", id)
@@ -689,7 +697,7 @@ function draw_female(svg, id, partner_id, location, generation) {
     svg.append(line);
   }
 
-//  rect.on("click", function (e) { sayHi(e)});
+//  rect.on("click", function (e) { move_relative(e)});
   circle.on("mousedown", function (e) { start_dragging(e); });
 //  circle.on("mouseup", function (e) { stop_dragging(e); });
 //  circle.on("mousemove", function (e) { if(dragging) drag_object(e); } );
@@ -706,7 +714,7 @@ function draw_female(svg, id, partner_id, location, generation) {
     svg.append(line);
   }
 
-  if (data["people"][id] && (data["people"][id]["adopted_in"] || data["people"][id]["adopted_out"])) draw_adopted(svg, "female", location, generation);
+  if (data["people"][id] && (data["people"][id]["adopted_in"] || data["people"][id]["adopted_out"])) draw_adopted(svg, "female", location, offset_x, generation);
 
   if (options["quadrant1"] && options["quadrant1"].length > 0 && has_disease(options["quadrant1"], id) == true) {
     fill_quadrant_female(svg, 1, id, partner_id, x, y, "#404040");
@@ -723,8 +731,9 @@ function draw_female(svg, id, partner_id, location, generation) {
 }
 
 
-function draw_unknown(svg, id, location, generation) {
-  var x = ((offset+location)*space)+2*unit;
+function draw_unknown(svg, id, location, offset_x, generation) {
+
+  var x = ((offset+location)*space)+2*unit + offset_x;
   var y = (max_generation - generation)*vertical;
 
   var color = "yellow";
@@ -750,7 +759,7 @@ function draw_unknown(svg, id, location, generation) {
     .attr("stroke","black")
     .attr("fill",color);
   svg.append(polygon);
-  polygon.on("click", function (e) { sayHi(e)});
+  polygon.on("click", function (e) { move_relative(e)});
   if (id && id != "Unknown" && has_parent) {
     var line = $(createSvg("line"))
       .attr("id", id)
@@ -771,7 +780,7 @@ function draw_unknown(svg, id, location, generation) {
       .attr("stroke","black");
     svg.append(line);
   }
-  if (data["people"][id] && (data["people"][id]["adopted_in"] || data["people"][id]["adopted_out"])) draw_adopted(svg, "female", location, generation);
+  if (data["people"][id] && (data["people"][id]["adopted_in"] || data["people"][id]["adopted_out"])) draw_adopted(svg, "female", location, offset_x, generation);
   if (options["quadrant1"] && options["quadrant1"].length > 0 && has_disease(options["quadrant1"], id) == true) {
     fill_quadrant_unknown(svg, 1, id, partner_id, x, y, "#404040");
   }
@@ -881,8 +890,9 @@ function fill_quadrant_unknown(svg, quadrant, id, partner_id, x, y, color) {
 }
 
 
-function draw_miscarriage(svg, id, location, generation, gender) {
-  var x = ((offset+location)*space);
+function draw_miscarriage(svg, id, location, offset_x, generation, gender) {
+
+  var x = ((offset+location)*space) + offset_x;
   if (gender != "male") x = x+2*unit;
 
   var y = (max_generation - generation)*vertical;
@@ -904,7 +914,7 @@ function draw_miscarriage(svg, id, location, generation, gender) {
     .attr("stroke","black")
     .attr("fill",color);
   svg.append(polygon);
-  polygon.on("click", function (e) { sayHi(e)});
+  polygon.on("click", function (e) { move_relative(e)});
   if (id && id != "Unknown" && has_parent) {
     var line = $(createSvg("line"))
       .attr("id", id)
@@ -919,10 +929,11 @@ function draw_miscarriage(svg, id, location, generation, gender) {
 }
 
 
-function draw_adopted(svg, gender, location, generation) {
-  var x;
+function draw_adopted(svg, gender, location, offset_x, generation) {
+
+  var x = offset_x;
   if (gender == "female") x = ((offset+location)*space)+2*unit;
-  else x = ((offset+location)*space);
+  else x = ((offset+location)*space) + offset_x;
 
   var y = (max_generation - generation)*vertical;
 
@@ -953,9 +964,10 @@ function draw_adopted(svg, gender, location, generation) {
 }
 
 
-function draw_link(svg, male_id, female_id, location, generation) {
-  var x = (offset+location)*space+unit;
-  var y = (max_generation - generation)*vertical;
+function draw_link(svg, male_id, female_id, location, offset_x, generation) {
+
+  var x = (offset+location)*space+unit + offset_x;
+  var y = (max_generation - generation) * vertical;
 
   var x1 = x - unit/2;
   var x2 = x + unit/2;
@@ -1044,7 +1056,7 @@ function draw_connector(svg, id, partner_id, father_id, mother_id, x1, y1, x2, y
 
 }
 
-function connect_to_parent(svg, id, gender, offset, generation, location) {
+function connect_to_parent(svg, id, gender, offset, offset_x, generation, location) {
   // Protects against the non-real people
   if (!data["people"][id]) return;
 
@@ -1059,6 +1071,17 @@ function connect_to_parent(svg, id, gender, offset, generation, location) {
   var partner_id = null;
   if (data["people"][id]["partners"]) partner_id = data["people"][id]["partners"][0];
 
+  var father_offset_x = 0;
+  if (data["people"][father_id] && data["people"][father_id]["offset_x"]) {
+    father_offset_x = data["people"][father_id]["offset_x"];
+  }
+  var mother_offset_x = 0;
+  if (data["people"][mother_id] && data["people"][mother_id]["offset_x"]) {
+    mother_offset_x = data["people"][mother_id]["offset_x"];
+  }
+
+
+
   var parent_id;
   // Will Have to Go Back to determine Half-Siblings connection
   if (father_id == "Unknown") {
@@ -1068,8 +1091,9 @@ function connect_to_parent(svg, id, gender, offset, generation, location) {
     var nonblood_location = nonblood_pedigree["location"];
 
     console.log(location + "," + nonblood_location);
-    draw_connector(svg, id, partner_id, null, mother_id, (location+offset)*space+gender_offset, (max_generation-generation)*vertical-unit,
-                        (nonblood_location+offset)*space-unit,(max_generation-generation)*vertical-unit);
+    draw_connector(svg, id, partner_id, null, mother_id,
+        (location+offset)*space+gender_offset + offset_x, (max_generation-generation)*vertical-unit,
+        (nonblood_location+offset)*space-unit,(max_generation-generation)*vertical-unit);
 
   } else if (mother_id == "Unknown") {
     console.log("Mother Unknown");
@@ -1078,8 +1102,9 @@ function connect_to_parent(svg, id, gender, offset, generation, location) {
     var nonblood_location = nonblood_pedigree["location"];
 
     console.log(location + "," + nonblood_location);
-    draw_connector(svg, id, partner_id, father_id, null, (location+offset)*space+gender_offset, (max_generation-generation)*vertical-unit,
-                        (nonblood_location+offset)*space+(3*unit), (max_generation-generation)*vertical-unit);
+    draw_connector(svg, id, partner_id, father_id, null,
+        (location+offset)*space+gender_offset + offset_x, (max_generation-generation)*vertical-unit,
+        (nonblood_location+offset)*space+(3*unit), (max_generation-generation)*vertical-unit);
 
   } else if (father_id && data['people'][father_id]['pedigree']) {
     parental_pedigree = data['people'][father_id]['pedigree'];
@@ -1089,8 +1114,9 @@ function connect_to_parent(svg, id, gender, offset, generation, location) {
 
   if (parental_pedigree) {
     var parental_parent_location = parental_pedigree["location"];
-    draw_connector(svg, id, partner_id, father_id, mother_id, (location+offset)*space+gender_offset, (max_generation-generation)*vertical-unit,
-                        (parental_parent_location+offset)*space+unit,(max_generation-generation)*vertical-unit);
+    draw_connector(svg, id, partner_id, father_id, mother_id,
+        (location+offset)*space+gender_offset + offset_x, (max_generation-generation)*vertical-unit,
+        (parental_parent_location+offset)*space+unit+father_offset_x,(max_generation-generation)*vertical-unit);
   }
 }
 
@@ -1103,6 +1129,11 @@ function draw_proband_arrow (svg, offset) {
 
   var proband_id = data["proband"];
   var gender = data["people"][proband_id]["demographics"]["gender"];
+  var offset_x = data["people"][proband_id]["offset_x"];
+  if (offset_x) {
+    proband_center_x += offset_x;
+  }
+
   if (gender == "Male") {
     points += (proband_center_x - unit/2) + "," + (proband_center_y) + " ";
     points += (proband_center_x-unit/2-unit/4) + "," + (proband_center_y-unit/8) + " ";
@@ -1224,9 +1255,6 @@ function set_location_grandchildren_generation(older_siblings_grandchildren, gra
   var index_left = -Math.floor(grandchildren.length/2)-1;
   var index_right = -Math.floor(grandchildren.length/2)-1;
 
-  console.log(older_siblings_grandchildren);
-  console.log(younger_siblings_grandchildren);
-
   index_left = set_location_general(older_siblings_grandchildren, -1, index_left, 1);
   index_right = set_location_general(grandchildren, +1, index_right, 1);
   index_right = set_location_general(younger_siblings_grandchildren, +1, index_right, 1);
@@ -1275,18 +1303,12 @@ function set_location_proband_generation(paternal_cousins, paternal_half_sibling
   data["people"][proband_id]["pedigree"] = {"location":0,"generation":3};
 
   index_left = set_location_general(older_siblings, -1, index_left, 3);
-  console.log(older_siblings);
   index_left = set_location_general(paternal_half_siblings, -1, index_left, 3);
   index_left = set_location_general(paternal_cousins, -1, index_left, 3);
-  console.log(paternal_cousins);
   index_right = set_location_general(younger_siblings, +1, index_right, 3);
-  console.log(younger_siblings);
-  console.log(index_right);
   index_right = set_location_general(maternal_half_siblings, +1, index_right, 3);
-  console.log(index_right);
 
   index_right = set_location_general(maternal_cousins, +1, index_right, 3);
-  console.log(maternal_cousins);
 }
 
 function set_location_parents_generation(dads_siblings, dads_extra_partners, father_id, mother_id, moms_extra_partners, moms_siblings) {
@@ -1301,9 +1323,7 @@ function set_location_parents_generation(dads_siblings, dads_extra_partners, fat
   set_location_individual(mother_id, +1, 0, 4);
 
   set_location_general(dads_siblings, -1, index_left, 4);
-  console.log(dads_siblings);
   set_location_general(moms_siblings, +1, index_right, 4);
-  console.log(moms_siblings);
 }
 
 
@@ -1458,7 +1478,7 @@ function createSvg(tagName) {
     return document.createElementNS("http://www.w3.org/2000/svg", tagName);
 }
 
-function sayHi(e) {
+function move_relative(e) {
   var id = e.target.attributes.id.value;
   alert(id + "\n" + JSON.stringify(data["people"][id], null, 2));
   console.log(id);
@@ -1477,8 +1497,27 @@ function start_dragging(e) {
     original_x = e.pageX;
     original_y = e.pageY;
 
+    //Check for mouse modifiers like shift, cntl, alt
+    if (e.shiftKey) {
+      // If shift key is pressed, then move the person and all their children and spouses together
+      // This is done by moving the person and then moving all their children and spouses
+
+      // Get a list of descendants
+      var children = find_children(id);
+      var grandchildren = find_all_children_from_list(children);
+      var great_grandchildren = find_all_children_from_list(grandchildren);
+      var great_great_grandchildren = find_all_children_from_list(great_grandchildren);
+      var descendants = children.concat(grandchildren, great_grandchildren, great_great_grandchildren);
+      var real_descendants = remove_placeholders(descendants);
+      console.log(real_descendants);
+      // move_group is a global that defines which objects to move
+      move_group = real_descendants;
+    }
+
+    // Need to determine if the object is in default or saved location
+    var offset_x = data["people"][id]["offset_x"];
+
     // Move to the front
-//    $(e.target).appendTo("#svg");
     // Also move all associated graphics to front as well, this includes
     // Adopted, deceased, and Quadrant information
     $('*[id*=' + id + ']').each(function() {
@@ -1496,6 +1535,16 @@ function drag_object(e) {
   var id = target.attributes.id.value;
   var obj = $(target);
 
+  move_everything_for_an_id(id, diff_x, diff_y);
+
+  if (move_group) {
+    $.each(move_group, function(index, id) {
+      move_everything_for_an_id(id, diff_x, diff_y);
+    });
+  }
+}
+
+function move_everything_for_an_id(id, diff_x, diff_y) {
 // First you move the shape representing the person, this also moves the text under the person,
 // It also moves all other objects associated with the person including proband arrow and quadrants
   $('*[id*=' + id + ']').each(function() {
@@ -1528,8 +1577,6 @@ function drag_object(e) {
   $('*[mother_id*=' + id + ']').each(function() {
     resize_link_parent(this, diff_x, diff_y);
   });
-
-
 }
 
 function move_object(obj, diff_x, diff_y) {
@@ -1645,8 +1692,47 @@ function resize_link_parent(obj, diff_x, diff_y) {
 }
 
 function stop_dragging(e) {
+  var diff_x = e.pageX - original_x;
+  var diff_y = e.pageY = original_y;
+
+
+  if (target) {
+    var id = target.attributes.id.value
+    var partner_id = null;
+    if (target.attributes.partner_id) partner_id = target.attributes.partner_id.value
+
+    set_offset_x_for_person(id, partner_id, diff_x)
+    if (move_group) {
+      $.each(move_group, function (index, id) {
+        var partners = find_all_partners(id);
+        if (partners > 1) {
+          console.log ("More than one partner!");
+        }
+        var partner_id = partners[0];
+        set_offset_x_for_person(id, partner_id, diff_x)
+      });
+    }
+    target = null;
+  }
   dragging = false;
-  target = null;
+  // reset move_group
+  move_group = null;
+
+}
+
+function set_offset_x_for_person(id, partner_id, diff_x) {
+    if (!data["people"][id]["offset_x"]) {
+      data["people"][id]["offset_x"] = 0;
+    }
+    if (data["people"][id]) {
+      data["people"][id]["offset_x"] += diff_x;
+    }
+    if (data["people"][partner_id] && !data["people"][partner_id]["offset_x"]) {
+      data["people"][partner_id]["offset_x"] = 0;
+    }
+    if (data["people"][partner_id] && partner_id && data["people"][partner_id]) {
+      data["people"][partner_id]["offset_x"] += diff_x;
+    }
 }
 
 // From https://stackoverflow.com/questions/23218174/how-do-i-save-export-an-svg-file-after-creating-an-svg-with-d3-js-ie-safari-an
@@ -1662,6 +1748,27 @@ function saveSvg(svgEl, name) {
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
+}
+
+function saveJson(json, name) {
+  // Need to remove the placeholders before saving
+  var people = {};
+  $.each(json["people"], function (person_id, person) {
+    if (!person["placeholder"]) {
+      people[person_id] = person;
+    } else {
+      console.log("Placeholder found: " + person["name"] + " - not saving");
+    }
+  });
+  json["people"] = people;
+
+  var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json, null, 2));
+  var downloadLink = document.createElement("a");
+  downloadLink.href = dataStr;
+  downloadLink.download = name;
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
 }
 
 function diff_years(dt2, dt1) {

@@ -16,12 +16,17 @@
 </head>
 
 <body>
-  <DIV class='navbutton blue' id='import_from_file'>Import from File</DIV>
-  <DIV class='navbutton red'id="log"> LOG </DIV>
-  <DIV class='navbutton yellow'id="save_svg"> SAVE </DIV>
-<input type="file" id="import_file" style="display:none"/>
+  <div class="navbar" style="position:fixed">
+    <DIV class='navbutton blue' id='import_from_file'>Import from File</DIV>
+    <DIV class='navbutton red' id="log"> LOG </DIV>
+    <DIV class='navbutton yellow' id="save_svg"> Export as SVG </DIV>
+    <DIV class='navbutton green' id="save_json"> Save as JSON </DIV>
+  </div>
+  <input type="file" id="import_file" style="display:none"/>
 
-<div id="fhh_pedigree" class="fhh_pedigree"></div>
+  <div class="envelope" style="width:1000px;">
+    <div id="fhh_pedigree" class="fhh_pedigree"></div>
+  </div>
 
 </body>
 </HTML>

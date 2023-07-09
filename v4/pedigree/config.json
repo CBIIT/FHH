@@ -49,7 +49,7 @@
   "key_procedures" : [
     {
       "code": "0639",
-      "shorthand": "Tyroidectomy",
+      "shorthand": "Thyroidectomy",
       "name": "Thyroidectomy-partial or subtotal",
       "color": "#DDD"
     },

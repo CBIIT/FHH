@@ -85,6 +85,10 @@ $(document).ready(function() {
     saveSvg($("#svg")[0], 'pedigree.svg')
   });
 
+  $("#save_json").click(function() {
+    saveJson(data, 'data.json')
+  });
+
 });
 
 //// ************************************ ////
