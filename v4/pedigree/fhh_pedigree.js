@@ -229,6 +229,55 @@ function set_style(style, options) {
   }
 }
 
+function draw_legend(svg) {
+
+  var vertical_location = 70;
+  var horizontal_location = draw_key_value(svg, 10, 70, "Key Diseases:", "");
+  $.each(config.key_diseases, function (index, key_disease) {
+    var disease_str = "[" +key_disease.code + "] " + key_disease.name + " (" + key_disease.shorthand + ")";
+    draw_key_value(svg, horizontal_location, vertical_location, "", disease_str);
+    vertical_location += 30;
+  });
+  vertical_location += 30;
+  var horizontal_location = draw_key_value(svg, 10, vertical_location, "Key Procedures:", "");
+  $.each(config.key_procedures, function (index, key_procedure) {
+    var procedure_str = "[" + key_procedure.code + "] " + key_procedure.name + " (" + key_procedure.shorthand + ")";
+    draw_key_value(svg, horizontal_location, vertical_location, "", procedure_str);
+    vertical_location += 30;
+  });
+  vertical_location += 30;
+  draw_key_value(svg, 10, vertical_location, "Q1:", this.options.quadrant1);
+  vertical_location += 30;
+  draw_key_value(svg, 10, vertical_location, "Q2:", this.options.quadrant2);
+  vertical_location += 30;
+  draw_key_value(svg, 10, vertical_location, "Q3:", this.options.quadrant3);
+  vertical_location += 30;
+  draw_key_value(svg, 10, vertical_location, "Q4:", this.options.quadrant4);
+}
+
+function draw_key_value (svg, x, y, key, value) {
+  var text1 = $(createSvg("text"))
+    .attr("x", x)
+    .attr("y", y)
+    .attr("font-family", "arial")
+    .attr("font-size", 20)
+    .attr("font-weight", "bold")
+    .attr("text-anchor", "start")
+    .append(key);
+  svg.append(text1);
+  var start_of_value_location = text1.get(0).getBBox().width + x;
+  var text2 = $(createSvg("text"))
+    .attr("x", start_of_value_location)
+    .attr("y", y)
+    .attr("font-family", "arial")
+    .attr("font-size", 20)
+    .attr("font-weight", "normal")
+    .attr("text-anchor", "start")
+    .append(value);
+  svg.append(text2);
+  return text1.get(0).getBBox().width + 20;
+}
+
 function display_svg(left_side, all_blood_relatives, right_side) {
   const diagram_width = (left_side + 1 + right_side) * space;
   const diagram_height = vertical * 7
@@ -246,8 +295,11 @@ function display_svg(left_side, all_blood_relatives, right_side) {
   svg.on("mousemove", function (e) { if(dragging) drag_object(e); } );
   svg.on("mouseleave", function (e) { stop_dragging(e); } );
 
+  svg.on("keypress", function (e) { alert ("HERE");} );
 
   var already_part_of_couple = [];
+
+  draw_legend(svg);
 
   $.each(all_blood_relatives, function (index, person) {
 //    if (person != "placeholder" && data['people'][person]["pedigree"]["generation"] == 6) console.log(data['people'][person]);
@@ -622,7 +674,6 @@ function draw_male(svg, id, partner_id, location, offset_x, generation) {
     if (data["people"][id] && data["people"][id]["adopted_in"]) line.attr("stroke-dasharray", "2");
     svg.append(line);
   }
-//  rect.on("click", function (e) { move_relative(e)});
   rect.on("mousedown", function (e) { start_dragging(e); });
 //  rect.on("mouseup", function (e) { stop_dragging(e); });
 //  rect.on("mousemove", function (e) { if(dragging) drag_object(e); } );
@@ -684,7 +735,6 @@ function draw_female(svg, id, partner_id, location, offset_x, generation) {
     .attr("stroke","black")
     .attr("fill",color);
   svg.append(circle);
-//  circle.on("click", function (e) { move_relative(e)});
   if (id && id != "Unknown" && has_parent) {
     var line = $(createSvg("line"))
       .attr("id", id)
@@ -697,7 +747,6 @@ function draw_female(svg, id, partner_id, location, offset_x, generation) {
     svg.append(line);
   }
 
-//  rect.on("click", function (e) { move_relative(e)});
   circle.on("mousedown", function (e) { start_dragging(e); });
 //  circle.on("mouseup", function (e) { stop_dragging(e); });
 //  circle.on("mousemove", function (e) { if(dragging) drag_object(e); } );
@@ -1478,11 +1527,38 @@ function createSvg(tagName) {
     return document.createElementNS("http://www.w3.org/2000/svg", tagName);
 }
 
-function move_relative(e) {
+function show_fhh_card(e) {
   var id = e.target.attributes.id.value;
-  alert(id + "\n" + JSON.stringify(data["people"][id], null, 2));
+//  alert(id + "\n" + JSON.stringify(data["people"][id], null, 2));
   console.log(id);
   console.log(data["people"][id]);
+
+  var dialog_title = data["people"][id]["name"];
+
+  if (data["people"][id]["deceased"]) dialog_title = dialog_title + " (deceased)";
+  var info_div = $("<div></div>");
+  info_div.append("<h3>Demographics</h3>");
+  info_div.append("<p>Gender: " + data["people"][id]["demographics"]["gender"] + "</h3>");
+
+  if (data["people"][id]["diseases"]) info_div.append("<h3>Diseases</h3>");
+  $.each(data["people"][id]["diseases"], function(disease, details) {
+    var disease_info = disease;
+    if (details["age_of_diagnosis"]) disease_info += " [" + details["age_of_diagnosis"] + "y]";
+    info_div.append(disease_info + "<br/>");
+  });
+  if (data["people"][id]["procedures"]) info_div.append("<h3>Procedures</h3>");
+  $.each(data["people"][id]["procedures"], function(procedure, details) {
+    var procedure_info = procedure;
+    if (details["age_at_procedure"]) procedure_info += " [" + details["age_at_procedure"] + "y]";
+    info_div.append(procedure_info + "<br/>");
+  });
+
+  $( "#dialog" ).dialog({
+    title: dialog_title,
+    width: 600
+  });
+
+  $("#dialog").empty().append(info_div);
 }
 
 function start_dragging(e) {
@@ -1496,6 +1572,11 @@ function start_dragging(e) {
     page_y = e.pageY;
     original_x = e.pageX;
     original_y = e.pageY;
+
+    if (!e.metaKey) {
+      stop_dragging(e);  // When the user uses the Meta key, they want to see a card, not move the object
+      show_fhh_card(e);
+    }
 
     //Check for mouse modifiers like shift, cntl, alt
     if (e.shiftKey) {

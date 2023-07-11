@@ -209,7 +209,6 @@ function find_all_children_from_list(list) {
       new_person = {};
       new_person['name'] = "Child " + data['people'][person]['name'].split(' ').pop();
       new_person["placeholder"] = true ;
-      console.log(new_person);
 
       id = crypto.randomUUID();
       data["people"][id] = new_person;
@@ -243,7 +242,6 @@ function find_and_set_partners() {
       var mother_id = details['mother'];
 
       if (father_id && father_id != "Unknown") {
-        console.log(details);
         if (!data['people'][father_id]['partners']) {
           data['people'][father_id]['partners'] = [ mother_id ];
         } else if (data['people'][father_id]['partners'].indexOf(mother_id) === -1) {

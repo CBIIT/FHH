@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="./pedigree/fhh_pedigree.css">
     <link rel="stylesheet" href="./common/fhh_common.css">
+    <link rel="stylesheet" href="./mfhp/fhh.css">
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js" ></script>
     <script src="./pedigree/test_pedigree.js"></script>
     <script src="./common/fhh_common.js"></script>
+    <script src="./mfhp/fhh_card.js"></script>
     <script src="./pedigree/fhh_pedigree.js"></script>
 </head>
 
@@ -22,11 +24,15 @@
     <DIV class='navbutton yellow' id="save_svg"> Export as SVG </DIV>
     <DIV class='navbutton green' id="save_json"> Save as JSON </DIV>
   </div>
+
   <input type="file" id="import_file" style="display:none"/>
 
   <div class="envelope" style="width:1000px;">
     <div id="fhh_pedigree" class="fhh_pedigree"></div>
   </div>
+
+<div id="dialog" title="Basic dialog">
+</div>
 
 </body>
 </HTML>

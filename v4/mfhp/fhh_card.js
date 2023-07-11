@@ -26,7 +26,6 @@
       view:"simple"
     },
     display_element : function () {
-
       var d = this.options.data;
 
       var relationship_box = get_title_box(d, this.element.attr("relationship"), this.element.attr("person_id"));
@@ -34,7 +33,9 @@
       var race_ethnicity_box = get_race_ethnicity_box(d);
       var disease_box = get_disease_box(d);
 
-      this.element.attr("id","card-" + this.element.attr("person_id"));
+      var card_id = "card-" + this.element.attr("person_id");
+      console.log(card_id);
+//      this.element.attr("id", card_id + "-card");
 
       this.element.empty()
         .append(relationship_box)
