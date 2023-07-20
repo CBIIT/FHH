@@ -35,7 +35,7 @@
 
       var card_id = "card-" + this.element.attr("person_id");
       console.log(card_id);
-//      this.element.attr("id", card_id + "-card");
+      this.element.attr("id", card_id + "-card");
 
       this.element.empty()
         .append(relationship_box)
@@ -219,36 +219,37 @@ function title_clicked(event) {
 }
 
 function lock_clicked(event) {
-    var d = event.data.data;
-    var person_id = event.data.person_id;
+  console.log("lock clicked");
+  var d = event.data.data;
+  var person_id = event.data.person_id;
+  var img = $(event.currentTarget).find("img");
 
-    var img = $(event.currentTarget).find("img");
+  console.log(event.currentTarget);
+  var card = $(event.currentTarget).parent().parent();
 
-    var card = $("#card-" + person_id);
+  if (img.attr("src") == "./mfhp/images/icon_lock.png") {
+    console.log("Unlocking");
+    img.attr("src", "./mfhp/images/icon_unlock.png");
 
-    if (img.attr("src") == "./mfhp/images/icon_lock.png") {
-      img.attr("src", "./mfhp/images/icon_unlock.png");
+    card.children().first()
+      .next().addClass("fhh_turn_on_editing").children()
+        .first().click({person_id:person_id, data:d}, picture_box_clicked)
+        .next().click({person_id:person_id, data:d}, stats_box_clicked)
+      .parent().next().addClass("fhh_turn_on_editing").click({person_id:person_id, data:d}, race_ethnicity_box_clicked)
+      .next().addClass("fhh_turn_on_editing").click({person_id:person_id, data:d}, disease_box_clicked);
+    console.log(card.children().first());
+  } else if (img.attr("src") == "./mfhp/images/icon_unlock.png") {
+    console.log("Locking");
+    img.attr("src", "./mfhp/images/icon_lock.png");
+    card.children().first()
+      .next().removeClass("fhh_turn_on_editing").children()
+        .first().unbind()
+        .next().unbind()
+      .parent().next().removeClass("fhh_turn_on_editing").unbind()
+      .next().removeClass("fhh_turn_on_editing").unbind();
+  }
 
-
-      card.children().first()
-        .next().addClass("fhh_turn_on_editing").children()
-          .first().click({person_id:person_id, data:d}, picture_box_clicked)
-          .next().click({person_id:person_id, data:d}, stats_box_clicked)
-        .parent().next().addClass("fhh_turn_on_editing").click({person_id:person_id, data:d}, race_ethnicity_box_clicked)
-        .next().addClass("fhh_turn_on_editing").click({person_id:person_id, data:d}, disease_box_clicked);
-
-
-    } else if (img.attr("src") == "./mfhp/images/icon_unlock.png") {
-      img.attr("src", "./mfhp/images/icon_lock.png");
-      card.children().first()
-        .next().removeClass("fhh_turn_on_editing").children()
-          .first().unbind()
-          .next().unbind()
-        .parent().next().removeClass("fhh_turn_on_editing").unbind()
-        .next().removeClass("fhh_turn_on_editing").unbind();
-    }
-
-    event.stopPropagation();
+  event.stopPropagation();
 }
 
 function remove_person_button_clicked(event) {
