@@ -52,10 +52,10 @@ $.widget("fhh.pedigree",{
       var great_grandparents = find_great_grandparents();
       find_and_set_blood_relatives_for_great_grandparents(great_grandparents);
 
-      var dads_siblings = find_children(paternal_grandfather_id, father_id);
+      var dads_siblings = find_children_from_both_parents(paternal_grandfather_id, paternal_grandmother_id, father_id);
       var dads_extra_partners = find_dads_extra_partners(father_id);
 
-      var moms_siblings = find_children(maternal_grandfather_id, mother_id);
+      var moms_siblings = find_children_from_both_parents(maternal_grandfather_id, maternal_grandmother_id, mother_id);
       var moms_extra_partners = find_moms_extra_partners(mother_id);
 
       var paternal_cousins = find_all_children_from_list(dads_siblings);
@@ -106,12 +106,18 @@ $.widget("fhh.pedigree",{
 
 // Now, Starting at the bottom, set the Pedigree Location for each couple
 
+      console.log("Setting Location for Grandchildren");
       set_location_grandchildren_generation(older_siblings_grandchildren, grandchildren, younger_siblings_grandchildren);
+      console.log("Setting Location for Children");
       set_location_children_generation(paternal_cousins_children, older_siblings_children, children, younger_siblings_children, maternal_cousins_children);
+      console.log("Setting Location for Proband");
       set_location_proband_generation(paternal_cousins, paternal_half_siblings, older_siblings,
           proband_id, younger_siblings, maternal_half_siblings, maternal_cousins);
+      console.log("Setting Location for Parents");
       set_location_parents_generation(dads_siblings, dads_extra_partners, father_id, mother_id, moms_extra_partners, moms_siblings);
+      console.log("Setting Location for Grandparents");
       set_location_grandparents_generation(paternal_grandfather_id, paternal_grandmother_id, maternal_grandfather_id, maternal_grandmother_id);
+      console.log("Setting Location for GreatGrandparents");
       set_location_great_grandparents_generation(great_grandparents, paternal_grandfather_id, paternal_grandmother_id, maternal_grandfather_id, maternal_grandmother_id);
 
 //      var proband_row = build_row();
@@ -1236,9 +1242,15 @@ function find_first_child_pedigree(parent_id) {
   var children = find_children(parent_id);
   var num_children = children.length;
   if (num_children && num_children > 0) {
+    console.log(data["people"][children[0]]);
     var pedigree = data["people"][children[0]]["pedigree"];
+    console.log(parent_id);
+    console.log(data["people"][parent_id]);
+
     return pedigree;
   } else {
+    console.log("PROBLEM No pedigree");
+    console.log(parent_id);
     return 0;
   }
 }
@@ -1361,9 +1373,10 @@ function set_location_proband_generation(paternal_cousins, paternal_half_sibling
 }
 
 function set_location_parents_generation(dads_siblings, dads_extra_partners, father_id, mother_id, moms_extra_partners, moms_siblings) {
+  console.log("DS:" + dads_siblings + ", MS:" + moms_siblings);
+  console.log("HEREREREREREE");
   var index_left = 0;
   var index_right = 1;
-
 //  data["people"][father_id]["pedigree"] = {"location":0,"generation":4};
 //  data["people"][mother_id]["pedigree"] = {"location":0,"generation":4};
 
@@ -1416,19 +1429,21 @@ function set_location_great_grandparents_generation(great_grandparents,
 function set_location_individual (person_id, direction, starting_index, generation) {
   var location_index = starting_index;
 
+  console.log("Setting location for:" + data['people'][person_id]['name']);
+  console.log(data['people'][person_id]);
   var child_pedigree = find_last_child_pedigree(person_id);
   var first_child_pedigree = find_first_child_pedigree(person_id);
   var num_children = find_children(person_id).length;
+
 
   data["people"][person_id]["pedigree"] = {};
   data["people"][person_id]["pedigree"]["generation"] = generation;
   if (child_pedigree != null && child_pedigree["location"] != null) {
     location_index = child_pedigree["location"] + direction;
+
     var new_location = Math.floor( (child_pedigree["location"] + first_child_pedigree["location"]) / 2);
     if (num_children == 1) new_location = location_index;
     data["people"][person_id]["pedigree"]["location"] = new_location;
-    if (person_id == "ef77435b-5311-4629-982f-457e6f323913") console.log (num_children);
-    if (person_id == "4e3796a4-eea3-454a-bdd4-b967a69680b3") console.log (num_children);
 
   } else {
     location_index = location_index + direction;

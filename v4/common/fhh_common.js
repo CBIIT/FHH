@@ -36,6 +36,18 @@ function find_children(parent_id, exception_id) {
   return children;
 }
 
+function find_children_from_both_parents(father_id, mother_id, exception_id) {
+  var children = [];
+  $.each(data['people'], function(person_id, details){
+    if (details['father'] == father_id || details['mother'] == mother_id) {
+      if (person_id != exception_id) children.push(person_id);
+    }
+  });
+  sort_people_by_age_name_id(children);
+
+  return children;
+}
+
 function find_all_partners(person_id) {
   var partners = [];
 
@@ -242,6 +254,7 @@ function find_and_set_partners() {
       var mother_id = details['mother'];
 
       if (father_id && father_id != "Unknown") {
+        console.log(father_id);
         if (!data['people'][father_id]['partners']) {
           data['people'][father_id]['partners'] = [ mother_id ];
         } else if (data['people'][father_id]['partners'].indexOf(mother_id) === -1) {
@@ -280,11 +293,13 @@ function find_and_set_blood_relatives() {
 
 function find_and_set_blood_relatives_for_great_grandparents(great_grandparents) {
   $.each(great_grandparents, function(index, person_id) {
+    console.log(person_id);
     data["people"][person_id]['blood'] = true;
   });
 }
 
 function set_blood_and_check_children(id) {
+  console.log(id);
   data['people'][id]['blood'] = true;
 
   var children = find_children(id);

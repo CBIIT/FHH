@@ -28,6 +28,7 @@
     display_element : function () {
       var d = this.options.data;
 
+      console.log(this.element.attr("person_id"));
       var relationship_box = get_title_box(d, this.element.attr("relationship"), this.element.attr("person_id"));
       var stats_box = get_stats_box(d, this.element.attr("person_id"));
       var race_ethnicity_box = get_race_ethnicity_box(d);
@@ -88,6 +89,7 @@ function get_name(d) {
 }
 
 function get_title_box(d, relationship, person_id) {
+  console.log(person_id)
   var person_name = "Unknown";
   if (d && d["name"]) person_name = d["name"];
   if (d["deceased"] == true) deceased_status = " - deceased ";  else deceased_status = "";
