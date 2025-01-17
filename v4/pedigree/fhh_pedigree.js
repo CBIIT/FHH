@@ -1588,7 +1588,7 @@ function start_dragging(e) {
     original_x = e.pageX;
     original_y = e.pageY;
 
-    if (!e.metaKey) {
+    if (e.metaKey) {
       stop_dragging(e);  // When the user uses the Meta key, they want to see a card, not move the object
       show_fhh_card(e);
     }
