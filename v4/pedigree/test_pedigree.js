@@ -4,7 +4,16 @@ var config = {};
 $(document).ready(function() {
 //  Functions from the top NAVBAR Buttons
 
-  $.getJSON('./pedigree/config.json', function(d) {
+  // First check to see if there is a querystring to provide a config file, if so use it, it not use config.json
+  var queryString = getUrlVars();
+  console.log(queryString["config"]);
+
+  var configfile = './pedigree/config.json';
+  if (queryString["config"]) {
+    configfile = "./pedigree/config/" + queryString["config"] + ".json";
+  }
+
+  $.getJSON(configfile, function(d) {
     config = d
     console.log(config);
     start_pedigree();
@@ -148,7 +157,7 @@ function update_config_from_querystring (queryString) {
   } else {
     quadrant4 = config.quadrant4;
   }
-  
+
   console.log(style);
   $(".fhh_pedigree").pedigree("set_quadrants", quadrant1, quadrant2, quadrant3, quadrant4);
 

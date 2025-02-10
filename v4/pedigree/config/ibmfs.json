@@ -1,0 +1,75 @@
+{
+  "style": "compact",
+  "show_id": true,
+  "display_id_size": 12,
+  "max_chars": 40,
+  "show_full_name": true,
+  "show_initials": false,
+  "show_first_name": false,
+  "show_last_name": false,
+  "show_last_initial": false,
+  "show_dates" : true,
+  "show_diseases" : true,
+  "show_age_of_diagnosis" : true,
+  "show_procedures" : true,
+  "show_age_of_procedure" : true,
+  "allow_move": true,
+  "allow_edit": false,
+  "disease_count" : 3,
+  "procedure_count" : 3,
+  "quadrant1" : ["D649", "E042"],
+  "quadrant2" : ["80703"],
+  "quadrant4" : ["J984"],
+  "key_diseases" : [
+    {
+      "code": "D649",
+      "shorthand": "Anemia",
+      "name": "Anemia, Unspecified",
+      "color": "red"
+    },
+    {
+      "code": "E041",
+      "shorthand": "TN/CN",
+      "name": "Thyroid nodule/Cyst nontoxic",
+      "color": "red"
+    },
+    {
+      "code": "E042",
+      "shorthand": "NMG",
+      "name": "Nontoxic multinodular goiter",
+      "color": "#F88"
+    },
+    {
+      "code": "80703",
+      "shorthand": "SCC",
+      "name": "Squamous cell carcinoma, NOS",
+      "color": "#F88"
+    },
+    {
+      "code": "J984",
+      "shorthand": "CL",
+      "name": "Cyst lung",
+      "color": "#8F8"
+    }
+  ],
+  "key_procedures" : [
+    {
+      "code": "0639",
+      "shorthand": "Thyroidectomy",
+      "name": "Thyroidectomy-partial or subtotal",
+      "color": "#DDD"
+    },
+    {
+      "code": "8741",
+      "shorthand": "CT Scan",
+      "name": "CT Scan Chest"
+    },
+    {
+      "code": "0611",
+      "shorthand": "Biopsy",
+      "name": "Biopsy Thyroid",
+      "color": "#DDD"
+    }
+  ]
+
+}
